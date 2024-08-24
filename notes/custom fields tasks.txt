@@ -1,0 +1,19 @@
+text---DONE
+textarea---DONE
+email---DONE
+tel---DONE
+number---DONE
+
+select---DONE
+checkbox---DONE
+radio---DONE
+contacts---DONE
+companies---DONE
+deals---DONE
+
+date
+dateTime---  format 2024-07-08T16:34
+
+
+multiselect---DONE
+

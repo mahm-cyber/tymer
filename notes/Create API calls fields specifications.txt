@@ -1,0 +1,72 @@
+Create Task fields
+
+name - required   		DONE
+taskType - required		DONE ---
+assignee - optional		DONE ---
+priority - optional		DONE
+startDate - required	DONE
+endDate - required		DONE
+collaborator - required	DONE	
+description - required	DONE
+
+	Associate With
+	contact - not required	DONE ---
+	company - not required	DONE
+	deal - not required		DONE
+
+
+
+Create Contact Fields
+firstName - required	DONE
+lastName - required		DONE	
+phoneNumber - required	DONE
+email - required		DONE
+company - optional		DONE
+jobTitle - optional		DONE
+	
+	Lead Details
+	lifeCycle - optional	DONE
+	priority - optional		DONE --- <NOT PRESENT IN API> !!!
+	owner - optional		DONE
+	watchers - optional		DONE
+	status - optional		DONE 
+	note - optional			DONE 
+
+
+Create Deal fields
+name - required 		DONE
+startDate - optional	DONE
+endDate - optional		DONE
+value - optional		DONE
+watchers - optional		DONE 
+owner - required		DONE
+stage - optional		DONE
+	
+	Associate with
+	company - required	DONE		
+	contact - required	DONE
+	cR - optional		DONE	
+	vat - optional		DONE
+
+
+Craete Company fields
+Name - required 		DONE
+Website - optional		DONE
+Phone No - optional		DONE
+Email - required		DONE
+Owner - required		DONE
+Status - optional		DONE
+
+	Lead details 	
+	Life cycle - optional	DONE
+	Priority - optional		DONE <NOT PRESENT IN API> !!!
+	Watchers - optional		DONE 
+	Brief - optional		DONE
+
+	Company Social Media
+	Facebook - optional		DONE
+	LinkedIn - optional		DONE <NOT PRESENT IN API> !!!
+	Twitter - optional		DONE
+	Instagram - optional	DONE
+	Tiktok - optional		DONE
+	Snapchat - optional		DONE

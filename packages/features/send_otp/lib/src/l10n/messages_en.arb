@@ -1,0 +1,12 @@
+{
+  "generalErrorSnackBarMessage": "ٍSomething went wrong",
+  "invalidCredentialsErrorMessage": "Incorrect email or password",
+  "requiredFieldErrorMessage": "Required*",
+  "emailTextFieldLabel": "Email",
+  "invalidEmailFormatErrorMessage": "Invalid email format",
+  "passwordTextFieldLabel": "Password",
+  "rememberMeCheckBoxLabel": "Remember Me",
+  "forgotMyPasswordButtonLabel": "Forgot Password",
+  "signInButtonLabel": "Sign In",
+  "signInInProgressButtonLabel": "Signing In"
+}

@@ -1,0 +1,107 @@
+Before update response
+{
+    "id": 17365,
+    "name": "test",
+    "assignee": "315",
+    "assigneeName": "testmobile",
+    "task-calibrators-names": [
+        "a0504669036@gmail.com"
+    ],
+    "task-calibrators-ids": [
+        238
+    ],
+    "start-date": "1722286800",
+    "end-date": "1722373200",
+    "priority": "Mid",
+    "owner": null,
+    "log-type": "meeting",
+    "task-description": "des des",
+    "companies": [
+        {
+            "term_id": 498,
+            "name": "Company from MOBILE",
+            "slug": "company-from-mobile",
+            "term_group": 0,
+            "term_taxonomy_id": 498,
+            "taxonomy": "company",
+            "description": "",
+            "parent": 0,
+            "count": 6,
+            "filter": "raw",
+            "term_order": "0"
+        }
+    ],
+    "deals": [
+        {
+            "term_id": 500,
+            "name": "DEAL CREATED FROM MOBILE APP V1",
+            "slug": "deal-created-from-mobile-app-v1",
+            "term_group": 0,
+            "term_taxonomy_id": 500,
+            "taxonomy": "deals",
+            "description": "",
+            "parent": 0,
+            "count": 3,
+            "filter": "raw",
+            "term_order": "0"
+        }
+    ],
+    "activities": [],
+    "contact": "17357",
+    "contactName": "ddddddddddddddd",
+    "historyData": []
+}
+
+// After update response
+{
+    "id": 17365,
+    "name": "UPDATED",
+    "assignee": "315",
+    "assigneeName": "testmobile",
+    "task-calibrators-names": [
+        "a0504669036@gmail.com"
+    ],
+    "task-calibrators-ids": [
+        238
+    ],
+    "start-date": "1722006138",
+    "end-date": "1722006138",
+    "priority": "PR UPDATED",
+    "owner": null,
+    "log-type": null,
+    "task-description": "TS UPDATED",
+    "companies": [
+        {
+            "term_id": 504,
+            "name": "UPDATED Selling a software product",
+            "slug": "updated-selling-a-software-product",
+            "term_group": 0,
+            "term_taxonomy_id": 504,
+            "taxonomy": "company",
+            "description": "",
+            "parent": 0,
+            "count": 1,
+            "filter": "raw",
+            "term_order": "0"
+        }
+    ],
+    "deals": [
+        {
+            "term_id": 505,
+            "name": "UPDATED ted deal",
+            "slug": "updated-ted-deal",
+            "term_group": 0,
+            "term_taxonomy_id": 505,
+            "taxonomy": "deals",
+            "description": "",
+            "parent": 0,
+            "count": 1,
+            "filter": "raw",
+            "term_order": "0"
+        }
+    ],
+    "activities": [],
+    "contact": null,
+    "contactName": "",
+    "historyData": []
+}

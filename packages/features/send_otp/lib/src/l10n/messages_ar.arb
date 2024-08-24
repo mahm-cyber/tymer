@@ -1,0 +1,11 @@
+{
+  "invalidCredentialsErrorMessage": "بريد الكترونى او كلمة مرور خطأ",
+  "requiredFieldErrorMessage": "مطلوب*",
+  "emailTextFieldLabel": "البريد الإلكتروني",
+  "invalidEmailFormatErrorMessage": "صيغة البريد الإلكتروني غير صحيح",
+  "passwordTextFieldLabel": "كلمة المرور",
+  "rememberMeCheckBoxLabel": "تذكرنى",
+  "forgotMyPasswordButtonLabel": "فقدت كلمة المرور",
+  "signInButtonLabel": "تسجيل دخول",
+  "signInInProgressButtonLabel": "جارى تسجيل الدخول"
+}

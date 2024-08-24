@@ -1,0 +1,13 @@
+name: form_fields
+publish_to: none
+
+environment:
+  sdk: ">=3.2.2 <4.0.0"
+
+dependencies:
+  formz: ^0.6.1
+  equatable: ^2.0.5
+  domain_models:
+    path: ../domain_models
+dev_dependencies:
+  flutter_lints: ^4.0.0

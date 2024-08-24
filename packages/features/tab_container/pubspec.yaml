@@ -1,0 +1,23 @@
+name: tab_container
+publish_to: none
+
+environment:
+  sdk: ">=3.2.2 <4.0.0"
+
+dependencies:
+  flutter_bloc: ^8.0.1
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  component_library:
+    path: ../../component_library
+  user_repository:
+    path: ../../user_repository
+
+  intl: ^0.19.0
+  equatable: ^2.0.5
+  routemaster: ^1.0.1
+dev_dependencies:
+  flutter_lints: ^4.0.0

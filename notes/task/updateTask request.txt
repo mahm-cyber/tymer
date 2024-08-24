@@ -1,0 +1,15 @@
+{
+    "id" : "17365",
+    "name": "UPDATED",
+    "start-date": "1722006138", // timestamp
+    "end-date": "1722006138", // timestamp
+    "phone": "11111111111111111111111111",
+    "priority": "PR UPDATED",
+    "task-callobrators": [238], // user ids
+    "typeName": "TN UPDATED",
+    "task-description": "TS UPDATED",
+    "companyName": "UPDATED Selling a software product", // company id
+    "dealName": "UPDATED ted deal",  // deal id
+    "contactId":"17366",
+    "assignToId":"238"
+}

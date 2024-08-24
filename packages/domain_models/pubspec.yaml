@@ -1,0 +1,16 @@
+name: domain_models
+publish_to: none
+
+environment:
+  sdk: ">=3.2.2 <4.0.0"
+
+dependencies:
+  equatable: ^2.0.5
+  flutter:
+    sdk: flutter
+  lorem_ipsum: ^0.0.3
+
+  function_and_extension_library:
+    path: ../function_and_extension_library
+dev_dependencies:
+  flutter_lints: ^4.0.0

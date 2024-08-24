@@ -1,0 +1,6 @@
+arb-dir: lib/src/l10n
+template-arb-file: messages_en.arb
+output-localization-file: send_otp_localizations.dart
+output-class: SendOtpLocalizations
+synthetic-package: false
+nullable-getter: false

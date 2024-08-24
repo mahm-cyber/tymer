@@ -1,0 +1,15 @@
+name: home
+publish_to: none
+
+environment:
+  sdk: '>=3.0.6 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  equatable: ^2.0.5
+  flutter_bloc: ^8.1.3
+  component_library:
+    path: ../../component_library
+  domain_models:
+    path: ../../domain_models
