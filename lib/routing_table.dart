@@ -19,31 +19,51 @@ Map<String, PageBuilder> buildRoutingTable({
   required ValueNotifier<bool> signInSuccessVN,
 }) {
   return {
-    _PathConstants.tabContainerPath: (_) => TabPage(
-          backBehavior: TabBackBehavior.history,
-          paths: [
-            _PathConstants.homePath,
-            _PathConstants.homePath,
-          ],
-          child: BackButtonListener(
-            onBackButtonPressed: () async {
-              return routerDelegate.history.canGoBack ? false : true;
-            },
-            child: ValueListenableBuilder(
-              valueListenable: signInSuccessVN,
-              builder: (context, signInSuccess, __) {
-                return signInSuccess
-                    ? TabContainerScreen(
-                        userRepository: userRepository,
-                      )
-                    : SignInScreen(
-                        userRepository: userRepository,
-                        onSignInSuccess: () => signInSuccessVN.value = true,
-                      );
-              },
-            ),
-          ),
+    _PathConstants.initialPath: (_) => TabPage(
+      backBehavior: TabBackBehavior.history,
+      paths: [
+        _PathConstants.homePath,
+        _PathConstants.homePath,
+      ],
+      child: BackButtonListener(
+        onBackButtonPressed: () async {
+          return routerDelegate.history.canGoBack ? false : true;
+        },
+        child: ValueListenableBuilder(
+          valueListenable: _shouldPassInitialAuthentication,
+          builder: (context, shouldPassInitialAuthentication, __) {
+            return shouldPassInitialAuthentication
+                ? const TabContainerScreen()
+                : InitialScreen(
+              userRepository: userRepository,
+              onSignInTap: () =>
+                  routerDelegate.push(_PathConstants.signInPath),
+              onSignUpTap: () =>
+                  routerDelegate.push(_PathConstants.signUpPath),
+              onGuestSignInTap: () =>
+              _shouldPassInitialAuthentication.value = true,
+            );
+          },
         ),
+      ),
+    ),
+    _PathConstants.signUpPath: (_) => MaterialPage(
+      name: 'sign-up',
+      child: SignUpScreen(
+        userRepository: userRepository,
+        onSignInTap: () => routerDelegate
+            .popRoute()
+            .then((_) => routerDelegate.push(_PathConstants.signInPath)),
+        onSignUpSuccess: () async {
+          await routerDelegate.popRoute();
+          if (routerDelegate.history.canGoBack) {
+            await routerDelegate.popRoute();
+          }
+          routerDelegate.push(_PathConstants.verifyOtpPath);
+        },
+      ),
+    ),
+
     _PathConstants.homePath: (_) => const MaterialPage(
           name: 'home',
           child: HomeScreen(),
