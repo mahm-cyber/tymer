@@ -17,6 +17,7 @@ class InvalidEmailFormatTymerException implements Exception {}
 class DisposableEmailNotAllowedTymerException implements Exception {}
 
 class EmailAlreadyRegisteredTymerException implements Exception {}
+class PhoneAlreadyRegisteredTymerException implements Exception {}
 
 class InternetConnectionTymerException implements Exception {}
 

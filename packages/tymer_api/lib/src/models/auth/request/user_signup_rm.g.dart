@@ -10,10 +10,7 @@ Map<String, dynamic> _$UserSignUpRMToJson(UserSignUpRM instance) =>
     <String, dynamic>{
       'email': instance.email,
       'password': instance.password,
-      'phone': instance.phone,
-      'username': instance.name,
-      'city': instance.city,
-      'birthDate': instance.birthdate,
-      'mktoken': instance.fcmToken,
-      'gender': instance.gender,
+      'password_confirmation': instance.passwordConfirmation,
+      'phone_number': instance.phone,
+      'name': instance.name,
     };

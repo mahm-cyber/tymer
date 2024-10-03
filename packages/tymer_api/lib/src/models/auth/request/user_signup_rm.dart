@@ -7,30 +7,21 @@ class UserSignUpRM {
   const UserSignUpRM({
     required this.email,
     required this.password,
+    required this.passwordConfirmation,
     required this.phone,
     required this.name,
-    required this.city,
-    required this.birthdate,
-    this.fcmToken = '',
-    required this.gender,
   });
 
   @JsonKey(name: 'email')
   final String email;
   @JsonKey(name: 'password')
   final String password;
-  @JsonKey(name: 'phone')
+  @JsonKey(name: 'password_confirmation')
+  final String passwordConfirmation;
+  @JsonKey(name: 'phone_number')
   final String phone;
-  @JsonKey(name: 'username')
+  @JsonKey(name: 'name')
   final String name;
-  @JsonKey(name: 'city')
-  final String city;
-  @JsonKey(name: 'birthDate')
-  final String birthdate;
-  @JsonKey(name: 'mktoken')
-  final String fcmToken;
-  @JsonKey(name: 'gender')
-  final String gender;
 
   Map<String, dynamic> toJson() => _$UserSignUpRMToJson(this);
 }

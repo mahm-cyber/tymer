@@ -6,14 +6,15 @@ import 'package:tymer_api/tymer_api.dart';
 import 'package:tymer_api/src/models/auth/request/update_account_rm.dart';
 import 'package:tymer_api/src/url_builder.dart';
 
-
-
 typedef UserTokenSupplier = Future<String?> Function();
 
 class TymerApi {
   static const _errorJsonKey = 'error';
   static const _otpJsonKey = 'otp';
-
+  static const _accessTokenJsonKey = 'access_token';
+  static const _verificationErrorsJsonKey = 'verification_errors';
+  static const _emailJsonKey = 'email';
+  static const _phoneNumberJsonKey = 'phone_number';
 
   TymerApi({
     required UserTokenSupplier userTokenSupplier,
@@ -78,6 +79,44 @@ class TymerApi {
     }
   }
 
+  Future<String> signUp({
+    required String email,
+    required String password,
+    required String passwordConfirmation,
+    required String phone,
+    required String name,
+  }) async {
+    final url = urlBuilder.buildSignUpUrl();
+
+    final requestJsonBody = UserSignUpRM(
+      email: email,
+      password: password,
+      passwordConfirmation: passwordConfirmation,
+      phone: '+2$phone',
+      name: name,
+    ).toJson();
+
+    try {
+      final response = await _dio.post(
+        url,
+        data: requestJsonBody,
+      );
+      final userToken = response.data[_accessTokenJsonKey] as String;
+      return userToken;
+    } on DioException catch (error) {
+      final errorObject = error.response?.data[_verificationErrorsJsonKey];
+      if (errorObject.containsKey(_emailJsonKey) &&
+          errorObject[_emailJsonKey].first.contains('تم أخذها مسبقاً')) {
+        throw EmailAlreadyRegisteredTymerException();
+      }
+      if (errorObject.containsKey(_phoneNumberJsonKey) &&
+          errorObject[_phoneNumberJsonKey].first.contains('تم أخذها مسبقاً')) {
+        throw PhoneAlreadyRegisteredTymerException();
+      }
+
+      rethrow;
+    }
+  }
 
   Future updateProfile({
     required int userId,
@@ -177,7 +216,7 @@ class TymerApi {
       );
       final error = response.data[_errorJsonKey];
       final phoneNotRegistered =
-      error.toString().toLowerCase().contains('user');
+          error.toString().toLowerCase().contains('user');
       if (phoneNotRegistered) throw EmailNotRegisteredTymerException();
       final otp = response.data[_otpJsonKey].toString();
       debugPrint('----otp: $otp');
@@ -227,7 +266,6 @@ class TymerApi {
       rethrow;
     }
   }
-
 }
 
 extension on Dio {
@@ -248,7 +286,11 @@ extension on Dio {
         onRequest: (options, handler) async {
           final token = await userTokenSupplier();
           options.headers.addAll(
-            {"Accept": "application/json", "auth": token},
+            {
+              "Accept": "application/json",
+              "auth": token,
+              "X-API-Key": "01f64a264be7442a9008abda93d5d6ae",
+            },
           );
 
           return handler.next(options);
@@ -268,10 +310,8 @@ extension on Dio {
         },
         onResponse: (response, handler) {
           handler.next(response);
-
         },
       ),
     );
-
   }
 }
