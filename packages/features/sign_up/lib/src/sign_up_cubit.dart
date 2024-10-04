@@ -1,13 +1,9 @@
-import 'dart:async';
-
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/rendering.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
 
-import 'package:intl/intl.dart';
 import 'package:user_repository/user_repository.dart';
 
 part 'sign_up_state.dart';
@@ -17,52 +13,20 @@ class SignUpCubit extends Cubit<SignUpState> {
     required this.userRepository,
   }) : super(
           const SignUpState(),
-        ) {
-    scrollController.addListener(() {
-      hidePasswordFormatInfoOverlay();
-      final newScrollDirection = state.copyWith(
-        scrollDirection: scrollController.position.userScrollDirection,
-      );
-      emit(newScrollDirection);
-    });
-  }
+        );
 
   final UserRepository userRepository;
-  final scrollController = ScrollController();
-
-  void togglePasswordInfoOverlay(double yOffset) {
-    final overLayToggled = state.copyWith(
-      passwordInfoOverlayShown: !state.passwordInfoOverlayShown,
-      passwordInfoOverlayYOffset: yOffset,
-    );
-    emit(overLayToggled);
-  }
-
-  void hidePasswordFormatInfoOverlay() {
-    if (state.passwordInfoOverlayShown == true) {
-      togglePasswordInfoOverlay(
-        state.passwordInfoOverlayYOffset,
-      );
-    }
-  }
-
-  void scrollToShowNextTextField({double offset = 120}) {
-    scrollController.animateTo(
-      scrollController.offset + offset,
-      duration: const Duration(milliseconds: 100),
-      curve: Curves.bounceInOut,
-    );
-  }
 
   void onNameChanged(String newValue) {
     final previousScreenState = state;
     final previousNameState = previousScreenState.name;
     final shouldValidate = previousNameState.isNotValid;
     final newNameState = shouldValidate
-        ? Name.validated(
+        ? Dynamic<String?>.validated(
             newValue,
+            isRequired: true,
           )
-        : Name.unvalidated(
+        : Dynamic<String?>.unvalidated(
             newValue,
           );
 
@@ -75,15 +39,12 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   void onNameUnfocused() {
     final newScreenState = state.copyWith(
-      name: Name.validated(
+      name: Dynamic<String?>.validated(
         state.name.value,
+        isRequired: true,
       ),
     );
     emit(newScreenState);
-  }
-
-  void onNameFocused() {
-    hidePasswordFormatInfoOverlay();
   }
 
   void onPhoneChanged(String newValue) {
@@ -115,10 +76,6 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(newScreenState);
   }
 
-  void onPhoneFocused() {
-    hidePasswordFormatInfoOverlay();
-  }
-
   void onPasswordChanged(String? newValue) {
     final previousScreenState = state;
     final previousPasswordState = previousScreenState.password;
@@ -148,11 +105,6 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(newScreenState);
   }
 
-  void onPasswordFocused() {
-    hidePasswordFormatInfoOverlay();
-    scrollToShowNextTextField();
-  }
-
   void onPasswordConfirmationChanged(String newValue) {
     final previousPasswordConfirmation = state.passwordConfirmation;
     final shouldValidate = previousPasswordConfirmation.isNotValid;
@@ -179,11 +131,6 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(newState);
   }
 
-  void onPasswordConfirmationFocused() {
-    hidePasswordFormatInfoOverlay();
-    scrollToShowNextTextField();
-  }
-
   void onEmailChanged(String? newValue) {
     final previousEmail = state.email;
     final shouldValidate = previousEmail.isNotValid;
@@ -191,6 +138,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       email: shouldValidate
           ? Email.validated(
               newValue,
+              isRequired: true,
             )
           : Email.unvalidated(
               newValue,
@@ -206,69 +154,32 @@ class SignUpCubit extends Cubit<SignUpState> {
         invalidCredentials: state.email.invalidCredentials,
         invalidFormat: state.email.invalidFormat,
         isAlreadyRegistered: state.email.isAlreadyRegistered,
+        isRequired: true,
       ),
     );
 
     emit(newState);
   }
 
-  void onEmailFocused() {
-    hidePasswordFormatInfoOverlay();
-    scrollToShowNextTextField(offset: 250);
-  }
-
-  Future pickBirthdate(DateTime? dateTime) async {
-    if (dateTime != null) {
-      final date = DateFormat('yyyy-MM-dd').format(dateTime);
-      onBirthDateTextFieldChanged(date);
-    }
-  }
-
-  void onBirthDateTextFieldChanged(String newValue) {
-    final previousBirthDate = state.birthdate;
-    final shouldValidate = previousBirthDate.isNotValid;
+  void onTermsAndConditionsChanged(bool newValue) {
+    final previousTermsAndConditions = state.termsAndConditionsAccepted;
+    final shouldValidate = previousTermsAndConditions.isNotValid;
     final newState = state.copyWith(
-      birthdate: shouldValidate
-          ? Birthdate.validated(
-              newValue,
+      termsAndConditionsAccepted: shouldValidate
+          ? Dynamic.validated(
+              newValue == false ? null : true,
             )
-          : Birthdate.unvalidated(
-              newValue,
+          : Dynamic.unvalidated(
+              newValue == false ? null : true,
             ),
     );
     emit(newState);
-  }
-
-  void onBirthdateFocused() {
-    hidePasswordFormatInfoOverlay();
-    scrollToShowNextTextField(offset: 230);
-  }
-
-  void onCityChanged(CityDM? newValue) {
-    final previousCity = state.city;
-    final shouldValidate = previousCity.isNotValid;
-    final newState = state.copyWith(
-      city: shouldValidate
-          ? City.validated(
-              newValue,
-            )
-          : City.unvalidated(
-              newValue,
-            ),
-    );
-    emit(newState);
-  }
-
-  void onGenderTagChanged(GenderDM? gender) {
-    final tagSelected = state.copyWith(
-      gender: Gender.validated(gender),
-    );
-    emit(tagSelected);
   }
 
   void onSubmit() async {
-    final name = Name.validated(
+    final name = Dynamic<String?>.validated(
       state.name.value,
+      isRequired: true,
     );
 
     final phone = Mobile.validated(
@@ -281,23 +192,21 @@ class SignUpCubit extends Cubit<SignUpState> {
       state.passwordConfirmation.value,
     );
 
-    final email = Email.validated(state.email.value);
-
-    final birthdate = Birthdate.validated(state.birthdate.value);
-
-    final city = City.validated(state.city.value);
-
-    final gender = Gender.validated(state.gender.value);
-
+    final email = Email.validated(
+      state.email.value,
+      isRequired: true,
+    );
+    final termsAndConditionsAccepted = Dynamic<bool>.validated(
+      state.termsAndConditionsAccepted.value,
+      isRequired: true,
+    );
     final isFormValid = Formz.validate([
       name,
       phone,
       password,
       passwordConfirmation,
       email,
-      birthdate,
-      city,
-      gender,
+      termsAndConditionsAccepted
     ]);
 
     final newState = state.copyWith(
@@ -306,9 +215,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       password: password,
       passwordConfirmation: passwordConfirmation,
       email: email,
-      birthdate: birthdate,
-      city: city,
-      gender: gender,
+      termsAndConditionsAccepted: termsAndConditionsAccepted,
       submissionStatus: isFormValid
           ? FormzSubmissionStatus.inProgress
           : FormzSubmissionStatus.initial,
@@ -322,18 +229,8 @@ class SignUpCubit extends Cubit<SignUpState> {
           email: email.value!,
           password: password.value!,
           phone: phone.value!,
-          name: name.value,
-          city: city.value!.nameEn,
-          birthdate: birthdate.value,
-          gender: gender.value!,
-        );
-        // TODO: clean the full voucher and vendor profile history so the favourites are updated when the user visits a full voucher or vendor
-        await userRepository.sendOtp(phone.value!);
-        userRepository.changeNotifier.setOtpVerification(
-          OtpVerification(
-            phone: phone.value!,
-            reason: OtpVerificationReason.register,
-          ),
+          name: name.value!,
+          passwordConfirmation: passwordConfirmation.value,
         );
         final newState = state.copyWith(
           submissionStatus: FormzSubmissionStatus.success,
@@ -348,35 +245,29 @@ class SignUpCubit extends Cubit<SignUpState> {
             email.value,
             invalidFormat: error is InvalidEmailFormatException ? true : false,
             isAlreadyRegistered:
-                error is EmailOrPhoneAlreadyRegisteredException ? true : false,
+                error is EmailAlreadyRegisteredException ? true : false,
+            isRequired: true,
           ),
           phone: Mobile.validated(
             phone.value,
             isAlreadyRegistered:
-                error is EmailOrPhoneAlreadyRegisteredException ? true : false,
+                error is PhoneAlreadyRegisteredException ? true : false,
           ),
-          submissionStatus: error is! EmailOrPhoneAlreadyRegisteredException &&
+          submissionStatus: error is! EmailAlreadyRegisteredException &&
+                  error is! PhoneAlreadyRegisteredException &&
                   error is! InvalidEmailFormatException
               ? FormzSubmissionStatus.failure
               : FormzSubmissionStatus.initial,
         );
         emit(newState);
-        if (error is EmailOrPhoneAlreadyRegisteredException) {
-          scrollController.animateTo(
-            0,
-            duration: const Duration(milliseconds: 100),
-            curve: Curves.bounceInOut,
-          );
-        }
       }
     }
   }
 
-  @override
-  Future<void> close() async {
-    scrollController.dispose();
-    return super.close();
-  }
+// @override
+// Future<void> close() async {
+//   return super.close();
+// }
 
 // @override
 // Future<void> onChange(change) async {

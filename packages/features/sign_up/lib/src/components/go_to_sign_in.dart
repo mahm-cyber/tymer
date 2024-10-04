@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sign_up/src/l10n/sign_up_localizations.dart';
 
 class GoToSignIn extends StatelessWidget {
   const GoToSignIn({
@@ -10,13 +11,14 @@ class GoToSignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = SignUpLocalizations.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text(' لديك حساب؟ قم'),
+        Text(l10n.alreadyHaveAnAccount),
         TextButton(
           onPressed: onTap,
-          child: const Text('بتسجيل الدخول'),
+          child: Text(l10n.signInButtonText),
         )
       ],
     );

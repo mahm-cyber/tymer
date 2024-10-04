@@ -1,9 +1,10 @@
+import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
+import 'package:sign_up/src/l10n/sign_up_localizations.dart';
 
 import 'package:sign_up/src/sign_up_cubit.dart';
-
 
 class Name extends StatefulWidget {
   const Name({
@@ -24,8 +25,6 @@ class _NameState extends State<Name> {
       final cubit = context.read<SignUpCubit>();
       if (!_focusNode.hasFocus) {
         cubit.onNameUnfocused();
-      } else {
-        cubit.onNameFocused();
       }
     });
   }
@@ -44,11 +43,22 @@ class _NameState extends State<Name> {
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
         // final theme = TymerTheme.of(context);
-
+        final l10n = SignUpLocalizations.of(context);
+        final cubit = context.read<SignUpCubit>();
         return TextField(
           focusNode: _focusNode,
-
-          onChanged: context.read<SignUpCubit>().onNameChanged,
+          onChanged: cubit.onNameChanged,
+          decoration: InputDecoration(
+            prefixIcon: SvgAsset(
+              AssetPathConstants.personPath,
+            ),
+            hintText: l10n.nameTextFieldHint,
+            labelText: l10n.nameTextFieldLabel,
+            helperText: '',
+            errorText: error == DynamicValidationError.empty
+                ? l10n.requiredTextFieldErrorMessage
+                : null,
+          ),
           enabled: !isSubmissionInProgress,
         );
       },

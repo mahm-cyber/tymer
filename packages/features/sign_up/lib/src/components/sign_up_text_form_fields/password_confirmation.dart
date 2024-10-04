@@ -2,9 +2,9 @@ import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
+import 'package:sign_up/src/l10n/sign_up_localizations.dart';
 
 import 'package:sign_up/src/sign_up_cubit.dart';
-
 
 class PasswordConfirmation extends StatefulWidget {
   const PasswordConfirmation({
@@ -12,12 +12,10 @@ class PasswordConfirmation extends StatefulWidget {
   });
 
   @override
-  State<PasswordConfirmation> createState() =>
-      _PasswordConfirmationState();
+  State<PasswordConfirmation> createState() => _PasswordConfirmationState();
 }
 
-class _PasswordConfirmationState
-    extends State<PasswordConfirmation> {
+class _PasswordConfirmationState extends State<PasswordConfirmation> {
   bool isPasswordVisible = false;
   final _focusNode = FocusNode();
 
@@ -28,8 +26,6 @@ class _PasswordConfirmationState
     _focusNode.addListener(() {
       if (!_focusNode.hasFocus) {
         cubit.onPasswordConfirmationUnfocused();
-      } else {
-        cubit.onPasswordConfirmationFocused();
       }
     });
   }
@@ -47,28 +43,35 @@ class _PasswordConfirmationState
       final passwordConfirmationError = state.passwordConfirmation.isNotValid
           ? state.passwordConfirmation.error
           : null;
-      final isSubmissionInProgress = state.submissionStatus == FormzSubmissionStatus.inProgress;
-      return TymerTextField(
-        title: 'تأكيد كلمة المرور*',
-        hintText: 'تأكيد كلمة المرور',
-        helperText: '',
+      final isSubmissionInProgress =
+          state.submissionStatus == FormzSubmissionStatus.inProgress;
+      final l10n = SignUpLocalizations.of(context);
+      return TextField(
         focusNode: _focusNode,
         onChanged: cubit.onPasswordConfirmationChanged,
         obscureText: !isPasswordVisible,
-        suffixIcon: GestureDetector(
-          onTap: () => setState(() => isPasswordVisible = !isPasswordVisible),
-          child: Icon(
-            isPasswordVisible ? Icons.visibility_off : Icons.visibility,
-            size: 24,
+        decoration: InputDecoration(
+          hintText: l10n.passwordConfirmationTextFieldHint,
+          labelText: l10n.passwordConfirmationTextFieldLabel,
+          helperText: '',
+          errorText: passwordConfirmationError ==
+                  PasswordConfirmationValidationError.empty
+              ? l10n.requiredTextFieldErrorMessage
+              : passwordConfirmationError ==
+                      PasswordConfirmationValidationError.doesNotMatch
+                  ? l10n.passwordConfirmationTextFieldError
+                  : null,
+          prefixIcon: SvgAsset(
+            AssetPathConstants.lockPath,
+          ),
+          suffixIcon: GestureDetector(
+            onTap: () => setState(() => isPasswordVisible = !isPasswordVisible),
+            child: Icon(
+              isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+              size: 24,
+            ),
           ),
         ),
-        errorText: passwordConfirmationError ==
-                PasswordConfirmationValidationError.empty
-            ? 'مطلوب*'
-            : passwordConfirmationError ==
-                    PasswordConfirmationValidationError.doesNotMatch
-                ? 'كلمة المرور غير مطابقه'
-                : null,
         enabled: !isSubmissionInProgress,
       );
     });

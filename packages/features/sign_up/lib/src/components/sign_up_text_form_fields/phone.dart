@@ -2,9 +2,9 @@ import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
+import 'package:sign_up/src/l10n/sign_up_localizations.dart';
 
 import 'package:sign_up/src/sign_up_cubit.dart';
-
 
 class Phone extends StatefulWidget {
   const Phone({
@@ -25,8 +25,6 @@ class _PhoneState extends State<Phone> {
     _focusNode.addListener(() {
       if (!_focusNode.hasFocus) {
         cubit.onPhoneUnfocused();
-      } else {
-        cubit.onPhoneFocused();
       }
     });
   }
@@ -41,17 +39,28 @@ class _PhoneState extends State<Phone> {
   Widget build(BuildContext context) {
     return BlocBuilder<SignUpCubit, SignUpState>(
       builder: (context, state) {
-        final error = state.phone.isNotValid ? state.phone.error : null;
+        final phoneError = state.phone.isNotValid ? state.phone.error : null;
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
         // final theme = TymerTheme.of(context);
-
-        return PhoneTextField(
-          isInputRequired: true,
+        final l10n = SignUpLocalizations.of(context);
+        final cubit = context.read<SignUpCubit>();
+        return TextField(
           focusNode: _focusNode,
-          helperText: '',
-          onChanged: context.read<SignUpCubit>().onPhoneChanged,
-          error: error,
+          onChanged: cubit.onPhoneChanged,
+          decoration: InputDecoration(
+            prefixIcon: SvgAsset(
+              AssetPathConstants.mobilePath,
+            ),
+            helperText: '',
+            hintText: l10n.phoneTextFieldHint,
+            labelText: l10n.phoneTextFieldLabel,
+            errorText: phoneError == MobileValidationError.empty
+                ? l10n.requiredTextFieldErrorMessage
+                : phoneError == MobileValidationError.invalidFormat
+                    ? l10n.invalidMobileFormatErrorMessage
+                    : null,
+          ),
           enabled: !isSubmissionInProgress,
         );
       },

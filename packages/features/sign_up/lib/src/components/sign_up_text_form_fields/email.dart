@@ -2,6 +2,7 @@ import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
+import 'package:sign_up/src/l10n/sign_up_localizations.dart';
 
 import 'package:sign_up/src/sign_up_cubit.dart';
 
@@ -24,8 +25,6 @@ class _EmailState extends State<Email> {
     _focusNode.addListener(() {
       if (!_focusNode.hasFocus) {
         cubit.onEmailUnfocused();
-      } else {
-        cubit.onEmailFocused();
       }
     });
   }
@@ -44,23 +43,27 @@ class _EmailState extends State<Email> {
       final isSubmissionInProgress =
           state.submissionStatus == FormzSubmissionStatus.inProgress;
       // final theme = TymerTheme.of(context);
+      final l10n = SignUpLocalizations.of(context);
       return TextField(
         enabled: !isSubmissionInProgress,
         focusNode: _focusNode,
         onChanged: cubit.onEmailChanged,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-          labelText: 'البريد الإلكتروني',
-          hintText: '',
+          prefixIcon: SvgAsset(
+            AssetPathConstants.emailPath,
+          ),
+          labelText: l10n.emailTextFieldLabel,
+          hintText: l10n.emailTextFieldHint,
           helperText: '',
           errorText: emailError == EmailValidationError.empty
-              ? 'مطلوب*'
+              ? l10n.requiredTextFieldErrorMessage
               : emailError == EmailValidationError.invalidCredentials
-                  ? 'البريد الالكترونى أو كلمة المرور خطأ'
+                  ? l10n.invalidCredentialsErrorMessage
                   : emailError == EmailValidationError.invalidFormat
-                      ? 'صيغة البريد الالكترونى غير صالحة'
+                      ? l10n.invalidFormatErrorMessage
                       : emailError == EmailValidationError.alreadyRegistered
-                          ? 'البريد الالكترونى أو رقم الجوال لدينا بالفعل'
+                          ? l10n.alreadyRegisteredErrorMessage
                           : null,
         ),
       );

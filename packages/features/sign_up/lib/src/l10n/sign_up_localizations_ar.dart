@@ -1,0 +1,84 @@
+import 'sign_up_localizations.dart';
+
+/// The translations for Arabic (`ar`).
+class SignUpLocalizationsAr extends SignUpLocalizations {
+  SignUpLocalizationsAr([String locale = 'ar']) : super(locale);
+
+  @override
+  String get appBarTitle => 'إنشاء حساب';
+
+  @override
+  String get signInButtonText => 'تسجيل الدخول';
+
+  @override
+  String get emailTextFieldLabel => 'عنوان البريد الإلكتروني';
+
+  @override
+  String get emailTextFieldHint => 'أدخل بريدك الإلكتروني';
+
+  @override
+  String get requiredTextFieldErrorMessage => 'هذا الحقل مطلوب.';
+
+  @override
+  String get invalidCredentialsErrorMessage => 'بيانات الاعتماد غير صالحة، يرجى المحاولة مرة أخرى.';
+
+  @override
+  String get invalidFormatErrorMessage => 'تنسيق غير صالح، يرجى التحقق من المدخلات.';
+
+  @override
+  String get alreadyRegisteredErrorMessage => 'أنت مسجل بالفعل.';
+
+  @override
+  String get nameTextFieldHint => 'أدخل اسمك';
+
+  @override
+  String get nameTextFieldLabel => 'الاسم الكامل';
+
+  @override
+  String get passwordTextFieldLabel => 'كلمة المرور';
+
+  @override
+  String get passwordTextFieldHint => 'أدخل كلمة المرور الخاصة بك';
+
+  @override
+  String get passwordWeakErrorMessage => 'كلمة المرور الخاصة بك ضعيفة جدًا.';
+
+  @override
+  String get passwordConfirmationTextFieldLabel => 'تأكيد كلمة المرور';
+
+  @override
+  String get passwordConfirmationTextFieldHint => 'أعد إدخال كلمة المرور';
+
+  @override
+  String get passwordConfirmationTextFieldError => 'كلمات المرور لا تتطابق.';
+
+  @override
+  String get phoneTextFieldLabel => 'رقم الهاتف';
+
+  @override
+  String get phoneTextFieldHint => 'أدخل رقم هاتفك';
+
+  @override
+  String get signUpInProgressButtonLabel => 'جارٍ إنشاء الحساب...';
+
+  @override
+  String get signUpButtonLabel => 'إنشاء حساب';
+
+  @override
+  String get alreadyHaveAnAccount => 'هل لديك حساب بالفعل؟';
+
+  @override
+  String get invalidMobileFormatErrorMessage => 'تنسيق رقم الهاتف المحمول غير صالح.';
+
+  @override
+  String get termsAndConditionsBottomSheetTitle => 'البنود والشروط';
+
+  @override
+  String get agreeAndAcceptAllButtonText => 'موافق وقبول الكل';
+
+  @override
+  String get signUpSuccessMessage => 'تم إرسال رمز التحقق إلى هاتفك';
+
+  @override
+  String get signUpFailureMessage => 'فشل إنشاء الحساب، حاول مرة أخرى';
+}

@@ -1,15 +1,14 @@
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
+import 'package:sign_up/src/l10n/sign_up_localizations.dart';
 
 import 'package:sign_up/src/sign_up_cubit.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
 
 import 'components/components.dart';
-
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({
@@ -44,8 +43,8 @@ class SignUpView extends StatelessWidget {
     required this.onSignInTap,
   });
 
-  final VoidCallback onSignInTap;
   final VoidCallback onSignUpSuccess;
+  final VoidCallback onSignInTap;
 
   @override
   Widget build(BuildContext context) {
@@ -53,12 +52,13 @@ class SignUpView extends StatelessWidget {
       listenWhen: (oldState, newState) =>
           oldState.submissionStatus != newState.submissionStatus,
       listener: (context, state) {
+        final l10n = SignUpLocalizations.of(context);
         if (state.submissionStatus == FormzSubmissionStatus.success) {
           showSnackBar(
             context: context,
             snackBar: SuccessSnackBar(
               context: context,
-              message: 'تم انشاء الحساب بنجاح',
+              message: l10n.signUpSuccessMessage,
             ),
           );
           onSignUpSuccess();
@@ -69,59 +69,46 @@ class SignUpView extends StatelessWidget {
             context: context,
             snackBar: ErrorSnackBar(
               context: context,
-              message: 'حدث خطأ ما',
+              message: l10n.signUpFailureMessage,
             ),
           );
           return;
         }
       },
       builder: (context, state) {
-        final cubit = context.read<SignUpCubit>();
         final theme = TymerTheme.of(context);
-
+        final textTheme = Theme.of(context).textTheme;
+        final l10n = SignUpLocalizations.of(context);
         return GestureDetector(
           onTap: () {
             context.releaseFocus();
-            if (state.passwordInfoOverlayShown) {
-              cubit.togglePasswordInfoOverlay(
-                state.passwordInfoOverlayYOffset,
-              );
-            }
           },
           child: Scaffold(
-            body: Stack(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    right: theme.screenMargin,
-                    left: theme.screenMargin,
-                    top:
-                        MediaQuery.of(context).padding.top + theme.screenMargin,
-                    bottom: theme.screenMargin,
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              title: Text(
+                l10n.appBarTitle,
+                style: textTheme.titleMedium,
+              ),
+              automaticallyImplyLeading: true,
+            ),
+            body: Padding(
+              padding: EdgeInsets.symmetric(horizontal: theme.screenMargin * 2),
+              child: Column(
+                children: [
+                  SvgAsset(
+                    AssetPathConstants.logoAndWordPath,
+                    width: 60,
                   ),
-                  child: Column(
-                    children: [
-                      const Header(),
-                      const SizedBox(
-                        height: Spacing.medium,
-                      ),
-                      const FormFields(),
-                      const SignUpButton(),
-                      if (state.scrollDirection == ScrollDirection.forward) ...[
-                        const SizedBox(
-                          height: Spacing.medium,
-                        ),
-                        const SocialSignUp(),
-                        GoToSignIn(onTap: onSignInTap),
-                      ],
-                    ],
-                  ),
-                ),
-                PasswordFormatTooltip(
-                  passwordInfoOverlayYOffset: state.passwordInfoOverlayYOffset,
-                  passwordInfoOverlayShown: state.passwordInfoOverlayShown,
-                ),
-              ],
+                  const FormFields(),
+                  TermsAndConditions(),
+                  VerticalGap.medium(),
+                  const SignUpButton(),
+                  VerticalGap.medium(),
+                  GoToSignIn(onTap: onSignInTap),
+                  VerticalGap.medium(),
+                ],
+              ),
             ),
           ),
         );
@@ -129,3 +116,4 @@ class SignUpView extends StatelessWidget {
     );
   }
 }
+
