@@ -1,0 +1,15 @@
+{
+  "appBarTitle": "Forgot Password",
+  "otpSentSuccessfullySnackBarMessage": "ٍSomething went wrong",
+  "generalErrorSnackBarMessage": "ٍSomething went wrong",
+  "requiredFieldErrorMessage": "Required*",
+  "invalidEmailFormatErrorMessage": "Invalid phone format",
+  "phoneNotRegisteredErrorMessage": "Phone not registered",
+  "forgotPasswordProgressButtonLabel": "Sending OTP",
+  "forgotPasswordButtonLabel": "Reset My Password",
+  "phoneTextFieldLabel": "Phone",
+  "invalidPhoneFormatErrorMessage": "Invalid phone format",
+  "unverifiedPhoneErrorMessage": "Reset My Password",
+  "isNotRegisteredErrorMessage": "Phone not registered"
+
+}

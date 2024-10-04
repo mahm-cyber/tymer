@@ -102,7 +102,7 @@ abstract class SignInLocalizations {
   /// No description provided for @invalidCredentialsErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'Incorrect email or password'**
+  /// **'Incorrect phone or password'**
   String get invalidCredentialsErrorMessage;
 
   /// No description provided for @requiredFieldErrorMessage.
@@ -111,17 +111,17 @@ abstract class SignInLocalizations {
   /// **'Required*'**
   String get requiredFieldErrorMessage;
 
-  /// No description provided for @emailTextFieldLabel.
+  /// No description provided for @phoneTextFieldLabel.
   ///
   /// In en, this message translates to:
-  /// **'Email'**
-  String get emailTextFieldLabel;
+  /// **'Phone'**
+  String get phoneTextFieldLabel;
 
-  /// No description provided for @invalidEmailFormatErrorMessage.
+  /// No description provided for @invalidPhoneFormatErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'Invalid email format'**
-  String get invalidEmailFormatErrorMessage;
+  /// **'Invalid phone format'**
+  String get invalidPhoneFormatErrorMessage;
 
   /// No description provided for @passwordTextFieldLabel.
   ///
@@ -152,6 +152,42 @@ abstract class SignInLocalizations {
   /// In en, this message translates to:
   /// **'Signing In'**
   String get signInInProgressButtonLabel;
+
+  /// No description provided for @unverifiedPhoneErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone is not verified'**
+  String get unverifiedPhoneErrorMessage;
+
+  /// No description provided for @phoneNotVerifiedErrorSnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone unverified, an OTP has been sent'**
+  String get phoneNotVerifiedErrorSnackBarMessage;
+
+  /// No description provided for @orLoginWith.
+  ///
+  /// In en, this message translates to:
+  /// **'Or login with'**
+  String get orLoginWith;
+
+  /// No description provided for @dontHaveAnAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account?'**
+  String get dontHaveAnAccount;
+
+  /// No description provided for @signUpButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get signUpButtonLabel;
+
+  /// No description provided for @otpRateLimitExceededExceptionErrorSnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum number of OTP requests reached'**
+  String get otpRateLimitExceededExceptionErrorSnackBarMessage;
 }
 
 class _SignInLocalizationsDelegate extends LocalizationsDelegate<SignInLocalizations> {

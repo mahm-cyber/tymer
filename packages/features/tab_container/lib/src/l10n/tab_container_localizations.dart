@@ -93,53 +93,35 @@ abstract class TabContainerLocalizations {
     Locale('en')
   ];
 
-  /// No description provided for @tasksTabLabel.
+  /// No description provided for @homeTabLabel.
   ///
   /// In en, this message translates to:
-  /// **'Tasks'**
-  String get tasksTabLabel;
+  /// **'Home'**
+  String get homeTabLabel;
 
-  /// No description provided for @contactsTabLabel.
+  /// No description provided for @searchTabLabel.
   ///
   /// In en, this message translates to:
-  /// **'Contacts'**
-  String get contactsTabLabel;
+  /// **'Search'**
+  String get searchTabLabel;
 
-  /// No description provided for @dashboardTabLabel.
+  /// No description provided for @walletTabLabel.
   ///
   /// In en, this message translates to:
-  /// **'Dashboard'**
-  String get dashboardTabLabel;
+  /// **'Wallet'**
+  String get walletTabLabel;
 
-  /// No description provided for @companiesTabLabel.
+  /// No description provided for @ordersTabLabel.
   ///
   /// In en, this message translates to:
-  /// **'Companies'**
-  String get companiesTabLabel;
+  /// **'Orders'**
+  String get ordersTabLabel;
 
-  /// No description provided for @dealsTabLabel.
+  /// No description provided for @profileTabLabel.
   ///
   /// In en, this message translates to:
-  /// **'Deals'**
-  String get dealsTabLabel;
-
-  /// No description provided for @menuTabLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Menu'**
-  String get menuTabLabel;
-
-  /// No description provided for @appDependenciesFetchSuccessSnackBarMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'App content updated successfully'**
-  String get appDependenciesFetchSuccessSnackBarMessage;
-
-  /// No description provided for @refreshAppDepButtonTooltip.
-  ///
-  /// In en, this message translates to:
-  /// **'Refreshes the app content'**
-  String get refreshAppDepButtonTooltip;
+  /// **'Profile'**
+  String get profileTabLabel;
 }
 
 class _TabContainerLocalizationsDelegate extends LocalizationsDelegate<TabContainerLocalizations> {

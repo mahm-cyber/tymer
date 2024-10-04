@@ -1,10 +1,7 @@
 {
-  "tasksTabLabel": "مهام",
-  "contactsTabLabel": "جهات الاتصال",
-  "dashboardTabLabel": "الرئيسية",
-  "companiesTabLabel": "الشركات",
-  "dealsTabLabel": "صفقات",
-  "menuTabLabel": "القائمة",
-  "appDependenciesFetchSuccessSnackBarMessage": "تم تحميل البيانات بنجاح",
-  "refreshAppDepButtonTooltip": "تحديث البيانات"
+  "homeTabLabel": "الرئيسية",
+  "searchTabLabel": "بحث",
+  "walletTabLabel": "المحفظة",
+  "ordersTabLabel": "الطلبات",
+  "profileTabLabel": "الملف"
 }

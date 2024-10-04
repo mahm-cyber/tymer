@@ -6,15 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
+import 'package:forgot_password/forgot_password.dart';
+import 'package:home/home.dart';
+import 'package:initial/initial.dart';
 
 import 'package:key_value_storage/key_value_storage.dart';
+import 'package:reset_password/reset_password.dart';
+import 'package:sign_up/sign_up.dart';
 import 'package:tymer/firebase_options.dart';
 import 'package:tymer/routing_table.dart';
 import 'package:tymer_api/tymer_api.dart';
 
 import 'package:routemaster/routemaster.dart';
-import 'package:send_otp/send_otp.dart';
 import 'package:sign_in/sign_in.dart';
 import 'package:tab_container/tab_container.dart';
 
@@ -29,7 +32,6 @@ final ValueNotifier<InternetConnectionTymerException?>
 final ValueNotifier<bool> _signInSuccessVN = ValueNotifier(false);
 
 final dynamic _connectInApi = TymerApi(
-
   userTokenSupplier: () => _userRepository.getUserToken(),
   isUserUnAuthenticatedVN: _isUserUnAuthSC,
   internetConnectionErrorVN: _internetConnectionErrorVN,
@@ -39,8 +41,6 @@ final _userRepository = UserRepository(
   remoteApi: _connectInApi,
   noSqlStorage: _keyValueStorage,
 );
-
-
 
 final _keyValueStorage = KeyValueStorage();
 
@@ -72,11 +72,10 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     _userRepository.getUser().first.then((user) {
-      _signInSuccessVN.value = user?.id != null;
+      _signInSuccessVN.value = user?.phone != null;
     });
-    _userRepository.upsertLocalePreference(LocalePreferenceDM.arabic);
+    // _userRepository.upsertLocalePreference(LocalePreferenceDM.arabic);
     WidgetsBinding.instance.addObserver(this);
-
   }
 
   // This callback is invoked every time the platform brightness changes.
@@ -118,7 +117,7 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
 
         final isArabic = localePreference?.toLocale() == const Locale('ar');
         if (Platform.isAndroid) {
-          fontFamily = isArabic ? 'Tajawal' : 'Gotham';
+          fontFamily = isArabic ? 'Tajawal' : 'Montserrat';
         } else if (Platform.isIOS) {
           fontFamily = isArabic ? 'Tajawal' : null;
         }
@@ -172,10 +171,14 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
 
                 // Authentication
                 SignInLocalizations.delegate,
-                TabContainerLocalizations.delegate,
-                SendOtpLocalizations.delegate,
+                SignUpLocalizations.delegate,
                 VerifyOtpLocalizations.delegate,
+                ForgotPasswordLocalizations.delegate,
+                ResetPasswordLocalizations.delegate,
 
+                TabContainerLocalizations.delegate,
+                InitialLocalizations.delegate,
+                HomeLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [
@@ -218,7 +221,6 @@ class _InternetErrorIndicatorState extends State<InternetErrorIndicator> {
         }
       },
     );
-
   }
 
   @override

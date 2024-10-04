@@ -16,32 +16,10 @@ import 'package:path_provider/path_provider.dart';
 /// avoid conflicts.
 class KeyValueStorage {
   static const _localePreferenceBoxKey = 'locale-preference';
-  static const _lowFreqAppDepBoxKey = 'low-freq-app-dep';
-  static const _appUsersBoxKey = 'app-users';
-  static const _appTasksBoxKey = 'app-tasks';
-  static const _appContactsBoxKey = 'app-contacts';
-  static const _appDealsBoxKey = 'app-deals';
-  static const _appCompaniesBoxKey = 'app-companies';
 
   KeyValueStorage() : _hive = Hive {
     try {
-      _hive
-        ..registerAdapter(LocalePreferenceCMAdapter())
-        ..registerAdapter(LowFrequencyAppDependenciesCMAdapter())
-        ..registerAdapter(AppUsersCMAdapter())
-        ..registerAdapter(AppTasksCMAdapter())
-        ..registerAdapter(AppDealsCMAdapter())
-        ..registerAdapter(AppContactsCMAdapter())
-        ..registerAdapter(AppCompaniesCMAdapter())
-        ..registerAdapter(UserCMAdapter())
-        ..registerAdapter(TaskCMAdapter())
-        ..registerAdapter(DealCMAdapter())
-        ..registerAdapter(ContactCMAdapter())
-        ..registerAdapter(CustomFieldCMAdapter())
-        ..registerAdapter(CustomFieldTypeCMAdapter())
-        ..registerAdapter(LifeCyclesCMAdapter())
-        ..registerAdapter(CompanyCMAdapter())
-        ..registerAdapter(DealStageCMAdapter());
+      _hive.registerAdapter(LocalePreferenceCMAdapter());
     } catch (error) {
       throw Exception(error);
     }
@@ -52,39 +30,6 @@ class KeyValueStorage {
   Future<Box<LocalePreferenceCM>> get localePreferenceBox =>
       _openHiveBox<LocalePreferenceCM>(
         _localePreferenceBoxKey,
-        isTemporary: false,
-      );
-
-  Future<Box<LowFrequencyAppDependenciesCM>> get lowFreqAppDepBoxKey =>
-      _openHiveBox<LowFrequencyAppDependenciesCM>(
-        _lowFreqAppDepBoxKey,
-        isTemporary: false,
-      );
-
-  Future<Box<AppUsersCM>> get appUsersBoxKey => _openHiveBox<AppUsersCM>(
-        _appUsersBoxKey,
-        isTemporary: false,
-      );
-
-  Future<Box<AppTasksCM>> get appTasksBoxKey => _openHiveBox<AppTasksCM>(
-        _appTasksBoxKey,
-        isTemporary: false,
-      );
-
-  Future<Box<AppContactsCM>> get appContactsBoxKey =>
-      _openHiveBox<AppContactsCM>(
-        _appContactsBoxKey,
-        isTemporary: false,
-      );
-
-  Future<Box<AppDealsCM>> get appDealsBoxKey => _openHiveBox<AppDealsCM>(
-        _appDealsBoxKey,
-        isTemporary: false,
-      );
-
-  Future<Box<AppCompaniesCM>> get appCompaniesBoxKey =>
-      _openHiveBox<AppCompaniesCM>(
-        _appCompaniesBoxKey,
         isTemporary: false,
       );
 

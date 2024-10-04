@@ -4,8 +4,8 @@ export 'src/dynamic.dart';
 
 export 'src/otp_code.dart';
 export 'src/domain.dart';
+export 'src/mobile.dart';
 export 'src/email.dart';
 export 'src/password.dart';
 export 'src/password_confirmation.dart';
-export 'src/phone_number.dart';
 

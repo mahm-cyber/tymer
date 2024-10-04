@@ -5,26 +5,17 @@ class TabContainerLocalizationsAr extends TabContainerLocalizations {
   TabContainerLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get tasksTabLabel => 'مهام';
+  String get homeTabLabel => 'الرئيسية';
 
   @override
-  String get contactsTabLabel => 'جهات الاتصال';
+  String get searchTabLabel => 'بحث';
 
   @override
-  String get dashboardTabLabel => 'الرئيسية';
+  String get walletTabLabel => 'المحفظة';
 
   @override
-  String get companiesTabLabel => 'الشركات';
+  String get ordersTabLabel => 'الطلبات';
 
   @override
-  String get dealsTabLabel => 'صفقات';
-
-  @override
-  String get menuTabLabel => 'القائمة';
-
-  @override
-  String get appDependenciesFetchSuccessSnackBarMessage => 'تم تحميل البيانات بنجاح';
-
-  @override
-  String get refreshAppDepButtonTooltip => 'تحديث البيانات';
+  String get profileTabLabel => 'الملف';
 }

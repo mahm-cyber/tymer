@@ -1,0 +1,16 @@
+{
+  "verifyOtpTitle": "تفقد بريدك الإلكتروني !",
+  "otpResentSuccessfullySnackBarMessage": "تم إرسال الرمز بنجاح",
+  "otpResentErrorSnackBarMessage": "حدث خطأ أثناء إرسال الرمز",
+  "otpVerifiedSuccessfullySnackBarMessage": "تم تأكيد الرمز بنجاح",
+  "generalErrorSnackBarMessage": "حدث خطأ ما",
+  "verifyOtpSubtitle": "يرجى التحقق من بريدك الإلكتروني لإعادة تعيين كلمة المرور الخاصة بك",
+  "requiredFieldErrorMessage": "مطلوب*",
+  "incorrectOtpCodeErrorMessage": "الرمز الذي أدخلته غير صحيح، حاول مرة أخرى",
+  "verifyingOtpButtonLabel": "جارٍ التأكيد",
+  "verifyOtpButtonLabel": "تأكيد الرمز",
+  "emailNotRegisteredErrorMessage": "البريد الإلكتروني الذي أدخلته غير مسجل",
+  "resendOtpButtonLabel": "إعادة إرسال OTP",
+  "changeEmailSubtitle": "يرجى التحقق من بريدك الإلكتروني لإعادة تعيين البريد الإلكتروني الخاصة بك",
+  "otpLimitCrossedErrorSnackBarMessage": "تجاوز الحد الأقصى لمحاولات التحقق من الرمز"
+}

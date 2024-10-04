@@ -4,35 +4,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
 import 'package:sign_in/sign_in.dart';
+import 'package:sign_in/src/components/lib/phone_text_field.dart';
 import 'package:sign_in/src/sign_in_cubit.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
 
 import 'components/components.dart';
 
-class SignInScreen extends StatefulWidget {
+class SignInScreen extends StatelessWidget {
   const SignInScreen({
+    super.key,
     required this.userRepository,
     required this.onSignInSuccess,
-    super.key,
+    required this.onUnverifiedSignIn,
+    required this.onSignUpTapped,
   });
 
   final UserRepository userRepository;
   final VoidCallback onSignInSuccess;
+  final VoidCallback onUnverifiedSignIn;
+  final VoidCallback onSignUpTapped;
 
-  @override
-  State<SignInScreen> createState() => _SignInScreenState();
-}
-
-class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<SignInCubit>(
       create: (_) => SignInCubit(
-        userRepository: widget.userRepository,
+        userRepository: userRepository,
+        onUnverifiedSignIn: onUnverifiedSignIn,
+        onSignUpTapped: onSignUpTapped,
       ),
       child: SignInView(
-        onSignInSuccess: widget.onSignInSuccess,
+        onSignInSuccess: onSignInSuccess,
       ),
     );
   }
@@ -71,11 +73,26 @@ class _SignInForm extends StatelessWidget {
           oldState.submissionStatus != newState.submissionStatus,
       listener: (context, state) {
         final l10n = SignInLocalizations.of(context);
-        if (state.error is UserExpiredException) {
+        final cubit = context.read<SignInCubit>();
+        if (state.error is OtpRateLimitExceededException) {
           showSnackBar(
             context: context,
-            snackBar: const UserExpiredSnackBar(),
+            snackBar: ErrorSnackBar(
+              context: context,
+              message: l10n.otpRateLimitExceededExceptionErrorSnackBarMessage,
+            ),
           );
+          return;
+        }
+        if (state.error is PhoneNotVerifiedException) {
+          showSnackBar(
+            context: context,
+            snackBar: ErrorSnackBar(
+              context: context,
+              message: l10n.phoneNotVerifiedErrorSnackBarMessage,
+            ),
+          );
+          cubit.onUnverifiedSignIn();
           return;
         }
         if (state.submissionStatus == FormzSubmissionStatus.success) {
@@ -94,25 +111,37 @@ class _SignInForm extends StatelessWidget {
         }
       },
       builder: (context, state) {
-
+        final theme = TymerTheme.of(context);
+        final l10n = SignInLocalizations.of(context);
         return Scaffold(
           body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: ListView(
+              shrinkWrap: true,
+              padding: EdgeInsets.symmetric(horizontal: theme.screenMargin * 2),
               children: <Widget>[
-                VerticalGap.large(),
-                VerticalGap.large(),
+                const SvgAsset(
+                  AssetPathConstants.logoAndWordPath,
+                  width: 100,
+                ),
+                VerticalGap.xLarge(),
                 if (!state.rememberMeLoading) ...[
-                  const EmailTextField(),
-                  VerticalGap.mediumLarge(),
+                  const PhoneTextField(),
+                  VerticalGap.small(),
                   const PasswordTextField(),
-                  VerticalGap.medium(),
+                  VerticalGap.small(),
                 ],
                 const RememberMeAndForgotPassword(),
                 VerticalGap.xLarge(),
                 const SignInButton(),
+                VerticalGap.xLarge(),
+                Text(
+                  l10n.orLoginWith,
+                  textAlign: TextAlign.center,
+                ),
                 VerticalGap.large(),
+                const SocialSignIn(),
+                VerticalGap.xLarge(),
+                const GoToSignUp()
               ],
             ),
           ),
@@ -122,3 +151,65 @@ class _SignInForm extends StatelessWidget {
   }
 }
 
+class GoToSignUp extends StatelessWidget {
+  const GoToSignUp({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = SignInLocalizations.of(context);
+    final cubit = context.read<SignInCubit>();
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          l10n.dontHaveAnAccount,
+          textAlign: TextAlign.center,
+        ),
+        TextButton(
+          onPressed: cubit.onSignUpTapped,
+          child: Text(
+            l10n.signUpButtonLabel,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class SocialSignIn extends StatelessWidget {
+  const SocialSignIn({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+          child: const SvgAsset(
+            AssetPathConstants.googlePath,
+            width: 45,
+          ),
+        ),
+        HorizontalGap.xLarge(),
+        GestureDetector(
+          child: const SvgAsset(
+            AssetPathConstants.facebookPath,
+            width: 45,
+          ),
+        ),
+        HorizontalGap.xLarge(),
+        GestureDetector(
+          child: const SvgAsset(
+            AssetPathConstants.applePath,
+            width: 45,
+          ),
+        ),
+      ],
+    );
+  }
+}

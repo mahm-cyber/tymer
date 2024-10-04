@@ -59,7 +59,9 @@ class _PhoneState extends State<Phone> {
                 ? l10n.requiredTextFieldErrorMessage
                 : phoneError == MobileValidationError.invalidFormat
                     ? l10n.invalidMobileFormatErrorMessage
-                    : null,
+                    : phoneError == MobileValidationError.isAlreadyRegistered
+                        ? l10n.alreadyRegisteredErrorMessage
+                        : null,
           ),
           enabled: !isSubmissionInProgress,
         );

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
 import 'package:user_repository/user_repository.dart';
@@ -11,15 +12,17 @@ part 'sign_in_state.dart';
 class SignInCubit extends Cubit<SignInState> {
   SignInCubit({
     required this.userRepository,
+    required this.onUnverifiedSignIn,
+    required this.onSignUpTapped,
   }) : super(
           const SignInState(),
         ) {
     // getAppDependencies();
     getRememberMeFromCache().then(
       (_) async {
-        onEmailChanged(state.rememberMe.email);
+        onPhoneChanged(state.rememberMe.phone);
         onPasswordChanged(state.rememberMe.password);
-        if (state.rememberMe.email != null) {
+        if (state.rememberMe.phone != null) {
           emit(state.copyWith(shouldRememberCredentials: true));
         }
       },
@@ -27,17 +30,20 @@ class SignInCubit extends Cubit<SignInState> {
   }
 
   final UserRepository userRepository;
+  final VoidCallback onUnverifiedSignIn;
+  final VoidCallback onSignUpTapped;
 
-  void onEmailChanged(String? newValue) {
-    final previousEmail = state.email;
+  void onPhoneChanged(String? newValue) {
+    final previousEmail = state.phone;
     final shouldValidate = previousEmail.isNotValid;
     final newState = state.copyWith(
-      email: shouldValidate
-          ? Email.validated(
+      phone: shouldValidate
+          ? Mobile.validated(
               newValue,
-              isRequired: true,
+              invalidCredentials: state.phone.invalidCredentials,
+              unVerified: state.phone.unVerified,
             )
-          : Email.unvalidated(
+          : Mobile.unvalidated(
               newValue,
             ),
       password: Password.unvalidated(state.password.value),
@@ -45,13 +51,12 @@ class SignInCubit extends Cubit<SignInState> {
     emit(newState);
   }
 
-  void onEmailUnfocused() {
+  void onPhoneUnfocused() {
     final newState = state.copyWith(
-      email: Email.validated(
-        state.email.value,
-        invalidCredentials: state.email.invalidCredentials,
-        invalidFormat: state.email.invalidFormat,
-        isRequired: true,
+      phone: Mobile.validated(
+        state.phone.value,
+        invalidCredentials: state.phone.invalidCredentials,
+        unVerified: state.phone.unVerified,
       ),
     );
 
@@ -73,7 +78,6 @@ class SignInCubit extends Cubit<SignInState> {
 
     final newScreenState = state.copyWith(
       password: newPasswordState,
-      email: Email.unvalidated(state.email.value),
     );
 
     emit(newScreenState);
@@ -100,9 +104,10 @@ class SignInCubit extends Cubit<SignInState> {
   }
 
   void onSubmit() async {
-    final email = Email.validated(
-      state.email.value,
-      isRequired: true,
+    final phone = Mobile.validated(
+      state.phone.value,
+      invalidCredentials: state.phone.invalidCredentials,
+      unVerified: state.phone.unVerified,
     );
     final password = Password.validated(
       state.password.value,
@@ -110,12 +115,12 @@ class SignInCubit extends Cubit<SignInState> {
     );
 
     final isFormValid = Formz.validate([
-      email,
+      phone,
       password,
     ]);
 
     final newState = state.copyWith(
-      email: email,
+      phone: phone,
       password: password,
       submissionStatus: isFormValid
           ? FormzSubmissionStatus.inProgress
@@ -126,39 +131,42 @@ class SignInCubit extends Cubit<SignInState> {
 
     if (true) {
       try {
-        // await userRepository.signIn(
-        //   email: email.value!,
-        //   password: password.value!,
-        // );
-        await Future.delayed(const Duration(seconds:2));
-        // if (state.shouldRememberCredentials) {
-        //   userRepository.cacheRememberedCredentials(
-        //     email: email.value!,
-        //     password: password.value!,
-        //   );
-        // } else {
-        //   userRepository.deleteRememberedCredentials();
-        // }
+        await userRepository.signIn(
+          phone: phone.value!,
+          password: password.value!,
+        );
+        if (state.shouldRememberCredentials) {
+          await userRepository.cacheRememberedCredentials(
+            phone: phone.value!,
+            password: password.value!,
+          );
+        }
         final newState = state.copyWith(
           submissionStatus: FormzSubmissionStatus.success,
         );
         emit(newState);
+        if (state.shouldRememberCredentials) {
+          await userRepository.cacheRememberedCredentials(
+            phone: phone.value!,
+            password: password.value!,
+          );
+        }
       } catch (error) {
         final newState = state.copyWith(
           password: Password.validated(password.value,
               invalidCredentials:
                   error is InvalidCredentialsException ? true : false,
               shouldCheckStrength: false),
-          email: Email.validated(
-            email.value,
-            isRequired: true,
+          phone: Mobile.validated(
+            phone.value,
             invalidCredentials:
                 error is InvalidCredentialsException ? true : false,
-            invalidFormat: error is InvalidEmailFormatException ? true : false,
+            unVerified: error is PhoneNotVerifiedException ? true : false,
           ),
           submissionStatus: error is! InvalidCredentialsException &&
                   error is! InvalidEmailFormatException &&
-                  error is! UserExpiredException
+                  error is! PhoneNotVerifiedException &&
+                  error is! OtpRateLimitExceededException
               ? FormzSubmissionStatus.failure
               : FormzSubmissionStatus.initial,
           error: error,

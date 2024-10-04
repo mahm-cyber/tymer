@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:tymer_api/tymer_api.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:key_value_storage/key_value_storage.dart';
@@ -31,102 +31,158 @@ class UserRepository {
       preference.toCacheModel(),
     );
     _localePreferenceSubject.add(preference);
+    final cachedLocale = await getLocalePreference().first;
+    debugPrint('cachedLocale: $cachedLocale');
   }
 
   Stream<LocalePreferenceDM?> getLocalePreference() async* {
-    if (!_localePreferenceSubject.hasValue) {
-      final storedPreferenceCM = await _localStorage.getLocalePreference();
-      final storedPreference = storedPreferenceCM?.toDomainModel();
-      // final storedPreference = LocalePreferenceCM.arabic.toDomainModel();
-      if (storedPreferenceCM == null) {
-        final String systemLocale = Platform.localeName;
-        final defaultLocalePreference = strToLocalePreferenceDM(systemLocale);
-        upsertLocalePreference(defaultLocalePreference);
-      } else {
-        _localePreferenceSubject.add(storedPreference);
-      }
+    // if (!_localePreferenceSubject.hasValue) {
+    final storedPreferenceCM = await _localStorage.getLocalePreference();
+    final storedPreference = storedPreferenceCM?.toDomainModel();
+    // final storedPreference = LocalePreferenceCM.arabic.toDomainModel();
+    if (storedPreferenceCM == null) {
+      // final String systemLocale = Platform.localeName;
+      // final defaultLocalePreference = strToLocalePreferenceDM(systemLocale);
+      // upsertLocalePreference(defaultLocalePreference);
+    } else {
+      _localePreferenceSubject.add(storedPreference);
     }
+    // }
 
     yield* _localePreferenceSubject.stream;
   }
 
-  Future signIn({
-    required String email,
-    required String password,
-  }) async {
+  Future sendOtp() async {
     try {
-      final userRM = await remoteApi.signIn(
-        email: email,
-        password: password,
-      );
-      await _secureStorage.upsertUser(
-        id: userRM.id,
-        name: userRM.name ?? 'nameRM',
-        lastName: userRM.lastName,
-        slug: userRM.sites?[1].path ?? '/',
-        email: userRM.email,
-        jobTitle: userRM.jobTitle,
-        phone: userRM.phone,
-        companyName: userRM.companyName,
-        companyAddress: userRM.companyAddress,
-        companyCountry: userRM.companyCountry,
-        accountName: userRM.sites?[1].accountName,
-        companyDomain: userRM.sites?[1].companyDomain,
-        token: userRM.token!,
-      );
-
-      _userSubject.add(
-        User(
-          id: userRM.id,
-          name: userRM.name,
-          lastName: userRM.lastName,
-          slug: userRM.sites?[1].path ?? '/',
-          email: userRM.email,
-          jobTitle: userRM.jobTitle,
-          phone: userRM.phone,
-          companyName: userRM.companyName,
-          companyAddress: userRM.companyAddress,
-          companyCountry: userRM.companyCountry,
-          accountName: userRM.sites?[1].accountName,
-          companyDomain: userRM.sites?[1].companyDomain,
-        ),
-      );
+      await remoteApi.sendOtp();
     } catch (error) {
-      if (error is InvalidCredentialsTymerException) {
-        throw InvalidCredentialsException();
-      }
-      if (error is InvalidEmailFormatTymerException) {
-        throw InvalidEmailFormatException();
+      if (error is RateLimitedTymerException) {
+        throw OtpRateLimitExceededException();
       }
       rethrow;
     }
   }
 
-  Future sendOtp(String email) async {
+  Future sendOtpForForgotPassword({
+    required String phone,
+  }) async {
     try {
-      await remoteApi.sendOtp(
-        email: email,
+      await remoteApi.forgotPassword(
+        phone: phone,
       );
     } catch (error) {
-      if (error is EmailNotRegisteredTymerException) {
-        throw EmailNotRegisteredException();
+      if (error is RateLimitedTymerException) {
+        throw OtpRateLimitExceededException();
+      }
+      rethrow;
+    }
+  }
+
+  Future signIn({
+    required String phone,
+    required String password,
+  }) async {
+    try {
+      await cacheRememberedCredentials(
+        phone: phone,
+        password: password,
+      );
+      final token = await remoteApi.signIn(
+        phone: phone,
+        password: password,
+      );
+      _secureStorage.upsertUserToken(token: token);
+      final userRM = await remoteApi.getUser();
+      final isPhoneVerified = userRM.phoneVerifiedAt != null;
+      final userDM = userRM.toDomainModel();
+      await _secureStorage.upsertUser(
+        id: userRM.id,
+        name: userRM.name,
+        email: userRM.email,
+        phone: userRM.phone,
+      );
+
+      if (!isPhoneVerified) {
+        await sendOtp();
+        final otpVer = OtpVerification(
+          phone: phone,
+          reason: OtpVerificationReason.login,
+        );
+        changeNotifier.setOtpVerification(otpVer);
+        throw PhoneNotVerifiedException();
+      }
+
+      _userSubject.add(
+        userDM,
+      );
+    } catch (error) {
+      if (error is InvalidCredentialsTymerException) {
+        throw InvalidCredentialsException();
+      }
+      if (error is RateLimitedTymerException) {
+        throw OtpRateLimitExceededException();
+      }
+      rethrow;
+    }
+  }
+
+  Future signUp({
+    required String email,
+    required String password,
+    required String name,
+    required String phone,
+    required String passwordConfirmation,
+  }) async {
+    try {
+      final token = await remoteApi.signUp(
+        email: email,
+        password: password,
+        name: name,
+        phone: phone,
+        passwordConfirmation: passwordConfirmation,
+      );
+      await _secureStorage.upsertUserToken(token: token);
+      final otpVerification = OtpVerification(
+        phone: phone,
+        reason: OtpVerificationReason.register,
+      );
+      changeNotifier.setOtpVerification(otpVerification);
+      final userRM = await remoteApi.getUser();
+      final userDM = userRM.toDomainModel();
+      await _secureStorage.upsertUser(
+        id: userRM.id,
+        name: name,
+        email: email,
+        phone: phone,
+      );
+
+      _userSubject.add(
+        userDM,
+      );
+    } catch (error) {
+      if (error is EmailAlreadyRegisteredTymerException) {
+        throw EmailAlreadyRegisteredException();
+      }
+      if (error is PhoneAlreadyRegisteredTymerException) {
+        throw PhoneAlreadyRegisteredException();
       }
       rethrow;
     }
   }
 
   Future verifyOtp(
-    String email,
     String otp,
   ) async {
     try {
       await remoteApi.verifyOtp(
-        email: email,
         otp: otp,
       );
     } catch (error) {
       if (error is InvalidOtpTymerException) {
         throw InvalidOtpException();
+      }
+      if (error is RateLimitedTymerException) {
+        throw OtpRateLimitExceededException();
       }
       rethrow;
     }
@@ -134,13 +190,17 @@ class UserRepository {
 
   Future<void> resetPassword({
     required String newPassword,
+    required String newPasswordConfirmation,
+    required
   }) async {
     try {
-      final email = changeNotifier.otpVerification!.email;
+      final phone = changeNotifier.otpVerification!.phone;
 
       await remoteApi.resetPassword(
-        email: email,
+        phone: phone,
         newPassword: newPassword,
+        newPasswordConfirmation: newPasswordConfirmation,
+
       );
     } catch (error) {
       rethrow;
@@ -156,16 +216,16 @@ class UserRepository {
     String? image,
   }) async {
     try {
-      final user = await getUser().first;
-      await remoteApi.updateProfile(
-        userId: user!.id,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        phone: phone,
-        jobTitle: jobTitle,
-        image: image,
-      );
+      // final user = await getUser().first;
+      // await remoteApi.updateProfile(
+      //   userId: user!.id,
+      //   firstName: firstName,
+      //   lastName: lastName,
+      //   email: email,
+      //   phone: phone,
+      //   jobTitle: jobTitle,
+      //   image: image,
+      // );
     } catch (error) {
       rethrow;
     }
@@ -178,7 +238,7 @@ class UserRepository {
     try {
       final user = await getUser().first;
       await remoteApi.changePassword(
-        email: user!.email!,
+        email: user!.email,
         oldPassword: oldPassword,
         newPassword: newPassword,
       );
@@ -208,31 +268,18 @@ class UserRepository {
     // if (!_userSubject.hasValue) {
     final userId = await _secureStorage.getUserId();
     final userName = await _secureStorage.getUserName();
-    final userLastName = await _secureStorage.getUserLastName();
-    final userSlug = await _secureStorage.getUserSlug();
     final userEmail = await _secureStorage.getUserEmail();
-    final userJobTitle = await _secureStorage.getUserJobTitle();
     final userPhone = await _secureStorage.getUserPhone();
-    final userCompanyName = await _secureStorage.getUserCompanyName();
-    final userCompanyAddress = await _secureStorage.getUserCompanyAddress();
-    final userCompanyCountry = await _secureStorage.getUserCompanyCountry();
-    final userAccountName = await _secureStorage.getUserAccountName();
-    final userCompanyDomain = await _secureStorage.getUserCompanyDomain();
 
-    if (userId != null && userName != null && userSlug != null) {
+    if (userId != null &&
+        userName != null &&
+        userEmail != null &&
+        userPhone != null) {
       final user = User(
         id: userId,
         name: userName,
-        lastName: userLastName,
-        slug: userSlug,
         email: userEmail,
-        jobTitle: userJobTitle,
         phone: userPhone,
-        companyName: userCompanyName,
-        companyAddress: userCompanyAddress,
-        companyCountry: userCompanyCountry,
-        accountName: userAccountName,
-        companyDomain: userCompanyDomain,
       );
       _userSubject.add(user);
     } else {
@@ -242,25 +289,25 @@ class UserRepository {
   }
 
   Future cacheRememberedCredentials({
-    required String email,
+    required String phone,
     required String password,
   }) async {
-    await _secureStorage.upsertRememberEmail(email: email);
+    await _secureStorage.upsertRememberPhone(phone: phone);
     await _secureStorage.upsertRememberPassword(password: password);
   }
 
   Future<RememberMe> getRememberedCredentials() async {
-    final email = await _secureStorage.getRememberEmail();
+    final email = await _secureStorage.getRememberPhone();
     final password = await _secureStorage.getRememberPassword();
     final rememberMe = RememberMe(
       password: password,
-      email: email,
+      phone: email,
     );
     return rememberMe;
   }
 
   Future deleteRememberedCredentials() async {
-    await _secureStorage.deleteRememberEmail();
+    await _secureStorage.deleteRememberPhone();
     await _secureStorage.deleteRememberPassword();
   }
 }

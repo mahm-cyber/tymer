@@ -4,15 +4,34 @@ class UrlBuilder {
   }) : _baseUrl = baseUrl ?? 'https://api.tymer-eg.com/api/v1';
 
   final String _baseUrl;
-
+  static const String _authSlug = 'auth';
 
   String buildSignInUrl() {
-    final completeUrl = '$_baseUrl/auth/register';
+    final completeUrl = '$_baseUrl/$_authSlug/login';
     return completeUrl;
   }
-  String buildSignUpUrl() {
-    final completeUrl = '$_baseUrl/auth/register';
+
+  String buildGetUserUrl() {
+    final completeUrl = '$_baseUrl/$_authSlug/me';
     return completeUrl;
+  }
+
+  String buildSignUpUrl() {
+    final completeUrl = '$_baseUrl/$_authSlug/register';
+    return completeUrl;
+  }
+
+  String buildSendOtpUrl() {
+    final completeUrl = '$_baseUrl/$_authSlug/phone-number/resend-verification';
+    return completeUrl;
+  }
+  String buildForgotPasswordUrl() {
+    final completeUrl = '$_baseUrl/$_authSlug/forgot-password';
+    return completeUrl;
+  }
+
+  String buildVerifyOtpUrl() {
+    return '$_baseUrl/$_authSlug/phone-number/verify';
   }
 
   String buildUpdateUserUrl() {
@@ -28,13 +47,6 @@ class UrlBuilder {
   String buildChangePasswordUrl() {
     final completeUrl = '$_baseUrl/changePassword';
     return completeUrl;
-  }
-
-  buildSendOtpUrl() {
-    return '$_baseUrl/sendOtp';
-  }
-  buildVerifyOtpUrl() {
-    return '$_baseUrl/verifyOtp';
   }
 
   buildResetPasswordUrl() {

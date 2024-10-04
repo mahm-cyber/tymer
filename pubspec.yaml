@@ -22,7 +22,6 @@ dependencies:
     path: packages/key_value_storage
   user_repository:
     path: packages/user_repository
-
   function_and_extension_library:
     path: packages/function_and_extension_library
 
@@ -30,22 +29,27 @@ dependencies:
 
 
 
+  initial:
+    path: packages/features/initial
   tab_container:
     path: packages/features/tab_container
-
   home:
     path: packages/features/home
+
 
 
   # Authentication
   sign_in:
     path: packages/features/sign_in
+  sign_up:
+    path: packages/features/sign_up
   verify_otp:
     path: packages/features/verify_otp
   reset_password:
     path: packages/features/reset_password
-  send_otp:
-    path: packages/features/send_otp
+  forgot_password:
+    path: packages/features/forgot_password
+
 
 
   # Domain Models and Component Library
@@ -78,14 +82,18 @@ flutter:
         - asset: fonts/Tajawal/Tajawal-Light.ttf
         - asset: fonts/Tajawal/Tajawal-Medium.ttf
         - asset: fonts/Tajawal/Tajawal-Regular.ttf
-    - family: Gotham
+    - family: Montserrat
       fonts:
-        - asset: fonts/Gotham/GothamBold.ttf
-        - asset: fonts/Gotham/GothamBook.ttf
-        - asset: fonts/Gotham/GothamLight.ttf
-        - asset: fonts/Gotham/GothamMedium.ttf
-        - asset: fonts/Gotham/GothamMedium_1.ttf
+        - asset: fonts/Montserrat/Montserrat-Black.ttf
+        - asset: fonts/Montserrat/Montserrat-Bold.ttf
+        - asset: fonts/Montserrat/Montserrat-ExtraBold.ttf
+        - asset: fonts/Montserrat/Montserrat-Light.ttf
+        - asset: fonts/Montserrat/Montserrat-Medium.ttf
+        - asset: fonts/Montserrat/Montserrat-Regular.ttf
+        - asset: fonts/Montserrat/Montserrat-Thin.ttf
+        - asset: fonts/Montserrat/Montserrat-SemiBold.ttf
 
   assets:
     - assets/
     - assets/icons/
+    - assets/icons/tab_container/

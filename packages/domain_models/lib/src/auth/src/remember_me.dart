@@ -2,16 +2,16 @@ import 'package:equatable/equatable.dart';
 
 class RememberMe extends Equatable {
   const RememberMe({
-    this.email,
+    this.phone,
     this.password,
   });
 
-  final String? email;
+  final String? phone;
   final String? password;
 
   @override
   List<Object?> get props => [
-        email,
+        phone,
         password,
       ];
 }

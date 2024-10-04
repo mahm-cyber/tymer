@@ -11,10 +11,12 @@ typedef UserTokenSupplier = Future<String?> Function();
 class TymerApi {
   static const _errorJsonKey = 'error';
   static const _otpJsonKey = 'otp';
+  static const _dataJsonKey = 'data';
   static const _accessTokenJsonKey = 'access_token';
   static const _verificationErrorsJsonKey = 'verification_errors';
   static const _emailJsonKey = 'email';
   static const _phoneNumberJsonKey = 'phone_number';
+  static const _codeJsonKey = 'code';
 
   TymerApi({
     required UserTokenSupplier userTokenSupplier,
@@ -46,35 +48,42 @@ class TymerApi {
   final ValueNotifier internetConnectionErrorVN;
   final UrlBuilder urlBuilder;
 
-  Future<UserRM> signIn({
-    required String email,
+  Future<String> signIn({
+    required String phone,
     required String password,
   }) async {
     final url = urlBuilder.buildSignInUrl();
 
     final requestJsonBody = UserCredentialsRM(
-      email: email,
+      phone: '+2$phone',
       password: password,
     ).toJson();
 
-    final response = await _dio.post(
-      url,
-      data: requestJsonBody,
-    );
     try {
-      final jsonObject = response.data;
-      final user = UserRM.fromJson(jsonObject);
-      return user;
-    } catch (_) {
-      final error = response.data[_errorJsonKey];
-      final errorString = error.toString().toLowerCase();
-      final invalidPassword = errorString.contains('password') == true;
-      final invalidEmail = errorString.contains('user') == true;
-      final invalidCredentials = invalidPassword || invalidEmail;
-      if (invalidCredentials) {
+      final response = await _dio.post(
+        url,
+        data: requestJsonBody,
+      );
+      final token = response.data[_accessTokenJsonKey];
+      return token;
+    } on DioException catch (error) {
+      final errorObject =
+          error.response?.data[_errorJsonKey][_verificationErrorsJsonKey];
+      if (errorObject.containsKey(_phoneNumberJsonKey)) {
         throw InvalidCredentialsTymerException();
       }
+      rethrow;
+    }
+  }
 
+  Future<UserRM> getUser() async {
+    final url = urlBuilder.buildGetUserUrl();
+
+    try {
+      final response = await _dio.get(url);
+      final user = UserRM.fromJson(response.data[_dataJsonKey]);
+      return user;
+    } catch (_) {
       rethrow;
     }
   }
@@ -104,7 +113,8 @@ class TymerApi {
       final userToken = response.data[_accessTokenJsonKey] as String;
       return userToken;
     } on DioException catch (error) {
-      final errorObject = error.response?.data[_verificationErrorsJsonKey];
+      final errorObject =
+          error.response?.data[_errorJsonKey][_verificationErrorsJsonKey];
       if (errorObject.containsKey(_emailJsonKey) &&
           errorObject[_emailJsonKey].first.contains('تم أخذها مسبقاً')) {
         throw EmailAlreadyRegisteredTymerException();
@@ -204,53 +214,73 @@ class TymerApi {
     }
   }
 
-  Future sendOtp({
-    required String email,
-  }) async {
+  Future sendOtp() async {
     final url = urlBuilder.buildSendOtpUrl();
 
     try {
-      final response = await _dio.post(
+      await _dio.post(
         url,
-        data: {"email": email},
       );
-      final error = response.data[_errorJsonKey];
-      final phoneNotRegistered =
-          error.toString().toLowerCase().contains('user');
-      if (phoneNotRegistered) throw EmailNotRegisteredTymerException();
-      final otp = response.data[_otpJsonKey].toString();
-      debugPrint('----otp: $otp');
-    } catch (_) {
+    } on DioException catch (error) {
+      final errorObject = error.response?.data[_errorJsonKey];
+
+      if (errorObject[_codeJsonKey].contains('RATE_LIMITED')) {
+        throw RateLimitedTymerException();
+      }
+      rethrow;
+    }
+  }
+
+  Future forgotPassword({
+    required String phone,
+  }) async {
+    final url = urlBuilder.buildForgotPasswordUrl();
+
+    try {
+      await _dio.post(
+        url,
+        data: {
+          "phone_number": '2+$phone',
+        },
+      );
+    } on DioException catch (error) {
+      final errorObject = error.response?.data[_errorJsonKey];
+      if (errorObject[_codeJsonKey].contains('RATE_LIMITED')) {
+        throw RateLimitedTymerException();
+      }
       rethrow;
     }
   }
 
   Future verifyOtp({
-    required String email,
     required String otp,
   }) async {
     final url = urlBuilder.buildVerifyOtpUrl();
 
     try {
-      final response = await _dio.post(
+      await _dio.post(
         url,
         data: {
-          "email": email,
-          "otp": otp,
+          "otp_code": otp,
         },
       );
-      final error = response.data[_errorJsonKey];
-      final invalidOtp =
-          error.toString().toLowerCase().contains('invalid') == true;
-      if (invalidOtp) throw InvalidOtpTymerException();
-    } catch (_) {
+    } on DioException catch (error) {
+      final errorObject = error.response?.data[_errorJsonKey];
+      if (errorObject[_codeJsonKey]
+          .contains('PHONE_NUMBER_VERIFICATION_OTP_MISMATCH')) {
+        throw InvalidOtpTymerException();
+      }
+      if (errorObject[_codeJsonKey].contains('RATE_LIMITED')) {
+        throw RateLimitedTymerException();
+      }
       rethrow;
     }
   }
 
   Future resetPassword({
-    required String email,
+    required String phone,
     required String newPassword,
+    required String newPasswordConfirmation,
   }) async {
     final url = urlBuilder.buildResetPasswordUrl();
 
@@ -258,8 +288,9 @@ class TymerApi {
       await _dio.post(
         url,
         data: {
-          "email": email,
+          "email": phone,
           "password": newPassword,
+          "password_confirmation": newPasswordConfirmation,
         },
       );
     } catch (_) {
@@ -288,7 +319,7 @@ extension on Dio {
           options.headers.addAll(
             {
               "Accept": "application/json",
-              "auth": token,
+              if (token != null) "Authorization": "Bearer $token",
               "X-API-Key": "01f64a264be7442a9008abda93d5d6ae",
             },
           );

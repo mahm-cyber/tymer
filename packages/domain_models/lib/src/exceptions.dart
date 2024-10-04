@@ -2,22 +2,20 @@ class UserAuthRequiredException implements Exception {}
 
 class InvalidCredentialsException implements Exception {}
 
-class IncorrectPasswordException implements Exception {}
-
-class DuplicateNameException implements Exception {}
-
 class InvalidEmailFormatException implements Exception {}
 
 class InvalidOtpException implements Exception {}
 
+class OtpRateLimitExceededException implements Exception {}
+
 class EmailNotRegisteredException implements Exception {}
 
 class WrongPasswordException implements Exception {}
-class UserExpiredException implements Exception {}
 
+class EmailAlreadyRegisteredException implements Exception {}
 
-class InternetConnectionException implements Exception {}
+class PhoneAlreadyRegisteredException implements Exception {}
 
+class PhoneNotRegisteredException implements Exception {}
 
-
-
+class PhoneNotVerifiedException implements Exception {}

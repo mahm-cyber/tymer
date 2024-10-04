@@ -20,50 +20,35 @@ class RememberMeAndForgotPassword extends StatelessWidget {
       builder: (context, state) {
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
-        return Row(
-          children: [
-            SizedBox(
-              width: theme.screenMargin,
-            ),
-            GestureDetector(
-              onTap: isSubmissionInProgress
-                  ? null
-                  : () => cubit.rememberMeEmitter(
-                        !state.shouldRememberCredentials,
-                      ),
-              child: Row(
-                children: [
-                  SizedBox(
-                    height: 24,
-                    width: 24,
-                    child: Checkbox(
-                      value: state.shouldRememberCredentials,
-                      onChanged: isSubmissionInProgress
-                          ? null
-                          : (_) {
-                              cubit.rememberMeEmitter(
-                                !state.shouldRememberCredentials,
-                              );
-                            },
-                    ),
+        return GestureDetector(
+          onTap: isSubmissionInProgress
+              ? null
+              : () => cubit.rememberMeEmitter(
+                    !state.shouldRememberCredentials,
                   ),
-                  HorizontalGap.xSmall(),
-                  Text(
-                    l10n.rememberMeCheckBoxLabel,
-                    style: textTheme.titleMedium,
-                  ),
-                ],
+          child: Row(
+            children: [
+              SizedBox(
+                height: 24,
+                width: 24,
+                child: Checkbox(
+                  value: state.shouldRememberCredentials,
+                  onChanged: isSubmissionInProgress
+                      ? null
+                      : (_) {
+                          cubit.rememberMeEmitter(
+                            !state.shouldRememberCredentials,
+                          );
+                        },
+                ),
               ),
-            ),
-            // const Spacer(),
-            // Text(
-            //   l10n.forgotMyPasswordButtonLabel,
-            //   style: textTheme.titleMedium,
-            // ),
-            // SizedBox(
-            //   width: theme.screenMargin,
-            // ),
-          ],
+              HorizontalGap.xSmall(),
+              Text(
+                l10n.rememberMeCheckBoxLabel,
+                style: textTheme.titleMedium,
+              ),
+            ],
+          ),
         );
       },
     );

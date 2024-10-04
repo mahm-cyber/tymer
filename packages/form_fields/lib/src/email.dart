@@ -27,9 +27,9 @@ class Email extends FormzInput<String?, EmailValidationError>
   //   '([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])'
   //   ')|([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})\$',
   // );
-  // static final _emailRegex = RegExp(
-  //   r'^[a-zA-Z\d._%+-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$',
-  // );
+  static final _emailRegex = RegExp(
+    r'^[a-zA-Z\d._%+-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$',
+  );
   final bool isAlreadyRegistered;
   final bool isNotRegistered;
   final bool invalidCredentials;
@@ -41,14 +41,14 @@ class Email extends FormzInput<String?, EmailValidationError>
     if (isPure) return null;
     if (value == null && isRequired) return EmailValidationError.empty;
     if (value?.isEmpty == true && isRequired) return EmailValidationError.empty;
-    if (isAlreadyRegistered) return EmailValidationError.alreadyRegistered;
+      if (isAlreadyRegistered) return EmailValidationError.alreadyRegistered;
     if (isNotRegistered) return EmailValidationError.isNotRegistered;
     if (invalidCredentials) return EmailValidationError.invalidCredentials;
-    // if (value != null &&
-    //     value.isNotEmpty &&
-    //     (!_emailRegex.hasMatch(value) || invalidFormat)) {
-    //   return EmailValidationError.invalidFormat;
-    // }
+    if (value != null &&
+        value.isNotEmpty &&
+        (!_emailRegex.hasMatch(value) || invalidFormat)) {
+      return EmailValidationError.invalidFormat;
+    }
     return null;
   }
 

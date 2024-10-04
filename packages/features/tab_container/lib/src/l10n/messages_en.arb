@@ -1,11 +1,9 @@
+
 {
-  "tasksTabLabel": "Tasks",
-  "contactsTabLabel": "Contacts",
-  "dashboardTabLabel": "Dashboard",
-  "companiesTabLabel": "Companies",
-  "dealsTabLabel": "Deals",
-  "menuTabLabel": "Menu",
-  "appDependenciesFetchSuccessSnackBarMessage": "App content updated successfully",
-  "refreshAppDepButtonTooltip": "Refreshes the app content"
+  "homeTabLabel": "Home",
+  "searchTabLabel": "Search",
+  "walletTabLabel": "Wallet",
+  "ordersTabLabel": "Orders",
+  "profileTabLabel": "Profile"
 
 }

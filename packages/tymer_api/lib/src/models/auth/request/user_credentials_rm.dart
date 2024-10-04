@@ -5,12 +5,12 @@ part 'user_credentials_rm.g.dart';
 @JsonSerializable(createFactory: false)
 class UserCredentialsRM {
   const UserCredentialsRM({
-    required this.email,
+    required this.phone,
     required this.password,
   });
 
-  @JsonKey(name: 'username')
-  final String email;
+  @JsonKey(name: 'phone_number')
+  final String phone;
   @JsonKey(name: 'password')
   final String password;
 

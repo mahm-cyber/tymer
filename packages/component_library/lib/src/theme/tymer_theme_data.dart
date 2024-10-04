@@ -6,17 +6,11 @@ import 'package:flutter/material.dart';
 abstract class TymerThemeData {
   ThemeData get materialThemeData;
 
-  final iconColor = const Color(0xFF191F6D);
-  final primaryColor = const Color(0xFF004746);
+  final iconColor = const Color(0xFF2C8268);
+  final primaryColor = const Color(0xFF2C8268);
   final secondaryColor = const Color(0xFF5F45BF);
   final tertiaryColor = const Color(0xFFBA38F2);
 
-  final dealLeadStageColor = const Color(0xFF5F45BF); // Lead
-  final dealContactedStageColor = const Color(0xFF6D48B2); // Contacted
-  final dealMeetingStageColor = const Color(0xFF7D4BA4); // Meeting
-  final dealProposalStageColor = const Color(0xFFA25383); // Proposal
-  final dealWonStageColor = const Color(0xFFBA586D); // Won
-  final dealLostStageColor = const Color(0xFFD95E52); // Lost
 
   final successContainerColor = const Color(0xFFE3FFEC);
   final successOnContainerColor = const Color(0xFF19B100);
@@ -27,43 +21,23 @@ abstract class TymerThemeData {
 
   final switchActiveColor = Colors.white;
   final backButtonIconColor = Colors.white;
-  final discountChipTextColor = Colors.white;
   final secondaryContainerBgColor = const Color(0xFFF2F4F7);
-  final initialsBgColor = const Color(0xFFD9D9D9);
-  final selectedBgColor = const Color(0xFFD0CDE0);
-  final unselectedCheckboxBorderColor = const Color(0xFFD7D5DD);
-  final borderColor = const Color(0xFFD8DADC);
-  final xMarkColor = const Color(0xFFC3C3C3);
+  final borderColor = const Color(0xFFD0D0D0);
   final dimmedTextColor = const Color(0xFF5A5D66);
-  final updatePhotoTextColor = const Color(0xFF7D7C7C);
   final secondaryIconColor = const Color(0xFF8B8B8B);
-  final switchInactiveTrackColor = Colors.grey;
+  final switchInactiveTrackColor = const Color(0xFFDCE0E1);
   final initialsTextColor = const Color(0xFFA2A0A7);
 
   final screenMargin = Spacing.mediumLarge;
   final listViewVerticalSpacing = Spacing.medium;
-  final textFieldBorderRadius = 5.0;
+  final textFieldBorderRadius = 10.0;
   final searchTextFieldBorderRadius = 25.0;
-  final double elevatedButtonBorderRadius = 5;
+  final double elevatedButtonBorderRadius = 10;
 
   final profileDescriptionTextShadow = Shadow(
     offset: const Offset(0, 4),
     blurRadius: 4,
     color: Colors.black.withOpacity(0.25),
-  );
-
-  final boxShadow = const [
-    BoxShadow(
-      color: Color.fromRGBO(0, 0, 0, 0.15), // Shadow color with opacity
-      offset: Offset(0, 3), // Horizontal and vertical offsets
-      blurRadius: 3, // Blur radius
-    ),
-  ];
-
-  final hintStyle = TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w400,
-    color: const Color(0xFF3B2E8C).withOpacity(0.5),
   );
 }
 
@@ -126,15 +100,16 @@ class LightTymerThemeData extends TymerThemeData {
             borderRadius: BorderRadius.circular(20),
           ),
         ),
+        hintColor: const Color(0xFF6C6C6C),
         inputDecorationTheme: InputDecorationTheme(
           contentPadding: const EdgeInsets.symmetric(
-            vertical: Spacing.xSmall,
-            horizontal: Spacing.small,
+            vertical: Spacing.mediumLarge,
+            horizontal: Spacing.medium,
           ),
-          hintStyle: hintStyle,
           disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(textFieldBorderRadius),
-              borderSide: BorderSide(color: borderColor, width: 1)),
+            borderRadius: BorderRadius.circular(textFieldBorderRadius),
+            borderSide: BorderSide(color: borderColor, width: 1),
+          ),
           suffixIconColor: secondaryIconColor,
           filled: true,
           // fillColor: textFieldFillColor,
@@ -143,7 +118,7 @@ class LightTymerThemeData extends TymerThemeData {
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(textFieldBorderRadius),
-            borderSide: BorderSide(color: primaryColor),
+            borderSide: BorderSide(color: borderColor),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderSide: BorderSide(color: errorColor),

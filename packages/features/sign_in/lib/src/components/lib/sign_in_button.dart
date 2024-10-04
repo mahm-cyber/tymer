@@ -18,30 +18,15 @@ class SignInButton extends StatelessWidget {
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
         final cubit = context.read<SignInCubit>();
-        final theme = TymerTheme.of(context);
         final l10n = SignInLocalizations.of(context);
-        return Container(
-          padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
-          decoration: BoxDecoration(
-            boxShadow: isSubmissionInProgress
-                ? null
-                : [
-                    const BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.25),
-                      offset: Offset(0, 4),
-                      blurRadius: 26,
-                    ),
-                  ],
-          ),
-          child: isSubmissionInProgress
-              ? TymerElevatedButton.inProgress(
-                  label: l10n.signInInProgressButtonLabel,
-                )
-              : TymerElevatedButton(
-                  onTap: cubit.onSubmit,
-                  label: l10n.signInButtonLabel,
-                ),
-        );
+        return isSubmissionInProgress
+            ? TymerElevatedButton.inProgress(
+                label: l10n.signInInProgressButtonLabel,
+              )
+            : TymerElevatedButton(
+                onTap: cubit.onSubmit,
+                label: l10n.signInButtonLabel,
+              );
       },
     );
   }

@@ -1,0 +1,16 @@
+{
+  "verifyOtpTitle": "Verify OTP",
+  "otpResentSuccessfullySnackBarMessage": "OTP resent successfully",
+  "otpResentErrorSnackBarMessage": "Error occurred while resending OTP",
+  "otpVerifiedSuccessfullySnackBarMessage": "OTP verified successfully",
+  "generalErrorSnackBarMessage": "An error occurred",
+  "verifyOtpSubtitle": "Enter the OTP sent to your phone number to change your password",
+  "requiredFieldErrorMessage": "Required*",
+  "incorrectOtpCodeErrorMessage": "The OTP you entered is incorrect, please try again",
+  "verifyingOtpButtonLabel": "Verifying",
+  "verifyOtpButtonLabel": "Verify OTP",
+  "emailNotRegisteredErrorMessage": "The email you entered is not registered",
+  "resendOtpButtonLabel": "Resend OTP",
+  "changeEmailSubtitle": "Enter the OTP sent to your phone number to change your email",
+  "otpLimitCrossedErrorSnackBarMessage": "Limit of OTP verification attempts crossed"
+}

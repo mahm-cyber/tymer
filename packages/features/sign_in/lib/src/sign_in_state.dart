@@ -5,7 +5,7 @@ class SignInState extends Equatable {
     this.shouldRememberCredentials = true,
     this.rememberMeLoading = false,
     this.rememberMe = const RememberMe(),
-    this.email = const Email.unvalidated(),
+    this.phone = const Mobile.unvalidated(),
     this.password = const Password.unvalidated(),
     this.error,
     this.submissionStatus = FormzSubmissionStatus.initial,
@@ -14,7 +14,7 @@ class SignInState extends Equatable {
   final bool shouldRememberCredentials;
   final bool rememberMeLoading;
   final RememberMe rememberMe;
-  final Email email;
+  final Mobile phone;
   final Password password;
   final dynamic error;
   final FormzSubmissionStatus submissionStatus;
@@ -23,7 +23,7 @@ class SignInState extends Equatable {
     bool? shouldRememberCredentials,
     bool? rememberMeLoading,
     RememberMe? rememberMe,
-    Email? email,
+    Mobile? phone,
     Password? password,
     dynamic error,
     FormzSubmissionStatus? submissionStatus,
@@ -33,7 +33,7 @@ class SignInState extends Equatable {
           shouldRememberCredentials ?? this.shouldRememberCredentials,
       rememberMeLoading: rememberMeLoading ?? this.rememberMeLoading,
       rememberMe: rememberMe ?? this.rememberMe,
-      email: email ?? this.email,
+      phone: phone ?? this.phone,
       password: password ?? this.password,
       error: error,
       submissionStatus: submissionStatus ?? this.submissionStatus,
@@ -45,7 +45,7 @@ class SignInState extends Equatable {
         shouldRememberCredentials,
         rememberMeLoading,
         rememberMe,
-        email,
+        phone,
         password,
         error,
         submissionStatus,

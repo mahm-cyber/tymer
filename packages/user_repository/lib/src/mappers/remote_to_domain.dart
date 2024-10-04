@@ -7,13 +7,16 @@ extension UserRMtoDM on UserRM {
       id: id,
       name: name,
       email: email,
-      jobTitle: jobTitle,
       phone: phone,
-      companyName: companyName,
-      companyAddress: companyAddress,
-      companyCountry: companyCountry,
-      accountName: sites?.first.accountName,
-      companyDomain: sites?.first.companyDomain,
+      emailVerifiedAt: emailVerifiedAt,
+      phoneVerifiedAt: phoneVerifiedAt,
+      permissions: permissions,
+      roles: roles,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      deletedAt: deletedAt,
+
+
     );
   }
 }

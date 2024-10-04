@@ -5,7 +5,7 @@ class SignInLocalizationsAr extends SignInLocalizations {
   SignInLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get generalErrorSnackBarMessage => 'ٍSomething went wrong';
+  String get generalErrorSnackBarMessage => 'حدث خطأ ما';
 
   @override
   String get invalidCredentialsErrorMessage => 'بريد الكترونى او كلمة مرور خطأ';
@@ -14,10 +14,10 @@ class SignInLocalizationsAr extends SignInLocalizations {
   String get requiredFieldErrorMessage => 'مطلوب*';
 
   @override
-  String get emailTextFieldLabel => 'البريد الإلكتروني';
+  String get phoneTextFieldLabel => 'البريد الإلكتروني';
 
   @override
-  String get invalidEmailFormatErrorMessage => 'صيغة البريد الإلكتروني غير صحيح';
+  String get invalidPhoneFormatErrorMessage => 'صيغة البريد الإلكتروني غير صحيح';
 
   @override
   String get passwordTextFieldLabel => 'كلمة المرور';
@@ -33,4 +33,22 @@ class SignInLocalizationsAr extends SignInLocalizations {
 
   @override
   String get signInInProgressButtonLabel => 'جارى تسجيل الدخول';
+
+  @override
+  String get unverifiedPhoneErrorMessage => 'البريد الإلكتروني غير مفعل';
+
+  @override
+  String get phoneNotVerifiedErrorSnackBarMessage => 'البريد الإلكتروني غير مفعل، تم إرسال رمز التحقق';
+
+  @override
+  String get orLoginWith => 'أو تسجيل الدخول بواسطة';
+
+  @override
+  String get dontHaveAnAccount => 'ليس لديك حساب؟';
+
+  @override
+  String get signUpButtonLabel => 'سجل';
+
+  @override
+  String get otpRateLimitExceededExceptionErrorSnackBarMessage => 'تم الوصول إلى الحد الأقصى لطلبات رمز التحقق';
 }

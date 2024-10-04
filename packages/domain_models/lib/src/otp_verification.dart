@@ -1,10 +1,10 @@
 class OtpVerification {
   const OtpVerification({
-    required this.email,
+    required this.phone,
     required this.reason,
   });
 
-  final String email;
+  final String phone;
   final OtpVerificationReason reason;
 
   bool get isRegistrationOrLogin =>

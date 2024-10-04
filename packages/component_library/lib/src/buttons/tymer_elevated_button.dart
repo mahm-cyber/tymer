@@ -1,7 +1,7 @@
 import 'package:component_library/src/theme/tymer_theme.dart';
 import 'package:flutter/material.dart';
 
-const double elevatedButtonHeight = 37;
+const double elevatedButtonHeight = 50;
 
 class TymerElevatedButton extends StatelessWidget {
   const TymerElevatedButton({
@@ -78,8 +78,8 @@ class TymerElevatedButton extends StatelessWidget {
               iconAlignment: iconAlignment,
               label: Text(
                 label,
-                style: textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.w500,
+                style: textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
                   color: labelColor,
                 ),
                 maxLines: 1,
@@ -92,8 +92,8 @@ class TymerElevatedButton extends StatelessWidget {
               onPressed: onTap,
               child: Text(
                 label,
-                style: textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.w500,
+                style: textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
                   color: labelColor,
                 ),
                 maxLines: 1,

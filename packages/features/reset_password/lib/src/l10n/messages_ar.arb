@@ -1,0 +1,16 @@
+{
+  "resetPasswordSuccessMessage": "تم إعادة تعيين كلمة المرور بنجاح",
+  "resetPasswordScreenTitle": "إعادة ضبط كلمة المرور",
+  "resetPasswordScreenSubtitle": "ادخل كلمة المرور الجديدة",
+  "submissionInProgressButtonLabel": "جارٍ التقديم",
+  "submitButtonLabel": "إرسال",
+  "newPasswordTextFieldLabel": "كلمة المرور الجديدة",
+  "requiredFieldErrorMessage": "مطلوب*",
+  "newPasswordTextFieldWeakPasswordError": "كلمة المرور ضعيفة جدًا",
+  "newPasswordTextFieldHint": "أدخل كلمة المرور الجديدة",
+  "newPasswordConfirmationTextFieldLabel": "تأكيد كلمة المرور الجديدة",
+  "newPasswordConfirmationTextFieldHint": "أعد إدخال كلمة المرور الجديدة",
+  "passwordConfirmationTextFieldDoesNotMatchError": "كلمات المرور غير متطابقة",
+  "passwordTextFieldWeakPasswordErrorDescription": "يجب أن تستوفي كلمة المرور المعايير التالية: - لا يقل طوله عن 6 أحرف - تحتوي على حرف كبير واحد على الأقل - تحتوي على حرف صغير واحد على الأقل - تحتوي على رقم واحد على الأقل - تحتوي على رمز واحد على الأقل (على سبيل المثال، @، $، !، إلخ.)"
+
+}

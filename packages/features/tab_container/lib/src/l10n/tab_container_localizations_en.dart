@@ -5,26 +5,17 @@ class TabContainerLocalizationsEn extends TabContainerLocalizations {
   TabContainerLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get tasksTabLabel => 'Tasks';
+  String get homeTabLabel => 'Home';
 
   @override
-  String get contactsTabLabel => 'Contacts';
+  String get searchTabLabel => 'Search';
 
   @override
-  String get dashboardTabLabel => 'Dashboard';
+  String get walletTabLabel => 'Wallet';
 
   @override
-  String get companiesTabLabel => 'Companies';
+  String get ordersTabLabel => 'Orders';
 
   @override
-  String get dealsTabLabel => 'Deals';
-
-  @override
-  String get menuTabLabel => 'Menu';
-
-  @override
-  String get appDependenciesFetchSuccessSnackBarMessage => 'App content updated successfully';
-
-  @override
-  String get refreshAppDepButtonTooltip => 'Refreshes the app content';
+  String get profileTabLabel => 'Profile';
 }
