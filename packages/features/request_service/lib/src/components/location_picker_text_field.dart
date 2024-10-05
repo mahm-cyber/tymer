@@ -72,7 +72,7 @@ class LocationPickerTextField extends StatelessWidget {
                       : null,
                   child: Container(
                     color: Colors.transparent,
-                    height: 60,
+                    height: 55,
                   ),
                 ),
               ),

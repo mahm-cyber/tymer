@@ -68,12 +68,11 @@ class DatePickerTextField extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 30),
                 child: GestureDetector(
                   onTap: !isSubmissionInProgress ? onTap : null,
                   child: Container(
                     color: Colors.transparent,
-                    height: 60,
+                    height: 55,
                   ),
                 ),
               ),
