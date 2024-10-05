@@ -129,7 +129,7 @@ class SignInCubit extends Cubit<SignInState> {
 
     emit(newState);
 
-    if (true) {
+    if (isFormValid) {
       try {
         await userRepository.signIn(
           phone: phone.value!,

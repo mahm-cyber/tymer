@@ -17,5 +17,6 @@ class EmailAlreadyRegisteredException implements Exception {}
 class PhoneAlreadyRegisteredException implements Exception {}
 
 class PhoneNotRegisteredException implements Exception {}
+class InsufficientBalanceException implements Exception {}
 
 class PhoneNotVerifiedException implements Exception {}

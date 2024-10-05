@@ -1,0 +1,5 @@
+
+enum ServiceType {
+  reservation,
+  other,
+}

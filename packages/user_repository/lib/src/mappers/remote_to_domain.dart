@@ -15,9 +15,24 @@ extension UserRMtoDM on UserRM {
       createdAt: createdAt,
       updatedAt: updatedAt,
       deletedAt: deletedAt,
-
-
     );
   }
 }
 
+extension ReservationServiceTypeRMtoDM on ReservationServiceTypeRM {
+  ReservationServiceType toDomainModel() {
+    return ReservationServiceType(
+      id: id,
+      name: Name(
+        ar: name.ar,
+        en: name.en,
+      ),
+    );
+  }
+}
+
+extension ReservationServiceTypesRMtoDM on ReservationServiceTypesRM {
+  List<ReservationServiceType> toDomainModel() {
+    return list.map((e) => e.toDomainModel()).toList();
+  }
+}

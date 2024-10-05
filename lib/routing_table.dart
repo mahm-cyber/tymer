@@ -1,8 +1,13 @@
+import 'package:choose_service/choose_service.dart';
 import 'package:flutter/material.dart';
+import 'package:forgot_password/forgot_password.dart';
 import 'package:home/home.dart';
 import 'package:initial/initial.dart';
+import 'package:request_service/request_service.dart';
+import 'package:reset_password/reset_password.dart';
 
 import 'package:routemaster/routemaster.dart';
+import 'package:service_repository/service_repository.dart';
 import 'package:sign_in/sign_in.dart';
 import 'package:sign_up/sign_up.dart';
 import 'package:tab_container/tab_container.dart';
@@ -12,7 +17,9 @@ import 'package:verify_otp/verify_otp.dart';
 Map<String, PageBuilder> buildRoutingTable({
   required RoutemasterDelegate routerDelegate,
   required UserRepository userRepository,
+  required ServiceRepository serviceRepository,
   required ValueNotifier<bool> signInSuccessVN,
+  required ValueNotifier<bool> isUserUnAuthSC,
 }) {
   routerDelegate.addListener(
     //print current route
@@ -20,6 +27,12 @@ Map<String, PageBuilder> buildRoutingTable({
       debugPrint('Current route: ${routerDelegate.currentConfiguration?.path}');
     },
   );
+  isUserUnAuthSC.addListener(() {
+    if (isUserUnAuthSC.value) {
+      signInSuccessVN.value = false;
+      routerDelegate.push(_PathConstants.signInPath);
+    }
+  });
   return {
     _PathConstants.initialPath: (_) => TabPage(
           backBehavior: TabBackBehavior.history,
@@ -93,10 +106,45 @@ Map<String, PageBuilder> buildRoutingTable({
           name: 'home',
           child: HomeScreen(
             userRepository: userRepository,
+            onRequestServiceTapped: () =>
+                routerDelegate.push(_PathConstants.chooseServicePath),
+            onProvideServiceTapped: () {},
             onLogout: () => signInSuccessVN.value = false,
           ),
         ),
-
+    _PathConstants.forgotPasswordPath: (_) => MaterialPage(
+          name: 'forgot-password',
+          child: ForgotPasswordScreen(
+            userRepository: userRepository,
+            onForgotPasswordSuccess: () {
+              routerDelegate.push(_PathConstants.resetPasswordPath);
+            },
+          ),
+        ),
+    _PathConstants.chooseServicePath: (_) => MaterialPage(
+          name: 'choose-service',
+          child: ChooseServiceScreen(
+            userRepository: userRepository,
+            serviceRepository: serviceRepository,
+            onRequestServiceTapped: () =>
+                routerDelegate.push(_PathConstants.requestServicePath),
+          ),
+        ),
+    _PathConstants.resetPasswordPath: (_) => MaterialPage(
+          name: 'reset-password',
+          child: ResetPasswordScreen(
+            userRepository: userRepository,
+            onBackTapped: () => routerDelegate.popRoute(),
+            onResetPasswordSuccess: () => routerDelegate.popRoute(),
+          ),
+        ),
+    _PathConstants.requestServicePath: (_) => MaterialPage(
+          name: 'request',
+          child: RequestServiceScreen(
+            userRepository: userRepository,
+            serviceRepository: serviceRepository,
+          ),
+        ),
   };
 }
 
@@ -116,4 +164,8 @@ class _PathConstants {
   static String get forgotPasswordPath => '${initialPath}forgot-password';
 
   static String get resetPasswordPath => '${initialPath}reset-password';
+
+  static String get chooseServicePath => '$homePath/choose-service';
+
+  static String get requestServicePath => '$chooseServicePath/request';
 }

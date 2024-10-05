@@ -276,4 +276,7 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get emptyTaskLogListIndicator => 'No tasks available';
+
+  @override
+  String get unAuthSnackBarErrorMessage => 'You must login first';
 }

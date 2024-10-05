@@ -67,10 +67,10 @@ extension LocalePreferenceDomainToCM on LocalePreferenceDM {
 //   }
 // }
 //
-// extension UserDMtoCM on User {
-//   UserCM toCacheModel() {
+// extension ServiceDMtoCM on Service {
+//   ServiceCM toCacheModel() {
 //     try {
-//       return UserCM(
+//       return ServiceCM(
 //         id: id,
 //         name: name ?? 'nameCM',
 //         email: email,

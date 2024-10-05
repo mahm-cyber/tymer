@@ -96,6 +96,7 @@
   "dealsCustomDropdownLabel": "الصفقات",
   "companiesCustomDropdownLabel": "الشركات",
   "successSnackBarMessage": "تمت العملية بنجاح.",
-  "emptyTaskLogListIndicator": "لا توجد مهام متاحة"
+  "emptyTaskLogListIndicator": "لا توجد مهام متاحة",
+  "unAuthSnackBarErrorMessage": "يجب تسجيل الدخول"
 }
 

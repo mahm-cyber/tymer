@@ -1,28 +1,33 @@
+import 'package:choose_service/src/choose_service_cubit.dart';
+import 'package:choose_service/src/l10n/choose_service_localizations.dart';
 import 'package:component_library/component_library.dart';
+import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
-import 'package:choose_service/src/l10n/choose_service_localizations.dart';
-import 'package:choose_service/src/choose_service_cubit.dart';
+import 'package:service_repository/service_repository.dart';
 
 import 'package:user_repository/user_repository.dart';
 
 class ChooseServiceScreen extends StatelessWidget {
   const ChooseServiceScreen({
     required this.userRepository,
-    required this.onLogout,
+    required this.serviceRepository,
+    required this.onRequestServiceTapped,
     super.key,
   });
 
   final UserRepository userRepository;
-  final VoidCallback onLogout;
+  final ServiceRepository serviceRepository;
+  final VoidCallback onRequestServiceTapped;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ChooseServiceCubit>(
       create: (_) => ChooseServiceCubit(
         userRepository: userRepository,
-        onLogout: onLogout,
+        serviceRepository: serviceRepository,
+        onRequestServiceTapped: onRequestServiceTapped,
       ),
       child: ChooseServiceView(),
     );
@@ -36,28 +41,19 @@ class ChooseServiceView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<ChooseServiceCubit>();
     final theme = TymerTheme.of(context);
     final l10n = ChooseServiceLocalizations.of(context);
-    final textTheme = Theme.of(context).textTheme;
+    final cubit = context.read<ChooseServiceCubit>();
+    final colorScheme = theme.materialThemeData.colorScheme;
     return GestureDetector(
       onTap: context.releaseFocus,
       child: Stack(
         children: [
           Scaffold(
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {},
-              child: Transform.scale(
-                  scale: 0.7,
-                  child: SvgAsset(
-                    AssetPathConstants.chatPath,
-                    width: 50,
-                    height: 50,
-                  )),
-            ),
             appBar: AppBar(
               title: SvgAsset(AssetPathConstants.whiteLogoPath),
               toolbarHeight: 160,
+              iconTheme: IconThemeData(color: colorScheme.surface),
             ),
             body: Padding(
               padding: EdgeInsets.symmetric(horizontal: theme.screenMargin * 2),
@@ -65,13 +61,13 @@ class ChooseServiceView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TymerGestureContainer(
-                    onTap: () {},
-                    icon: SvgAsset(AssetPathConstants.potPath),
+                    onTap: () => cubit.setServiceType(ServiceType.reservation),
+                    icon: Icon(Icons.arrow_forward),
                     title: l10n.skipWaitingListContainerTitle,
                   ),
                   VerticalGap.xxLarge(),
                   TymerGestureContainer(
-                    onTap: () {},
+                    onTap: () => cubit.setServiceType(ServiceType.other),
                     icon: SvgAsset(
                       AssetPathConstants.potPath,
                       color: theme.materialThemeData.colorScheme.onSurface,
@@ -90,34 +86,10 @@ class ChooseServiceView extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            top: 170,
-            left: 0,
-            right: 0,
-            child: Container(
-              alignment: Alignment.center,
-              height: 50,
-              margin: EdgeInsets.symmetric(horizontal: theme.screenMargin * 2),
-              decoration: BoxDecoration(
-                color: theme.materialThemeData.colorScheme.surface,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                boxShadow: kElevationToShadow[1],
-              ),
-              child: Row(
-                children: [
-                  Text(
-                    l10n.appBarTitle,
-                    style: textTheme.bodyMedium
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  HorizontalGap.medium(),
-                  SvgAsset(
-                    AssetPathConstants.potPath,
-                  ),
-                ],
-              ),
+          AppBarTitleContainer(
+            title: l10n.appBarTitle,
+            icon: SvgAsset(
+              AssetPathConstants.potPath,
             ),
           ),
         ],

@@ -188,11 +188,10 @@ class UserRepository {
     }
   }
 
-  Future<void> resetPassword({
-    required String newPassword,
-    required String newPasswordConfirmation,
-    required
-  }) async {
+  Future<void> resetPassword(
+      {required String newPassword,
+      required String newPasswordConfirmation,
+      required}) async {
     try {
       final phone = changeNotifier.otpVerification!.phone;
 
@@ -200,8 +199,42 @@ class UserRepository {
         phone: phone,
         newPassword: newPassword,
         newPasswordConfirmation: newPasswordConfirmation,
-
       );
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<List<ReservationServiceType>>
+      _getReservationServiceTypesFromNetwork() async {
+    try {
+      final reservationServiceTypes =
+          await remoteApi.getReservationServiceTypes();
+      final reservationServiceTypesCM = reservationServiceTypes.toCacheModel();
+      _localStorage.upsertReservationServiceTypes(reservationServiceTypesCM);
+      final reservationServiceTypesDM = reservationServiceTypes.toDomainModel();
+      return reservationServiceTypesDM;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<List<ReservationServiceType>> getReservationServiceTypes(
+    FetchPolicy fetchPolicy,
+  ) async {
+    try {
+      if (fetchPolicy == FetchPolicy.networkOnly) {
+        return _getReservationServiceTypesFromNetwork();
+      }
+      final storedReservationServiceTypesCM =
+          await _localStorage.getReservationServiceTypes();
+      if (storedReservationServiceTypesCM == null) {
+        return _getReservationServiceTypesFromNetwork();
+      } else {
+        final storedReservationServiceTypes =
+            storedReservationServiceTypesCM.toDomainModel();
+        return storedReservationServiceTypes;
+      }
     } catch (error) {
       rethrow;
     }
@@ -227,25 +260,6 @@ class UserRepository {
       //   image: image,
       // );
     } catch (error) {
-      rethrow;
-    }
-  }
-
-  Future changePassword({
-    required String oldPassword,
-    required String newPassword,
-  }) async {
-    try {
-      final user = await getUser().first;
-      await remoteApi.changePassword(
-        email: user!.email,
-        oldPassword: oldPassword,
-        newPassword: newPassword,
-      );
-    } catch (error) {
-      if (error is IncorrectPasswordTymerException) {
-        throw WrongPasswordException();
-      }
       rethrow;
     }
   }
@@ -310,4 +324,9 @@ class UserRepository {
     await _secureStorage.deleteRememberPhone();
     await _secureStorage.deleteRememberPassword();
   }
+}
+
+enum FetchPolicy {
+  networkOnly,
+  cachePreferably,
 }

@@ -37,6 +37,7 @@ class ReservationServiceTypesRM {
   ReservationServiceTypesRM({
     required this.list,
   });
+
   @JsonKey(name: 'data')
   final List<ReservationServiceTypeRM> list;
 

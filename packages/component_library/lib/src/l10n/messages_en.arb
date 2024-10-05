@@ -96,5 +96,7 @@
   "dealsCustomDropdownLabel": "Deals",
   "companiesCustomDropdownLabel": "Companies",
   "successSnackBarMessage": "Operation was successful.",
-  "emptyTaskLogListIndicator": "No tasks available"
+  "emptyTaskLogListIndicator": "No tasks available",
+  "unAuthSnackBarErrorMessage": "You must login first"
+
 }

@@ -276,4 +276,7 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get emptyTaskLogListIndicator => 'لا توجد مهام متاحة';
+
+  @override
+  String get unAuthSnackBarErrorMessage => 'يجب تسجيل الدخول';
 }

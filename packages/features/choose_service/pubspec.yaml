@@ -1,4 +1,4 @@
-name: request_service
+name: choose_service
 publish_to: none
 
 
@@ -17,5 +17,7 @@ dependencies:
     path: ../../domain_models
   user_repository:
     path: ../../user_repository
+  service_repository:
+    path: ../../service_repository
   function_and_extension_library:
     path: ../../function_and_extension_library

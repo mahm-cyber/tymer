@@ -1,7 +1,7 @@
 import 'package:key_value_storage/key_value_storage.dart';
 
-class UserLocalStorage {
-  UserLocalStorage({
+class ServiceLocalStorage {
+  ServiceLocalStorage({
     required this.noSqlStorage,
   });
 
@@ -16,6 +16,4 @@ class UserLocalStorage {
     final box = await noSqlStorage.localePreferenceBox;
     return box.get(0);
   }
-
-
 }

@@ -18,13 +18,13 @@ class TymerApi {
 
   TymerApi({
     required UserTokenSupplier userTokenSupplier,
-    required this.isUserUnAuthenticatedVN,
+    required this.isUserUnAuthSC,
     required this.internetConnectionErrorVN,
   })  : urlBuilder = UrlBuilder(),
         _dio = Dio() {
     _dio.setUpAuthHeaders(
       userTokenSupplier: userTokenSupplier,
-      isUserUnAuthSC: isUserUnAuthenticatedVN,
+      isUserUnAuthSC: isUserUnAuthSC,
       internetConnectionErrorVN: internetConnectionErrorVN,
     );
     _dio.interceptors.add(
@@ -42,7 +42,7 @@ class TymerApi {
 
   // final FirebaseMessaging _firebaseMessaging;
   final Dio _dio;
-  final ValueNotifier<bool> isUserUnAuthenticatedVN;
+  final ValueNotifier<bool> isUserUnAuthSC;
   final ValueNotifier internetConnectionErrorVN;
   final UrlBuilder urlBuilder;
 
@@ -213,12 +213,12 @@ class TymerApi {
 
   //Request Service
   Future<ReservationServiceTypesRM> getReservationServiceTypes() async {
-    final url = urlBuilder.buildRequestServiceUrl();
+    final url = urlBuilder.buildGetReservationServiceTypesUrl();
 
     try {
       final response = await _dio.get(url);
       final reservationServiceTypes =
-          ReservationServiceTypesRM.fromJson(response.data[_dataJsonKey]);
+          ReservationServiceTypesRM.fromJson(response.data);
       return reservationServiceTypes;
     } catch (_) {
       rethrow;
@@ -278,7 +278,10 @@ extension on Dio {
           final isCustomerUnAuth = error.response?.statusCode == 401;
           final internetConnectionError =
               error.type == DioExceptionType.connectionError;
-          if (isCustomerUnAuth) isUserUnAuthSC.value = (true);
+          if (isCustomerUnAuth) {
+            isUserUnAuthSC.value = (true);
+            isUserUnAuthSC.value = (false);
+          }
           if (internetConnectionError) {
             final internetConnectionException =
                 InternetConnectionTymerException();

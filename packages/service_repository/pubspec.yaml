@@ -1,4 +1,4 @@
-name: user_repository
+name: service_repository
 publish_to: none
 
 environment:
@@ -17,7 +17,6 @@ dependencies:
   function_and_extension_library:
     path: ../function_and_extension_library
   rxdart: ^0.27.1
-  flutter_secure_storage: ^8.0.0
   equatable: ^2.0.5
 dev_dependencies:
   flutter_lints: ^4.0.0

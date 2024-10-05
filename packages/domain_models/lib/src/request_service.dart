@@ -1,46 +1,31 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:domain_models/src/service_type.dart';
 
-part 'request_service_rm.g.dart';
-
-@JsonSerializable(createFactory: false)
-class RequestServiceRm {
-  const RequestServiceRm({
-    required this.type,
+class RequestService {
+  const RequestService({
+    required this.serviceType,
     required this.price,
     required this.location,
     required this.details,
   });
 
-  @JsonKey(name: 'type')
-  final String type;
-  @JsonKey(name: 'price')
+  final ServiceType serviceType;
   final double price;
-  @JsonKey(name: 'location')
-  final RequestLocationRM location;
-  @JsonKey(name: 'details')
-  final RequestDetailsRM details;
-
-  Map<String, dynamic> toJson() => _$RequestServiceRmToJson(this);
+  final RequestLocation location;
+  final RequestDetails details;
 }
 
-@JsonSerializable(createFactory: false)
-class RequestLocationRM {
-  const RequestLocationRM({
+class RequestLocation {
+  const RequestLocation({
     this.type = 'Point',
     required this.coordinates,
   });
 
-  @JsonKey(name: 'type')
   final String? type;
-  @JsonKey(name: 'coordinates')
   final List<double> coordinates;
-
-  Map<String, dynamic> toJson() => _$LocationRMToJson(this);
 }
 
-@JsonSerializable(createFactory: false)
-class RequestDetailsRM {
-  const RequestDetailsRM({
+class RequestDetails {
+  const RequestDetails({
     required this.placeName,
     required this.placeAddress,
     required this.reservedFor,
@@ -48,16 +33,9 @@ class RequestDetailsRM {
     required this.reservationServiceCategoryId,
   });
 
-  @JsonKey(name: 'place_name')
   final String placeName;
-  @JsonKey(name: 'place_address')
   final String placeAddress;
-  @JsonKey(name: 'reserved_for')
   final String reservedFor;
-  @JsonKey(name: 'reservation_date')
-  final String reservationDate;
-  @JsonKey(name: 'reservation_service_category_id')
+  final DateTime reservationDate;
   final int reservationServiceCategoryId;
-
-  Map<String, dynamic> toJson() => _$RequestDetailsRMToJson(this);
 }

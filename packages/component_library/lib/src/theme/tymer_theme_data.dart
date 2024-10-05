@@ -8,8 +8,8 @@ abstract class TymerThemeData {
 
   final iconColor = const Color(0xFF2C8268);
   final primaryColor = const Color(0xFF2C8268);
-  final secondaryColor = const Color(0xFF5F45BF);
-  final tertiaryColor = const Color(0xFFBA38F2);
+  final secondaryColor = const Color(0xFF2C8268);
+  final tertiaryColor = const Color(0xFFD9EDDE);
 
 
   final successContainerColor = const Color(0xFFE3FFEC);

@@ -638,6 +638,12 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'No tasks available'**
   String get emptyTaskLogListIndicator;
+
+  /// No description provided for @unAuthSnackBarErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You must login first'**
+  String get unAuthSnackBarErrorMessage;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

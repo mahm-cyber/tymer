@@ -20,10 +20,10 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
   @override
   void initState() {
     super.initState();
-    _setUpEmailFieldFocusListener();
+    _setUpPhoneFieldFocusListener();
   }
 
-  void _setUpEmailFieldFocusListener() {
+  void _setUpPhoneFieldFocusListener() {
     final cubit = context.read<SignInCubit>();
     _phoneFocusNode.addListener(() {
       if (!_phoneFocusNode.hasFocus) {

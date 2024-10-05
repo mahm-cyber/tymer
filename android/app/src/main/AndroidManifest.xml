@@ -9,6 +9,9 @@
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="Tymer">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCKkPJMVmdqAkxN41uehsdra-qgOxg-xbE" />
         <activity
             android:name=".MainActivity"
             android:allowBackup="false"

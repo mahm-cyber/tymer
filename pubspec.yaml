@@ -22,6 +22,8 @@ dependencies:
     path: packages/key_value_storage
   user_repository:
     path: packages/user_repository
+  service_repository:
+    path: packages/service_repository
   function_and_extension_library:
     path: packages/function_and_extension_library
 
@@ -35,7 +37,10 @@ dependencies:
     path: packages/features/tab_container
   home:
     path: packages/features/home
-
+  choose_service:
+    path: packages/features/choose_service
+  request_service:
+    path: packages/features/request_service
 
 
   # Authentication
@@ -49,6 +54,7 @@ dependencies:
     path: packages/features/reset_password
   forgot_password:
     path: packages/features/forgot_password
+
 
 
 

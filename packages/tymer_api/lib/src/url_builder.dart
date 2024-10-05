@@ -42,4 +42,7 @@ class UrlBuilder {
   String buildRequestServiceUrl() {
     return '$_baseUrl/service-requests';
   }
+  String buildGetReservationServiceTypesUrl() {
+    return '$_baseUrl/reservation-service-categories?includeTranslations=true';
+  }
 }

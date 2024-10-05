@@ -17,5 +17,14 @@ class UserLocalStorage {
     return box.get(0);
   }
 
+  Future<void> upsertReservationServiceTypes(
+      ReservationServiceTypesCM reservationServiceTypes) async {
+    final box = await noSqlStorage.reservationServiceTypesBox;
+    await box.put(0, reservationServiceTypes);
+  }
 
+  Future<ReservationServiceTypesCM?> getReservationServiceTypes() async {
+    final box = await noSqlStorage.reservationServiceTypesBox;
+    return box.get(0);
+  }
 }

@@ -1,22 +1,20 @@
-class OtpVerification {
-  const OtpVerification({
-    required this.phone,
-    required this.reason,
+class ReservationServiceType {
+  const ReservationServiceType({
+    required this.id,
+    required this.name,
   });
 
-  final String phone;
-  final OtpVerificationReason reason;
-
-  bool get isRegistrationOrLogin =>
-      reason == OtpVerificationReason.register ||
-      reason == OtpVerificationReason.login;
-  bool get isResetPassword => reason == OtpVerificationReason.resetPassword;
-  bool get isLoggingIn => reason == OtpVerificationReason.login;
-  bool get isRegistering => reason == OtpVerificationReason.register;
+  final int id;
+  final Name name;
 }
 
-enum OtpVerificationReason {
-  register,
-  login,
-  resetPassword,
+class Name {
+  Name({
+    required this.ar,
+    required this.en,
+  });
+
+  final String ar;
+  final String en;
 }
+

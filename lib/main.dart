@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:choose_service/choose_service.dart';
 import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,7 +12,9 @@ import 'package:home/home.dart';
 import 'package:initial/initial.dart';
 
 import 'package:key_value_storage/key_value_storage.dart';
+import 'package:request_service/request_service.dart';
 import 'package:reset_password/reset_password.dart';
+import 'package:service_repository/service_repository.dart';
 import 'package:sign_up/sign_up.dart';
 import 'package:tymer/firebase_options.dart';
 import 'package:tymer/routing_table.dart';
@@ -33,11 +36,15 @@ final ValueNotifier<bool> _signInSuccessVN = ValueNotifier(false);
 
 final dynamic _connectInApi = TymerApi(
   userTokenSupplier: () => _userRepository.getUserToken(),
-  isUserUnAuthenticatedVN: _isUserUnAuthSC,
+  isUserUnAuthSC: _isUserUnAuthSC,
   internetConnectionErrorVN: _internetConnectionErrorVN,
 );
 
 final _userRepository = UserRepository(
+  remoteApi: _connectInApi,
+  noSqlStorage: _keyValueStorage,
+);
+final _serviceRepository = ServiceRepository(
   remoteApi: _connectInApi,
   noSqlStorage: _keyValueStorage,
 );
@@ -74,6 +81,7 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
     _userRepository.getUser().first.then((user) {
       _signInSuccessVN.value = user?.phone != null;
     });
+    _userRepository.getReservationServiceTypes(FetchPolicy.networkOnly);
     // _userRepository.upsertLocalePreference(LocalePreferenceDM.arabic);
     WidgetsBinding.instance.addObserver(this);
   }
@@ -100,7 +108,9 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
         routes: buildRoutingTable(
           routerDelegate: _routerDelegate,
           userRepository: _userRepository,
+          serviceRepository: _serviceRepository,
           signInSuccessVN: _signInSuccessVN,
+          isUserUnAuthSC: _isUserUnAuthSC,
         ),
       );
     },
@@ -156,7 +166,7 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                 return Directionality(
                   textDirection:
                       isArabic ? TextDirection.rtl : TextDirection.ltr,
-                  child: InternetErrorIndicator(
+                  child: AppWideErrorIndicator(
                     child: child!,
                   ),
                 );
@@ -179,6 +189,10 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                 TabContainerLocalizations.delegate,
                 InitialLocalizations.delegate,
                 HomeLocalizations.delegate,
+
+                // Request service
+                ChooseServiceLocalizations.delegate,
+                RequestServiceLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [
@@ -195,8 +209,8 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
   }
 }
 
-class InternetErrorIndicator extends StatefulWidget {
-  const InternetErrorIndicator({
+class AppWideErrorIndicator extends StatefulWidget {
+  const AppWideErrorIndicator({
     super.key,
     required this.child,
   });
@@ -204,10 +218,10 @@ class InternetErrorIndicator extends StatefulWidget {
   final Widget child;
 
   @override
-  State<InternetErrorIndicator> createState() => _InternetErrorIndicatorState();
+  State<AppWideErrorIndicator> createState() => _AppWideErrorIndicatorState();
 }
 
-class _InternetErrorIndicatorState extends State<InternetErrorIndicator> {
+class _AppWideErrorIndicatorState extends State<AppWideErrorIndicator> {
   @override
   void initState() {
     super.initState();
@@ -216,7 +230,25 @@ class _InternetErrorIndicatorState extends State<InternetErrorIndicator> {
         if (_internetConnectionErrorVN.value != null) {
           showSnackBar(
             context: context,
-            snackBar: const InternetErrorSnackBar(),
+            snackBar: ErrorSnackBar(
+                context: context,
+                message: ComponentLibraryLocalizations.of(context)
+                    .noInternetConnectionSnackBarErrorMessage),
+          );
+        }
+      },
+    );
+
+    _isUserUnAuthSC.addListener(
+      () {
+        if (_isUserUnAuthSC.value) {
+          showSnackBar(
+            context: context,
+            snackBar: ErrorSnackBar(
+              context: context,
+              message: ComponentLibraryLocalizations.of(context)
+                  .unAuthSnackBarErrorMessage,
+            ),
           );
         }
       },

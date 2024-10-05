@@ -10,12 +10,16 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit({
     required this.userRepository,
+    required this.onRequestServiceTapped,
+    required this.onProvideServiceTapped,
     required this.onLogout,
   }) : super(
           const HomeState(),
         );
 
   final UserRepository userRepository;
+  final VoidCallback onRequestServiceTapped;
+  final VoidCallback onProvideServiceTapped;
   final VoidCallback onLogout;
 
 // @override
