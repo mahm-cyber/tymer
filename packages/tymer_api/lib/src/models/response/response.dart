@@ -1,4 +1,4 @@
-export 'src/associated_module_rm.dart';
+export 'src/reservation_service_type_rm.dart';
 
 
 

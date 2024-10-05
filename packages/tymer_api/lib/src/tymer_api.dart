@@ -3,14 +3,12 @@ import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as diox;
 import 'package:flutter/material.dart';
 import 'package:tymer_api/tymer_api.dart';
-import 'package:tymer_api/src/models/auth/request/update_account_rm.dart';
 import 'package:tymer_api/src/url_builder.dart';
 
 typedef UserTokenSupplier = Future<String?> Function();
 
 class TymerApi {
   static const _errorJsonKey = 'error';
-  static const _otpJsonKey = 'otp';
   static const _dataJsonKey = 'data';
   static const _accessTokenJsonKey = 'access_token';
   static const _verificationErrorsJsonKey = 'verification_errors';
@@ -48,6 +46,7 @@ class TymerApi {
   final ValueNotifier internetConnectionErrorVN;
   final UrlBuilder urlBuilder;
 
+  //Auth
   Future<String> signIn({
     required String phone,
     required String password,
@@ -124,92 +123,6 @@ class TymerApi {
         throw PhoneAlreadyRegisteredTymerException();
       }
 
-      rethrow;
-    }
-  }
-
-  Future updateProfile({
-    required int userId,
-    String? firstName,
-    String? lastName,
-    String? email,
-    String? phone,
-    String? jobTitle,
-    String? image,
-  }) async {
-    final url = urlBuilder.buildUpdateUserUrl();
-
-    final requestJsonBody = UpdateProfileUpRM(
-      id: userId,
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      phone: phone,
-      jobTitle: jobTitle,
-      image: image,
-    ).toJson();
-
-    try {
-      await _dio.post(
-        url,
-        data: requestJsonBody,
-      );
-    } catch (_) {
-      rethrow;
-    }
-  }
-
-  Future updateAccount({
-    required int userId,
-    String? accountName,
-    String? companyName,
-    String? companyAddress,
-    String? companyCountry,
-  }) async {
-    final url = urlBuilder.buildUpdateAccountUrl();
-
-    final requestJsonBody = UpdateAccountRM(
-      id: userId,
-      accountName: accountName,
-      companyName: companyName,
-      companyAddress: companyAddress,
-      companyCountry: companyCountry,
-    ).toJson();
-
-    try {
-      await _dio.post(
-        url,
-        data: requestJsonBody,
-      );
-    } catch (_) {
-      rethrow;
-    }
-  }
-
-  Future changePassword({
-    required String email,
-    required String oldPassword,
-    required String newPassword,
-  }) async {
-    final url = urlBuilder.buildChangePasswordUrl();
-
-    final requestJsonBody = ChangePasswordRM(
-      email: email,
-      oldPassword: oldPassword,
-      newPassword: newPassword,
-    ).toJson();
-
-    try {
-      final response = await _dio.post(
-        url,
-        data: requestJsonBody,
-      );
-      final responseValue = response.data[_errorJsonKey];
-      if (responseValue is String &&
-          responseValue.toLowerCase().contains('token invalid')) {
-        throw IncorrectPasswordTymerException();
-      }
-    } catch (_) {
       rethrow;
     }
   }
@@ -294,6 +207,41 @@ class TymerApi {
         },
       );
     } catch (_) {
+      rethrow;
+    }
+  }
+
+  //Request Service
+  Future<ReservationServiceTypesRM> getReservationServiceTypes() async {
+    final url = urlBuilder.buildRequestServiceUrl();
+
+    try {
+      final response = await _dio.get(url);
+      final reservationServiceTypes =
+          ReservationServiceTypesRM.fromJson(response.data[_dataJsonKey]);
+      return reservationServiceTypes;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future requestService({
+    required RequestServiceRM requestServiceRM,
+  }) async {
+    final url = urlBuilder.buildRequestServiceUrl();
+
+    final requestJsonBody = requestServiceRM.toJson();
+
+    try {
+      await _dio.post(
+        url,
+        data: requestJsonBody,
+      );
+    } on DioException catch (error) {
+      final errorObject = error.response?.data[_errorJsonKey];
+      if (errorObject[_codeJsonKey].contains('INSUFFICIENT_BALANCE')) {
+        throw InsufficientBalanceTymerException();
+      }
       rethrow;
     }
   }

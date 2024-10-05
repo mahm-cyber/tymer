@@ -10,9 +10,12 @@ class InvalidOtpTymerException implements Exception {}
 
 class RateLimitedTymerException implements Exception {}
 
+class InsufficientBalanceTymerException implements Exception {}
+
 class EmailAlreadyRegisteredTymerException implements Exception {}
 
 class PhoneAlreadyRegisteredTymerException implements Exception {}
+
 class PhoneNotRegisteredTymerException implements Exception {}
 
 class InternetConnectionTymerException implements Exception {}

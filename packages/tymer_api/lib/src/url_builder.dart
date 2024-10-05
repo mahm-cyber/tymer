@@ -25,6 +25,7 @@ class UrlBuilder {
     final completeUrl = '$_baseUrl/$_authSlug/phone-number/resend-verification';
     return completeUrl;
   }
+
   String buildForgotPasswordUrl() {
     final completeUrl = '$_baseUrl/$_authSlug/forgot-password';
     return completeUrl;
@@ -34,22 +35,11 @@ class UrlBuilder {
     return '$_baseUrl/$_authSlug/phone-number/verify';
   }
 
-  String buildUpdateUserUrl() {
-    final completeUrl = '$_baseUrl/updateUser';
-    return completeUrl;
-  }
-
-  String buildUpdateAccountUrl() {
-    final completeUrl = '$_baseUrl/update_user_setup';
-    return completeUrl;
-  }
-
-  String buildChangePasswordUrl() {
-    final completeUrl = '$_baseUrl/changePassword';
-    return completeUrl;
-  }
-
   buildResetPasswordUrl() {
     return '$_baseUrl/resetPassword';
+  }
+
+  String buildRequestServiceUrl() {
+    return '$_baseUrl/service-requests';
   }
 }
