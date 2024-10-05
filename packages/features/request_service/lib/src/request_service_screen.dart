@@ -1,5 +1,4 @@
 import 'package:domain_models/domain_models.dart';
-import 'package:form_fields/form_fields.dart';
 import 'package:request_service/src/components/components.dart';
 import 'package:request_service/src/l10n/request_service_localizations.dart';
 import 'package:request_service/src/request_service_cubit.dart';

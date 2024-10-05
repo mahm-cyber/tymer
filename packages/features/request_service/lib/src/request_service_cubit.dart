@@ -225,13 +225,12 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
         await serviceRepository.requestService(
           serviceType: state.serviceType!,
           price: state.price,
-          locationType: 'Point',
           coordinates: [location.value!.latitude, location.value!.longitude],
           placeName: placeName.value!,
           placeAddress: address.value!,
           reservedFor: reservationName.value!,
           reservationDate: date.value!,
-          reservationServiceCategoryId: reservationServiceType.value!.id,
+          reservationServiceType: reservationServiceType.value!,
         );
 
         final newState = state.copyWith(

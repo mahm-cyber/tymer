@@ -25,7 +25,7 @@ class ServiceRepository {
     required String placeAddress,
     required String reservedFor,
     required DateTime reservationDate,
-    required int reservationServiceCategoryId,
+    required ReservationServiceType reservationServiceType,
   }) async {
     final requestServiceRM = RequestService(
       serviceType: serviceType,
@@ -39,7 +39,7 @@ class ServiceRepository {
         placeAddress: placeAddress,
         reservedFor: reservedFor,
         reservationDate: reservationDate,
-        reservationServiceCategoryId: reservationServiceCategoryId,
+        reservationServiceCategoryId: reservationServiceType.id,
       ),
     ).toRemoteModel();
     try {

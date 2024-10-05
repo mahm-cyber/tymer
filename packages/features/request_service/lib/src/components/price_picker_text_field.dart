@@ -32,7 +32,8 @@ class PricePickerTextField extends StatelessWidget {
                   size: 24,
                   color: colorScheme.onSurface,
                 ),
-                onPressed: cubit.onIncrementPrice,
+                onPressed:
+                    isSubmissionInProgress ? null : cubit.onIncrementPrice,
               ),
               prefixIcon: IconButton(
                 icon: Icon(
@@ -40,7 +41,9 @@ class PricePickerTextField extends StatelessWidget {
                   size: 24,
                   color: state.price <= 20 ? theme.dimmedTextColor : null,
                 ),
-                onPressed: state.price <= 20 ? null : cubit.onDecrementPrice,
+                onPressed: state.price <= 20 || isSubmissionInProgress
+                    ? null
+                    : cubit.onDecrementPrice,
               ),
               helperText: '',
               labelText: l10n.pricePickerTextFieldLabel,
