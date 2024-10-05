@@ -1,0 +1,18 @@
+{
+  "reservationServiceTypeAppBarTitle": "Waiting List",
+  "otherServiceTypeAppBarTitle": "Other Request",
+  "addressTextFieldLabel": "Address*",
+  "datePickerTextFieldLabel": "Select Date*",
+  "placeNameTextFieldLabel": "Place Name*",
+  "requiredFieldErrorMessage": "This field is required.",
+  "reservationNameTextFieldLabel": "Reservation Name*",
+  "locationPickingCompletedButton": "Done",
+  "locationPickerTextFieldLabel": "Pick Location*",
+  "locationPickedTextFieldLabel": "Location Picked",
+  "pricePickerTextFieldLabel": "Price",
+  "requestServiceButtonInProgressLabel": "Requesting...",
+  "requestServiceButtonLabel": "Request Service"
+
+
+
+}

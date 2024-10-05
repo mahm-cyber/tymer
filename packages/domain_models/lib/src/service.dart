@@ -1,7 +1,7 @@
 import 'package:domain_models/src/service_type.dart';
 
-class RequestService {
-  const RequestService({
+class Service {
+  const Service({
     required this.serviceType,
     required this.price,
     required this.location,

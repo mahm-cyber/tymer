@@ -1,4 +1,5 @@
 import 'package:domain_models/domain_models.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:service_repository/src/mappers/domain_to_remote.dart';
 import 'package:service_repository/src/service_change_notifier.dart';
 import 'package:service_repository/src/service_local_storage.dart';
@@ -20,21 +21,24 @@ class ServiceRepository {
     required ServiceType serviceType,
     required double price,
     String? locationType,
-    required List<double> coordinates,
+    required LatLng coordinates,
     required String placeName,
     required String placeAddress,
     required String reservedFor,
     required DateTime reservationDate,
     required ReservationServiceType reservationServiceType,
   }) async {
-    final requestServiceRM = RequestService(
-      serviceType: serviceType,
+    final requestServiceRM = Service(
+      type: serviceType,
       price: price,
-      location: RequestLocation(
-        type: locationType,
-        coordinates: coordinates,
+      location: Location(
+        type: 'Point',
+        coordinates: [
+          coordinates.latitude,
+          coordinates.longitude,
+        ],
       ),
-      details: RequestDetails(
+      details: ServiceDetails(
         placeName: placeName,
         placeAddress: placeAddress,
         reservedFor: reservedFor,

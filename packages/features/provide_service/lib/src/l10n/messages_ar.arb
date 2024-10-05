@@ -1,0 +1,15 @@
+{
+  "reservationServiceTypeAppBarTitle": "قائمة الانتظار",
+  "otherServiceTypeAppBarTitle": "طلب آخر",
+  "addressTextFieldLabel": "العنوان*",
+  "datePickerTextFieldLabel": "حدد التاريخ*",
+  "placeNameTextFieldLabel": "اسم المكان*",
+  "requiredFieldErrorMessage": "هذا الحقل مطلوب.",
+  "reservationNameTextFieldLabel": "اسم الحجز*",
+  "locationPickingCompletedButton": "تم",
+  "locationPickerTextFieldLabel": "اختر الموقع*",
+  "locationPickedTextFieldLabel": "الموقع المختار",
+  "pricePickerTextFieldLabel": "السعر*",
+  "requestServiceButtonInProgressLabel": "جاري الطلب...",
+  "requestServiceButtonLabel": "طلب الخدمة"
+}

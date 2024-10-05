@@ -18,5 +18,6 @@ dependencies:
     path: ../function_and_extension_library
   rxdart: ^0.27.1
   equatable: ^2.0.5
+  google_maps_flutter: ^2.9.0
 dev_dependencies:
   flutter_lints: ^4.0.0

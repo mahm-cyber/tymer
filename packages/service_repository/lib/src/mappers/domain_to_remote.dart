@@ -1,7 +1,7 @@
 import 'package:domain_models/domain_models.dart';
 import 'package:tymer_api/tymer_api.dart';
 
-extension RequestServiceDMtoRM on RequestService {
+extension RequestServiceDMtoRM on Service {
   String serviceTypeDMtoRM(ServiceType serviceType) {
     switch (serviceType) {
       case ServiceType.reservation:
@@ -16,7 +16,7 @@ extension RequestServiceDMtoRM on RequestService {
     final reservationDateRM = '${details.reservationDate.year}'
         '-${details.reservationDate.month}'
         '-${details.reservationDate.day}';
-    final serviceTypeRM = serviceTypeDMtoRM(serviceType);
+    final serviceTypeRM = serviceTypeDMtoRM(type);
     return RequestServiceRM(
       type: serviceTypeRM,
       price: price,
