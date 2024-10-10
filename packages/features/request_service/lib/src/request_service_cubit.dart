@@ -225,7 +225,7 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
         await serviceRepository.requestService(
           serviceType: state.serviceType!,
           price: state.price,
-          coordinates: [location.value!.latitude, location.value!.longitude],
+          coordinates: location.value!,
           placeName: placeName.value!,
           placeAddress: address.value!,
           reservedFor: reservationName.value!,

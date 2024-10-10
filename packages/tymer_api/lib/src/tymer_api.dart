@@ -233,10 +233,11 @@ class TymerApi {
     final requestJsonBody = requestServiceRM.toJson();
 
     try {
-      await _dio.post(
+      final response = await _dio.post(
         url,
         data: requestJsonBody,
       );
+      debugPrint(response.data.toString());
     } on DioException catch (error) {
       final errorObject = error.response?.data[_errorJsonKey];
       if (errorObject[_codeJsonKey].contains('INSUFFICIENT_BALANCE')) {

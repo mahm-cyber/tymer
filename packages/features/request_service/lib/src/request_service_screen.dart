@@ -44,13 +44,12 @@ class RequestServiceView extends StatelessWidget {
     final l10n = RequestServiceLocalizations.of(context);
     return BlocBuilder<RequestServiceCubit, RequestServiceState>(
       builder: (context, state) {
-        final isReservationServiceType =
-            state.serviceType == ServiceType.reservation;
         final loadingReservationServiceTypes =
             state.reservationServiceTypes == null;
         final locationPickingInProgress =
             state.locationPickingInProgress == true;
-
+        final isReservationServiceType =
+            state.serviceType == ServiceType.reservation;
         return GestureDetector(
           onTap: context.releaseFocus,
           child: Stack(
@@ -63,38 +62,13 @@ class RequestServiceView extends StatelessWidget {
                 ),
                 body: loadingReservationServiceTypes
                     ? const CenteredCircularProgressIndicator()
-                    : locationPickingInProgress
-                        ? GoogleMapWidget()
-                        : Column(
-                            children: [
-                              Expanded(
-                                child: ListView(
-                                  children: [
-                                    VerticalGap.xLarge(),
-                                    VerticalGap.medium(),
-                                    if (isReservationServiceType) ...[
-                                      ReservationServiceTypePicker(),
-                                      VerticalGap.xSmall(),
-                                      ReservationNameTextField(),
-                                      VerticalGap.xSmall(),
-                                    ],
-                                    DatePickerTextField(),
-                                    VerticalGap.xSmall(),
-                                    PlaceNameTextField(),
-                                    VerticalGap.xSmall(),
-                                    AddressTextField(),
-                                    VerticalGap.xSmall(),
-                                    LocationPickerTextField(),
-                                    VerticalGap.xSmall(),
-                                    PricePickerTextField(),
-                                    VerticalGap.xSmall(),
-                                  ],
-                                ),
-                              ),
-                              RequestServiceButton(),
-                              VerticalGap.small(),
-                            ],
-                          ),
+                    : Column(
+                        children: [
+                          FormFields(),
+                          RequestServiceButton(),
+                          VerticalGap.small(),
+                        ],
+                      ),
               ),
               AppBarTitleContainer(
                 top: 95,
@@ -103,6 +77,7 @@ class RequestServiceView extends StatelessWidget {
                     ? l10n.reservationServiceTypeAppBarTitle
                     : l10n.otherServiceTypeAppBarTitle,
               ),
+              if (locationPickingInProgress) GoogleMapWidget(),
             ],
           ),
         );
@@ -110,4 +85,3 @@ class RequestServiceView extends StatelessWidget {
     );
   }
 }
-

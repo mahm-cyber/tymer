@@ -2,20 +2,20 @@ import 'package:domain_models/src/service_type.dart';
 
 class Service {
   const Service({
-    required this.serviceType,
+    required this.type,
     required this.price,
     required this.location,
     required this.details,
   });
 
-  final ServiceType serviceType;
+  final ServiceType type;
   final double price;
-  final RequestLocation location;
-  final RequestDetails details;
+  final Location location;
+  final ServiceDetails details;
 }
 
-class RequestLocation {
-  const RequestLocation({
+class Location {
+  const Location({
     this.type = 'Point',
     required this.coordinates,
   });
@@ -24,8 +24,8 @@ class RequestLocation {
   final List<double> coordinates;
 }
 
-class RequestDetails {
-  const RequestDetails({
+class ServiceDetails {
+  const ServiceDetails({
     required this.placeName,
     required this.placeAddress,
     required this.reservedFor,

@@ -1,6 +1,5 @@
-import 'package:domain_models/domain_models.dart';
+import 'package:provide_service/provide_service.dart';
 import 'package:provide_service/src/components/components.dart';
-import 'package:provide_service/src/l10n/provide_service_localizations.dart';
 import 'package:provide_service/src/provide_service_cubit.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
@@ -44,12 +43,6 @@ class ProvideServiceView extends StatelessWidget {
     final l10n = ProvideServiceLocalizations.of(context);
     return BlocBuilder<ProvideServiceCubit, ProvideServiceState>(
       builder: (context, state) {
-        final loadingReservationServiceTypes =
-            state.reservationServiceTypes == null;
-        final locationPickingInProgress =
-            state.locationPickingInProgress == true;
-        final isReservationServiceType =
-            state.serviceType == ServiceType.reservation;
         return GestureDetector(
           onTap: context.releaseFocus,
           child: Stack(
@@ -60,24 +53,13 @@ class ProvideServiceView extends StatelessWidget {
                   toolbarHeight: 70,
                   iconTheme: IconThemeData(color: colorScheme.surface),
                 ),
-                body: loadingReservationServiceTypes
-                    ? const CenteredCircularProgressIndicator()
-                    : Column(
-                        children: [
-                          FormFields(),
-                          ProvideServiceButton(),
-                          VerticalGap.small(),
-                        ],
-                      ),
+                body: Text('provide service screen'),
               ),
               AppBarTitleContainer(
                 top: 95,
                 height: 30,
-                title: isReservationServiceType
-                    ? l10n.reservationServiceTypeAppBarTitle
-                    : l10n.otherServiceTypeAppBarTitle,
+                title: l10n.otherServiceTypeAppBarTitle,
               ),
-              if (locationPickingInProgress) GoogleMapWidget(),
             ],
           ),
         );
