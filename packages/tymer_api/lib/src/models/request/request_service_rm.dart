@@ -16,16 +16,16 @@ class RequestServiceRM {
   @JsonKey(name: 'price')
   final double price;
   @JsonKey(name: 'location')
-  final RequestLocationRM location;
+  final LocationRM location;
   @JsonKey(name: 'details')
-  final RequestDetailsRM details;
+  final ServiceRequestDetailsRM details;
 
   Map<String, dynamic> toJson() => _$RequestServiceRMToJson(this);
 }
 
-@JsonSerializable(createFactory: false)
-class RequestLocationRM {
-  const RequestLocationRM({
+@JsonSerializable()
+class LocationRM {
+  const LocationRM({
     this.type = 'Point',
     required this.coordinates,
   });
@@ -35,12 +35,14 @@ class RequestLocationRM {
   @JsonKey(name: 'coordinates')
   final List<double> coordinates;
 
-  Map<String, dynamic> toJson() => _$RequestLocationRMToJson(this);
+  Map<String, dynamic> toJson() => _$LocationRMToJson(this);
+  factory LocationRM.fromJson(Map<String, dynamic> json) =>
+      _$LocationRMFromJson(json);
 }
 
 @JsonSerializable(createFactory: false)
-class RequestDetailsRM {
-  const RequestDetailsRM({
+class ServiceRequestDetailsRM {
+  const ServiceRequestDetailsRM({
     required this.placeName,
     required this.placeAddress,
     this.reservedFor,
@@ -62,5 +64,5 @@ class RequestDetailsRM {
   @JsonKey(name: 'reservation_service_category_id', includeIfNull: false)
   final int? reservationServiceCategoryId;
 
-  Map<String, dynamic> toJson() => _$RequestDetailsRMToJson(this);
+  Map<String, dynamic> toJson() => _$ServiceRequestDetailsRMToJson(this);
 }

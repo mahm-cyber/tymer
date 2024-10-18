@@ -246,6 +246,27 @@ class TymerApi {
       rethrow;
     }
   }
+
+  Future<List<ServiceRM>> getAllServiceRequests({
+    required double lat,
+    required double long,
+    required String mode,
+  }) async {
+    final url = urlBuilder.buildGetAllServiceRequestsUrl(
+      lat: lat,
+      long: long,
+      mode: mode,
+    );
+    try {
+      final response = await _dio.get(url);
+      final serviceRequests = (response.data[_dataJsonKey] as List)
+          .map((e) => ServiceRM.fromJson(e))
+          .toList();
+      return serviceRequests;
+    } catch (_) {
+      rethrow;
+    }
+  }
 }
 
 extension on Dio {

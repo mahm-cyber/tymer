@@ -5,41 +5,19 @@ class ProvideServiceLocalizationsAr extends ProvideServiceLocalizations {
   ProvideServiceLocalizationsAr([super.locale = 'ar']);
 
   @override
-  String get reservationServiceTypeAppBarTitle => 'قائمة الانتظار';
+  String get appBarTitle => 'قائمة الطلبات';
 
   @override
-  String get otherServiceTypeAppBarTitle => 'طلب آخر';
+  String distanceToServiceLocation(String meters) {
+    return '$meters متر';
+  }
 
   @override
-  String get addressTextFieldLabel => 'العنوان*';
+  String get noServiceRequestsText => 'لا توجد طلبات خدمة متاحة.';
 
   @override
-  String get datePickerTextFieldLabel => 'حدد التاريخ*';
+  String get showInMapButtonLabel => 'عرض على الخريطة';
 
   @override
-  String get placeNameTextFieldLabel => 'اسم المكان*';
-
-  @override
-  String get requiredFieldErrorMessage => 'هذا الحقل مطلوب.';
-
-  @override
-  String get reservationNameTextFieldLabel => 'اسم الحجز*';
-
-  @override
-  String get locationPickingCompletedButton => 'تم';
-
-  @override
-  String get locationPickerTextFieldLabel => 'اختر الموقع*';
-
-  @override
-  String get locationPickedTextFieldLabel => 'الموقع المختار';
-
-  @override
-  String get pricePickerTextFieldLabel => 'السعر*';
-
-  @override
-  String get requestServiceButtonInProgressLabel => 'جاري الطلب...';
-
-  @override
-  String get requestServiceButtonLabel => 'طلب الخدمة';
+  String get viewButtonLabel => 'عرض';
 }

@@ -42,7 +42,22 @@ class UrlBuilder {
   String buildRequestServiceUrl() {
     return '$_baseUrl/service-requests';
   }
+
   String buildGetReservationServiceTypesUrl() {
     return '$_baseUrl/reservation-service-categories?includeTranslations=true';
+  }
+
+  String buildGetAllServiceRequestsUrl({
+    required double lat,
+    required double long,
+    required String mode,
+  }) {
+    final latQuery = '?user_lat=$lat';
+    final longQuery = '&user_long=$long';
+    final modeQuery = '&mode=$mode';
+    const includeServiceQuery = '&include=service';
+    final completeUrl =
+        '$_baseUrl/service-requests/list$latQuery$longQuery$modeQuery$includeServiceQuery';
+    return completeUrl;
   }
 }

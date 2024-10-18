@@ -2,20 +2,28 @@ import 'package:domain_models/src/service_type.dart';
 
 class Service {
   const Service({
+    this.id,
+    this.distanceBetweenProviderAndServiceLocation,
+    this.status,
+     this.createdAt,
     required this.type,
     required this.price,
     required this.location,
     required this.details,
   });
 
+  final int? id;
+  final double? distanceBetweenProviderAndServiceLocation;
+  final ServiceStatus? status;
+  final DateTime? createdAt;
   final ServiceType type;
   final double price;
-  final Location location;
+  final LocationDM location;
   final ServiceDetails details;
 }
 
-class Location {
-  const Location({
+class LocationDM {
+  const LocationDM({
     this.type = 'Point',
     required this.coordinates,
   });
@@ -31,6 +39,7 @@ class ServiceDetails {
     this.reservedFor,
     required this.date,
     this.reservationServiceCategoryId,
+    this.additionalDetails,
   });
 
   final String placeName;
@@ -38,4 +47,15 @@ class ServiceDetails {
   final String? reservedFor;
   final DateTime date;
   final int? reservationServiceCategoryId;
+  final String? additionalDetails;
+}
+
+
+enum ServiceStatus {
+  pending,
+  inProgress,
+  completed,
+  canceled,
+  pendingReview,
+  disputed,
 }

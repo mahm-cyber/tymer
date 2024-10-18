@@ -93,83 +93,35 @@ abstract class ProvideServiceLocalizations {
     Locale('en')
   ];
 
-  /// No description provided for @reservationServiceTypeAppBarTitle.
+  /// No description provided for @appBarTitle.
   ///
   /// In en, this message translates to:
-  /// **'Waiting List'**
-  String get reservationServiceTypeAppBarTitle;
+  /// **'Requests List'**
+  String get appBarTitle;
 
-  /// No description provided for @otherServiceTypeAppBarTitle.
+  /// No description provided for @distanceToServiceLocation.
   ///
   /// In en, this message translates to:
-  /// **'Other Request'**
-  String get otherServiceTypeAppBarTitle;
+  /// **'{meters} meters'**
+  String distanceToServiceLocation(String meters);
 
-  /// No description provided for @addressTextFieldLabel.
+  /// No description provided for @noServiceRequestsText.
   ///
   /// In en, this message translates to:
-  /// **'Address*'**
-  String get addressTextFieldLabel;
+  /// **'No service requests available.'**
+  String get noServiceRequestsText;
 
-  /// No description provided for @datePickerTextFieldLabel.
+  /// No description provided for @showInMapButtonLabel.
   ///
   /// In en, this message translates to:
-  /// **'Select Date*'**
-  String get datePickerTextFieldLabel;
+  /// **'Show in Map'**
+  String get showInMapButtonLabel;
 
-  /// No description provided for @placeNameTextFieldLabel.
+  /// No description provided for @viewButtonLabel.
   ///
   /// In en, this message translates to:
-  /// **'Place Name*'**
-  String get placeNameTextFieldLabel;
-
-  /// No description provided for @requiredFieldErrorMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'This field is required.'**
-  String get requiredFieldErrorMessage;
-
-  /// No description provided for @reservationNameTextFieldLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Reservation Name*'**
-  String get reservationNameTextFieldLabel;
-
-  /// No description provided for @locationPickingCompletedButton.
-  ///
-  /// In en, this message translates to:
-  /// **'Done'**
-  String get locationPickingCompletedButton;
-
-  /// No description provided for @locationPickerTextFieldLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Pick Location*'**
-  String get locationPickerTextFieldLabel;
-
-  /// No description provided for @locationPickedTextFieldLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Location Picked'**
-  String get locationPickedTextFieldLabel;
-
-  /// No description provided for @pricePickerTextFieldLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Price'**
-  String get pricePickerTextFieldLabel;
-
-  /// No description provided for @requestServiceButtonInProgressLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Requesting...'**
-  String get requestServiceButtonInProgressLabel;
-
-  /// No description provided for @requestServiceButtonLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Request Service'**
-  String get requestServiceButtonLabel;
+  /// **'View'**
+  String get viewButtonLabel;
 }
 
 class _ProvideServiceLocalizationsDelegate extends LocalizationsDelegate<ProvideServiceLocalizations> {

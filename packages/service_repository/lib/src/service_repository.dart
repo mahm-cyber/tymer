@@ -1,8 +1,8 @@
 import 'package:domain_models/domain_models.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:service_repository/src/mappers/domain_to_remote.dart';
+import 'package:service_repository/src/mappers/mappers.dart';
 import 'package:service_repository/src/service_change_notifier.dart';
-import 'package:service_repository/src/service_local_storage.dart';
 import 'package:tymer_api/tymer_api.dart';
 import 'package:key_value_storage/key_value_storage.dart';
 
@@ -10,11 +10,9 @@ class ServiceRepository {
   ServiceRepository({
     required KeyValueStorage noSqlStorage,
     required this.remoteApi,
-  })  : changeNotifier = ServiceChangeNotifier(),
-        _localStorage = ServiceLocalStorage(noSqlStorage: noSqlStorage);
+  }) : changeNotifier = ServiceChangeNotifier();
 
   final TymerApi remoteApi;
-  final ServiceLocalStorage _localStorage;
   final ServiceChangeNotifier changeNotifier;
 
   Future requestService({
@@ -31,7 +29,7 @@ class ServiceRepository {
     final requestServiceRM = Service(
       type: serviceType,
       price: price,
-      location: Location(
+      location: LocationDM(
         type: 'Point',
         coordinates: [
           coordinates.latitude,
@@ -54,6 +52,25 @@ class ServiceRepository {
       if (error is InsufficientBalanceTymerException) {
         throw InsufficientBalanceException();
       }
+      rethrow;
+    }
+  }
+
+  Future<List<Service>> getAllServiceRequests({
+    required double lat,
+    required double long,
+    required String mode,
+  }) async {
+    try {
+      final serviceRequests = await remoteApi.getAllServiceRequests(
+        lat: lat,
+        long: long,
+        mode: mode,
+      );
+      return serviceRequests
+          .map((serviceRequest) => serviceRequest.toDomainModel())
+          .toList();
+    } catch (error) {
       rethrow;
     }
   }

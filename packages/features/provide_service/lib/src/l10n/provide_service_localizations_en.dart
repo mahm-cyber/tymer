@@ -5,41 +5,19 @@ class ProvideServiceLocalizationsEn extends ProvideServiceLocalizations {
   ProvideServiceLocalizationsEn([super.locale = 'en']);
 
   @override
-  String get reservationServiceTypeAppBarTitle => 'Waiting List';
+  String get appBarTitle => 'Requests List';
 
   @override
-  String get otherServiceTypeAppBarTitle => 'Other Request';
+  String distanceToServiceLocation(String meters) {
+    return '$meters meters';
+  }
 
   @override
-  String get addressTextFieldLabel => 'Address*';
+  String get noServiceRequestsText => 'No service requests available.';
 
   @override
-  String get datePickerTextFieldLabel => 'Select Date*';
+  String get showInMapButtonLabel => 'Show in Map';
 
   @override
-  String get placeNameTextFieldLabel => 'Place Name*';
-
-  @override
-  String get requiredFieldErrorMessage => 'This field is required.';
-
-  @override
-  String get reservationNameTextFieldLabel => 'Reservation Name*';
-
-  @override
-  String get locationPickingCompletedButton => 'Done';
-
-  @override
-  String get locationPickerTextFieldLabel => 'Pick Location*';
-
-  @override
-  String get locationPickedTextFieldLabel => 'Location Picked';
-
-  @override
-  String get pricePickerTextFieldLabel => 'Price';
-
-  @override
-  String get requestServiceButtonInProgressLabel => 'Requesting...';
-
-  @override
-  String get requestServiceButtonLabel => 'Request Service';
+  String get viewButtonLabel => 'View';
 }

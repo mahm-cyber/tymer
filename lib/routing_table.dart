@@ -110,7 +110,8 @@ Map<String, PageBuilder> buildRoutingTable({
             userRepository: userRepository,
             onRequestServiceTapped: () =>
                 routerDelegate.push(_PathConstants.chooseServicePath),
-            onProvideServiceTapped: () {},
+            onProvideServiceTapped: () =>
+                routerDelegate.push(_PathConstants.provideServicePath),
             onLogout: () => signInSuccessVN.value = false,
           ),
         ),

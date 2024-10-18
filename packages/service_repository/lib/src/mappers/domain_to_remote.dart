@@ -20,11 +20,11 @@ extension RequestServiceDMtoRM on Service {
     return RequestServiceRM(
       type: serviceTypeRM,
       price: price,
-      location: RequestLocationRM(
+      location: LocationRM(
         type: location.type,
         coordinates: location.coordinates,
       ),
-      details: RequestDetailsRM(
+      details: ServiceRequestDetailsRM(
         placeName: details.placeName,
         placeAddress: details.placeAddress,
         reservedFor: details.reservedFor,
