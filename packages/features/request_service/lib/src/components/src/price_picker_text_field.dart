@@ -6,7 +6,7 @@ import 'package:request_service/src/l10n/request_service_localizations.dart';
 import 'package:request_service/src/request_service_cubit.dart';
 
 class PricePickerTextField extends StatelessWidget {
-  const PricePickerTextField();
+  const PricePickerTextField({super.key});
 
   @override
   Widget build(BuildContext context) {

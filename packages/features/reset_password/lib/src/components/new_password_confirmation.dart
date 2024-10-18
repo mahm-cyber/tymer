@@ -53,7 +53,7 @@ class _NewPasswordConfirmationState extends State<NewPasswordConfirmation> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              l10n.newPasswordConfirmationTextFieldLabel + ' *',
+              '${l10n.newPasswordConfirmationTextFieldLabel} *',
               style: textTheme.titleSmall,
             ),
             VerticalGap.medium(),

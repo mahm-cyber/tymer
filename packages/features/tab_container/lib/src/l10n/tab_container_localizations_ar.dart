@@ -2,7 +2,7 @@ import 'tab_container_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class TabContainerLocalizationsAr extends TabContainerLocalizations {
-  TabContainerLocalizationsAr([String locale = 'ar']) : super(locale);
+  TabContainerLocalizationsAr([super.locale = 'ar']);
 
   @override
   String get homeTabLabel => 'الرئيسية';

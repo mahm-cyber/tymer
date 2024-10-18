@@ -17,15 +17,15 @@ class FormFields extends StatelessWidget {
           child: ListView(
             children: [
               VerticalGap.large(),
-              Name(),
+              const Name(),
               VerticalGap.xSmall(),
-              Phone(),
+              const Phone(),
               VerticalGap.xSmall(),
-              Email(),
+              const Email(),
               VerticalGap.xSmall(),
-              Password(),
+              const Password(),
               VerticalGap.xSmall(),
-              PasswordConfirmation(),
+              const PasswordConfirmation(),
             ],
           ),
         );

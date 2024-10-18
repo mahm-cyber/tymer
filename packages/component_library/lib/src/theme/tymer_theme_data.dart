@@ -11,7 +11,6 @@ abstract class TymerThemeData {
   final secondaryColor = const Color(0xFF2C8268);
   final tertiaryColor = const Color(0xFFD9EDDE);
 
-
   final successContainerColor = const Color(0xFFE3FFEC);
   final successOnContainerColor = const Color(0xFF19B100);
   final orderedVoucherUsedStatusTextColor = const Color(0xFF19B100);
@@ -39,6 +38,8 @@ abstract class TymerThemeData {
     blurRadius: 4,
     color: Colors.black.withOpacity(0.25),
   );
+
+  final snackBarMargin = const EdgeInsets.only(bottom: 70, left: 15, right: 15);
 }
 
 class LightTymerThemeData extends TymerThemeData {

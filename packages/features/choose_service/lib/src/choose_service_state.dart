@@ -4,7 +4,7 @@ class ChooseServiceState extends Equatable {
   const ChooseServiceState();
 
   ChooseServiceState copyWith() {
-    return ChooseServiceState();
+    return const ChooseServiceState();
   }
 
   @override

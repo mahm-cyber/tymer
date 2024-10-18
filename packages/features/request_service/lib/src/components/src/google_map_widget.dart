@@ -35,13 +35,13 @@ class GoogleMapWidget extends StatelessWidget {
                   markers: {
                     if (state.location.value != null)
                       Marker(
-                        markerId: MarkerId('location'),
+                        markerId: const MarkerId('location'),
                         position: state.location.value!,
                       ),
                   },
                   initialCameraPosition: CameraPosition(
                     target: state.location.value ??
-                        LatLng(
+                        const LatLng(
                           30.0444,
                           31.2357,
                         ),

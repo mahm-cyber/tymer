@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
         onProvideServiceTapped: onProvideServiceTapped,
         onLogout: onLogout,
       ),
-      child: HomeView(),
+      child: const HomeView(),
     );
   }
 }
@@ -54,14 +54,14 @@ class HomeView extends StatelessWidget {
               onPressed: () {},
               child: Transform.scale(
                   scale: 0.7,
-                  child: SvgAsset(
+                  child: const SvgAsset(
                     AssetPathConstants.chatPath,
                     width: 50,
                     height: 50,
                   )),
             ),
             appBar: AppBar(
-              title: SvgAsset(AssetPathConstants.whiteLogoPath),
+              title: const SvgAsset(AssetPathConstants.whiteLogoPath),
               toolbarHeight: 160,
             ),
             body: Padding(
@@ -71,24 +71,24 @@ class HomeView extends StatelessWidget {
                 children: [
                   TymerGestureContainer(
                     onTap: cubit.onRequestServiceTapped,
-                    icon: SvgAsset(AssetPathConstants.potPath),
+                    icon: const SvgAsset(AssetPathConstants.potPath),
                     title: l10n.requestServiceContainerTitle,
                     subtitle: l10n.requestServiceContainerSubtitle,
                   ),
                   VerticalGap.xxLarge(),
                   TymerGestureContainer(
                     onTap: cubit.onProvideServiceTapped,
-                    icon: SvgAsset(AssetPathConstants.footPrintsPath),
+                    icon: const SvgAsset(AssetPathConstants.footPrintsPath),
                     title: l10n.provideServiceContainerTitle,
                     subtitle: l10n.provideServiceContainerSubtitle,
                   ),
-                  // TextButton(
-                  //   onPressed: () {
-                  //     context.read<HomeCubit>().userRepository.logout();
-                  //     cubit.onLogout();
-                  //   },
-                  //   child: const Text('logout'),
-                  // ),
+                  TextButton(
+                    onPressed: () {
+                      context.read<HomeCubit>().userRepository.logout();
+                      cubit.onLogout();
+                    },
+                    child: const Text('logout'),
+                  ),
                 ],
               ),
             ),

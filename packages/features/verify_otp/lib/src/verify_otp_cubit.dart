@@ -39,7 +39,7 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
   }
 
   void startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       final newResendOtpTimer = state.resendOtpSecondTimer == 0
           ? 59.00
           : (state.resendOtpSecondTimer - 1);
@@ -49,7 +49,7 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
       }
       emit(state.copyWith(
         resendOtpTotalTime: newResendTotalTime,
-        resendOtpTimer: newResendOtpTimer,
+        resendOtpSecondTimer: newResendOtpTimer,
       ));
     });
   }

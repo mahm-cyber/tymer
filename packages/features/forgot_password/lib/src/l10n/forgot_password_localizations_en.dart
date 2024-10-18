@@ -2,7 +2,7 @@ import 'forgot_password_localizations.dart';
 
 /// The translations for English (`en`).
 class ForgotPasswordLocalizationsEn extends ForgotPasswordLocalizations {
-  ForgotPasswordLocalizationsEn([String locale = 'en']) : super(locale);
+  ForgotPasswordLocalizationsEn([super.locale = 'en']);
 
   @override
   String get appBarTitle => 'Forgot Password';

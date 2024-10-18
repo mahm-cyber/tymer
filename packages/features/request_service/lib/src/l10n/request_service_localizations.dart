@@ -170,6 +170,18 @@ abstract class RequestServiceLocalizations {
   /// In en, this message translates to:
   /// **'Request Service'**
   String get requestServiceButtonLabel;
+
+  /// No description provided for @insufficientBalanceMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your balance is insufficient. Please top up'**
+  String get insufficientBalanceMessage;
+
+  /// No description provided for @addFundsButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Wallet'**
+  String get addFundsButtonLabel;
 }
 
 class _RequestServiceLocalizationsDelegate extends LocalizationsDelegate<RequestServiceLocalizations> {

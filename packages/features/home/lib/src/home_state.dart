@@ -4,7 +4,7 @@ class HomeState extends Equatable {
   const HomeState();
 
   HomeState copyWith() {
-    return HomeState();
+    return const HomeState();
   }
 
   @override

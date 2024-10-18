@@ -55,7 +55,7 @@ class TermsAndConditions extends StatelessWidget {
                   ),
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Transform.scale(
             scale: 0.8,
             child: Switch.adaptive(
@@ -70,7 +70,7 @@ class TermsAndConditions extends StatelessWidget {
                   if (states.contains(WidgetState.selected)) {
                     return null;
                   }
-                  return Color(0xFFDCE0E1);
+                  return const Color(0xFFDCE0E1);
                 },
               ),
               value: state.termsAndConditionsAccepted.value == true,

@@ -41,8 +41,8 @@ class RequestStatusStep extends StatelessWidget {
                     ? theme.dimmedTextColor
                     : theme.primaryColor),
           ),
-          Spacer(),
-          if (isDone) SvgAsset(AssetPathConstants.tickSquarePath),
+          const Spacer(),
+          if (isDone) const SvgAsset(AssetPathConstants.tickSquarePath),
           if (isLoading || isIdle)
             CupertinoActivityIndicator(
               animating: isLoading,

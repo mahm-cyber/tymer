@@ -11,5 +11,7 @@
   "locationPickedTextFieldLabel": "الموقع المختار",
   "pricePickerTextFieldLabel": "السعر*",
   "requestServiceButtonInProgressLabel": "جاري الطلب...",
-  "requestServiceButtonLabel": "طلب الخدمة"
+  "requestServiceButtonLabel": "طلب الخدمة",
+  "insufficientBalanceMessage": "رصيدك غير كاف. يرجى تعبئة الرصيد.",
+  "addFundsButtonLabel": "اذهب إلى المحفظة"
 }

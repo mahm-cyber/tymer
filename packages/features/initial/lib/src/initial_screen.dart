@@ -95,7 +95,7 @@ class InitialView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              SvgAsset(
+              const SvgAsset(
                 AssetPathConstants.logoAndWordPath,
               ),
               VerticalGap.xxLarge(),

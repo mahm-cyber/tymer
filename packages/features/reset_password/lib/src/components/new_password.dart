@@ -51,7 +51,7 @@ class _NewPasswordState extends State<NewPassword> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              l10n.newPasswordTextFieldLabel + ' *',
+              '${l10n.newPasswordTextFieldLabel} *',
               style: textTheme.titleSmall,
             ),
             VerticalGap.medium(),
@@ -74,7 +74,7 @@ class _NewPasswordState extends State<NewPassword> {
                     ),
 
                   ),
-                  child: Padding(
+                  child: const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8.0),
                     child: Icon(
                       Icons.info_outline,
@@ -83,7 +83,7 @@ class _NewPasswordState extends State<NewPassword> {
                   ),
                 )
                     : null,
-                prefixIconConstraints: BoxConstraints(
+                prefixIconConstraints: const BoxConstraints(
                   minWidth: 0,
                   minHeight: 0,
                 ),

@@ -2,7 +2,8 @@ import 'choose_service_localizations.dart';
 
 /// The translations for English (`en`).
 class ChooseServiceLocalizationsEn extends ChooseServiceLocalizations {
-  ChooseServiceLocalizationsEn([String locale = 'en']) : super(locale);
+  ChooseServiceLocalizationsEn([super.locale = 'en']);
+  // ChooseServiceLocalizationsEn([super.locale = 'en']);
 
   @override
   String get appBarTitle => 'Request Service';

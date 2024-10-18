@@ -5,8 +5,6 @@ import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
-
 class FormFields extends StatefulWidget {
   const FormFields({
     super.key,
@@ -28,23 +26,23 @@ class _FormFieldsState extends State<FormFields>
         return Expanded(
           child: ListView(
             children: [
-              VerticalGap.xLarge(),
-              VerticalGap.medium(),
+                VerticalGap.xLarge(),
+                VerticalGap.medium(),
               if (isReservationServiceType) ...[
-                ReservationServiceTypePicker(),
+                const ReservationServiceTypePicker(),
                 VerticalGap.xSmall(),
-                ReservationNameTextField(),
+                const ReservationNameTextField(),
                 VerticalGap.xSmall(),
               ],
-              DatePickerTextField(),
+              const DatePickerTextField(),
               VerticalGap.xSmall(),
-              PlaceNameTextField(),
+              const PlaceNameTextField(),
               VerticalGap.xSmall(),
-              AddressTextField(),
+              const AddressTextField(),
               VerticalGap.xSmall(),
-              LocationPickerTextField(),
+              const LocationPickerTextField(),
               VerticalGap.xSmall(),
-              PricePickerTextField(),
+              const PricePickerTextField(),
               VerticalGap.xSmall(),
             ],
           ),

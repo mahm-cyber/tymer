@@ -49,7 +49,7 @@ class _PhoneState extends State<Phone> {
           focusNode: _focusNode,
           onChanged: cubit.onPhoneChanged,
           decoration: InputDecoration(
-            prefixIcon: SvgAsset(
+            prefixIcon: const SvgAsset(
               AssetPathConstants.mobilePath,
             ),
             helperText: '',

@@ -53,7 +53,7 @@ class _PasswordState extends State<Password> {
           enabled: !isSubmissionInProgress,
           obscureText: !isPasswordVisible,
           decoration: InputDecoration(
-            prefixIcon: SvgAsset(
+            prefixIcon: const SvgAsset(
               AssetPathConstants.lockPath,
             ),
             suffixIcon: GestureDetector(

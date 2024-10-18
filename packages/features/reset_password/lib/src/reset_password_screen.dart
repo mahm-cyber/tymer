@@ -70,7 +70,6 @@ class ResetPasswordView extends StatelessWidget {
             context: context,
             snackBar: ErrorSnackBar(
               context: context,
-              message: 'حدث خطأ ما',
             ),
           );
           return;
@@ -97,9 +96,9 @@ class ResetPasswordView extends StatelessWidget {
                   style: textTheme.bodyMedium,
                 ),
                 VerticalGap.medium(),
-                NewPassword(),
+                const NewPassword(),
                 VerticalGap.medium(),
-                NewPasswordConfirmation(),
+                const NewPasswordConfirmation(),
                 VerticalGap.xLarge(),
                 const ResetPasswordButton(),
               ],

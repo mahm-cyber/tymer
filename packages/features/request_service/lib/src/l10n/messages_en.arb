@@ -11,7 +11,9 @@
   "locationPickedTextFieldLabel": "Location Picked",
   "pricePickerTextFieldLabel": "Price",
   "requestServiceButtonInProgressLabel": "Requesting...",
-  "requestServiceButtonLabel": "Request Service"
+  "requestServiceButtonLabel": "Request Service",
+  "insufficientBalanceMessage": "Your balance is insufficient. Please top up",
+  "addFundsButtonLabel": "Go to Wallet"
 
 
 

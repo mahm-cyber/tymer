@@ -21,8 +21,8 @@ ReservationServiceTypeRM _$ReservationServiceTypeRMFromJson(
       },
     );
 
-NameRM _$NameFromJson(Map<String, dynamic> json) => $checkedCreate(
-      'Name',
+NameRM _$NameRMFromJson(Map<String, dynamic> json) => $checkedCreate(
+      'NameRM',
       json,
       ($checkedConvert) {
         final val = NameRM(

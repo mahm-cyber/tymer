@@ -6,7 +6,7 @@ import 'package:request_service/src/l10n/request_service_localizations.dart';
 import 'package:request_service/src/request_service_cubit.dart';
 
 class LocationPickerTextField extends StatelessWidget {
-  const LocationPickerTextField();
+  const LocationPickerTextField({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -65,15 +65,13 @@ class LocationPickerTextField extends StatelessWidget {
                   readOnly: true,
                 ),
               ),
-              Container(
-                child: GestureDetector(
-                  onTap: !isSubmissionInProgress
-                      ? cubit.onLocationPickerTapped
-                      : null,
-                  child: Container(
-                    color: Colors.transparent,
-                    height: 55,
-                  ),
+              GestureDetector(
+                onTap: !isSubmissionInProgress
+                    ? cubit.onLocationPickerTapped
+                    : null,
+                child: Container(
+                  color: Colors.transparent,
+                  height: 55,
                 ),
               ),
             ],

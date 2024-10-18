@@ -181,3 +181,11 @@ replace-strings:
 		python replace_strings.py ; \
 		cd ../../../ ; \
 	done
+
+intl:
+	for feature in $(FEATURES); do \
+        cd $${feature} ; \
+        echo "adding intl to $${feature}" ; \
+        flutter pub add intl ; \
+        cd ../../../ ; \
+    done

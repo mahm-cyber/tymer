@@ -82,4 +82,5 @@ class AssetPathConstants {
   static const String footPrintsPath = '$iconsPath/foot_prints.svg';
   static const String arrowRightSquarePath = '$iconsPath/arrow_right_square.svg';
   static const String chatPath = '$iconsPath/chat.svg';
+  static const String tickSquarePath = '$iconsPath/tick_square.svg';
 }

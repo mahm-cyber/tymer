@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:forgot_password/forgot_password.dart';
 import 'package:home/home.dart';
 import 'package:initial/initial.dart';
+import 'package:provide_service/provide_service.dart';
 import 'package:request_service/request_service.dart';
 import 'package:reset_password/reset_password.dart';
 
 import 'package:routemaster/routemaster.dart';
 import 'package:service_repository/service_repository.dart';
+import 'package:service_request_status/service_request_status.dart';
 import 'package:sign_in/sign_in.dart';
 import 'package:sign_up/sign_up.dart';
 import 'package:tab_container/tab_container.dart';
@@ -39,7 +41,7 @@ Map<String, PageBuilder> buildRoutingTable({
           paths: [
             _PathConstants.homePath,
             _PathConstants.homePath,
-            _PathConstants.homePath,
+            _PathConstants.walletPath,
             _PathConstants.homePath,
             _PathConstants.homePath,
           ],
@@ -112,6 +114,16 @@ Map<String, PageBuilder> buildRoutingTable({
             onLogout: () => signInSuccessVN.value = false,
           ),
         ),
+    _PathConstants.walletPath: (_) => MaterialPage(
+          name: 'wallet',
+          child: HomeScreen(
+            userRepository: userRepository,
+            onRequestServiceTapped: () =>
+                routerDelegate.push(_PathConstants.chooseServicePath),
+            onProvideServiceTapped: () {},
+            onLogout: () => signInSuccessVN.value = false,
+          ),
+        ),
     _PathConstants.forgotPasswordPath: (_) => MaterialPage(
           name: 'forgot-password',
           child: ForgotPasswordScreen(
@@ -143,6 +155,27 @@ Map<String, PageBuilder> buildRoutingTable({
           child: RequestServiceScreen(
             userRepository: userRepository,
             serviceRepository: serviceRepository,
+            onGoToWalletTapped: () =>
+                routerDelegate.push(_PathConstants.walletPath),
+            onServiceRequestSuccess: () =>
+                routerDelegate.push(_PathConstants.serviceRequestStatusPath),
+          ),
+        ),
+    //service request status
+    _PathConstants.serviceRequestStatusPath: (_) => MaterialPage(
+          name: 'service-request-status',
+          child: ServiceRequestStatusScreen(
+            userRepository: userRepository,
+            serviceRepository: serviceRepository,
+            onGoToWalletTapped: () =>
+                routerDelegate.push(_PathConstants.walletPath),
+          ),
+        ),
+    _PathConstants.provideServicePath: (_) => MaterialPage(
+          name: 'provide-service',
+          child: ProvideServiceScreen(
+            userRepository: userRepository,
+            serviceRepository: serviceRepository,
           ),
         ),
   };
@@ -159,6 +192,8 @@ class _PathConstants {
 
   static String get homePath => '${initialPath}home';
 
+  static String get walletPath => '${initialPath}wallet';
+
   static String get verifyOtpPath => '${initialPath}verify-otp';
 
   static String get forgotPasswordPath => '${initialPath}forgot-password';
@@ -168,4 +203,8 @@ class _PathConstants {
   static String get chooseServicePath => '$homePath/choose-service';
 
   static String get requestServicePath => '$chooseServicePath/request';
+
+  static String get serviceRequestStatusPath => '${initialPath}status';
+
+  static String get provideServicePath => '$homePath/provide-service';
 }

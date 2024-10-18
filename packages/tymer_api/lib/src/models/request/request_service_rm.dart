@@ -20,7 +20,7 @@ class RequestServiceRM {
   @JsonKey(name: 'details')
   final RequestDetailsRM details;
 
-  Map<String, dynamic> toJson() => _$RequestServiceRmToJson(this);
+  Map<String, dynamic> toJson() => _$RequestServiceRMToJson(this);
 }
 
 @JsonSerializable(createFactory: false)
@@ -43,21 +43,24 @@ class RequestDetailsRM {
   const RequestDetailsRM({
     required this.placeName,
     required this.placeAddress,
-    required this.reservedFor,
-    required this.reservationDate,
-    required this.reservationServiceCategoryId,
+    this.reservedFor,
+    this.reservationDate,
+    this.detailsDate,
+    this.reservationServiceCategoryId,
   });
 
   @JsonKey(name: 'place_name')
   final String placeName;
   @JsonKey(name: 'place_address')
   final String placeAddress;
-  @JsonKey(name: 'reserved_for')
-  final String reservedFor;
-  @JsonKey(name: 'reservation_date')
-  final String reservationDate;
-  @JsonKey(name: 'reservation_service_category_id')
-  final int reservationServiceCategoryId;
+  @JsonKey(name: 'reserved_for', includeIfNull: false)
+  final String? reservedFor;
+  @JsonKey(name: 'reservation_date', includeIfNull: false)
+  final String? reservationDate;
+  @JsonKey(name: 'date', includeIfNull: false)
+  final String? detailsDate;
+  @JsonKey(name: 'reservation_service_category_id', includeIfNull: false)
+  final int? reservationServiceCategoryId;
 
   Map<String, dynamic> toJson() => _$RequestDetailsRMToJson(this);
 }

@@ -15,6 +15,7 @@ class RequestServiceState extends Equatable {
     this.price = 20.0,
     this.additionalInfo = const Dynamic<String?>.unvalidated(),
     this.submissionStatus = FormzSubmissionStatus.initial,
+    this.error
   });
 
   final ServiceType? serviceType;
@@ -29,7 +30,7 @@ class RequestServiceState extends Equatable {
   final double price;
   final Dynamic<String?> additionalInfo;
   final FormzSubmissionStatus submissionStatus;
-
+  final dynamic error;
   RequestServiceState copyWith({
     ServiceType? serviceType,
     List<ReservationServiceType>? reservationServiceTypes,
@@ -43,6 +44,7 @@ class RequestServiceState extends Equatable {
     double? price,
     Dynamic<String?>? additionalInfo,
     FormzSubmissionStatus? submissionStatus,
+    dynamic error,
   }) {
     return RequestServiceState(
       serviceType: serviceType ?? this.serviceType,
@@ -60,6 +62,7 @@ class RequestServiceState extends Equatable {
       price: price ?? this.price,
       additionalInfo: additionalInfo ?? this.additionalInfo,
       submissionStatus: submissionStatus ?? this.submissionStatus,
+      error: error,
     );
   }
 
@@ -77,5 +80,6 @@ class RequestServiceState extends Equatable {
         price,
         additionalInfo,
         submissionStatus,
+    error
       ];
 }

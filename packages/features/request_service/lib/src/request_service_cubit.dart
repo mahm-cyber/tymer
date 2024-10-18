@@ -1,8 +1,9 @@
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
-import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:service_repository/service_repository.dart';
 
 import 'package:user_repository/user_repository.dart';
@@ -13,6 +14,8 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
   RequestServiceCubit({
     required this.userRepository,
     required this.serviceRepository,
+    required this.onGoToWalletTapped,
+    required this.onServiceRequestSuccess,
   }) : super(
           RequestServiceState(
             serviceType: serviceRepository.changeNotifier.serviceType,
@@ -23,6 +26,8 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
 
   final UserRepository userRepository;
   final ServiceRepository serviceRepository;
+  final VoidCallback onGoToWalletTapped;
+  final VoidCallback onServiceRequestSuccess;
 
   void getReservationServiceTypes() async {
     try {
@@ -197,9 +202,14 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
       isRequired: true,
     );
 
+    final isReservationServiceType =
+        state.serviceType == ServiceType.reservation;
+
     final isFormValid = Formz.validate([
-      reservationServiceType,
-      reservationName,
+      if (isReservationServiceType) ...[
+        reservationServiceType,
+        reservationName,
+      ],
       date,
       placeName,
       address,
@@ -224,13 +234,14 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
       try {
         await serviceRepository.requestService(
           serviceType: state.serviceType!,
-          price: state.price,
+          price: 0,
+          // price: state.price,
           coordinates: location.value!,
           placeName: placeName.value!,
           placeAddress: address.value!,
-          reservedFor: reservationName.value!,
-          reservationDate: date.value!,
-          reservationServiceType: reservationServiceType.value!,
+          reservedFor: reservationName.value,
+          date: date.value!,
+          reservationServiceType: reservationServiceType.value,
         );
 
         final newState = state.copyWith(
@@ -242,6 +253,7 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
           submissionStatus: error is! InsufficientBalanceException
               ? FormzSubmissionStatus.failure
               : FormzSubmissionStatus.initial,
+          error: error,
         );
         emit(newState);
       }

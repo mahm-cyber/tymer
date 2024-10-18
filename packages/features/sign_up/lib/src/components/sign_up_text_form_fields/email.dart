@@ -50,7 +50,7 @@ class _EmailState extends State<Email> {
         onChanged: cubit.onEmailChanged,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-          prefixIcon: SvgAsset(
+          prefixIcon: const SvgAsset(
             AssetPathConstants.emailPath,
           ),
           labelText: l10n.emailTextFieldLabel,

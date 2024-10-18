@@ -6,7 +6,7 @@ import 'package:request_service/src/l10n/request_service_localizations.dart';
 import 'package:request_service/src/request_service_cubit.dart';
 
 class DatePickerTextField extends StatelessWidget {
-  const DatePickerTextField();
+  const DatePickerTextField({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class DatePickerTextField extends StatelessWidget {
         final dateError = state.date.isNotValid ? state.date.error : null;
         final l10n = RequestServiceLocalizations.of(context);
         final theme = TymerTheme.of(context);
-        final onTap = () async {
+        onTap() async {
           final dateTime = await showDatePicker(
             context: context,
             initialDate: state.date.value,
@@ -26,7 +26,7 @@ class DatePickerTextField extends StatelessWidget {
             lastDate: DateTime(2050),
           );
           if (dateTime != null) cubit.onDatePicked(dateTime);
-        };
+        }
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
           child: Stack(
@@ -67,13 +67,11 @@ class DatePickerTextField extends StatelessWidget {
                   readOnly: true,
                 ),
               ),
-              Container(
-                child: GestureDetector(
-                  onTap: !isSubmissionInProgress ? onTap : null,
-                  child: Container(
-                    color: Colors.transparent,
-                    height: 55,
-                  ),
+              GestureDetector(
+                onTap: !isSubmissionInProgress ? onTap : null,
+                child: Container(
+                  color: Colors.transparent,
+                  height: 55,
                 ),
               ),
             ],

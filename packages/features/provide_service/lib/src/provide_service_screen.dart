@@ -1,5 +1,4 @@
 import 'package:provide_service/provide_service.dart';
-import 'package:provide_service/src/components/components.dart';
 import 'package:provide_service/src/provide_service_cubit.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +25,7 @@ class ProvideServiceScreen extends StatelessWidget {
         userRepository: userRepository,
         serviceRepository: serviceRepository,
       ),
-      child: ProvideServiceView(),
+      child: const ProvideServiceView(),
     );
   }
 }
@@ -49,11 +48,11 @@ class ProvideServiceView extends StatelessWidget {
             children: [
               Scaffold(
                 appBar: AppBar(
-                  title: SvgAsset(AssetPathConstants.whiteLogoPath),
+                  title: const SvgAsset(AssetPathConstants.whiteLogoPath),
                   toolbarHeight: 70,
                   iconTheme: IconThemeData(color: colorScheme.surface),
                 ),
-                body: Text('provide service screen'),
+                body: const Text('provide service screen'),
               ),
               AppBarTitleContainer(
                 top: 95,

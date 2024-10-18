@@ -49,7 +49,7 @@ class _NameState extends State<Name> {
           focusNode: _focusNode,
           onChanged: cubit.onNameChanged,
           decoration: InputDecoration(
-            prefixIcon: SvgAsset(
+            prefixIcon: const SvgAsset(
               AssetPathConstants.personPath,
             ),
             hintText: l10n.nameTextFieldHint,

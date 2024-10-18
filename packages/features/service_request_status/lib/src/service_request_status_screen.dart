@@ -30,7 +30,7 @@ class ServiceRequestStatusScreen extends StatelessWidget {
         serviceRepository: serviceRepository,
         onGoToWalletTapped: onGoToWalletTapped,
       ),
-      child: ServiceRequestStatusView(),
+      child: const ServiceRequestStatusView(),
     );
   }
 }
@@ -58,7 +58,7 @@ class ServiceRequestStatusView extends StatelessWidget {
             children: [
               Scaffold(
                 appBar: AppBar(
-                  title: SvgAsset(AssetPathConstants.whiteLogoPath),
+                  title: const SvgAsset(AssetPathConstants.whiteLogoPath),
                   toolbarHeight: 160,
                   iconTheme: IconThemeData(color: colorScheme.surface),
                 ),
@@ -68,17 +68,17 @@ class ServiceRequestStatusView extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      RequestStatusStep(
+                      const RequestStatusStep(
                         title: 'l10n.findingSomeoneStepTitle',
                         status: RequestStatus.loading,
                       ),
                       VerticalGap.medium(),
-                      RequestStatusStep(
+                      const RequestStatusStep(
                         title: 'l10n.processingStepTitle',
                         status: RequestStatus.idle,
                       ),
                       VerticalGap.medium(),
-                      RequestStatusStep(
+                      const RequestStatusStep(
                         title: 'l10n.completeStepTitle',
                         status: RequestStatus.done,
                       ),
@@ -88,7 +88,7 @@ class ServiceRequestStatusView extends StatelessWidget {
               ),
               AppBarTitleContainer(
                 title: l10n.appBarTitle,
-                icon: SvgAsset(
+                icon: const SvgAsset(
                   AssetPathConstants.potPath,
                 ),
               ),

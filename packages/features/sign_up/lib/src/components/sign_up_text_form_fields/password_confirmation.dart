@@ -61,7 +61,7 @@ class _PasswordConfirmationState extends State<PasswordConfirmation> {
                       PasswordConfirmationValidationError.doesNotMatch
                   ? l10n.passwordConfirmationTextFieldError
                   : null,
-          prefixIcon: SvgAsset(
+          prefixIcon: const SvgAsset(
             AssetPathConstants.lockPath,
           ),
           suffixIcon: GestureDetector(

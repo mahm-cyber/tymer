@@ -29,7 +29,7 @@ class ChooseServiceScreen extends StatelessWidget {
         serviceRepository: serviceRepository,
         onRequestServiceTapped: onRequestServiceTapped,
       ),
-      child: ChooseServiceView(),
+      child: const ChooseServiceView(),
     );
   }
 }
@@ -51,7 +51,7 @@ class ChooseServiceView extends StatelessWidget {
         children: [
           Scaffold(
             appBar: AppBar(
-              title: SvgAsset(AssetPathConstants.whiteLogoPath),
+              title: const SvgAsset(AssetPathConstants.whiteLogoPath),
               toolbarHeight: 160,
               iconTheme: IconThemeData(color: colorScheme.surface),
             ),
@@ -62,7 +62,7 @@ class ChooseServiceView extends StatelessWidget {
                 children: [
                   TymerGestureContainer(
                     onTap: () => cubit.setServiceType(ServiceType.reservation),
-                    icon: Icon(Icons.arrow_forward),
+                    icon: const Icon(Icons.arrow_forward),
                     title: l10n.skipWaitingListContainerTitle,
                   ),
                   VerticalGap.xxLarge(),
@@ -88,7 +88,7 @@ class ChooseServiceView extends StatelessWidget {
           ),
           AppBarTitleContainer(
             title: l10n.appBarTitle,
-            icon: SvgAsset(
+            icon: const SvgAsset(
               AssetPathConstants.potPath,
             ),
           ),

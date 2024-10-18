@@ -96,12 +96,12 @@ class SignUpView extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: theme.screenMargin * 2),
               child: Column(
                 children: [
-                  SvgAsset(
+                  const SvgAsset(
                     AssetPathConstants.logoAndWordPath,
                     width: 60,
                   ),
                   const FormFields(),
-                  TermsAndConditions(),
+                  const TermsAndConditions(),
                   VerticalGap.medium(),
                   const SignUpButton(),
                   VerticalGap.medium(),

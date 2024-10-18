@@ -2,7 +2,7 @@ import 'request_service_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class RequestServiceLocalizationsAr extends RequestServiceLocalizations {
-  RequestServiceLocalizationsAr([String locale = 'ar']) : super(locale);
+  RequestServiceLocalizationsAr([super.locale = 'ar']);
 
   @override
   String get reservationServiceTypeAppBarTitle => 'قائمة الانتظار';
@@ -42,4 +42,10 @@ class RequestServiceLocalizationsAr extends RequestServiceLocalizations {
 
   @override
   String get requestServiceButtonLabel => 'طلب الخدمة';
+
+  @override
+  String get insufficientBalanceMessage => 'رصيدك غير كاف. يرجى تعبئة الرصيد.';
+
+  @override
+  String get addFundsButtonLabel => 'اذهب إلى المحفظة';
 }

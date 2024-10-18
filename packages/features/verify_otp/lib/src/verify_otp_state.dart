@@ -19,7 +19,7 @@ class VerifyOtpState extends Equatable {
 
   VerifyOtpState copyWith({
     double? resendOtpTotalTime,
-    double? resendOtpTimer,
+    double? resendOtpSecondTimer,
     ResendOtpStatus? resendOtpStatus,
     OtpVerification? otpVerification,
     OtpCode? otpCode,
@@ -27,7 +27,7 @@ class VerifyOtpState extends Equatable {
   }) {
     return VerifyOtpState(
       resendOtpTotalTime: resendOtpTotalTime ?? this.resendOtpTotalTime,
-      resendOtpSecondTimer: resendOtpTimer ?? this.resendOtpSecondTimer,
+      resendOtpSecondTimer: resendOtpSecondTimer ?? this.resendOtpSecondTimer,
       resendOtpStatus: resendOtpStatus ?? this.resendOtpStatus,
       otpVerification: otpVerification ?? this.otpVerification,
       otpCode: otpCode ?? this.otpCode,

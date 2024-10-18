@@ -106,8 +106,6 @@ class SignInCubit extends Cubit<SignInState> {
   void onSubmit() async {
     final phone = Mobile.validated(
       state.phone.value,
-      invalidCredentials: state.phone.invalidCredentials,
-      unVerified: state.phone.unVerified,
     );
     final password = Password.validated(
       state.password.value,
@@ -141,6 +139,7 @@ class SignInCubit extends Cubit<SignInState> {
             password: password.value!,
           );
         }
+        await userRepository.getReservationServiceTypes(FetchPolicy.networkOnly);
         final newState = state.copyWith(
           submissionStatus: FormzSubmissionStatus.success,
         );

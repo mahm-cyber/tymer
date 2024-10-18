@@ -13,9 +13,9 @@ extension RequestServiceDMtoRM on Service {
 
   RequestServiceRM toRemoteModel() {
     //2024-10-14 in this format
-    final reservationDateRM = '${details.reservationDate.year}'
-        '-${details.reservationDate.month}'
-        '-${details.reservationDate.day}';
+    final dateRM = '${details.date.year}'
+        '-${details.date.month}'
+        '-${details.date.day}';
     final serviceTypeRM = serviceTypeDMtoRM(type);
     return RequestServiceRM(
       type: serviceTypeRM,
@@ -28,8 +28,11 @@ extension RequestServiceDMtoRM on Service {
         placeName: details.placeName,
         placeAddress: details.placeAddress,
         reservedFor: details.reservedFor,
-        reservationDate: reservationDateRM,
-        reservationServiceCategoryId: details.reservationServiceCategoryId,
+        reservationDate: type == ServiceType.reservation ? dateRM : null,
+        detailsDate: type == ServiceType.other ? dateRM : null,
+        reservationServiceCategoryId: type == ServiceType.reservation
+            ? details.reservationServiceCategoryId
+            : null,
       ),
     );
   }

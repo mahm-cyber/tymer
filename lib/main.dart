@@ -12,9 +12,11 @@ import 'package:home/home.dart';
 import 'package:initial/initial.dart';
 
 import 'package:key_value_storage/key_value_storage.dart';
+import 'package:provide_service/provide_service.dart';
 import 'package:request_service/request_service.dart';
 import 'package:reset_password/reset_password.dart';
 import 'package:service_repository/service_repository.dart';
+import 'package:service_request_status/service_request_status.dart';
 import 'package:sign_up/sign_up.dart';
 import 'package:tymer/firebase_options.dart';
 import 'package:tymer/routing_table.dart';
@@ -185,7 +187,6 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                 VerifyOtpLocalizations.delegate,
                 ForgotPasswordLocalizations.delegate,
                 ResetPasswordLocalizations.delegate,
-
                 TabContainerLocalizations.delegate,
                 InitialLocalizations.delegate,
                 HomeLocalizations.delegate,
@@ -193,6 +194,8 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                 // Request service
                 ChooseServiceLocalizations.delegate,
                 RequestServiceLocalizations.delegate,
+                ServiceRequestStatusLocalizations.delegate,
+                ProvideServiceLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [

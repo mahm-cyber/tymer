@@ -48,7 +48,7 @@ class VerifyOtpView extends StatelessWidget {
     return GestureDetector(
       onTap: context.releaseFocus,
       child: Scaffold(
-        bottomNavigationBar: SizedBox(
+        bottomNavigationBar: const SizedBox(
           height: 55,
         ),
         appBar: AppBar(
@@ -148,7 +148,7 @@ class _VerifyOtpForm extends StatelessWidget {
               horizontal: theme.screenMargin,
             ),
             children: [
-              SvgAsset(
+              const SvgAsset(
                 AssetPathConstants.logoAndWordPath,
                 width: 70,
               ),
@@ -246,7 +246,7 @@ class _VerifyOtpForm extends StatelessWidget {
                   ),
               ],
               VerticalGap.large(),
-              ResendOtp(),
+              const ResendOtp(),
               VerticalGap.large(),
               isSubmissionInProgress
                   ? TymerElevatedButton.inProgress(

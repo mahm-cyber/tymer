@@ -29,7 +29,7 @@ class NameRM {
   @JsonKey(name: 'en')
   final String en;
 
-  static const fromJson = _$NameFromJson;
+  static const fromJson = _$NameRMFromJson;
 }
 
 @JsonSerializable(createToJson: false)
