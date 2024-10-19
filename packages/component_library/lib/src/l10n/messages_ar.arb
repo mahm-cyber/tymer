@@ -97,6 +97,24 @@
   "companiesCustomDropdownLabel": "الشركات",
   "successSnackBarMessage": "تمت العملية بنجاح.",
   "emptyTaskLogListIndicator": "لا توجد مهام متاحة",
-  "unAuthSnackBarErrorMessage": "يجب تسجيل الدخول"
+  "unAuthSnackBarErrorMessage": "يجب تسجيل الدخول",
+  "reservedForTextFieldLabel": "محجوز لـ",
+  "dateTextFieldLabel": "التاريخ",
+  "placeNameTextFieldLabel": "اسم المكان",
+  "placeAddressTextFieldLabel": "عنوان المكان",
+  "locationTextFieldLabel": "الموقع",
+  "priceTextFieldLabel": "السعر",
+  "additionalCommentsTextFieldLabel": "تعليقات إضافية",
+  "acceptButtonLabel": "قبول",
+  "distanceToServiceLocation": "{meters} متر",
+  "@distanceToServiceLocation": {
+      "placeholders": {
+          "meters": {
+              "type": "String"
+          }
+      }
+  },
+  "myLocationInfoWindowTitle": "موقعي",
+  "viewOnMapButtonLabel": "عرض"
 }
 

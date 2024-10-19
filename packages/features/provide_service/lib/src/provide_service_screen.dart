@@ -13,11 +13,13 @@ class ProvideServiceScreen extends StatelessWidget {
   const ProvideServiceScreen({
     required this.userRepository,
     required this.serviceRepository,
+    required this.onServiceRequestDetailsTapped,
     super.key,
   });
 
   final UserRepository userRepository;
   final ServiceRepository serviceRepository;
+  final VoidCallback onServiceRequestDetailsTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class ProvideServiceScreen extends StatelessWidget {
       create: (_) => ProvideServiceCubit(
         userRepository: userRepository,
         serviceRepository: serviceRepository,
+        onServiceRequestDetailsTapped: onServiceRequestDetailsTapped,
       ),
       child: const ProvideServiceView(),
     );
@@ -45,6 +48,8 @@ class ProvideServiceView extends StatelessWidget {
       builder: (context, state) {
         final loading = state.serviceRequestsFetchStatus == FetchStatus.loading;
         final noServiceRequests = state.serviceRequests?.isEmpty == true;
+        final cubit = context.read<ProvideServiceCubit>();
+        final failure = state.serviceRequestsFetchStatus == FetchStatus.failure;
         return GestureDetector(
           onTap: context.releaseFocus,
           child: Stack(
@@ -61,37 +66,47 @@ class ProvideServiceView extends StatelessWidget {
                         ? Center(
                             child: Text(l10n.noServiceRequestsText),
                           )
-                        : Column(
-                            children: [
-                              Expanded(
-                                child: ListView.separated(
-                                  padding: EdgeInsets.only(
-                                    left: theme.screenMargin,
-                                    right: theme.screenMargin,
-                                    top: Spacing.xxLarge,
+                        : failure
+                            ? ExceptionIndicator(
+                                onTryAgain: cubit.init,
+                              )
+                            : Column(
+                                children: [
+                                  Expanded(
+                                    child: ListView.separated(
+                                      padding: EdgeInsets.only(
+                                        left: theme.screenMargin,
+                                        right: theme.screenMargin,
+                                        top: Spacing.xxLarge,
+                                      ),
+                                      itemCount: state
+                                          .ascendingSortedServiceRequests!
+                                          .length,
+                                      separatorBuilder: (context, index) =>
+                                          VerticalGap.medium(),
+                                      itemBuilder: (context, index) {
+                                        final service = state
+                                                .ascendingSortedServiceRequests![
+                                            index];
+                                        return ServiceRequestCard(
+                                          onTapped: () => cubit
+                                              .onViewServiceRequestDetailsTapped(
+                                                  service),
+                                          service: service,
+                                        );
+                                      },
+                                    ),
                                   ),
-                                  itemCount: state.ascendingSortedServiceRequests!.length,
-                                  separatorBuilder: (context, index) =>
-                                      VerticalGap.medium(),
-                                  itemBuilder: (context, index) {
-                                    final service =
-                                    state.ascendingSortedServiceRequests![index];
-                                    return ServiceRequestCard(
-                                      service: service,
-                                    );
-                                  },
-                                ),
+                                  Padding(
+                                    padding: EdgeInsets.all(theme.screenMargin),
+                                    child: TymerElevatedButton(
+                                      label: l10n.showInMapButtonLabel,
+                                      onTap: () {},
+                                      height: 50,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Padding(
-                                padding: EdgeInsets.all(theme.screenMargin),
-                                child: TymerElevatedButton(
-                                  label: l10n.showInMapButtonLabel,
-                                  onTap: () {},
-                                  height: 50,
-                                ),
-                              ),
-                            ],
-                          ),
               ),
               AppBarTitleContainer(
                 top: 95,
@@ -109,9 +124,11 @@ class ProvideServiceView extends StatelessWidget {
 class ServiceRequestCard extends StatelessWidget {
   const ServiceRequestCard({
     super.key,
+    required this.onTapped,
     required this.service,
   });
 
+  final VoidCallback onTapped;
   final Service service;
 
   @override
@@ -191,7 +208,7 @@ class ServiceRequestCard extends StatelessWidget {
           const Spacer(),
           TymerElevatedButton(
             label: l10n.viewButtonLabel,
-            onTap: () {},
+            onTap: onTapped,
             width: 120,
             height: 30,
           ),

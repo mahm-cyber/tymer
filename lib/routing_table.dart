@@ -1,6 +1,8 @@
+import 'package:accept_service_request/accept_service_request.dart';
 import 'package:choose_service/choose_service.dart';
 import 'package:flutter/material.dart';
 import 'package:forgot_password/forgot_password.dart';
+import 'package:fulfill_service_request/fulfill_service_request.dart';
 import 'package:home/home.dart';
 import 'package:initial/initial.dart';
 import 'package:provide_service/provide_service.dart';
@@ -177,6 +179,23 @@ Map<String, PageBuilder> buildRoutingTable({
           child: ProvideServiceScreen(
             userRepository: userRepository,
             serviceRepository: serviceRepository,
+            onServiceRequestDetailsTapped: () => routerDelegate
+                .push(_PathConstants.acceptServiceRequestDetailsPath),
+          ),
+        ),
+    _PathConstants.acceptServiceRequestDetailsPath: (_) => MaterialPage(
+          name: 'accept-service-request-details',
+          child: AcceptServiceRequestScreen(
+            serviceRepository: serviceRepository,
+            onAcceptServiceRequestSuccess: () {
+              routerDelegate.push(_PathConstants.fulfillServiceRequestPath);
+            },
+          ),
+        ),
+    _PathConstants.fulfillServiceRequestPath: (_) => MaterialPage(
+          name: 'fulfill-service-request',
+          child: FulfillServiceRequestScreen(
+            serviceRepository: serviceRepository,
           ),
         ),
   };
@@ -207,5 +226,15 @@ class _PathConstants {
 
   static String get serviceRequestStatusPath => '${initialPath}status';
 
-  static String get provideServicePath => '$homePath/provide-service';
+  static String get provideServicePath =>
+      '${initialPath}provide-service/list-view';
+
+  // static String get provideServiceMapViewPath =>
+  //     '${initialPath}provide-service/map-view';
+
+  static String get acceptServiceRequestDetailsPath =>
+      '$provideServicePath/accept-service-request';
+
+  static String get fulfillServiceRequestPath =>
+      '$provideServicePath/fulfill-service-request';
 }

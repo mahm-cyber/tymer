@@ -1,0 +1,34 @@
+import 'fulfill_service_request_localizations.dart';
+
+/// The translations for Arabic (`ar`).
+class FulfillServiceRequestLocalizationsAr
+    extends FulfillServiceRequestLocalizations {
+  FulfillServiceRequestLocalizationsAr([super.locale = 'ar']);
+
+  @override
+  String get submitButtonLabel => 'إرسال';
+
+  @override
+  String get serviceDetailsTitle => 'تفاصيل الطلب';
+
+  @override
+  String get bottomSheetGalleryButton => 'معرض';
+
+  @override
+  String get bottomSheetCaptureButton => 'التقاط';
+
+  @override
+  String get imageTextFieldLabel => 'صورة';
+
+  @override
+  String get additionalDetailsTextFieldLabel => 'تفاصيل إضافية';
+
+  @override
+  String get reservationNumberTextFieldLabel => 'رقم الحجز';
+
+  @override
+  String get requiredFieldErrorMessage => 'هذا الحقل مطلوب.';
+
+  @override
+  String get waitingTimeTextFieldLabel => 'وقت الانتظار';
+}

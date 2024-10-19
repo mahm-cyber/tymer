@@ -45,6 +45,10 @@ dependencies:
     path: packages/features/service_request_status
   provide_service:
     path: packages/features/provide_service
+  accept_service_request:
+    path: packages/features/accept_service_request
+  fulfill_service_request:
+    path: packages/features/fulfill_service_request
 
 
   # Authentication

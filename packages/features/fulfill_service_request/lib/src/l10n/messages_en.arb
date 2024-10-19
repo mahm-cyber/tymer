@@ -1,0 +1,14 @@
+{
+  "submitButtonLabel": "Submit",
+  "serviceDetailsTitle": "Request Details",
+  "bottomSheetGalleryButton": "Gallery",
+  "bottomSheetCaptureButton": "Capture",
+  "imageTextFieldLabel": "Image",
+  "additionalDetailsTextFieldLabel": "Additional Details",
+  "reservationNumberTextFieldLabel": "Reservation Number",
+  "requiredFieldErrorMessage": "This field is required.",
+  "waitingTimeTextFieldLabel": "Waiting Time"
+
+
+
+}

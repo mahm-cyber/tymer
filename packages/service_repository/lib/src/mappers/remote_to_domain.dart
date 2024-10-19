@@ -62,7 +62,7 @@ extension ServiceDetailsRMtoDM on ServiceDetailsRM {
       placeName: placeName,
       placeAddress: placeAddress,
       date: DateTime.parse(date),
-      additionalDetails: additionalDetails,
+      additionalComments: additionalDetails,
     );
   }
 }

@@ -3,6 +3,7 @@ export 'src/snack_bars/snack_bars.dart';
 export 'src/theme/theme.dart';
 export 'src/bottom_sheets/bottom_sheets.dart';
 export 'src/assets/assets.dart';
+export 'src/service_details_widget.dart';
 export 'src/nav_bar_tab.dart';
 export 'src/tymer_gesture_container.dart';
 export 'src/indicators/indicators.dart';

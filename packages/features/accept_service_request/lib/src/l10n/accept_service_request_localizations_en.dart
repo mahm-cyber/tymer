@@ -1,0 +1,41 @@
+import 'accept_service_request_localizations.dart';
+
+/// The translations for English (`en`).
+class AcceptServiceRequestLocalizationsEn extends AcceptServiceRequestLocalizations {
+  AcceptServiceRequestLocalizationsEn([super.locale = 'en']);
+
+  @override
+  String get appBarTitle => 'Request Details';
+
+  @override
+  String get reservedForTextFieldLabel => 'Reserved For';
+
+  @override
+  String get dateTextFieldLabel => 'Date';
+
+  @override
+  String get placeNameTextFieldLabel => 'Place Name';
+
+  @override
+  String get placeAddressTextFieldLabel => 'Place Address';
+
+  @override
+  String get locationTextFieldLabel => 'Location';
+
+  @override
+  String get priceTextFieldLabel => 'Price';
+
+  @override
+  String get additionalCommentsTextFieldLabel => 'Additional Comments';
+
+  @override
+  String get acceptButtonLabel => 'Accept';
+
+  @override
+  String distanceToServiceLocation(String meters) {
+    return '$meters meters';
+  }
+
+  @override
+  String get myLocationInfoWindowTitle => 'My Location';
+}

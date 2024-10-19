@@ -1,0 +1,14 @@
+{
+  "submitButtonLabel": "إرسال",
+  "serviceDetailsTitle": "تفاصيل الطلب",
+  "bottomSheetGalleryButton": "معرض",
+  "bottomSheetCaptureButton": "التقاط",
+  "imageTextFieldLabel": "صورة",
+  "additionalDetailsTextFieldLabel": "تفاصيل إضافية",
+  "reservationNumberTextFieldLabel": "رقم الحجز",
+  "requiredFieldErrorMessage": "هذا الحقل مطلوب.",
+  "waitingTimeTextFieldLabel": "وقت الانتظار"
+
+
+
+}

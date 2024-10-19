@@ -6,6 +6,7 @@ class ServiceChangeNotifier with ChangeNotifier, EquatableMixin {
   ServiceChangeNotifier();
 
   final ValueNotifier<ServiceType?> _serviceType = ValueNotifier(null);
+  final ValueNotifier<Service?> _serviceRequestDetails = ValueNotifier(null);
 
 
   dynamic get serviceType => _serviceType.value;
@@ -17,11 +18,22 @@ class ServiceChangeNotifier with ChangeNotifier, EquatableMixin {
     _serviceType.value = null;
     notifyListeners();
   }
+  
+  dynamic get serviceRequestDetails => _serviceRequestDetails.value;
+  void setServiceRequest(Service serviceRequestDetails) {
+    _serviceRequestDetails.value = serviceRequestDetails;
+    notifyListeners();
+  }
+  Future clearServiceRequest() async {
+    _serviceRequestDetails.value = null;
+    notifyListeners();
+  }
 
 
 
   @override
   List<Object?> get props => [
         _serviceType,
+        _serviceRequestDetails,
       ];
 }

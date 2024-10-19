@@ -47,17 +47,28 @@ class UrlBuilder {
     return '$_baseUrl/reservation-service-categories?includeTranslations=true';
   }
 
-  String buildGetAllServiceRequestsUrl({
-    required double lat,
-    required double long,
-    required String mode,
-  }) {
+  String buildGetAllServiceRequestsUrl(
+      {required double lat,
+      required double long,
+      required String mode,
+      String? status}) {
     final latQuery = '?user_lat=$lat';
     final longQuery = '&user_long=$long';
     final modeQuery = '&mode=$mode';
     const includeServiceQuery = '&include=service';
-    final completeUrl =
-        '$_baseUrl/service-requests/list$latQuery$longQuery$modeQuery$includeServiceQuery';
+    final statusQuery = status != null ? '&status=$status' : '&status=pending';
+    final completeUrl = '$_baseUrl/service-requests/list$latQuery'
+        '$longQuery'
+        '$modeQuery'
+        '$includeServiceQuery'
+        '$statusQuery';
+    return completeUrl;
+  }
+
+  String buildAcceptServiceRequestUrl({
+    required int serviceRequestId,
+  }) {
+    final completeUrl = '$_baseUrl/service-requests/$serviceRequestId/accept';
     return completeUrl;
   }
 }

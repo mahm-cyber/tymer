@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
@@ -14,6 +15,7 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
   ProvideServiceCubit({
     required this.userRepository,
     required this.serviceRepository,
+    required this.onServiceRequestDetailsTapped,
   }) : super(
           const ProvideServiceState(),
         ) {
@@ -22,6 +24,7 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
 
   final UserRepository userRepository;
   final ServiceRepository serviceRepository;
+  final VoidCallback onServiceRequestDetailsTapped;
   Timer? timer;
 
   void init() async {
@@ -39,34 +42,8 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
     });
   }
 
-  Future<LocationData?> getUserLocation() async {
-    Location location = Location();
-
-    bool serviceEnabled;
-    PermissionStatus permissionGranted;
-
-    serviceEnabled = await location.serviceEnabled();
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) {
-        return null;
-      }
-    }
-
-    permissionGranted = await location.hasPermission();
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        return null;
-      }
-    }
-
-    final locationData = await location.getLocation();
-    return locationData;
-  }
-
   void fetchServiceRequests() async {
-    final locationData = await getUserLocation();
+    final locationData = await serviceRepository.getUserLocation();
     if (locationData == null) return;
 
     try {
@@ -74,6 +51,7 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
         lat: locationData.latitude!,
         long: locationData.longitude!,
         mode: 'provider',
+        status: ServiceStatus.pending,
       );
       emit(
         state.copyWith(
@@ -82,12 +60,19 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
         ),
       );
     } catch (e) {
-      emit(
-        state.copyWith(
-          serviceRequestsFetchStatus: FetchStatus.failure,
-        ),
-      );
+      if (!isClosed) {
+        emit(
+          state.copyWith(
+            serviceRequestsFetchStatus: FetchStatus.failure,
+          ),
+        );
+      }
     }
+  }
+
+  void onViewServiceRequestDetailsTapped(Service service) {
+    onServiceRequestDetailsTapped();
+    serviceRepository.changeNotifier.setServiceRequest(service);
   }
 
   @override

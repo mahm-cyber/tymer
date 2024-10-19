@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:accept_service_request/accept_service_request.dart';
 import 'package:choose_service/choose_service.dart';
 import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:forgot_password/forgot_password.dart';
+import 'package:fulfill_service_request/fulfill_service_request.dart';
 import 'package:home/home.dart';
 import 'package:initial/initial.dart';
 
@@ -196,6 +198,8 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                 RequestServiceLocalizations.delegate,
                 ServiceRequestStatusLocalizations.delegate,
                 ProvideServiceLocalizations.delegate,
+                AcceptServiceRequestLocalizations.delegate,
+                FulfillServiceRequestLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [

@@ -37,3 +37,40 @@ extension RequestServiceDMtoRM on Service {
     );
   }
 }
+// ServiceStatus serviceStatusRMtoDM(String status) {
+//   switch (status) {
+//     case 'pending':
+//       return ServiceStatus.pending;
+//     case 'in-progress':
+//       return ServiceStatus.inProgress;
+//     case 'completed':
+//       return ServiceStatus.completed;
+//     case 'canceled':
+//       return ServiceStatus.canceled;
+//     case 'pending-review':
+//       return ServiceStatus.pendingReview;
+//     case 'disputed':
+//       return ServiceStatus.disputed;
+//     default:
+//       throw Exception('Unknown service status');
+//   }
+// }
+
+extension ServiceStatusDMtoRM on ServiceStatus {
+  String toRemoteModel() {
+    switch (this) {
+      case ServiceStatus.pending:
+        return 'pending';
+      case ServiceStatus.inProgress:
+        return 'in-progress';
+      case ServiceStatus.completed:
+        return 'completed';
+      case ServiceStatus.canceled:
+        return 'canceled';
+      case ServiceStatus.pendingReview:
+        return 'pending-review';
+      case ServiceStatus.disputed:
+        return 'disputed';
+    }
+  }
+}

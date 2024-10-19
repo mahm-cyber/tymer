@@ -1,0 +1,22 @@
+{
+  "appBarTitle": "تفاصيل الطلب",
+  "reservedForTextFieldLabel": "محجوز لـ",
+  "dateTextFieldLabel": "التاريخ",
+  "placeNameTextFieldLabel": "اسم المكان",
+  "placeAddressTextFieldLabel": "عنوان المكان",
+  "locationTextFieldLabel": "الموقع",
+  "priceTextFieldLabel": "السعر",
+  "additionalCommentsTextFieldLabel": "تعليقات إضافية",
+  "acceptButtonLabel": "قبول",
+  "distanceToServiceLocation": "{meters} متر",
+  "@distanceToServiceLocation": {
+      "placeholders": {
+          "meters": {
+              "type": "String"
+          }
+      }
+  },
+  "myLocationInfoWindowTitle": "موقعي"
+
+
+}

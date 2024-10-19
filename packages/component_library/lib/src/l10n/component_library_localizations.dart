@@ -644,6 +644,72 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'You must login first'**
   String get unAuthSnackBarErrorMessage;
+
+  /// No description provided for @reservedForTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reserved For'**
+  String get reservedForTextFieldLabel;
+
+  /// No description provided for @dateTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get dateTextFieldLabel;
+
+  /// No description provided for @placeNameTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Place Name'**
+  String get placeNameTextFieldLabel;
+
+  /// No description provided for @placeAddressTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Place Address'**
+  String get placeAddressTextFieldLabel;
+
+  /// No description provided for @locationTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get locationTextFieldLabel;
+
+  /// No description provided for @priceTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get priceTextFieldLabel;
+
+  /// No description provided for @additionalCommentsTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Additional Comments'**
+  String get additionalCommentsTextFieldLabel;
+
+  /// No description provided for @acceptButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept'**
+  String get acceptButtonLabel;
+
+  /// No description provided for @distanceToServiceLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'{meters} meters'**
+  String distanceToServiceLocation(String meters);
+
+  /// No description provided for @myLocationInfoWindowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My Location'**
+  String get myLocationInfoWindowTitle;
+
+  /// No description provided for @viewOnMapButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'View'**
+  String get viewOnMapButtonLabel;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

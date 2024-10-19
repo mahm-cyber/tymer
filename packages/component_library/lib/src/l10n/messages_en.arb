@@ -97,6 +97,24 @@
   "companiesCustomDropdownLabel": "Companies",
   "successSnackBarMessage": "Operation was successful.",
   "emptyTaskLogListIndicator": "No tasks available",
-  "unAuthSnackBarErrorMessage": "You must login first"
+  "unAuthSnackBarErrorMessage": "You must login first",
+  "reservedForTextFieldLabel": "Reserved For",
+  "dateTextFieldLabel": "Date",
+  "placeNameTextFieldLabel": "Place Name",
+  "placeAddressTextFieldLabel": "Place Address",
+  "locationTextFieldLabel": "Location",
+  "priceTextFieldLabel": "Price",
+  "additionalCommentsTextFieldLabel": "Additional Comments",
+  "acceptButtonLabel": "Accept",
+  "distanceToServiceLocation": "{meters} meters",
+  "@distanceToServiceLocation": {
+      "placeholders": {
+          "meters": {
+              "type": "String"
+          }
+      }
+  },
+  "myLocationInfoWindowTitle": "My Location",
+  "viewOnMapButtonLabel": "View"
 
 }

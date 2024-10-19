@@ -85,4 +85,11 @@ class AssetPathConstants {
   static const String tickSquarePath = '$iconsPath/tick_square.svg';
   static const String footPrintFilledPath = '$iconsPath/foot_print_filled.svg';
   static const String bankNotePath = '$iconsPath/bank_note.svg';
+  static const String locationPath = '$iconsPath/location.svg';
+  static const String calendarPath = '$iconsPath/calendar.svg';
+  static const String bankNoteBlackPath = '$iconsPath/bank_note_black.svg';
+  static const String numberPath = '$iconsPath/number.svg';
+  static const String streetSignPath = '$iconsPath/street_sign.svg';
+  static const String personBlackPath = '$iconsPath/person_black.svg';
+
 }

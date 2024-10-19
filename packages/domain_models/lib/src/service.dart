@@ -39,7 +39,7 @@ class ServiceDetails {
     this.reservedFor,
     required this.date,
     this.reservationServiceCategoryId,
-    this.additionalDetails,
+    this.additionalComments,
   });
 
   final String placeName;
@@ -47,7 +47,7 @@ class ServiceDetails {
   final String? reservedFor;
   final DateTime date;
   final int? reservationServiceCategoryId;
-  final String? additionalDetails;
+  final String? additionalComments;
 }
 
 

@@ -251,11 +251,13 @@ class TymerApi {
     required double lat,
     required double long,
     required String mode,
+    String? status
   }) async {
     final url = urlBuilder.buildGetAllServiceRequestsUrl(
       lat: lat,
       long: long,
       mode: mode,
+      status: status,
     );
     try {
       final response = await _dio.get(url);
@@ -263,6 +265,19 @@ class TymerApi {
           .map((e) => ServiceRM.fromJson(e))
           .toList();
       return serviceRequests;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future acceptServiceRequest({
+    required int serviceRequestId,
+  }) async {
+    final url = urlBuilder.buildAcceptServiceRequestUrl(
+      serviceRequestId: serviceRequestId,
+    );
+    try {
+      await _dio.post(url);
     } catch (_) {
       rethrow;
     }
