@@ -8,7 +8,7 @@ class AppBarTitleContainer extends StatelessWidget {
     super.key,
     required this.title,
     this.icon,
-    this.top = 170,
+    this.top = 135,
     this.height = 50,
   });
 
@@ -21,7 +21,7 @@ class AppBarTitleContainer extends StatelessWidget {
     final theme = TymerTheme.of(context);
     final textTheme = Theme.of(context).textTheme;
     return Positioned(
-      top: top,
+      top: MediaQuery.of(context).padding.top + top,
       left: 0,
       right: 0,
       child: Container(

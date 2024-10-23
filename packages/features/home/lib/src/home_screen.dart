@@ -82,13 +82,13 @@ class HomeView extends StatelessWidget {
                     title: l10n.provideServiceContainerTitle,
                     subtitle: l10n.provideServiceContainerSubtitle,
                   ),
-                  TextButton(
-                    onPressed: () {
-                      context.read<HomeCubit>().userRepository.logout();
-                      cubit.onLogout();
-                    },
-                    child: const Text('logout'),
-                  ),
+                  // TextButton(
+                  //   onPressed: () {
+                  //     context.read<HomeCubit>().userRepository.logout();
+                  //     cubit.onLogout();
+                  //   },
+                  //   child: const Text('logout'),
+                  // ),
                 ],
               ),
             ),

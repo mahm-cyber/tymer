@@ -65,6 +65,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'ohub-a85b9.appspot.com',
     iosClientId: '908152938707-s034bpf7ac7f6ae8vt7s922ue5muno77.apps.googleusercontent.com',
     //TODO: change this bundleID to primo_coupon
-    iosBundleId: 'com.Tymer',
+    iosBundleId: 'com.tymer',
   );
 }

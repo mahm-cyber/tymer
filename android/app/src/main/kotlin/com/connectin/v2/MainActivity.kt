@@ -1,4 +1,4 @@
-package com.Tymer
+package com.tymer
 
 import io.flutter.embedding.android.FlutterActivity
 

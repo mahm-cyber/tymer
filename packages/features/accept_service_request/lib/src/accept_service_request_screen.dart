@@ -140,7 +140,7 @@ class AcceptServiceRequestView extends StatelessWidget {
               ),
             ),
             AppBarTitleContainer(
-              top: 95,
+              top: 63,
               height: 30,
               title: l10n.appBarTitle,
             ),
