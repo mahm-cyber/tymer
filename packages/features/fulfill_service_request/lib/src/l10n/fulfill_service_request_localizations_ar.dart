@@ -1,9 +1,8 @@
 import 'fulfill_service_request_localizations.dart';
 
 /// The translations for Arabic (`ar`).
-class FulfillServiceRequestLocalizationsAr
-    extends FulfillServiceRequestLocalizations {
-  FulfillServiceRequestLocalizationsAr([super.locale = 'ar']);
+class FulfillServiceRequestLocalizationsAr extends FulfillServiceRequestLocalizations {
+  FulfillServiceRequestLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get submitButtonLabel => 'إرسال';

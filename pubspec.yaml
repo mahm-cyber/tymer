@@ -80,7 +80,8 @@ dependency_overrides:
       url: https://github.com/chandrabezzo/wakelock.git # repository
       ref: main # branch
       path: wakelock/ # folder
-
+  wakelock_windows:
+    path: packages/fake_wakelock_windows
 
 flutter:
   uses-material-design: true

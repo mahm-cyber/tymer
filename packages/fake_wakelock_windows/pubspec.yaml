@@ -1,0 +1,5 @@
+name: 'wakelock_windows'
+
+publish_to: 'none'
+environment:
+  sdk: '>=3.0.6 <4.0.0'

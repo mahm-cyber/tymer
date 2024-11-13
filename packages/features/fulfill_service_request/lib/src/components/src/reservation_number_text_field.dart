@@ -44,7 +44,7 @@ class _ReservationNumberTextFieldState
             : null;
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
-        final theme = TymerTheme.of(context);
+        // final theme = TymerTheme.of(context);
         return TextField(
 
           enabled: !isSubmissionInProgress,

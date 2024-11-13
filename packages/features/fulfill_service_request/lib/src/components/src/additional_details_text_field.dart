@@ -1,4 +1,4 @@
-import 'package:component_library/component_library.dart';
+// import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
@@ -18,7 +18,7 @@ class AdditionalDetailsTextField extends StatelessWidget {
         final l10n = FulfillServiceRequestLocalizations.of(context);
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
-        final theme = TymerTheme.of(context);
+        // final theme = TymerTheme.of(context);
         return TextField(
           textAlignVertical: TextAlignVertical.top,
           enabled: !isSubmissionInProgress,

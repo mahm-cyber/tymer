@@ -2,7 +2,7 @@ import 'choose_service_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class ChooseServiceLocalizationsAr extends ChooseServiceLocalizations {
-  ChooseServiceLocalizationsAr([super.locale = 'ar']);
+  ChooseServiceLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get appBarTitle => 'طلب خدمة';
