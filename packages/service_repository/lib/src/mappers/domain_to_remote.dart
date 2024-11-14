@@ -1,4 +1,5 @@
 import 'package:domain_models/domain_models.dart';
+import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:tymer_api/tymer_api.dart';
 
 extension RequestServiceDMtoRM on Service {
@@ -13,9 +14,9 @@ extension RequestServiceDMtoRM on Service {
 
   RequestServiceRM toRemoteModel() {
     //2024-10-14 in this format
-    final dateRM = '${details.date.year}'
-        '-${details.date.month}'
-        '-${details.date.day}';
+    final dateRM = '${details.date?.year}'
+        '-${details.date?.month}'
+        '-${details.date?.day}';
     final serviceTypeRM = serviceTypeDMtoRM(type);
     return RequestServiceRM(
       type: serviceTypeRM,
@@ -71,6 +72,40 @@ extension ServiceStatusDMtoRM on ServiceStatus {
         return 'pending-review';
       case ServiceStatus.disputed:
         return 'disputed';
+    }
+  }
+}
+
+extension FulfillServiceRequestDMtoRM on FulfillServiceRequest {
+  dynamic toRemoteModel() {
+    if (serviceType == ServiceType.reservation) {
+      return FulfillReservationServiceRM(
+        location: LocationRM(
+          type: location.type,
+          coordinates: location.coordinates,
+        ),
+        details: FulfillReservationServiceDetailsRM(
+          code: details.reservationNumber!,
+          day: details.day!.formattedDate,
+          additionalNotes: details.additionalNotes,
+          time: details.time!.twentyFourHrFormat,
+          image: details.imageBytes,
+        ),
+      );
+    }
+    if (serviceType == ServiceType.other) {
+      return FulfillOtherServiceRM(
+        location: LocationRM(
+          type: location.type,
+          coordinates: location.coordinates,
+        ),
+        details: FulfillOtherServiceDetailsRM(
+          date: details.day?.formattedDate,
+          additionalNotes: details.additionalNotes,
+          time: details.time?.twentyFourHrFormat,
+          image: details.imageBytes,
+        ),
+      );
     }
   }
 }

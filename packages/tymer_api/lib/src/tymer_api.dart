@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as diox;
 import 'package:flutter/material.dart';
+import 'package:tymer_api/src/models/request/fulfill_other_service_rm.dart';
+import 'package:tymer_api/src/models/request/fulfill_reservation_service_rm.dart';
 import 'package:tymer_api/tymer_api.dart';
 import 'package:tymer_api/src/url_builder.dart';
 
@@ -247,12 +249,11 @@ class TymerApi {
     }
   }
 
-  Future<List<ServiceRM>> getAllServiceRequests({
-    required double lat,
-    required double long,
-    required String mode,
-    String? status
-  }) async {
+  Future<List<ServiceRM>> getAllServiceRequests(
+      {required double lat,
+      required double long,
+      required String mode,
+      String? status}) async {
     final url = urlBuilder.buildGetAllServiceRequestsUrl(
       lat: lat,
       long: long,
@@ -278,6 +279,40 @@ class TymerApi {
     );
     try {
       await _dio.post(url);
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future fulfillServiceRequest({
+    required int serviceRequestId,
+    FulfillOtherServiceRM? fulfillOtherServiceRM,
+    FulfillReservationServiceRM? fulfillReservationServiceRM,
+  }) async {
+    assert(fulfillOtherServiceRM != null || fulfillReservationServiceRM != null,
+        'fulfillOtherServiceRM or fulfillReservationServiceRM must not be null');
+    final url = urlBuilder.buildSubmitServiceRequestUrl(
+      serviceRequestId: serviceRequestId,
+    );
+    final requestJsonBody = fulfillOtherServiceRM != null
+        ? fulfillOtherServiceRM.toJson()
+        : fulfillReservationServiceRM!.toJson();
+
+    final formData = diox.FormData.fromMap({
+      'location': (requestJsonBody['location'] as LocationRM).toJson(),
+      'details': fulfillOtherServiceRM != null
+          ? (requestJsonBody['details'] as FulfillOtherServiceDetailsRM)
+              .toJson()
+          : (requestJsonBody['details'] as FulfillReservationServiceDetailsRM)
+              .toJson(),
+    }, ListFormat.multiCompatible);
+
+    try {
+      final response = await _dio.post(
+        url,
+        data: formData,
+      );
+      debugPrint(response.data.toString());
     } catch (_) {
       rethrow;
     }

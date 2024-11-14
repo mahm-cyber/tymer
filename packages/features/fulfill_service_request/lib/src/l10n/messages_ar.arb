@@ -7,8 +7,8 @@
   "additionalDetailsTextFieldLabel": "تفاصيل إضافية",
   "reservationNumberTextFieldLabel": "رقم الحجز",
   "requiredFieldErrorMessage": "هذا الحقل مطلوب.",
-  "waitingTimeTextFieldLabel": "وقت الانتظار"
-
+  "timeTextFieldLabel": "الوقت",
+  "dayTextFieldLabel": "اليوم"
 
 
 }

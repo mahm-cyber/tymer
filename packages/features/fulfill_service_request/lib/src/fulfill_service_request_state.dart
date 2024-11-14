@@ -4,7 +4,8 @@ class FulfillServiceRequestState extends Equatable {
   const FulfillServiceRequestState({
     this.service,
     this.reservationNumber = const Dynamic<String>.unvalidated(),
-    this.waitingTime = const Dynamic<String>.unvalidated(),
+    this.day = const Dynamic<DateTime?>.unvalidated(),
+    this.time = const Dynamic<TimeOfDay?>.unvalidated(),
     this.imageBytes,
     this.isImagePickerBottomSheetVisible = false,
     this.additionalDetails,
@@ -13,7 +14,8 @@ class FulfillServiceRequestState extends Equatable {
 
   final Service? service;
   final Dynamic<String> reservationNumber;
-  final Dynamic<String> waitingTime;
+  final Dynamic<DateTime?> day;
+  final Dynamic<TimeOfDay?> time;
   final Uint8List? imageBytes;
   final bool isImagePickerBottomSheetVisible;
   final String? additionalDetails;
@@ -22,7 +24,8 @@ class FulfillServiceRequestState extends Equatable {
   FulfillServiceRequestState copyWith({
     Service? service,
     Dynamic<String>? reservationNumber,
-    Dynamic<String>? waitingTime,
+    Dynamic<DateTime?>? day,
+    Dynamic<TimeOfDay?>? time,
     Uint8List? imageBytes,
     bool? isImagePickerBottomSheetVisible,
     String? additionalDetails,
@@ -31,7 +34,8 @@ class FulfillServiceRequestState extends Equatable {
     return FulfillServiceRequestState(
       service: service ?? this.service,
       reservationNumber: reservationNumber ?? this.reservationNumber,
-      waitingTime: waitingTime ?? this.waitingTime,
+      day: day ?? this.day,
+      time: time ?? this.time,
       imageBytes: imageBytes ?? this.imageBytes,
       isImagePickerBottomSheetVisible: isImagePickerBottomSheetVisible ??
           this.isImagePickerBottomSheetVisible,
@@ -44,7 +48,8 @@ class FulfillServiceRequestState extends Equatable {
   List<Object?> get props => [
         service,
         reservationNumber,
-        waitingTime,
+        day,
+        time,
         imageBytes,
         isImagePickerBottomSheetVisible,
         additionalDetails,

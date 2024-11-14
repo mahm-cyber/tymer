@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:domain_models/domain_models.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:service_repository/src/mappers/domain_to_remote.dart';
@@ -81,12 +83,49 @@ class ServiceRepository {
     }
   }
 
-  Future fulfillServiceRequest({
+  Future acceptServiceRequest({
     required int serviceRequestId,
   }) async {
     try {
       await remoteApi.acceptServiceRequest(
         serviceRequestId: serviceRequestId,
+      );
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future fulfillServiceRequest({
+    required Service serviceRequestDetails,
+    required String? reservationNumber,
+    required DateTime? day,
+    required TimeOfDay? time,
+    required String? additionalDetails,
+    required Uint8List? imageBytes,
+  }) async {
+    final isReservationService =
+        serviceRequestDetails.type == ServiceType.reservation;
+    final isOtherService = serviceRequestDetails.type == ServiceType.other;
+    final fulfillServiceRequestRM = FulfillServiceRequest(
+      serviceType: serviceRequestDetails.type,
+      location: serviceRequestDetails.location,
+      details: FulfillServiceRequestDetails(
+        reservationNumber: reservationNumber,
+        day: day,
+        time: time,
+        additionalNotes: additionalDetails,
+        imageBytes: imageBytes,
+      ),
+    ).toRemoteModel();
+    try {
+      await remoteApi.fulfillServiceRequest(
+        serviceRequestId: serviceRequestDetails.id!,
+        fulfillOtherServiceRM: isOtherService
+            ? fulfillServiceRequestRM as FulfillOtherServiceRM
+            : null,
+        fulfillReservationServiceRM: isReservationService
+            ? fulfillServiceRequestRM as FulfillReservationServiceRM
+            : null,
       );
     } catch (error) {
       rethrow;

@@ -113,15 +113,15 @@ class AcceptServiceRequestView extends StatelessWidget {
                             ),
                           )
                         : Column(
-                          children: [
-                            VerticalGap.large(),
-                            VerticalGap.large(),
-                            ServiceDetailsWidget(
+                            children: [
+                              VerticalGap.large(),
+                              VerticalGap.large(),
+                              ServiceDetailsWidget(
                                 service: state.service!,
                                 onViewServiceOnMap: cubit.onViewServiceOnMap,
                               ),
-                          ],
-                        ),
+                            ],
+                          ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
@@ -140,7 +140,7 @@ class AcceptServiceRequestView extends StatelessWidget {
               ),
             ),
             AppBarTitleContainer(
-              top: 63,
+              top: theme.smallAppBarTitleContainerHeight,
               height: 30,
               title: l10n.appBarTitle,
             ),

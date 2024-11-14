@@ -1,7 +1,7 @@
-import 'dart:ui';
 
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:location/location.dart';
 import 'package:service_repository/service_repository.dart';
@@ -16,7 +16,11 @@ class AcceptServiceRequestCubit extends Cubit<AcceptServiceRequestState> {
           AcceptServiceRequestState(
             service: serviceRepository.changeNotifier.serviceRequestDetails,
           ),
-        );
+        ) {
+    final serviceRequestDetails =
+        serviceRepository.changeNotifier.serviceRequestDetails;
+    debugPrint('serviceRequestDetails: ${serviceRequestDetails?.id}');
+  }
 
   final ServiceRepository serviceRepository;
   final VoidCallback onAcceptServiceRequestSuccess;
@@ -42,7 +46,7 @@ class AcceptServiceRequestCubit extends Cubit<AcceptServiceRequestState> {
   void onSubmit() async {
     emit(state.copyWith(submissionStatus: SubmissionStatus.submitting));
     try {
-      await serviceRepository.fulfillServiceRequest(
+      await serviceRepository.acceptServiceRequest(
         serviceRequestId: state.service!.id!,
       );
       emit(state.copyWith(submissionStatus: SubmissionStatus.success));

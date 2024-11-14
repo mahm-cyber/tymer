@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tymer_api/src/models/request/location_rm.dart';
 
 part 'request_service_rm.g.dart';
 
@@ -23,22 +24,6 @@ class RequestServiceRM {
   Map<String, dynamic> toJson() => _$RequestServiceRMToJson(this);
 }
 
-@JsonSerializable()
-class LocationRM {
-  const LocationRM({
-    this.type = 'Point',
-    required this.coordinates,
-  });
-
-  @JsonKey(name: 'type')
-  final String? type;
-  @JsonKey(name: 'coordinates')
-  final List<double> coordinates;
-
-  Map<String, dynamic> toJson() => _$LocationRMToJson(this);
-  factory LocationRM.fromJson(Map<String, dynamic> json) =>
-      _$LocationRMFromJson(json);
-}
 
 @JsonSerializable(createFactory: false)
 class ServiceRequestDetailsRM {

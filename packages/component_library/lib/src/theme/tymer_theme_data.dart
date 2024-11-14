@@ -40,6 +40,8 @@ abstract class TymerThemeData {
   );
 
   final snackBarMargin = const EdgeInsets.only(bottom: 70, left: 15, right: 15);
+
+  final double smallAppBarTitleContainerHeight = 63;
 }
 
 class LightTymerThemeData extends TymerThemeData {

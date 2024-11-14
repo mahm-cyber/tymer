@@ -29,5 +29,8 @@ class FulfillServiceRequestLocalizationsAr extends FulfillServiceRequestLocaliza
   String get requiredFieldErrorMessage => 'هذا الحقل مطلوب.';
 
   @override
-  String get waitingTimeTextFieldLabel => 'وقت الانتظار';
+  String get timeTextFieldLabel => 'الوقت';
+
+  @override
+  String get dayTextFieldLabel => 'اليوم';
 }

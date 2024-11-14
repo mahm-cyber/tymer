@@ -164,7 +164,6 @@ Map<String, PageBuilder> buildRoutingTable({
                 routerDelegate.push(_PathConstants.serviceRequestStatusPath),
           ),
         ),
-    //service request status
     _PathConstants.serviceRequestStatusPath: (_) => MaterialPage(
           name: 'service-request-status',
           child: ServiceRequestStatusScreen(
@@ -187,7 +186,9 @@ Map<String, PageBuilder> buildRoutingTable({
           name: 'accept-service-request-details',
           child: AcceptServiceRequestScreen(
             serviceRepository: serviceRepository,
-            onAcceptServiceRequestSuccess: () {
+            onAcceptServiceRequestSuccess: () async {
+              await routerDelegate.popRoute();
+              await routerDelegate.popRoute();
               routerDelegate.push(_PathConstants.fulfillServiceRequestPath);
             },
           ),
@@ -229,12 +230,9 @@ class _PathConstants {
   static String get provideServicePath =>
       '${initialPath}provide-service/list-view';
 
-  // static String get provideServiceMapViewPath =>
-  //     '${initialPath}provide-service/map-view';
-
   static String get acceptServiceRequestDetailsPath =>
       '$provideServicePath/accept-service-request';
 
   static String get fulfillServiceRequestPath =>
-      '$provideServicePath/fulfill-service-request';
+      '${initialPath}fulfill-service-request';
 }

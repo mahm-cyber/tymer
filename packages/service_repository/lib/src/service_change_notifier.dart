@@ -18,8 +18,8 @@ class ServiceChangeNotifier with ChangeNotifier, EquatableMixin {
     _serviceType.value = null;
     notifyListeners();
   }
-  
-  dynamic get serviceRequestDetails => _serviceRequestDetails.value;
+
+  Service? get serviceRequestDetails => _serviceRequestDetails.value;
   void setServiceRequest(Service serviceRequestDetails) {
     _serviceRequestDetails.value = serviceRequestDetails;
     notifyListeners();

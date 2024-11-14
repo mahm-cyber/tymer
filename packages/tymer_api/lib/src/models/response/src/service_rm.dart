@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tymer_api/src/models/request/location_rm.dart';
 import 'package:tymer_api/tymer_api.dart';
 
 part 'service_rm.g.dart';
@@ -44,7 +45,7 @@ class ServiceDetailsRM {
   const ServiceDetailsRM({
     required this.placeName,
     required this.placeAddress,
-    required this.date,
+    this.date,
     this.additionalDetails,
   });
 
@@ -53,7 +54,7 @@ class ServiceDetailsRM {
   @JsonKey(name: 'place_address')
   final String placeAddress;
   @JsonKey(name: 'date')
-  final String date;
+  final String? date;
   @JsonKey(name: 'other_details', includeIfNull: false)
   final String? additionalDetails;
 

@@ -44,7 +44,7 @@ ServiceDetailsRM _$ServiceDetailsRMFromJson(Map<String, dynamic> json) =>
         final val = ServiceDetailsRM(
           placeName: $checkedConvert('place_name', (v) => v as String),
           placeAddress: $checkedConvert('place_address', (v) => v as String),
-          date: $checkedConvert('date', (v) => v as String),
+          date: $checkedConvert('date', (v) => v as String?),
           additionalDetails:
               $checkedConvert('other_details', (v) => v as String?),
         );

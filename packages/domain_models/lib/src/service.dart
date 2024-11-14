@@ -5,7 +5,7 @@ class Service {
     this.id,
     this.distanceBetweenProviderAndServiceLocation,
     this.status,
-     this.createdAt,
+    this.createdAt,
     required this.type,
     required this.price,
     required this.location,
@@ -37,7 +37,7 @@ class ServiceDetails {
     required this.placeName,
     required this.placeAddress,
     this.reservedFor,
-    required this.date,
+    this.date,
     this.reservationServiceCategoryId,
     this.additionalComments,
   });
@@ -45,7 +45,7 @@ class ServiceDetails {
   final String placeName;
   final String placeAddress;
   final String? reservedFor;
-  final DateTime date;
+  final DateTime? date;
   final int? reservationServiceCategoryId;
   final String? additionalComments;
 }

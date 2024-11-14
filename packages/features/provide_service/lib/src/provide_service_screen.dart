@@ -109,7 +109,7 @@ class ProvideServiceView extends StatelessWidget {
                               ),
               ),
               AppBarTitleContainer(
-                top: 63,
+                top: theme.smallAppBarTitleContainerHeight,
                 height: 30,
                 title: l10n.appBarTitle,
               ),

@@ -6,7 +6,7 @@ extension ServiceRMtoDM on ServiceRM {
     switch (serviceType) {
       case 'other_service':
         return ServiceType.other;
-      case 'reservation':
+      case 'reservation_service':
         return ServiceType.reservation;
       default:
         throw Exception('Unknown service type');
@@ -14,36 +14,40 @@ extension ServiceRMtoDM on ServiceRM {
   }
 
   Service toDomainModel() {
-    ServiceStatus serviceStatusRMtoDM(String status) {
-      switch (status) {
-        case 'pending':
-          return ServiceStatus.pending;
-        case 'in-progress':
-          return ServiceStatus.inProgress;
-        case 'completed':
-          return ServiceStatus.completed;
-        case 'canceled':
-          return ServiceStatus.canceled;
-        case 'pending-review':
-          return ServiceStatus.pendingReview;
-        case 'disputed':
-          return ServiceStatus.disputed;
-        default:
-          throw Exception('Unknown service status');
+    try{
+      ServiceStatus serviceStatusRMtoDM(String status) {
+        switch (status) {
+          case 'pending':
+            return ServiceStatus.pending;
+          case 'in-progress':
+            return ServiceStatus.inProgress;
+          case 'completed':
+            return ServiceStatus.completed;
+          case 'canceled':
+            return ServiceStatus.canceled;
+          case 'pending-review':
+            return ServiceStatus.pendingReview;
+          case 'disputed':
+            return ServiceStatus.disputed;
+          default:
+            throw Exception('Unknown service status');
+        }
       }
-    }
 
-    return Service(
-      id: id,
-      distanceBetweenProviderAndServiceLocation:
-          double.parse(distanceBetweenProviderAndServiceLocation),
-      status: serviceStatusRMtoDM(status),
-      createdAt: DateTime.parse(createdAt),
-      type: serviceTypeRMtoDM(type),
-      price: double.parse(totalPrice),
-      location: location.toDomainModel(),
-      details: details.toDomainModel(),
-    );
+      return Service(
+        id: id,
+        distanceBetweenProviderAndServiceLocation:
+            double.parse(distanceBetweenProviderAndServiceLocation),
+        status: serviceStatusRMtoDM(status),
+        createdAt: DateTime.parse(createdAt),
+        type: serviceTypeRMtoDM(type),
+        price: double.parse(totalPrice),
+        location: location.toDomainModel(),
+        details: details.toDomainModel(),
+      );
+    } catch (e) {
+      throw Exception('Error parsing ServiceRM to ServiceDM: $e');
+    }
   }
 }
 
@@ -61,7 +65,7 @@ extension ServiceDetailsRMtoDM on ServiceDetailsRM {
     return ServiceDetails(
       placeName: placeName,
       placeAddress: placeAddress,
-      date: DateTime.parse(date),
+      date: date!= null ? DateTime.parse(date!) : null,
       additionalComments: additionalDetails,
     );
   }

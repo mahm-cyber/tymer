@@ -1,3 +1,4 @@
+import 'package:domain_models/domain_models.dart';
 import 'package:form_fields/form_fields.dart';
 import 'package:fulfill_service_request/fulfill_service_request.dart';
 import 'package:fulfill_service_request/src/fulfill_service_request_cubit.dart';
@@ -24,8 +25,9 @@ class FulfillServiceRequestScreen extends StatelessWidget {
         serviceRepository: serviceRepository,
       ),
       child: GestureDetector(
-          onTap: context.releaseFocus,
-          child: const FulfillServiceRequestView()),
+        onTap: context.releaseFocus,
+        child: const FulfillServiceRequestView(),
+      ),
     );
   }
 }
@@ -114,20 +116,31 @@ class FulfillServiceRequestView extends StatelessWidget {
                           service: state.service!,
                           onViewServiceOnMap: cubit.onViewServiceOnMap,
                         ),
+                        VerticalGap.medium(),
                       ],
                     ),
                     Expanded(
                       child: ListView(
                         children: [
+                          if (state.service?.type ==
+                              ServiceType.reservation) ...[
+                            VerticalGap.medium(),
+                            const ReservationNumberTextField(),
+                          ],
                           VerticalGap.medium(),
-                          const ReservationNumberTextField(),
+                          DayPicker(
+                            onChanged: cubit.onDayChanged,
+                            error: state.day.error,
+                          ),
                           VerticalGap.medium(),
-                          const WaitingTimeTextField(),
+                          TimePicker(
+                            onChanged: cubit.onTimeChanged,
+                            error: state.time.error,
+                          ),
                           VerticalGap.medium(),
                           const ImagePickerTextField(),
                           VerticalGap.medium(),
                           const AdditionalDetailsTextField(),
-
                         ],
                       ),
                     ),
@@ -146,7 +159,7 @@ class FulfillServiceRequestView extends StatelessWidget {
               ),
             ),
             AppBarTitleContainer(
-              top: 95,
+              top: theme.smallAppBarTitleContainerHeight,
               height: 30,
               title: state.service!.details.reservedFor ??
                   state.service!.details.placeName,

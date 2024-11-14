@@ -36,9 +36,10 @@ class ServiceDetailsWidget extends StatelessWidget {
           ),
           VerticalGap.medium(),
         ],
+
         TextFormField(
           enableInteractiveSelection: true,
-          initialValue: serviceDetails.date.toIso8601String().split('T').first,
+          initialValue: service.createdAt?.toIso8601String().split('T').first,
           enabled: false,
           decoration: InputDecoration(
               labelText: l10n.dateTextFieldLabel,
@@ -123,9 +124,9 @@ class ServiceDetailsWidget extends StatelessWidget {
             maxLines: 4,
             decoration: InputDecoration(
               labelText: l10n.additionalCommentsTextFieldLabel,
-              prefixIcon: const SvgAsset(
-                AssetPathConstants.chatPath,
-              ),
+              // prefixIcon: const SvgAsset(
+              //   AssetPathConstants.chatPath,
+              // ),
             ),
           ),
       ],

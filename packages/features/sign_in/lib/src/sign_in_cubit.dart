@@ -103,6 +103,17 @@ class SignInCubit extends Cubit<SignInState> {
     emit(state.copyWith(shouldRememberCredentials: shouldRememberCredentials));
   }
 
+
+  Future getRememberMeFromCache() async {
+    final rememberMeLoading = state.copyWith(rememberMeLoading: true);
+    emit(rememberMeLoading);
+
+    final rememberMe = await userRepository.getRememberedCredentials();
+    emit(state.copyWith(rememberMe: rememberMe));
+
+    final rememberMeLoadingDone = state.copyWith(rememberMeLoading: false);
+    emit(rememberMeLoadingDone);
+  }
   void onSubmit() async {
     final phone = Mobile.validated(
       state.phone.value,
@@ -154,18 +165,18 @@ class SignInCubit extends Cubit<SignInState> {
         final newState = state.copyWith(
           password: Password.validated(password.value,
               invalidCredentials:
-                  error is InvalidCredentialsException ? true : false,
+              error is InvalidCredentialsException ? true : false,
               shouldCheckStrength: false),
           phone: Mobile.validated(
             phone.value,
             invalidCredentials:
-                error is InvalidCredentialsException ? true : false,
+            error is InvalidCredentialsException ? true : false,
             unVerified: error is PhoneNotVerifiedException ? true : false,
           ),
           submissionStatus: error is! InvalidCredentialsException &&
-                  error is! InvalidEmailFormatException &&
-                  error is! PhoneNotVerifiedException &&
-                  error is! OtpRateLimitExceededException
+              error is! InvalidEmailFormatException &&
+              error is! PhoneNotVerifiedException &&
+              error is! OtpRateLimitExceededException
               ? FormzSubmissionStatus.failure
               : FormzSubmissionStatus.initial,
           error: error,
@@ -173,17 +184,6 @@ class SignInCubit extends Cubit<SignInState> {
         emit(newState);
       }
     }
-  }
-
-  Future getRememberMeFromCache() async {
-    final rememberMeLoading = state.copyWith(rememberMeLoading: true);
-    emit(rememberMeLoading);
-
-    final rememberMe = await userRepository.getRememberedCredentials();
-    emit(state.copyWith(rememberMe: rememberMe));
-
-    final rememberMeLoadingDone = state.copyWith(rememberMeLoading: false);
-    emit(rememberMeLoadingDone);
   }
 
 // @override

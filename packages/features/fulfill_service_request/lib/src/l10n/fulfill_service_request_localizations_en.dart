@@ -29,5 +29,8 @@ class FulfillServiceRequestLocalizationsEn extends FulfillServiceRequestLocaliza
   String get requiredFieldErrorMessage => 'This field is required.';
 
   @override
-  String get waitingTimeTextFieldLabel => 'Waiting Time';
+  String get timeTextFieldLabel => 'Time';
+
+  @override
+  String get dayTextFieldLabel => 'Day';
 }

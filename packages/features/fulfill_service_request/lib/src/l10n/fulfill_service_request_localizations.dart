@@ -141,11 +141,17 @@ abstract class FulfillServiceRequestLocalizations {
   /// **'This field is required.'**
   String get requiredFieldErrorMessage;
 
-  /// No description provided for @waitingTimeTextFieldLabel.
+  /// No description provided for @timeTextFieldLabel.
   ///
   /// In en, this message translates to:
-  /// **'Waiting Time'**
-  String get waitingTimeTextFieldLabel;
+  /// **'Time'**
+  String get timeTextFieldLabel;
+
+  /// No description provided for @dayTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Day'**
+  String get dayTextFieldLabel;
 }
 
 class _FulfillServiceRequestLocalizationsDelegate extends LocalizationsDelegate<FulfillServiceRequestLocalizations> {

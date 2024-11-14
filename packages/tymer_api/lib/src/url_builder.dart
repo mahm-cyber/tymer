@@ -71,4 +71,10 @@ class UrlBuilder {
     final completeUrl = '$_baseUrl/service-requests/$serviceRequestId/accept';
     return completeUrl;
   }
+  String buildSubmitServiceRequestUrl({
+    required int serviceRequestId,
+  }) {
+    final completeUrl = '$_baseUrl/service-requests/$serviceRequestId/submit-response';
+    return completeUrl;
+  }
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
 import 'package:image_picker/image_picker.dart';
@@ -28,30 +29,21 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
   // onReservationNumberUnfocused
   // onReservationNumberChanged
 
-  void onWaitingTimeChanged(String? newValue) {
-    final previousWaitingTime = state.waitingTime;
-    final shouldValidate = previousWaitingTime.isNotValid;
+  void onDayChanged(DateTime? newValue) {
     final newState = state.copyWith(
-      waitingTime: shouldValidate
-          ? Dynamic<String>.validated(
-              newValue,
-              isRequired: true,
-            )
-          : Dynamic<String>.unvalidated(
-              newValue,
-            ),
+      day: Dynamic<DateTime?>.validated(
+        newValue,
+      ),
     );
     emit(newState);
   }
 
-  void onWaitingTimeUnfocused() {
+  void onTimeChanged(TimeOfDay? newValue) {
     final newState = state.copyWith(
-      waitingTime: Dynamic<String>.validated(
-        state.waitingTime.value,
-        isRequired: true,
+      time: Dynamic<TimeOfDay?>.validated(
+        newValue,
       ),
     );
-
     emit(newState);
   }
 
@@ -163,12 +155,52 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
   }
 
   void onSubmit() async {
-    emit(state.copyWith(submissionStatus: FormzSubmissionStatus.inProgress));
+    final serviceType = state.service!.type;
+    final isOtherService = serviceType == ServiceType.other;
+    final isReservationService = serviceType == ServiceType.reservation;
+    final reservationNumber = Dynamic<String>.validated(
+      state.reservationNumber.value,
+      isRequired: isReservationService ? true : false,
+    );
+    final day = Dynamic<DateTime?>.validated(
+      state.day.value,
+      isRequired: isReservationService ? true : false,
+    );
+    final time = Dynamic<TimeOfDay?>.validated(
+      state.time.value,
+      isRequired:
+          isReservationService || (isOtherService && state.day.value != null)
+              ? true
+              : false,
+    );
+
+    final isFormValid = Formz.validate([
+      reservationNumber,
+      day,
+      time,
+    ]);
+
+    final newState = state.copyWith(
+      reservationNumber: reservationNumber,
+      day: day,
+      time: time,
+      submissionStatus: isFormValid
+          ? FormzSubmissionStatus.inProgress
+          : FormzSubmissionStatus.initial,
+    );
+    emit(newState);
     try {
       await serviceRepository.fulfillServiceRequest(
-        serviceRequestId: state.service!.id!,
+        serviceRequestDetails: state.service!,
+        reservationNumber: reservationNumber.value,
+        day: day.value,
+        time: time.value,
+        additionalDetails: state.additionalDetails,
+        imageBytes: state.imageBytes,
       );
-      emit(state.copyWith(submissionStatus: FormzSubmissionStatus.success));
+      emit(state.copyWith(
+        submissionStatus: FormzSubmissionStatus.success,
+      ));
     } catch (e) {
       emit(state.copyWith(submissionStatus: FormzSubmissionStatus.failure));
     }
