@@ -13,5 +13,6 @@
   "requestServiceButtonInProgressLabel": "جاري الطلب...",
   "requestServiceButtonLabel": "طلب الخدمة",
   "insufficientBalanceMessage": "رصيدك غير كاف. يرجى تعبئة الرصيد.",
-  "addFundsButtonLabel": "اذهب إلى المحفظة"
+  "addFundsButtonLabel": "اذهب إلى المحفظة",
+    "successfulServiceRequestMessage": "تم طلب الخدمة بنجاح"
 }

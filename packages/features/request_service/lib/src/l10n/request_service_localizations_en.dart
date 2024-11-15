@@ -48,4 +48,7 @@ class RequestServiceLocalizationsEn extends RequestServiceLocalizations {
 
   @override
   String get addFundsButtonLabel => 'Go to Wallet';
+
+  @override
+  String get successfulServiceRequestMessage => 'Request successfully submitted';
 }

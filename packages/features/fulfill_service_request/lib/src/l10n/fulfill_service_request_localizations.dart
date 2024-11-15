@@ -152,6 +152,30 @@ abstract class FulfillServiceRequestLocalizations {
   /// In en, this message translates to:
   /// **'Day'**
   String get dayTextFieldLabel;
+
+  /// No description provided for @serviceRequestSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Request fulfilled successfully'**
+  String get serviceRequestSuccessMessage;
+
+  /// No description provided for @serviceRequestFailureMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed, try again'**
+  String get serviceRequestFailureMessage;
+
+  /// No description provided for @backHomeButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Home'**
+  String get backHomeButtonLabel;
+
+  /// No description provided for @serviceFeesContainerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Fees'**
+  String get serviceFeesContainerLabel;
 }
 
 class _FulfillServiceRequestLocalizationsDelegate extends LocalizationsDelegate<FulfillServiceRequestLocalizations> {

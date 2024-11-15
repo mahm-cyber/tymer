@@ -8,8 +8,10 @@
   "reservationNumberTextFieldLabel": "Reservation Number",
   "requiredFieldErrorMessage": "This field is required.",
   "timeTextFieldLabel": "Time",
-  "dayTextFieldLabel": "Day"
-
-
+  "dayTextFieldLabel": "Day",
+  "serviceRequestSuccessMessage": "Request fulfilled successfully",
+  "serviceRequestFailureMessage": "Failed, try again",
+  "backHomeButtonLabel": "Back to Home",
+  "serviceFeesContainerLabel": "Service Fees"
 
 }

@@ -98,6 +98,24 @@ abstract class ServiceRequestStatusLocalizations {
   /// In en, this message translates to:
   /// **'Request Status'**
   String get appBarTitle;
+
+  /// No description provided for @findingSomeoneStepTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Finding Someone'**
+  String get findingSomeoneStepTitle;
+
+  /// No description provided for @processingStepTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing'**
+  String get processingStepTitle;
+
+  /// No description provided for @completeStepTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete'**
+  String get completeStepTitle;
 }
 
 class _ServiceRequestStatusLocalizationsDelegate extends LocalizationsDelegate<ServiceRequestStatusLocalizations> {

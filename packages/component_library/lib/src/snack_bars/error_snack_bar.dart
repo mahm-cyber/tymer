@@ -7,19 +7,21 @@ class ErrorSnackBar extends SnackBar {
     this.message,
     required this.context,
     this.snackBarAction,
+    this.marginalSpace,
   }) : super(
           content: ErrorSnackBarContent(
             message: message,
           ),
           behavior: SnackBarBehavior.floating,
           backgroundColor: const Color(0xFFFFF0ED),
-          margin: TymerTheme.of(context).snackBarMargin,
+          margin: marginalSpace??TymerTheme.of(context).snackBarMargin,
           action: snackBarAction,
         );
 
   final String? message;
   final BuildContext context;
   final SnackBarAction? snackBarAction;
+  final EdgeInsets? marginalSpace;
 }
 
 class ErrorSnackBarContent extends StatelessWidget {

@@ -73,10 +73,36 @@ class FulfillServiceRequestView extends StatelessWidget {
             cubit.onImagePickerBottomSheetClosed();
           });
         }
+        if (state.submissionStatus == FormzSubmissionStatus.success) {
+          showSnackBar(
+            context: context,
+            snackBar: SuccessSnackBar(
+              context: context,
+              message: l10n.serviceRequestSuccessMessage,
+              marginalSpace: const EdgeInsets.only(
+                bottom: 70,
+              ),
+            ),
+          );
+        }
+        if (state.submissionStatus == FormzSubmissionStatus.failure) {
+          showSnackBar(
+            context: context,
+            snackBar: ErrorSnackBar(
+              context: context,
+              message: l10n.serviceRequestFailureMessage,
+              marginalSpace: const EdgeInsets.only(
+                bottom: 70,
+              ),
+            ),
+          );
+        }
       },
       builder: (context, state) {
         final textTheme = Theme.of(context).textTheme;
         final cubit = context.read<FulfillServiceRequestCubit>();
+        final isRequestFulfilled =
+            state.submissionStatus == FormzSubmissionStatus.success;
         return Stack(
           children: [
             Scaffold(
@@ -94,65 +120,139 @@ class FulfillServiceRequestView extends StatelessWidget {
                   children: [
                     VerticalGap.large(),
                     VerticalGap.medium(),
-                    ExpansionTile(
-                      title: Text(
-                        l10n.serviceDetailsTitle,
-                        style: textTheme.titleMedium,
-                      ),
-                      collapsedShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: BorderSide(
-                          color: colorScheme.secondary,
-                        ),
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: BorderSide(
-                          color: colorScheme.secondary,
-                        ),
-                      ),
-                      children: [
-                        ServiceDetailsWidget(
-                          service: state.service!,
-                          onViewServiceOnMap: cubit.onViewServiceOnMap,
-                        ),
-                        VerticalGap.medium(),
-                      ],
-                    ),
-                    Expanded(
-                      child: ListView(
-                        children: [
-                          if (state.service?.type ==
-                              ServiceType.reservation) ...[
+                    // ExpansionTile(
+                    //   title: Text(
+                    //     l10n.serviceDetailsTitle,
+                    //     style: textTheme.titleMedium,
+                    //   ),
+                    //   collapsedShape: RoundedRectangleBorder(
+                    //     borderRadius: BorderRadius.circular(10),
+                    //     side: BorderSide(
+                    //       color: colorScheme.secondary,
+                    //     ),
+                    //   ),
+                    //   shape: RoundedRectangleBorder(
+                    //     borderRadius: BorderRadius.circular(10),
+                    //     side: BorderSide(
+                    //       color: colorScheme.secondary,
+                    //     ),
+                    //   ),
+                    //   children: [
+                    //     ServiceDetailsWidget(
+                    //       service: state.service!,
+                    //       onViewServiceOnMap: cubit.onViewServiceOnMap,
+                    //     ),
+                    //     VerticalGap.medium(),
+                    //   ],
+                    // ),
+                    if (!isRequestFulfilled)
+                      Expanded(
+                        child: ListView(
+                          children: [
+                            ExpansionTile(
+                              title: Text(
+                                l10n.serviceDetailsTitle,
+                                style: textTheme.titleMedium,
+                              ),
+                              collapsedShape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                side: BorderSide(
+                                  color: colorScheme.secondary,
+                                ),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                side: BorderSide(
+                                  color: colorScheme.secondary,
+                                ),
+                              ),
+                              children: [
+                                ServiceDetailsWidget(
+                                  service: state.service!,
+                                  onViewServiceOnMap: cubit.onViewServiceOnMap,
+                                ),
+                                VerticalGap.medium(),
+                              ],
+                            ),
+                            if (state.service?.type ==
+                                ServiceType.reservation) ...[
+                              VerticalGap.medium(),
+                              const ReservationNumberTextField(),
+                            ],
                             VerticalGap.medium(),
-                            const ReservationNumberTextField(),
+                            DayPicker(
+                              onChanged: cubit.onDayChanged,
+                              error: state.day.error,
+                            ),
+                            VerticalGap.medium(),
+                            TimePicker(
+                              onChanged: cubit.onTimeChanged,
+                              error: state.time.error,
+                            ),
+                            VerticalGap.medium(),
+                            const ImagePickerTextField(),
+                            VerticalGap.medium(),
+                            const AdditionalDetailsTextField(),
                           ],
-                          VerticalGap.medium(),
-                          DayPicker(
-                            onChanged: cubit.onDayChanged,
-                            error: state.day.error,
-                          ),
-                          VerticalGap.medium(),
-                          TimePicker(
-                            onChanged: cubit.onTimeChanged,
-                            error: state.time.error,
-                          ),
-                          VerticalGap.medium(),
-                          const ImagePickerTextField(),
-                          VerticalGap.medium(),
-                          const AdditionalDetailsTextField(),
-                        ],
+                        ),
                       ),
-                    ),
+                    if (isRequestFulfilled)
+                      Expanded(
+                        child: ListView(
+                          children: [
+                            ExpansionTile(
+                              title: Text(
+                                l10n.serviceDetailsTitle,
+                                style: textTheme.titleMedium,
+                              ),
+                              collapsedShape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                side: BorderSide(
+                                  color: colorScheme.secondary,
+                                ),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                side: BorderSide(
+                                  color: colorScheme.secondary,
+                                ),
+                              ),
+                              children: [
+                                ServiceDetailsWidget(
+                                  service: state.service!,
+                                  onViewServiceOnMap: cubit.onViewServiceOnMap,
+                                ),
+                                VerticalGap.medium(),
+                              ],
+                            ),
+                            VerticalGap.medium(),
+                            const ServiceFeeContainer(),
+                            VerticalGap.medium(),
+                            const ServiceFeeContainer(),
+                            VerticalGap.medium(),
+                            const ServiceFeeContainer(),
+                            VerticalGap.medium(),
+                          ],
+                        ),
+                      ),
                     VerticalGap.medium(),
-                    state.submissionStatus == FormzSubmissionStatus.inProgress
-                        ? TymerElevatedButton.inProgress(
-                            label: l10n.submitButtonLabel,
-                          )
-                        : TymerElevatedButton(
-                            label: l10n.submitButtonLabel,
-                            onTap: cubit.onSubmit,
-                          ),
+                    if (!isRequestFulfilled)
+                      state.submissionStatus == FormzSubmissionStatus.inProgress
+                          ? TymerElevatedButton.inProgress(
+                              label: l10n.submitButtonLabel,
+                            )
+                          : TymerElevatedButton(
+                              label: l10n.submitButtonLabel,
+                              onTap: cubit.onSubmit,
+                            ),
+                    VerticalGap.medium(),
+                    if (isRequestFulfilled)
+                      TymerElevatedButton(
+                        label: l10n.backHomeButtonLabel,
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      ),
                     VerticalGap.small(),
                   ],
                 ),

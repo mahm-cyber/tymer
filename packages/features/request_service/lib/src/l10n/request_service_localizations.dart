@@ -182,6 +182,12 @@ abstract class RequestServiceLocalizations {
   /// In en, this message translates to:
   /// **'Go to Wallet'**
   String get addFundsButtonLabel;
+
+  /// No description provided for @successfulServiceRequestMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Request successfully submitted'**
+  String get successfulServiceRequestMessage;
 }
 
 class _RequestServiceLocalizationsDelegate extends LocalizationsDelegate<RequestServiceLocalizations> {

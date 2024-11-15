@@ -1,6 +1,7 @@
 {
-  "appBarTitle": "Request Status"
-
-
+  "appBarTitle": "Request Status",
+  "findingSomeoneStepTitle": "Finding Someone",
+  "processingStepTitle": "Processing",
+  "completeStepTitle": "Complete"
 
 }

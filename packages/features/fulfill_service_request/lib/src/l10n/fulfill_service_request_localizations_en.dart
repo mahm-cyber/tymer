@@ -33,4 +33,16 @@ class FulfillServiceRequestLocalizationsEn extends FulfillServiceRequestLocaliza
 
   @override
   String get dayTextFieldLabel => 'Day';
+
+  @override
+  String get serviceRequestSuccessMessage => 'Request fulfilled successfully';
+
+  @override
+  String get serviceRequestFailureMessage => 'Failed, try again';
+
+  @override
+  String get backHomeButtonLabel => 'Back to Home';
+
+  @override
+  String get serviceFeesContainerLabel => 'Service Fees';
 }

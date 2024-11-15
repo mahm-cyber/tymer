@@ -6,4 +6,13 @@ class ServiceRequestStatusLocalizationsAr extends ServiceRequestStatusLocalizati
 
   @override
   String get appBarTitle => 'حالة الطلب';
+
+  @override
+  String get findingSomeoneStepTitle => 'جاري العثور على شخص';
+
+  @override
+  String get processingStepTitle => 'جاري المعالجة';
+
+  @override
+  String get completeStepTitle => 'اكتمل';
 }

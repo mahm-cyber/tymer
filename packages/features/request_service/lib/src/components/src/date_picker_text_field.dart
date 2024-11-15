@@ -22,8 +22,9 @@ class DatePickerTextField extends StatelessWidget {
           final dateTime = await showDatePicker(
             context: context,
             initialDate: state.date.value,
-            firstDate: DateTime(2000),
-            lastDate: DateTime(2050),
+            firstDate: DateTime.now(),
+            lastDate: DateTime(2040),
+
           );
           if (dateTime != null) cubit.onDatePicked(dateTime);
         }

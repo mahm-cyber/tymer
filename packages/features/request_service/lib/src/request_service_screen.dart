@@ -68,12 +68,12 @@ class RequestServiceView extends StatelessWidget {
             ),
           );
         }
-        if(state.submissionStatus == FormzSubmissionStatus.success) {
+        if (state.submissionStatus == FormzSubmissionStatus.success) {
           showSnackBar(
             context: context,
             snackBar: SuccessSnackBar(
               context: context,
-              message: 'l10n.successfulServiceRequestMessage',
+              message: l10n.successfulServiceRequestMessage,
             ),
           );
           cubit.onServiceRequestSuccess();

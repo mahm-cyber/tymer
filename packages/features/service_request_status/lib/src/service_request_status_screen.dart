@@ -68,18 +68,18 @@ class ServiceRequestStatusView extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const RequestStatusStep(
-                        title: 'l10n.findingSomeoneStepTitle',
+                      RequestStatusStep(
+                        title: l10n.findingSomeoneStepTitle,
                         status: RequestStatus.loading,
                       ),
                       VerticalGap.medium(),
-                      const RequestStatusStep(
-                        title: 'l10n.processingStepTitle',
+                      RequestStatusStep(
+                        title: l10n.processingStepTitle,
                         status: RequestStatus.idle,
                       ),
                       VerticalGap.medium(),
-                      const RequestStatusStep(
-                        title: 'l10n.completeStepTitle',
+                      RequestStatusStep(
+                        title: l10n.completeStepTitle,
                         status: RequestStatus.done,
                       ),
                     ],

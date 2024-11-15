@@ -8,7 +8,11 @@
   "reservationNumberTextFieldLabel": "رقم الحجز",
   "requiredFieldErrorMessage": "هذا الحقل مطلوب.",
   "timeTextFieldLabel": "الوقت",
-  "dayTextFieldLabel": "اليوم"
+  "dayTextFieldLabel": "اليوم",
+  "serviceRequestSuccessMessage": "تم تنفيذ الطلب بنجاح",
+  "serviceRequestFailureMessage": "فشل، حاول مرة أخرى",
+  "backHomeButtonLabel": "العودة إلى الصفحة الرئيسية",
+  "serviceFeesContainerLabel": "رسوم الخدمة"
 
 
 }

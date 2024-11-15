@@ -1,3 +1,6 @@
 {
-  "appBarTitle": "حالة الطلب"
+  "appBarTitle": "حالة الطلب",
+  "findingSomeoneStepTitle": "جاري العثور على شخص",
+  "processingStepTitle": "جاري المعالجة",
+  "completeStepTitle": "اكتمل"
 }

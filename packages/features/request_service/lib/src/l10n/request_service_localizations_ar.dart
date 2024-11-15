@@ -48,4 +48,7 @@ class RequestServiceLocalizationsAr extends RequestServiceLocalizations {
 
   @override
   String get addFundsButtonLabel => 'اذهب إلى المحفظة';
+
+  @override
+  String get successfulServiceRequestMessage => 'تم طلب الخدمة بنجاح';
 }

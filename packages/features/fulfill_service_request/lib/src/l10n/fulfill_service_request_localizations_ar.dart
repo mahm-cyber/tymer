@@ -33,4 +33,16 @@ class FulfillServiceRequestLocalizationsAr extends FulfillServiceRequestLocaliza
 
   @override
   String get dayTextFieldLabel => 'اليوم';
+
+  @override
+  String get serviceRequestSuccessMessage => 'تم تنفيذ الطلب بنجاح';
+
+  @override
+  String get serviceRequestFailureMessage => 'فشل، حاول مرة أخرى';
+
+  @override
+  String get backHomeButtonLabel => 'العودة إلى الصفحة الرئيسية';
+
+  @override
+  String get serviceFeesContainerLabel => 'رسوم الخدمة';
 }
