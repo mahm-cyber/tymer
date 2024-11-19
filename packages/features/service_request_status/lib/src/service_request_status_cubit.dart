@@ -14,7 +14,7 @@ class ServiceRequestStatusCubit extends Cubit<ServiceRequestStatusState> {
   ServiceRequestStatusCubit({
     required this.userRepository,
     required this.serviceRepository,
-    required this.onCancellationSuccess,
+    required this.goBackHome,
     required this.requestId,
   }) : super(
           const ServiceRequestStatusState(),
@@ -34,7 +34,7 @@ class ServiceRequestStatusCubit extends Cubit<ServiceRequestStatusState> {
 
   final UserRepository userRepository;
   final ServiceRepository serviceRepository;
-  final VoidCallback onCancellationSuccess;
+  final VoidCallback goBackHome;
   final int requestId;
   Timer? _timer;
 

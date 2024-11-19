@@ -160,8 +160,12 @@ Map<String, PageBuilder> buildRoutingTable({
             serviceRepository: serviceRepository,
             onGoToWalletTapped: () =>
                 routerDelegate.push(_PathConstants.walletPath),
-            onServiceRequestSuccess: (int requestId) => routerDelegate.push(
-                _PathConstants.serviceRequestStatusPath(requestId: requestId)),
+            onServiceRequestSuccess: (int requestId) async{
+              await routerDelegate.popRoute();
+              routerDelegate.push(
+                _PathConstants.serviceRequestStatusPath(requestId: requestId),
+              );
+            },
           ),
         ),
     _PathConstants.serviceRequestStatusPath(): (info) {
@@ -173,8 +177,9 @@ Map<String, PageBuilder> buildRoutingTable({
         child: ServiceRequestStatusScreen(
           userRepository: userRepository,
           serviceRepository: serviceRepository,
-          onGoToWalletTapped: () =>
-              routerDelegate.push(_PathConstants.walletPath),
+          goBackHome: () async {
+            await routerDelegate.pop();
+          },
           requestId: requestId,
         ),
       );

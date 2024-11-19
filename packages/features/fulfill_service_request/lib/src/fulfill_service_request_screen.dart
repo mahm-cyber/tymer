@@ -90,7 +90,6 @@ class FulfillServiceRequestView extends StatelessWidget {
               context: context,
               message: l10n.serviceRequestFailureMessage,
               marginalSpace: theme.snackBarMargin,
-
             ),
           );
         }
@@ -194,43 +193,9 @@ class FulfillServiceRequestView extends StatelessWidget {
                         ),
                       ),
                     if (isRequestFulfilled)
-                      Expanded(
-                        child: ListView(
-                          children: [
-                            ExpansionTile(
-                              title: Text(
-                                l10n.serviceDetailsTitle,
-                                style: textTheme.titleMedium,
-                              ),
-                              collapsedShape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                side: BorderSide(
-                                  color: colorScheme.secondary,
-                                ),
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                side: BorderSide(
-                                  color: colorScheme.secondary,
-                                ),
-                              ),
-                              children: [
-                                ServiceDetailsWidget(
-                                  service: state.service!,
-                                  onViewServiceOnMap: cubit.onViewServiceOnMap,
-                                ),
-                                VerticalGap.medium(),
-                              ],
-                            ),
-                            VerticalGap.medium(),
-                            const ServiceFeeContainer(),
-                            VerticalGap.medium(),
-                            const ServiceFeeContainer(),
-                            VerticalGap.medium(),
-                            const ServiceFeeContainer(),
-                            VerticalGap.medium(),
-                          ],
-                        ),
+                      Receipt(
+                        service: state.service!,
+                        onViewServiceOnMap: cubit.onViewServiceOnMap,
                       ),
                     VerticalGap.medium(),
                     if (!isRequestFulfilled)
@@ -267,3 +232,4 @@ class FulfillServiceRequestView extends StatelessWidget {
     );
   }
 }
+

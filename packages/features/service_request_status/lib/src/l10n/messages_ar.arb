@@ -10,5 +10,7 @@
   "cancellationSuccessMessage": "تم إلغاء طلبك بنجاح",
   "cancellationErrorMessage": "حدث خطأ أثناء إلغاء طلبك",
   "confirmationSuccessMessage": "تم تأكيد طلبك بنجاح",
-  "confirmationErrorMessage": "حدث خطأ أثناء تأكيد طلبك"
+  "confirmationErrorMessage": "حدث خطأ أثناء تأكيد طلبك",
+    "backHomeButtonLabel": "العودة إلى الرئيسية"
+
 }

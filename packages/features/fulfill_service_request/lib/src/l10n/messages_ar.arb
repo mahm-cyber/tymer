@@ -1,6 +1,5 @@
 {
   "submitButtonLabel": "إرسال",
-  "serviceDetailsTitle": "تفاصيل الطلب",
   "bottomSheetGalleryButton": "معرض",
   "bottomSheetCaptureButton": "التقاط",
   "imageTextFieldLabel": "صورة",
@@ -11,8 +10,7 @@
   "dayTextFieldLabel": "اليوم",
   "serviceRequestSuccessMessage": "تم تنفيذ الطلب بنجاح",
   "serviceRequestFailureMessage": "فشل، حاول مرة أخرى",
-  "backHomeButtonLabel": "العودة إلى الصفحة الرئيسية",
-  "serviceFeesContainerLabel": "رسوم الخدمة"
+  "backHomeButtonLabel": "العودة إلى الصفحة الرئيسية"
 
 
 }

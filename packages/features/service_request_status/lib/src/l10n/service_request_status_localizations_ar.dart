@@ -39,4 +39,7 @@ class ServiceRequestStatusLocalizationsAr extends ServiceRequestStatusLocalizati
 
   @override
   String get confirmationErrorMessage => 'حدث خطأ أثناء تأكيد طلبك';
+
+  @override
+  String get backHomeButtonLabel => 'العودة إلى الرئيسية';
 }

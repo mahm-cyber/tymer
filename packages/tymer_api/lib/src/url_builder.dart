@@ -84,7 +84,21 @@ class UrlBuilder {
   String buildGetServiceRequestUrl({
     required int serviceRequestId,
   }) {
-    final completeUrl = '$_baseUrl/service-requests/$serviceRequestId';
+    final completeUrl = '$_baseUrl/service-requests/$serviceRequestId?include=serviceResponse';
+    return completeUrl;
+  }
+
+  String buildConfirmServiceRequestUrl({
+    required int serviceRequestId,
+  }) {
+    final completeUrl = '$_baseUrl/service-requests/$serviceRequestId/confirm';
+    return completeUrl;
+  }
+
+  String buildCancelServiceRequestUrl({
+    required int serviceRequestId,
+  }) {
+    final completeUrl = '$_baseUrl/service-requests/$serviceRequestId/cancel';
     return completeUrl;
   }
 }

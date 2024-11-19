@@ -333,6 +333,32 @@ class TymerApi {
       rethrow;
     }
   }
+
+  Future confirmServiceRequest({
+    required int serviceRequestId,
+  }) async {
+    final url = urlBuilder.buildConfirmServiceRequestUrl(
+      serviceRequestId: serviceRequestId,
+    );
+    try {
+      await _dio.post(url);
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future cancelServiceRequest({
+    required int serviceRequestId,
+  }) async {
+    final url = urlBuilder.buildCancelServiceRequestUrl(
+      serviceRequestId: serviceRequestId,
+    );
+    try {
+      await _dio.post(url);
+    } catch (_) {
+      rethrow;
+    }
+  }
 }
 
 extension on Dio {

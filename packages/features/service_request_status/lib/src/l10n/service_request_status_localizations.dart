@@ -164,6 +164,12 @@ abstract class ServiceRequestStatusLocalizations {
   /// In en, this message translates to:
   /// **'There was an error confirming your request'**
   String get confirmationErrorMessage;
+
+  /// No description provided for @backHomeButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Home'**
+  String get backHomeButtonLabel;
 }
 
 class _ServiceRequestStatusLocalizationsDelegate extends LocalizationsDelegate<ServiceRequestStatusLocalizations> {

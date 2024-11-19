@@ -115,6 +115,10 @@
       }
   },
   "myLocationInfoWindowTitle": "موقعي",
-  "viewOnMapButtonLabel": "عرض"
+  "viewOnMapButtonLabel": "عرض",
+  "serviceFeesContainerLabel": "رسوم الخدمة",
+    "serviceDetailsTitle": "تفاصيل الطلب"
+
+
 }
 

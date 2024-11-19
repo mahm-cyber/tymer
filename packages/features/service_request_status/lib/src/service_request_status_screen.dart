@@ -4,7 +4,6 @@ import 'package:service_request_status/src/service_request_status_cubit.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:service_repository/service_repository.dart';
 
 import 'package:user_repository/user_repository.dart';
@@ -15,14 +14,14 @@ class ServiceRequestStatusScreen extends StatelessWidget {
   const ServiceRequestStatusScreen({
     required this.userRepository,
     required this.serviceRepository,
-    required this.onCancellationSuccess,
+    required this.goBackHome,
     required this.requestId,
     super.key,
   });
 
   final UserRepository userRepository;
   final ServiceRepository serviceRepository;
-  final VoidCallback onCancellationSuccess;
+  final VoidCallback goBackHome;
   final int requestId;
 
   @override
@@ -31,7 +30,7 @@ class ServiceRequestStatusScreen extends StatelessWidget {
       create: (_) => ServiceRequestStatusCubit(
         userRepository: userRepository,
         serviceRepository: serviceRepository,
-        onCancellationSuccess: onCancellationSuccess,
+        goBackHome: goBackHome,
         requestId: requestId,
       ),
       child: const ServiceRequestStatusView(),
@@ -53,7 +52,7 @@ class ServiceRequestStatusView extends StatelessWidget {
       listener: (context, state) {
         final cubit = context.read<ServiceRequestStatusCubit>();
         if (state.cancellationStatus == CancellationStatus.success) {
-          cubit.onCancellationSuccess();
+          cubit.goBackHome();
           showSnackBar(
             context: context,
             snackBar: SuccessSnackBar(
@@ -71,7 +70,7 @@ class ServiceRequestStatusView extends StatelessWidget {
             ),
           );
         }
-        if(state.confirmationStatus == ConfirmationStatus.success) {
+        if (state.confirmationStatus == ConfirmationStatus.success) {
           showSnackBar(
             context: context,
             snackBar: SuccessSnackBar(
@@ -80,7 +79,7 @@ class ServiceRequestStatusView extends StatelessWidget {
             ),
           );
         }
-        if(state.confirmationStatus == ConfirmationStatus.error) {
+        if (state.confirmationStatus == ConfirmationStatus.error) {
           showSnackBar(
             context: context,
             snackBar: ErrorSnackBar(
@@ -92,86 +91,101 @@ class ServiceRequestStatusView extends StatelessWidget {
       },
       builder: (context, state) {
         final isRequestCompleted = state.service?.response != null;
-        return GestureDetector(
-          onTap: context.releaseFocus,
-          child: Stack(
-            children: [
-              Scaffold(
-                appBar: AppBar(
-                  title: const SvgAsset(AssetPathConstants.whiteLogoPath),
-                  toolbarHeight: 160,
-                  iconTheme: IconThemeData(color: colorScheme.surface),
+        final isRequestConfirmed =
+            state.service?.status == ServiceStatus.completed ||
+                state.confirmationStatus == ConfirmationStatus.success;
+        final cubit = context.read<ServiceRequestStatusCubit>();
+        return Stack(
+          children: [
+            Scaffold(
+              appBar: AppBar(
+                title: const SvgAsset(AssetPathConstants.whiteLogoPath),
+                toolbarHeight: 160,
+                iconTheme: IconThemeData(color: colorScheme.surface),
+              ),
+              body: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: theme.screenMargin * 2,
                 ),
-                body: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: theme.screenMargin * 2,
-                  ),
-                  child: isRequestCompleted
-                      ? ServiceResponseWidget(
-                          response: state.service?.response,
-                        )
-                      : Column(
-                          children: [
-                            const Spacer(),
-                            RequestStatusStep(
-                              title: l10n.findingSomeoneStepTitle,
-                              status: state.service?.status == null
-                                  ? RequestStatus.idle
-                                  : state.service?.status ==
-                                          ServiceStatus.pending
-                                      ? RequestStatus.loading
-                                      : RequestStatus.done,
-                            ),
-                            VerticalGap.medium(),
-                            RequestStatusStep(
-                              title: l10n.processingStepTitle,
-                              status: state.service?.status ==
-                                      ServiceStatus.inProgress
-                                  ? RequestStatus.loading
-                                  : state.service?.status ==
-                                          ServiceStatus.pendingReview
-                                      ? RequestStatus.done
-                                      : RequestStatus.idle,
-                            ),
-                            VerticalGap.medium(),
-                            RequestStatusStep(
-                              title: l10n.completeStepTitle,
-                              status: state.service?.status ==
-                                          ServiceStatus.completed ||
-                                      state.service?.status ==
-                                          ServiceStatus.pendingReview
-                                  ? RequestStatus.done
-                                  : RequestStatus.idle,
-                            ),
-                            const Spacer(),
-                            if (state.service?.status ==
-                                ServiceStatus.pending) ...[
-                              state.cancellationStatus ==
-                                      CancellationStatus.loading
-                                  ? TymerElevatedButton.inProgress(
-                                      label: l10n.cancelButtonLabel,
-                                    )
-                                  : TymerElevatedButton(
-                                      label: l10n.cancelButtonLabel,
-                                      bgColor: colorScheme.error,
-                                      onTap: () => context
-                                          .read<ServiceRequestStatusCubit>()
-                                          .cancelService(),
-                                    ),
+                child: isRequestConfirmed
+                    ? Column(
+                        children: [
+                          VerticalGap.xLarge(),
+                          Receipt(
+                            service: state.service!,
+                          ),
+                          TymerElevatedButton(
+                            label: l10n.backHomeButtonLabel,
+                            onTap: cubit.goBackHome,
+                          ),
+                          VerticalGap.medium(),
+                        ],
+                      )
+                    : isRequestCompleted
+                        ? ServiceResponseWidget(
+                            response: state.service?.response,
+                          )
+                        : Column(
+                            children: [
+                              const Spacer(),
+                              RequestStatusStep(
+                                title: l10n.findingSomeoneStepTitle,
+                                status: state.service?.status == null
+                                    ? RequestStatus.idle
+                                    : state.service?.status ==
+                                            ServiceStatus.pending
+                                        ? RequestStatus.loading
+                                        : RequestStatus.done,
+                              ),
                               VerticalGap.medium(),
-                            ]
-                          ],
-                        ),
-                ),
+                              RequestStatusStep(
+                                title: l10n.processingStepTitle,
+                                status: state.service?.status ==
+                                        ServiceStatus.inProgress
+                                    ? RequestStatus.loading
+                                    : state.service?.status ==
+                                            ServiceStatus.pendingReview
+                                        ? RequestStatus.done
+                                        : RequestStatus.idle,
+                              ),
+                              VerticalGap.medium(),
+                              RequestStatusStep(
+                                title: l10n.completeStepTitle,
+                                status: state.service?.status ==
+                                            ServiceStatus.completed ||
+                                        state.service?.status ==
+                                            ServiceStatus.pendingReview
+                                    ? RequestStatus.done
+                                    : RequestStatus.idle,
+                              ),
+                              const Spacer(),
+                              if (state.service?.status ==
+                                  ServiceStatus.pending) ...[
+                                state.cancellationStatus ==
+                                        CancellationStatus.loading
+                                    ? TymerElevatedButton.inProgress(
+                                        label: l10n.cancelButtonLabel,
+                                      )
+                                    : TymerElevatedButton(
+                                        label: l10n.cancelButtonLabel,
+                                        bgColor: colorScheme.error,
+                                        onTap: () => context
+                                            .read<ServiceRequestStatusCubit>()
+                                            .cancelService(),
+                                      ),
+                                VerticalGap.medium(),
+                              ]
+                            ],
+                          ),
               ),
-              AppBarTitleContainer(
-                title: l10n.appBarTitle,
-                icon: const SvgAsset(
-                  AssetPathConstants.potPath,
-                ),
+            ),
+            AppBarTitleContainer(
+              title: l10n.appBarTitle,
+              icon: const SvgAsset(
+                AssetPathConstants.potPath,
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );

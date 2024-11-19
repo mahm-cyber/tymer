@@ -145,6 +145,31 @@ class ServiceRepository {
     }
   }
 
+  Future confirmServiceRequest({
+    required int serviceRequestId,
+  }) async {
+    try {
+      await remoteApi.confirmServiceRequest(
+        serviceRequestId: serviceRequestId,
+      );
+    } catch (error) {
+      rethrow;
+    }
+
+
+  }
+
+  Future cancelServiceRequest({ required int serviceRequestId,
+  }) async {
+    try {
+      await remoteApi.cancelServiceRequest(
+        serviceRequestId: serviceRequestId,
+      );
+    } catch (error) {
+      rethrow;
+    }
+  }
+
   Future<LocationData?> getUserLocation() async {
     Location location = Location();
 

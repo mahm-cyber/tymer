@@ -1,7 +1,5 @@
 import 'component_library_localizations.dart';
 
-// ignore_for_file: type=lint
-
 /// The translations for English (`en`).
 class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
   ComponentLibraryLocalizationsEn([String locale = 'en']) : super(locale);
@@ -316,4 +314,10 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get viewOnMapButtonLabel => 'View';
+
+  @override
+  String get serviceFeesContainerLabel => 'Service Fees';
+
+  @override
+  String get serviceDetailsTitle => 'Request Details';
 }

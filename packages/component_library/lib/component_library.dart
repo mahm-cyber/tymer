@@ -7,6 +7,7 @@ export 'src/service_details_widget.dart';
 export 'src/nav_bar_tab.dart';
 export 'src/tymer_gesture_container.dart';
 export 'src/indicators/indicators.dart';
+export 'src/receipt.dart';
 export 'src/gap/gap.dart';
 export 'src/row_builder.dart';
 export 'src/column_builder.dart';

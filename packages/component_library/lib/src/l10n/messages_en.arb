@@ -115,6 +115,9 @@
       }
   },
   "myLocationInfoWindowTitle": "My Location",
-  "viewOnMapButtonLabel": "View"
+  "viewOnMapButtonLabel": "View",
+  "serviceFeesContainerLabel": "Service Fees",
+    "serviceDetailsTitle": "Request Details"
+
 
 }

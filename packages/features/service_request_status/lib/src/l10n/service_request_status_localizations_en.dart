@@ -39,4 +39,7 @@ class ServiceRequestStatusLocalizationsEn extends ServiceRequestStatusLocalizati
 
   @override
   String get confirmationErrorMessage => 'There was an error confirming your request';
+
+  @override
+  String get backHomeButtonLabel => 'Back to Home';
 }

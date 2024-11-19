@@ -68,7 +68,7 @@ extension ServiceRMtoDM on ServiceRM {
 extension OtherServiceResponseRMtoDM on OtherServiceRM {
   ServiceResponse toDomainModel() {
     return ServiceResponse(
-      time: time != null ? TimeOfDay.fromDateTime(DateTime.parse(time!)) : null,
+      time: time != null ? stringToTimeOfDay(time!) : null,
       additionalNotes: additionalNotes,
       imageUrl: image,
       date: date != null ? DateTime.parse(date!) : null,
@@ -77,13 +77,6 @@ extension OtherServiceResponseRMtoDM on OtherServiceRM {
 }
 
 extension ReservationServiceResponseRMtoDM on ReservationServiceRM {
-  TimeOfDay stringToTimeOfDay(String timeString) {
-    final parts = timeString.split(':');
-    final hour = int.parse(parts[0]);
-    final minute = int.parse(parts[1]);
-    return TimeOfDay(hour: hour, minute: minute);
-  }
-
   ServiceResponse toDomainModel() {
     return ServiceResponse(
       reservationNumber: code,
@@ -113,4 +106,11 @@ extension ServiceDetailsRMtoDM on ServiceDetailsRM {
       additionalComments: additionalDetails,
     );
   }
+}
+
+TimeOfDay stringToTimeOfDay(String timeString) {
+  final parts = timeString.split(':');
+  final hour = int.parse(parts[0]);
+  final minute = int.parse(parts[1]);
+  return TimeOfDay(hour: hour, minute: minute);
 }

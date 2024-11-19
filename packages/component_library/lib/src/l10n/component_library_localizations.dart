@@ -8,8 +8,6 @@ import 'package:intl/intl.dart' as intl;
 import 'component_library_localizations_ar.dart';
 import 'component_library_localizations_en.dart';
 
-// ignore_for_file: type=lint
-
 /// Callers can lookup localized strings with an instance of ComponentLibraryLocalizations
 /// returned by `ComponentLibraryLocalizations.of(context)`.
 ///
@@ -712,6 +710,18 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'View'**
   String get viewOnMapButtonLabel;
+
+  /// No description provided for @serviceFeesContainerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Fees'**
+  String get serviceFeesContainerLabel;
+
+  /// No description provided for @serviceDetailsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Details'**
+  String get serviceDetailsTitle;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

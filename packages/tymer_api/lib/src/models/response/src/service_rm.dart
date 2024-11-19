@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tymer_api/src/models/request/location_rm.dart';
 import 'package:tymer_api/tymer_api.dart';
 
 part 'service_rm.g.dart';
@@ -37,17 +36,18 @@ class ServiceRM {
   @JsonKey(
     name: 'service_response',
     fromJson: _responseFromJson,
-    includeIfNull: false,
+    includeIfNull: true,
   )
   final dynamic response;
 
   factory ServiceRM.fromJson(Map<String, dynamic> json) =>
       _$ServiceRMFromJson(json);
 
-  static dynamic _responseFromJson(Map<String, dynamic> json) {
-    final isReservationService =
-        json['service_type'].contains('reservation_service');
-    final isOtherService = json['service_type'].contains('other_service');
+  static dynamic _responseFromJson(Map<String, dynamic>? json) {
+    if (json == null) return null;
+    // check if json has a key called reservation_date
+    final isReservationService = json.containsKey('reservation_date');
+    final isOtherService = json.containsKey('date');
     if (isReservationService) {
       return ReservationServiceRM.fromJson(json);
     } else if (isOtherService) {

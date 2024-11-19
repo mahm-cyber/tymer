@@ -27,7 +27,7 @@ ServiceRM _$ServiceRMFromJson(Map<String, dynamic> json) => $checkedCreate(
           status: $checkedConvert('status', (v) => v as String),
           createdAt: $checkedConvert('created_at', (v) => v as String),
           response: $checkedConvert('service_response',
-              (v) => ServiceRM._responseFromJson(v as Map<String, dynamic>)),
+              (v) => ServiceRM._responseFromJson(v as Map<String, dynamic>?)),
         );
         return val;
       },
