@@ -2,5 +2,13 @@
   "appBarTitle": "حالة الطلب",
   "findingSomeoneStepTitle": "جاري العثور على شخص",
   "processingStepTitle": "جاري المعالجة",
-  "completeStepTitle": "اكتمل"
+  "completeStepTitle": "اكتمل",
+  "requestDoneContainerTitle": "تم الانتهاء من طلبك",
+  "yesButtonLabel": "نعم",
+  "noButtonLabel": "لا",
+  "cancelButtonLabel": "إلغاء",
+  "cancellationSuccessMessage": "تم إلغاء طلبك بنجاح",
+  "cancellationErrorMessage": "حدث خطأ أثناء إلغاء طلبك",
+  "confirmationSuccessMessage": "تم تأكيد طلبك بنجاح",
+  "confirmationErrorMessage": "حدث خطأ أثناء تأكيد طلبك"
 }

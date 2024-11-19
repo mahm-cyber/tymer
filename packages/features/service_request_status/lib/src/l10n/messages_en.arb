@@ -2,6 +2,14 @@
   "appBarTitle": "Request Status",
   "findingSomeoneStepTitle": "Finding Someone",
   "processingStepTitle": "Processing",
-  "completeStepTitle": "Complete"
+  "completeStepTitle": "Complete",
+  "requestDoneContainerTitle": "Is your request done?",
+  "yesButtonLabel": "Yes",
+  "noButtonLabel": "No",
+  "cancelButtonLabel": "Cancel",
+  "cancellationSuccessMessage": "Your request has been cancelled",
+  "cancellationErrorMessage": "There was an error cancelling your request",
+  "confirmationSuccessMessage": "Your request has been confirmed",
+  "confirmationErrorMessage": "There was an error confirming your request"
 
 }

@@ -116,6 +116,54 @@ abstract class ServiceRequestStatusLocalizations {
   /// In en, this message translates to:
   /// **'Complete'**
   String get completeStepTitle;
+
+  /// No description provided for @requestDoneContainerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Is your request done?'**
+  String get requestDoneContainerTitle;
+
+  /// No description provided for @yesButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yesButtonLabel;
+
+  /// No description provided for @noButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get noButtonLabel;
+
+  /// No description provided for @cancelButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancelButtonLabel;
+
+  /// No description provided for @cancellationSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your request has been cancelled'**
+  String get cancellationSuccessMessage;
+
+  /// No description provided for @cancellationErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'There was an error cancelling your request'**
+  String get cancellationErrorMessage;
+
+  /// No description provided for @confirmationSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your request has been confirmed'**
+  String get confirmationSuccessMessage;
+
+  /// No description provided for @confirmationErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'There was an error confirming your request'**
+  String get confirmationErrorMessage;
 }
 
 class _ServiceRequestStatusLocalizationsDelegate extends LocalizationsDelegate<ServiceRequestStatusLocalizations> {

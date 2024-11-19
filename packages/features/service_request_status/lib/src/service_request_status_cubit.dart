@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:service_repository/service_repository.dart';
 
@@ -13,15 +14,17 @@ class ServiceRequestStatusCubit extends Cubit<ServiceRequestStatusState> {
   ServiceRequestStatusCubit({
     required this.userRepository,
     required this.serviceRepository,
+    required this.onCancellationSuccess,
     required this.requestId,
   }) : super(
-    const ServiceRequestStatusState(),
-  ) {
+          const ServiceRequestStatusState(),
+        ) {
     //poll service using a timer everysecond
-    Timer.periodic(
+    _timer = Timer.periodic(
       const Duration(seconds: 1),
-          (timer) async {
-        if (state.service?.status == ServiceStatus.completed) {
+      (timer) async {
+        if (state.service?.status == ServiceStatus.completed ||
+            state.service?.status == ServiceStatus.pendingReview) {
           timer.cancel();
         }
         await getService();
@@ -31,7 +34,9 @@ class ServiceRequestStatusCubit extends Cubit<ServiceRequestStatusState> {
 
   final UserRepository userRepository;
   final ServiceRepository serviceRepository;
+  final VoidCallback onCancellationSuccess;
   final int requestId;
+  Timer? _timer;
 
   Future<Service> getService() async {
     final loading = state.copyWith(fetchStatus: FetchStatus.loading);
@@ -51,5 +56,53 @@ class ServiceRequestStatusCubit extends Cubit<ServiceRequestStatusState> {
       emit(errorState);
       rethrow;
     }
+  }
+
+  Future confirmService() async {
+    final loading = state.copyWith(
+      confirmationStatus: ConfirmationStatus.loading,
+    );
+    emit(loading);
+    try {
+      await serviceRepository.confirmServiceRequest(
+        serviceRequestId: requestId,
+      );
+      final loaded = state.copyWith(
+        confirmationStatus: ConfirmationStatus.success,
+      );
+      emit(loaded);
+    } catch (error) {
+      final errorState =
+          state.copyWith(confirmationStatus: ConfirmationStatus.error);
+      emit(errorState);
+      rethrow;
+    }
+  }
+
+  Future cancelService() async {
+    final loading = state.copyWith(
+      cancellationStatus: CancellationStatus.loading,
+    );
+    emit(loading);
+    try {
+      await serviceRepository.cancelServiceRequest(
+        serviceRequestId: requestId,
+      );
+      final loaded = state.copyWith(
+        cancellationStatus: CancellationStatus.success,
+      );
+      emit(loaded);
+    } catch (error) {
+      final errorState =
+          state.copyWith(cancellationStatus: CancellationStatus.error);
+      emit(errorState);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> close() async {
+    _timer?.cancel();
+    return super.close();
   }
 }

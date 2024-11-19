@@ -15,4 +15,28 @@ class ServiceRequestStatusLocalizationsAr extends ServiceRequestStatusLocalizati
 
   @override
   String get completeStepTitle => 'اكتمل';
+
+  @override
+  String get requestDoneContainerTitle => 'تم الانتهاء من طلبك';
+
+  @override
+  String get yesButtonLabel => 'نعم';
+
+  @override
+  String get noButtonLabel => 'لا';
+
+  @override
+  String get cancelButtonLabel => 'إلغاء';
+
+  @override
+  String get cancellationSuccessMessage => 'تم إلغاء طلبك بنجاح';
+
+  @override
+  String get cancellationErrorMessage => 'حدث خطأ أثناء إلغاء طلبك';
+
+  @override
+  String get confirmationSuccessMessage => 'تم تأكيد طلبك بنجاح';
+
+  @override
+  String get confirmationErrorMessage => 'حدث خطأ أثناء تأكيد طلبك';
 }
