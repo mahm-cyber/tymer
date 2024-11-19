@@ -45,4 +45,7 @@ class FulfillServiceRequestLocalizationsEn extends FulfillServiceRequestLocaliza
 
   @override
   String get serviceFeesContainerLabel => 'Service Fees';
+
+  @override
+  String get awaitingConfirmationButtonLabel => 'Awaiting Confirmation';
 }

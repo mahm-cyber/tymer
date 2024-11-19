@@ -201,7 +201,7 @@ class FulfillServiceRequestView extends StatelessWidget {
                     if (!isRequestFulfilled)
                       state.submissionStatus == FormzSubmissionStatus.inProgress
                           ? TymerElevatedButton.inProgress(
-                              label: l10n.submitButtonLabel,
+                              label: l10n.awaitingConfirmationButtonLabel,
                             )
                           : TymerElevatedButton(
                               label: l10n.submitButtonLabel,

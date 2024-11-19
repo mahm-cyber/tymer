@@ -176,6 +176,12 @@ abstract class FulfillServiceRequestLocalizations {
   /// In en, this message translates to:
   /// **'Service Fees'**
   String get serviceFeesContainerLabel;
+
+  /// No description provided for @awaitingConfirmationButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Awaiting Confirmation'**
+  String get awaitingConfirmationButtonLabel;
 }
 
 class _FulfillServiceRequestLocalizationsDelegate extends LocalizationsDelegate<FulfillServiceRequestLocalizations> {

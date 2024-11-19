@@ -44,5 +44,8 @@ class FulfillServiceRequestLocalizationsAr extends FulfillServiceRequestLocaliza
   String get backHomeButtonLabel => 'العودة إلى الصفحة الرئيسية';
 
   @override
-  String get serviceFeesContainerLabel => 'رسوم الخدمة';
+  String get serviceFeesContainerLabel => 'Service Fees';
+
+  @override
+  String get awaitingConfirmationButtonLabel => 'جارى التأكيد';
 }

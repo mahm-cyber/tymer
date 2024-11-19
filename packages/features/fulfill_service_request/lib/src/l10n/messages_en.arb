@@ -1,5 +1,6 @@
 {
   "submitButtonLabel": "Submit",
+    "serviceDetailsTitle": "Request Details",
   "bottomSheetGalleryButton": "Gallery",
   "bottomSheetCaptureButton": "Capture",
   "imageTextFieldLabel": "Image",
@@ -11,6 +12,7 @@
   "serviceRequestSuccessMessage": "Request fulfilled successfully",
   "serviceRequestFailureMessage": "Failed, try again",
   "backHomeButtonLabel": "Back to Home",
-  "serviceFeesContainerLabel": "Service Fees"
+  "serviceFeesContainerLabel": "Service Fees",
+  "awaitingConfirmationButtonLabel": "Awaiting Confirmation"
 
 }
