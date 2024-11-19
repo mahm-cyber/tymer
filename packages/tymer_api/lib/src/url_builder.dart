@@ -47,11 +47,12 @@ class UrlBuilder {
     return '$_baseUrl/reservation-service-categories?includeTranslations=true';
   }
 
-  String buildGetAllServiceRequestsUrl(
-      {required double lat,
-      required double long,
-      required String mode,
-      String? status}) {
+  String buildGetAllServiceRequestsUrl({
+    required double lat,
+    required double long,
+    required String mode,
+    String? status,
+  }) {
     final latQuery = '?user_lat=$lat';
     final longQuery = '&user_long=$long';
     final modeQuery = '&mode=$mode';
@@ -71,10 +72,19 @@ class UrlBuilder {
     final completeUrl = '$_baseUrl/service-requests/$serviceRequestId/accept';
     return completeUrl;
   }
+
   String buildSubmitServiceRequestUrl({
     required int serviceRequestId,
   }) {
-    final completeUrl = '$_baseUrl/service-requests/$serviceRequestId/submit-response';
+    final completeUrl =
+        '$_baseUrl/service-requests/$serviceRequestId/submit-response';
+    return completeUrl;
+  }
+
+  String buildGetServiceRequestUrl({
+    required int serviceRequestId,
+  }) {
+    final completeUrl = '$_baseUrl/service-requests/$serviceRequestId';
     return completeUrl;
   }
 }

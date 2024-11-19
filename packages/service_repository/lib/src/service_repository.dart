@@ -21,7 +21,7 @@ class ServiceRepository {
   final TymerApi remoteApi;
   final ServiceChangeNotifier changeNotifier;
 
-  Future requestService({
+  Future<int> requestService({
     required ServiceType serviceType,
     required double price,
     String? locationType,
@@ -51,9 +51,10 @@ class ServiceRepository {
       ),
     ).toRemoteModel();
     try {
-      await remoteApi.requestService(
+      final requestId = await remoteApi.requestService(
         requestServiceRM: requestServiceRM,
       );
+      return requestId;
     } catch (error) {
       if (error is InsufficientBalanceTymerException) {
         throw InsufficientBalanceException();
@@ -78,6 +79,18 @@ class ServiceRepository {
       return serviceRequests
           .map((serviceRequest) => serviceRequest.toDomainModel())
           .toList();
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<Service> getServiceRequest({
+    required int requestId,
+  }) async {
+    try {
+      final serviceRequestDetails =
+          await remoteApi.getServiceRequest(requestId: requestId);
+      return serviceRequestDetails.toDomainModel();
     } catch (error) {
       rethrow;
     }
@@ -111,7 +124,7 @@ class ServiceRepository {
       location: serviceRequestDetails.location,
       details: FulfillServiceRequestDetails(
         reservationNumber: reservationNumber,
-        day: day,
+        date: day,
         time: time,
         additionalNotes: additionalDetails,
         imageBytes: imageBytes,

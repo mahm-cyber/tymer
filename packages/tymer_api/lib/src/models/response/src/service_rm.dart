@@ -9,12 +9,13 @@ class ServiceRM {
   const ServiceRM({
     required this.id,
     required this.type,
-    required this.details,
+    this.details,
     required this.location,
-    required this.distanceBetweenProviderAndServiceLocation,
+    this.distanceBetweenProviderAndServiceLocation,
     required this.totalPrice,
     required this.status,
     required this.createdAt,
+    this.response,
   });
 
   @JsonKey(name: 'id')
@@ -22,23 +23,38 @@ class ServiceRM {
   @JsonKey(name: 'service_type')
   final String type;
   @JsonKey(name: 'service')
-  final ServiceDetailsRM details;
+  final ServiceDetailsRM? details;
   @JsonKey(name: 'service_location')
   final LocationRM location;
   @JsonKey(name: 'service_distance')
-  final String distanceBetweenProviderAndServiceLocation;
+  final String? distanceBetweenProviderAndServiceLocation;
   @JsonKey(name: 'service_total_price')
   final String totalPrice;
   @JsonKey(name: 'status')
   final String status;
   @JsonKey(name: 'created_at')
   final String createdAt;
-
+  @JsonKey(
+    name: 'service_response',
+    fromJson: _responseFromJson,
+    includeIfNull: false,
+  )
+  final dynamic response;
 
   factory ServiceRM.fromJson(Map<String, dynamic> json) =>
       _$ServiceRMFromJson(json);
-}
 
+  static dynamic _responseFromJson(Map<String, dynamic> json) {
+    final isReservationService =
+        json['service_type'].contains('reservation_service');
+    final isOtherService = json['service_type'].contains('other_service');
+    if (isReservationService) {
+      return ReservationServiceRM.fromJson(json);
+    } else if (isOtherService) {
+      return OtherServiceRM.fromJson(json);
+    }
+  }
+}
 
 @JsonSerializable(createToJson: false)
 class ServiceDetailsRM {

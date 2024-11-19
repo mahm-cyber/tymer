@@ -24,8 +24,8 @@ class FulfillOtherServiceRM {
 @JsonSerializable(createFactory: false)
 class FulfillOtherServiceDetailsRM {
   const FulfillOtherServiceDetailsRM({
-    required this.date,
-    required this.time,
+    this.date,
+    this.time,
     this.additionalNotes,
     this.image,
   });
@@ -36,7 +36,8 @@ class FulfillOtherServiceDetailsRM {
   final String? time;
   @JsonKey(name: 'other_details', includeIfNull: false)
   final String? additionalNotes;
-  @JsonKey(name: 'attached_image', toJson: _uint8ToMultipart, includeIfNull: false)
+  @JsonKey(
+      name: 'attached_image', toJson: _uint8ToMultipart, includeIfNull: false)
   final Uint8List? image;
 
   static MultipartFile? _uint8ToMultipart(Uint8List? imageBytes) =>

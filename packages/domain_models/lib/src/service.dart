@@ -1,3 +1,4 @@
+import 'package:domain_models/domain_models.dart';
 import 'package:domain_models/src/service_type.dart';
 
 class Service {
@@ -9,7 +10,8 @@ class Service {
     required this.type,
     required this.price,
     required this.location,
-    required this.details,
+     this.details,
+    this.response,
   });
 
   final int? id;
@@ -19,7 +21,8 @@ class Service {
   final ServiceType type;
   final double price;
   final LocationDM location;
-  final ServiceDetails details;
+  final ServiceDetails? details;
+  final ServiceResponse? response;
 }
 
 class LocationDM {

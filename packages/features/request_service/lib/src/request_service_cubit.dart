@@ -27,7 +27,7 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
   final UserRepository userRepository;
   final ServiceRepository serviceRepository;
   final VoidCallback onGoToWalletTapped;
-  final VoidCallback onServiceRequestSuccess;
+  final ValueSetter<int> onServiceRequestSuccess;
 
   void getReservationServiceTypes() async {
     try {
@@ -232,7 +232,7 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
 
     if (isFormValid) {
       try {
-        await serviceRepository.requestService(
+        final requestId = await serviceRepository.requestService(
           serviceType: state.serviceType!,
           price: 0,
           // price: state.price,
@@ -246,6 +246,7 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
 
         final newState = state.copyWith(
           submissionStatus: FormzSubmissionStatus.success,
+          requestId: requestId,
         );
         emit(newState);
       } catch (error) {

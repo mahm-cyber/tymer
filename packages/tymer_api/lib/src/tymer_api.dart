@@ -2,8 +2,6 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as diox;
 import 'package:flutter/material.dart';
-import 'package:tymer_api/src/models/request/fulfill_other_service_rm.dart';
-import 'package:tymer_api/src/models/request/fulfill_reservation_service_rm.dart';
 import 'package:tymer_api/tymer_api.dart';
 import 'package:tymer_api/src/url_builder.dart';
 
@@ -227,7 +225,7 @@ class TymerApi {
     }
   }
 
-  Future requestService({
+  Future<int> requestService({
     required RequestServiceRM requestServiceRM,
   }) async {
     final url = urlBuilder.buildRequestServiceUrl();
@@ -239,7 +237,9 @@ class TymerApi {
         url,
         data: requestJsonBody,
       );
+      final requestId = response.data[_dataJsonKey]['id'] as int;
       debugPrint(response.data.toString());
+      return requestId;
     } on DioException catch (error) {
       final errorObject = error.response?.data[_errorJsonKey];
       if (errorObject[_codeJsonKey].contains('INSUFFICIENT_BALANCE')) {
@@ -249,11 +249,12 @@ class TymerApi {
     }
   }
 
-  Future<List<ServiceRM>> getAllServiceRequests(
-      {required double lat,
-      required double long,
-      required String mode,
-      String? status}) async {
+  Future<List<ServiceRM>> getAllServiceRequests({
+    required double lat,
+    required double long,
+    required String mode,
+    String? status,
+  }) async {
     final url = urlBuilder.buildGetAllServiceRequestsUrl(
       lat: lat,
       long: long,
@@ -313,6 +314,21 @@ class TymerApi {
         data: formData,
       );
       debugPrint(response.data.toString());
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<ServiceRM> getServiceRequest({
+    required int requestId,
+  }) async {
+    final url = urlBuilder.buildGetServiceRequestUrl(
+      serviceRequestId: requestId,
+    );
+    try {
+      final response = await _dio.get(url);
+      final serviceRequest = ServiceRM.fromJson(response.data[_dataJsonKey]);
+      return serviceRequest;
     } catch (_) {
       rethrow;
     }

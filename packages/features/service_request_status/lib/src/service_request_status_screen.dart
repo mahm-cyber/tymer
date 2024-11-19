@@ -1,3 +1,4 @@
+import 'package:domain_models/domain_models.dart';
 import 'package:service_request_status/src/l10n/service_request_status_localizations.dart';
 import 'package:service_request_status/src/service_request_status_cubit.dart';
 import 'package:component_library/component_library.dart';
@@ -15,12 +16,14 @@ class ServiceRequestStatusScreen extends StatelessWidget {
     required this.userRepository,
     required this.serviceRepository,
     required this.onGoToWalletTapped,
+    required this.requestId,
     super.key,
   });
 
   final UserRepository userRepository;
   final ServiceRepository serviceRepository;
   final VoidCallback onGoToWalletTapped;
+  final int requestId;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,7 @@ class ServiceRequestStatusScreen extends StatelessWidget {
       create: (_) => ServiceRequestStatusCubit(
         userRepository: userRepository,
         serviceRepository: serviceRepository,
-        onGoToWalletTapped: onGoToWalletTapped,
+        requestId: requestId,
       ),
       child: const ServiceRequestStatusView(),
     );
@@ -46,8 +49,6 @@ class ServiceRequestStatusView extends StatelessWidget {
     final colorScheme = theme.materialThemeData.colorScheme;
     final l10n = ServiceRequestStatusLocalizations.of(context);
     return BlocConsumer<ServiceRequestStatusCubit, ServiceRequestStatusState>(
-      listenWhen: (previous, current) =>
-          previous.submissionStatus != current.submissionStatus,
       listener: (context, state) {
         // final cubit = context.read<ServiceRequestStatusCubit>();
       },
@@ -70,17 +71,32 @@ class ServiceRequestStatusView extends StatelessWidget {
                     children: [
                       RequestStatusStep(
                         title: l10n.findingSomeoneStepTitle,
-                        status: RequestStatus.loading,
+                        status: state.service?.status == null
+                            ? RequestStatus.idle
+                            : state.service?.status == ServiceStatus.pending
+                                ? RequestStatus.loading
+                                : RequestStatus.done,
                       ),
                       VerticalGap.medium(),
                       RequestStatusStep(
                         title: l10n.processingStepTitle,
-                        status: RequestStatus.idle,
+                        status:
+                            state.service?.status == ServiceStatus.inProgress
+                                ? RequestStatus.loading
+                                : state.service?.status ==
+                                        ServiceStatus.pendingReview
+                                    ? RequestStatus.done
+                                    : RequestStatus.idle,
                       ),
                       VerticalGap.medium(),
                       RequestStatusStep(
                         title: l10n.completeStepTitle,
-                        status: RequestStatus.done,
+                        status:
+                            state.service?.status == ServiceStatus.completed ||
+                                    state.service?.status ==
+                                        ServiceStatus.pendingReview
+                                ? RequestStatus.done
+                                : RequestStatus.idle,
                       ),
                     ],
                   ),

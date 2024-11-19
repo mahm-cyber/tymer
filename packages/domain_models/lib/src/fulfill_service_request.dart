@@ -16,14 +16,14 @@ class FulfillServiceRequest {
 class FulfillServiceRequestDetails {
   const FulfillServiceRequestDetails({
     this.reservationNumber,
-    this.day,
+    this.date,
     this.time,
     this.additionalNotes,
     this.imageBytes,
   });
 
   final String? reservationNumber;
-  final DateTime? day;
+  final DateTime? date;
   final TimeOfDay? time;
   final String? additionalNotes;
   final Uint8List? imageBytes;

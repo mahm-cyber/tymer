@@ -1,4 +1,5 @@
 import 'package:domain_models/domain_models.dart';
+import 'package:flutter/material.dart';
 import 'package:tymer_api/tymer_api.dart';
 
 extension ServiceRMtoDM on ServiceRM {
@@ -14,7 +15,7 @@ extension ServiceRMtoDM on ServiceRM {
   }
 
   Service toDomainModel() {
-    try{
+    try {
       ServiceStatus serviceStatusRMtoDM(String status) {
         switch (status) {
           case 'pending':
@@ -34,20 +35,63 @@ extension ServiceRMtoDM on ServiceRM {
         }
       }
 
+      final isOtherService = serviceTypeRMtoDM(type) == ServiceType.other;
+
+      ServiceResponse? serviceResponse;
+      if (isOtherService) {
+        serviceResponse = response != null
+            ? (response as OtherServiceRM).toDomainModel()
+            : null;
+      } else {
+        serviceResponse = response != null
+            ? (response as ReservationServiceRM).toDomainModel()
+            : null;
+      }
       return Service(
         id: id,
         distanceBetweenProviderAndServiceLocation:
-            double.parse(distanceBetweenProviderAndServiceLocation),
+            double.tryParse(distanceBetweenProviderAndServiceLocation ?? ''),
         status: serviceStatusRMtoDM(status),
         createdAt: DateTime.parse(createdAt),
         type: serviceTypeRMtoDM(type),
         price: double.parse(totalPrice),
         location: location.toDomainModel(),
-        details: details.toDomainModel(),
+        details: details?.toDomainModel(),
+        response: serviceResponse,
       );
     } catch (e) {
       throw Exception('Error parsing ServiceRM to ServiceDM: $e');
     }
+  }
+}
+
+extension OtherServiceResponseRMtoDM on OtherServiceRM {
+  ServiceResponse toDomainModel() {
+    return ServiceResponse(
+      time: time != null ? TimeOfDay.fromDateTime(DateTime.parse(time!)) : null,
+      additionalNotes: additionalNotes,
+      imageUrl: image,
+      date: date != null ? DateTime.parse(date!) : null,
+    );
+  }
+}
+
+extension ReservationServiceResponseRMtoDM on ReservationServiceRM {
+  TimeOfDay stringToTimeOfDay(String timeString) {
+    final parts = timeString.split(':');
+    final hour = int.parse(parts[0]);
+    final minute = int.parse(parts[1]);
+    return TimeOfDay(hour: hour, minute: minute);
+  }
+
+  ServiceResponse toDomainModel() {
+    return ServiceResponse(
+      reservationNumber: code,
+      time: stringToTimeOfDay(time),
+      date: DateTime.parse(date),
+      additionalNotes: additionalNotes,
+      imageUrl: image,
+    );
   }
 }
 
@@ -65,7 +109,7 @@ extension ServiceDetailsRMtoDM on ServiceDetailsRM {
     return ServiceDetails(
       placeName: placeName,
       placeAddress: placeAddress,
-      date: date!= null ? DateTime.parse(date!) : null,
+      date: date != null ? DateTime.parse(date!) : null,
       additionalComments: additionalDetails,
     );
   }

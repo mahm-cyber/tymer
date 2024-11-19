@@ -79,9 +79,7 @@ class FulfillServiceRequestView extends StatelessWidget {
             snackBar: SuccessSnackBar(
               context: context,
               message: l10n.serviceRequestSuccessMessage,
-              marginalSpace: const EdgeInsets.only(
-                bottom: 70,
-              ),
+              marginalSpace: theme.snackBarMargin,
             ),
           );
         }
@@ -91,9 +89,8 @@ class FulfillServiceRequestView extends StatelessWidget {
             snackBar: ErrorSnackBar(
               context: context,
               message: l10n.serviceRequestFailureMessage,
-              marginalSpace: const EdgeInsets.only(
-                bottom: 70,
-              ),
+              marginalSpace: theme.snackBarMargin,
+
             ),
           );
         }
@@ -261,8 +258,8 @@ class FulfillServiceRequestView extends StatelessWidget {
             AppBarTitleContainer(
               top: theme.smallAppBarTitleContainerHeight,
               height: 30,
-              title: state.service!.details.reservedFor ??
-                  state.service!.details.placeName,
+              title: state.service!.details!.reservedFor ??
+                  state.service!.details!.placeName,
             ),
           ],
         );

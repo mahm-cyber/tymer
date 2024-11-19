@@ -22,7 +22,7 @@ class ServiceDetailsWidget extends StatelessWidget {
       shrinkWrap: true,
       children: [
         VerticalGap.small(),
-        if (serviceDetails.reservedFor != null) ...[
+        if (serviceDetails!.reservedFor != null) ...[
           TextFormField(
             enableInteractiveSelection: true,
             initialValue: serviceDetails.reservedFor,

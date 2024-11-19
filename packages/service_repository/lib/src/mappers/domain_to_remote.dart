@@ -14,9 +14,9 @@ extension RequestServiceDMtoRM on Service {
 
   RequestServiceRM toRemoteModel() {
     //2024-10-14 in this format
-    final dateRM = '${details.date?.year}'
-        '-${details.date?.month}'
-        '-${details.date?.day}';
+    final dateRM = '${details!.date?.year}'
+        '-${details!.date?.month}'
+        '-${details!.date?.day}';
     final serviceTypeRM = serviceTypeDMtoRM(type);
     return RequestServiceRM(
       type: serviceTypeRM,
@@ -26,13 +26,13 @@ extension RequestServiceDMtoRM on Service {
         coordinates: location.coordinates,
       ),
       details: ServiceRequestDetailsRM(
-        placeName: details.placeName,
-        placeAddress: details.placeAddress,
-        reservedFor: details.reservedFor,
+        placeName: details!.placeName,
+        placeAddress: details!.placeAddress,
+        reservedFor: details!.reservedFor,
         reservationDate: type == ServiceType.reservation ? dateRM : null,
         detailsDate: type == ServiceType.other ? dateRM : null,
         reservationServiceCategoryId: type == ServiceType.reservation
-            ? details.reservationServiceCategoryId
+            ? details!.reservationServiceCategoryId
             : null,
       ),
     );
@@ -86,7 +86,7 @@ extension FulfillServiceRequestDMtoRM on FulfillServiceRequest {
         ),
         details: FulfillReservationServiceDetailsRM(
           code: details.reservationNumber!,
-          day: details.day!.formattedDate,
+          day: details.date!.formattedDate,
           additionalNotes: details.additionalNotes,
           time: details.time!.twentyFourHrFormat,
           image: details.imageBytes,
@@ -100,7 +100,7 @@ extension FulfillServiceRequestDMtoRM on FulfillServiceRequest {
           coordinates: location.coordinates,
         ),
         details: FulfillOtherServiceDetailsRM(
-          date: details.day?.formattedDate,
+          date: details.date?.formattedDate,
           additionalNotes: details.additionalNotes,
           time: details.time?.twentyFourHrFormat,
           image: details.imageBytes,

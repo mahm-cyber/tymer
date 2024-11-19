@@ -1,23 +1,24 @@
 part of 'request_service_cubit.dart';
 
 class RequestServiceState extends Equatable {
-  const RequestServiceState({
-    this.serviceType,
-    this.reservationServiceTypes,
-    this.selectedReservationServiceType =
-        const Dynamic<ReservationServiceType?>.unvalidated(),
-    this.reservationName = const Dynamic<String?>.unvalidated(),
-    this.date = const Dynamic<DateTime?>.unvalidated(),
-    this.placeName = const Dynamic<String?>.unvalidated(),
-    this.address = const Dynamic<String?>.unvalidated(),
-    this.location = const Dynamic<LatLng?>.unvalidated(),
-    this.locationPickingInProgress = false,
-    this.price = 20.0,
-    this.additionalInfo = const Dynamic<String?>.unvalidated(),
-    this.submissionStatus = FormzSubmissionStatus.initial,
-    this.error
-  });
+  const RequestServiceState(
+      {this.requestId,
+      this.serviceType,
+      this.reservationServiceTypes,
+      this.selectedReservationServiceType =
+          const Dynamic<ReservationServiceType?>.unvalidated(),
+      this.reservationName = const Dynamic<String?>.unvalidated(),
+      this.date = const Dynamic<DateTime?>.unvalidated(),
+      this.placeName = const Dynamic<String?>.unvalidated(),
+      this.address = const Dynamic<String?>.unvalidated(),
+      this.location = const Dynamic<LatLng?>.unvalidated(),
+      this.locationPickingInProgress = false,
+      this.price = 20.0,
+      this.additionalInfo = const Dynamic<String?>.unvalidated(),
+      this.submissionStatus = FormzSubmissionStatus.initial,
+      this.error});
 
+  final int? requestId;
   final ServiceType? serviceType;
   final List<ReservationServiceType>? reservationServiceTypes;
   final Dynamic<ReservationServiceType?> selectedReservationServiceType;
@@ -31,7 +32,9 @@ class RequestServiceState extends Equatable {
   final Dynamic<String?> additionalInfo;
   final FormzSubmissionStatus submissionStatus;
   final dynamic error;
+
   RequestServiceState copyWith({
+    int? requestId,
     ServiceType? serviceType,
     List<ReservationServiceType>? reservationServiceTypes,
     Dynamic<ReservationServiceType?>? selectedReservationServiceType,
@@ -47,6 +50,7 @@ class RequestServiceState extends Equatable {
     dynamic error,
   }) {
     return RequestServiceState(
+      requestId: requestId ?? this.requestId,
       serviceType: serviceType ?? this.serviceType,
       selectedReservationServiceType:
           selectedReservationServiceType ?? this.selectedReservationServiceType,
@@ -68,6 +72,7 @@ class RequestServiceState extends Equatable {
 
   @override
   List<Object?> get props => [
+        requestId,
         serviceType,
         selectedReservationServiceType,
         reservationServiceTypes,
@@ -80,6 +85,6 @@ class RequestServiceState extends Equatable {
         price,
         additionalInfo,
         submissionStatus,
-    error
+        error
       ];
 }

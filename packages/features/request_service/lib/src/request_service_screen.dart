@@ -23,7 +23,7 @@ class RequestServiceScreen extends StatelessWidget {
   final UserRepository userRepository;
   final ServiceRepository serviceRepository;
   final VoidCallback onGoToWalletTapped;
-  final VoidCallback onServiceRequestSuccess;
+  final ValueSetter<int> onServiceRequestSuccess;
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,7 @@ class RequestServiceView extends StatelessWidget {
               message: l10n.successfulServiceRequestMessage,
             ),
           );
-          cubit.onServiceRequestSuccess();
+          cubit.onServiceRequestSuccess(state.requestId!);
         }
       },
       builder: (context, state) {

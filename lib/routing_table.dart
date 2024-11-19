@@ -160,19 +160,25 @@ Map<String, PageBuilder> buildRoutingTable({
             serviceRepository: serviceRepository,
             onGoToWalletTapped: () =>
                 routerDelegate.push(_PathConstants.walletPath),
-            onServiceRequestSuccess: () =>
-                routerDelegate.push(_PathConstants.serviceRequestStatusPath),
+            onServiceRequestSuccess: (int requestId) => routerDelegate.push(
+                _PathConstants.serviceRequestStatusPath(requestId: requestId)),
           ),
         ),
-    _PathConstants.serviceRequestStatusPath: (_) => MaterialPage(
-          name: 'service-request-status',
-          child: ServiceRequestStatusScreen(
-            userRepository: userRepository,
-            serviceRepository: serviceRepository,
-            onGoToWalletTapped: () =>
-                routerDelegate.push(_PathConstants.walletPath),
-          ),
+    _PathConstants.serviceRequestStatusPath(): (info) {
+      final requestId = int.parse(
+        info.pathParameters['requestId'] ?? '',
+      );
+      return MaterialPage(
+        name: 'service-request-status',
+        child: ServiceRequestStatusScreen(
+          userRepository: userRepository,
+          serviceRepository: serviceRepository,
+          onGoToWalletTapped: () =>
+              routerDelegate.push(_PathConstants.walletPath),
+          requestId: requestId,
         ),
+      );
+    },
     _PathConstants.provideServicePath: (_) => MaterialPage(
           name: 'provide-service',
           child: ProvideServiceScreen(
@@ -225,7 +231,13 @@ class _PathConstants {
 
   static String get requestServicePath => '$chooseServicePath/request';
 
-  static String get serviceRequestStatusPath => '${initialPath}status';
+  // static String filesPath({int? folderId}) {
+  //   final completePath = '${tabContainerPath}folder/${folderId ?? ':folderId'}';
+  //   return completePath;
+  // }
+
+  static String serviceRequestStatusPath({int? requestId}) =>
+      '${initialPath}service-request-status/${requestId ?? ':requestId'}';
 
   static String get provideServicePath =>
       '${initialPath}provide-service/list-view';

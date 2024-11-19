@@ -159,7 +159,7 @@ class ServiceRequestCard extends StatelessWidget {
                     (2 * theme.screenMargin) -
                     170,
                 child: Text(
-                  service.details.reservedFor ?? service.details.placeName,
+                  service.details!.reservedFor ?? service.details!.placeName,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.titleMedium?.copyWith(

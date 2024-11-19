@@ -13,16 +13,21 @@ ServiceRM _$ServiceRMFromJson(Map<String, dynamic> json) => $checkedCreate(
         final val = ServiceRM(
           id: $checkedConvert('id', (v) => (v as num).toInt()),
           type: $checkedConvert('service_type', (v) => v as String),
-          details: $checkedConvert('service',
-              (v) => ServiceDetailsRM.fromJson(v as Map<String, dynamic>)),
+          details: $checkedConvert(
+              'service',
+              (v) => v == null
+                  ? null
+                  : ServiceDetailsRM.fromJson(v as Map<String, dynamic>)),
           location: $checkedConvert('service_location',
               (v) => LocationRM.fromJson(v as Map<String, dynamic>)),
           distanceBetweenProviderAndServiceLocation:
-              $checkedConvert('service_distance', (v) => v as String),
+              $checkedConvert('service_distance', (v) => v as String?),
           totalPrice:
               $checkedConvert('service_total_price', (v) => v as String),
           status: $checkedConvert('status', (v) => v as String),
           createdAt: $checkedConvert('created_at', (v) => v as String),
+          response: $checkedConvert('service_response',
+              (v) => ServiceRM._responseFromJson(v as Map<String, dynamic>)),
         );
         return val;
       },
@@ -32,7 +37,8 @@ ServiceRM _$ServiceRMFromJson(Map<String, dynamic> json) => $checkedCreate(
         'location': 'service_location',
         'distanceBetweenProviderAndServiceLocation': 'service_distance',
         'totalPrice': 'service_total_price',
-        'createdAt': 'created_at'
+        'createdAt': 'created_at',
+        'response': 'service_response'
       },
     );
 
