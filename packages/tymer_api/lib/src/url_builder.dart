@@ -1,50 +1,48 @@
 class UrlBuilder {
-  UrlBuilder({
-    String? baseUrl,
-  }) : _baseUrl = baseUrl ?? 'https://api.tymer-eg.com/api/v1';
+  UrlBuilder();
 
-  final String _baseUrl;
+  static const String baseUrl = 'https://api.tymer-eg.com/api/v1';
   static const String _authSlug = 'auth';
 
   String buildSignInUrl() {
-    final completeUrl = '$_baseUrl/$_authSlug/login';
+    const completeUrl = '$baseUrl/$_authSlug/login';
     return completeUrl;
   }
 
   String buildGetUserUrl() {
-    final completeUrl = '$_baseUrl/$_authSlug/me';
+    const completeUrl = '$baseUrl/$_authSlug/me';
     return completeUrl;
   }
 
   String buildSignUpUrl() {
-    final completeUrl = '$_baseUrl/$_authSlug/register';
+    const completeUrl = '$baseUrl/$_authSlug/register';
     return completeUrl;
   }
 
   String buildSendOtpUrl() {
-    final completeUrl = '$_baseUrl/$_authSlug/phone-number/resend-verification';
+    const completeUrl = '$baseUrl/$_authSlug/phone-number/resend-verification';
     return completeUrl;
   }
 
   String buildForgotPasswordUrl() {
-    final completeUrl = '$_baseUrl/$_authSlug/forgot-password';
+    const completeUrl = '$baseUrl/$_authSlug/forgot-password';
     return completeUrl;
   }
 
   String buildVerifyOtpUrl() {
-    return '$_baseUrl/$_authSlug/phone-number/verify';
+    return '$baseUrl/$_authSlug/phone-number/verify';
   }
 
   buildResetPasswordUrl() {
-    return '$_baseUrl/resetPassword';
+    return '$baseUrl/resetPassword';
   }
 
   String buildRequestServiceUrl() {
-    return '$_baseUrl/service-requests';
+    return '$baseUrl/service-requests';
   }
 
   String buildGetReservationServiceTypesUrl() {
-    return '$_baseUrl/reservation-service-categories?includeTranslations=true';
+    return '$baseUrl/reservation-service-categories?includeTranslations=true';
   }
 
   String buildGetAllServiceRequestsUrl({
@@ -58,7 +56,7 @@ class UrlBuilder {
     final modeQuery = '&mode=$mode';
     const includeServiceQuery = '&include=service';
     final statusQuery = status != null ? '&status=$status' : '&status=pending';
-    final completeUrl = '$_baseUrl/service-requests/list$latQuery'
+    final completeUrl = '$baseUrl/service-requests/list$latQuery'
         '$longQuery'
         '$modeQuery'
         '$includeServiceQuery'
@@ -69,7 +67,7 @@ class UrlBuilder {
   String buildAcceptServiceRequestUrl({
     required int serviceRequestId,
   }) {
-    final completeUrl = '$_baseUrl/service-requests/$serviceRequestId/accept';
+    final completeUrl = '$baseUrl/service-requests/$serviceRequestId/accept';
     return completeUrl;
   }
 
@@ -77,28 +75,29 @@ class UrlBuilder {
     required int serviceRequestId,
   }) {
     final completeUrl =
-        '$_baseUrl/service-requests/$serviceRequestId/submit-response';
+        '$baseUrl/service-requests/$serviceRequestId/submit-response';
     return completeUrl;
   }
 
   String buildGetServiceRequestUrl({
     required int serviceRequestId,
   }) {
-    final completeUrl = '$_baseUrl/service-requests/$serviceRequestId?include=serviceResponse';
+    final completeUrl =
+        '$baseUrl/service-requests/$serviceRequestId?include=serviceResponse';
     return completeUrl;
   }
 
   String buildConfirmServiceRequestUrl({
     required int serviceRequestId,
   }) {
-    final completeUrl = '$_baseUrl/service-requests/$serviceRequestId/confirm';
+    final completeUrl = '$baseUrl/service-requests/$serviceRequestId/confirm';
     return completeUrl;
   }
 
   String buildCancelServiceRequestUrl({
     required int serviceRequestId,
   }) {
-    final completeUrl = '$_baseUrl/service-requests/$serviceRequestId/cancel';
+    final completeUrl = '$baseUrl/service-requests/$serviceRequestId/cancel';
     return completeUrl;
   }
 }

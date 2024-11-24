@@ -70,8 +70,7 @@ extension OtherServiceResponseRMtoDM on OtherServiceRM {
     return ServiceResponse(
       time: time != null ? stringToTimeOfDay(time!) : null,
       additionalNotes: additionalNotes,
-      imageUrl: image,
-      date: date != null ? DateTime.parse(date!) : null,
+      imageUrl: image == null ? null : '${UrlBuilder.baseUrl}/files/${image!}',
     );
   }
 }
@@ -83,7 +82,7 @@ extension ReservationServiceResponseRMtoDM on ReservationServiceRM {
       time: stringToTimeOfDay(time),
       date: DateTime.parse(date),
       additionalNotes: additionalNotes,
-      imageUrl: image,
+      imageUrl: image == null ? null : '${UrlBuilder.baseUrl}/files/${image!}',
     );
   }
 }

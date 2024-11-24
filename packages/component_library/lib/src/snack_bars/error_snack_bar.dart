@@ -14,7 +14,7 @@ class ErrorSnackBar extends SnackBar {
           ),
           behavior: SnackBarBehavior.floating,
           backgroundColor: const Color(0xFFFFF0ED),
-          margin: marginalSpace??TymerTheme.of(context).snackBarMargin,
+          margin: marginalSpace ?? TymerTheme.of(context).snackBarMargin,
           action: snackBarAction,
         );
 

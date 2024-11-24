@@ -68,9 +68,15 @@ class ServiceResponseWidget extends StatelessWidget {
                     IconButton(
                       onPressed: () => showDialog(
                         context: context,
-                        builder: (context) => InteractiveViewer(
-                          child: Image.network(
-                            response!.imageUrl!,
+                        builder: (context) => AlertDialog(
+                          title: InteractiveViewer(
+                            child: Image.network(
+                              response!.imageUrl!,
+                              headers: {
+                                "Authorization": "Bearer ${state.userToken}",
+                                "X-API-Key": "01f64a264be7442a9008abda93d5d6ae",
+                              },
+                            ),
                           ),
                         ),
                       ),

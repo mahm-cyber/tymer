@@ -58,7 +58,9 @@ class ServiceRequestStatusView extends StatelessWidget {
             snackBar: SuccessSnackBar(
               message: l10n.cancellationSuccessMessage,
               context: context,
+              marginalSpace: theme.snackBarMargin,
             ),
+
           );
         }
         if (state.cancellationStatus == CancellationStatus.error) {
@@ -76,6 +78,8 @@ class ServiceRequestStatusView extends StatelessWidget {
             snackBar: SuccessSnackBar(
               message: l10n.confirmationSuccessMessage,
               context: context,
+              marginalSpace: theme.snackBarMargin,
+
             ),
           );
         }

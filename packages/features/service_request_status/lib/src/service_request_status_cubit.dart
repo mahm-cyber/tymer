@@ -20,6 +20,9 @@ class ServiceRequestStatusCubit extends Cubit<ServiceRequestStatusState> {
           const ServiceRequestStatusState(),
         ) {
     //poll service using a timer everysecond
+    userRepository.getUserToken().then((token) {
+      emit(state.copyWith(userToken: token));
+    });
     _timer = Timer.periodic(
       const Duration(seconds: 1),
       (timer) async {

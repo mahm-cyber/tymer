@@ -6,24 +6,28 @@ class ServiceRequestStatusState extends Equatable {
     this.service,
     this.confirmationStatus = ConfirmationStatus.initial,
     this.cancellationStatus = CancellationStatus.initial,
+    this.userToken,
   });
 
   final FetchStatus fetchStatus;
   final Service? service;
   final ConfirmationStatus confirmationStatus;
   final CancellationStatus cancellationStatus;
+  final String? userToken;
 
   ServiceRequestStatusState copyWith({
     FetchStatus? fetchStatus,
     Service? service,
     ConfirmationStatus? confirmationStatus,
     CancellationStatus? cancellationStatus,
+    String? userToken,
   }) {
     return ServiceRequestStatusState(
       fetchStatus: fetchStatus ?? this.fetchStatus,
       service: service ?? this.service,
       confirmationStatus: confirmationStatus ?? this.confirmationStatus,
       cancellationStatus: cancellationStatus ?? this.cancellationStatus,
+      userToken: userToken ?? this.userToken,
     );
   }
 
@@ -33,6 +37,7 @@ class ServiceRequestStatusState extends Equatable {
         service,
         confirmationStatus,
         cancellationStatus,
+        userToken,
       ];
 }
 
