@@ -42,4 +42,16 @@ class ServiceRequestStatusLocalizationsAr extends ServiceRequestStatusLocalizati
 
   @override
   String get backHomeButtonLabel => 'العودة إلى الرئيسية';
+
+  @override
+  String get reservationNumberTextFieldLabel => 'رقم الحجز';
+
+  @override
+  String get dateTextFieldLabel => 'التاريخ';
+
+  @override
+  String get timeTextFieldLabel => 'الوقت';
+
+  @override
+  String get additionalNotesTextFieldLabel => 'ملاحظات إضافية';
 }

@@ -24,6 +24,7 @@ class ServiceResponseWidget extends StatelessWidget {
     final colorScheme = TymerTheme.of(context).materialThemeData.colorScheme;
     final l10n = ServiceRequestStatusLocalizations.of(context);
     final textTheme = Theme.of(context).textTheme;
+    final theme = TymerTheme.of(context);
     final cubit = context.read<ServiceRequestStatusCubit>();
     return BlocBuilder<ServiceRequestStatusCubit, ServiceRequestStatusState>(
       builder: (context, state) {
@@ -38,6 +39,12 @@ class ServiceResponseWidget extends StatelessWidget {
                     TextFormField(
                       enabled: false,
                       initialValue: response!.reservationNumber.toString(),
+                      decoration: InputDecoration(
+                        labelText: l10n.reservationNumberTextFieldLabel,
+                        prefixIcon: const Icon(
+                          Icons.numbers,
+                        ),
+                      ),
                     ),
                   ],
                   if (hasDate) ...[
@@ -46,6 +53,12 @@ class ServiceResponseWidget extends StatelessWidget {
                       enabled: false,
                       initialValue:
                           response!.date!.toIso8601String().split('T').first,
+                      decoration: InputDecoration(
+                        labelText: l10n.dateTextFieldLabel,
+                        prefixIcon: const Icon(
+                          Icons.calendar_today,
+                        ),
+                      ),
                     ),
                   ],
                   if (hasTime) ...[
@@ -53,6 +66,12 @@ class ServiceResponseWidget extends StatelessWidget {
                     TextFormField(
                       enabled: false,
                       initialValue: response!.time!.twelveHrFormat,
+                      decoration: InputDecoration(
+                        labelText: l10n.timeTextFieldLabel,
+                        prefixIcon: const Icon(
+                          Icons.access_time,
+                        ),
+                      ),
                     ),
                   ],
                   if (hasAdditionalNotes) ...[
@@ -61,30 +80,53 @@ class ServiceResponseWidget extends StatelessWidget {
                       enabled: false,
                       maxLines: 4,
                       initialValue: response!.additionalNotes,
+                      decoration: InputDecoration(
+                        labelText: l10n.additionalNotesTextFieldLabel,
+                        prefixIcon: const Icon(
+                          Icons.notes,
+                        ),
+                      ),
                     ),
                   ],
                   if (hasImageUrl) ...[
                     VerticalGap.medium(),
-                    IconButton(
-                      onPressed: () => showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: InteractiveViewer(
-                            child: Image.network(
-                              response!.imageUrl!,
-                              headers: {
-                                "Authorization": "Bearer ${state.userToken}",
-                                "X-API-Key": "01f64a264be7442a9008abda93d5d6ae",
-                              },
+                    Row(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: colorScheme.surface,
+                            border: Border.all(color: theme.borderColor),
+                            shape: BoxShape.circle,
+                          ),
+                          child: IconButton(
+                            isSelected: true,
+
+                            onPressed: () => showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                insetPadding: EdgeInsets.zero,
+                                contentPadding:  EdgeInsets.zero,
+
+                                content: InteractiveViewer(
+                                  child: Image.network(
+                                    response!.imageUrl!,
+                                    headers: {
+                                      "Authorization": "Bearer ${state.userToken}",
+                                      "X-API-Key": "01f64a264be7442a9008abda93d5d6ae",
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                            icon: const Icon(
+                              Icons.image_outlined,
+                              size: 35,
                             ),
                           ),
                         ),
-                      ),
-                      icon: const Icon(
-                        Icons.image_outlined,
-                        size: 35,
-                      ),
+                      ],
                     ),
+
                   ],
                 ],
               ),

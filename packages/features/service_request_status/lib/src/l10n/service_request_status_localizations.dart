@@ -170,6 +170,30 @@ abstract class ServiceRequestStatusLocalizations {
   /// In en, this message translates to:
   /// **'Back to Home'**
   String get backHomeButtonLabel;
+
+  /// No description provided for @reservationNumberTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation Number'**
+  String get reservationNumberTextFieldLabel;
+
+  /// No description provided for @dateTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get dateTextFieldLabel;
+
+  /// No description provided for @timeTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get timeTextFieldLabel;
+
+  /// No description provided for @additionalNotesTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Additional Notes'**
+  String get additionalNotesTextFieldLabel;
 }
 
 class _ServiceRequestStatusLocalizationsDelegate extends LocalizationsDelegate<ServiceRequestStatusLocalizations> {

@@ -42,4 +42,16 @@ class ServiceRequestStatusLocalizationsEn extends ServiceRequestStatusLocalizati
 
   @override
   String get backHomeButtonLabel => 'Back to Home';
+
+  @override
+  String get reservationNumberTextFieldLabel => 'Reservation Number';
+
+  @override
+  String get dateTextFieldLabel => 'Date';
+
+  @override
+  String get timeTextFieldLabel => 'Time';
+
+  @override
+  String get additionalNotesTextFieldLabel => 'Additional Notes';
 }

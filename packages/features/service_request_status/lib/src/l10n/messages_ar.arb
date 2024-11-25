@@ -11,6 +11,10 @@
   "cancellationErrorMessage": "حدث خطأ أثناء إلغاء طلبك",
   "confirmationSuccessMessage": "تم تأكيد طلبك بنجاح",
   "confirmationErrorMessage": "حدث خطأ أثناء تأكيد طلبك",
-    "backHomeButtonLabel": "العودة إلى الرئيسية"
+    "backHomeButtonLabel": "العودة إلى الرئيسية",
+   "reservationNumberTextFieldLabel": "رقم الحجز",
+   "dateTextFieldLabel": "التاريخ",
+   "timeTextFieldLabel": "الوقت",
+   "additionalNotesTextFieldLabel": "ملاحظات إضافية"
 
 }

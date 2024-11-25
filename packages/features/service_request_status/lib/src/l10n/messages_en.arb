@@ -11,6 +11,10 @@
   "cancellationErrorMessage": "There was an error cancelling your request",
   "confirmationSuccessMessage": "Your request has been confirmed",
   "confirmationErrorMessage": "There was an error confirming your request",
-  "backHomeButtonLabel": "Back to Home"
+  "backHomeButtonLabel": "Back to Home",
+ "reservationNumberTextFieldLabel": "Reservation Number",
+  "dateTextFieldLabel": "Date",
+  "timeTextFieldLabel": "Time",
+  "additionalNotesTextFieldLabel": "Additional Notes"
 
 }

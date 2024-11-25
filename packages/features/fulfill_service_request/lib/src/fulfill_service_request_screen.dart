@@ -116,31 +116,6 @@ class FulfillServiceRequestView extends StatelessWidget {
                   children: [
                     VerticalGap.large(),
                     VerticalGap.medium(),
-                    // ExpansionTile(
-                    //   title: Text(
-                    //     l10n.serviceDetailsTitle,
-                    //     style: textTheme.titleMedium,
-                    //   ),
-                    //   collapsedShape: RoundedRectangleBorder(
-                    //     borderRadius: BorderRadius.circular(10),
-                    //     side: BorderSide(
-                    //       color: colorScheme.secondary,
-                    //     ),
-                    //   ),
-                    //   shape: RoundedRectangleBorder(
-                    //     borderRadius: BorderRadius.circular(10),
-                    //     side: BorderSide(
-                    //       color: colorScheme.secondary,
-                    //     ),
-                    //   ),
-                    //   children: [
-                    //     ServiceDetailsWidget(
-                    //       service: state.service!,
-                    //       onViewServiceOnMap: cubit.onViewServiceOnMap,
-                    //     ),
-                    //     VerticalGap.medium(),
-                    //   ],
-                    // ),
                     if (!isRequestFulfilled)
                       Expanded(
                         child: ListView(
@@ -232,4 +207,3 @@ class FulfillServiceRequestView extends StatelessWidget {
     );
   }
 }
-

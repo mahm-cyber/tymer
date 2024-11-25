@@ -68,6 +68,7 @@ extension ServiceRMtoDM on ServiceRM {
 extension OtherServiceResponseRMtoDM on OtherServiceRM {
   ServiceResponse toDomainModel() {
     return ServiceResponse(
+      date: date != null ? DateTime.parse(date!) : null,
       time: time != null ? stringToTimeOfDay(time!) : null,
       additionalNotes: additionalNotes,
       imageUrl: image == null ? null : '${UrlBuilder.baseUrl}/files/${image!}',
