@@ -18,16 +18,15 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
           FulfillServiceRequestState(
             service: serviceRepository.changeNotifier.serviceRequestDetails,
           ),
-        );
+        ){
+    //print servuice
+    final service = serviceRepository.changeNotifier.serviceRequestDetails;
+    debugPrint('service: $service');
+  }
 
   final ServiceRepository serviceRepository;
   final StreamController<String> carImageFileNameSC = StreamController();
   final ImagePicker _imagePicker;
-
-  // onWaitingTimeUnfocused
-  // onWaitingTimeChanged
-  // onReservationNumberUnfocused
-  // onReservationNumberChanged
 
   void onDayChanged(DateTime? newValue) {
     final newState = state.copyWith(
@@ -203,7 +202,8 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
         final service = await serviceRepository.getServiceRequest(
             requestId: state.service!.id!);
         if (service.status == ServiceStatus.completed) {
-          emit(
+          if(!isClosed) {
+            emit(
             FulfillServiceRequestState(
               time: time,
               day: day,
@@ -214,6 +214,7 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
               submissionStatus: FormzSubmissionStatus.success,
             ),
           );
+          }
           timer.cancel();
         }
       });

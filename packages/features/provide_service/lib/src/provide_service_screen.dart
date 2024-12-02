@@ -13,13 +13,14 @@ class ProvideServiceScreen extends StatelessWidget {
     required this.userRepository,
     required this.serviceRepository,
     required this.onServiceRequestDetailsTapped,
+    required this.navigateToFulfillServiceRequest,
     super.key,
   });
 
   final UserRepository userRepository;
   final ServiceRepository serviceRepository;
   final VoidCallback onServiceRequestDetailsTapped;
-
+  final VoidCallback navigateToFulfillServiceRequest;
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ProvideServiceCubit>(
@@ -27,6 +28,8 @@ class ProvideServiceScreen extends StatelessWidget {
         userRepository: userRepository,
         serviceRepository: serviceRepository,
         onServiceRequestDetailsTapped: onServiceRequestDetailsTapped,
+        navigateToFulfillServiceRequest: navigateToFulfillServiceRequest,
+
       ),
       child: const ProvideServiceView(),
     );

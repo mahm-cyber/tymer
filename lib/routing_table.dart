@@ -131,8 +131,9 @@ Map<String, PageBuilder> buildRoutingTable({
           child: OrderHistoryScreen(
             userRepository: userRepository,
             serviceRepository: serviceRepository,
-            onCheckServiceRequestStatusTapped: (requestId) => routerDelegate.push(
-              _PathConstants.serviceRequestStatusPath( requestId: requestId),
+            onCheckServiceRequestStatusTapped: (requestId) =>
+                routerDelegate.push(
+              _PathConstants.serviceRequestStatusPath(requestId: requestId),
             ),
           ),
         ),
@@ -211,6 +212,8 @@ Map<String, PageBuilder> buildRoutingTable({
             serviceRepository: serviceRepository,
             onServiceRequestDetailsTapped: () => routerDelegate
                 .push(_PathConstants.acceptServiceRequestDetailsPath),
+            navigateToFulfillServiceRequest: () =>
+                routerDelegate.push(_PathConstants.fulfillServiceRequestPath),
           ),
         ),
     _PathConstants.acceptServiceRequestDetailsPath: (_) => MaterialPage(
@@ -234,7 +237,6 @@ Map<String, PageBuilder> buildRoutingTable({
 }
 
 class _PathConstants {
-
   const _PathConstants._();
 
   static String get initialPath => '/';
