@@ -722,6 +722,48 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'Request Details'**
   String get serviceDetailsTitle;
+
+  /// No description provided for @pendingServiceRequestStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get pendingServiceRequestStatus;
+
+  /// No description provided for @inProgressServiceRequestStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'In Progress'**
+  String get inProgressServiceRequestStatus;
+
+  /// No description provided for @completedServiceRequestStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get completedServiceRequestStatus;
+
+  /// No description provided for @canceledServiceRequestStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Canceled'**
+  String get canceledServiceRequestStatus;
+
+  /// No description provided for @pendingReviewServiceRequestStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending Review'**
+  String get pendingReviewServiceRequestStatus;
+
+  /// No description provided for @disputedServiceRequestStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Disputed'**
+  String get disputedServiceRequestStatus;
+
+  /// No description provided for @viewButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'View'**
+  String get viewButtonLabel;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

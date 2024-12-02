@@ -2,7 +2,7 @@ import 'accept_service_request_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class AcceptServiceRequestLocalizationsAr extends AcceptServiceRequestLocalizations {
-  AcceptServiceRequestLocalizationsAr([String locale = 'ar']) : super(locale);
+  AcceptServiceRequestLocalizationsAr([super.locale = 'ar']);
 
   @override
   String get appBarTitle => 'تفاصيل الطلب';

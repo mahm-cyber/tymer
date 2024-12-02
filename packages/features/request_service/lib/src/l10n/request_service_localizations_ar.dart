@@ -2,7 +2,7 @@ import 'request_service_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class RequestServiceLocalizationsAr extends RequestServiceLocalizations {
-  RequestServiceLocalizationsAr([String locale = 'ar']) : super(locale);
+  RequestServiceLocalizationsAr([super.locale = 'ar']);
 
   @override
   String get reservationServiceTypeAppBarTitle => 'قائمة الانتظار';

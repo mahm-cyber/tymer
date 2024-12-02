@@ -234,8 +234,8 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
       try {
         final requestId = await serviceRepository.requestService(
           serviceType: state.serviceType!,
-          // price: 10,
-          price: state.price,
+          price: 0,
+          // price: state.price,
           coordinates: location.value!,
           placeName: placeName.value!,
           placeAddress: address.value!,

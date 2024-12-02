@@ -2,7 +2,7 @@ import 'component_library_localizations.dart';
 
 /// The translations for English (`en`).
 class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
-  ComponentLibraryLocalizationsEn([String locale = 'en']) : super(locale);
+  ComponentLibraryLocalizationsEn([super.locale = 'en']);
 
   @override
   String get invalidCredentialsErrorMessage => 'Incorrect email or password';
@@ -320,4 +320,25 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get serviceDetailsTitle => 'Request Details';
+
+  @override
+  String get pendingServiceRequestStatus => 'Pending';
+
+  @override
+  String get inProgressServiceRequestStatus => 'In Progress';
+
+  @override
+  String get completedServiceRequestStatus => 'Completed';
+
+  @override
+  String get canceledServiceRequestStatus => 'Canceled';
+
+  @override
+  String get pendingReviewServiceRequestStatus => 'Pending Review';
+
+  @override
+  String get disputedServiceRequestStatus => 'Disputed';
+
+  @override
+  String get viewButtonLabel => 'View';
 }

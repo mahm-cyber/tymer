@@ -77,11 +77,11 @@ List<NavBarTabModel> localizeNavBarTabs(
       selectedSvgPath: AssetPathConstants.homeSelectedPath,
       title: l10n.homeTabLabel,
     ),
-    NavBarTabModel(
-      unselectedSvgPath: AssetPathConstants.searchUnselectedPath,
-      selectedSvgPath: AssetPathConstants.searchSelectedPath,
-      title: l10n.searchTabLabel,
-    ),
+    // NavBarTabModel(
+    //   unselectedSvgPath: AssetPathConstants.searchUnselectedPath,
+    //   selectedSvgPath: AssetPathConstants.searchSelectedPath,
+    //   title: l10n.searchTabLabel,
+    // ),
     NavBarTabModel(
       unselectedSvgPath: AssetPathConstants.walletUnselectedPath,
       selectedSvgPath: AssetPathConstants.walletSelectedPath,

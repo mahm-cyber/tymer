@@ -92,4 +92,12 @@ class AssetPathConstants {
   static const String streetSignPath = '$iconsPath/street_sign.svg';
   static const String personBlackPath = '$iconsPath/person_black.svg';
 
+  static const String profilePath = '$iconsPath/profile.svg';
+  static const String settingsPath = '$iconsPath/settings.svg';
+  static const String bellPath = '$iconsPath/bell.svg';
+  static const String infoCirclePath = '$iconsPath/info_circle.svg';
+  static const String twoSlidersPath = '$iconsPath/two_sliders.svg';
+  static const String uploadPath = '$iconsPath/upload.svg';
+
+
 }

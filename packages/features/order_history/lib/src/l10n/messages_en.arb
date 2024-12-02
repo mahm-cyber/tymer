@@ -1,0 +1,15 @@
+{
+  "appBarTitle": "Requests List",
+  "distanceToServiceLocation": "{meters} meters",
+  "@distanceToServiceLocation": {
+      "placeholders": {
+          "meters": {
+              "type": "String"
+          }
+      }
+  },
+  "noServiceRequestsText": "No service requests available.",
+  "showInMapButtonLabel": "Show in Map",
+  "viewButtonLabel": "View"
+
+}

@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as diox;
 import 'package:flutter/material.dart';
 import 'package:tymer_api/tymer_api.dart';
-import 'package:tymer_api/src/url_builder.dart';
 
 typedef UserTokenSupplier = Future<String?> Function();
 
@@ -71,6 +70,16 @@ class TymerApi {
       if (errorObject.containsKey(_phoneNumberJsonKey)) {
         throw InvalidCredentialsTymerException();
       }
+      rethrow;
+    }
+  }
+
+  Future signOut() async {
+    final url = urlBuilder.buildSignOutUrl();
+
+    try {
+      await _dio.post(url);
+    } catch (_) {
       rethrow;
     }
   }

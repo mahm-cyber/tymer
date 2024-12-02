@@ -117,7 +117,15 @@
   "myLocationInfoWindowTitle": "My Location",
   "viewOnMapButtonLabel": "View",
   "serviceFeesContainerLabel": "Service Fees",
-    "serviceDetailsTitle": "Request Details"
+  "serviceDetailsTitle": "Request Details",
+  "pendingServiceRequestStatus": "Pending",
+  "inProgressServiceRequestStatus": "In Progress",
+  "completedServiceRequestStatus": "Completed",
+  "canceledServiceRequestStatus": "Canceled",
+  "pendingReviewServiceRequestStatus": "Pending Review",
+  "disputedServiceRequestStatus": "Disputed",
+  "viewButtonLabel": "View"
+
 
 
 }

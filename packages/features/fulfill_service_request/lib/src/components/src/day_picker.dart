@@ -5,9 +5,15 @@ import 'package:fulfill_service_request/fulfill_service_request.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
 
 class DayPicker extends StatefulWidget {
-  const DayPicker({super.key, required this.onChanged, this.error});
+  const DayPicker({
+    super.key,
+    required this.onChanged,
+    required this.isSubmissionInProgress,
+    this.error,
+  });
 
   final ValueChanged<DateTime?> onChanged;
+  final bool isSubmissionInProgress;
   final DynamicValidationError? error;
 
   @override
@@ -48,13 +54,14 @@ class _DayPickerState extends State<DayPicker> {
     final colorScheme = TymerTheme.of(context).materialThemeData.colorScheme;
     final textTheme = Theme.of(context).textTheme;
     final theme = TymerTheme.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Stack(
           children: [
             GestureDetector(
-              onTap: pickDateAndTime,
+              onTap: widget.isSubmissionInProgress ? null : pickDateAndTime,
               child: TextField(
                 enabled: false,
                 textDirection: TextDirection.ltr,
@@ -68,7 +75,8 @@ class _DayPickerState extends State<DayPicker> {
                     borderSide: BorderSide(
                       color: widget.error != null
                           ? colorScheme.error
-                          : theme.materialThemeData.inputDecorationTheme.disabledBorder!.borderSide.color,
+                          : theme.materialThemeData.inputDecorationTheme
+                              .disabledBorder!.borderSide.color,
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -98,7 +106,9 @@ class _DayPickerState extends State<DayPicker> {
                     Icons.cancel_outlined,
                     color: colorScheme.secondary,
                   ),
-                  onPressed: () => updateField(null),
+                  onPressed: widget.isSubmissionInProgress
+                      ? null
+                      : () => updateField(null),
                 ),
               ),
           ],

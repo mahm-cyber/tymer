@@ -1,5 +1,6 @@
 import 'package:component_library/component_library.dart';
 import 'package:flutter/foundation.dart';
+import 'package:form_fields/form_fields.dart';
 import 'package:fulfill_service_request/fulfill_service_request.dart';
 import 'package:fulfill_service_request/src/fulfill_service_request_cubit.dart';
 
@@ -15,9 +16,10 @@ class ImagePickerTextField extends StatelessWidget {
       builder: (context, state) {
         final l10n = FulfillServiceRequestLocalizations.of(context);
         final cubit = context.read<FulfillServiceRequestCubit>();
-      final theme = TymerTheme.of(context);
+        final theme = TymerTheme.of(context);
         final isImagePicked = state.imageBytes != null;
-
+        final isSubmissionInProgress =
+            state.submissionStatus == FormzSubmissionStatus.inProgress;
         return StreamBuilder<String>(
             stream: cubit.carImageFileNameSC.stream,
             builder: (context, snapshot) {
@@ -35,9 +37,11 @@ class ImagePickerTextField extends StatelessWidget {
                       child: Stack(
                         children: [
                           GestureDetector(
-                            onTap: () {
-                              cubit.onImagePickerTapped();
-                            },
+                            onTap: isSubmissionInProgress
+                                ? null
+                                : () {
+                                    cubit.onImagePickerTapped();
+                                  },
                             child: Container(
                               color: Colors.transparent,
                               height: 50,

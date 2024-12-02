@@ -99,6 +99,8 @@ class FulfillServiceRequestView extends StatelessWidget {
         final cubit = context.read<FulfillServiceRequestCubit>();
         final isRequestFulfilled =
             state.submissionStatus == FormzSubmissionStatus.success;
+        final isSubmissionInProgress =
+            state.submissionStatus == FormzSubmissionStatus.inProgress;
         return Stack(
           children: [
             Scaffold(
@@ -154,11 +156,13 @@ class FulfillServiceRequestView extends StatelessWidget {
                             DayPicker(
                               onChanged: cubit.onDayChanged,
                               error: state.day.error,
+                              isSubmissionInProgress: isSubmissionInProgress,
                             ),
                             VerticalGap.medium(),
                             TimePicker(
                               onChanged: cubit.onTimeChanged,
                               error: state.time.error,
+                              isSubmissionInProgress: isSubmissionInProgress,
                             ),
                             VerticalGap.medium(),
                             const ImagePickerTextField(),

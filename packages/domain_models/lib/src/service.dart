@@ -1,4 +1,5 @@
 import 'package:domain_models/domain_models.dart';
+import 'package:flutter/material.dart';
 
 class Service {
   const Service({
@@ -9,7 +10,7 @@ class Service {
     required this.type,
     required this.price,
     required this.location,
-     this.details,
+    this.details,
     this.response,
   });
 
@@ -52,12 +53,28 @@ class ServiceDetails {
   final String? additionalComments;
 }
 
-
 enum ServiceStatus {
   pending,
   inProgress,
   completed,
   canceled,
   pendingReview,
-  disputed,
+  disputed;
+
+  Color get color {
+    switch (this) {
+      case ServiceStatus.pending:
+        return const Color(0xFF2D9CDB);
+      case ServiceStatus.inProgress:
+        return const Color(0xFF27AE60);
+      case ServiceStatus.completed:
+        return const Color(0xFF2C8268);
+      case ServiceStatus.canceled:
+        return const Color(0xFFEB5757);
+      case ServiceStatus.pendingReview:
+        return Colors.orange;
+      case ServiceStatus.disputed:
+        return const Color(0xFFEB5757);
+    }
+  }
 }

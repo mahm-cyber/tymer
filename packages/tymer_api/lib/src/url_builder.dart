@@ -9,6 +9,11 @@ class UrlBuilder {
     return completeUrl;
   }
 
+  String buildSignOutUrl() {
+    const completeUrl = '$baseUrl/$_authSlug/logout';
+    return completeUrl;
+  }
+
   String buildGetUserUrl() {
     const completeUrl = '$baseUrl/$_authSlug/me';
     return completeUrl;

@@ -32,7 +32,7 @@ class TymerGestureContainer extends StatelessWidget {
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
               padding: const EdgeInsets.all(Spacing.xSmall),
@@ -65,7 +65,7 @@ class TymerGestureContainer extends StatelessWidget {
                 ],
               ],
             ),
-            HorizontalGap.medium(),
+            const Spacer(),
             RotatedBox(
               quarterTurns: isArabic ? 2 : 0,
               child: const SvgAsset(

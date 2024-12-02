@@ -8,10 +8,12 @@ class TimePicker extends StatefulWidget {
   const TimePicker({
     super.key,
     required this.onChanged,
+    required this.isSubmissionInProgress,
     this.error,
   });
 
   final ValueChanged<TimeOfDay?> onChanged;
+  final bool isSubmissionInProgress;
   final DynamicValidationError? error;
 
   @override
@@ -58,7 +60,7 @@ class _TimePickerState extends State<TimePicker> {
         Stack(
           children: [
             GestureDetector(
-              onTap: pickTime,
+              onTap: widget.isSubmissionInProgress? null:pickTime,
               child: TextField(
                 enabled: false,
                 textDirection: TextDirection.ltr,
@@ -103,7 +105,7 @@ class _TimePickerState extends State<TimePicker> {
                     Icons.cancel_outlined,
                     color: colorScheme.secondary,
                   ),
-                  onPressed: () => updateField(null),
+                  onPressed: widget.isSubmissionInProgress? null:() => updateField(null),
                 ),
               ),
           ],

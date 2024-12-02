@@ -12,14 +12,12 @@ class HomeScreen extends StatelessWidget {
     required this.userRepository,
     required this.onRequestServiceTapped,
     required this.onProvideServiceTapped,
-    required this.onLogout,
     super.key,
   });
 
   final UserRepository userRepository;
   final VoidCallback onRequestServiceTapped;
   final VoidCallback onProvideServiceTapped;
-  final VoidCallback onLogout;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +26,6 @@ class HomeScreen extends StatelessWidget {
         userRepository: userRepository,
         onRequestServiceTapped: onRequestServiceTapped,
         onProvideServiceTapped: onProvideServiceTapped,
-        onLogout: onLogout,
       ),
       child: const HomeView(),
     );

@@ -109,7 +109,7 @@ class ServiceRequestStatusView extends StatelessWidget {
               ),
               body: Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: theme.screenMargin * 2,
+                  horizontal: theme.screenMargin,
                 ),
                 child: isRequestConfirmed
                     ? Column(

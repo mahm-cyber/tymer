@@ -2,7 +2,7 @@ import 'request_service_localizations.dart';
 
 /// The translations for English (`en`).
 class RequestServiceLocalizationsEn extends RequestServiceLocalizations {
-  RequestServiceLocalizationsEn([String locale = 'en']) : super(locale);
+  RequestServiceLocalizationsEn([super.locale = 'en']);
 
   @override
   String get reservationServiceTypeAppBarTitle => 'Waiting List';

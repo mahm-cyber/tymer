@@ -22,7 +22,7 @@ class SuccessSnackBar extends SnackBar {
       action: snackBarAction,
     ),
     showCloseIcon: showClose,
-    margin: marginalSpace,
+    margin: marginalSpace ?? TymerTheme.of(context).snackBarMargin,
     backgroundColor: bgColor ??
         TymerTheme.of(context).successContainerColor,
     closeIconColor: closeColor,

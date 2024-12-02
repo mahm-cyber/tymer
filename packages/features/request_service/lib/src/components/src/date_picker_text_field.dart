@@ -10,6 +10,7 @@ class DatePickerTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return BlocBuilder<RequestServiceCubit, RequestServiceState>(
       builder: (context, state) {
         final isSubmissionInProgress =
@@ -24,10 +25,10 @@ class DatePickerTextField extends StatelessWidget {
             initialDate: state.date.value,
             firstDate: DateTime.now(),
             lastDate: DateTime(2040),
-
           );
           if (dateTime != null) cubit.onDatePicked(dateTime);
         }
+
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
           child: Stack(
@@ -44,6 +45,7 @@ class DatePickerTextField extends StatelessWidget {
                     color: state.date.value != null ? theme.primaryColor : null,
                   ),
                   decoration: InputDecoration(
+
                     suffixIcon: const Icon(
                       Icons.calendar_month,
                       size: 24,
@@ -61,9 +63,24 @@ class DatePickerTextField extends StatelessWidget {
                         : null,
                     hintText: l10n.datePickerTextFieldLabel,
                     labelText: l10n.datePickerTextFieldLabel,
-                    labelStyle: dateError != null
-                        ? TextStyle(color: theme.errorColor)
-                        : null,
+                    // labelStyle: dateError != null
+                    //     ? TextStyle(color: theme.errorColor)
+                    //     : null,
+                    fillColor: colorScheme.surface,
+                    disabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: dateError != null
+                            ? colorScheme.error
+                            : theme.materialThemeData.inputDecorationTheme
+                                .disabledBorder!.borderSide.color,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    labelStyle: TextStyle(
+                      color: dateError != null
+                          ? colorScheme.error
+                          : colorScheme.onSurface,
+                    ),
                   ),
                   readOnly: true,
                 ),

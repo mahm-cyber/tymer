@@ -1,0 +1,14 @@
+{
+  "appBarTitle": "قائمة الطلبات",
+  "distanceToServiceLocation": "{meters} متر",
+  "@distanceToServiceLocation": {
+      "placeholders": {
+          "meters": {
+              "type": "String"
+          }
+      }
+  },
+  "noServiceRequestsText": "لا توجد طلبات خدمة متاحة.",
+  "showInMapButtonLabel": "عرض على الخريطة",
+  "viewButtonLabel": "عرض"
+}

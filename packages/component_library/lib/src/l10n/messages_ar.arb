@@ -117,7 +117,13 @@
   "myLocationInfoWindowTitle": "موقعي",
   "viewOnMapButtonLabel": "عرض",
   "serviceFeesContainerLabel": "رسوم الخدمة",
-    "serviceDetailsTitle": "تفاصيل الطلب"
+  "serviceDetailsTitle": "تفاصيل الطلب",
+  "inProgressServiceRequestStatus": "جارى التنفيذ",
+  "completedServiceRequestStatus": "مكتمل",
+  "canceledServiceRequestStatus": "ملغى",
+  "pendingReviewServiceRequestStatus": "قيد المراجعة",
+  "disputedServiceRequestStatus": "معارض",
+  "viewButtonLabel": "عرض"
 
 
 }

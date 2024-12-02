@@ -14,6 +14,8 @@ import 'package:home/home.dart';
 import 'package:initial/initial.dart';
 
 import 'package:key_value_storage/key_value_storage.dart';
+import 'package:order_history/order_history.dart';
+import 'package:profile/profile.dart';
 import 'package:provide_service/provide_service.dart';
 import 'package:request_service/request_service.dart';
 import 'package:reset_password/reset_password.dart';
@@ -200,6 +202,10 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                 ProvideServiceLocalizations.delegate,
                 AcceptServiceRequestLocalizations.delegate,
                 FulfillServiceRequestLocalizations.delegate,
+
+                OrderHistoryLocalizations.delegate,
+
+                ProfileLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [

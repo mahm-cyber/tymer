@@ -2,7 +2,7 @@ import 'component_library_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
-  ComponentLibraryLocalizationsAr([String locale = 'ar']) : super(locale);
+  ComponentLibraryLocalizationsAr([super.locale = 'ar']);
 
   @override
   String get invalidCredentialsErrorMessage => 'بريد الكترونى او كلمة مرور خطأ';
@@ -320,4 +320,25 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get serviceDetailsTitle => 'تفاصيل الطلب';
+
+  @override
+  String get pendingServiceRequestStatus => 'Pending';
+
+  @override
+  String get inProgressServiceRequestStatus => 'جارى التنفيذ';
+
+  @override
+  String get completedServiceRequestStatus => 'مكتمل';
+
+  @override
+  String get canceledServiceRequestStatus => 'ملغى';
+
+  @override
+  String get pendingReviewServiceRequestStatus => 'قيد المراجعة';
+
+  @override
+  String get disputedServiceRequestStatus => 'معارض';
+
+  @override
+  String get viewButtonLabel => 'عرض';
 }

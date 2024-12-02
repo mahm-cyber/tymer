@@ -2,7 +2,7 @@ import 'accept_service_request_localizations.dart';
 
 /// The translations for English (`en`).
 class AcceptServiceRequestLocalizationsEn extends AcceptServiceRequestLocalizations {
-  AcceptServiceRequestLocalizationsEn([String locale = 'en']) : super(locale);
+  AcceptServiceRequestLocalizationsEn([super.locale = 'en']);
 
   @override
   String get appBarTitle => 'Request Details';

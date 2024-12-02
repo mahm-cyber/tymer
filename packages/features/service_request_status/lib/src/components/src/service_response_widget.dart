@@ -35,6 +35,7 @@ class ServiceResponseWidget extends StatelessWidget {
               child: ListView(
                 children: [
                   VerticalGap.xLarge(),
+                  VerticalGap.mediumLarge(),
                   if (hasReservationNumber) ...[
                     TextFormField(
                       enabled: false,
@@ -147,19 +148,30 @@ class ServiceResponseWidget extends StatelessWidget {
                         ?.copyWith(fontWeight: FontWeight.bold),
                   ),
                   VerticalGap.medium(),
-                  state.confirmationStatus == ConfirmationStatus.loading
-                      ? TymerElevatedButton.inProgress(
-                          label: l10n.yesButtonLabel,
-                        )
-                      : TymerElevatedButton(
-                          label: l10n.yesButtonLabel,
-                          onTap: cubit.confirmService,
+                  Row(
+                    children: [
+                      VerticalGap.medium(),
+                      state.confirmationStatus == ConfirmationStatus.loading
+                          ? Expanded(
+                            child: TymerElevatedButton.inProgress(
+                                label: l10n.yesButtonLabel,
+                              ),
+                          )
+                          : Expanded(
+                            child: TymerElevatedButton(
+                                label: l10n.yesButtonLabel,
+                                onTap: cubit.confirmService,
+                              ),
+                          ),
+                      HorizontalGap.medium(),
+                      Expanded(
+                        child: TymerElevatedButton(
+                          label: l10n.noButtonLabel,
+                          onTap: () {},
+                          bgColor: colorScheme.error,
                         ),
-                  VerticalGap.medium(),
-                  TymerElevatedButton(
-                    label: l10n.noButtonLabel,
-                    onTap: () {},
-                    bgColor: colorScheme.error,
+                      ),
+                    ].reversed.toList(),
                   ),
                 ],
               ),

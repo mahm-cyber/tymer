@@ -5,6 +5,8 @@ import 'package:forgot_password/forgot_password.dart';
 import 'package:fulfill_service_request/fulfill_service_request.dart';
 import 'package:home/home.dart';
 import 'package:initial/initial.dart';
+import 'package:order_history/order_history.dart';
+import 'package:profile/profile.dart';
 import 'package:provide_service/provide_service.dart';
 import 'package:request_service/request_service.dart';
 import 'package:reset_password/reset_password.dart';
@@ -42,10 +44,9 @@ Map<String, PageBuilder> buildRoutingTable({
           backBehavior: TabBackBehavior.history,
           paths: [
             _PathConstants.homePath,
-            _PathConstants.homePath,
             _PathConstants.walletPath,
-            _PathConstants.homePath,
-            _PathConstants.homePath,
+            _PathConstants.orderHistory,
+            _PathConstants.profilePath,
           ],
           child: BackButtonListener(
             onBackButtonPressed: () async {
@@ -114,7 +115,6 @@ Map<String, PageBuilder> buildRoutingTable({
                 routerDelegate.push(_PathConstants.chooseServicePath),
             onProvideServiceTapped: () =>
                 routerDelegate.push(_PathConstants.provideServicePath),
-            onLogout: () => signInSuccessVN.value = false,
           ),
         ),
     _PathConstants.walletPath: (_) => MaterialPage(
@@ -124,6 +124,26 @@ Map<String, PageBuilder> buildRoutingTable({
             onRequestServiceTapped: () =>
                 routerDelegate.push(_PathConstants.chooseServicePath),
             onProvideServiceTapped: () {},
+          ),
+        ),
+    _PathConstants.orderHistory: (_) => MaterialPage(
+          name: 'order-history',
+          child: OrderHistoryScreen(
+            userRepository: userRepository,
+            serviceRepository: serviceRepository,
+            onCheckServiceRequestStatusTapped: (requestId) => routerDelegate.push(
+              _PathConstants.serviceRequestStatusPath( requestId: requestId),
+            ),
+          ),
+        ),
+    _PathConstants.profilePath: (_) => MaterialPage(
+          name: 'profile',
+          child: ProfileScreen(
+            userRepository: userRepository,
+            onRequestServiceTapped: () =>
+                routerDelegate.push(_PathConstants.chooseServicePath),
+            onProvideServiceTapped: () =>
+                routerDelegate.push(_PathConstants.provideServicePath),
             onLogout: () => signInSuccessVN.value = false,
           ),
         ),
@@ -160,7 +180,7 @@ Map<String, PageBuilder> buildRoutingTable({
             serviceRepository: serviceRepository,
             onGoToWalletTapped: () =>
                 routerDelegate.push(_PathConstants.walletPath),
-            onServiceRequestSuccess: (int requestId) async{
+            onServiceRequestSuccess: (int requestId) async {
               await routerDelegate.popRoute();
               routerDelegate.push(
                 _PathConstants.serviceRequestStatusPath(requestId: requestId),
@@ -214,6 +234,7 @@ Map<String, PageBuilder> buildRoutingTable({
 }
 
 class _PathConstants {
+
   const _PathConstants._();
 
   static String get initialPath => '/';
@@ -225,6 +246,10 @@ class _PathConstants {
   static String get homePath => '${initialPath}home';
 
   static String get walletPath => '${initialPath}wallet';
+
+  static String get orderHistory => '${initialPath}order-history';
+
+  static String get profilePath => '${initialPath}profile';
 
   static String get verifyOtpPath => '${initialPath}verify-otp';
 

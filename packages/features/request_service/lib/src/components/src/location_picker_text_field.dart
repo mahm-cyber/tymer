@@ -19,6 +19,7 @@ class LocationPickerTextField extends StatelessWidget {
             state.location.isNotValid ? state.location.error : null;
         final l10n = RequestServiceLocalizations.of(context);
         final theme = TymerTheme.of(context);
+        final colorScheme = theme.materialThemeData.colorScheme;
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
           child: Stack(
@@ -37,9 +38,6 @@ class LocationPickerTextField extends StatelessWidget {
                         : null,
                   ),
                   decoration: InputDecoration(
-                    labelStyle: locationError != null
-                        ? TextStyle(color: theme.errorColor)
-                        : null,
                     suffixIcon: const Icon(
                       Icons.pin_drop_outlined,
                       size: 24,
@@ -58,9 +56,24 @@ class LocationPickerTextField extends StatelessWidget {
                     hintStyle: state.location.value != null
                         ? TextStyle(color: theme.primaryColor)
                         : null,
-                    labelText: state.location.value != null
+                    labelText: locationError != null
                         ? l10n.locationPickerTextFieldLabel
                         : l10n.locationPickerTextFieldLabel,
+                    fillColor: colorScheme.surface,
+                    disabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: locationError != null
+                            ? colorScheme.error
+                            : theme.materialThemeData.inputDecorationTheme
+                                .disabledBorder!.borderSide.color,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    labelStyle: TextStyle(
+                      color: locationError != null
+                          ? colorScheme.error
+                          : colorScheme.onSurface,
+                    ),
                   ),
                   readOnly: true,
                 ),

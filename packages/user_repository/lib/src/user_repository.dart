@@ -268,6 +268,7 @@ class UserRepository {
 
   Future logout() async {
     try {
+      await remoteApi.signOut();
       await _secureStorage.deleteUser();
       _userSubject.add(null);
     } catch (error) {

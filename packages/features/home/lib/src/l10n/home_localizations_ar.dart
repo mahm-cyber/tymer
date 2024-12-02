@@ -2,7 +2,7 @@ import 'home_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class HomeLocalizationsAr extends HomeLocalizations {
-  HomeLocalizationsAr([String locale = 'ar']) : super(locale);
+  HomeLocalizationsAr([super.locale = 'ar']);
 
   @override
   String get appBarTitle => 'طلب أو تقديم خدمة';
