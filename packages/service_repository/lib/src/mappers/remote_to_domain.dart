@@ -103,7 +103,24 @@ extension ServiceDetailsRMtoDM on ServiceDetailsRM {
       placeName: placeName,
       placeAddress: placeAddress,
       date: date != null ? DateTime.parse(date!) : null,
+      reservedFor: reservedFor,
+      reservationDate:
+          reservationDate != null ? DateTime.parse(reservationDate!) : null,
+      reservationTime: reservationTime != null ? stringToTimeOfDay(reservationTime!) : null,
+      reservationServiceCategory: reservationServiceCategory?.toDomainModel(),
       additionalComments: additionalDetails,
+    );
+  }
+}
+
+extension ReservationServiceTypeRMtoDM on ReservationServiceTypeRM {
+  ReservationServiceType toDomainModel() {
+    return ReservationServiceType(
+      id: id,
+      name: Name(
+        en: name.en,
+        ar: name.ar,
+      ),
     );
   }
 }

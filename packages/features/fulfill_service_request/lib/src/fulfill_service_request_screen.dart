@@ -143,6 +143,7 @@ class FulfillServiceRequestView extends StatelessWidget {
                                 ServiceDetailsWidget(
                                   service: state.service!,
                                   onViewServiceOnMap: cubit.onViewServiceOnMap,
+                                  physics: const NeverScrollableScrollPhysics(),
                                 ),
                                 VerticalGap.medium(),
                               ],

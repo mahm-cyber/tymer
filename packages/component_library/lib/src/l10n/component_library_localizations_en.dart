@@ -2,7 +2,7 @@ import 'component_library_localizations.dart';
 
 /// The translations for English (`en`).
 class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
-  ComponentLibraryLocalizationsEn([super.locale = 'en']);
+  ComponentLibraryLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
   String get invalidCredentialsErrorMessage => 'Incorrect email or password';
@@ -282,6 +282,12 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get reservedForTextFieldLabel => 'Reserved For';
+
+  @override
+  String get reservationServiceCategoryTextFieldLabel => 'Service Category';
+
+  @override
+  String get timeTextFieldLabel => 'Time';
 
   @override
   String get dateTextFieldLabel => 'Date';

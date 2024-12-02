@@ -99,6 +99,8 @@
   "emptyTaskLogListIndicator": "No tasks available",
   "unAuthSnackBarErrorMessage": "You must login first",
   "reservedForTextFieldLabel": "Reserved For",
+  "reservationServiceCategoryTextFieldLabel": "Service Category",
+  "timeTextFieldLabel": "Time",
   "dateTextFieldLabel": "Date",
   "placeNameTextFieldLabel": "Place Name",
   "placeAddressTextFieldLabel": "Place Address",

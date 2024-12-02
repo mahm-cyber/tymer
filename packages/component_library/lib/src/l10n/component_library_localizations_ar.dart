@@ -2,7 +2,7 @@ import 'component_library_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
-  ComponentLibraryLocalizationsAr([super.locale = 'ar']);
+  ComponentLibraryLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get invalidCredentialsErrorMessage => 'بريد الكترونى او كلمة مرور خطأ';
@@ -282,6 +282,12 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get reservedForTextFieldLabel => 'محجوز لـ';
+
+  @override
+  String get reservationServiceCategoryTextFieldLabel => 'فئة الخدمة';
+
+  @override
+  String get timeTextFieldLabel => 'الوقت';
 
   @override
   String get dateTextFieldLabel => 'التاريخ';

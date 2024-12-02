@@ -51,6 +51,17 @@ ServiceDetailsRM _$ServiceDetailsRMFromJson(Map<String, dynamic> json) =>
           placeName: $checkedConvert('place_name', (v) => v as String),
           placeAddress: $checkedConvert('place_address', (v) => v as String),
           date: $checkedConvert('date', (v) => v as String?),
+          reservedFor: $checkedConvert('reserved_for', (v) => v as String?),
+          reservationDate:
+              $checkedConvert('reservation_date', (v) => v as String?),
+          reservationTime:
+              $checkedConvert('reservation_time', (v) => v as String?),
+          reservationServiceCategory: $checkedConvert(
+              'reservation_service_category',
+              (v) => v == null
+                  ? null
+                  : ReservationServiceTypeRM.fromJson(
+                      v as Map<String, dynamic>)),
           additionalDetails:
               $checkedConvert('other_details', (v) => v as String?),
         );
@@ -59,6 +70,10 @@ ServiceDetailsRM _$ServiceDetailsRMFromJson(Map<String, dynamic> json) =>
       fieldKeyMap: const {
         'placeName': 'place_name',
         'placeAddress': 'place_address',
+        'reservedFor': 'reserved_for',
+        'reservationDate': 'reservation_date',
+        'reservationTime': 'reservation_time',
+        'reservationServiceCategory': 'reservation_service_category',
         'additionalDetails': 'other_details'
       },
     );

@@ -39,17 +39,21 @@ class ServiceDetails {
   const ServiceDetails({
     required this.placeName,
     required this.placeAddress,
-    this.reservedFor,
     this.date,
-    this.reservationServiceCategoryId,
+    this.reservedFor,
+    this.reservationDate,
+    this.reservationTime,
+    this.reservationServiceCategory,
     this.additionalComments,
   });
 
   final String placeName;
   final String placeAddress;
-  final String? reservedFor;
   final DateTime? date;
-  final int? reservationServiceCategoryId;
+  final String? reservedFor;
+  final DateTime? reservationDate;
+  final TimeOfDay? reservationTime;
+  final ReservationServiceType? reservationServiceCategory;
   final String? additionalComments;
 }
 

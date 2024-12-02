@@ -47,7 +47,7 @@ class ServiceRepository {
         placeAddress: placeAddress,
         reservedFor: reservedFor,
         date: date,
-        reservationServiceCategoryId: reservationServiceType?.id,
+        reservationServiceCategory: reservationServiceType,
       ),
     ).toRemoteModel();
     try {
@@ -76,9 +76,10 @@ class ServiceRepository {
         mode: mode,
         status: status?.toRemoteModel(),
       );
-      return serviceRequests
+      final serviceRequestsDomainModel = serviceRequests
           .map((serviceRequest) => serviceRequest.toDomainModel())
           .toList();
+      return serviceRequestsDomainModel;
     } catch (error) {
       rethrow;
     }
@@ -155,11 +156,10 @@ class ServiceRepository {
     } catch (error) {
       rethrow;
     }
-
-
   }
 
-  Future cancelServiceRequest({ required int serviceRequestId,
+  Future cancelServiceRequest({
+    required int serviceRequestId,
   }) async {
     try {
       await remoteApi.cancelServiceRequest(

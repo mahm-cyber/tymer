@@ -59,12 +59,14 @@ class UrlBuilder {
     final latQuery = '?user_lat=$lat';
     final longQuery = '&user_long=$long';
     final modeQuery = '&mode=$mode';
-    const includeServiceQuery = '&include=service';
+    const includeServiceQuery = '&include=service,service.category';
     final statusQuery = status != null ? '&status=$status' : '&status=pending';
+    const includeTranslationsQuery = '&includeTranslations=true';
     final completeUrl = '$baseUrl/service-requests/list$latQuery'
         '$longQuery'
         '$modeQuery'
         '$includeServiceQuery'
+        '$includeTranslationsQuery'
         '$statusQuery';
     return completeUrl;
   }

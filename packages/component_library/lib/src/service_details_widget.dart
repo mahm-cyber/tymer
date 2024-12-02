@@ -7,22 +7,46 @@ class ServiceDetailsWidget extends StatelessWidget {
     super.key,
     required this.service,
     required this.onViewServiceOnMap,
+    this.physics,
   });
 
   final Service service;
   final VoidCallback onViewServiceOnMap;
+  final ScrollPhysics? physics;
 
   @override
   Widget build(BuildContext context) {
     final serviceDetails = service.details;
+    final hasEitherDate =
+        serviceDetails?.date != null || serviceDetails?.reservationDate != null;
+    final date = hasEitherDate
+        ? serviceDetails?.date ?? serviceDetails?.reservationDate
+        : null;
+    final hasTime = serviceDetails?.reservationTime != null;
     final theme = TymerTheme.of(context);
     final l10n = ComponentLibraryLocalizations.of(context);
+    final isArabic = Localizations.localeOf(context).languageCode == 'ar';
     return ListView(
       padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
+      physics: physics,
       shrinkWrap: true,
       children: [
         VerticalGap.small(),
-        if (serviceDetails!.reservedFor != null) ...[
+        if (serviceDetails!.reservationServiceCategory != null) ...[
+          TextFormField(
+            enableInteractiveSelection: true,
+            initialValue: isArabic
+                ? serviceDetails.reservationServiceCategory!.name.ar
+                : serviceDetails.reservationServiceCategory!.name.en,
+            enabled: false,
+            decoration: InputDecoration(
+              labelText: l10n.reservationServiceCategoryTextFieldLabel,
+              prefixIcon: const Icon(Icons.category_outlined),
+            ),
+          ),
+          VerticalGap.medium(),
+        ],
+        if (serviceDetails.reservedFor != null) ...[
           TextFormField(
             enableInteractiveSelection: true,
             initialValue: serviceDetails.reservedFor,
@@ -36,18 +60,32 @@ class ServiceDetailsWidget extends StatelessWidget {
           ),
           VerticalGap.medium(),
         ],
-
-        TextFormField(
-          enableInteractiveSelection: true,
-          initialValue: service.createdAt?.toIso8601String().split('T').first,
-          enabled: false,
-          decoration: InputDecoration(
+        if (hasEitherDate) ...[
+          TextFormField(
+            enableInteractiveSelection: true,
+            initialValue: date!.toIso8601String().split('T').first,
+            enabled: false,
+            decoration: InputDecoration(
               labelText: l10n.dateTextFieldLabel,
               prefixIcon: const SvgAsset(
                 AssetPathConstants.calendarPath,
-              )),
-        ),
-        VerticalGap.medium(),
+              ),
+            ),
+          ),
+          VerticalGap.medium(),
+        ],
+        if (hasTime) ...[
+          TextFormField(
+            enableInteractiveSelection: true,
+            initialValue: serviceDetails.reservationTime!.format(context),
+            enabled: false,
+            decoration: InputDecoration(
+              labelText: l10n.timeTextFieldLabel,
+              prefixIcon: const Icon(Icons.calendar_today),
+            ),
+          ),
+          VerticalGap.medium(),
+        ],
         TextFormField(
           enableInteractiveSelection: true,
           initialValue: serviceDetails.placeName,

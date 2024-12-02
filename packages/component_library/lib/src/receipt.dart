@@ -45,6 +45,7 @@ class Receipt extends StatelessWidget {
                 ServiceDetailsWidget(
                   service: service,
                   onViewServiceOnMap: onViewServiceOnMap ?? () {},
+                  physics: const NeverScrollableScrollPhysics(),
                 ),
                 VerticalGap.medium(),
               ],

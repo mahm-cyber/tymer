@@ -32,7 +32,7 @@ extension RequestServiceDMtoRM on Service {
         reservationDate: type == ServiceType.reservation ? dateRM : null,
         detailsDate: type == ServiceType.other ? dateRM : null,
         reservationServiceCategoryId: type == ServiceType.reservation
-            ? details!.reservationServiceCategoryId
+            ? details!.reservationServiceCategory!.id
             : null,
       ),
     );

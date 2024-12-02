@@ -651,6 +651,18 @@ abstract class ComponentLibraryLocalizations {
   /// **'Reserved For'**
   String get reservedForTextFieldLabel;
 
+  /// No description provided for @reservationServiceCategoryTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Category'**
+  String get reservationServiceCategoryTextFieldLabel;
+
+  /// No description provided for @timeTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get timeTextFieldLabel;
+
   /// No description provided for @dateTextFieldLabel.
   ///
   /// In en, this message translates to:
