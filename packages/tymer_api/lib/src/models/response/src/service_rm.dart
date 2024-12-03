@@ -89,3 +89,18 @@ class ServiceDetailsRM {
   factory ServiceDetailsRM.fromJson(Map<String, dynamic> json) =>
       _$ServiceDetailsRMFromJson(json);
 }
+
+@JsonSerializable(createToJson: false)
+class ServiceListPageRM {
+  ServiceListPageRM({
+    required this.list,
+    this.isLastPage,
+  });
+
+  @JsonKey(name: 'data')
+  final List<ServiceRM> list;
+  @JsonKey(includeFromJson: false)
+  bool? isLastPage;
+
+  static const fromJson = _$ServiceListPageRMFromJson;
+}

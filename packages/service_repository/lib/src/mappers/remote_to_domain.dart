@@ -65,6 +65,15 @@ extension ServiceRMtoDM on ServiceRM {
   }
 }
 
+extension ServiceListPageRMtoDM on ServiceListPageRM {
+  ServiceListPage toDomainModel() {
+    return ServiceListPage(
+      list: list.map((service) => service.toDomainModel()).toList(),
+      isLastPage: isLastPage,
+    );
+  }
+}
+
 extension OtherServiceResponseRMtoDM on OtherServiceRM {
   ServiceResponse toDomainModel() {
     return ServiceResponse(
@@ -106,7 +115,8 @@ extension ServiceDetailsRMtoDM on ServiceDetailsRM {
       reservedFor: reservedFor,
       reservationDate:
           reservationDate != null ? DateTime.parse(reservationDate!) : null,
-      reservationTime: reservationTime != null ? stringToTimeOfDay(reservationTime!) : null,
+      reservationTime:
+          reservationTime != null ? stringToTimeOfDay(reservationTime!) : null,
       reservationServiceCategory: reservationServiceCategory?.toDomainModel(),
       additionalComments: additionalDetails,
     );

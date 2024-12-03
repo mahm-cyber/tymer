@@ -20,4 +20,8 @@ class ProvideServiceLocalizationsEn extends ProvideServiceLocalizations {
 
   @override
   String get viewButtonLabel => 'View';
+
+  @override
+  String get userHasRunningServiceRequestSnackBarMessage =>
+      'You have a running service request. Please complete it before providing a new one';
 }

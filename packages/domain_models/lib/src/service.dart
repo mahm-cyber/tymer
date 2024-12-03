@@ -82,3 +82,13 @@ enum ServiceStatus {
     }
   }
 }
+
+class ServiceListPage {
+  const ServiceListPage({
+    required this.list,
+    this.isLastPage,
+  });
+
+  final List<Service> list;
+  final bool? isLastPage;
+}

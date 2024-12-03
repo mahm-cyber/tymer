@@ -58,6 +58,12 @@ class ProfileView extends StatelessWidget {
           body: ListView(
             children: [
               VerticalGap.large(),
+              ListTile(
+                titleTextStyle: textTheme.titleMedium,
+                title: Text(l10n.greetingTileTitle),
+                subtitle: Text(state.user?.name ?? ''),
+                tileColor: theme.borderColor,
+              ),
               // ListTile(
               //   leading: const SvgAsset(AssetPathConstants.profilePath),
               //   titleTextStyle: textTheme.titleMedium,

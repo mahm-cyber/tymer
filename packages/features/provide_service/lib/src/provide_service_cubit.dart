@@ -27,7 +27,7 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
   final ServiceRepository serviceRepository;
   final VoidCallback onServiceRequestDetailsTapped;
   final VoidCallback navigateToFulfillServiceRequest;
-  Timer? timer;
+  Timer? _timer;
 
   void init() async {
     emit(state.copyWith(serviceRequestsFetchStatus: FetchStatus.loading));
@@ -36,6 +36,11 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
     if (service != null) {
       serviceRepository.changeNotifier.setServiceRequest(service);
       //TODO: navigate to fulfill service request screen
+      //TODO: show snack bar to notify the user that he has a running service request
+      final runningServiceRequestState = state.copyWith(
+        runningServiceRequest: service,
+      );
+      emit(runningServiceRequestState);
       navigateToFulfillServiceRequest();
       return;
     }
@@ -43,7 +48,7 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
     await fetchServiceRequests();
     isApiCallInProgress = false;
     // poll fetch service requests to update the list every 2500 milliseconds
-    timer = Timer.periodic(
+    _timer = Timer.periodic(
       const Duration(milliseconds: 2500),
       (timer) async {
         if (!isApiCallInProgress) {
@@ -67,7 +72,7 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
         status: ServiceStatus.pending,
       );
       final successState = state.copyWith(
-        serviceRequests: serviceRequests,
+        serviceRequests: serviceRequests.list,
         serviceRequestsFetchStatus: FetchStatus.success,
       );
       emit(successState);
@@ -98,13 +103,14 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
         mode: 'provider',
         status: ServiceStatus.pendingReview,
       );
-      final hasRunningServiceRequest = serviceRequestsInProgress.isNotEmpty;
+      final hasRunningServiceRequest =
+          serviceRequestsInProgress.list.isNotEmpty;
       final hasPendingReviewServiceRequest =
-          serviceRequestsPendingReview.isNotEmpty;
+          serviceRequestsInProgress.list.isNotEmpty;
       if (hasRunningServiceRequest) {
-        return serviceRequestsInProgress.first;
+        return serviceRequestsInProgress.list.first;
       } else if (hasPendingReviewServiceRequest) {
-        return serviceRequestsPendingReview.first;
+        return serviceRequestsPendingReview.list.first;
       } else {
         return null;
       }
@@ -127,7 +133,7 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
 
   @override
   Future<void> close() async {
-    timer?.cancel();
+    _timer?.cancel();
     return super.close();
   }
 }

@@ -122,6 +122,12 @@ abstract class ProvideServiceLocalizations {
   /// In en, this message translates to:
   /// **'View'**
   String get viewButtonLabel;
+
+  /// No description provided for @userHasRunningServiceRequestSnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You have a running service request. Please complete it before providing a new one'**
+  String get userHasRunningServiceRequestSnackBarMessage;
 }
 
 class _ProvideServiceLocalizationsDelegate extends LocalizationsDelegate<ProvideServiceLocalizations> {

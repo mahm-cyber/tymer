@@ -328,7 +328,7 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
   String get serviceDetailsTitle => 'تفاصيل الطلب';
 
   @override
-  String get pendingServiceRequestStatus => 'Pending';
+  String get pendingServiceRequestStatus => 'قيد الانتظار';
 
   @override
   String get inProgressServiceRequestStatus => 'جارى التنفيذ';

@@ -20,4 +20,7 @@ class ProvideServiceLocalizationsAr extends ProvideServiceLocalizations {
 
   @override
   String get viewButtonLabel => 'عرض';
+
+  @override
+  String get userHasRunningServiceRequestSnackBarMessage => 'لديك طلب خدمة جاري. يرجى استكماله قبل تقديم طلب جديد';
 }

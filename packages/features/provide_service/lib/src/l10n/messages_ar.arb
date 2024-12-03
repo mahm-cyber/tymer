@@ -10,5 +10,6 @@
   },
   "noServiceRequestsText": "لا توجد طلبات خدمة متاحة.",
   "showInMapButtonLabel": "عرض على الخريطة",
-  "viewButtonLabel": "عرض"
+  "viewButtonLabel": "عرض",
+  "userHasRunningServiceRequestSnackBarMessage": "لديك طلب خدمة جاري. يرجى استكماله قبل تقديم طلب جديد"
 }

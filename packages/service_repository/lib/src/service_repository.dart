@@ -63,7 +63,8 @@ class ServiceRepository {
     }
   }
 
-  Future<List<Service>> getAllServiceRequests({
+  Future<ServiceListPage> getAllServiceRequests({
+    int? page,
     required double lat,
     required double long,
     required String mode,
@@ -71,14 +72,13 @@ class ServiceRepository {
   }) async {
     try {
       final serviceRequests = await remoteApi.getAllServiceRequests(
+        page: page,
         lat: lat,
         long: long,
         mode: mode,
         status: status?.toRemoteModel(),
       );
-      final serviceRequestsDomainModel = serviceRequests
-          .map((serviceRequest) => serviceRequest.toDomainModel())
-          .toList();
+      final serviceRequestsDomainModel = serviceRequests.toDomainModel();
       return serviceRequestsDomainModel;
     } catch (error) {
       rethrow;

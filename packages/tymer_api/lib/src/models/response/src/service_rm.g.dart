@@ -77,3 +77,20 @@ ServiceDetailsRM _$ServiceDetailsRMFromJson(Map<String, dynamic> json) =>
         'additionalDetails': 'other_details'
       },
     );
+
+ServiceListPageRM _$ServiceListPageRMFromJson(Map<String, dynamic> json) =>
+    $checkedCreate(
+      'ServiceListPageRM',
+      json,
+      ($checkedConvert) {
+        final val = ServiceListPageRM(
+          list: $checkedConvert(
+              'data',
+              (v) => (v as List<dynamic>)
+                  .map((e) => ServiceRM.fromJson(e as Map<String, dynamic>))
+                  .toList()),
+        );
+        return val;
+      },
+      fieldKeyMap: const {'orderList': 'data'},
+    );

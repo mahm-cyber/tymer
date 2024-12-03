@@ -1,3 +1,5 @@
+import 'package:domain_models/domain_models.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:order_history/src/l10n/order_history_localizations.dart';
 import 'package:order_history/src/order_history_cubit.dart';
 import 'package:component_library/component_library.dart';
@@ -54,12 +56,14 @@ class OrderHistoryView extends StatelessWidget {
     final theme = TymerTheme.of(context);
     final colorScheme = theme.materialThemeData.colorScheme;
     final l10n = OrderHistoryLocalizations.of(context);
-    return BlocBuilder<OrderHistoryCubit, OrderHistoryState>(
-      builder: (context, state) {
-        final loading = state.serviceRequestsFetchStatus == FetchStatus.loading;
-        final noServiceRequests = state.serviceRequests?.isEmpty == true;
+    final textTheme = Theme.of(context).textTheme;
+    return BlocConsumer<OrderHistoryCubit, OrderHistoryState>(
+      listener: (context, state) {
         final cubit = context.read<OrderHistoryCubit>();
-        final failure = state.serviceRequestsFetchStatus == FetchStatus.failure;
+        cubit.serviceRequestsPagingController.value = state.toPagingState();
+      },
+      builder: (context, state) {
+        final cubit = context.read<OrderHistoryCubit>();
         return GestureDetector(
           onTap: context.releaseFocus,
           child: Stack(
@@ -70,45 +74,103 @@ class OrderHistoryView extends StatelessWidget {
                   toolbarHeight: 70,
                   iconTheme: IconThemeData(color: colorScheme.surface),
                 ),
-                body: loading
-                    ? const CenteredCircularProgressIndicator()
-                    : noServiceRequests
-                        ? Center(
-                            child: ExceptionIndicator(
-                              onTryAgain: cubit.fetchServiceRequests,
-                              message: l10n.noServiceRequestsText,
-                              title: l10n.noServiceRequestsText,
-                            ),
-                          )
-                        : failure
-                            ? ExceptionIndicator(
-                                onTryAgain: cubit.fetchServiceRequests,
-                              )
-                            : RefreshIndicator(
-                                onRefresh: cubit.fetchServiceRequests,
-                                child: ListView.separated(
-                                  padding: EdgeInsets.only(
-                                    left: theme.screenMargin,
-                                    right: theme.screenMargin,
-                                    top: Spacing.xxLarge,
+                body: Column(
+                  children: [
+                    VerticalGap.large(),
+                    VerticalGap.medium(),
+                    SizedBox(
+                      height: 50,
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) =>
+                            HorizontalGap.medium(),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: theme.screenMargin),
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          final currentServiceStatus =
+                              ServiceStatus.values[index];
+                          final label = serviceRequestStatusToLocalizedString(
+                            currentServiceStatus,
+                            ComponentLibraryLocalizations.of(context),
+                          );
+                          return BlocSelector<OrderHistoryCubit,
+                              OrderHistoryState, ServiceStatus>(
+                            selector: (state) => state.statusFilter,
+                            builder: (context, statusFilter) {
+                              final isSelected =
+                                  statusFilter == currentServiceStatus;
+                              return ChoiceChip(
+                                onSelected: (_) =>
+                                    cubit.setFilterBy(currentServiceStatus),
+                                selected: isSelected,
+                                label: Text(label),
+                                labelStyle: isSelected
+                                    ? textTheme.bodyMedium?.copyWith(
+                                        color: colorScheme.surface,
+                                      )
+                                    : null,
+                                checkmarkColor: colorScheme.surface,
+                              );
+                            },
+                          );
+                        },
+                        itemCount: ServiceStatus.values.length,
+                      ),
+                    ),
+                    Expanded(
+                      child: RefreshIndicator(
+                        onRefresh: cubit.reFetchFirstPage,
+                        child: PagedListView.separated(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: theme.screenMargin),
+                          pagingController:
+                              cubit.serviceRequestsPagingController,
+                          separatorBuilder: (context, index) =>
+                              VerticalGap.medium(),
+                          builderDelegate: PagedChildBuilderDelegate<Service>(
+                            itemBuilder: (context, service, index) {
+                              final isLastItem = index ==
+                                  cubit.serviceRequestsPagingController
+                                          .itemList!.length -
+                                      1;
+                              return Column(
+                                children: [
+                                  if (index == 0) VerticalGap.medium(),
+                                  ServiceRequestCard(
+                                    onTapped: () =>
+                                        cubit.onViewServiceRequestDetailsTapped(
+                                            service),
+                                    shouldShowRequestStatus: true,
+                                    service: service,
                                   ),
-                                  itemCount: state
-                                      .ascendingSortedServiceRequests!.length,
-                                  separatorBuilder: (context, index) =>
-                                      VerticalGap.medium(),
-                                  itemBuilder: (context, index) {
-                                    final service = state
-                                        .ascendingSortedServiceRequests![index];
-                                    return ServiceRequestCard(
-                                      onTapped: () => cubit
-                                          .onViewServiceRequestDetailsTapped(
-                                              service),
-                                      shouldShowRequestStatus: true,
-                                      service: service,
-                                    );
-                                  },
-                                ),
-                              ),
+                                  if(isLastItem) VerticalGap.large(),
+                                ],
+                              );
+                            },
+                            firstPageErrorIndicatorBuilder: (context) {
+                              return ExceptionIndicator(
+                                onTryAgain: cubit.reFetchFirstPage,
+                              );
+                            },
+                            newPageProgressIndicatorBuilder: (_) {
+                              return const NewPageProgressIndicator();
+                            },
+                            noItemsFoundIndicatorBuilder: (_) {
+                              return NoItemsFoundIndicator(
+                                message: l10n.noServiceRequestsText,
+                              );
+                            },
+                            newPageErrorIndicatorBuilder: (_) {
+                              return NextPageExceptionIndicator(
+                                onTryAgain: cubit.reFetchNextSearchListPage,
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               AppBarTitleContainer(
                 top: theme.smallAppBarTitleContainerHeight,
@@ -119,6 +181,16 @@ class OrderHistoryView extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+extension on OrderHistoryState {
+  PagingState<int, Service> toPagingState() {
+    return PagingState(
+      itemList: serviceRequests,
+      nextPageKey: nextPage,
+      error: nextListPageLoadError,
     );
   }
 }

@@ -51,12 +51,14 @@ class UrlBuilder {
   }
 
   String buildGetAllServiceRequestsUrl({
+    int? page,
     required double lat,
     required double long,
     required String mode,
     String? status,
   }) {
     final latQuery = '?user_lat=$lat';
+    final pageQuery = page != null ? '&page=$page' : '';
     final longQuery = '&user_long=$long';
     final modeQuery = '&mode=$mode';
     const includeServiceQuery = '&include=service,service.category';
@@ -64,6 +66,7 @@ class UrlBuilder {
     const includeTranslationsQuery = '&includeTranslations=true';
     final completeUrl = '$baseUrl/service-requests/list$latQuery'
         '$longQuery'
+        '$pageQuery'
         '$modeQuery'
         '$includeServiceQuery'
         '$includeTranslationsQuery'

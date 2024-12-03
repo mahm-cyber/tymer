@@ -105,6 +105,12 @@ abstract class ProfileLocalizations {
   /// **'My Profile'**
   String get myProfileTileTitle;
 
+  /// No description provided for @greetingTileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello'**
+  String get greetingTileTitle;
+
   /// No description provided for @settingsTileTitle.
   ///
   /// In en, this message translates to:

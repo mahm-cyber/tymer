@@ -1,6 +1,7 @@
 {
   "appBarTitle": "Profile",
   "myProfileTileTitle": "My Profile",
+  "greetingTileTitle": "Hello",
   "settingsTileTitle": "Settings",
   "notificationsTileTitle": "Notifications",
   "infoTileTitle": "Info",

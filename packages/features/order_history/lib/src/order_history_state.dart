@@ -3,41 +3,42 @@ part of 'order_history_cubit.dart';
 class OrderHistoryState extends Equatable {
   const OrderHistoryState({
     this.serviceRequests,
+    this.nextPage,
+    this.nextListPageLoadError,
     this.serviceRequestsFetchStatus = FetchStatus.initial,
-    this.locationServiceEnabled = false,
-    this.locationPermission = PermissionStatus.denied,
+    this.statusFilter = ServiceStatus.completed,
   });
 
   final List<Service>? serviceRequests;
+  final int? nextPage;
+  final dynamic nextListPageLoadError;
   final FetchStatus serviceRequestsFetchStatus;
-  final bool locationServiceEnabled;
-  final PermissionStatus locationPermission;
-
-  List<Service>? get ascendingSortedServiceRequests =>
-      serviceRequests?..sort((b, a) => a.createdAt!.compareTo(b.createdAt!));
+  final ServiceStatus statusFilter;
 
   OrderHistoryState copyWith({
     List<Service>? serviceRequests,
+    int? nextPage,
+    dynamic nextListPageLoadError,
     FetchStatus? serviceRequestsFetchStatus,
-    bool? locationServiceEnabled,
-    PermissionStatus? locationPermission,
+    ServiceStatus? statusFilter,
   }) {
     return OrderHistoryState(
       serviceRequests: serviceRequests ?? this.serviceRequests,
+      nextPage: nextPage ,
+      nextListPageLoadError: nextListPageLoadError,
       serviceRequestsFetchStatus:
           serviceRequestsFetchStatus ?? this.serviceRequestsFetchStatus,
-      locationServiceEnabled:
-          locationServiceEnabled ?? this.locationServiceEnabled,
-      locationPermission: locationPermission ?? this.locationPermission,
+      statusFilter: statusFilter ?? this.statusFilter,
     );
   }
 
   @override
   List<Object?> get props => [
         serviceRequests,
+        nextPage,
+        nextListPageLoadError,
         serviceRequestsFetchStatus,
-        locationServiceEnabled,
-        locationPermission,
+        statusFilter,
       ];
 }
 

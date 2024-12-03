@@ -21,6 +21,7 @@ class ProvideServiceScreen extends StatelessWidget {
   final ServiceRepository serviceRepository;
   final VoidCallback onServiceRequestDetailsTapped;
   final VoidCallback navigateToFulfillServiceRequest;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ProvideServiceCubit>(
@@ -29,7 +30,6 @@ class ProvideServiceScreen extends StatelessWidget {
         serviceRepository: serviceRepository,
         onServiceRequestDetailsTapped: onServiceRequestDetailsTapped,
         navigateToFulfillServiceRequest: navigateToFulfillServiceRequest,
-
       ),
       child: const ProvideServiceView(),
     );
@@ -46,7 +46,19 @@ class ProvideServiceView extends StatelessWidget {
     final theme = TymerTheme.of(context);
     final colorScheme = theme.materialThemeData.colorScheme;
     final l10n = ProvideServiceLocalizations.of(context);
-    return BlocBuilder<ProvideServiceCubit, ProvideServiceState>(
+    return BlocConsumer<ProvideServiceCubit, ProvideServiceState>(
+      listener: (context, state) {
+        final cubit = context.read<ProvideServiceCubit>();
+        if (state.runningServiceRequest != null) {
+          showSnackBar(
+            context: context,
+            snackBar: ErrorSnackBar(
+              context: context,
+              message: l10n.userHasRunningServiceRequestSnackBarMessage,
+            ),
+          );
+        }
+      },
       builder: (context, state) {
         final loading = state.serviceRequestsFetchStatus == FetchStatus.loading;
         final noServiceRequests = state.serviceRequests?.isEmpty == true;

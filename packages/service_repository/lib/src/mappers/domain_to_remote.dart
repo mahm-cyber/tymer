@@ -14,9 +14,7 @@ extension RequestServiceDMtoRM on Service {
 
   RequestServiceRM toRemoteModel() {
     //2024-10-14 in this format
-    final dateRM = '${details!.date?.year}'
-        '-${details!.date?.month}'
-        '-${details!.date?.day}';
+    final dateRM = details!.date?.formattedDate;
     final serviceTypeRM = serviceTypeDMtoRM(type);
     return RequestServiceRM(
       type: serviceTypeRM,

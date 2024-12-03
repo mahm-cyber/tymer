@@ -120,6 +120,7 @@
   "viewOnMapButtonLabel": "عرض",
   "serviceFeesContainerLabel": "رسوم الخدمة",
   "serviceDetailsTitle": "تفاصيل الطلب",
+  "pendingServiceRequestStatus": "قيد الانتظار",
   "inProgressServiceRequestStatus": "جارى التنفيذ",
   "completedServiceRequestStatus": "مكتمل",
   "canceledServiceRequestStatus": "ملغى",

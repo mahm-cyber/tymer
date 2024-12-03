@@ -212,8 +212,10 @@ Map<String, PageBuilder> buildRoutingTable({
             serviceRepository: serviceRepository,
             onServiceRequestDetailsTapped: () => routerDelegate
                 .push(_PathConstants.acceptServiceRequestDetailsPath),
-            navigateToFulfillServiceRequest: () =>
-                routerDelegate.push(_PathConstants.fulfillServiceRequestPath),
+            navigateToFulfillServiceRequest: () async{
+              await routerDelegate.popRoute();
+              routerDelegate.push(_PathConstants.fulfillServiceRequestPath);
+            },
           ),
         ),
     _PathConstants.acceptServiceRequestDetailsPath: (_) => MaterialPage(

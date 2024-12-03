@@ -18,15 +18,22 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
           FulfillServiceRequestState(
             service: serviceRepository.changeNotifier.serviceRequestDetails,
           ),
-        ){
+        ) {
     //print servuice
     final service = serviceRepository.changeNotifier.serviceRequestDetails;
     debugPrint('service: $service');
+    if (service?.status == ServiceStatus.pendingReview) {
+      final awaitingConfirmationState =
+          state.copyWith(submissionStatus: FormzSubmissionStatus.inProgress);
+      emit(awaitingConfirmationState);
+      awaitRequestConfirmation();
+    }
   }
 
   final ServiceRepository serviceRepository;
   final StreamController<String> carImageFileNameSC = StreamController();
   final ImagePicker _imagePicker;
+  Timer? _awaitRequestConfirmationTimer;
 
   void onDayChanged(DateTime? newValue) {
     final newState = state.copyWith(
@@ -198,28 +205,48 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
         imageBytes: state.imageBytes,
       );
 
-      Timer.periodic(const Duration(seconds: 1), (timer) async {
-        final service = await serviceRepository.getServiceRequest(
-            requestId: state.service!.id!);
-        if (service.status == ServiceStatus.completed) {
-          if(!isClosed) {
-            emit(
+      awaitRequestConfirmation(
+        time: time,
+        day: day,
+        reservationNumber: reservationNumber,
+      );
+    } catch (e) {
+      emit(state.copyWith(submissionStatus: FormzSubmissionStatus.failure));
+    }
+  }
+
+  void awaitRequestConfirmation({
+    Dynamic<TimeOfDay?>? time,
+    Dynamic<DateTime?>? day,
+    Dynamic<String>? reservationNumber,
+  }) async {
+    _awaitRequestConfirmationTimer =
+        Timer.periodic(const Duration(seconds: 1), (timer) async {
+      final service = await serviceRepository.getServiceRequest(
+          requestId: state.service!.id!);
+      if (service.status == ServiceStatus.completed) {
+        if (!isClosed) {
+          emit(
             FulfillServiceRequestState(
-              time: time,
-              day: day,
-              reservationNumber: reservationNumber,
+              time: time ?? state.time,
+              day: day ?? state.day,
+              reservationNumber: reservationNumber ?? state.reservationNumber,
               additionalDetails: state.additionalDetails,
               imageBytes: state.imageBytes,
               service: state.service,
               submissionStatus: FormzSubmissionStatus.success,
             ),
           );
-          }
-          timer.cancel();
         }
-      });
-    } catch (e) {
-      emit(state.copyWith(submissionStatus: FormzSubmissionStatus.failure));
-    }
+        timer.cancel();
+      }
+    });
+  }
+
+  @override
+  Future<void> close() async {
+    _awaitRequestConfirmationTimer?.cancel();
+    carImageFileNameSC.close();
+    super.close();
   }
 }

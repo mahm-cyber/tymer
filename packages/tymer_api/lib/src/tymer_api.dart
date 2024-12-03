@@ -258,13 +258,15 @@ class TymerApi {
     }
   }
 
-  Future<List<ServiceRM>> getAllServiceRequests({
+  Future<ServiceListPageRM> getAllServiceRequests({
+    int? page,
     required double lat,
     required double long,
     required String mode,
     String? status,
   }) async {
     final url = urlBuilder.buildGetAllServiceRequestsUrl(
+      page: page,
       lat: lat,
       long: long,
       mode: mode,
@@ -272,9 +274,14 @@ class TymerApi {
     );
     try {
       final response = await _dio.get(url);
-      final serviceRequests = (response.data[_dataJsonKey] as List)
-          .map((e) => ServiceRM.fromJson(e))
-          .toList();
+      final serviceRequests = ServiceListPageRM.fromJson(response.data);
+      final hasPagination = response.data['meta'] != null;
+      if (hasPagination) {
+        final currentPage = response.data['meta']['current_page'] as int;
+        final lastPage = response.data['meta']['last_page'] as int;
+        final isLastPage = currentPage >= lastPage;
+        serviceRequests.isLastPage = isLastPage;
+      }
       return serviceRequests;
     } catch (_) {
       rethrow;
