@@ -19,7 +19,7 @@ extension FormattedTimeOfDay on TimeOfDay {
     final minute = this.minute < 10 ? '0${this.minute}' : '${this.minute}';
     // convert to 12 hr format and add am or pm
     final formattedHour = hour > 12 ? hour - 12 : hour;
-    final amOrPm = hour > 12 ? 'pm' : 'am';
+    final amOrPm = hour > 12 ? 'PM' : 'AM';
     return '$formattedHour:$minute $amOrPm';
   }
 

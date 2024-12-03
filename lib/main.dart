@@ -32,6 +32,7 @@ import 'package:tab_container/tab_container.dart';
 
 import 'package:user_repository/user_repository.dart';
 import 'package:verify_otp/verify_otp.dart';
+import 'package:wallet/wallet.dart';
 
 String? fontFamily;
 
@@ -206,6 +207,7 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                 OrderHistoryLocalizations.delegate,
 
                 ProfileLocalizations.delegate,
+                WalletLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [

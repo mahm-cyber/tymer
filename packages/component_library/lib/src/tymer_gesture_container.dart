@@ -8,12 +8,14 @@ class TymerGestureContainer extends StatelessWidget {
     required this.icon,
     required this.title,
     this.subtitle,
+
   });
 
   final VoidCallback onTap;
   final Widget icon;
   final String title;
   final String? subtitle;
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class TymerGestureContainer extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 110,
+        height: 100,
         padding: const EdgeInsets.symmetric(horizontal: Spacing.large),
         decoration: BoxDecoration(
           color: colorScheme.primary,
@@ -49,11 +51,12 @@ class TymerGestureContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(title,
-                    style: textTheme.titleMedium?.copyWith(
-                      color: colorScheme.surface,
-                      fontSize: 20,
-                    )),
+                Text(
+                  title,
+                  style: textTheme.titleMedium?.copyWith(
+                    color: colorScheme.surface,
+                  ),
+                ),
                 if (subtitle != null) ...[
                   VerticalGap.xSmall(),
                   Text(

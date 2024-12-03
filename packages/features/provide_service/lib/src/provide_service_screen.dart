@@ -48,7 +48,6 @@ class ProvideServiceView extends StatelessWidget {
     final l10n = ProvideServiceLocalizations.of(context);
     return BlocConsumer<ProvideServiceCubit, ProvideServiceState>(
       listener: (context, state) {
-        final cubit = context.read<ProvideServiceCubit>();
         if (state.runningServiceRequest != null) {
           showSnackBar(
             context: context,

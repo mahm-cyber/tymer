@@ -15,6 +15,9 @@ class ServiceRequestStatusWidget extends StatelessWidget {
     final l10n = ComponentLibraryLocalizations.of(context);
     final textTheme = Theme.of(context).textTheme;
     return Container(
+      constraints: const BoxConstraints(
+        maxWidth: 140,
+      ),
       padding: const EdgeInsets.symmetric(
         horizontal: Spacing.smallMedium,
         vertical: Spacing.xSmall,
@@ -32,6 +35,8 @@ class ServiceRequestStatusWidget extends StatelessWidget {
           color: service.status?.color ?? Colors.black,
           fontWeight: FontWeight.bold,
         ),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
       ),
     );
   }

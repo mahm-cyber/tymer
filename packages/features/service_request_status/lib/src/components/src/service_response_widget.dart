@@ -65,6 +65,7 @@ class ServiceResponseWidget extends StatelessWidget {
                   if (hasTime) ...[
                     VerticalGap.medium(),
                     TextFormField(
+
                       enabled: false,
                       initialValue: response!.time!.twelveHrFormat,
                       decoration: InputDecoration(

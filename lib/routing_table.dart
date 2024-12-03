@@ -19,6 +19,7 @@ import 'package:sign_up/sign_up.dart';
 import 'package:tab_container/tab_container.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:verify_otp/verify_otp.dart';
+import 'package:wallet/wallet.dart';
 
 Map<String, PageBuilder> buildRoutingTable({
   required RoutemasterDelegate routerDelegate,
@@ -119,7 +120,7 @@ Map<String, PageBuilder> buildRoutingTable({
         ),
     _PathConstants.walletPath: (_) => MaterialPage(
           name: 'wallet',
-          child: HomeScreen(
+          child: WalletScreen(
             userRepository: userRepository,
             onRequestServiceTapped: () =>
                 routerDelegate.push(_PathConstants.chooseServicePath),
@@ -212,7 +213,7 @@ Map<String, PageBuilder> buildRoutingTable({
             serviceRepository: serviceRepository,
             onServiceRequestDetailsTapped: () => routerDelegate
                 .push(_PathConstants.acceptServiceRequestDetailsPath),
-            navigateToFulfillServiceRequest: () async{
+            navigateToFulfillServiceRequest: () async {
               await routerDelegate.popRoute();
               routerDelegate.push(_PathConstants.fulfillServiceRequestPath);
             },

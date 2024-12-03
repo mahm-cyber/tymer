@@ -51,6 +51,8 @@ dependencies:
     path: packages/features/fulfill_service_request
   order_history:
     path: packages/features/order_history
+  wallet:
+    path: packages/features/wallet
   profile:
     path: packages/features/profile
 
