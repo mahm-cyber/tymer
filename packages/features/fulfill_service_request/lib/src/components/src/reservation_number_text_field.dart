@@ -24,6 +24,7 @@ class _ReservationNumberTextFieldState
     super.initState();
     _setUpReservationNumberFieldFocusListener();
   }
+
   void _setUpReservationNumberFieldFocusListener() {
     final cubit = context.read<FulfillServiceRequestCubit>();
     _reservationNumberFocusNode.addListener(() {
@@ -45,8 +46,8 @@ class _ReservationNumberTextFieldState
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
         // final theme = TymerTheme.of(context);
-        return TextField(
-
+        return TextFormField(
+          initialValue: state.service?.response?.reservationNumber,
           enabled: !isSubmissionInProgress,
           focusNode: _reservationNumberFocusNode,
           onChanged: cubit.onReservationNumberChanged,

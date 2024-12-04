@@ -19,14 +19,21 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
             service: serviceRepository.changeNotifier.serviceRequestDetails,
           ),
         ) {
-    //print servuice
     final service = serviceRepository.changeNotifier.serviceRequestDetails;
-    debugPrint('service: $service');
     if (service?.status == ServiceStatus.pendingReview) {
-      final awaitingConfirmationState =
-          state.copyWith(submissionStatus: FormzSubmissionStatus.inProgress);
+      final awaitingConfirmationState = state.copyWith(
+        submissionStatus: FormzSubmissionStatus.inProgress,
+      );
       emit(awaitingConfirmationState);
-      awaitRequestConfirmation();
+      serviceRepository
+          .getServiceRequest(requestId: service!.id!)
+          .then((service) {
+        final awaitingConfirmationStateWithResponse = state.copyWith(
+          service: service,
+        );
+        emit(awaitingConfirmationStateWithResponse);
+        pollRequestConfirmation();
+      });
     }
   }
 
@@ -101,9 +108,7 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
 
   Future<void> pickImageFromGallery() async {
     XFile? xFile = await _imagePicker.pickImage(
-      source: ImageSource.gallery,
-      imageQuality: 30
-    );
+        source: ImageSource.gallery, imageQuality: 30);
     if (xFile != null) {
       final imageBytes = await xFile.readAsBytes();
       onImagePicked(
@@ -121,9 +126,7 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
 
   Future<void> capturePhoto() async {
     XFile? xFile = await _imagePicker.pickImage(
-      source: ImageSource.camera,
-      imageQuality: 30
-    );
+        source: ImageSource.camera, imageQuality: 30);
     if (xFile != null) {
       final imageBytes = await xFile.readAsBytes();
       onImagePicked(
@@ -207,7 +210,7 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
         imageBytes: state.imageBytes,
       );
 
-      awaitRequestConfirmation(
+      pollRequestConfirmation(
         time: time,
         day: day,
         reservationNumber: reservationNumber,
@@ -217,7 +220,7 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
     }
   }
 
-  void awaitRequestConfirmation({
+  void pollRequestConfirmation({
     Dynamic<TimeOfDay?>? time,
     Dynamic<DateTime?>? day,
     Dynamic<String>? reservationNumber,

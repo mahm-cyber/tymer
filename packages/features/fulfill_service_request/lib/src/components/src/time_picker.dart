@@ -10,11 +10,13 @@ class TimePicker extends StatefulWidget {
     required this.onChanged,
     required this.isSubmissionInProgress,
     this.error,
+    this.initialValue,
   });
 
   final ValueChanged<TimeOfDay?> onChanged;
   final bool isSubmissionInProgress;
   final DynamicValidationError? error;
+  final TimeOfDay? initialValue;
 
   @override
   State<TimePicker> createState() => _TimePickerState();
@@ -60,7 +62,7 @@ class _TimePickerState extends State<TimePicker> {
         Stack(
           children: [
             GestureDetector(
-              onTap: widget.isSubmissionInProgress? null:pickTime,
+              onTap: widget.isSubmissionInProgress ? null : pickTime,
               child: TextField(
                 enabled: false,
                 textDirection: TextDirection.ltr,
@@ -74,11 +76,11 @@ class _TimePickerState extends State<TimePicker> {
                     borderSide: BorderSide(
                       color: widget.error != null
                           ? colorScheme.error
-                          : theme.materialThemeData.inputDecorationTheme.disabledBorder!.borderSide.color,
+                          : theme.materialThemeData.inputDecorationTheme
+                              .disabledBorder!.borderSide.color,
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),
-
                   suffixIcon: pickedTime == null
                       ? const Icon(Icons.calendar_today)
                       : null,
@@ -91,7 +93,11 @@ class _TimePickerState extends State<TimePicker> {
                 ),
                 controller: TextEditingController(
                   //Date and time -- make hour and minute have 0 in the beignning if less than 10
-                  text: pickedTime != null ? pickedTime!.twelveHrFormat : '',
+                  text: widget.initialValue != null
+                      ? widget.initialValue?.twelveHrFormat
+                      : pickedTime != null
+                          ? pickedTime!.twelveHrFormat
+                          : '',
                 ),
               ),
             ),
@@ -105,7 +111,9 @@ class _TimePickerState extends State<TimePicker> {
                     Icons.cancel_outlined,
                     color: colorScheme.secondary,
                   ),
-                  onPressed: widget.isSubmissionInProgress? null:() => updateField(null),
+                  onPressed: widget.isSubmissionInProgress
+                      ? null
+                      : () => updateField(null),
                 ),
               ),
           ],

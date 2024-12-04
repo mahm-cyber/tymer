@@ -23,7 +23,9 @@ class ImagePickerTextField extends StatelessWidget {
         return StreamBuilder<String>(
             stream: cubit.carImageFileNameSC.stream,
             builder: (context, snapshot) {
-              final controller = TextEditingController();
+              final controller = TextEditingController(
+                text: state.service?.response?.imageUrl?.split('/').last,
+              );
               if (snapshot.hasData) controller.text = snapshot.data!;
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

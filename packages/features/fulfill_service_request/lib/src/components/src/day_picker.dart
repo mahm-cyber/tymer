@@ -10,11 +10,13 @@ class DayPicker extends StatefulWidget {
     required this.onChanged,
     required this.isSubmissionInProgress,
     this.error,
+    this.initialValue,
   });
 
   final ValueChanged<DateTime?> onChanged;
   final bool isSubmissionInProgress;
   final DynamicValidationError? error;
+  final DateTime? initialValue;
 
   @override
   State<DayPicker> createState() => _DayPickerState();
@@ -92,7 +94,11 @@ class _DayPickerState extends State<DayPicker> {
                 ),
                 controller: TextEditingController(
                   //Date and time -- make hour and minute have 0 in the beignning if less than 10
-                  text: pickedDay != null ? pickedDay!.formattedDate : '',
+                  text: widget.initialValue != null
+                      ? widget.initialValue?.formattedDate
+                      : pickedDay != null
+                          ? pickedDay!.formattedDate
+                          : '',
                 ),
               ),
             ),
