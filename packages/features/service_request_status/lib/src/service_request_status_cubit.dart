@@ -103,6 +103,18 @@ class ServiceRequestStatusCubit extends Cubit<ServiceRequestStatusState> {
     }
   }
 
+  void onViewServiceOnMap() async {
+    try {
+      final coordinates = state.service!.location.coordinates;
+      serviceRepository.launchMap(
+        coordinates[0],
+        coordinates[1],
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   @override
   Future<void> close() async {
     _timer?.cancel();

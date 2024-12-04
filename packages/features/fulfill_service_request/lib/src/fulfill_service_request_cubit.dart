@@ -102,6 +102,7 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
   Future<void> pickImageFromGallery() async {
     XFile? xFile = await _imagePicker.pickImage(
       source: ImageSource.gallery,
+      imageQuality: 30
     );
     if (xFile != null) {
       final imageBytes = await xFile.readAsBytes();
@@ -121,6 +122,7 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
   Future<void> capturePhoto() async {
     XFile? xFile = await _imagePicker.pickImage(
       source: ImageSource.camera,
+      imageQuality: 30
     );
     if (xFile != null) {
       final imageBytes = await xFile.readAsBytes();

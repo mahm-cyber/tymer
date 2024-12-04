@@ -8,47 +8,24 @@ class Receipt extends StatelessWidget {
   const Receipt({
     super.key,
     required this.service,
-    this.onViewServiceOnMap,
+    required this.onViewServiceOnMap,
   });
 
   final Service service;
-  final VoidCallback? onViewServiceOnMap;
+  final VoidCallback onViewServiceOnMap;
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = TymerTheme.of(context).materialThemeData.colorScheme;
-    final l10n = ComponentLibraryLocalizations.of(context);
+
 
     return Expanded(
       child: ListView(
         children: [
+          VerticalGap.mediumLarge(),
           if (service.details != null)
-            ExpansionTile(
-              title: Text(
-                l10n.serviceDetailsTitle,
-                style: textTheme.titleMedium,
-              ),
-              collapsedShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-                side: BorderSide(
-                  color: colorScheme.secondary,
-                ),
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-                side: BorderSide(
-                  color: colorScheme.secondary,
-                ),
-              ),
-              children: [
-                ServiceDetailsWidget(
-                  service: service,
-                  onViewServiceOnMap: onViewServiceOnMap ?? () {},
-                  physics: const NeverScrollableScrollPhysics(),
-                ),
-                VerticalGap.medium(),
-              ],
+            ServiceRequestDetailsExpansionTile(
+              service: service,
+              onViewServiceOnMap: onViewServiceOnMap,
             ),
           VerticalGap.medium(),
           ServiceFeeContainer(

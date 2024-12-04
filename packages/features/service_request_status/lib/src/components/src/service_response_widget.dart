@@ -9,13 +9,14 @@ import 'package:service_request_status/src/service_request_status_cubit.dart';
 class ServiceResponseWidget extends StatelessWidget {
   const ServiceResponseWidget({
     super.key,
-    this.response,
+    this.service,
   });
 
-  final ServiceResponse? response;
+  final Service? service;
 
   @override
   Widget build(BuildContext context) {
+    final response = service?.response;
     final hasReservationNumber = response?.reservationNumber != null;
     final hasDate = response?.date != null;
     final hasTime = response?.time != null;
@@ -36,6 +37,12 @@ class ServiceResponseWidget extends StatelessWidget {
                 children: [
                   VerticalGap.xLarge(),
                   VerticalGap.mediumLarge(),
+                  if(state.service?.details != null)
+                    ServiceRequestDetailsExpansionTile(
+                      service: state.service!,
+                      onViewServiceOnMap: cubit.onViewServiceOnMap,
+                    ),
+                  VerticalGap.medium(),
                   if (hasReservationNumber) ...[
                     TextFormField(
                       enabled: false,

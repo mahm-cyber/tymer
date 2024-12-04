@@ -116,7 +116,7 @@ class AcceptServiceRequestView extends StatelessWidget {
                             children: [
                               VerticalGap.large(),
                               VerticalGap.large(),
-                              ServiceDetailsWidget(
+                              ServiceRequestDetailsWidget(
                                 service: state.service!,
                                 onViewServiceOnMap: cubit.onViewServiceOnMap,
                               ),

@@ -93,7 +93,7 @@ class UrlBuilder {
     required int serviceRequestId,
   }) {
     final completeUrl =
-        '$baseUrl/service-requests/$serviceRequestId?include=serviceResponse';
+        '$baseUrl/service-requests/$serviceRequestId?include=serviceResponse,service';
     return completeUrl;
   }
 

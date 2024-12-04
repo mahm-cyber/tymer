@@ -2,8 +2,8 @@ import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 
-class ServiceDetailsWidget extends StatelessWidget {
-  const ServiceDetailsWidget({
+class ServiceRequestDetailsWidget extends StatelessWidget {
+  const ServiceRequestDetailsWidget({
     super.key,
     required this.service,
     required this.onViewServiceOnMap,
@@ -32,12 +32,12 @@ class ServiceDetailsWidget extends StatelessWidget {
       shrinkWrap: true,
       children: [
         VerticalGap.small(),
-        if (serviceDetails!.reservationServiceCategory != null) ...[
+        if (serviceDetails?.reservationServiceCategory != null) ...[
           TextFormField(
             enableInteractiveSelection: true,
             initialValue: isArabic
-                ? serviceDetails.reservationServiceCategory!.name.ar
-                : serviceDetails.reservationServiceCategory!.name.en,
+                ? serviceDetails!.reservationServiceCategory!.name.ar
+                : serviceDetails!.reservationServiceCategory!.name.en,
             enabled: false,
             decoration: InputDecoration(
               labelText: l10n.reservationServiceCategoryTextFieldLabel,
@@ -46,10 +46,10 @@ class ServiceDetailsWidget extends StatelessWidget {
           ),
           VerticalGap.medium(),
         ],
-        if (serviceDetails.reservedFor != null) ...[
+        if (serviceDetails?.reservedFor != null) ...[
           TextFormField(
             enableInteractiveSelection: true,
-            initialValue: serviceDetails.reservedFor,
+            initialValue: serviceDetails!.reservedFor,
             enabled: false,
             decoration: InputDecoration(
               labelText: l10n.reservedForTextFieldLabel,
@@ -77,7 +77,7 @@ class ServiceDetailsWidget extends StatelessWidget {
         if (hasTime) ...[
           TextFormField(
             enableInteractiveSelection: true,
-            initialValue: serviceDetails.reservationTime!.format(context),
+            initialValue: serviceDetails!.reservationTime!.format(context),
             enabled: false,
             decoration: InputDecoration(
               labelText: l10n.timeTextFieldLabel,
@@ -88,7 +88,7 @@ class ServiceDetailsWidget extends StatelessWidget {
         ],
         TextFormField(
           enableInteractiveSelection: true,
-          initialValue: serviceDetails.placeName,
+          initialValue: serviceDetails?.placeName,
           enabled: false,
           decoration: InputDecoration(
             labelText: l10n.placeNameTextFieldLabel,
@@ -100,7 +100,7 @@ class ServiceDetailsWidget extends StatelessWidget {
         VerticalGap.medium(),
         TextFormField(
           enableInteractiveSelection: true,
-          initialValue: serviceDetails.placeAddress,
+          initialValue: serviceDetails?.placeAddress,
           enabled: false,
           decoration: InputDecoration(
             labelText: l10n.placeAddressTextFieldLabel,
@@ -154,10 +154,10 @@ class ServiceDetailsWidget extends StatelessWidget {
           ),
         ),
         VerticalGap.medium(),
-        if (serviceDetails.additionalComments != null)
+        if (serviceDetails?.additionalComments != null)
           TextFormField(
             enableInteractiveSelection: true,
-            initialValue: serviceDetails.additionalComments,
+            initialValue: serviceDetails?.additionalComments,
             enabled: false,
             maxLines: 4,
             decoration: InputDecoration(
@@ -167,6 +167,51 @@ class ServiceDetailsWidget extends StatelessWidget {
               // ),
             ),
           ),
+      ],
+    );
+  }
+}
+
+class ServiceRequestDetailsExpansionTile extends StatelessWidget {
+  const ServiceRequestDetailsExpansionTile({
+    super.key,
+    required this.service,
+    required this.onViewServiceOnMap,
+  });
+
+  final Service service;
+  final VoidCallback onViewServiceOnMap;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = TymerTheme.of(context).materialThemeData.colorScheme;
+    final l10n = ComponentLibraryLocalizations.of(context);
+
+    return ExpansionTile(
+      title: Text(
+        l10n.serviceDetailsTitle,
+        style: textTheme.titleMedium,
+      ),
+      collapsedShape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+        side: BorderSide(
+          color: colorScheme.secondary,
+        ),
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+        side: BorderSide(
+          color: colorScheme.secondary,
+        ),
+      ),
+      children: [
+        ServiceRequestDetailsWidget(
+          service: service,
+          onViewServiceOnMap: onViewServiceOnMap,
+          physics: const NeverScrollableScrollPhysics(),
+        ),
+        VerticalGap.medium(),
       ],
     );
   }

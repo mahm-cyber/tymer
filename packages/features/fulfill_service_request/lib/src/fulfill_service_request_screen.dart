@@ -95,7 +95,6 @@ class FulfillServiceRequestView extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        final textTheme = Theme.of(context).textTheme;
         final cubit = context.read<FulfillServiceRequestCubit>();
         final isRequestFulfilled =
             state.submissionStatus == FormzSubmissionStatus.success;
@@ -122,31 +121,9 @@ class FulfillServiceRequestView extends StatelessWidget {
                       Expanded(
                         child: ListView(
                           children: [
-                            ExpansionTile(
-                              title: Text(
-                                l10n.serviceDetailsTitle,
-                                style: textTheme.titleMedium,
-                              ),
-                              collapsedShape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                side: BorderSide(
-                                  color: colorScheme.secondary,
-                                ),
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                side: BorderSide(
-                                  color: colorScheme.secondary,
-                                ),
-                              ),
-                              children: [
-                                ServiceDetailsWidget(
-                                  service: state.service!,
-                                  onViewServiceOnMap: cubit.onViewServiceOnMap,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                ),
-                                VerticalGap.medium(),
-                              ],
+                            ServiceRequestDetailsExpansionTile(
+                              service: state.service!,
+                              onViewServiceOnMap: cubit.onViewServiceOnMap,
                             ),
                             if (state.service?.type ==
                                 ServiceType.reservation) ...[

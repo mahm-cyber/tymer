@@ -106,7 +106,7 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
       final hasRunningServiceRequest =
           serviceRequestsInProgress.list.isNotEmpty;
       final hasPendingReviewServiceRequest =
-          serviceRequestsInProgress.list.isNotEmpty;
+          serviceRequestsPendingReview.list.isNotEmpty;
       if (hasRunningServiceRequest) {
         return serviceRequestsInProgress.list.first;
       } else if (hasPendingReviewServiceRequest) {
