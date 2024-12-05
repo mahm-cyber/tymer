@@ -65,6 +65,8 @@ class ConfirmDisputeView extends StatelessWidget {
       },
       builder: (context, state) {
         final cubit = context.read<ConfirmDisputeCubit>();
+        final isSubmissionInProgress =
+            state.disputingStatus == DisputingStatus.loading;
         return BottomSheet(
           onClosing: () {},
           builder: (context) {
@@ -83,20 +85,21 @@ class ConfirmDisputeView extends StatelessWidget {
                 children: [
                   IconButton(
                     icon: const Icon(Icons.cancel_outlined),
-                    onPressed: state.disputingStatus == DisputingStatus.loading
+                    onPressed: isSubmissionInProgress
                         ? null
                         : () {
                             Navigator.of(context).pop();
                           },
                   ),
                   TextField(
+                    enabled: !isSubmissionInProgress,
                     onChanged: cubit.updateDisputeMessage,
                     decoration: InputDecoration(
                       labelText: l10n.disputeMessageLabel,
                     ),
                   ),
                   VerticalGap.medium(),
-                  state.disputingStatus == DisputingStatus.loading
+                  isSubmissionInProgress
                       ? TymerElevatedButton.inProgress(
                           label: l10n.disputeButtonLabel)
                       : TymerElevatedButton(
