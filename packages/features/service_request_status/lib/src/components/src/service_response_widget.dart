@@ -37,7 +37,7 @@ class ServiceResponseWidget extends StatelessWidget {
                 children: [
                   VerticalGap.xLarge(),
                   VerticalGap.mediumLarge(),
-                  if(state.service?.details != null)
+                  if (state.service?.details != null)
                     ServiceRequestDetailsExpansionTile(
                       service: state.service!,
                       onViewServiceOnMap: cubit.onViewServiceOnMap,
@@ -72,7 +72,6 @@ class ServiceResponseWidget extends StatelessWidget {
                   if (hasTime) ...[
                     VerticalGap.medium(),
                     TextFormField(
-
                       enabled: false,
                       initialValue: response!.time!.twelveHrFormat,
                       decoration: InputDecoration(
@@ -109,19 +108,19 @@ class ServiceResponseWidget extends StatelessWidget {
                           ),
                           child: IconButton(
                             isSelected: true,
-
                             onPressed: () => showDialog(
                               context: context,
                               builder: (context) => AlertDialog(
                                 insetPadding: EdgeInsets.zero,
-                                contentPadding:  EdgeInsets.zero,
-
+                                contentPadding: EdgeInsets.zero,
                                 content: InteractiveViewer(
                                   child: Image.network(
                                     response!.imageUrl!,
                                     headers: {
-                                      "Authorization": "Bearer ${state.userToken}",
-                                      "X-API-Key": "01f64a264be7442a9008abda93d5d6ae",
+                                      "Authorization":
+                                          "Bearer ${state.userToken}",
+                                      "X-API-Key":
+                                          "01f64a264be7442a9008abda93d5d6ae",
                                     },
                                   ),
                                 ),
@@ -135,7 +134,6 @@ class ServiceResponseWidget extends StatelessWidget {
                         ),
                       ],
                     ),
-
                   ],
                 ],
               ),
@@ -161,21 +159,21 @@ class ServiceResponseWidget extends StatelessWidget {
                       VerticalGap.medium(),
                       state.confirmationStatus == ConfirmationStatus.loading
                           ? Expanded(
-                            child: TymerElevatedButton.inProgress(
+                              child: TymerElevatedButton.inProgress(
                                 label: l10n.yesButtonLabel,
                               ),
-                          )
+                            )
                           : Expanded(
-                            child: TymerElevatedButton(
+                              child: TymerElevatedButton(
                                 label: l10n.yesButtonLabel,
                                 onTap: cubit.confirmService,
                               ),
-                          ),
+                            ),
                       HorizontalGap.medium(),
                       Expanded(
                         child: TymerElevatedButton(
                           label: l10n.noButtonLabel,
-                          onTap: () {},
+                          onTap: () => cubit.onConfirmDisputeTapped(service!),
                           bgColor: colorScheme.error,
                         ),
                       ),

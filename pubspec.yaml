@@ -39,6 +39,8 @@ dependencies:
     path: packages/features/home
   disputes:
     path: packages/features/disputes
+  confirm_dispute:
+    path: packages/features/confirm_dispute
   choose_service:
     path: packages/features/choose_service
   request_service:

@@ -1,6 +1,8 @@
 import 'package:accept_service_request/accept_service_request.dart';
 import 'package:choose_service/choose_service.dart';
+import 'package:confirm_dispute/confirm_dispute.dart';
 import 'package:disputes/disputes.dart';
+import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:forgot_password/forgot_password.dart';
 import 'package:fulfill_service_request/fulfill_service_request.dart';
@@ -209,14 +211,27 @@ Map<String, PageBuilder> buildRoutingTable({
       );
       return MaterialPage(
         name: 'service-request-status',
-        child: ServiceRequestStatusScreen(
-          userRepository: userRepository,
-          serviceRepository: serviceRepository,
-          goBackHome: () async {
-            await routerDelegate.pop();
-          },
-          requestId: requestId,
-        ),
+        child: Builder(builder: (context) {
+          return ServiceRequestStatusScreen(
+            userRepository: userRepository,
+            serviceRepository: serviceRepository,
+            goBackHome: () async {
+              await routerDelegate.pop();
+            },
+            requestId: requestId,
+            onConfirmDisputeTapped: (Service service) {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return ConfirmDisputeBottomSheet(
+                    serviceRepository: serviceRepository,
+                    service: service,
+                  );
+                },
+              );
+            },
+          );
+        }),
       );
     },
     _PathConstants.provideServicePath: (_) => MaterialPage(

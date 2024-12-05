@@ -1,0 +1,6 @@
+{
+  "disputeSuccessMessage": "تم تقديم النزاع بنجاح",
+  "disputeErrorMessage": "خطأ في تقديم النزاع",
+  "disputeMessageLabel": "سبب النزاع",
+  "disputeButtonLabel": "تأكيد"
+}

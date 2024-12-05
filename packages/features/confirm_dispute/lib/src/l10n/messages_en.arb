@@ -1,0 +1,8 @@
+{
+  "disputeSuccessMessage": "Dispute submitted successfully",
+  "disputeErrorMessage": "Error submitting dispute",
+  "disputeMessageLabel": "Dispute Reason",
+  "disputeButtonLabel": "Confirm"
+
+
+}

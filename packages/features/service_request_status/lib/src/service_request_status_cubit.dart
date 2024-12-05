@@ -16,6 +16,7 @@ class ServiceRequestStatusCubit extends Cubit<ServiceRequestStatusState> {
     required this.serviceRepository,
     required this.goBackHome,
     required this.requestId,
+    required this.onConfirmDisputeTapped,
   }) : super(
           const ServiceRequestStatusState(),
         ) {
@@ -39,6 +40,7 @@ class ServiceRequestStatusCubit extends Cubit<ServiceRequestStatusState> {
   final ServiceRepository serviceRepository;
   final VoidCallback goBackHome;
   final int requestId;
+  final ValueSetter<Service> onConfirmDisputeTapped;
   Timer? _timer;
 
   Future<Service> getService() async {
@@ -114,6 +116,8 @@ class ServiceRequestStatusCubit extends Cubit<ServiceRequestStatusState> {
       rethrow;
     }
   }
+
+
 
   @override
   Future<void> close() async {

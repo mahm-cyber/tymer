@@ -16,6 +16,7 @@ class ServiceRequestStatusScreen extends StatelessWidget {
     required this.serviceRepository,
     required this.goBackHome,
     required this.requestId,
+    required this.onConfirmDisputeTapped,
     super.key,
   });
 
@@ -23,6 +24,7 @@ class ServiceRequestStatusScreen extends StatelessWidget {
   final ServiceRepository serviceRepository;
   final VoidCallback goBackHome;
   final int requestId;
+  final ValueSetter<Service> onConfirmDisputeTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class ServiceRequestStatusScreen extends StatelessWidget {
         serviceRepository: serviceRepository,
         goBackHome: goBackHome,
         requestId: requestId,
+        onConfirmDisputeTapped: onConfirmDisputeTapped,
       ),
       child: const ServiceRequestStatusView(),
     );
@@ -129,16 +132,17 @@ class ServiceRequestStatusView extends StatelessWidget {
                             service: state.service,
                           )
                         : Column(
-                          children: [
-                            Expanded(
-                              child: ListView(
+                            children: [
+                              Expanded(
+                                child: ListView(
                                   children: [
                                     VerticalGap.xLarge(),
                                     VerticalGap.medium(),
                                     if (state.service?.details != null)
                                       ServiceRequestDetailsExpansionTile(
                                         service: state.service!,
-                                        onViewServiceOnMap: cubit.onViewServiceOnMap,
+                                        onViewServiceOnMap:
+                                            cubit.onViewServiceOnMap,
                                       ),
                                     VerticalGap.medium(),
                                     RequestStatusStep(
@@ -171,28 +175,27 @@ class ServiceRequestStatusView extends StatelessWidget {
                                           ? RequestStatus.done
                                           : RequestStatus.idle,
                                     ),
-                              
                                   ],
                                 ),
-                            ),
-                            if (state.service?.status ==
-                                ServiceStatus.pending) ...[
-                              state.cancellationStatus ==
-                                  CancellationStatus.loading
-                                  ? TymerElevatedButton.inProgress(
-                                label: l10n.cancelButtonLabel,
-                              )
-                                  : TymerElevatedButton(
-                                label: l10n.cancelButtonLabel,
-                                bgColor: colorScheme.error,
-                                onTap: () => context
-                                    .read<ServiceRequestStatusCubit>()
-                                    .cancelService(),
                               ),
-                              VerticalGap.medium(),
-                            ]
-                          ],
-                        ),
+                              if (state.service?.status ==
+                                  ServiceStatus.pending) ...[
+                                state.cancellationStatus ==
+                                        CancellationStatus.loading
+                                    ? TymerElevatedButton.inProgress(
+                                        label: l10n.cancelButtonLabel,
+                                      )
+                                    : TymerElevatedButton(
+                                        label: l10n.cancelButtonLabel,
+                                        bgColor: colorScheme.error,
+                                        onTap: () => context
+                                            .read<ServiceRequestStatusCubit>()
+                                            .cancelService(),
+                                      ),
+                                VerticalGap.medium(),
+                              ]
+                            ],
+                          ),
               ),
             ),
             AppBarTitleContainer(
