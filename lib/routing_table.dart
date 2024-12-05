@@ -221,11 +221,18 @@ Map<String, PageBuilder> buildRoutingTable({
             requestId: requestId,
             onConfirmDisputeTapped: (Service service) {
               showModalBottomSheet(
+                isDismissible: false,
                 context: context,
                 builder: (context) {
                   return ConfirmDisputeBottomSheet(
                     serviceRepository: serviceRepository,
                     service: service,
+                    onDisputeSuccess: () async {
+                      await routerDelegate.popUntil(
+                        (route) => route.path == _PathConstants.homePath,
+                      );
+                      routerDelegate.push(_PathConstants.disputesPath);
+                    },
                   );
                 },
               );

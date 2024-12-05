@@ -1,10 +1,10 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:service_repository/service_repository.dart';
-
 
 part 'confirm_dispute_state.dart';
 
@@ -12,12 +12,14 @@ class ConfirmDisputeCubit extends Cubit<ConfirmDisputeState> {
   ConfirmDisputeCubit({
     required this.serviceRepository,
     required this.service,
+    required this.onDisputeSuccess,
   }) : super(
           const ConfirmDisputeState(),
         );
 
   final ServiceRepository serviceRepository;
   final Service service;
+  final VoidCallback onDisputeSuccess;
 
   Future disputeService() async {
     final loading = state.copyWith(

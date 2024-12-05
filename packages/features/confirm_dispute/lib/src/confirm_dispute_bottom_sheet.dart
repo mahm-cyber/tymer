@@ -10,11 +10,13 @@ class ConfirmDisputeBottomSheet extends StatelessWidget {
   const ConfirmDisputeBottomSheet({
     required this.serviceRepository,
     required this.service,
+    required this.onDisputeSuccess,
     super.key,
   });
 
   final ServiceRepository serviceRepository;
   final Service service;
+  final VoidCallback onDisputeSuccess;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,7 @@ class ConfirmDisputeBottomSheet extends StatelessWidget {
       create: (_) => ConfirmDisputeCubit(
         serviceRepository: serviceRepository,
         service: service,
+        onDisputeSuccess: onDisputeSuccess,
       ),
       child: const ConfirmDisputeView(),
     );
@@ -41,6 +44,7 @@ class ConfirmDisputeView extends StatelessWidget {
     return BlocConsumer<ConfirmDisputeCubit, ConfirmDisputeState>(
       listener: (context, state) {
         if (state.disputingStatus == DisputingStatus.success) {
+          context.read<ConfirmDisputeCubit>().onDisputeSuccess();
           showSnackBar(
             context: context,
             snackBar: SuccessSnackBar(
@@ -74,8 +78,17 @@ class ConfirmDisputeView extends StatelessWidget {
                 ),
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  IconButton(
+                    icon: const Icon(Icons.cancel_outlined),
+                    onPressed: state.disputingStatus == DisputingStatus.loading
+                        ? null
+                        : () {
+                            Navigator.of(context).pop();
+                          },
+                  ),
                   TextField(
                     onChanged: cubit.updateDisputeMessage,
                     decoration: InputDecoration(
