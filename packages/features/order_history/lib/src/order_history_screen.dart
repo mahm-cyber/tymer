@@ -87,21 +87,18 @@ class OrderHistoryView extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final currentServiceRequestFetchMode =
                               UserType.values[index];
-                          final label =
-                              userTypeToLocalizedString(
+                          final label = userTypeToLocalizedString(
                             currentServiceRequestFetchMode,
                             ComponentLibraryLocalizations.of(context),
                           );
                           return BlocSelector<OrderHistoryCubit,
                               OrderHistoryState, UserType>(
-                            selector: (state) =>
-                                state.userTypeFilter,
+                            selector: (state) => state.userTypeFilter,
                             builder: (context, serviceRequestsFetchMode) {
                               final isSelected = serviceRequestsFetchMode ==
                                   currentServiceRequestFetchMode;
                               return ChoiceChip(
-                                onSelected: (_) =>
-                                    cubit.filterByUserType(
+                                onSelected: (_) => cubit.filterByUserType(
                                   currentServiceRequestFetchMode,
                                 ),
                                 selected: isSelected,
@@ -181,9 +178,13 @@ class OrderHistoryView extends StatelessWidget {
                                 children: [
                                   if (index == 0) VerticalGap.medium(),
                                   ServiceRequestCard(
-                                    onTapped: () =>
-                                        cubit.onViewServiceRequestDetailsTapped(
-                                            service),
+                                    onTapped: () => state.userTypeFilter ==
+                                            UserType.provider
+                                        ? null
+                                        : cubit
+                                            .onViewServiceRequestDetailsTapped(
+                                            service,
+                                          ),
                                     shouldShowRequestStatus: true,
                                     service: service,
                                   ),
