@@ -135,6 +135,41 @@ extension ReservationServiceTypeRMtoDM on ReservationServiceTypeRM {
   }
 }
 
+extension DisputeRMtoDM on DisputeRM {
+  DisputeStatus disputeStatusRMtoDM(String status) {
+    switch (status) {
+      case 'pending-review':
+        return DisputeStatus.pendingReview;
+      case 'charged-back':
+        return DisputeStatus.chargedBack;
+      case 'denied':
+        return DisputeStatus.denied;
+      default:
+        throw Exception('Unknown dispute status');
+    }
+  }
+
+  Dispute toDomainModel() {
+    return Dispute(
+      id: id,
+      serviceRequestId: serviceRequestId,
+      resolverId: resolvedBy,
+      status: disputeStatusRMtoDM(status),
+      serviceRequest: serviceRequest.toDomainModel(),
+      reason: reason,
+    );
+  }
+}
+
+extension DisputeListPageRMtoDM on DisputeListPageRM {
+  DisputeListPage toDomainModel() {
+    return DisputeListPage(
+      list: list.map((dispute) => dispute.toDomainModel()).toList(),
+      isLastPage: isLastPage,
+    );
+  }
+}
+
 TimeOfDay stringToTimeOfDay(String timeString) {
   final parts = timeString.split(':');
   final hour = int.parse(parts[0]);

@@ -1,0 +1,14 @@
+{
+  "appBarTitle": "قائمة النزاعات",
+  "distanceToServiceLocation": "{meters} متر",
+  "@distanceToServiceLocation": {
+      "placeholders": {
+          "meters": {
+              "type": "String"
+          }
+      }
+  },
+  "noDisputesIndicatorText": "لا توجد نزاعات متاحة",
+  "showInMapButtonLabel": "عرض على الخريطة",
+  "viewButtonLabel": "عرض"
+}

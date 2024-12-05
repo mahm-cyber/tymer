@@ -46,16 +46,6 @@ class WalletView extends StatelessWidget {
       child: Stack(
         children: [
           Scaffold(
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {},
-              child: Transform.scale(
-                  scale: 0.7,
-                  child: const SvgAsset(
-                    AssetPathConstants.chatPath,
-                    width: 50,
-                    height: 50,
-                  )),
-            ),
             appBar: AppBar(
               title: const SvgAsset(AssetPathConstants.whiteLogoPath),
               toolbarHeight: 160,

@@ -6,6 +6,7 @@ class OrderHistoryState extends Equatable {
     this.nextPage,
     this.nextListPageLoadError,
     this.serviceRequestsFetchStatus = FetchStatus.initial,
+    this.userTypeFilter = UserType.requester,
     this.statusFilter = ServiceStatus.completed,
   });
 
@@ -13,21 +14,41 @@ class OrderHistoryState extends Equatable {
   final int? nextPage;
   final dynamic nextListPageLoadError;
   final FetchStatus serviceRequestsFetchStatus;
+  final UserType userTypeFilter;
   final ServiceStatus statusFilter;
+
+  List<ServiceStatus> get serviceStatusFilters =>
+      userTypeFilter == UserType.requester
+          ? [
+              ServiceStatus.pending,
+              ServiceStatus.inProgress,
+              ServiceStatus.completed,
+              ServiceStatus.canceled,
+              ServiceStatus.pendingReview,
+            ]
+          : [
+              ServiceStatus.inProgress,
+              ServiceStatus.completed,
+              ServiceStatus.canceled,
+              ServiceStatus.pendingReview,
+            ];
 
   OrderHistoryState copyWith({
     List<Service>? serviceRequests,
     int? nextPage,
     dynamic nextListPageLoadError,
     FetchStatus? serviceRequestsFetchStatus,
+    UserType? userTypeFilter,
     ServiceStatus? statusFilter,
   }) {
     return OrderHistoryState(
       serviceRequests: serviceRequests ?? this.serviceRequests,
-      nextPage: nextPage ,
+      nextPage: nextPage,
       nextListPageLoadError: nextListPageLoadError,
       serviceRequestsFetchStatus:
           serviceRequestsFetchStatus ?? this.serviceRequestsFetchStatus,
+      userTypeFilter:
+          userTypeFilter ?? this.userTypeFilter,
       statusFilter: statusFilter ?? this.statusFilter,
     );
   }
@@ -38,6 +59,7 @@ class OrderHistoryState extends Equatable {
         nextPage,
         nextListPageLoadError,
         serviceRequestsFetchStatus,
+        userTypeFilter,
         statusFilter,
       ];
 }

@@ -776,6 +776,36 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'View'**
   String get viewButtonLabel;
+
+  /// No description provided for @requesterServiceRequestsFetchMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Requested'**
+  String get requesterServiceRequestsFetchMode;
+
+  /// No description provided for @providerServiceRequestsFetchMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Provided'**
+  String get providerServiceRequestsFetchMode;
+
+  /// No description provided for @pendingReviewDisputeStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending Review'**
+  String get pendingReviewDisputeStatus;
+
+  /// No description provided for @chargedBackDisputeStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Charged Back'**
+  String get chargedBackDisputeStatus;
+
+  /// No description provided for @deniedDisputeStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Denied'**
+  String get deniedDisputeStatus;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

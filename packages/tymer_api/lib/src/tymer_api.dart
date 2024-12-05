@@ -262,14 +262,14 @@ class TymerApi {
     int? page,
     required double lat,
     required double long,
-    required String mode,
+    required String userType,
     String? status,
   }) async {
     final url = urlBuilder.buildGetAllServiceRequestsUrl(
       page: page,
       lat: lat,
       long: long,
-      mode: mode,
+      userType: userType,
       status: status,
     );
     try {
@@ -371,6 +371,48 @@ class TymerApi {
     );
     try {
       await _dio.post(url);
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future disputeRequest({
+    required int serviceRequestId,
+    required String reason,
+  }) async {
+    final url = urlBuilder.buildDisputeRequestUrl(
+      serviceRequestId: serviceRequestId,
+    );
+    try {
+      await _dio.post(
+        url,
+        data: {
+          'other_details': reason,
+        },
+      );
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<DisputeListPageRM> getAllDisputes({
+    required int page,
+    required String userType,
+    String? status,
+  }) async {
+    final url = urlBuilder.buildGetAllDisputesUrl(
+      page: page,
+      userType: userType,
+      status: status,
+    );
+    try {
+      final response = await _dio.get(url);
+      final disputes = DisputeListPageRM.fromJson(response.data);
+      final currentPage = response.data['meta']['current_page'] as int;
+      final lastPage = response.data['meta']['last_page'] as int;
+      final isLastPage = currentPage >= lastPage;
+      disputes.isLastPage = isLastPage;
+      return disputes;
     } catch (_) {
       rethrow;
     }

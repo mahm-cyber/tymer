@@ -1,0 +1,15 @@
+{
+  "appBarTitle": "Disputes List",
+  "distanceToServiceLocation": "{meters} meters",
+  "@distanceToServiceLocation": {
+      "placeholders": {
+          "meters": {
+              "type": "String"
+          }
+      }
+  },
+  "noDisputesIndicatorText": "No disputes available",
+  "showInMapButtonLabel": "Show in Map",
+  "viewButtonLabel": "View"
+
+}

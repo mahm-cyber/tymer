@@ -7,11 +7,13 @@ class ServiceRequestCard extends StatelessWidget {
     super.key,
     required this.onTapped,
     required this.service,
+    this.dispute,
     this.shouldShowRequestStatus = false,
   });
 
   final VoidCallback onTapped;
   final Service service;
+  final Dispute? dispute;
   final bool shouldShowRequestStatus;
 
   @override
@@ -52,25 +54,28 @@ class ServiceRequestCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                VerticalGap.medium(),
-                Row(
-                  children: [
-                    const SvgAsset(
-                      AssetPathConstants.footPrintFilledPath,
-                    ),
-                    HorizontalGap.medium(),
-                    Text(
-                      l10n.distanceToServiceLocation(
-                        service.distanceBetweenProviderAndServiceLocation!
-                            .toStringAsFixed(0),
+                if (service.distanceBetweenProviderAndServiceLocation !=
+                    null) ...[
+                  VerticalGap.medium(),
+                  Row(
+                    children: [
+                      const SvgAsset(
+                        AssetPathConstants.footPrintFilledPath,
                       ),
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.secondary,
-                        fontWeight: FontWeight.bold,
+                      HorizontalGap.medium(),
+                      Text(
+                        l10n.distanceToServiceLocation(
+                          service.distanceBetweenProviderAndServiceLocation!
+                              .toStringAsFixed(0),
+                        ),
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: colorScheme.secondary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+                ],
                 //price
                 VerticalGap.medium(),
                 Row(
@@ -92,7 +97,28 @@ class ServiceRequestCard extends StatelessWidget {
             ),
             const Spacer(),
             if (shouldShowRequestStatus) ...[
-              ServiceRequestStatusWidget(service: service),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  StatusWidget(
+                    color: service.status?.color ?? Colors.black,
+                    label: serviceRequestStatusToLocalizedString(
+                        service.status!, l10n),
+                  ),
+                  if (dispute != null) ...[
+                    VerticalGap.medium(),
+                    StatusWidget(
+                      color: dispute?.status.color ?? Colors.black,
+                      label: disputeStatusToLocalizedString(dispute!.status, l10n),
+                    ),
+                  ],
+                ],
+              ),
+              // StatusWidget(
+              //   color: service.status?.color ?? Colors.black,
+              //   label: serviceRequestStatusToLocalizedString(
+              //       service.status!, l10n),
+              // ),
             ],
             if (!shouldShowRequestStatus) ...[
               TymerElevatedButton(

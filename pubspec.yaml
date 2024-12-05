@@ -37,6 +37,8 @@ dependencies:
     path: packages/features/tab_container
   home:
     path: packages/features/home
+  disputes:
+    path: packages/features/disputes
   choose_service:
     path: packages/features/choose_service
   request_service:

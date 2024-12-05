@@ -67,7 +67,7 @@ class ServiceRepository {
     int? page,
     required double lat,
     required double long,
-    required String mode,
+    required UserType userType,
     ServiceStatus? status,
   }) async {
     try {
@@ -75,7 +75,7 @@ class ServiceRepository {
         page: page,
         lat: lat,
         long: long,
-        mode: mode,
+        userType: userType.toRemoteModel(),
         status: status?.toRemoteModel(),
       );
       final serviceRequestsDomainModel = serviceRequests.toDomainModel();
@@ -228,6 +228,38 @@ class ServiceRepository {
       launchMapOnAndroid(latitude, longitude);
     } else if (Platform.isIOS) {
       launchMapOnIOS(latitude, longitude);
+    }
+  }
+
+  Future disputeRequest({
+    required int serviceRequestId,
+    required String reason,
+  }) async {
+    try {
+      await remoteApi.disputeRequest(
+        serviceRequestId: serviceRequestId,
+        reason: reason,
+      );
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<DisputeListPage> getDisputes({
+    required int page,
+    required UserType userType,
+    DisputeStatus? disputeStatus,
+  }) async {
+    try {
+      final disputes = await remoteApi.getAllDisputes(
+        page: page,
+        userType: userType.toRemoteModel(),
+        status: disputeStatus?.toRemoteModel(),
+      );
+      final disputesDomainModel = disputes.toDomainModel();
+      return disputesDomainModel;
+    } catch (error) {
+      rethrow;
     }
   }
 }

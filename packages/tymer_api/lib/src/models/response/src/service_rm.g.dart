@@ -92,5 +92,5 @@ ServiceListPageRM _$ServiceListPageRMFromJson(Map<String, dynamic> json) =>
         );
         return val;
       },
-      fieldKeyMap: const {'orderList': 'data'},
+      fieldKeyMap: const {'list': 'data'},
     );

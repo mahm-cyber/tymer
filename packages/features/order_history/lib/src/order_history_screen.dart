@@ -80,28 +80,30 @@ class OrderHistoryView extends StatelessWidget {
                     VerticalGap.medium(),
                     SizedBox(
                       height: 50,
-                      child: ListView.separated(
+                      child: RowBuilder.separated(
                         separatorBuilder: (context, index) =>
                             HorizontalGap.medium(),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: theme.screenMargin),
-                        scrollDirection: Axis.horizontal,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         itemBuilder: (context, index) {
-                          final currentServiceStatus =
-                              ServiceStatus.values[index];
-                          final label = serviceRequestStatusToLocalizedString(
-                            currentServiceStatus,
+                          final currentServiceRequestFetchMode =
+                              UserType.values[index];
+                          final label =
+                              userTypeToLocalizedString(
+                            currentServiceRequestFetchMode,
                             ComponentLibraryLocalizations.of(context),
                           );
                           return BlocSelector<OrderHistoryCubit,
-                              OrderHistoryState, ServiceStatus>(
-                            selector: (state) => state.statusFilter,
-                            builder: (context, statusFilter) {
-                              final isSelected =
-                                  statusFilter == currentServiceStatus;
+                              OrderHistoryState, UserType>(
+                            selector: (state) =>
+                                state.userTypeFilter,
+                            builder: (context, serviceRequestsFetchMode) {
+                              final isSelected = serviceRequestsFetchMode ==
+                                  currentServiceRequestFetchMode;
                               return ChoiceChip(
                                 onSelected: (_) =>
-                                    cubit.setFilterBy(currentServiceStatus),
+                                    cubit.filterByUserType(
+                                  currentServiceRequestFetchMode,
+                                ),
                                 selected: isSelected,
                                 label: Text(label),
                                 labelStyle: isSelected
@@ -114,7 +116,49 @@ class OrderHistoryView extends StatelessWidget {
                             },
                           );
                         },
-                        itemCount: ServiceStatus.values.length,
+                        itemCount: UserType.values.length,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 50,
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) =>
+                            HorizontalGap.medium(),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: theme.screenMargin),
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          // if servicerequestfetchmode is requester remove dispute from servicestatus values
+                          // if servicerequestfetchmode is provider remove pending and dispute review from servicestatus values
+                          final currentServiceStatus =
+                              state.serviceStatusFilters[index];
+                          final label = serviceRequestStatusToLocalizedString(
+                            currentServiceStatus,
+                            ComponentLibraryLocalizations.of(context),
+                          );
+                          return BlocSelector<OrderHistoryCubit,
+                              OrderHistoryState, ServiceStatus>(
+                            selector: (state) => state.statusFilter,
+                            builder: (context, statusFilter) {
+                              final isSelected =
+                                  statusFilter == currentServiceStatus;
+                              return ChoiceChip(
+                                onSelected: (_) =>
+                                    cubit.filterByServiceRequestStatus(
+                                        currentServiceStatus),
+                                selected: isSelected,
+                                label: Text(label),
+                                labelStyle: isSelected
+                                    ? textTheme.bodyMedium?.copyWith(
+                                        color: colorScheme.surface,
+                                      )
+                                    : null,
+                                checkmarkColor: colorScheme.surface,
+                              );
+                            },
+                          );
+                        },
+                        itemCount: state.serviceStatusFilters.length,
                       ),
                     ),
                     Expanded(
@@ -143,7 +187,7 @@ class OrderHistoryView extends StatelessWidget {
                                     shouldShowRequestStatus: true,
                                     service: service,
                                   ),
-                                  if(isLastItem) VerticalGap.large(),
+                                  if (isLastItem) VerticalGap.large(),
                                 ],
                               );
                             },

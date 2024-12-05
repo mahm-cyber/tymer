@@ -12,6 +12,7 @@ class HomeCubit extends Cubit<HomeState> {
     required this.userRepository,
     required this.onRequestServiceTapped,
     required this.onProvideServiceTapped,
+    required this.onViewDisputesTapped,
   }) : super(
           const HomeState(),
         );
@@ -19,6 +20,7 @@ class HomeCubit extends Cubit<HomeState> {
   final UserRepository userRepository;
   final VoidCallback onRequestServiceTapped;
   final VoidCallback onProvideServiceTapped;
+  final VoidCallback onViewDisputesTapped;
 
 // @override
 // Future<void> close() async {

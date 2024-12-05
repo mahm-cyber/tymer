@@ -1,5 +1,6 @@
 import 'package:accept_service_request/accept_service_request.dart';
 import 'package:choose_service/choose_service.dart';
+import 'package:disputes/disputes.dart';
 import 'package:flutter/material.dart';
 import 'package:forgot_password/forgot_password.dart';
 import 'package:fulfill_service_request/fulfill_service_request.dart';
@@ -116,6 +117,18 @@ Map<String, PageBuilder> buildRoutingTable({
                 routerDelegate.push(_PathConstants.chooseServicePath),
             onProvideServiceTapped: () =>
                 routerDelegate.push(_PathConstants.provideServicePath),
+            onViewDisputesTapped: () =>
+                routerDelegate.push(_PathConstants.disputesPath),
+          ),
+        ),
+    _PathConstants.disputesPath: (_) => MaterialPage(
+          name: 'disputes',
+          child: DisputesScreen(
+            userRepository: userRepository,
+            serviceRepository: serviceRepository,
+            onDisputeTapped: (disputeId) {
+              routerDelegate.push(_PathConstants.disputesPath);
+            },
           ),
         ),
     _PathConstants.walletPath: (_) => MaterialPage(
@@ -249,6 +262,8 @@ class _PathConstants {
   static String get signInPath => '${initialPath}sign-in';
 
   static String get homePath => '${initialPath}home';
+
+  static String get disputesPath => '${initialPath}disputes';
 
   static String get walletPath => '${initialPath}wallet';
 

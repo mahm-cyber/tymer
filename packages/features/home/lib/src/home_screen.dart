@@ -12,13 +12,14 @@ class HomeScreen extends StatelessWidget {
     required this.userRepository,
     required this.onRequestServiceTapped,
     required this.onProvideServiceTapped,
+    required this.onViewDisputesTapped,
     super.key,
   });
 
   final UserRepository userRepository;
   final VoidCallback onRequestServiceTapped;
   final VoidCallback onProvideServiceTapped;
-
+  final VoidCallback onViewDisputesTapped;
   @override
   Widget build(BuildContext context) {
     return BlocProvider<HomeCubit>(
@@ -26,6 +27,7 @@ class HomeScreen extends StatelessWidget {
         userRepository: userRepository,
         onRequestServiceTapped: onRequestServiceTapped,
         onProvideServiceTapped: onProvideServiceTapped,
+        onViewDisputesTapped: onViewDisputesTapped,
       ),
       child: const HomeView(),
     );
@@ -48,7 +50,7 @@ class HomeView extends StatelessWidget {
         children: [
           Scaffold(
             floatingActionButton: FloatingActionButton(
-              onPressed: () {},
+              onPressed: cubit.onViewDisputesTapped,
               child: Transform.scale(
                   scale: 0.7,
                   child: const SvgAsset(

@@ -54,13 +54,13 @@ class UrlBuilder {
     int? page,
     required double lat,
     required double long,
-    required String mode,
+    required String userType,
     String? status,
   }) {
     final latQuery = '?user_lat=$lat';
     final pageQuery = page != null ? '&page=$page' : '';
     final longQuery = '&user_long=$long';
-    final modeQuery = '&mode=$mode';
+    final modeQuery = '&mode=$userType';
     const includeServiceQuery = '&include=service,service.category';
     final statusQuery = status != null ? '&status=$status' : '&status=pending';
     const includeTranslationsQuery = '&includeTranslations=true';
@@ -108,6 +108,26 @@ class UrlBuilder {
     required int serviceRequestId,
   }) {
     final completeUrl = '$baseUrl/service-requests/$serviceRequestId/cancel';
+    return completeUrl;
+  }
+
+  String buildDisputeRequestUrl({
+    required int serviceRequestId,
+  }) {
+    final completeUrl = '$baseUrl/service-requests/$serviceRequestId/dispute';
+    return completeUrl;
+  }
+
+  String buildGetAllDisputesUrl({
+    required int page,
+    required String userType,
+    String? status,
+  }) {
+    final pageQuery = '?page=$page';
+    final modeQuery = '&mode=$userType';
+    final statusQuery = status != null ? '&filter[status]=$status' : '';
+    const includeQuery = '&include=serviceRequest,serviceRequest.service,serviceRequest.serviceResponse';
+    final completeUrl = '$baseUrl/disputes$pageQuery$modeQuery$statusQuery$includeQuery';
     return completeUrl;
   }
 }

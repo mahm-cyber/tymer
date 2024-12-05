@@ -126,7 +126,12 @@
   "canceledServiceRequestStatus": "ملغى",
   "pendingReviewServiceRequestStatus": "قيد المراجعة",
   "disputedServiceRequestStatus": "معارض",
-  "viewButtonLabel": "عرض"
+  "viewButtonLabel": "عرض",
+  "requesterServiceRequestsFetchMode": "طالب خدمة",
+  "providerServiceRequestsFetchMode": "منفذ خدمة",
+  "pendingReviewDisputeStatus": "قيد المراجعة",
+  "chargedBackDisputeStatus": "مرتجع",
+  "deniedDisputeStatus": "مرفوض"
 
 
 }

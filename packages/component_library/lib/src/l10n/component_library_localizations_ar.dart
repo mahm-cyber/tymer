@@ -347,4 +347,19 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get viewButtonLabel => 'عرض';
+
+  @override
+  String get requesterServiceRequestsFetchMode => 'طالب خدمة';
+
+  @override
+  String get providerServiceRequestsFetchMode => 'منفذ خدمة';
+
+  @override
+  String get pendingReviewDisputeStatus => 'قيد المراجعة';
+
+  @override
+  String get chargedBackDisputeStatus => 'مرتجع';
+
+  @override
+  String get deniedDisputeStatus => 'مرفوض';
 }

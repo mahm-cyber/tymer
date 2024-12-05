@@ -41,7 +41,7 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
       final newPage = await serviceRepository.getAllServiceRequests(
         lat: 0.0,
         long: 0.0,
-        mode: 'requester',
+        userType: state.userTypeFilter,
         page: page,
         status: state.statusFilter,
       );
@@ -72,6 +72,7 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
     final loadingFirstPageState = OrderHistoryState(
       nextPage: 1,
       statusFilter: state.statusFilter,
+      userTypeFilter: state.userTypeFilter,
     );
     emit(loadingFirstPageState);
     _handleServiceRequestListNextPageRequested();
@@ -89,10 +90,21 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
     }
   }
 
-  void setFilterBy(ServiceStatus statusFilter) async {
-
+  void filterByServiceRequestStatus(ServiceStatus statusFilter) async {
     final newState = state.copyWith(
       statusFilter: statusFilter,
+    );
+    emit(newState);
+    reFetchFirstPage();
+  }
+
+  void filterByUserType(UserType userType) async {
+    final newState = state.copyWith(
+      userTypeFilter: userType,
+      statusFilter: userType == UserType.provider &&
+              state.statusFilter == ServiceStatus.pending
+          ? ServiceStatus.completed
+          : null,
     );
     emit(newState);
     reFetchFirstPage();

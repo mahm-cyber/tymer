@@ -126,7 +126,12 @@
   "canceledServiceRequestStatus": "Canceled",
   "pendingReviewServiceRequestStatus": "Pending Review",
   "disputedServiceRequestStatus": "Disputed",
-  "viewButtonLabel": "View"
+  "viewButtonLabel": "View",
+  "requesterServiceRequestsFetchMode": "Requested",
+  "providerServiceRequestsFetchMode": "Provided",
+  "pendingReviewDisputeStatus": "Pending Review",
+  "chargedBackDisputeStatus": "Charged Back",
+  "deniedDisputeStatus": "Denied"
 
 
 

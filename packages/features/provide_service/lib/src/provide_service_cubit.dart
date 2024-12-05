@@ -68,7 +68,7 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
       final serviceRequests = await serviceRepository.getAllServiceRequests(
         lat: locationData.latitude!,
         long: locationData.longitude!,
-        mode: 'provider',
+        userType: UserType.provider,
         status: ServiceStatus.pending,
       );
       final successState = state.copyWith(
@@ -93,14 +93,14 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
           await serviceRepository.getAllServiceRequests(
         lat: 30.0444,
         long: 31.2357,
-        mode: 'provider',
+        userType: UserType.provider,
         status: ServiceStatus.inProgress,
       );
       final serviceRequestsPendingReview =
           await serviceRepository.getAllServiceRequests(
         lat: 30.0444,
         long: 31.2357,
-        mode: 'provider',
+        userType: UserType.provider,
         status: ServiceStatus.pendingReview,
       );
       final hasRunningServiceRequest =

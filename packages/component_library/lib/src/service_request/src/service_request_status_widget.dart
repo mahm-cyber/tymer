@@ -2,17 +2,18 @@ import 'package:domain_models/domain_models.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 
-class ServiceRequestStatusWidget extends StatelessWidget {
-  const ServiceRequestStatusWidget({
+class StatusWidget extends StatelessWidget {
+  const StatusWidget({
     super.key,
-    required this.service,
+    required this.color,
+    required this.label,
   });
 
-  final Service service;
+  final Color color;
+  final String label;
 
   @override
   Widget build(BuildContext context) {
-    final l10n = ComponentLibraryLocalizations.of(context);
     final textTheme = Theme.of(context).textTheme;
     return Container(
       constraints: const BoxConstraints(
@@ -26,13 +27,13 @@ class ServiceRequestStatusWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
         border: Border.all(
           width: 1,
-          color: service.status?.color ?? Colors.black,
+          color: color,
         ),
       ),
       child: Text(
-        serviceRequestStatusToLocalizedString(service.status!, l10n),
+        label,
         style: textTheme.bodyMedium?.copyWith(
-          color: service.status?.color ?? Colors.black,
+          color: color,
           fontWeight: FontWeight.bold,
         ),
         overflow: TextOverflow.ellipsis,
@@ -59,5 +60,33 @@ String serviceRequestStatusToLocalizedString(
       return l10n.pendingReviewServiceRequestStatus;
     case ServiceStatus.disputed:
       return l10n.disputedServiceRequestStatus;
+  }
+}
+
+// ServiceRequestsFetchMode
+
+String userTypeToLocalizedString(
+  UserType userType,
+  ComponentLibraryLocalizations l10n,
+) {
+  switch (userType) {
+    case UserType.requester:
+      return l10n.requesterServiceRequestsFetchMode;
+    case UserType.provider:
+      return l10n.providerServiceRequestsFetchMode;
+  }
+}
+
+String disputeStatusToLocalizedString(
+    DisputeStatus disputeStatus,
+    ComponentLibraryLocalizations l10n,
+    ) {
+  switch (disputeStatus) {
+    case DisputeStatus.pendingReview:
+      return l10n.pendingReviewDisputeStatus;
+    case DisputeStatus.chargedBack:
+      return l10n.chargedBackDisputeStatus;
+    case DisputeStatus.denied:
+      return l10n.deniedDisputeStatus;
   }
 }

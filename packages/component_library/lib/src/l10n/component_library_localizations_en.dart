@@ -347,4 +347,19 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get viewButtonLabel => 'View';
+
+  @override
+  String get requesterServiceRequestsFetchMode => 'Requested';
+
+  @override
+  String get providerServiceRequestsFetchMode => 'Provided';
+
+  @override
+  String get pendingReviewDisputeStatus => 'Pending Review';
+
+  @override
+  String get chargedBackDisputeStatus => 'Charged Back';
+
+  @override
+  String get deniedDisputeStatus => 'Denied';
 }

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:accept_service_request/accept_service_request.dart';
 import 'package:choose_service/choose_service.dart';
 import 'package:component_library/component_library.dart';
+import 'package:disputes/disputes.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -208,6 +209,7 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
 
                 ProfileLocalizations.delegate,
                 WalletLocalizations.delegate,
+                DisputesLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [
