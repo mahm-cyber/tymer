@@ -171,29 +171,33 @@ class ServiceRepository {
   }
 
   Future<LocationData?> getUserLocation() async {
-    Location location = Location();
+    try {
+      Location location = Location();
 
-    bool serviceEnabled;
-    PermissionStatus permissionGranted;
+      bool serviceEnabled;
+      PermissionStatus permissionGranted;
 
-    serviceEnabled = await location.serviceEnabled();
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
+      serviceEnabled = await location.serviceEnabled();
       if (!serviceEnabled) {
-        return null;
+        serviceEnabled = await location.requestService();
+        if (!serviceEnabled) {
+          return null;
+        }
       }
-    }
 
-    permissionGranted = await location.hasPermission();
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        return null;
+      permissionGranted = await location.hasPermission();
+      if (permissionGranted == PermissionStatus.denied) {
+        permissionGranted = await location.requestPermission();
+        if (permissionGranted != PermissionStatus.granted) {
+          return null;
+        }
       }
+      await Future.delayed(const Duration(milliseconds: 300));
+      final locationData = await location.getLocation();
+      return locationData;
+    } catch (error) {
+      rethrow;
     }
-
-    final locationData = await location.getLocation();
-    return locationData;
   }
 
   void launchMapOnAndroid(double latitude, double longitude) async {

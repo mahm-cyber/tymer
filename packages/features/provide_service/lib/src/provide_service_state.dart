@@ -5,15 +5,15 @@ class ProvideServiceState extends Equatable {
     this.serviceRequests,
     this.serviceRequestsFetchStatus = FetchStatus.initial,
     this.runningServiceRequest,
-    this.locationServiceEnabled = false,
-    this.locationPermission = PermissionStatus.denied,
+    this.locationData,
+    this.locationDataStatus = LocationDataStatus.initial,
   });
 
   final List<Service>? serviceRequests;
   final FetchStatus serviceRequestsFetchStatus;
   final Service? runningServiceRequest;
-  final bool locationServiceEnabled;
-  final PermissionStatus locationPermission;
+  final LocationData? locationData;
+  final LocationDataStatus locationDataStatus;
 
   List<Service>? get ascendingSortedServiceRequests => serviceRequests
       ?.where((service) => service.status == ServiceStatus.pending)
@@ -24,16 +24,16 @@ class ProvideServiceState extends Equatable {
     List<Service>? serviceRequests,
     FetchStatus? serviceRequestsFetchStatus,
     Service? runningServiceRequest,
-    bool? locationServiceEnabled,
-    PermissionStatus? locationPermission,
+    LocationData? locationData,
+    LocationDataStatus? locationDataStatus,
   }) {
     return ProvideServiceState(
       serviceRequests: serviceRequests ?? this.serviceRequests,
       serviceRequestsFetchStatus:
           serviceRequestsFetchStatus ?? this.serviceRequestsFetchStatus,
       runningServiceRequest: runningServiceRequest ?? this.runningServiceRequest,
-      locationServiceEnabled: locationServiceEnabled ?? this.locationServiceEnabled,
-      locationPermission: locationPermission ?? this.locationPermission,
+      locationData: locationData ?? this.locationData,
+      locationDataStatus: locationDataStatus ?? this.locationDataStatus,
     );
   }
 
@@ -42,12 +42,19 @@ class ProvideServiceState extends Equatable {
         serviceRequests,
         serviceRequestsFetchStatus,
         runningServiceRequest,
-        locationServiceEnabled,
-        locationPermission,
+        locationData,
+        locationDataStatus,
       ];
 }
 
 enum FetchStatus {
+  initial,
+  loading,
+  success,
+  failure,
+}
+
+enum LocationDataStatus {
   initial,
   loading,
   success,

@@ -128,6 +128,12 @@ abstract class ProvideServiceLocalizations {
   /// In en, this message translates to:
   /// **'You have a running service request. Please complete it before providing a new one'**
   String get userHasRunningServiceRequestSnackBarMessage;
+
+  /// No description provided for @locationDataFailureSnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to get location data. Please try again later'**
+  String get locationDataFailureSnackBarMessage;
 }
 
 class _ProvideServiceLocalizationsDelegate extends LocalizationsDelegate<ProvideServiceLocalizations> {

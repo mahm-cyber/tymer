@@ -11,6 +11,7 @@
   "noServiceRequestsText": "No service requests available.",
   "showInMapButtonLabel": "Show in Map",
   "viewButtonLabel": "View",
-  "userHasRunningServiceRequestSnackBarMessage": "You have a running service request. Please complete it before providing a new one"
+  "userHasRunningServiceRequestSnackBarMessage": "You have a running service request. Please complete it before providing a new one",
+  "locationDataFailureSnackBarMessage": "Failed to get location data. Please try again later"
 
 }

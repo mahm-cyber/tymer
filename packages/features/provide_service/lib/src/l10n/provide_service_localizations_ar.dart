@@ -2,7 +2,7 @@ import 'provide_service_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class ProvideServiceLocalizationsAr extends ProvideServiceLocalizations {
-  ProvideServiceLocalizationsAr([super.locale = 'ar']);
+  ProvideServiceLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get appBarTitle => 'قائمة الطلبات';
@@ -23,4 +23,7 @@ class ProvideServiceLocalizationsAr extends ProvideServiceLocalizations {
 
   @override
   String get userHasRunningServiceRequestSnackBarMessage => 'لديك طلب خدمة جاري. يرجى استكماله قبل تقديم طلب جديد';
+
+  @override
+  String get locationDataFailureSnackBarMessage => 'فشل في الحصول على بيانات الموقع. يرجى المحاولة مرة أخرى لاحقًا';
 }

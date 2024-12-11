@@ -57,6 +57,16 @@ class ProvideServiceView extends StatelessWidget {
             ),
           );
         }
+        if (state.locationDataStatus == LocationDataStatus.failure) {
+          Navigator.pop(context);
+          showSnackBar(
+            context: context,
+            snackBar: ErrorSnackBar(
+              context: context,
+              message: l10n.locationDataFailureSnackBarMessage,
+            ),
+          );
+        }
       },
       builder: (context, state) {
         final loading = state.serviceRequestsFetchStatus == FetchStatus.loading;

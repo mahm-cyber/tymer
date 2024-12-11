@@ -20,6 +20,7 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
   }) : super(
           const ProvideServiceState(),
         ) {
+    emit(state.copyWith(serviceRequestsFetchStatus: FetchStatus.loading));
     init();
   }
 
@@ -30,44 +31,54 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
   Timer? _timer;
 
   void init() async {
-    emit(state.copyWith(serviceRequestsFetchStatus: FetchStatus.loading));
-
-    final service = await checkIfUserHasRunningServiceRequest();
-    if (service != null) {
-      serviceRepository.changeNotifier.setServiceRequest(service);
-      //TODO: navigate to fulfill service request screen
-      //TODO: show snack bar to notify the user that he has a running service request
-      final runningServiceRequestState = state.copyWith(
-        runningServiceRequest: service,
+    try {
+      final locationData = await serviceRepository.getUserLocation();
+      final locationActivatedState = state.copyWith(
+        locationData: locationData,
+        locationDataStatus: locationData == null
+            ? LocationDataStatus.failure
+            : LocationDataStatus.success,
       );
-      emit(runningServiceRequestState);
-      navigateToFulfillServiceRequest();
-      return;
+      emit(locationActivatedState);
+      final service = await checkIfUserHasRunningServiceRequest();
+      if (service != null) {
+        serviceRepository.changeNotifier.setServiceRequest(service);
+        //TODO: navigate to fulfill service request screen
+        //TODO: show snack bar to notify the user that he has a running service request
+        final runningServiceRequestState = state.copyWith(
+          runningServiceRequest: service,
+        );
+        emit(runningServiceRequestState);
+        navigateToFulfillServiceRequest();
+        return;
+      }
+      bool isApiCallInProgress = true;
+      await fetchServiceRequests();
+      isApiCallInProgress = false;
+      // poll fetch service requests to update the list every 2500 milliseconds
+      _timer = Timer.periodic(
+        const Duration(milliseconds: 2500),
+        (timer) async {
+          if (!isApiCallInProgress) {
+            isApiCallInProgress = true;
+            fetchServiceRequests();
+            isApiCallInProgress = false;
+          }
+        },
+      );
+    } catch (error) {
+      emit(state.copyWith(
+        serviceRequestsFetchStatus: FetchStatus.failure,
+        locationDataStatus: LocationDataStatus.failure,
+      ));
     }
-    bool isApiCallInProgress = true;
-    await fetchServiceRequests();
-    isApiCallInProgress = false;
-    // poll fetch service requests to update the list every 2500 milliseconds
-    _timer = Timer.periodic(
-      const Duration(milliseconds: 2500),
-      (timer) async {
-        if (!isApiCallInProgress) {
-          isApiCallInProgress = true;
-          fetchServiceRequests();
-          isApiCallInProgress = false;
-        }
-      },
-    );
   }
 
   Future fetchServiceRequests() async {
-    final locationData = await serviceRepository.getUserLocation();
-    if (locationData == null) return;
-
     try {
       final serviceRequests = await serviceRepository.getAllServiceRequests(
-        lat: locationData.latitude!,
-        long: locationData.longitude!,
+        lat: state.locationData!.latitude!,
+        long: state.locationData!.longitude!,
         userType: UserType.provider,
         status: ServiceStatus.pending,
       );
