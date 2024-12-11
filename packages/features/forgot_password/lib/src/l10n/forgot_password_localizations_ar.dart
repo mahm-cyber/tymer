@@ -42,6 +42,6 @@ class ForgotPasswordLocalizationsAr extends ForgotPasswordLocalizations {
 
   @override
   String otpRateLimitExceededErrorSnackBarMessage(Object seconds) {
-    return 'لقد وصلت إلى الحد الأقصى لطلبات OTP. يرجى المحاولة مرة أخرى في $seconds';
+    return 'لقد وصلت إلى الحد الأقصى لطلبات OTP. يرجى المحاولة مرة أخرى في $seconds ثانية';
   }
 }

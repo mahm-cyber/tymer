@@ -11,13 +11,11 @@
   "invalidPhoneFormatErrorMessage": "Invalid phone format",
   "unverifiedPhoneErrorMessage": "Reset My Password",
   "isNotRegisteredErrorMessage": "Phone not registered",
-   "otpRateLimitExceededErrorSnackBarMessage": "You have reached the maximum number of OTP requests. Please try again in {seconds} seconds",
+   "otpRateLimitExceededErrorSnackBarMessage": "Maximum number of OTP requests reached. Please try again in {seconds} seconds",
     "@increment_message": {
       "placeholders": {
         "times": {
-          "type": "int",
-          "format": "decimalPattern",
-          "example": "123"
+          "type": "int"
         }
       }
     }

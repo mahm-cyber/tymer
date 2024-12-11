@@ -44,15 +44,17 @@ class RememberMeAndForgotPassword extends StatelessWidget {
               HorizontalGap.xSmall(),
               Text(
                 l10n.rememberMeCheckBoxLabel,
-                style: textTheme.titleMedium,
+                style: textTheme.titleSmall,
               ),
               const Spacer(),
               TextButton(
                 onPressed: isSubmissionInProgress
                     ? null
                     : () => cubit.onForgotPasswordTapped(),
-                child: Text(l10n.forgotMyPasswordButtonLabel,
-                    style: textTheme.titleMedium),
+                child: Text(
+                  l10n.forgotMyPasswordButtonLabel,
+                  style: textTheme.titleSmall,
+                ),
               ),
             ],
           ),

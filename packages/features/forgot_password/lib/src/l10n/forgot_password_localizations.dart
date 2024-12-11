@@ -168,7 +168,7 @@ abstract class ForgotPasswordLocalizations {
   /// No description provided for @otpRateLimitExceededErrorSnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'You have reached the maximum number of OTP requests. Please try again in {seconds}'**
+  /// **'Maximum number of OTP requests reached. Please try again in {seconds} seconds'**
   String otpRateLimitExceededErrorSnackBarMessage(Object seconds);
 }
 
