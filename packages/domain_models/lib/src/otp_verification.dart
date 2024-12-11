@@ -7,10 +7,8 @@ class OtpVerification {
   final String phone;
   final OtpVerificationReason reason;
 
-  bool get isRegistrationOrLogin =>
-      reason == OtpVerificationReason.register ||
-      reason == OtpVerificationReason.login;
-  bool get isResetPassword => reason == OtpVerificationReason.resetPassword;
+
+  bool get isForgotPassword => reason == OtpVerificationReason.forgotPassword;
   bool get isLoggingIn => reason == OtpVerificationReason.login;
   bool get isRegistering => reason == OtpVerificationReason.register;
 }
@@ -18,5 +16,5 @@ class OtpVerification {
 enum OtpVerificationReason {
   register,
   login,
-  resetPassword,
+  forgotPassword,
 }

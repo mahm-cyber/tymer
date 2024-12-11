@@ -1,18 +1,18 @@
 {
   "generalErrorSnackBarMessage": "حدث خطأ ما",
-  "invalidCredentialsErrorMessage": "بريد الكترونى او كلمة مرور خطأ",
+  "invalidCredentialsErrorMessage": "الهاتف او كلمة مرور خطأ",
   "requiredFieldErrorMessage": "مطلوب*",
-  "phoneTextFieldLabel": "البريد الإلكتروني",
-  "invalidPhoneFormatErrorMessage": "صيغة البريد الإلكتروني غير صحيح",
+  "phoneTextFieldLabel": "الهاتف",
+  "invalidPhoneFormatErrorMessage": "صيغة الهاتف غير صحيحة",
   "passwordTextFieldLabel": "كلمة المرور",
   "rememberMeCheckBoxLabel": "تذكرنى",
   "forgotMyPasswordButtonLabel": "فقدت كلمة المرور",
   "signInButtonLabel": "تسجيل دخول",
   "signInInProgressButtonLabel": "جارى تسجيل الدخول",
-  "unverifiedPhoneErrorMessage": "البريد الإلكتروني غير مفعل",
-  "phoneNotVerifiedErrorSnackBarMessage": "البريد الإلكتروني غير مفعل، تم إرسال رمز التحقق",
+  "unverifiedPhoneErrorMessage": "الهاتف غير مفعل",
+  "phoneNotVerifiedErrorSnackBarMessage": "الهاتف غير مفعل، تم إرسال رمز التحقق",
   "orLoginWith": "أو تسجيل الدخول بواسطة",
   "dontHaveAnAccount": "ليس لديك حساب؟",
   "signUpButtonLabel": "سجل",
-  "otpRateLimitExceededExceptionErrorSnackBarMessage": "تم الوصول إلى الحد الأقصى لطلبات رمز التحقق"
+  "otpRateLimitExceededExceptionErrorSnackBarMessage": "تجاوز حد الرسائل القصيرة، حاول لاحقا"
 }

@@ -39,7 +39,7 @@ class UrlBuilder {
   }
 
   buildResetPasswordUrl() {
-    return '$baseUrl/resetPassword';
+    return '$baseUrl/$_authSlug/reset-password';
   }
 
   String buildRequestServiceUrl() {

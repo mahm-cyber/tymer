@@ -12,8 +12,7 @@ class RememberMeAndForgotPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = TymerTheme.of(context);
-    final textTheme = theme.materialThemeData.textTheme;
+    final textTheme = Theme.of(context).textTheme;
     final cubit = context.read<SignInCubit>();
     final l10n = SignInLocalizations.of(context);
     return BlocBuilder<SignInCubit, SignInState>(
@@ -46,6 +45,14 @@ class RememberMeAndForgotPassword extends StatelessWidget {
               Text(
                 l10n.rememberMeCheckBoxLabel,
                 style: textTheme.titleMedium,
+              ),
+              const Spacer(),
+              TextButton(
+                onPressed: isSubmissionInProgress
+                    ? null
+                    : () => cubit.onForgotPasswordTapped(),
+                child: Text(l10n.forgotMyPasswordButtonLabel,
+                    style: textTheme.titleMedium),
               ),
             ],
           ),

@@ -1,4 +1,5 @@
 import 'package:component_library/component_library.dart';
+import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forgot_password/src/components/phone_text_field.dart';
@@ -45,6 +46,7 @@ class ForgotPasswordView extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = TymerTheme.of(context);
     final l10n = ForgotPasswordLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
     return BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
       listenWhen: (oldState, newState) =>
           oldState.submissionStatus != newState.submissionStatus,
@@ -58,6 +60,18 @@ class ForgotPasswordView extends StatelessWidget {
             ),
           );
           onForgotPasswordSuccess();
+          return;
+        }
+        if (state.error is OtpRateLimitExceededException) {
+          showSnackBar(
+            context: context,
+            snackBar: ErrorSnackBar(
+              context: context,
+              message: l10n.otpRateLimitExceededErrorSnackBarMessage(
+                state.error.seconds,
+              ),
+            ),
+          );
           return;
         }
         if (state.submissionStatus == FormzSubmissionStatus.failure) {
@@ -79,15 +93,31 @@ class ForgotPasswordView extends StatelessWidget {
           child: Scaffold(
             appBar: AppBar(
               title: Text(l10n.appBarTitle),
+              iconTheme: IconThemeData(
+                  color: theme.materialThemeData.colorScheme.surface),
+              titleTextStyle: textTheme.titleLarge?.copyWith(
+                color: theme.materialThemeData.colorScheme.surface,
+              ),
             ),
-            body: ListView(
+            body: Padding(
               padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
-              children: [
-                VerticalGap.large(),
-                const PhoneTextField(),
-                VerticalGap.xxLarge(),
-                const ForgotPasswordButton(),
-              ],
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Center(
+                      child: ListView(
+                        shrinkWrap: true,
+                        children: [
+                          VerticalGap.large(),
+                          const PhoneTextField(),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const ForgotPasswordButton(),
+                  VerticalGap.large(),
+                ],
+              ),
             ),
           ),
         );

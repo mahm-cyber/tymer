@@ -8,7 +8,10 @@ class EmailNotRegisteredTymerException implements Exception {}
 
 class InvalidOtpTymerException implements Exception {}
 
-class RateLimitedTymerException implements Exception {}
+class RateLimitedTymerException implements Exception {
+  final int seconds;
+  RateLimitedTymerException(this.seconds);
+}
 
 class InsufficientBalanceTymerException implements Exception {}
 

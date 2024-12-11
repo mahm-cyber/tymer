@@ -1,14 +1,24 @@
 {
   "appBarTitle": "نسيت كلمة المرور",
-  "otpSentSuccessfullySnackBarMessage": "حدث خطأ ما",
+  "otpSentSuccessfullySnackBarMessage": "تم إرسال OTP بنجاح",
   "generalErrorSnackBarMessage": "حدث خطأ ما",
   "requiredFieldErrorMessage": "مطلوب*",
   "invalidEmailFormatErrorMessage": "تنسيق الهاتف غير صالح",
   "phoneNotRegisteredErrorMessage": "الهاتف غير مسجل",
   "forgotPasswordProgressButtonLabel": "جارٍ إرسال OTP",
-  "forgotPasswordButtonLabel": "إعادة تعيين كلمة المرور الخاصة بي",
+  "forgotPasswordButtonLabel": "تغيير كلمة المرور",
   "phoneTextFieldLabel": "الهاتف",
   "invalidPhoneFormatErrorMessage": "تنسيق الهاتف غير صالح",
   "unverifiedPhoneErrorMessage": "إعادة تعيين كلمة المرور الخاصة بي",
-  "isNotRegisteredErrorMessage": "الهاتف غير مسجل"
+  "isNotRegisteredErrorMessage": "الهاتف غير مسجل",
+     "otpRateLimitExceededErrorSnackBarMessage": "لقد وصلت إلى الحد الأقصى لطلبات OTP. يرجى المحاولة مرة أخرى في {seconds} ثانية",
+      "@increment_message": {
+        "placeholders": {
+          "times": {
+            "type": "int",
+            "format": "decimalPattern",
+            "example": "123"
+          }
+        }
+      }
 }

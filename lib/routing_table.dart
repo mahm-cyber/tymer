@@ -99,6 +99,9 @@ Map<String, PageBuilder> buildRoutingTable({
               await routerDelegate.popRoute();
               signInSuccessVN.value = true;
             },
+            onForgotPasswordTapped: () {
+              routerDelegate.push(_PathConstants.forgotPasswordPath);
+            },
           ),
         ),
     _PathConstants.verifyOtpPath: (_) => MaterialPage(
@@ -108,6 +111,10 @@ Map<String, PageBuilder> buildRoutingTable({
             onVerifyOtpSuccess: () async {
               await routerDelegate.popRoute();
               signInSuccessVN.value = true;
+            },
+            onResetPasswordSuccess: () async {
+              await routerDelegate.popRoute();
+              await routerDelegate.popRoute();
             },
           ),
         ),
@@ -169,7 +176,7 @@ Map<String, PageBuilder> buildRoutingTable({
           child: ForgotPasswordScreen(
             userRepository: userRepository,
             onForgotPasswordSuccess: () {
-              routerDelegate.push(_PathConstants.resetPasswordPath);
+              routerDelegate.push(_PathConstants.verifyOtpPath);
             },
           ),
         ),

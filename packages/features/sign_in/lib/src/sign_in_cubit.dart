@@ -14,6 +14,7 @@ class SignInCubit extends Cubit<SignInState> {
     required this.userRepository,
     required this.onUnverifiedSignIn,
     required this.onSignUpTapped,
+    required this.onForgotPasswordTapped,
   }) : super(
           const SignInState(),
         ) {
@@ -32,6 +33,7 @@ class SignInCubit extends Cubit<SignInState> {
   final UserRepository userRepository;
   final VoidCallback onUnverifiedSignIn;
   final VoidCallback onSignUpTapped;
+  final VoidCallback onForgotPasswordTapped;
 
   void onPhoneChanged(String? newValue) {
     final previousEmail = state.phone;

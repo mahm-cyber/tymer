@@ -45,7 +45,7 @@ class ProfileView extends StatelessWidget {
     final theme = TymerTheme.of(context);
     final l10n = ProfileLocalizations.of(context);
     final cubit = context.read<ProfileCubit>();
-    final textTheme = theme.materialThemeData.textTheme;
+    final textTheme = Theme.of(context).textTheme;
     final locale = Localizations.localeOf(context);
     return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {

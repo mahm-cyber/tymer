@@ -12,6 +12,7 @@ part 'verify_otp_state.dart';
 class VerifyOtpCubit extends Cubit<VerifyOtpState> {
   VerifyOtpCubit({
     required this.userRepository,
+    required this.onResetPasswordSuccess,
   })  : pinTEController = TextEditingController(),
         super(
           VerifyOtpState(
@@ -23,6 +24,7 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
 
   Timer? _timer;
   final UserRepository userRepository;
+  final VoidCallback onResetPasswordSuccess;
   final TextEditingController pinTEController;
 
   onOtpCodeChanged(String newValue) {
@@ -80,14 +82,91 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
     }
   }
 
+  void onNewPasswordChanged(String newValue) {
+    final previousScreenState = state;
+    final previousPasswordState = previousScreenState.newPassword;
+    final shouldValidate = previousPasswordState.isNotValid;
+    final newPasswordState = shouldValidate
+        ? Password.validated(
+            newValue,
+            shouldCheckStrength: true,
+          )
+        : Password.unvalidated(
+            newValue,
+          );
+
+    final newScreenState = state.copyWith(
+      newPassword: newPasswordState,
+    );
+
+    emit(newScreenState);
+  }
+
+  void onNewPasswordUnfocused() {
+    final newScreenState = state.copyWith(
+      newPassword: Password.validated(
+        state.newPassword.value,
+        shouldCheckStrength: true,
+      ),
+    );
+    emit(newScreenState);
+  }
+
+  void onNewPasswordConfirmationChanged(String newValue) {
+    final previousScreenState = state;
+    final previousPasswordState = previousScreenState.newPasswordConfirmation;
+    final shouldValidate = previousPasswordState.isNotValid;
+    final newPasswordConfirmation = shouldValidate
+        ? PasswordConfirmation.validated(
+            password: state.newPassword,
+            newValue,
+          )
+        : PasswordConfirmation.unvalidated(
+            newValue,
+          );
+
+    final newScreenState = state.copyWith(
+      newPasswordConfirmation: newPasswordConfirmation,
+    );
+
+    emit(newScreenState);
+  }
+
+  void onNewPasswordConfirmationUnfocused() {
+    final newScreenState = state.copyWith(
+      newPasswordConfirmation: PasswordConfirmation.validated(
+        password: state.newPassword,
+        state.newPasswordConfirmation.value,
+      ),
+    );
+    emit(newScreenState);
+  }
+
   void onSubmit() async {
     final otpCode = OtpCode.validated(state.otpCode.value);
+    final newPassword = Password.validated(
+      state.newPassword.value,
+      shouldCheckStrength: true,
+    );
+    final newPasswordConfirmation = PasswordConfirmation.validated(
+      password: newPassword,
+      state.newPasswordConfirmation.value,
+    );
+
+    final isVerificationReasonForgotPassword =
+        state.otpVerification?.reason == OtpVerificationReason.forgotPassword;
     final isFormValid = Formz.validate([
       otpCode,
+      if (isVerificationReasonForgotPassword) ...[
+        newPassword,
+        newPasswordConfirmation,
+      ]
     ]);
 
     final newState = state.copyWith(
       otpCode: otpCode,
+      newPassword: newPassword,
+      newPasswordConfirmation: newPasswordConfirmation,
       submissionStatus: isFormValid
           ? FormzSubmissionStatus.inProgress
           : FormzSubmissionStatus.initial,
@@ -98,9 +177,17 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
 
     if (isFormValid) {
       try {
-        await userRepository.verifyOtp(
-          otpCode.value,
-        );
+        if (isVerificationReasonForgotPassword) {
+          await userRepository.resetPassword(
+            otp: otpCode.value,
+            newPassword: newPassword.value!,
+            newPasswordConfirmation: newPassword.value!,
+          );
+        } else {
+          await userRepository.verifyOtp(
+            otpCode.value,
+          );
+        }
 
         final newState = state.copyWith(
           otpCode: const OtpCode.unvalidated(),
@@ -114,12 +201,21 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
           otpCode: OtpCode.validated(
             otpCode.value,
             incorrectCode: error is InvalidOtpException ? true : false,
-            limitCrossed: error is OtpRateLimitExceededException ? true : false,
+            limitExceeded:
+                error is OtpRateLimitExceededException ? error : null,
           ),
-          submissionStatus:
-              error is! InvalidOtpException && error is! OtpRateLimitExceededException
-                  ? FormzSubmissionStatus.failure
-                  : FormzSubmissionStatus.initial,
+          newPassword: Password.validated(
+            newPassword.value,
+            shouldCheckStrength: true,
+          ),
+          newPasswordConfirmation: PasswordConfirmation.validated(
+            password: newPassword,
+            newPasswordConfirmation.value,
+          ),
+          submissionStatus: error is! InvalidOtpException &&
+                  error is! OtpRateLimitExceededException
+              ? FormzSubmissionStatus.failure
+              : FormzSubmissionStatus.initial,
           resendOtpStatus: ResendOtpStatus.initial,
         );
         emit(newState);

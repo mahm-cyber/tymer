@@ -186,7 +186,7 @@ abstract class SignInLocalizations {
   /// No description provided for @otpRateLimitExceededExceptionErrorSnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'Maximum number of OTP requests reached'**
+  /// **'OTP rate limit exceeded, try again later'**
   String get otpRateLimitExceededExceptionErrorSnackBarMessage;
 }
 

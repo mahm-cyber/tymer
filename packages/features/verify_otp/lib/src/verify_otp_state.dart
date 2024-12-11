@@ -7,6 +7,8 @@ class VerifyOtpState extends Equatable {
     this.resendOtpStatus = ResendOtpStatus.initial,
     this.otpVerification,
     this.otpCode = const OtpCode.unvalidated(),
+    this.newPassword = const Password.unvalidated(),
+    this.newPasswordConfirmation = const PasswordConfirmation.unvalidated(),
     this.submissionStatus = FormzSubmissionStatus.initial,
   });
 
@@ -15,6 +17,8 @@ class VerifyOtpState extends Equatable {
   final ResendOtpStatus resendOtpStatus;
   final OtpVerification? otpVerification;
   final OtpCode otpCode;
+  final Password newPassword;
+  final PasswordConfirmation newPasswordConfirmation;
   final FormzSubmissionStatus submissionStatus;
 
   VerifyOtpState copyWith({
@@ -23,6 +27,8 @@ class VerifyOtpState extends Equatable {
     ResendOtpStatus? resendOtpStatus,
     OtpVerification? otpVerification,
     OtpCode? otpCode,
+    Password? newPassword,
+    PasswordConfirmation? newPasswordConfirmation,
     FormzSubmissionStatus? submissionStatus,
   }) {
     return VerifyOtpState(
@@ -31,6 +37,9 @@ class VerifyOtpState extends Equatable {
       resendOtpStatus: resendOtpStatus ?? this.resendOtpStatus,
       otpVerification: otpVerification ?? this.otpVerification,
       otpCode: otpCode ?? this.otpCode,
+      newPassword: newPassword ?? this.newPassword,
+      newPasswordConfirmation:
+          newPasswordConfirmation ?? this.newPasswordConfirmation,
       submissionStatus: submissionStatus ?? this.submissionStatus,
     );
   }
@@ -42,6 +51,8 @@ class VerifyOtpState extends Equatable {
         resendOtpStatus,
         otpVerification,
         otpCode,
+        newPassword,
+        newPasswordConfirmation,
         submissionStatus,
       ];
 }

@@ -2,13 +2,13 @@ import 'forgot_password_localizations.dart';
 
 /// The translations for English (`en`).
 class ForgotPasswordLocalizationsEn extends ForgotPasswordLocalizations {
-  ForgotPasswordLocalizationsEn([super.locale = 'en']);
+  ForgotPasswordLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
   String get appBarTitle => 'Forgot Password';
 
   @override
-  String get otpSentSuccessfullySnackBarMessage => 'ٍSomething went wrong';
+  String get otpSentSuccessfullySnackBarMessage => 'OTP sent successfully';
 
   @override
   String get generalErrorSnackBarMessage => 'ٍSomething went wrong';
@@ -39,4 +39,9 @@ class ForgotPasswordLocalizationsEn extends ForgotPasswordLocalizations {
 
   @override
   String get isNotRegisteredErrorMessage => 'Phone not registered';
+
+  @override
+  String otpRateLimitExceededErrorSnackBarMessage(Object seconds) {
+    return 'You have reached the maximum number of OTP requests. Please try again in $seconds';
+  }
 }

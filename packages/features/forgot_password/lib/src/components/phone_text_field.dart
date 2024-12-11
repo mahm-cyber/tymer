@@ -46,6 +46,7 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
         enabled: !isSubmissionInProgress,
         focusNode: _phoneFocusNode,
         onChanged: cubit.onMobileChanged,
+        onEditingComplete: cubit.onSubmit,
         decoration: InputDecoration(
           isDense: true,
           labelText: l10n.phoneTextFieldLabel,
@@ -53,6 +54,7 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
           prefixIcon: const SvgAsset(
             AssetPathConstants.emailPath,
           ),
+
           hintText: l10n.phoneTextFieldLabel,
           errorText: phoneError == MobileValidationError.empty
               ? l10n.requiredFieldErrorMessage

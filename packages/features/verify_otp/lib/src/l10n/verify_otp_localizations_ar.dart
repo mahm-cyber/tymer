@@ -2,7 +2,7 @@ import 'verify_otp_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class VerifyOtpLocalizationsAr extends VerifyOtpLocalizations {
-  VerifyOtpLocalizationsAr([super.locale = 'ar']);
+  VerifyOtpLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get verifyOtpTitle => 'تفقد بريدك الإلكتروني !';
@@ -44,5 +44,31 @@ class VerifyOtpLocalizationsAr extends VerifyOtpLocalizations {
   String get changeEmailSubtitle => 'يرجى التحقق من بريدك الإلكتروني لإعادة تعيين البريد الإلكتروني الخاصة بك';
 
   @override
-  String get otpLimitCrossedErrorSnackBarMessage => 'تجاوز الحد الأقصى لمحاولات التحقق من الرمز';
+  String otpLimitExceededErrorSnackBarMessage(Object seconds) {
+    return 'لقد وصلت إلى الحد الأقصى لطلبات OTP. يرجى المحاولة مرة أخرى في $seconds ثانية';
+  }
+
+  @override
+  String get newPasswordTextFieldLabel => 'كلمة المرور الجديدة';
+
+  @override
+  String get newPasswordTextFieldWeakPasswordError => 'كلمة المرور ضعيفة جدًا';
+
+  @override
+  String get newPasswordTextFieldHint => 'أدخل كلمة المرور الجديدة';
+
+  @override
+  String get newPasswordConfirmationTextFieldLabel => 'تأكيد كلمة المرور الجديدة';
+
+  @override
+  String get newPasswordConfirmationTextFieldHint => 'أعد إدخال كلمة المرور الجديدة';
+
+  @override
+  String get passwordConfirmationTextFieldDoesNotMatchError => 'كلمات المرور غير متطابقة';
+
+  @override
+  String get passwordTextFieldWeakPasswordErrorDescription => 'يجب أن تستوفي كلمة المرور المعايير التالية: - لا يقل طوله عن 6 أحرف - تحتوي على حرف كبير واحد على الأقل - تحتوي على حرف صغير واحد على الأقل - تحتوي على رقم واحد على الأقل - تحتوي على رمز واحد على الأقل (على سبيل المثال، @، \$، !، إلخ.)';
+
+  @override
+  String get passwordResetSuccessfullySnackBarMessage => 'تمت تغير كلمة المرور بنجاح';
 }

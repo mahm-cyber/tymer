@@ -1,6 +1,6 @@
 {
   "appBarTitle": "Forgot Password",
-  "otpSentSuccessfullySnackBarMessage": "ٍSomething went wrong",
+  "otpSentSuccessfullySnackBarMessage": "OTP sent successfully",
   "generalErrorSnackBarMessage": "ٍSomething went wrong",
   "requiredFieldErrorMessage": "Required*",
   "invalidEmailFormatErrorMessage": "Invalid phone format",
@@ -10,6 +10,16 @@
   "phoneTextFieldLabel": "Phone",
   "invalidPhoneFormatErrorMessage": "Invalid phone format",
   "unverifiedPhoneErrorMessage": "Reset My Password",
-  "isNotRegisteredErrorMessage": "Phone not registered"
+  "isNotRegisteredErrorMessage": "Phone not registered",
+   "otpRateLimitExceededErrorSnackBarMessage": "You have reached the maximum number of OTP requests. Please try again in {seconds} seconds",
+    "@increment_message": {
+      "placeholders": {
+        "times": {
+          "type": "int",
+          "format": "decimalPattern",
+          "example": "123"
+        }
+      }
+    }
 
 }

@@ -14,6 +14,7 @@ class TymerApi {
   static const _emailJsonKey = 'email';
   static const _phoneNumberJsonKey = 'phone_number';
   static const _codeJsonKey = 'code';
+  static const _messageJsonKey = 'message';
 
   TymerApi({
     required UserTokenSupplier userTokenSupplier,
@@ -147,7 +148,12 @@ class TymerApi {
       final errorObject = error.response?.data[_errorJsonKey];
 
       if (errorObject[_codeJsonKey].contains('RATE_LIMITED')) {
-        throw RateLimitedTymerException();
+        // extract the integer from this string لقد قمت بعمل الكثير من الطلبات. يرجى المحاولة مرة أخرى بعد 137 ثانية.
+        final rateLimitedMessage = errorObject[_messageJsonKey] as String;
+        final rateLimitedSeconds = int.parse(
+          rateLimitedMessage.split(' ')[rateLimitedMessage.split(' ').length - 2],
+        );
+        throw RateLimitedTymerException(rateLimitedSeconds);
       }
       rethrow;
     }
@@ -162,13 +168,17 @@ class TymerApi {
       await _dio.post(
         url,
         data: {
-          "phone_number": '2+$phone',
+          "phone_number": '+2$phone',
         },
       );
     } on DioException catch (error) {
       final errorObject = error.response?.data[_errorJsonKey];
       if (errorObject[_codeJsonKey].contains('RATE_LIMITED')) {
-        throw RateLimitedTymerException();
+        final rateLimitedMessage = errorObject[_messageJsonKey] as String;
+        final rateLimitedSeconds = int.parse(
+          rateLimitedMessage.split(' ')[rateLimitedMessage.split(' ').length - 2],
+        );
+        throw RateLimitedTymerException(rateLimitedSeconds);
       }
       rethrow;
     }
@@ -193,7 +203,11 @@ class TymerApi {
         throw InvalidOtpTymerException();
       }
       if (errorObject[_codeJsonKey].contains('RATE_LIMITED')) {
-        throw RateLimitedTymerException();
+        final rateLimitedMessage = errorObject[_messageJsonKey] as String;
+        final rateLimitedSeconds = int.parse(
+          rateLimitedMessage.split(' ')[rateLimitedMessage.split(' ').length - 2],
+        );
+        throw RateLimitedTymerException(rateLimitedSeconds);
       }
       rethrow;
     }
@@ -201,6 +215,7 @@ class TymerApi {
 
   Future resetPassword({
     required String phone,
+    required String otp,
     required String newPassword,
     required String newPasswordConfirmation,
   }) async {
@@ -210,12 +225,24 @@ class TymerApi {
       await _dio.post(
         url,
         data: {
-          "email": phone,
+          "phone_number": '+2$phone',
+          "otp_code": otp,
           "password": newPassword,
           "password_confirmation": newPasswordConfirmation,
         },
       );
-    } catch (_) {
+    } on DioException catch (error) {
+      final errorObject = error.response?.data[_errorJsonKey];
+      if (errorObject[_codeJsonKey]
+          .contains('PHONE_NUMBER_VERIFICATION_OTP_MISMATCH')) {
+        throw InvalidOtpTymerException();
+      }
+      if (errorObject[_codeJsonKey].contains('RATE_LIMITED')) {
+        final rateLimitedMessage = errorObject[_messageJsonKey] as String;
+        final rateLimitedSeconds = int.parse(
+          rateLimitedMessage.split(' ')[rateLimitedMessage.split(' ').length - 2],
+        );
+        throw RateLimitedTymerException(rateLimitedSeconds);      }
       rethrow;
     }
   }

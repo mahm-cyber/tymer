@@ -97,6 +97,7 @@ class WalletButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = TymerTheme.of(context);
+    final textTheme = Theme.of(context).textTheme;
     return GestureDetector(
       child: Container(
         padding: const EdgeInsets.symmetric(
@@ -114,7 +115,7 @@ class WalletButton extends StatelessWidget {
             HorizontalGap.medium(),
             Text(
               title,
-              style: theme.materialThemeData.textTheme.titleMedium?.copyWith(
+              style: textTheme.titleMedium?.copyWith(
                 color: theme.materialThemeData.colorScheme.surface,
                 fontSize: 16,
                 // fontWeight: FontWeight.w500,

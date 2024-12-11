@@ -2,7 +2,7 @@ import 'verify_otp_localizations.dart';
 
 /// The translations for English (`en`).
 class VerifyOtpLocalizationsEn extends VerifyOtpLocalizations {
-  VerifyOtpLocalizationsEn([super.locale = 'en']);
+  VerifyOtpLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
   String get verifyOtpTitle => 'Verify OTP';
@@ -44,5 +44,31 @@ class VerifyOtpLocalizationsEn extends VerifyOtpLocalizations {
   String get changeEmailSubtitle => 'Enter the OTP sent to your phone number to change your email';
 
   @override
-  String get otpLimitCrossedErrorSnackBarMessage => 'Limit of OTP verification attempts crossed';
+  String otpLimitExceededErrorSnackBarMessage(Object seconds) {
+    return 'You have reached the maximum number of OTP requests. Please try again in $seconds seconds';
+  }
+
+  @override
+  String get newPasswordTextFieldLabel => 'New Password';
+
+  @override
+  String get newPasswordTextFieldWeakPasswordError => 'The password is too weak';
+
+  @override
+  String get newPasswordTextFieldHint => 'Enter your new password';
+
+  @override
+  String get newPasswordConfirmationTextFieldLabel => 'Confirm New Password';
+
+  @override
+  String get newPasswordConfirmationTextFieldHint => 'Re-enter your new password';
+
+  @override
+  String get passwordConfirmationTextFieldDoesNotMatchError => 'Passwords do not match';
+
+  @override
+  String get passwordTextFieldWeakPasswordErrorDescription => 'The password must have At least 6 characters long, Contains at least one uppercase letter, Contains at least one lowercase letter, Contains at least one number, Contains at least one symbol (e.g., @, \$, !, etc.)';
+
+  @override
+  String get passwordResetSuccessfullySnackBarMessage => 'Password reset successfully';
 }

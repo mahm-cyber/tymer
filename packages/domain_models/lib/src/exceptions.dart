@@ -6,7 +6,10 @@ class InvalidEmailFormatException implements Exception {}
 
 class InvalidOtpException implements Exception {}
 
-class OtpRateLimitExceededException implements Exception {}
+class OtpRateLimitExceededException implements Exception {
+  final int seconds;
+  OtpRateLimitExceededException(this.seconds);
+}
 
 class EmailNotRegisteredException implements Exception {}
 

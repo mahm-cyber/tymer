@@ -18,12 +18,14 @@ class SignInScreen extends StatelessWidget {
     required this.onSignInSuccess,
     required this.onUnverifiedSignIn,
     required this.onSignUpTapped,
+    required this.onForgotPasswordTapped,
   });
 
   final UserRepository userRepository;
   final VoidCallback onSignInSuccess;
   final VoidCallback onUnverifiedSignIn;
   final VoidCallback onSignUpTapped;
+  final VoidCallback onForgotPasswordTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class SignInScreen extends StatelessWidget {
         userRepository: userRepository,
         onUnverifiedSignIn: onUnverifiedSignIn,
         onSignUpTapped: onSignUpTapped,
+        onForgotPasswordTapped: onForgotPasswordTapped,
       ),
       child: SignInView(
         onSignInSuccess: onSignInSuccess,

@@ -2,22 +2,22 @@ import 'sign_in_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class SignInLocalizationsAr extends SignInLocalizations {
-  SignInLocalizationsAr([super.locale = 'ar']);
+  SignInLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get generalErrorSnackBarMessage => 'حدث خطأ ما';
 
   @override
-  String get invalidCredentialsErrorMessage => 'بريد الكترونى او كلمة مرور خطأ';
+  String get invalidCredentialsErrorMessage => 'الهاتف او كلمة مرور خطأ';
 
   @override
   String get requiredFieldErrorMessage => 'مطلوب*';
 
   @override
-  String get phoneTextFieldLabel => 'البريد الإلكتروني';
+  String get phoneTextFieldLabel => 'الهاتف';
 
   @override
-  String get invalidPhoneFormatErrorMessage => 'صيغة البريد الإلكتروني غير صحيح';
+  String get invalidPhoneFormatErrorMessage => 'صيغة الهاتف غير صحيحة';
 
   @override
   String get passwordTextFieldLabel => 'كلمة المرور';
@@ -35,10 +35,10 @@ class SignInLocalizationsAr extends SignInLocalizations {
   String get signInInProgressButtonLabel => 'جارى تسجيل الدخول';
 
   @override
-  String get unverifiedPhoneErrorMessage => 'البريد الإلكتروني غير مفعل';
+  String get unverifiedPhoneErrorMessage => 'الهاتف غير مفعل';
 
   @override
-  String get phoneNotVerifiedErrorSnackBarMessage => 'البريد الإلكتروني غير مفعل، تم إرسال رمز التحقق';
+  String get phoneNotVerifiedErrorSnackBarMessage => 'الهاتف غير مفعل، تم إرسال رمز التحقق';
 
   @override
   String get orLoginWith => 'أو تسجيل الدخول بواسطة';
@@ -50,5 +50,5 @@ class SignInLocalizationsAr extends SignInLocalizations {
   String get signUpButtonLabel => 'سجل';
 
   @override
-  String get otpRateLimitExceededExceptionErrorSnackBarMessage => 'تم الوصول إلى الحد الأقصى لطلبات رمز التحقق';
+  String get otpRateLimitExceededExceptionErrorSnackBarMessage => 'تجاوز حد الرسائل القصيرة، حاول لاحقا';
 }

@@ -1,8 +1,6 @@
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 
-
-
 class WalletButton extends StatelessWidget {
   const WalletButton({
     super.key,
@@ -17,6 +15,7 @@ class WalletButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     final theme = TymerTheme.of(context);
     return GestureDetector(
       child: Container(
@@ -35,7 +34,7 @@ class WalletButton extends StatelessWidget {
             HorizontalGap.medium(),
             Text(
               title,
-              style: theme.materialThemeData.textTheme.titleMedium?.copyWith(
+              style: textTheme.titleMedium?.copyWith(
                 color: theme.materialThemeData.colorScheme.surface,
                 fontSize: 16,
                 // fontWeight: FontWeight.w500,

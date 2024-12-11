@@ -57,7 +57,9 @@ class UserRepository {
       await remoteApi.sendOtp();
     } catch (error) {
       if (error is RateLimitedTymerException) {
-        throw OtpRateLimitExceededException();
+        throw OtpRateLimitExceededException(
+          error.seconds,
+        );
       }
       rethrow;
     }
@@ -72,7 +74,9 @@ class UserRepository {
       );
     } catch (error) {
       if (error is RateLimitedTymerException) {
-        throw OtpRateLimitExceededException();
+        throw OtpRateLimitExceededException(
+          error.seconds,
+        );
       }
       rethrow;
     }
@@ -120,8 +124,9 @@ class UserRepository {
         throw InvalidCredentialsException();
       }
       if (error is RateLimitedTymerException) {
-        throw OtpRateLimitExceededException();
-      }
+        throw OtpRateLimitExceededException(
+          error.seconds,
+        );      }
       rethrow;
     }
   }
@@ -182,25 +187,37 @@ class UserRepository {
         throw InvalidOtpException();
       }
       if (error is RateLimitedTymerException) {
-        throw OtpRateLimitExceededException();
+        throw OtpRateLimitExceededException(
+          error.seconds,
+        );
       }
       rethrow;
     }
   }
 
-  Future<void> resetPassword(
-      {required String newPassword,
-      required String newPasswordConfirmation,
-      required}) async {
+  Future<void> resetPassword({
+    required String otp,
+    required String newPassword,
+    required String newPasswordConfirmation,
+  }) async {
     try {
       final phone = changeNotifier.otpVerification!.phone;
 
       await remoteApi.resetPassword(
+        otp: otp,
         phone: phone,
         newPassword: newPassword,
         newPasswordConfirmation: newPasswordConfirmation,
       );
     } catch (error) {
+      if (error is InvalidOtpTymerException) {
+        throw InvalidOtpException();
+      }
+      if (error is RateLimitedTymerException) {
+        throw OtpRateLimitExceededException(
+          error.seconds,
+        );
+      }
       rethrow;
     }
   }

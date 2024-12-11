@@ -70,7 +70,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
         );
         final otpVerification = OtpVerification(
           phone: phone.value!,
-          reason: OtpVerificationReason.resetPassword,
+          reason: OtpVerificationReason.forgotPassword,
         );
         userRepository.changeNotifier.setOtpVerification(otpVerification);
         final newState = state.copyWith(
@@ -87,6 +87,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
           submissionStatus: error is! PhoneNotRegisteredException
               ? FormzSubmissionStatus.failure
               : FormzSubmissionStatus.initial,
+          error: error,
         );
         emit(newState);
       }

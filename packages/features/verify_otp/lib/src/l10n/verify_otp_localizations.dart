@@ -171,11 +171,59 @@ abstract class VerifyOtpLocalizations {
   /// **'Enter the OTP sent to your phone number to change your email'**
   String get changeEmailSubtitle;
 
-  /// No description provided for @otpLimitCrossedErrorSnackBarMessage.
+  /// No description provided for @otpLimitExceededErrorSnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'Limit of OTP verification attempts crossed'**
-  String get otpLimitCrossedErrorSnackBarMessage;
+  /// **'You have reached the maximum number of OTP requests. Please try again in {seconds} seconds'**
+  String otpLimitExceededErrorSnackBarMessage(Object seconds);
+
+  /// No description provided for @newPasswordTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get newPasswordTextFieldLabel;
+
+  /// No description provided for @newPasswordTextFieldWeakPasswordError.
+  ///
+  /// In en, this message translates to:
+  /// **'The password is too weak'**
+  String get newPasswordTextFieldWeakPasswordError;
+
+  /// No description provided for @newPasswordTextFieldHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your new password'**
+  String get newPasswordTextFieldHint;
+
+  /// No description provided for @newPasswordConfirmationTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm New Password'**
+  String get newPasswordConfirmationTextFieldLabel;
+
+  /// No description provided for @newPasswordConfirmationTextFieldHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Re-enter your new password'**
+  String get newPasswordConfirmationTextFieldHint;
+
+  /// No description provided for @passwordConfirmationTextFieldDoesNotMatchError.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordConfirmationTextFieldDoesNotMatchError;
+
+  /// No description provided for @passwordTextFieldWeakPasswordErrorDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The password must have At least 6 characters long, Contains at least one uppercase letter, Contains at least one lowercase letter, Contains at least one number, Contains at least one symbol (e.g., @, \$, !, etc.)'**
+  String get passwordTextFieldWeakPasswordErrorDescription;
+
+  /// No description provided for @passwordResetSuccessfullySnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset successfully'**
+  String get passwordResetSuccessfullySnackBarMessage;
 }
 
 class _VerifyOtpLocalizationsDelegate extends LocalizationsDelegate<VerifyOtpLocalizations> {

@@ -1,4 +1,5 @@
 import 'package:component_library/component_library.dart';
+import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
@@ -15,17 +16,20 @@ class VerifyOtpScreen extends StatelessWidget {
   const VerifyOtpScreen({
     required this.userRepository,
     required this.onVerifyOtpSuccess,
+    required this.onResetPasswordSuccess,
     super.key,
   });
 
   final UserRepository userRepository;
   final VoidCallback onVerifyOtpSuccess;
+  final VoidCallback onResetPasswordSuccess;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<VerifyOtpCubit>(
       create: (_) => VerifyOtpCubit(
         userRepository: userRepository,
+        onResetPasswordSuccess: onResetPasswordSuccess,
       ),
       child: VerifyOtpView(
         onVerifyOtpSuccess: onVerifyOtpSuccess,
@@ -81,12 +85,14 @@ class _VerifyOtpForm extends StatelessWidget {
           oldState.submissionStatus != newState.submissionStatus ||
           oldState.resendOtpStatus != newState.resendOtpStatus,
       listener: (context, state) {
-        if (state.otpCode.error == OtpCodeValidationError.limitCrossed) {
+        final isForgotPassword = state.otpVerification?.reason ==
+            OtpVerificationReason.forgotPassword;
+        if (state.otpCode.limitExceeded != null) {
           showSnackBar(
             context: context,
             snackBar: ErrorSnackBar(
               context: context,
-              message: l10n.otpLimitCrossedErrorSnackBarMessage,
+              message: l10n.otpLimitExceededErrorSnackBarMessage(state.otpCode.limitExceeded!.seconds),
             ),
           );
         }
@@ -113,10 +119,16 @@ class _VerifyOtpForm extends StatelessWidget {
             context: context,
             snackBar: SuccessSnackBar(
               context: context,
-              message: l10n.otpVerifiedSuccessfullySnackBarMessage,
+              message: isForgotPassword
+                  ? l10n.passwordResetSuccessfullySnackBarMessage
+                  : l10n.otpVerifiedSuccessfullySnackBarMessage,
             ),
           );
-          onVerifyOtpSuccess();
+          if (isForgotPassword) {
+            onVerifyOtpSuccess();
+          } else {
+            onVerifyOtpSuccess();
+          }
           return;
         }
         if (state.submissionStatus == FormzSubmissionStatus.failure) {
@@ -141,121 +153,132 @@ class _VerifyOtpForm extends StatelessWidget {
         final theme = TymerTheme.of(context);
         final colorScheme =
             TymerTheme.of(context).materialThemeData.colorScheme;
+        // final isForgotPassword = state.otpVerification?.reason ==
+        //     OtpVerificationReason.forgotPassword;
         return Center(
-          child: ListView(
-            shrinkWrap: true,
+          child: SingleChildScrollView(
             padding: EdgeInsets.symmetric(
               horizontal: theme.screenMargin,
             ),
-            children: [
-              const SvgAsset(
-                AssetPathConstants.logoAndWordPath,
-                width: 70,
-              ),
-              VerticalGap.large(),
-              Text(
-                l10n.verifyOtpTitle,
-                style: textTheme.headlineSmall,
-                textAlign: TextAlign.start,
-              ),
-              VerticalGap.smallMedium(),
-              Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: l10n.verifyOtpSubtitle,
-                      style: textTheme
-                          .bodyMedium, // Default style for the subtitle
-                    ),
-                    TextSpan(
-                      text: ' ${state.otpVerification?.phone}', // Email text
-                      style: textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.bold), // Make email bold
-                    ),
-                  ],
+            child: Column(
+              // shrinkWrap: true,
+              children: [
+                const SvgAsset(
+                  AssetPathConstants.logoAndWordPath,
+                  width: 70,
                 ),
-              ),
-              VerticalGap.large(),
-              Directionality(
-                textDirection: TextDirection.ltr,
-                child: PinCodeTextField(
-                  enableActiveFill: true,
-                  autoDisposeControllers: false,
-                  controller: cubit.pinTEController,
-                  length: 6,
-                  appContext: context,
-                  cursorHeight: 20,
-                  enablePinAutofill: false,
-                  onChanged: cubit.onOtpCodeChanged,
-                  onCompleted: (_) => cubit.onSubmit(),
-                  cursorColor: colorScheme.surface,
-                  textStyle: textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold, color: colorScheme.surface),
-                  pinTheme: PinTheme(
-                    selectedColor: Colors.transparent,
-                    selectedFillColor:
-                        otpCodeError == OtpCodeValidationError.incorrect
-                            ? theme.errorColor
-                            : theme.primaryColor,
-                    inactiveFillColor: theme.borderColor,
-                    shape: PinCodeFieldShape.box,
-                    fieldHeight: 45,
-                    fieldWidth: 45,
-                    borderWidth: 1,
-                    borderRadius: BorderRadius.circular(10),
-                    activeBorderWidth: 1,
-                    disabledBorderWidth: 1,
-                    inactiveBorderWidth: 1,
-                    errorBorderWidth: 1,
-                    selectedBorderWidth: 1,
-                    activeColor:
-                        otpCodeError == OtpCodeValidationError.incorrect
-                            ? theme.errorColor
-                            : null,
-                    activeFillColor:
-                        otpCodeError == OtpCodeValidationError.incorrect
-                            ? theme.errorColor
-                            : theme.primaryColor,
-                    inactiveColor:
-                        otpCodeError == OtpCodeValidationError.incorrect
-                            ? theme.errorColor
-                            : theme.borderColor,
-                  ),
-                  separatorBuilder: (context, index) =>
-                      HorizontalGap.smallMedium(),
+                VerticalGap.large(),
+                Text(
+                  l10n.verifyOtpTitle,
+                  style: textTheme.headlineSmall,
+                  textAlign: TextAlign.start,
                 ),
-              ),
-              if (otpCodeError != null) ...[
-                const SizedBox(
-                  height: Spacing.xSmall,
+                VerticalGap.smallMedium(),
+                Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: l10n.verifyOtpSubtitle,
+                        style: textTheme
+                            .bodyMedium, // Default style for the subtitle
+                      ),
+                      TextSpan(
+                        text: ' ${state.otpVerification?.phone}', // Email text
+                        style: textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.bold), // Make email bold
+                      ),
+                    ],
+                  ),
                 ),
-                if (otpCodeError == OtpCodeValidationError.empty ||
-                    otpCodeError == OtpCodeValidationError.incomplete)
-                  Text(
-                    l10n.requiredFieldErrorMessage,
-                    style: textTheme.bodySmall?.copyWith(
-                      color: theme.errorColor,
+                VerticalGap.large(),
+                Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: PinCodeTextField(
+                    enableActiveFill: true,
+                    autoDisposeControllers: false,
+                    controller: cubit.pinTEController,
+                    length: 6,
+                    appContext: context,
+                    cursorHeight: 20,
+                    enablePinAutofill: false,
+                    onChanged: cubit.onOtpCodeChanged,
+                    onCompleted: (_) => cubit.onSubmit(),
+                    cursorColor: colorScheme.surface,
+                    textStyle: textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: colorScheme.surface),
+                    pinTheme: PinTheme(
+                      selectedColor: Colors.transparent,
+                      selectedFillColor:
+                          otpCodeError == OtpCodeValidationError.incorrect
+                              ? theme.errorColor
+                              : theme.primaryColor,
+                      inactiveFillColor: theme.borderColor,
+                      shape: PinCodeFieldShape.box,
+                      fieldHeight: 45,
+                      fieldWidth: 45,
+                      borderWidth: 1,
+                      borderRadius: BorderRadius.circular(10),
+                      activeBorderWidth: 1,
+                      disabledBorderWidth: 1,
+                      inactiveBorderWidth: 1,
+                      errorBorderWidth: 1,
+                      selectedBorderWidth: 1,
+                      activeColor:
+                          otpCodeError == OtpCodeValidationError.incorrect
+                              ? theme.errorColor
+                              : null,
+                      activeFillColor:
+                          otpCodeError == OtpCodeValidationError.incorrect
+                              ? theme.errorColor
+                              : theme.primaryColor,
+                      inactiveColor:
+                          otpCodeError == OtpCodeValidationError.incorrect
+                              ? theme.errorColor
+                              : theme.borderColor,
                     ),
+                    separatorBuilder: (context, index) =>
+                        HorizontalGap.smallMedium(),
                   ),
-                if (otpCodeError == OtpCodeValidationError.incorrect)
-                  Text(
-                    l10n.incorrectOtpCodeErrorMessage,
-                    style: textTheme.bodySmall?.copyWith(
-                      color: theme.errorColor,
+                ),
+                if (otpCodeError != null) ...[
+                  const SizedBox(
+                    height: Spacing.xSmall,
+                  ),
+                  if (otpCodeError == OtpCodeValidationError.empty ||
+                      otpCodeError == OtpCodeValidationError.incomplete)
+                    Text(
+                      l10n.requiredFieldErrorMessage,
+                      style: textTheme.bodySmall?.copyWith(
+                        color: theme.errorColor,
+                      ),
                     ),
-                  ),
+                  if (otpCodeError == OtpCodeValidationError.incorrect)
+                    Text(
+                      l10n.incorrectOtpCodeErrorMessage,
+                      style: textTheme.bodySmall?.copyWith(
+                        color: theme.errorColor,
+                      ),
+                    ),
+                ],
+                VerticalGap.large(),
+                // if (isForgotPassword) ...[
+                const NewPassword(),
+                VerticalGap.xSmall(),
+                const NewPasswordConfirmation(),
+                // ],
+                VerticalGap.large(),
+                const ResendOtp(),
+                VerticalGap.large(),
+                isSubmissionInProgress
+                    ? TymerElevatedButton.inProgress(
+                        label: l10n.verifyingOtpButtonLabel)
+                    : TymerElevatedButton(
+                        label: l10n.verifyOtpButtonLabel,
+                        onTap: cubit.onSubmit,
+                      ),
               ],
-              VerticalGap.large(),
-              const ResendOtp(),
-              VerticalGap.large(),
-              isSubmissionInProgress
-                  ? TymerElevatedButton.inProgress(
-                      label: l10n.verifyingOtpButtonLabel)
-                  : TymerElevatedButton(
-                      label: l10n.verifyOtpButtonLabel,
-                      onTap: cubit.onSubmit,
-                    ),
-            ],
+            ),
           ),
         );
       },

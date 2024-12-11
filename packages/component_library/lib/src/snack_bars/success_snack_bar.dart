@@ -61,6 +61,7 @@ class SuccessSnackBarContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = TymerTheme.of(context);
     final l10n = ComponentLibraryLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -72,7 +73,7 @@ class SuccessSnackBarContent extends StatelessWidget {
         HorizontalGap.xSmall(),
         Text(
           message ?? l10n.successSnackBarMessage,
-          style: theme.materialThemeData.textTheme.titleSmall?.copyWith(
+          style: textTheme.titleSmall?.copyWith(
             color: messageColor ?? theme.orderedVoucherUsedStatusTextColor,
           ),
         ),

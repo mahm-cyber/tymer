@@ -2,7 +2,7 @@ import 'sign_in_localizations.dart';
 
 /// The translations for English (`en`).
 class SignInLocalizationsEn extends SignInLocalizations {
-  SignInLocalizationsEn([super.locale = 'en']);
+  SignInLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
   String get generalErrorSnackBarMessage => 'ٍSomething went wrong';
@@ -50,5 +50,5 @@ class SignInLocalizationsEn extends SignInLocalizations {
   String get signUpButtonLabel => 'Sign Up';
 
   @override
-  String get otpRateLimitExceededExceptionErrorSnackBarMessage => 'Maximum number of OTP requests reached';
+  String get otpRateLimitExceededExceptionErrorSnackBarMessage => 'OTP rate limit exceeded, try again later';
 }

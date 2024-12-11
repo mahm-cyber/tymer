@@ -12,5 +12,23 @@
   "emailNotRegisteredErrorMessage": "The email you entered is not registered",
   "resendOtpButtonLabel": "Resend OTP",
   "changeEmailSubtitle": "Enter the OTP sent to your phone number to change your email",
-  "otpLimitCrossedErrorSnackBarMessage": "Limit of OTP verification attempts crossed"
+     "otpLimitExceededErrorSnackBarMessage": "You have reached the maximum number of OTP requests. Please try again in {seconds} seconds",
+      "@increment_message": {
+        "placeholders": {
+          "times": {
+            "type": "int",
+            "format": "decimalPattern",
+            "example": "123"
+          }
+        }
+      },
+  "newPasswordTextFieldLabel": "New Password",
+  "newPasswordTextFieldWeakPasswordError": "The password is too weak",
+  "newPasswordTextFieldHint": "Enter your new password",
+  "newPasswordConfirmationTextFieldLabel": "Confirm New Password",
+  "newPasswordConfirmationTextFieldHint": "Re-enter your new password",
+  "passwordConfirmationTextFieldDoesNotMatchError": "Passwords do not match",
+  "passwordTextFieldWeakPasswordErrorDescription": "The password must have At least 6 characters long, Contains at least one uppercase letter, Contains at least one lowercase letter, Contains at least one number, Contains at least one symbol (e.g., @, $, !, etc.)",
+  "passwordResetSuccessfullySnackBarMessage": "Password reset successfully"
+
 }

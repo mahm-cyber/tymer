@@ -102,7 +102,7 @@ abstract class ForgotPasswordLocalizations {
   /// No description provided for @otpSentSuccessfullySnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'ٍSomething went wrong'**
+  /// **'OTP sent successfully'**
   String get otpSentSuccessfullySnackBarMessage;
 
   /// No description provided for @generalErrorSnackBarMessage.
@@ -164,6 +164,12 @@ abstract class ForgotPasswordLocalizations {
   /// In en, this message translates to:
   /// **'Phone not registered'**
   String get isNotRegisteredErrorMessage;
+
+  /// No description provided for @otpRateLimitExceededErrorSnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You have reached the maximum number of OTP requests. Please try again in {seconds}'**
+  String otpRateLimitExceededErrorSnackBarMessage(Object seconds);
 }
 
 class _ForgotPasswordLocalizationsDelegate extends LocalizationsDelegate<ForgotPasswordLocalizations> {

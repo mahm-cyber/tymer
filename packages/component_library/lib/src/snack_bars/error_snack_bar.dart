@@ -34,6 +34,7 @@ class ErrorSnackBarContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     final theme = TymerTheme.of(context);
     final colorScheme = theme.materialThemeData.colorScheme;
     final l10n = ComponentLibraryLocalizations.of(context);
@@ -48,7 +49,7 @@ class ErrorSnackBarContent extends StatelessWidget {
         Expanded(
           child: Text(
             message ?? l10n.generalExceptionMessage,
-            style: theme.materialThemeData.textTheme.titleSmall?.copyWith(
+            style: textTheme.titleSmall?.copyWith(
               color: colorScheme.error,
             ),
             maxLines: 2,
