@@ -16,7 +16,8 @@
           }
       }
   },
-  "myLocationInfoWindowTitle": "موقعي"
+  "myLocationInfoWindowTitle": "موقعي",
+  "serviceRequestNotAvailableAnymoreErrorMessage": "الطلب غير متاح"
 
 
 }

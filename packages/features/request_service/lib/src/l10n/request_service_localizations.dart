@@ -188,6 +188,18 @@ abstract class RequestServiceLocalizations {
   /// In en, this message translates to:
   /// **'Request successfully submitted'**
   String get successfulServiceRequestMessage;
+
+  /// No description provided for @selectServiceTypeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Service Type'**
+  String get selectServiceTypeLabel;
+
+  /// No description provided for @additionalCommentsTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Additional Details'**
+  String get additionalCommentsTextFieldLabel;
 }
 
 class _RequestServiceLocalizationsDelegate extends LocalizationsDelegate<RequestServiceLocalizations> {

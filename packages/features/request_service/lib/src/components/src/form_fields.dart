@@ -22,14 +22,14 @@ class _FormFieldsState extends State<FormFields>
     super.build(context);
     return BlocBuilder<RequestServiceCubit, RequestServiceState>(
       builder: (context, state) {
-        final isReservationServiceType =
+        final isReservationService =
             state.serviceType == ServiceType.reservation;
         return Expanded(
           child: ListView(
             children: [
                 VerticalGap.xLarge(),
                 VerticalGap.medium(),
-              if (isReservationServiceType) ...[
+              if (isReservationService) ...[
                 const ReservationServiceTypePicker(),
                 VerticalGap.xSmall(),
                 const ReservationNameTextField(),
@@ -45,6 +45,9 @@ class _FormFieldsState extends State<FormFields>
               VerticalGap.xSmall(),
               const PricePickerTextField(),
               VerticalGap.xSmall(),
+              const AdditionalCommentsTextField(),
+              VerticalGap.xSmall(),
+
             ],
           ),
         );

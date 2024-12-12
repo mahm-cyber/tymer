@@ -54,6 +54,18 @@ class ServiceRequestStatusView extends StatelessWidget {
     return BlocConsumer<ServiceRequestStatusCubit, ServiceRequestStatusState>(
       listener: (context, state) {
         final cubit = context.read<ServiceRequestStatusCubit>();
+        final isAlreadyCancelled =
+            state.service?.status == ServiceStatus.canceled;
+        if(isAlreadyCancelled) {
+          cubit.goBackHome();
+          showSnackBar(
+            context: context,
+            snackBar: ErrorSnackBar(
+              message: l10n.serviceRequestAlreadyCancelledMessage,
+              context: context,
+            ),
+          );
+        }
         if (state.cancellationStatus == CancellationStatus.success) {
           cubit.goBackHome();
           showSnackBar(
@@ -175,6 +187,7 @@ class ServiceRequestStatusView extends StatelessWidget {
                                           ? RequestStatus.done
                                           : RequestStatus.idle,
                                     ),
+                                    VerticalGap.medium(),
                                   ],
                                 ),
                               ),

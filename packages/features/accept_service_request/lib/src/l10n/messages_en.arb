@@ -16,7 +16,8 @@
           }
       }
   },
-  "myLocationInfoWindowTitle": "My Location"
+  "myLocationInfoWindowTitle": "My Location",
+  "serviceRequestNotAvailableAnymoreErrorMessage": "Request is no longer available"
 
 
 

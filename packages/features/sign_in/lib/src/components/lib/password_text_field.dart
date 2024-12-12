@@ -71,6 +71,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
               AssetPathConstants.lockPath,
             ),
             hintText: l10n.passwordTextFieldLabel,
+            helperText: '',
             errorText: passwordError == PasswordValidationError.empty
                 ? l10n.requiredFieldErrorMessage
                 : passwordError == PasswordValidationError.invalidCredentials

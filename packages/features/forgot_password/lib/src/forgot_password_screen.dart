@@ -46,7 +46,6 @@ class ForgotPasswordView extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = TymerTheme.of(context);
     final l10n = ForgotPasswordLocalizations.of(context);
-    final textTheme = Theme.of(context).textTheme;
     return BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
       listenWhen: (oldState, newState) =>
           oldState.submissionStatus != newState.submissionStatus,
@@ -93,11 +92,7 @@ class ForgotPasswordView extends StatelessWidget {
           child: Scaffold(
             appBar: AppBar(
               title: Text(l10n.appBarTitle),
-              iconTheme: IconThemeData(
-                  color: theme.materialThemeData.colorScheme.surface),
-              titleTextStyle: textTheme.titleLarge?.copyWith(
-                color: theme.materialThemeData.colorScheme.surface,
-              ),
+              backgroundColor: theme.materialThemeData.colorScheme.surface,
             ),
             body: Padding(
               padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),

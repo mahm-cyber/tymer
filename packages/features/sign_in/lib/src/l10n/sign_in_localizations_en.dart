@@ -5,6 +5,9 @@ class SignInLocalizationsEn extends SignInLocalizations {
   SignInLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get appBarTitle => 'Sign In';
+
+  @override
   String get generalErrorSnackBarMessage => 'ٍSomething went wrong';
 
   @override

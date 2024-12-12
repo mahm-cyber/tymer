@@ -6,6 +6,8 @@ class IncorrectPasswordTymerException implements Exception {}
 
 class EmailNotRegisteredTymerException implements Exception {}
 
+class ServiceRequestAlreadyProcessedTymerException implements Exception {}
+
 class InvalidOtpTymerException implements Exception {}
 
 class RateLimitedTymerException implements Exception {

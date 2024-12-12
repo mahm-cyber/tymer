@@ -1,5 +1,6 @@
 import 'package:accept_service_request/src/accept_service_request_cubit.dart';
 import 'package:accept_service_request/src/l10n/accept_service_request_localizations.dart';
+import 'package:domain_models/domain_models.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,22 @@ class AcceptServiceRequestView extends StatelessWidget {
         final cubit = context.read<AcceptServiceRequestCubit>();
         if (state.submissionStatus == SubmissionStatus.success) {
           cubit.onAcceptServiceRequestSuccess();
+        }
+        if (state.submissionStatus == SubmissionStatus.failure) {
+          final alreadyAcceptedByAnotherProvider =
+              state.error is ServiceRequestAlreadyProcessed;
+          showSnackBar(
+            context: context,
+            snackBar: ErrorSnackBar(
+              context: context,
+              message: alreadyAcceptedByAnotherProvider
+                  ? l10n.serviceRequestNotAvailableAnymoreErrorMessage
+                  : null,
+            ),
+          );
+          if(alreadyAcceptedByAnotherProvider) {
+            Navigator.of(context).pop();
+          }
         }
       },
       builder: (context, state) {
@@ -99,6 +116,9 @@ class AcceptServiceRequestView extends StatelessWidget {
                                   ),
                                 Marker(
                                   markerId: const MarkerId('service-location'),
+                                  icon: BitmapDescriptor.defaultMarkerWithHue(
+                                    BitmapDescriptor.hueBlue,
+                                  ),
                                   position: latLng,
                                   infoWindow: InfoWindow(
                                     title: l10n.distanceToServiceLocation(
@@ -116,9 +136,11 @@ class AcceptServiceRequestView extends StatelessWidget {
                             children: [
                               VerticalGap.large(),
                               VerticalGap.large(),
-                              ServiceRequestDetailsWidget(
-                                service: state.service!,
-                                onViewServiceOnMap: cubit.onViewServiceOnMap,
+                              Expanded(
+                                child: ServiceRequestDetailsWidget(
+                                  service: state.service!,
+                                  onViewServiceOnMap: cubit.onViewServiceOnMap,
+                                ),
                               ),
                             ],
                           ),

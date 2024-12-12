@@ -2,7 +2,7 @@ part of 'sign_in_cubit.dart';
 
 class SignInState extends Equatable {
   const SignInState({
-    this.shouldRememberCredentials = true,
+    this.shouldRememberCredentials = false,
     this.rememberMeLoading = false,
     this.rememberMe = const RememberMe(),
     this.phone = const Mobile.unvalidated(),

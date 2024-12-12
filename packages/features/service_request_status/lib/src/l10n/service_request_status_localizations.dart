@@ -194,6 +194,12 @@ abstract class ServiceRequestStatusLocalizations {
   /// In en, this message translates to:
   /// **'Additional Notes'**
   String get additionalNotesTextFieldLabel;
+
+  /// No description provided for @serviceRequestAlreadyCancelledMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This request has already been cancelled'**
+  String get serviceRequestAlreadyCancelledMessage;
 }
 
 class _ServiceRequestStatusLocalizationsDelegate extends LocalizationsDelegate<ServiceRequestStatusLocalizations> {

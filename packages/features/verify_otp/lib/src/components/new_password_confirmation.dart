@@ -1,3 +1,4 @@
+import 'package:component_library/component_library.dart';
 import 'package:verify_otp/src/l10n/verify_otp_localizations.dart';
 import 'package:verify_otp/src/verify_otp_cubit.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,9 @@ class _NewPasswordConfirmationState extends State<NewPasswordConfirmation> {
           focusNode: _focusNode,
           decoration: InputDecoration(
             helperText: '',
-
+            prefixIcon: const SvgAsset(
+              AssetPathConstants.lockPath,
+            ),
             suffixIcon: GestureDetector(
               onTap: () =>
                   setState(() => isPasswordVisible = !isPasswordVisible),

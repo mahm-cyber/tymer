@@ -32,5 +32,6 @@ Map<String, dynamic> _$ServiceRequestDetailsRMToJson(
   writeNotNull('date', instance.detailsDate);
   writeNotNull(
       'reservation_service_category_id', instance.reservationServiceCategoryId);
+  writeNotNull('other_details', instance.additionalComments);
   return val;
 }

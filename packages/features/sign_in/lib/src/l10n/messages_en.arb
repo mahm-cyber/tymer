@@ -1,4 +1,5 @@
 {
+  "appBarTitle": "Sign In",
   "generalErrorSnackBarMessage": "ٍSomething went wrong",
   "invalidCredentialsErrorMessage": "Incorrect phone or password",
   "requiredFieldErrorMessage": "Required*",

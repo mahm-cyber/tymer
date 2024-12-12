@@ -155,6 +155,8 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
 
     final isVerificationReasonForgotPassword =
         state.otpVerification?.reason == OtpVerificationReason.forgotPassword;
+    final isVerificationReasonRegister =
+        state.otpVerification?.reason == OtpVerificationReason.register;
     final isFormValid = Formz.validate([
       otpCode,
       if (isVerificationReasonForgotPassword) ...[
@@ -183,9 +185,13 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
             newPassword: newPassword.value!,
             newPasswordConfirmation: newPassword.value!,
           );
-        } else {
+        } else if (isVerificationReasonRegister) {
           await userRepository.verifyOtp(
             otpCode.value,
+          );
+          await userRepository.signIn(
+            phone: state.otpVerification!.phone,
+            password: state.otpVerification!.password!,
           );
         }
 

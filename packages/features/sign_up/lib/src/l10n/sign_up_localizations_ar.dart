@@ -2,10 +2,10 @@ import 'sign_up_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class SignUpLocalizationsAr extends SignUpLocalizations {
-  SignUpLocalizationsAr([super.locale = 'ar']);
+  SignUpLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get appBarTitle => 'إنشاء حساب';
+  String get appBarTitle => 'إنشاء حساب جديد';
 
   @override
   String get signInButtonText => 'تسجيل الدخول';
@@ -74,11 +74,14 @@ class SignUpLocalizationsAr extends SignUpLocalizations {
   String get termsAndConditionsBottomSheetTitle => 'البنود والشروط';
 
   @override
-  String get agreeAndAcceptAllButtonText => 'موافق وقبول الكل';
+  String get agreeAndAcceptAllButtonText => 'الموافقة على الشروط والأحكام';
 
   @override
   String get signUpSuccessMessage => 'تم إرسال رمز التحقق إلى هاتفك';
 
   @override
   String get signUpFailureMessage => 'فشل إنشاء الحساب، حاول مرة أخرى';
+
+  @override
+  String get passwordTextFieldWeakPasswordErrorDescription => 'يجب أن تستوفي كلمة المرور المعايير التالية: - لا يقل طوله عن 6 أحرف - تحتوي على حرف كبير واحد على الأقل - تحتوي على حرف صغير واحد على الأقل - تحتوي على رقم واحد على الأقل - تحتوي على رمز واحد على الأقل (على سبيل المثال، @، \$، !، إلخ.)';
 }

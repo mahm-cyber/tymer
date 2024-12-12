@@ -5,6 +5,9 @@ class SignInLocalizationsAr extends SignInLocalizations {
   SignInLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
+  String get appBarTitle => 'تسجيل الدخول';
+
+  @override
   String get generalErrorSnackBarMessage => 'حدث خطأ ما';
 
   @override

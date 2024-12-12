@@ -57,11 +57,14 @@ class TymerApi {
       phone: '+2$phone',
       password: password,
     ).toJson();
-
+    final requestJsonBodyWithRemember = {
+      ...requestJsonBody,
+      'remember': true,
+    };
     try {
       final response = await _dio.post(
         url,
-        data: requestJsonBody,
+        data: requestJsonBodyWithRemember,
       );
       final token = response.data[_accessTokenJsonKey];
       return token;
@@ -151,7 +154,8 @@ class TymerApi {
         // extract the integer from this string لقد قمت بعمل الكثير من الطلبات. يرجى المحاولة مرة أخرى بعد 137 ثانية.
         final rateLimitedMessage = errorObject[_messageJsonKey] as String;
         final rateLimitedSeconds = int.parse(
-          rateLimitedMessage.split(' ')[rateLimitedMessage.split(' ').length - 2],
+          rateLimitedMessage
+              .split(' ')[rateLimitedMessage.split(' ').length - 2],
         );
         throw RateLimitedTymerException(rateLimitedSeconds);
       }
@@ -176,7 +180,8 @@ class TymerApi {
       if (errorObject[_codeJsonKey].contains('RATE_LIMITED')) {
         final rateLimitedMessage = errorObject[_messageJsonKey] as String;
         final rateLimitedSeconds = int.parse(
-          rateLimitedMessage.split(' ')[rateLimitedMessage.split(' ').length - 2],
+          rateLimitedMessage
+              .split(' ')[rateLimitedMessage.split(' ').length - 2],
         );
         throw RateLimitedTymerException(rateLimitedSeconds);
       }
@@ -205,7 +210,8 @@ class TymerApi {
       if (errorObject[_codeJsonKey].contains('RATE_LIMITED')) {
         final rateLimitedMessage = errorObject[_messageJsonKey] as String;
         final rateLimitedSeconds = int.parse(
-          rateLimitedMessage.split(' ')[rateLimitedMessage.split(' ').length - 2],
+          rateLimitedMessage
+              .split(' ')[rateLimitedMessage.split(' ').length - 2],
         );
         throw RateLimitedTymerException(rateLimitedSeconds);
       }
@@ -240,9 +246,11 @@ class TymerApi {
       if (errorObject[_codeJsonKey].contains('RATE_LIMITED')) {
         final rateLimitedMessage = errorObject[_messageJsonKey] as String;
         final rateLimitedSeconds = int.parse(
-          rateLimitedMessage.split(' ')[rateLimitedMessage.split(' ').length - 2],
+          rateLimitedMessage
+              .split(' ')[rateLimitedMessage.split(' ').length - 2],
         );
-        throw RateLimitedTymerException(rateLimitedSeconds);      }
+        throw RateLimitedTymerException(rateLimitedSeconds);
+      }
       rethrow;
     }
   }
@@ -321,9 +329,14 @@ class TymerApi {
     final url = urlBuilder.buildAcceptServiceRequestUrl(
       serviceRequestId: serviceRequestId,
     );
+
     try {
       await _dio.post(url);
-    } catch (_) {
+    } on DioException catch (error) {
+      final errorObject = error.response?.data[_errorJsonKey][_codeJsonKey];
+      if (errorObject.contains('SERVICE_REQUEST_ALREADY_PROCESSED')) {
+        throw ServiceRequestAlreadyProcessedTymerException();
+      }
       rethrow;
     }
   }
@@ -466,6 +479,7 @@ extension on Dio {
           options.headers.addAll(
             {
               "Accept": "application/json",
+              // if (token != null) "Authorization": "Bearer 213|kjjsOyXpt2rxcZkVgnMJGmAOD26r0uIolCJqn8YNd4065eds",
               if (token != null) "Authorization": "Bearer $token",
               "X-API-Key": "01f64a264be7442a9008abda93d5d6ae",
             },

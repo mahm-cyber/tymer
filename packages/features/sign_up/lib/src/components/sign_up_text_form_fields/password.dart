@@ -45,6 +45,7 @@ class _PasswordState extends State<Password> {
             state.password.isNotValid ? state.password.error : null;
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
+        final textTheme = Theme.of(context).textTheme;
         final l10n = SignUpLocalizations.of(context);
         return TextField(
           textInputAction: TextInputAction.next,
@@ -53,9 +54,30 @@ class _PasswordState extends State<Password> {
           enabled: !isSubmissionInProgress,
           obscureText: !isPasswordVisible,
           decoration: InputDecoration(
-            prefixIcon: const SvgAsset(
-              AssetPathConstants.lockPath,
-            ),
+            prefixIcon: passwordError == PasswordValidationError.weak
+                ? GestureDetector(
+                    onTap: () => showModalBottomSheet(
+                      context: context,
+                      showDragHandle: true,
+                      builder: (context) => Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          l10n.passwordTextFieldWeakPasswordErrorDescription,
+                          style: textTheme.titleMedium,
+                        ),
+                      ),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Icon(
+                        Icons.info_outline,
+                        color: Colors.red,
+                      ),
+                    ),
+                  )
+                : const SvgAsset(
+                    AssetPathConstants.lockPath,
+                  ),
             suffixIcon: GestureDetector(
               onTap: () =>
                   setState(() => isPasswordVisible = !isPasswordVisible),

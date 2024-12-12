@@ -48,6 +48,7 @@ class _PhoneState extends State<Phone> {
         return TextField(
           focusNode: _focusNode,
           onChanged: cubit.onPhoneChanged,
+          keyboardType: TextInputType.phone,
           decoration: InputDecoration(
             prefixIcon: const SvgAsset(
               AssetPathConstants.mobilePath,

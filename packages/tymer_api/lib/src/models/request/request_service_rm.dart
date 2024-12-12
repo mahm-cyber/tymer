@@ -34,6 +34,7 @@ class ServiceRequestDetailsRM {
     this.reservationDate,
     this.detailsDate,
     this.reservationServiceCategoryId,
+    this.additionalComments,
   });
 
   @JsonKey(name: 'place_name')
@@ -48,6 +49,8 @@ class ServiceRequestDetailsRM {
   final String? detailsDate;
   @JsonKey(name: 'reservation_service_category_id', includeIfNull: false)
   final int? reservationServiceCategoryId;
+  @JsonKey(name: 'other_details', includeIfNull: false)
+  final String? additionalComments;
 
   Map<String, dynamic> toJson() => _$ServiceRequestDetailsRMToJson(this);
 }

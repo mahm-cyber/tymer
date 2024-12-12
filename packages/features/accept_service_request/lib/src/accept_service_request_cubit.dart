@@ -1,4 +1,3 @@
-
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
@@ -50,8 +49,11 @@ class AcceptServiceRequestCubit extends Cubit<AcceptServiceRequestState> {
         serviceRequestId: state.service!.id!,
       );
       emit(state.copyWith(submissionStatus: SubmissionStatus.success));
-    } catch (e) {
-      emit(state.copyWith(submissionStatus: SubmissionStatus.failure));
+    } catch (error) {
+      emit(state.copyWith(
+        submissionStatus: SubmissionStatus.failure,
+        error: error,
+      ));
     }
   }
 }

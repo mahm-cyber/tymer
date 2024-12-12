@@ -116,6 +116,8 @@ class SignInCubit extends Cubit<SignInState> {
     final rememberMeLoadingDone = state.copyWith(rememberMeLoading: false);
     emit(rememberMeLoadingDone);
   }
+
+
   void onSubmit() async {
     final phone = Mobile.validated(
       state.phone.value,
@@ -151,6 +153,8 @@ class SignInCubit extends Cubit<SignInState> {
             phone: phone.value!,
             password: password.value!,
           );
+        } else {
+          await userRepository.deleteRememberedCredentials();
         }
         await userRepository.getReservationServiceTypes(FetchPolicy.networkOnly);
         final newState = state.copyWith(

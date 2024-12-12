@@ -96,7 +96,7 @@ abstract class SignUpLocalizations {
   /// No description provided for @appBarTitle.
   ///
   /// In en, this message translates to:
-  /// **'Sign Up'**
+  /// **'Create New Account'**
   String get appBarTitle;
 
   /// No description provided for @signInButtonText.
@@ -234,7 +234,7 @@ abstract class SignUpLocalizations {
   /// No description provided for @agreeAndAcceptAllButtonText.
   ///
   /// In en, this message translates to:
-  /// **'Agree and Accept All'**
+  /// **'Agree to Terms and Conditions'**
   String get agreeAndAcceptAllButtonText;
 
   /// No description provided for @signUpSuccessMessage.
@@ -248,6 +248,12 @@ abstract class SignUpLocalizations {
   /// In en, this message translates to:
   /// **'Sign Up Failed, try again'**
   String get signUpFailureMessage;
+
+  /// No description provided for @passwordTextFieldWeakPasswordErrorDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The password must have At least 6 characters long, Contains at least one uppercase letter, Contains at least one lowercase letter, Contains at least one number, Contains at least one symbol (e.g., @, '**
+  String get passwordTextFieldWeakPasswordErrorDescription;
 }
 
 class _SignUpLocalizationsDelegate extends LocalizationsDelegate<SignUpLocalizations> {

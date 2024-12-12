@@ -158,6 +158,12 @@ abstract class AcceptServiceRequestLocalizations {
   /// In en, this message translates to:
   /// **'My Location'**
   String get myLocationInfoWindowTitle;
+
+  /// No description provided for @serviceRequestNotAvailableAnymoreErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Request is no longer available'**
+  String get serviceRequestNotAvailableAnymoreErrorMessage;
 }
 
 class _AcceptServiceRequestLocalizationsDelegate extends LocalizationsDelegate<AcceptServiceRequestLocalizations> {

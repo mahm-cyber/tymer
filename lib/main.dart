@@ -91,7 +91,6 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
       _signInSuccessVN.value = user?.phone != null;
     });
     _userRepository.getReservationServiceTypes(FetchPolicy.networkOnly);
-    // _userRepository.upsertLocalePreference(LocalePreferenceDM.arabic);
     WidgetsBinding.instance.addObserver(this);
   }
 

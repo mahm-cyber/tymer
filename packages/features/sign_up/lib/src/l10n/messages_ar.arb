@@ -1,5 +1,5 @@
 {
-  "appBarTitle": "إنشاء حساب",
+  "appBarTitle": "إنشاء حساب جديد",
   "signInButtonText": "تسجيل الدخول",
   "emailTextFieldLabel": "عنوان البريد الإلكتروني",
   "emailTextFieldHint": "أدخل بريدك الإلكتروني",
@@ -22,8 +22,10 @@
   "alreadyHaveAnAccount": "هل لديك حساب بالفعل؟",
   "invalidMobileFormatErrorMessage": "تنسيق رقم الهاتف المحمول غير صالح.",
   "termsAndConditionsBottomSheetTitle": "البنود والشروط",
-  "agreeAndAcceptAllButtonText": "موافق وقبول الكل",
+  "agreeAndAcceptAllButtonText": "الموافقة على الشروط والأحكام",
   "signUpSuccessMessage": "تم إرسال رمز التحقق إلى هاتفك",
-  "signUpFailureMessage": "فشل إنشاء الحساب، حاول مرة أخرى"
+  "signUpFailureMessage": "فشل إنشاء الحساب، حاول مرة أخرى",
+  "passwordTextFieldWeakPasswordErrorDescription": "يجب أن تستوفي كلمة المرور المعايير التالية: - لا يقل طوله عن 6 أحرف - تحتوي على حرف كبير واحد على الأقل - تحتوي على حرف صغير واحد على الأقل - تحتوي على رقم واحد على الأقل - تحتوي على رمز واحد على الأقل (على سبيل المثال، @، $، !، إلخ.)"
+
 
 }

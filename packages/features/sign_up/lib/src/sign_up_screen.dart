@@ -77,22 +77,18 @@ class SignUpView extends StatelessWidget {
       },
       builder: (context, state) {
         final theme = TymerTheme.of(context);
-        final textTheme = Theme.of(context).textTheme;
         final l10n = SignUpLocalizations.of(context);
+        final colorScheme = Theme.of(context).colorScheme;
+
         return GestureDetector(
           onTap: () {
             context.releaseFocus();
           },
           child: Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.white,
-              title: Text(
-                l10n.appBarTitle,
-                style: textTheme.titleMedium,
-              ),
-              automaticallyImplyLeading: true,
-            ),
-            body: Padding(
+              title: Text(l10n.appBarTitle),
+              backgroundColor: colorScheme.surface,
+            ),            body: Padding(
               padding: EdgeInsets.symmetric(horizontal: theme.screenMargin * 2),
               child: Column(
                 children: [

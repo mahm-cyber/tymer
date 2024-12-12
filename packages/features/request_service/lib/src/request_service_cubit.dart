@@ -176,6 +176,13 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
     emit(newState);
   }
 
+  void onAdditionalCommentsChanged(String value) {
+    final newState = state.copyWith(
+      additionalComments: Dynamic<String?>.unvalidated(value),
+    );
+    emit(newState);
+  }
+
   void onSubmit() async {
     final reservationServiceType = Dynamic<ReservationServiceType?>.validated(
       state.selectedReservationServiceType.value,
@@ -242,6 +249,7 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
           reservedFor: reservationName.value,
           date: date.value!,
           reservationServiceType: reservationServiceType.value,
+          additionalComments: state.additionalComments.value,
         );
 
         final newState = state.copyWith(

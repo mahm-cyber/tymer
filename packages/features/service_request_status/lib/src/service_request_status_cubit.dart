@@ -27,11 +27,11 @@ class ServiceRequestStatusCubit extends Cubit<ServiceRequestStatusState> {
     _timer = Timer.periodic(
       const Duration(seconds: 1),
       (timer) async {
+        await getService();
         if (state.service?.status == ServiceStatus.completed ||
             state.service?.status == ServiceStatus.pendingReview) {
           timer.cancel();
         }
-        await getService();
       },
     );
   }
@@ -54,11 +54,11 @@ class ServiceRequestStatusCubit extends Cubit<ServiceRequestStatusState> {
         fetchStatus: FetchStatus.loaded,
         service: service,
       );
-      emit(loaded);
+      if(!isClosed)emit(loaded);
       return service;
     } catch (error) {
       final errorState = state.copyWith(fetchStatus: FetchStatus.error);
-      emit(errorState);
+      if(!isClosed)emit(errorState);
       rethrow;
     }
   }

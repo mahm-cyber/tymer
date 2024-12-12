@@ -15,13 +15,13 @@ import 'components/components.dart';
 class VerifyOtpScreen extends StatelessWidget {
   const VerifyOtpScreen({
     required this.userRepository,
-    required this.onVerifyOtpSuccess,
+    required this.onRegistrationVerifyOtpSuccess,
     required this.onResetPasswordSuccess,
     super.key,
   });
 
   final UserRepository userRepository;
-  final VoidCallback onVerifyOtpSuccess;
+  final VoidCallback onRegistrationVerifyOtpSuccess;
   final VoidCallback onResetPasswordSuccess;
 
   @override
@@ -32,7 +32,7 @@ class VerifyOtpScreen extends StatelessWidget {
         onResetPasswordSuccess: onResetPasswordSuccess,
       ),
       child: VerifyOtpView(
-        onVerifyOtpSuccess: onVerifyOtpSuccess,
+        onRegistrationVerifyOtpSuccess: onRegistrationVerifyOtpSuccess,
       ),
     );
   }
@@ -40,11 +40,11 @@ class VerifyOtpScreen extends StatelessWidget {
 
 class VerifyOtpView extends StatelessWidget {
   const VerifyOtpView({
-    required this.onVerifyOtpSuccess,
+    required this.onRegistrationVerifyOtpSuccess,
     super.key,
   });
 
-  final VoidCallback onVerifyOtpSuccess;
+  final VoidCallback onRegistrationVerifyOtpSuccess;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class VerifyOtpView extends StatelessWidget {
         ),
         extendBody: true,
         body: _VerifyOtpForm(
-          onVerifyOtpSuccess: onVerifyOtpSuccess,
+          onRegistrationVerifyOtpSuccess: onRegistrationVerifyOtpSuccess,
         ),
       ),
     );
@@ -72,10 +72,10 @@ class VerifyOtpView extends StatelessWidget {
 
 class _VerifyOtpForm extends StatelessWidget {
   const _VerifyOtpForm({
-    required this.onVerifyOtpSuccess,
+    required this.onRegistrationVerifyOtpSuccess,
   });
 
-  final VoidCallback onVerifyOtpSuccess;
+  final VoidCallback onRegistrationVerifyOtpSuccess;
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +87,7 @@ class _VerifyOtpForm extends StatelessWidget {
       listener: (context, state) {
         final isForgotPassword = state.otpVerification?.reason ==
             OtpVerificationReason.forgotPassword;
+        final cubit = context.read<VerifyOtpCubit>();
         if (state.otpCode.limitExceeded != null) {
           showSnackBar(
             context: context,
@@ -125,9 +126,9 @@ class _VerifyOtpForm extends StatelessWidget {
             ),
           );
           if (isForgotPassword) {
-            onVerifyOtpSuccess();
+            cubit.onResetPasswordSuccess();
           } else {
-            onVerifyOtpSuccess();
+            onRegistrationVerifyOtpSuccess();
           }
           return;
         }
@@ -153,8 +154,8 @@ class _VerifyOtpForm extends StatelessWidget {
         final theme = TymerTheme.of(context);
         final colorScheme =
             TymerTheme.of(context).materialThemeData.colorScheme;
-        // final isForgotPassword = state.otpVerification?.reason ==
-        //     OtpVerificationReason.forgotPassword;
+        final isForgotPassword = state.otpVerification?.reason ==
+            OtpVerificationReason.forgotPassword;
         return Center(
           child: SingleChildScrollView(
             padding: EdgeInsets.symmetric(
@@ -262,11 +263,11 @@ class _VerifyOtpForm extends StatelessWidget {
                     ),
                 ],
                 VerticalGap.large(),
-                // if (isForgotPassword) ...[
+                if (isForgotPassword) ...[
                 const NewPassword(),
                 VerticalGap.xSmall(),
                 const NewPasswordConfirmation(),
-                // ],
+                ],
                 VerticalGap.large(),
                 const ResendOtp(),
                 VerticalGap.large(),

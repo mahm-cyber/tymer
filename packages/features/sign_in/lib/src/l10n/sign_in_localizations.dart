@@ -93,6 +93,12 @@ abstract class SignInLocalizations {
     Locale('en')
   ];
 
+  /// No description provided for @appBarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In'**
+  String get appBarTitle;
+
   /// No description provided for @generalErrorSnackBarMessage.
   ///
   /// In en, this message translates to:

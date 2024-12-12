@@ -45,7 +45,6 @@ class DatePickerTextField extends StatelessWidget {
                     color: state.date.value != null ? theme.primaryColor : null,
                   ),
                   decoration: InputDecoration(
-
                     suffixIcon: const Icon(
                       Icons.calendar_month,
                       size: 24,
@@ -76,11 +75,11 @@ class DatePickerTextField extends StatelessWidget {
                       ),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    labelStyle: TextStyle(
-                      color: dateError != null
-                          ? colorScheme.error
-                          : colorScheme.onSurface,
-                    ),
+                    // labelStyle: TextStyle(
+                    //   color: dateError != null
+                    //       ? colorScheme.error
+                    //       : colorScheme.onSurface,
+                    // ),
                   ),
                   readOnly: true,
                 ),

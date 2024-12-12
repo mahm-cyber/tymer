@@ -52,7 +52,7 @@ class ErrorSnackBarContent extends StatelessWidget {
             style: textTheme.titleSmall?.copyWith(
               color: colorScheme.error,
             ),
-            maxLines: 2,
+            // maxLines: 2,
           ),
         ),
       ],

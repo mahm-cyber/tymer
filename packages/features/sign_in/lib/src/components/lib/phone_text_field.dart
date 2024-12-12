@@ -46,12 +46,13 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
         enabled: !isSubmissionInProgress,
         focusNode: _phoneFocusNode,
         onChanged: cubit.onPhoneChanged,
+        keyboardType: TextInputType.phone,
         decoration: InputDecoration(
           isDense: true,
           labelText: l10n.phoneTextFieldLabel,
           helperText: '',
           prefixIcon: const SvgAsset(
-            AssetPathConstants.emailPath,
+            AssetPathConstants.mobilePath,
           ),
           hintText: l10n.phoneTextFieldLabel,
           errorText: phoneError == MobileValidationError.empty

@@ -2,7 +2,7 @@ import 'service_request_status_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class ServiceRequestStatusLocalizationsAr extends ServiceRequestStatusLocalizations {
-  ServiceRequestStatusLocalizationsAr([super.locale = 'ar']);
+  ServiceRequestStatusLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get appBarTitle => 'حالة الطلب';
@@ -54,4 +54,7 @@ class ServiceRequestStatusLocalizationsAr extends ServiceRequestStatusLocalizati
 
   @override
   String get additionalNotesTextFieldLabel => 'ملاحظات إضافية';
+
+  @override
+  String get serviceRequestAlreadyCancelledMessage => 'تم إلغاء هذا الطلب من قبل';
 }

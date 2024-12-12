@@ -69,11 +69,11 @@ class LocationPickerTextField extends StatelessWidget {
                       ),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    labelStyle: TextStyle(
-                      color: locationError != null
-                          ? colorScheme.error
-                          : colorScheme.onSurface,
-                    ),
+                    // labelStyle: TextStyle(
+                    //   color: locationError != null
+                    //       ? colorScheme.error
+                    //       : colorScheme.onSurface,
+                    // ),
                   ),
                   readOnly: true,
                 ),

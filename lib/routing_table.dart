@@ -98,6 +98,7 @@ Map<String, PageBuilder> buildRoutingTable({
             onSignInSuccess: () async {
               await routerDelegate.popRoute();
               signInSuccessVN.value = true;
+              routerDelegate.push(_PathConstants.homePath);
             },
             onForgotPasswordTapped: () {
               routerDelegate.push(_PathConstants.forgotPasswordPath);
@@ -108,9 +109,10 @@ Map<String, PageBuilder> buildRoutingTable({
           name: 'verify-otp',
           child: VerifyOtpScreen(
             userRepository: userRepository,
-            onVerifyOtpSuccess: () async {
+            onRegistrationVerifyOtpSuccess: () async {
               await routerDelegate.popRoute();
               signInSuccessVN.value = true;
+              routerDelegate.push(_PathConstants.homePath);
             },
             onResetPasswordSuccess: () async {
               await routerDelegate.popRoute();

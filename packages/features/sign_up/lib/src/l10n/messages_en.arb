@@ -1,5 +1,5 @@
 {
-  "appBarTitle": "Sign Up",
+  "appBarTitle": "Create New Account",
   "signInButtonText": "Sign In",
   "emailTextFieldLabel": "Email Address",
   "emailTextFieldHint": "Enter your email",
@@ -22,7 +22,8 @@
   "alreadyHaveAnAccount": "Already have an account?",
   "invalidMobileFormatErrorMessage": "Invalid mobile number format",
   "termsAndConditionsBottomSheetTitle": "Terms and Conditions",
-  "agreeAndAcceptAllButtonText": "Agree and Accept All",
+  "agreeAndAcceptAllButtonText": "Agree to Terms and Conditions",
   "signUpSuccessMessage": "An OTP has been sent to your phone",
-  "signUpFailureMessage": "Sign Up Failed, try again"
+  "signUpFailureMessage": "Sign Up Failed, try again",
+  "passwordTextFieldWeakPasswordErrorDescription": "The password must have At least 6 characters long, Contains at least one uppercase letter, Contains at least one lowercase letter, Contains at least one number, Contains at least one symbol (e.g., @, "
 }

@@ -110,6 +110,12 @@ class LightTymerThemeData extends TymerThemeData {
             vertical: Spacing.mediumLarge,
             horizontal: Spacing.medium,
           ),
+          labelStyle:  TextStyle(
+            color: const Color(0xFF6C6C6C).withOpacity(0.5),
+          ),
+          hintStyle:  TextStyle(
+            color: const Color(0xFF6C6C6C).withOpacity(0.6),
+          ),
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(textFieldBorderRadius),
             borderSide: BorderSide(color: borderColor, width: 1),

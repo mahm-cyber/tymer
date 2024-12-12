@@ -2,10 +2,10 @@ import 'sign_up_localizations.dart';
 
 /// The translations for English (`en`).
 class SignUpLocalizationsEn extends SignUpLocalizations {
-  SignUpLocalizationsEn([super.locale = 'en']);
+  SignUpLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appBarTitle => 'Sign Up';
+  String get appBarTitle => 'Create New Account';
 
   @override
   String get signInButtonText => 'Sign In';
@@ -74,11 +74,14 @@ class SignUpLocalizationsEn extends SignUpLocalizations {
   String get termsAndConditionsBottomSheetTitle => 'Terms and Conditions';
 
   @override
-  String get agreeAndAcceptAllButtonText => 'Agree and Accept All';
+  String get agreeAndAcceptAllButtonText => 'Agree to Terms and Conditions';
 
   @override
   String get signUpSuccessMessage => 'An OTP has been sent to your phone';
 
   @override
   String get signUpFailureMessage => 'Sign Up Failed, try again';
+
+  @override
+  String get passwordTextFieldWeakPasswordErrorDescription => 'The password must have At least 6 characters long, Contains at least one uppercase letter, Contains at least one lowercase letter, Contains at least one number, Contains at least one symbol (e.g., @, ';
 }

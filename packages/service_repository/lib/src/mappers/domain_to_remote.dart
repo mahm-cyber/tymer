@@ -32,6 +32,7 @@ extension RequestServiceDMtoRM on Service {
         reservationServiceCategoryId: type == ServiceType.reservation
             ? details!.reservationServiceCategory!.id
             : null,
+        additionalComments: details!.additionalComments,
       ),
     );
   }

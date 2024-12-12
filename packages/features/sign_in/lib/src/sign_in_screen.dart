@@ -116,7 +116,12 @@ class _SignInForm extends StatelessWidget {
       builder: (context, state) {
         final theme = TymerTheme.of(context);
         final l10n = SignInLocalizations.of(context);
+        final colorScheme = Theme.of(context).colorScheme;
         return Scaffold(
+          appBar: AppBar(
+            title: Text(l10n.appBarTitle),
+            backgroundColor: colorScheme.surface,
+          ),
           body: Center(
             child: ListView(
               shrinkWrap: true,
@@ -137,12 +142,12 @@ class _SignInForm extends StatelessWidget {
                 VerticalGap.xLarge(),
                 const SignInButton(),
                 VerticalGap.xLarge(),
-                Text(
-                  l10n.orLoginWith,
-                  textAlign: TextAlign.center,
-                ),
-                VerticalGap.large(),
-                const SocialSignIn(),
+                // Text(
+                //   l10n.orLoginWith,
+                //   textAlign: TextAlign.center,
+                // ),
+                // VerticalGap.large(),
+                // const SocialSignIn(),
                 VerticalGap.xLarge(),
                 const GoToSignUp()
               ],

@@ -14,7 +14,9 @@
   "requestServiceButtonLabel": "Request Service",
   "insufficientBalanceMessage": "Your balance is insufficient. Please top up",
   "addFundsButtonLabel": "Go to Wallet",
-    "successfulServiceRequestMessage": "Request successfully submitted"
+    "successfulServiceRequestMessage": "Request successfully submitted",
+    "selectServiceTypeLabel": "Select Service Type",
+    "additionalCommentsTextFieldLabel": "Additional Details"
 
 
 

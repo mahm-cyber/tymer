@@ -146,24 +146,26 @@ class UserRepository {
         phone: phone,
         passwordConfirmation: passwordConfirmation,
       );
+
       await _secureStorage.upsertUserToken(token: token);
       final otpVerification = OtpVerification(
         phone: phone,
+        password: password,
         reason: OtpVerificationReason.register,
       );
       changeNotifier.setOtpVerification(otpVerification);
-      final userRM = await remoteApi.getUser();
-      final userDM = userRM.toDomainModel();
-      await _secureStorage.upsertUser(
-        id: userRM.id,
-        name: name,
-        email: email,
-        phone: phone,
-      );
-
-      _userSubject.add(
-        userDM,
-      );
+      // final userRM = await remoteApi.getUser();
+      // final userDM = userRM.toDomainModel();
+      // await _secureStorage.upsertUser(
+      //   id: userRM.id,
+      //   name: name,
+      //   email: email,
+      //   phone: phone,
+      // );
+      //
+      // _userSubject.add(
+      //   userDM,
+      // );
     } catch (error) {
       if (error is EmailAlreadyRegisteredTymerException) {
         throw EmailAlreadyRegisteredException();

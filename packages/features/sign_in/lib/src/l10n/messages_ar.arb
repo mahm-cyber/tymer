@@ -1,4 +1,5 @@
 {
+  "appBarTitle": "تسجيل الدخول",
   "generalErrorSnackBarMessage": "حدث خطأ ما",
   "invalidCredentialsErrorMessage": "الهاتف او كلمة مرور خطأ",
   "requiredFieldErrorMessage": "مطلوب*",

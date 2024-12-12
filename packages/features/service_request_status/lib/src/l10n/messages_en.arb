@@ -15,6 +15,7 @@
  "reservationNumberTextFieldLabel": "Reservation Number",
   "dateTextFieldLabel": "Date",
   "timeTextFieldLabel": "Time",
-  "additionalNotesTextFieldLabel": "Additional Notes"
+  "additionalNotesTextFieldLabel": "Additional Notes",
+  "serviceRequestAlreadyCancelledMessage": "This request has already been cancelled"
 
 }

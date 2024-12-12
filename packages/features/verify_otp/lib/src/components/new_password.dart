@@ -1,3 +1,4 @@
+import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
@@ -50,10 +51,9 @@ class _NewPasswordState extends State<NewPassword> {
           obscuringCharacter: '*',
           obscureText: !isPasswordVisible,
           focusNode: _focusNode,
-
           decoration: InputDecoration(
             helperText: '',
-            prefix: error == PasswordValidationError.weak
+            prefixIcon: error == PasswordValidationError.weak
                 ? GestureDetector(
                     onTap: () => showModalBottomSheet(
                       context: context,
@@ -74,7 +74,9 @@ class _NewPasswordState extends State<NewPassword> {
                       ),
                     ),
                   )
-                : null,
+                : const SvgAsset(
+                    AssetPathConstants.lockPath,
+                  ),
             prefixIconConstraints: const BoxConstraints(
               minWidth: 0,
               minHeight: 0,

@@ -29,6 +29,9 @@ class GoogleMapWidget extends StatelessWidget {
             body: Stack(
               children: [
                 GoogleMap(
+                  myLocationButtonEnabled: true,
+                  myLocationEnabled: true,
+
                   onTap: (LatLng latLng) {
                     cubit.onLocationChanged(latLng);
                   },
@@ -54,7 +57,7 @@ class GoogleMapWidget extends StatelessWidget {
                   right: 0,
                   child: Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: theme.screenMargin,
+                      horizontal: theme.screenMargin *4,
                       vertical: Spacing.medium,
                     ),
                     child: TymerElevatedButton(

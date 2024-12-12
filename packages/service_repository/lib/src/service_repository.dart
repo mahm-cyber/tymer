@@ -29,6 +29,7 @@ class ServiceRepository {
     required String placeName,
     required String placeAddress,
     String? reservedFor,
+    String? additionalComments,
     required DateTime date,
     ReservationServiceType? reservationServiceType,
   }) async {
@@ -48,6 +49,7 @@ class ServiceRepository {
         reservedFor: reservedFor,
         date: date,
         reservationServiceCategory: reservationServiceType,
+        additionalComments: additionalComments,
       ),
     ).toRemoteModel();
     try {
@@ -105,6 +107,10 @@ class ServiceRepository {
         serviceRequestId: serviceRequestId,
       );
     } catch (error) {
+      //ServiceRequestAlreadyProcessedTymerException
+      if (error is ServiceRequestAlreadyProcessedTymerException) {
+        throw ServiceRequestAlreadyProcessed();
+      }
       rethrow;
     }
   }

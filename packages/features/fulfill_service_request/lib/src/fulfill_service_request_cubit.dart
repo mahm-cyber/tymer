@@ -200,23 +200,25 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
           : FormzSubmissionStatus.initial,
     );
     emit(newState);
-    try {
-      await serviceRepository.fulfillServiceRequest(
-        serviceRequestDetails: state.service!,
-        reservationNumber: reservationNumber.value,
-        day: day.value,
-        time: time.value,
-        additionalDetails: state.additionalDetails,
-        imageBytes: state.imageBytes,
-      );
+    if (isFormValid) {
+      try {
+        await serviceRepository.fulfillServiceRequest(
+          serviceRequestDetails: state.service!,
+          reservationNumber: reservationNumber.value,
+          day: day.value,
+          time: time.value,
+          additionalDetails: state.additionalDetails,
+          imageBytes: state.imageBytes,
+        );
 
-      pollRequestConfirmation(
-        time: time,
-        day: day,
-        reservationNumber: reservationNumber,
-      );
-    } catch (e) {
-      emit(state.copyWith(submissionStatus: FormzSubmissionStatus.failure));
+        pollRequestConfirmation(
+          time: time,
+          day: day,
+          reservationNumber: reservationNumber,
+        );
+      } catch (e) {
+        emit(state.copyWith(submissionStatus: FormzSubmissionStatus.failure));
+      }
     }
   }
 
