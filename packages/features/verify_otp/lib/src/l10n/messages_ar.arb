@@ -1,27 +1,16 @@
 {
-  "verifyOtpTitle": "تفقد بريدك الإلكتروني !",
+  "verifyOtpTitle": "أدخل الرمز للمتابعة",
   "otpResentSuccessfullySnackBarMessage": "تم إرسال الرمز بنجاح",
   "otpResentErrorSnackBarMessage": "حدث خطأ أثناء إرسال الرمز",
   "otpVerifiedSuccessfullySnackBarMessage": "تم تأكيد الرمز بنجاح",
   "generalErrorSnackBarMessage": "حدث خطأ ما",
-  "verifyOtpSubtitle": "يرجى التحقق من بريدك الإلكتروني لإعادة تعيين كلمة المرور الخاصة بك",
+  "verifyOtpSubtitle": "تم إرسال رمز التحقق إلى",
   "requiredFieldErrorMessage": "مطلوب*",
   "incorrectOtpCodeErrorMessage": "الرمز الذي أدخلته غير صحيح، حاول مرة أخرى",
   "verifyingOtpButtonLabel": "جارٍ التأكيد",
-  "verifyOtpButtonLabel": "تأكيد الرمز",
+  "verifyOtpButtonLabel": "تأكيد",
   "emailNotRegisteredErrorMessage": "البريد الإلكتروني الذي أدخلته غير مسجل",
   "resendOtpButtonLabel": "إعادة إرسال OTP",
-  "changeEmailSubtitle": "يرجى التحقق من بريدك الإلكتروني لإعادة تعيين البريد الإلكتروني الخاصة بك",
-       "otpLimitExceededErrorSnackBarMessage": "لقد وصلت إلى الحد الأقصى لطلبات OTP. يرجى المحاولة مرة أخرى في {seconds} ثانية",
-        "@increment_message": {
-          "placeholders": {
-            "times": {
-              "type": "int",
-              "format": "decimalPattern",
-              "example": "123"
-            }
-          }
-        },
   "newPasswordTextFieldLabel": "كلمة المرور الجديدة",
   "newPasswordTextFieldWeakPasswordError": "كلمة المرور ضعيفة جدًا",
   "newPasswordTextFieldHint": "أدخل كلمة المرور الجديدة",
@@ -29,5 +18,13 @@
   "newPasswordConfirmationTextFieldHint": "أعد إدخال كلمة المرور الجديدة",
   "passwordConfirmationTextFieldDoesNotMatchError": "كلمات المرور غير متطابقة",
   "passwordTextFieldWeakPasswordErrorDescription": "يجب أن تستوفي كلمة المرور المعايير التالية: - لا يقل طوله عن 6 أحرف - تحتوي على حرف كبير واحد على الأقل - تحتوي على حرف صغير واحد على الأقل - تحتوي على رقم واحد على الأقل - تحتوي على رمز واحد على الأقل (على سبيل المثال، @، $، !، إلخ.)",
-    "passwordResetSuccessfullySnackBarMessage": "تمت تغير كلمة المرور بنجاح"
+    "passwordResetSuccessfullySnackBarMessage": "تمت تغير كلمة المرور بنجاح",
+     "otpRateLimitExceededErrorSnackBarMessage": "لقد وصلت إلى الحد الأقصى لطلبات OTP. يرجى المحاولة مرة أخرى في {seconds} ثانية",
+      "@increment_message": {
+        "placeholders": {
+          "times": {
+            "type": "int"
+          }
+        }
+      }
 }

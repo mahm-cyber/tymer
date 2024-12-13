@@ -8,6 +8,9 @@ class ForgotPasswordLocalizationsEn extends ForgotPasswordLocalizations {
   String get appBarTitle => 'Forgot Password';
 
   @override
+  String get forgotPasswordTitle => 'Enter your details and we’ll send you an OTP to reset your password';
+
+  @override
   String get otpSentSuccessfullySnackBarMessage => 'OTP sent successfully';
 
   @override

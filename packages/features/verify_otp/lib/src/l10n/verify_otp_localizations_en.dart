@@ -5,7 +5,7 @@ class VerifyOtpLocalizationsEn extends VerifyOtpLocalizations {
   VerifyOtpLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get verifyOtpTitle => 'Verify OTP';
+  String get verifyOtpTitle => 'Enter the code to continue';
 
   @override
   String get otpResentSuccessfullySnackBarMessage => 'OTP resent successfully';
@@ -20,7 +20,7 @@ class VerifyOtpLocalizationsEn extends VerifyOtpLocalizations {
   String get generalErrorSnackBarMessage => 'An error occurred';
 
   @override
-  String get verifyOtpSubtitle => 'Enter the OTP sent to your phone number to change your password';
+  String get verifyOtpSubtitle => 'A verification code has been sent to';
 
   @override
   String get requiredFieldErrorMessage => 'Required*';
@@ -32,21 +32,13 @@ class VerifyOtpLocalizationsEn extends VerifyOtpLocalizations {
   String get verifyingOtpButtonLabel => 'Verifying';
 
   @override
-  String get verifyOtpButtonLabel => 'Verify OTP';
+  String get verifyOtpButtonLabel => 'Verify';
 
   @override
   String get emailNotRegisteredErrorMessage => 'The email you entered is not registered';
 
   @override
   String get resendOtpButtonLabel => 'Resend OTP';
-
-  @override
-  String get changeEmailSubtitle => 'Enter the OTP sent to your phone number to change your email';
-
-  @override
-  String otpLimitExceededErrorSnackBarMessage(Object seconds) {
-    return 'You have reached the maximum number of OTP requests. Please try again in $seconds seconds';
-  }
 
   @override
   String get newPasswordTextFieldLabel => 'New Password';
@@ -71,4 +63,9 @@ class VerifyOtpLocalizationsEn extends VerifyOtpLocalizations {
 
   @override
   String get passwordResetSuccessfullySnackBarMessage => 'Password reset successfully';
+
+  @override
+  String otpRateLimitExceededErrorSnackBarMessage(Object seconds) {
+    return 'Maximum number of OTP requests reached. Please try again in $seconds seconds';
+  }
 }

@@ -1,5 +1,6 @@
 {
   "appBarTitle": "Forgot Password",
+  "forgotPasswordTitle": "Enter your details and we’ll send you an OTP to reset your password",
   "otpSentSuccessfullySnackBarMessage": "OTP sent successfully",
   "generalErrorSnackBarMessage": "ٍSomething went wrong",
   "requiredFieldErrorMessage": "Required*",

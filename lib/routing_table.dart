@@ -261,6 +261,11 @@ Map<String, PageBuilder> buildRoutingTable({
               await routerDelegate.popRoute();
               routerDelegate.push(_PathConstants.fulfillServiceRequestPath);
             },
+            popTillHome: () async {
+              await routerDelegate.popUntil(
+                (route) => route.path == _PathConstants.homePath,
+              );
+            },
           ),
         ),
     _PathConstants.acceptServiceRequestDetailsPath: (_) => MaterialPage(

@@ -26,6 +26,7 @@ class FormFields extends StatelessWidget {
               const Password(),
               VerticalGap.xSmall(),
               const PasswordConfirmation(),
+              const TermsAndConditions(),
             ],
           ),
         );

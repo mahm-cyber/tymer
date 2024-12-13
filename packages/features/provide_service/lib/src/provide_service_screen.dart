@@ -14,6 +14,7 @@ class ProvideServiceScreen extends StatelessWidget {
     required this.serviceRepository,
     required this.onServiceRequestDetailsTapped,
     required this.navigateToFulfillServiceRequest,
+    required this.popTillHome,
     super.key,
   });
 
@@ -21,6 +22,8 @@ class ProvideServiceScreen extends StatelessWidget {
   final ServiceRepository serviceRepository;
   final VoidCallback onServiceRequestDetailsTapped;
   final VoidCallback navigateToFulfillServiceRequest;
+
+  final VoidCallback popTillHome;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class ProvideServiceScreen extends StatelessWidget {
         onServiceRequestDetailsTapped: onServiceRequestDetailsTapped,
         navigateToFulfillServiceRequest: navigateToFulfillServiceRequest,
       ),
-      child: const ProvideServiceView(),
+      child: ProvideServiceView(popTillHome: popTillHome),
     );
   }
 }
@@ -39,7 +42,10 @@ class ProvideServiceScreen extends StatelessWidget {
 class ProvideServiceView extends StatelessWidget {
   const ProvideServiceView({
     super.key,
+    required this.popTillHome,
   });
+
+  final VoidCallback popTillHome;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +64,7 @@ class ProvideServiceView extends StatelessWidget {
           );
         }
         if (state.locationDataStatus == LocationDataStatus.failure) {
-          Navigator.pop(context);
+          popTillHome();
           showSnackBar(
             context: context,
             snackBar: ErrorSnackBar(

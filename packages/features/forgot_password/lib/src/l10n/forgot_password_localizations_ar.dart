@@ -8,6 +8,9 @@ class ForgotPasswordLocalizationsAr extends ForgotPasswordLocalizations {
   String get appBarTitle => 'نسيت كلمة المرور';
 
   @override
+  String get forgotPasswordTitle => 'أدخل تفاصيلك وسنرسل لك OTP لإعادة تعيين كلمة المرور';
+
+  @override
   String get otpSentSuccessfullySnackBarMessage => 'تم إرسال OTP بنجاح';
 
   @override

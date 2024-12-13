@@ -97,8 +97,6 @@ class SignUpView extends StatelessWidget {
                     width: 60,
                   ),
                   const FormFields(),
-                  const TermsAndConditions(),
-                  VerticalGap.medium(),
                   const SignUpButton(),
                   VerticalGap.medium(),
                   GoToSignIn(onTap: onSignInTap),

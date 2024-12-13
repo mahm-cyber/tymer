@@ -77,10 +77,6 @@ class _NewPasswordState extends State<NewPassword> {
                 : const SvgAsset(
                     AssetPathConstants.lockPath,
                   ),
-            prefixIconConstraints: const BoxConstraints(
-              minWidth: 0,
-              minHeight: 0,
-            ),
             suffixIcon: GestureDetector(
               onTap: () =>
                   setState(() => isPasswordVisible = !isPasswordVisible),

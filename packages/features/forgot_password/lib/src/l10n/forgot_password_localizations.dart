@@ -99,6 +99,12 @@ abstract class ForgotPasswordLocalizations {
   /// **'Forgot Password'**
   String get appBarTitle;
 
+  /// No description provided for @forgotPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your details and we’ll send you an OTP to reset your password'**
+  String get forgotPasswordTitle;
+
   /// No description provided for @otpSentSuccessfullySnackBarMessage.
   ///
   /// In en, this message translates to:

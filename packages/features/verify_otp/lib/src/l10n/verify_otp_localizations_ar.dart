@@ -5,7 +5,7 @@ class VerifyOtpLocalizationsAr extends VerifyOtpLocalizations {
   VerifyOtpLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get verifyOtpTitle => 'تفقد بريدك الإلكتروني !';
+  String get verifyOtpTitle => 'أدخل الرمز للمتابعة';
 
   @override
   String get otpResentSuccessfullySnackBarMessage => 'تم إرسال الرمز بنجاح';
@@ -20,7 +20,7 @@ class VerifyOtpLocalizationsAr extends VerifyOtpLocalizations {
   String get generalErrorSnackBarMessage => 'حدث خطأ ما';
 
   @override
-  String get verifyOtpSubtitle => 'يرجى التحقق من بريدك الإلكتروني لإعادة تعيين كلمة المرور الخاصة بك';
+  String get verifyOtpSubtitle => 'تم إرسال رمز التحقق إلى';
 
   @override
   String get requiredFieldErrorMessage => 'مطلوب*';
@@ -32,21 +32,13 @@ class VerifyOtpLocalizationsAr extends VerifyOtpLocalizations {
   String get verifyingOtpButtonLabel => 'جارٍ التأكيد';
 
   @override
-  String get verifyOtpButtonLabel => 'تأكيد الرمز';
+  String get verifyOtpButtonLabel => 'تأكيد';
 
   @override
   String get emailNotRegisteredErrorMessage => 'البريد الإلكتروني الذي أدخلته غير مسجل';
 
   @override
   String get resendOtpButtonLabel => 'إعادة إرسال OTP';
-
-  @override
-  String get changeEmailSubtitle => 'يرجى التحقق من بريدك الإلكتروني لإعادة تعيين البريد الإلكتروني الخاصة بك';
-
-  @override
-  String otpLimitExceededErrorSnackBarMessage(Object seconds) {
-    return 'لقد وصلت إلى الحد الأقصى لطلبات OTP. يرجى المحاولة مرة أخرى في $seconds ثانية';
-  }
 
   @override
   String get newPasswordTextFieldLabel => 'كلمة المرور الجديدة';
@@ -71,4 +63,9 @@ class VerifyOtpLocalizationsAr extends VerifyOtpLocalizations {
 
   @override
   String get passwordResetSuccessfullySnackBarMessage => 'تمت تغير كلمة المرور بنجاح';
+
+  @override
+  String otpRateLimitExceededErrorSnackBarMessage(Object seconds) {
+    return 'لقد وصلت إلى الحد الأقصى لطلبات OTP. يرجى المحاولة مرة أخرى في $seconds ثانية';
+  }
 }

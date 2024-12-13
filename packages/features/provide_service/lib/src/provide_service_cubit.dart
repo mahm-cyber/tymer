@@ -20,7 +20,6 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
   }) : super(
           const ProvideServiceState(),
         ) {
-    emit(state.copyWith(serviceRequestsFetchStatus: FetchStatus.loading));
     init();
   }
 
@@ -31,6 +30,7 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
   Timer? _timer;
 
   void init() async {
+    emit(state.copyWith(serviceRequestsFetchStatus: FetchStatus.loading));
     try {
       final locationData = await serviceRepository.getUserLocation();
       final locationActivatedState = state.copyWith(
@@ -39,12 +39,11 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
             ? LocationDataStatus.failure
             : LocationDataStatus.success,
       );
+
       emit(locationActivatedState);
       final service = await checkIfUserHasRunningServiceRequest();
       if (service != null) {
         serviceRepository.changeNotifier.setServiceRequest(service);
-        //TODO: navigate to fulfill service request screen
-        //TODO: show snack bar to notify the user that he has a running service request
         final runningServiceRequestState = state.copyWith(
           runningServiceRequest: service,
         );
@@ -66,11 +65,9 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
           }
         },
       );
-    } catch (error) {
-      emit(state.copyWith(
-        serviceRequestsFetchStatus: FetchStatus.failure,
-        locationDataStatus: LocationDataStatus.failure,
-      ));
+      if (locationData == null) _timer?.cancel();
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -88,13 +85,11 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
       );
       emit(successState);
     } catch (e) {
-      if (!isClosed) {
-        emit(
-          state.copyWith(
-            serviceRequestsFetchStatus: FetchStatus.failure,
-          ),
-        );
-      }
+      emit(
+        state.copyWith(
+          serviceRequestsFetchStatus: FetchStatus.failure,
+        ),
+      );
     }
   }
 

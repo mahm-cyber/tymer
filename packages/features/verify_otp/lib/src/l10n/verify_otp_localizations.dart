@@ -96,7 +96,7 @@ abstract class VerifyOtpLocalizations {
   /// No description provided for @verifyOtpTitle.
   ///
   /// In en, this message translates to:
-  /// **'Verify OTP'**
+  /// **'Enter the code to continue'**
   String get verifyOtpTitle;
 
   /// No description provided for @otpResentSuccessfullySnackBarMessage.
@@ -126,7 +126,7 @@ abstract class VerifyOtpLocalizations {
   /// No description provided for @verifyOtpSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Enter the OTP sent to your phone number to change your password'**
+  /// **'A verification code has been sent to'**
   String get verifyOtpSubtitle;
 
   /// No description provided for @requiredFieldErrorMessage.
@@ -150,7 +150,7 @@ abstract class VerifyOtpLocalizations {
   /// No description provided for @verifyOtpButtonLabel.
   ///
   /// In en, this message translates to:
-  /// **'Verify OTP'**
+  /// **'Verify'**
   String get verifyOtpButtonLabel;
 
   /// No description provided for @emailNotRegisteredErrorMessage.
@@ -164,18 +164,6 @@ abstract class VerifyOtpLocalizations {
   /// In en, this message translates to:
   /// **'Resend OTP'**
   String get resendOtpButtonLabel;
-
-  /// No description provided for @changeEmailSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter the OTP sent to your phone number to change your email'**
-  String get changeEmailSubtitle;
-
-  /// No description provided for @otpLimitExceededErrorSnackBarMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'You have reached the maximum number of OTP requests. Please try again in {seconds} seconds'**
-  String otpLimitExceededErrorSnackBarMessage(Object seconds);
 
   /// No description provided for @newPasswordTextFieldLabel.
   ///
@@ -224,6 +212,12 @@ abstract class VerifyOtpLocalizations {
   /// In en, this message translates to:
   /// **'Password reset successfully'**
   String get passwordResetSuccessfullySnackBarMessage;
+
+  /// No description provided for @otpRateLimitExceededErrorSnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum number of OTP requests reached. Please try again in {seconds} seconds'**
+  String otpRateLimitExceededErrorSnackBarMessage(Object seconds);
 }
 
 class _VerifyOtpLocalizationsDelegate extends LocalizationsDelegate<VerifyOtpLocalizations> {

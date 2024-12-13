@@ -1,5 +1,6 @@
 {
   "appBarTitle": "نسيت كلمة المرور",
+  "forgotPasswordTitle": "أدخل تفاصيلك وسنرسل لك OTP لإعادة تعيين كلمة المرور",
   "otpSentSuccessfullySnackBarMessage": "تم إرسال OTP بنجاح",
   "generalErrorSnackBarMessage": "حدث خطأ ما",
   "requiredFieldErrorMessage": "مطلوب*",

@@ -57,9 +57,6 @@ class VerifyOtpView extends StatelessWidget {
         ),
         appBar: AppBar(
           backgroundColor: colorScheme.surface,
-          title: Text(
-            VerifyOtpLocalizations.of(context).verifyOtpTitle,
-          ),
         ),
         extendBody: true,
         body: _VerifyOtpForm(
@@ -93,7 +90,7 @@ class _VerifyOtpForm extends StatelessWidget {
             context: context,
             snackBar: ErrorSnackBar(
               context: context,
-              message: l10n.otpLimitExceededErrorSnackBarMessage(state.otpCode.limitExceeded!.seconds),
+              message: l10n.otpRateLimitExceededErrorSnackBarMessage(state.otpCode.limitExceeded!.seconds),
             ),
           );
         }
@@ -157,129 +154,142 @@ class _VerifyOtpForm extends StatelessWidget {
         final isForgotPassword = state.otpVerification?.reason ==
             OtpVerificationReason.forgotPassword;
         return Center(
-          child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(
-              horizontal: theme.screenMargin,
-            ),
-            child: Column(
-              // shrinkWrap: true,
-              children: [
-                const SvgAsset(
-                  AssetPathConstants.logoAndWordPath,
-                  width: 70,
+          child: Column(
+            children: [
+              const Spacer(),
+              SingleChildScrollView(
+                padding: EdgeInsets.symmetric(
+                  horizontal: theme.screenMargin,
                 ),
-                VerticalGap.large(),
-                Text(
-                  l10n.verifyOtpTitle,
-                  style: textTheme.headlineSmall,
-                  textAlign: TextAlign.start,
-                ),
-                VerticalGap.smallMedium(),
-                Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: l10n.verifyOtpSubtitle,
-                        style: textTheme
-                            .bodyMedium, // Default style for the subtitle
-                      ),
-                      TextSpan(
-                        text: ' ${state.otpVerification?.phone}', // Email text
-                        style: textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.bold), // Make email bold
-                      ),
-                    ],
-                  ),
-                ),
-                VerticalGap.large(),
-                Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: PinCodeTextField(
-                    enableActiveFill: true,
-                    autoDisposeControllers: false,
-                    controller: cubit.pinTEController,
-                    length: 6,
-                    appContext: context,
-                    cursorHeight: 20,
-                    enablePinAutofill: false,
-                    onChanged: cubit.onOtpCodeChanged,
-                    onCompleted: (_) => cubit.onSubmit(),
-                    cursorColor: colorScheme.surface,
-                    textStyle: textTheme.titleMedium?.copyWith(
+                child: Column(
+                  // shrinkWrap: true,
+                  children: [
+                    const SvgAsset(
+                      AssetPathConstants.logoAndWordPath,
+                      width: 70,
+                    ),
+                    VerticalGap.large(),
+                    Text(
+                      l10n.verifyOtpTitle,
+                      style: textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: colorScheme.surface),
-                    pinTheme: PinTheme(
-                      selectedColor: Colors.transparent,
-                      selectedFillColor:
-                          otpCodeError == OtpCodeValidationError.incorrect
-                              ? theme.errorColor
-                              : theme.primaryColor,
-                      inactiveFillColor: theme.borderColor,
-                      shape: PinCodeFieldShape.box,
-                      fieldHeight: 45,
-                      fieldWidth: 45,
-                      borderWidth: 1,
-                      borderRadius: BorderRadius.circular(10),
-                      activeBorderWidth: 1,
-                      disabledBorderWidth: 1,
-                      inactiveBorderWidth: 1,
-                      errorBorderWidth: 1,
-                      selectedBorderWidth: 1,
-                      activeColor:
-                          otpCodeError == OtpCodeValidationError.incorrect
-                              ? theme.errorColor
-                              : null,
-                      activeFillColor:
-                          otpCodeError == OtpCodeValidationError.incorrect
-                              ? theme.errorColor
-                              : theme.primaryColor,
-                      inactiveColor:
-                          otpCodeError == OtpCodeValidationError.incorrect
-                              ? theme.errorColor
-                              : theme.borderColor,
+                      ),
+                      textAlign: TextAlign.start,
                     ),
-                    separatorBuilder: (context, index) =>
-                        HorizontalGap.smallMedium(),
-                  ),
+                    VerticalGap.smallMedium(),
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: l10n.verifyOtpSubtitle,
+                            style: textTheme
+                                .bodyMedium, // Default style for the subtitle
+                          ),
+                          TextSpan(
+                            text: ' ${state.otpVerification?.phone}', // Email text
+                            style: textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold), // Make email bold
+                          ),
+                        ],
+                      ),
+                    ),
+                    VerticalGap.large(),
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: PinCodeTextField(
+                        enableActiveFill: true,
+                        autoDisposeControllers: false,
+                        controller: cubit.pinTEController,
+                        length: 6,
+                        appContext: context,
+                        cursorHeight: 20,
+                        enablePinAutofill: false,
+                        onChanged: cubit.onOtpCodeChanged,
+                        onCompleted: (_) => cubit.onSubmit(),
+                        cursorColor: colorScheme.surface,
+                        textStyle: textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: colorScheme.surface),
+                        pinTheme: PinTheme(
+                          selectedColor: Colors.transparent,
+                          selectedFillColor:
+                              otpCodeError == OtpCodeValidationError.incorrect
+                                  ? theme.errorColor
+                                  : theme.primaryColor,
+                          inactiveFillColor: theme.borderColor,
+                          shape: PinCodeFieldShape.box,
+                          fieldHeight: 45,
+                          fieldWidth: 45,
+                          borderWidth: 1,
+                          borderRadius: BorderRadius.circular(10),
+                          activeBorderWidth: 1,
+                          disabledBorderWidth: 1,
+                          inactiveBorderWidth: 1,
+                          errorBorderWidth: 1,
+                          selectedBorderWidth: 1,
+                          activeColor:
+                              otpCodeError == OtpCodeValidationError.incorrect
+                                  ? theme.errorColor
+                                  : null,
+                          activeFillColor:
+                              otpCodeError == OtpCodeValidationError.incorrect
+                                  ? theme.errorColor
+                                  : theme.primaryColor,
+                          inactiveColor:
+                              otpCodeError == OtpCodeValidationError.incorrect
+                                  ? theme.errorColor
+                                  : theme.borderColor,
+                        ),
+                        separatorBuilder: (context, index) =>
+                            HorizontalGap.smallMedium(),
+                      ),
+                    ),
+                    if (otpCodeError != null) ...[
+                      const SizedBox(
+                        height: Spacing.xSmall,
+                      ),
+                      if (otpCodeError == OtpCodeValidationError.empty ||
+                          otpCodeError == OtpCodeValidationError.incomplete)
+                        Text(
+                          l10n.requiredFieldErrorMessage,
+                          style: textTheme.bodySmall?.copyWith(
+                            color: theme.errorColor,
+                          ),
+                        ),
+                      if (otpCodeError == OtpCodeValidationError.incorrect)
+                        Text(
+                          l10n.incorrectOtpCodeErrorMessage,
+                          style: textTheme.bodySmall?.copyWith(
+                            color: theme.errorColor,
+                          ),
+                        ),
+                    ],
+                    VerticalGap.large(),
+                    if (isForgotPassword) ...[
+                    const NewPassword(),
+                    VerticalGap.xSmall(),
+                    const NewPasswordConfirmation(),
+                    ],
+                    VerticalGap.large(),
+
+                  ],
                 ),
-                if (otpCodeError != null) ...[
-                  const SizedBox(
-                    height: Spacing.xSmall,
-                  ),
-                  if (otpCodeError == OtpCodeValidationError.empty ||
-                      otpCodeError == OtpCodeValidationError.incomplete)
-                    Text(
-                      l10n.requiredFieldErrorMessage,
-                      style: textTheme.bodySmall?.copyWith(
-                        color: theme.errorColor,
-                      ),
-                    ),
-                  if (otpCodeError == OtpCodeValidationError.incorrect)
-                    Text(
-                      l10n.incorrectOtpCodeErrorMessage,
-                      style: textTheme.bodySmall?.copyWith(
-                        color: theme.errorColor,
-                      ),
-                    ),
-                ],
-                VerticalGap.large(),
-                if (isForgotPassword) ...[
-                const NewPassword(),
-                VerticalGap.xSmall(),
-                const NewPasswordConfirmation(),
-                ],
-                VerticalGap.large(),
-                const ResendOtp(),
-                VerticalGap.large(),
-                isSubmissionInProgress
+              ),
+              const Spacer(),
+              const ResendOtp(),
+              VerticalGap.large(),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
+                child: isSubmissionInProgress
                     ? TymerElevatedButton.inProgress(
-                        label: l10n.verifyingOtpButtonLabel)
+                    label: l10n.verifyingOtpButtonLabel)
                     : TymerElevatedButton(
-                        label: l10n.verifyOtpButtonLabel,
-                        onTap: cubit.onSubmit,
-                      ),
-              ],
-            ),
+                  label: l10n.verifyOtpButtonLabel,
+                  onTap: cubit.onSubmit,
+                ),
+              ),
+              VerticalGap.large(),
+            ],
           ),
         );
       },

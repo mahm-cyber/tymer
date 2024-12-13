@@ -198,7 +198,7 @@ class ServiceRepository {
           return null;
         }
       }
-      await Future.delayed(const Duration(milliseconds: 300));
+      // await Future.delayed(const Duration(milliseconds: 300));
       final locationData = await location.getLocation();
       return locationData;
     } catch (error) {

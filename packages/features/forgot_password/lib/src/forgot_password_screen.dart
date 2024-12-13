@@ -45,6 +45,7 @@ class ForgotPasswordView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = TymerTheme.of(context);
+    final textTheme = Theme.of(context).textTheme;
     final l10n = ForgotPasswordLocalizations.of(context);
     return BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
       listenWhen: (oldState, newState) =>
@@ -103,6 +104,13 @@ class ForgotPasswordView extends StatelessWidget {
                       child: ListView(
                         shrinkWrap: true,
                         children: [
+                          Text(
+                            l10n.forgotPasswordTitle,
+                            style: textTheme.titleSmall?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
                           VerticalGap.large(),
                           const PhoneTextField(),
                         ],
