@@ -2,7 +2,7 @@ import 'order_history_localizations.dart';
 
 /// The translations for English (`en`).
 class OrderHistoryLocalizationsEn extends OrderHistoryLocalizations {
-  OrderHistoryLocalizationsEn([super.locale = 'en']);
+  OrderHistoryLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
   String get appBarTitle => 'Requests List';

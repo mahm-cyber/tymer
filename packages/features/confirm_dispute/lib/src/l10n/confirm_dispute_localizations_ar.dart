@@ -2,7 +2,7 @@ import 'confirm_dispute_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class ConfirmDisputeLocalizationsAr extends ConfirmDisputeLocalizations {
-  ConfirmDisputeLocalizationsAr([super.locale = 'ar']);
+  ConfirmDisputeLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get disputeSuccessMessage => 'تم تقديم النزاع بنجاح';

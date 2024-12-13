@@ -2,7 +2,7 @@ import 'wallet_localizations.dart';
 
 /// The translations for English (`en`).
 class WalletLocalizationsEn extends WalletLocalizations {
-  WalletLocalizationsEn([super.locale = 'en']);
+  WalletLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
   String get appBarTitle => 'Wallet';

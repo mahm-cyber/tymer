@@ -20,7 +20,7 @@ class SignInLocalizationsEn extends SignInLocalizations {
   String get phoneTextFieldLabel => 'Phone';
 
   @override
-  String get invalidPhoneFormatErrorMessage => 'Invalid phone format';
+  String get invalidPhoneFormatErrorMessage => 'Please enter a valid phone number';
 
   @override
   String get passwordTextFieldLabel => 'Password';

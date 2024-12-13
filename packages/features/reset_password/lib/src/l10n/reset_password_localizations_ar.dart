@@ -2,7 +2,7 @@ import 'reset_password_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class ResetPasswordLocalizationsAr extends ResetPasswordLocalizations {
-  ResetPasswordLocalizationsAr([super.locale = 'ar']);
+  ResetPasswordLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get resetPasswordSuccessMessage => 'تم إعادة تعيين كلمة المرور بنجاح';

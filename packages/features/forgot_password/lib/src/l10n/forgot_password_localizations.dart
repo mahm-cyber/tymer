@@ -156,7 +156,7 @@ abstract class ForgotPasswordLocalizations {
   /// No description provided for @invalidPhoneFormatErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'Invalid phone format'**
+  /// **'Please enter a valid phone number'**
   String get invalidPhoneFormatErrorMessage;
 
   /// No description provided for @unverifiedPhoneErrorMessage.

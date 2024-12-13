@@ -120,8 +120,14 @@ abstract class SignUpLocalizations {
   /// No description provided for @requiredTextFieldErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'This field is required.'**
+  /// **'Required'**
   String get requiredTextFieldErrorMessage;
+
+  /// No description provided for @incompletePinErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a 6-digit code'**
+  String get incompletePinErrorMessage;
 
   /// No description provided for @invalidCredentialsErrorMessage.
   ///
@@ -129,11 +135,11 @@ abstract class SignUpLocalizations {
   /// **'Invalid credentials, please try again.'**
   String get invalidCredentialsErrorMessage;
 
-  /// No description provided for @invalidFormatErrorMessage.
+  /// No description provided for @invalidEmailFormatErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'Invalid format, please check your input.'**
-  String get invalidFormatErrorMessage;
+  /// **'Please enter a valid email address'**
+  String get invalidEmailFormatErrorMessage;
 
   /// No description provided for @alreadyRegisteredErrorMessage.
   ///
@@ -222,7 +228,7 @@ abstract class SignUpLocalizations {
   /// No description provided for @invalidMobileFormatErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'Invalid mobile number format'**
+  /// **'Please enter a valid phone number'**
   String get invalidMobileFormatErrorMessage;
 
   /// No description provided for @termsAndConditionsBottomSheetTitle.

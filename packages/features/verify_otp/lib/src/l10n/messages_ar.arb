@@ -6,6 +6,7 @@
   "generalErrorSnackBarMessage": "حدث خطأ ما",
   "verifyOtpSubtitle": "تم إرسال رمز التحقق إلى",
   "requiredFieldErrorMessage": "مطلوب*",
+  "incompletePinErrorMessage": "يرجى إدخال كود مكون من 6 أرقام",
   "incorrectOtpCodeErrorMessage": "الرمز الذي أدخلته غير صحيح، حاول مرة أخرى",
   "verifyingOtpButtonLabel": "جارٍ التأكيد",
   "verifyOtpButtonLabel": "تأكيد",

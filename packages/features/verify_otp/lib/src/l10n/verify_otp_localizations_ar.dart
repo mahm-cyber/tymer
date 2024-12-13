@@ -29,6 +29,9 @@ class VerifyOtpLocalizationsAr extends VerifyOtpLocalizations {
   String get incorrectOtpCodeErrorMessage => 'الرمز الذي أدخلته غير صحيح، حاول مرة أخرى';
 
   @override
+  String get incompletePinErrorMessage => 'يرجى إدخال كود مكون من 6 أرقام';
+
+  @override
   String get verifyingOtpButtonLabel => 'جارٍ التأكيد';
 
   @override

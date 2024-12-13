@@ -2,7 +2,7 @@ import 'order_history_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class OrderHistoryLocalizationsAr extends OrderHistoryLocalizations {
-  OrderHistoryLocalizationsAr([super.locale = 'ar']);
+  OrderHistoryLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get appBarTitle => 'قائمة الطلبات';

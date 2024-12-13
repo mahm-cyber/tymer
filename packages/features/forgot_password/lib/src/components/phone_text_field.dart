@@ -47,12 +47,13 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
         focusNode: _phoneFocusNode,
         onChanged: cubit.onMobileChanged,
         onEditingComplete: cubit.onSubmit,
+        keyboardType: TextInputType.phone,
         decoration: InputDecoration(
           isDense: true,
           labelText: l10n.phoneTextFieldLabel,
           helperText: '',
           prefixIcon: const SvgAsset(
-            AssetPathConstants.emailPath,
+            AssetPathConstants.mobilePath,
           ),
 
           hintText: l10n.phoneTextFieldLabel,

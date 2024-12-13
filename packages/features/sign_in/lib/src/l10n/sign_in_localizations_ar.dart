@@ -20,7 +20,7 @@ class SignInLocalizationsAr extends SignInLocalizations {
   String get phoneTextFieldLabel => 'الهاتف';
 
   @override
-  String get invalidPhoneFormatErrorMessage => 'صيغة الهاتف غير صحيحة';
+  String get invalidPhoneFormatErrorMessage => 'يرجى إدخال رقم هاتف صحيح';
 
   @override
   String get passwordTextFieldLabel => 'كلمة المرور';

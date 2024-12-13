@@ -64,7 +64,10 @@ class DisputesView extends StatelessWidget {
             children: [
               Scaffold(
                 appBar: AppBar(
-                  title: const SvgAsset(AssetPathConstants.whiteLogoPath),
+                  title: const SvgAsset(
+                    AssetPathConstants.whiteLogoPath,
+                    height: 30,
+                  ),
                   toolbarHeight: 70,
                   iconTheme: IconThemeData(color: colorScheme.surface),
                 ),
@@ -80,30 +83,27 @@ class DisputesView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         itemBuilder: (context, index) {
                           final currentServiceRequestFetchMode =
-                          UserType.values[index];
-                          final label =
-                          userTypeToLocalizedString(
+                              UserType.values[index];
+                          final label = userTypeToLocalizedString(
                             currentServiceRequestFetchMode,
                             ComponentLibraryLocalizations.of(context),
                           );
-                          return BlocSelector<DisputesCubit,
-                              DisputesState, UserType>(
-                            selector: (state) =>
-                            state.userTypeFilter,
+                          return BlocSelector<DisputesCubit, DisputesState,
+                              UserType>(
+                            selector: (state) => state.userTypeFilter,
                             builder: (context, serviceRequestsFetchMode) {
                               final isSelected = serviceRequestsFetchMode ==
                                   currentServiceRequestFetchMode;
                               return ChoiceChip(
-                                onSelected: (_) =>
-                                    cubit.filterByUserType(
-                                      currentServiceRequestFetchMode,
-                                    ),
+                                onSelected: (_) => cubit.filterByUserType(
+                                  currentServiceRequestFetchMode,
+                                ),
                                 selected: isSelected,
                                 label: Text(label),
                                 labelStyle: isSelected
                                     ? textTheme.bodyMedium?.copyWith(
-                                  color: colorScheme.surface,
-                                )
+                                        color: colorScheme.surface,
+                                      )
                                     : null,
                                 checkmarkColor: colorScheme.surface,
                               );
@@ -136,7 +136,8 @@ class DisputesView extends StatelessWidget {
                                   statusFilter == currentDisputeStatus;
                               return ChoiceChip(
                                 onSelected: (_) =>
-                                    cubit.setFilterByDisputeStatus(currentDisputeStatus),
+                                    cubit.setFilterByDisputeStatus(
+                                        currentDisputeStatus),
                                 selected: isSelected,
                                 label: Text(label),
                                 labelStyle: isSelected
@@ -172,7 +173,7 @@ class DisputesView extends StatelessWidget {
                                 children: [
                                   if (index == 0) VerticalGap.medium(),
                                   ServiceRequestCard(
-                                    onTapped: (){},
+                                    onTapped: () {},
                                     shouldShowRequestStatus: true,
                                     service: dispute.serviceRequest,
                                     dispute: dispute,

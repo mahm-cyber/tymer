@@ -2,11 +2,10 @@ import 'reset_password_localizations.dart';
 
 /// The translations for English (`en`).
 class ResetPasswordLocalizationsEn extends ResetPasswordLocalizations {
-  ResetPasswordLocalizationsEn([super.locale = 'en']);
+  ResetPasswordLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get resetPasswordSuccessMessage =>
-      'Your password has been reset successfully';
+  String get resetPasswordSuccessMessage => 'Your password has been reset successfully';
 
   @override
   String get resetPasswordScreenTitle => 'Reset Password';
@@ -27,8 +26,7 @@ class ResetPasswordLocalizationsEn extends ResetPasswordLocalizations {
   String get requiredFieldErrorMessage => 'This field is required';
 
   @override
-  String get newPasswordTextFieldWeakPasswordError =>
-      'The password is too weak';
+  String get newPasswordTextFieldWeakPasswordError => 'The password is too weak';
 
   @override
   String get newPasswordTextFieldHint => 'Enter your new password';
@@ -37,14 +35,11 @@ class ResetPasswordLocalizationsEn extends ResetPasswordLocalizations {
   String get newPasswordConfirmationTextFieldLabel => 'Confirm New Password';
 
   @override
-  String get newPasswordConfirmationTextFieldHint =>
-      'Re-enter your new password';
+  String get newPasswordConfirmationTextFieldHint => 'Re-enter your new password';
 
   @override
-  String get passwordConfirmationTextFieldDoesNotMatchError =>
-      'Passwords do not match';
+  String get passwordConfirmationTextFieldDoesNotMatchError => 'Passwords do not match';
 
   @override
-  String get passwordTextFieldWeakPasswordErrorDescription =>
-      'The password must have At least 6 characters long, Contains at least one uppercase letter, Contains at least one lowercase letter, Contains at least one number, Contains at least one symbol (e.g., @, \$, !, etc.)';
+  String get passwordTextFieldWeakPasswordErrorDescription => 'The password must have At least 6 characters long, Contains at least one uppercase letter, Contains at least one lowercase letter, Contains at least one number, Contains at least one symbol (e.g., @, \$, !, etc.)';
 }

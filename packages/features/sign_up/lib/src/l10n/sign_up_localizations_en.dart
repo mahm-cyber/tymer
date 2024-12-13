@@ -17,13 +17,16 @@ class SignUpLocalizationsEn extends SignUpLocalizations {
   String get emailTextFieldHint => 'Enter your email';
 
   @override
-  String get requiredTextFieldErrorMessage => 'This field is required.';
+  String get requiredTextFieldErrorMessage => 'Required';
+
+  @override
+  String get incompletePinErrorMessage => 'Please enter a 6-digit code';
 
   @override
   String get invalidCredentialsErrorMessage => 'Invalid credentials, please try again.';
 
   @override
-  String get invalidFormatErrorMessage => 'Invalid format, please check your input.';
+  String get invalidEmailFormatErrorMessage => 'Please enter a valid email address';
 
   @override
   String get alreadyRegisteredErrorMessage => 'You are already registered.';
@@ -68,7 +71,7 @@ class SignUpLocalizationsEn extends SignUpLocalizations {
   String get alreadyHaveAnAccount => 'Already have an account?';
 
   @override
-  String get invalidMobileFormatErrorMessage => 'Invalid mobile number format';
+  String get invalidMobileFormatErrorMessage => 'Please enter a valid phone number';
 
   @override
   String get termsAndConditionsBottomSheetTitle => 'Terms and Conditions';

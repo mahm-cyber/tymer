@@ -90,7 +90,8 @@ class _VerifyOtpForm extends StatelessWidget {
             context: context,
             snackBar: ErrorSnackBar(
               context: context,
-              message: l10n.otpRateLimitExceededErrorSnackBarMessage(state.otpCode.limitExceeded!.seconds),
+              message: l10n.otpRateLimitExceededErrorSnackBarMessage(
+                  state.otpCode.limitExceeded!.seconds),
             ),
           );
         }
@@ -153,16 +154,14 @@ class _VerifyOtpForm extends StatelessWidget {
             TymerTheme.of(context).materialThemeData.colorScheme;
         final isForgotPassword = state.otpVerification?.reason ==
             OtpVerificationReason.forgotPassword;
-        return Center(
-          child: Column(
-            children: [
-              const Spacer(),
-              SingleChildScrollView(
+        return Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
                 padding: EdgeInsets.symmetric(
                   horizontal: theme.screenMargin,
                 ),
                 child: Column(
-                  // shrinkWrap: true,
                   children: [
                     const SvgAsset(
                       AssetPathConstants.logoAndWordPath,
@@ -186,9 +185,11 @@ class _VerifyOtpForm extends StatelessWidget {
                                 .bodyMedium, // Default style for the subtitle
                           ),
                           TextSpan(
-                            text: ' ${state.otpVerification?.phone}', // Email text
+                            text: ' ${state.otpVerification?.phone}',
+                            // Email text
                             style: textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.bold), // Make email bold
+                                fontWeight:
+                                    FontWeight.bold), // Make email bold
                           ),
                         ],
                       ),
@@ -205,7 +206,8 @@ class _VerifyOtpForm extends StatelessWidget {
                         cursorHeight: 20,
                         enablePinAutofill: false,
                         onChanged: cubit.onOtpCodeChanged,
-                        onCompleted: (_) => cubit.onSubmit(),
+                        onCompleted: (_) =>
+                            isForgotPassword ? null : cubit.onSubmit(),
                         cursorColor: colorScheme.surface,
                         textStyle: textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.bold,
@@ -250,47 +252,51 @@ class _VerifyOtpForm extends StatelessWidget {
                       ),
                       if (otpCodeError == OtpCodeValidationError.empty ||
                           otpCodeError == OtpCodeValidationError.incomplete)
-                        Text(
-                          l10n.requiredFieldErrorMessage,
-                          style: textTheme.bodySmall?.copyWith(
-                            color: theme.errorColor,
+                        Align(
+                          alignment: AlignmentDirectional.centerStart,
+                          child: Text(
+                            l10n.incompletePinErrorMessage,
+                            style: textTheme.bodySmall?.copyWith(
+                              color: theme.errorColor,
+                            ),
                           ),
                         ),
                       if (otpCodeError == OtpCodeValidationError.incorrect)
-                        Text(
-                          l10n.incorrectOtpCodeErrorMessage,
-                          style: textTheme.bodySmall?.copyWith(
-                            color: theme.errorColor,
+                        Align(
+                          alignment: AlignmentDirectional.centerStart,
+                          child: Text(
+                            l10n.incorrectOtpCodeErrorMessage,
+                            style: textTheme.bodySmall?.copyWith(
+                              color: theme.errorColor,
+                            ),
                           ),
                         ),
                     ],
                     VerticalGap.large(),
                     if (isForgotPassword) ...[
-                    const NewPassword(),
-                    VerticalGap.xSmall(),
-                    const NewPasswordConfirmation(),
+                      const NewPassword(),
+                      VerticalGap.xSmall(),
+                      const NewPasswordConfirmation(),
                     ],
                     VerticalGap.large(),
-
                   ],
                 ),
               ),
-              const Spacer(),
-              const ResendOtp(),
-              VerticalGap.large(),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
-                child: isSubmissionInProgress
-                    ? TymerElevatedButton.inProgress(
-                    label: l10n.verifyingOtpButtonLabel)
-                    : TymerElevatedButton(
-                  label: l10n.verifyOtpButtonLabel,
-                  onTap: cubit.onSubmit,
-                ),
-              ),
-              VerticalGap.large(),
-            ],
-          ),
+            ),
+            const ResendOtp(),
+            VerticalGap.large(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
+              child: isSubmissionInProgress
+                  ? TymerElevatedButton.inProgress(
+                      label: l10n.verifyingOtpButtonLabel)
+                  : TymerElevatedButton(
+                      label: l10n.verifyOtpButtonLabel,
+                      onTap: cubit.onSubmit,
+                    ),
+            ),
+            VerticalGap.large(),
+          ],
         );
       },
     );

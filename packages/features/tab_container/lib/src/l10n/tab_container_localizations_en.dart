@@ -2,7 +2,7 @@ import 'tab_container_localizations.dart';
 
 /// The translations for English (`en`).
 class TabContainerLocalizationsEn extends TabContainerLocalizations {
-  TabContainerLocalizationsEn([super.locale = 'en']);
+  TabContainerLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
   String get homeTabLabel => 'Home';

@@ -2,7 +2,7 @@ import 'disputes_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class DisputesLocalizationsAr extends DisputesLocalizations {
-  DisputesLocalizationsAr([super.locale = 'ar']);
+  DisputesLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get appBarTitle => 'قائمة النزاعات';

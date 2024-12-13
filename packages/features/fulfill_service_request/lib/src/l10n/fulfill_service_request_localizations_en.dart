@@ -1,9 +1,8 @@
 import 'fulfill_service_request_localizations.dart';
 
 /// The translations for English (`en`).
-class FulfillServiceRequestLocalizationsEn
-    extends FulfillServiceRequestLocalizations {
-  FulfillServiceRequestLocalizationsEn([super.locale = 'en']);
+class FulfillServiceRequestLocalizationsEn extends FulfillServiceRequestLocalizations {
+  FulfillServiceRequestLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
   String get submitButtonLabel => 'Submit';

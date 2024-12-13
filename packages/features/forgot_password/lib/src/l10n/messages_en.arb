@@ -9,7 +9,7 @@
   "forgotPasswordProgressButtonLabel": "Sending OTP",
   "forgotPasswordButtonLabel": "Reset My Password",
   "phoneTextFieldLabel": "Phone",
-  "invalidPhoneFormatErrorMessage": "Invalid phone format",
+  "invalidPhoneFormatErrorMessage": "Please enter a valid phone number",
   "unverifiedPhoneErrorMessage": "Reset My Password",
   "isNotRegisteredErrorMessage": "Phone not registered",
    "otpRateLimitExceededErrorSnackBarMessage": "Maximum number of OTP requests reached. Please try again in {seconds} seconds",

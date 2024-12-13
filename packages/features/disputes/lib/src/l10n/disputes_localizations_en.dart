@@ -2,7 +2,7 @@ import 'disputes_localizations.dart';
 
 /// The translations for English (`en`).
 class DisputesLocalizationsEn extends DisputesLocalizations {
-  DisputesLocalizationsEn([super.locale = 'en']);
+  DisputesLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
   String get appBarTitle => 'Disputes List';

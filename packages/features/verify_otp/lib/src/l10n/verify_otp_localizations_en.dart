@@ -29,6 +29,9 @@ class VerifyOtpLocalizationsEn extends VerifyOtpLocalizations {
   String get incorrectOtpCodeErrorMessage => 'The OTP you entered is incorrect, please try again';
 
   @override
+  String get incompletePinErrorMessage => 'Please enter a 6-digit code';
+
+  @override
   String get verifyingOtpButtonLabel => 'Verifying';
 
   @override

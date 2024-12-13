@@ -141,6 +141,12 @@ abstract class VerifyOtpLocalizations {
   /// **'The OTP you entered is incorrect, please try again'**
   String get incorrectOtpCodeErrorMessage;
 
+  /// No description provided for @incompletePinErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a 6-digit code'**
+  String get incompletePinErrorMessage;
+
   /// No description provided for @verifyingOtpButtonLabel.
   ///
   /// In en, this message translates to:

@@ -17,13 +17,16 @@ class SignUpLocalizationsAr extends SignUpLocalizations {
   String get emailTextFieldHint => 'أدخل بريدك الإلكتروني';
 
   @override
-  String get requiredTextFieldErrorMessage => 'هذا الحقل مطلوب.';
+  String get requiredTextFieldErrorMessage => 'مطلوب';
+
+  @override
+  String get incompletePinErrorMessage => 'Please enter a 6-digit code';
 
   @override
   String get invalidCredentialsErrorMessage => 'بيانات الاعتماد غير صالحة، يرجى المحاولة مرة أخرى.';
 
   @override
-  String get invalidFormatErrorMessage => 'تنسيق غير صالح، يرجى التحقق من المدخلات.';
+  String get invalidEmailFormatErrorMessage => 'يرجى إدخال بريد إلكتروني صحيح';
 
   @override
   String get alreadyRegisteredErrorMessage => 'أنت مسجل بالفعل.';
@@ -50,7 +53,7 @@ class SignUpLocalizationsAr extends SignUpLocalizations {
   String get passwordConfirmationTextFieldHint => 'أعد إدخال كلمة المرور';
 
   @override
-  String get passwordConfirmationTextFieldError => 'كلمات المرور لا تتطابق.';
+  String get passwordConfirmationTextFieldError => 'كلمتا المرور غير متطابقتين';
 
   @override
   String get phoneTextFieldLabel => 'رقم الهاتف';
@@ -68,7 +71,7 @@ class SignUpLocalizationsAr extends SignUpLocalizations {
   String get alreadyHaveAnAccount => 'هل لديك حساب بالفعل؟';
 
   @override
-  String get invalidMobileFormatErrorMessage => 'تنسيق رقم الهاتف المحمول غير صالح.';
+  String get invalidMobileFormatErrorMessage => 'يرجى إدخال رقم هاتف صحيح';
 
   @override
   String get termsAndConditionsBottomSheetTitle => 'البنود والشروط';

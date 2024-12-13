@@ -4,7 +4,7 @@
   "invalidCredentialsErrorMessage": "Incorrect phone or password",
   "requiredFieldErrorMessage": "Required*",
   "phoneTextFieldLabel": "Phone",
-  "invalidPhoneFormatErrorMessage": "Invalid phone format",
+  "invalidPhoneFormatErrorMessage": "Please enter a valid phone number",
   "passwordTextFieldLabel": "Password",
   "rememberMeCheckBoxLabel": "Remember Me",
   "forgotMyPasswordButtonLabel": "Forgot Password",

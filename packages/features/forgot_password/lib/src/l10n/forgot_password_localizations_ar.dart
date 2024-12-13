@@ -35,7 +35,7 @@ class ForgotPasswordLocalizationsAr extends ForgotPasswordLocalizations {
   String get phoneTextFieldLabel => 'الهاتف';
 
   @override
-  String get invalidPhoneFormatErrorMessage => 'تنسيق الهاتف غير صالح';
+  String get invalidPhoneFormatErrorMessage => 'يرجى إدخال رقم هاتف صحيح';
 
   @override
   String get unverifiedPhoneErrorMessage => 'إعادة تعيين كلمة المرور الخاصة بي';

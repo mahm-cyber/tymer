@@ -92,7 +92,10 @@ class RequestServiceView extends StatelessWidget {
             children: [
               Scaffold(
                 appBar: AppBar(
-                  title: const SvgAsset(AssetPathConstants.whiteLogoPath),
+                  title: const SvgAsset(
+                    AssetPathConstants.whiteLogoPath,
+                    height: 30,
+                  ),
                   toolbarHeight: 70,
                   iconTheme: IconThemeData(color: colorScheme.surface),
                 ),

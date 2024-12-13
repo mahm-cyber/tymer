@@ -61,7 +61,7 @@ class _EmailState extends State<Email> {
               : emailError == EmailValidationError.invalidCredentials
                   ? l10n.invalidCredentialsErrorMessage
                   : emailError == EmailValidationError.invalidFormat
-                      ? l10n.invalidFormatErrorMessage
+                      ? l10n.invalidEmailFormatErrorMessage
                       : emailError == EmailValidationError.alreadyRegistered
                           ? l10n.alreadyRegisteredErrorMessage
                           : null,

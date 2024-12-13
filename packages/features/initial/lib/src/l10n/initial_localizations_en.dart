@@ -2,7 +2,7 @@ import 'initial_localizations.dart';
 
 /// The translations for English (`en`).
 class InitialLocalizationsEn extends InitialLocalizations {
-  InitialLocalizationsEn([super.locale = 'en']);
+  InitialLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
   String get signInButtonLabel => 'Sign In';

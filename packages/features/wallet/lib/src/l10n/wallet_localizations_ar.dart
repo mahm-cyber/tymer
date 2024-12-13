@@ -2,7 +2,7 @@ import 'wallet_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class WalletLocalizationsAr extends WalletLocalizations {
-  WalletLocalizationsAr([super.locale = 'ar']);
+  WalletLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get appBarTitle => 'المحفظه';

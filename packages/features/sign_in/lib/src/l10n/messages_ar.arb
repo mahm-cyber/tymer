@@ -4,7 +4,7 @@
   "invalidCredentialsErrorMessage": "الهاتف او كلمة مرور خطأ",
   "requiredFieldErrorMessage": "مطلوب*",
   "phoneTextFieldLabel": "الهاتف",
-  "invalidPhoneFormatErrorMessage": "صيغة الهاتف غير صحيحة",
+  "invalidPhoneFormatErrorMessage": "يرجى إدخال رقم هاتف صحيح",
   "passwordTextFieldLabel": "كلمة المرور",
   "rememberMeCheckBoxLabel": "تذكرنى",
   "forgotMyPasswordButtonLabel": "فقدت كلمة المرور",

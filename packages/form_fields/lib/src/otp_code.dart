@@ -22,7 +22,7 @@ class OtpCode extends FormzInput<String, OtpCodeValidationError> {
     if (limitExceeded != null) return OtpCodeValidationError.limitExceeded;
     if (incorrectCode) return OtpCodeValidationError.incorrect;
     if (value.trim().isEmpty) return OtpCodeValidationError.empty;
-    if (value.length < 4) return OtpCodeValidationError.incomplete;
+    if (value.length < 6) return OtpCodeValidationError.incomplete;
     return null;
   }
 }

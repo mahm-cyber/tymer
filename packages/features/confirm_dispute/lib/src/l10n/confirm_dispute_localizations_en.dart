@@ -2,7 +2,7 @@ import 'confirm_dispute_localizations.dart';
 
 /// The translations for English (`en`).
 class ConfirmDisputeLocalizationsEn extends ConfirmDisputeLocalizations {
-  ConfirmDisputeLocalizationsEn([super.locale = 'en']);
+  ConfirmDisputeLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
   String get disputeSuccessMessage => 'Dispute submitted successfully';
