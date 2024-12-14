@@ -20,9 +20,6 @@ class SignUpLocalizationsAr extends SignUpLocalizations {
   String get requiredTextFieldErrorMessage => 'مطلوب';
 
   @override
-  String get incompletePinErrorMessage => 'Please enter a 6-digit code';
-
-  @override
   String get invalidCredentialsErrorMessage => 'بيانات الاعتماد غير صالحة، يرجى المحاولة مرة أخرى.';
 
   @override

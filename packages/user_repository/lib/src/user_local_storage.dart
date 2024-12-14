@@ -27,4 +27,14 @@ class UserLocalStorage {
     final box = await noSqlStorage.reservationServiceTypesBox;
     return box.get(0);
   }
+
+  Future<void> upsertPricingSettings(PricingSettingsCM pricingSettings) async {
+    final box = await noSqlStorage.pricingSettingsBoxKey;
+    await box.put(0, pricingSettings);
+  }
+
+  Future<PricingSettingsCM?> getPricingSettings() async {
+    final box = await noSqlStorage.pricingSettingsBoxKey;
+    return box.get(0);
+  }
 }

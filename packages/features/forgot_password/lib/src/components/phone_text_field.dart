@@ -51,7 +51,6 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
         decoration: InputDecoration(
           isDense: true,
           labelText: l10n.phoneTextFieldLabel,
-          helperText: '',
           prefixIcon: const SvgAsset(
             AssetPathConstants.mobilePath,
           ),

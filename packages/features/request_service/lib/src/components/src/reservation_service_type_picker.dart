@@ -132,7 +132,6 @@ class ReservationServiceTypePicker extends StatelessWidget {
             },
             decoration: InputDecoration(
               labelText: l10n.selectServiceTypeLabel,
-              helperText: '',
               errorText:
                   reservationServiceTypeError == DynamicValidationError.empty
                       ? l10n.requiredFieldErrorMessage

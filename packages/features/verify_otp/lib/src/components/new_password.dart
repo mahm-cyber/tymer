@@ -52,7 +52,6 @@ class _NewPasswordState extends State<NewPassword> {
           obscureText: !isPasswordVisible,
           focusNode: _focusNode,
           decoration: InputDecoration(
-            helperText: '',
             prefixIcon: error == PasswordValidationError.weak
                 ? GestureDetector(
                     onTap: () => showModalBottomSheet(

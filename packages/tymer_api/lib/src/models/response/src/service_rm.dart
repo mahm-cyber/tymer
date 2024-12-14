@@ -12,6 +12,8 @@ class ServiceRM {
     required this.location,
     this.distanceBetweenProviderAndServiceLocation,
     required this.totalPrice,
+    required this.servicePrice,
+    required this.servicefee,
     required this.status,
     required this.createdAt,
     this.response,
@@ -29,6 +31,10 @@ class ServiceRM {
   final String? distanceBetweenProviderAndServiceLocation;
   @JsonKey(name: 'service_total_price')
   final String totalPrice;
+  @JsonKey(name: 'service_price')
+  final String servicePrice;
+  @JsonKey(name: 'service_fee')
+  final String servicefee;
   @JsonKey(name: 'status')
   final String status;
   @JsonKey(name: 'created_at')
@@ -62,6 +68,7 @@ class ServiceDetailsRM {
     required this.placeName,
     required this.placeAddress,
     this.date,
+    this.time,
     this.reservedFor,
     this.reservationDate,
     this.reservationTime,
@@ -75,6 +82,8 @@ class ServiceDetailsRM {
   final String placeAddress;
   @JsonKey(name: 'date', includeIfNull: false)
   final String? date;
+  @JsonKey(name: 'time', includeIfNull: false)
+  final String? time;
   @JsonKey(name: 'reserved_for', includeIfNull: false)
   final String? reservedFor;
   @JsonKey(name: 'reservation_date', includeIfNull: false)

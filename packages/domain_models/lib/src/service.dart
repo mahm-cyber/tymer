@@ -8,7 +8,9 @@ class Service {
     this.status,
     this.createdAt,
     required this.type,
-    required this.price,
+    required this.totalPrice,
+    this.price,
+    this.fee,
     required this.location,
     this.details,
     this.response,
@@ -19,7 +21,9 @@ class Service {
   final ServiceStatus? status;
   final DateTime? createdAt;
   final ServiceType type;
-  final double price;
+  final double totalPrice;
+  final double? price;
+  final double? fee;
   final LocationDM location;
   final ServiceDetails? details;
   final ServiceResponse? response;
@@ -40,6 +44,7 @@ class ServiceDetails {
     required this.placeName,
     required this.placeAddress,
     this.date,
+    this.time,
     this.reservedFor,
     this.reservationDate,
     this.reservationTime,
@@ -50,6 +55,7 @@ class ServiceDetails {
   final String placeName;
   final String placeAddress;
   final DateTime? date;
+  final TimeOfDay? time;
   final String? reservedFor;
   final DateTime? reservationDate;
   final TimeOfDay? reservationTime;

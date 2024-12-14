@@ -118,7 +118,6 @@
   },
   "myLocationInfoWindowTitle": "موقعي",
   "viewOnMapButtonLabel": "عرض",
-  "serviceFeesContainerLabel": "رسوم الخدمة",
   "serviceDetailsTitle": "تفاصيل الطلب",
   "pendingServiceRequestStatus": "قيد الانتظار",
   "inProgressServiceRequestStatus": "جارى التنفيذ",
@@ -131,7 +130,11 @@
   "providerServiceRequestsFetchMode": "منفذ خدمة",
   "pendingReviewDisputeStatus": "قيد المراجعة",
   "chargedBackDisputeStatus": "مرتجع",
-  "deniedDisputeStatus": "مرفوض"
+  "deniedDisputeStatus": "مرفوض",
+  "timeInPastErrorMessage": "لا يمكن أن يكون الوقت في الماضي",
+  "servicePriceContainerLabel": "سعر الخدمة",
+  "serviceFeesContainerLabel": "رسوم الخدمة",
+  "serviceTotalPriceContainerLabel": "إجمالي سعر الخدمة"
 
 
 }

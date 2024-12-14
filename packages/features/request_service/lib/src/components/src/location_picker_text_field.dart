@@ -49,7 +49,6 @@ class LocationPickerTextField extends StatelessWidget {
                             color: theme.primaryColor,
                           )
                         : null,
-                    helperText: '',
                     errorText: locationError == DynamicValidationError.empty
                         ? l10n.requiredFieldErrorMessage
                         : null,

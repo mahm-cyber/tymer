@@ -20,7 +20,7 @@ class RequestServiceLocalizationsEn extends RequestServiceLocalizations {
   String get placeNameTextFieldLabel => 'Place Name*';
 
   @override
-  String get requiredFieldErrorMessage => 'This field is required.';
+  String get requiredFieldErrorMessage => 'Required*.';
 
   @override
   String get reservationNameTextFieldLabel => 'Reservation Name*';
@@ -48,6 +48,9 @@ class RequestServiceLocalizationsEn extends RequestServiceLocalizations {
 
   @override
   String get addFundsButtonLabel => 'Go to Wallet';
+
+  @override
+  String get timeInPastErrorMessage => 'Time cannot be in the past';
 
   @override
   String get successfulServiceRequestMessage => 'Request successfully submitted';

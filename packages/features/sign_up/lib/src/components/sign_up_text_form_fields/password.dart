@@ -86,7 +86,6 @@ class _PasswordState extends State<Password> {
                 size: 24,
               ),
             ),
-            helperText: '',
             labelText: l10n.passwordTextFieldLabel,
             hintText: l10n.passwordTextFieldHint,
             errorText: passwordError == PasswordValidationError.empty

@@ -15,7 +15,9 @@ class HomeCubit extends Cubit<HomeState> {
     required this.onViewDisputesTapped,
   }) : super(
           const HomeState(),
-        );
+        ) {
+    userRepository.getPricingSettings(FetchPolicy.networkOnly);
+  }
 
   final UserRepository userRepository;
   final VoidCallback onRequestServiceTapped;

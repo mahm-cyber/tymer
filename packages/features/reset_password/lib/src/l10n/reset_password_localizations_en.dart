@@ -23,7 +23,7 @@ class ResetPasswordLocalizationsEn extends ResetPasswordLocalizations {
   String get newPasswordTextFieldLabel => 'New Password';
 
   @override
-  String get requiredFieldErrorMessage => 'This field is required';
+  String get requiredFieldErrorMessage => 'Required*';
 
   @override
   String get newPasswordTextFieldWeakPasswordError => 'The password is too weak';

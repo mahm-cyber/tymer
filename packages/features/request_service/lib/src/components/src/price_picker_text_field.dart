@@ -1,4 +1,5 @@
 import 'package:component_library/component_library.dart';
+import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
@@ -18,11 +19,14 @@ class PricePickerTextField extends StatelessWidget {
         final l10n = RequestServiceLocalizations.of(context);
         final theme = TymerTheme.of(context);
         final colorScheme = theme.materialThemeData.colorScheme;
+        final minPrice = state.serviceType == ServiceType.other
+            ? state.pricingSettings!.otherServiceMinPrice
+            : state.pricingSettings!.reservationServiceMinPrice;
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
           child: TextField(
             controller: TextEditingController(
-              text: '${state.price.toStringAsFixed(0)} EGP',
+              text: '${state.price!.toStringAsFixed(0)} EGP',
             ),
             textAlign: TextAlign.center,
             decoration: InputDecoration(
@@ -39,13 +43,12 @@ class PricePickerTextField extends StatelessWidget {
                 icon: Icon(
                   Icons.remove_circle_outline,
                   size: 24,
-                  color: state.price <= 20 ? theme.dimmedTextColor : null,
+                  color: state.price! <= minPrice ? Colors.grey : null,
                 ),
-                onPressed: state.price <= 20 || isSubmissionInProgress
+                onPressed: state.price! <= minPrice || isSubmissionInProgress
                     ? null
                     : cubit.onDecrementPrice,
               ),
-              helperText: '',
               labelText: l10n.pricePickerTextFieldLabel,
             ),
             readOnly: true,

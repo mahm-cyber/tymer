@@ -457,6 +457,17 @@ class TymerApi {
       rethrow;
     }
   }
+
+  Future<PricingSettingsRM> getPricingSettings() async {
+    final url = urlBuilder.buildGetPricingSettingsUrl();
+    try {
+      final response = await _dio.get(url);
+      final pricingSettings = PricingSettingsRM.fromJson(response.data[_dataJsonKey]);
+      return pricingSettings;
+    } catch (error) {
+      rethrow;
+    }
+  }
 }
 
 extension on Dio {
@@ -476,6 +487,7 @@ extension on Dio {
       InterceptorsWrapper(
         onRequest: (options, handler) async {
           final token = await userTokenSupplier();
+          // debugPrint('requestToken: $token');
           options.headers.addAll(
             {
               "Accept": "application/json",

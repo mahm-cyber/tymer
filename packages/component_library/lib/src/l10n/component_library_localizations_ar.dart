@@ -2,7 +2,7 @@ import 'component_library_localizations.dart';
 
 /// The translations for Arabic (`ar`).
 class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
-  ComponentLibraryLocalizationsAr([super.locale = 'ar']);
+  ComponentLibraryLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get invalidCredentialsErrorMessage => 'بريد الكترونى او كلمة مرور خطأ';
@@ -322,9 +322,6 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
   String get viewOnMapButtonLabel => 'عرض';
 
   @override
-  String get serviceFeesContainerLabel => 'رسوم الخدمة';
-
-  @override
   String get serviceDetailsTitle => 'تفاصيل الطلب';
 
   @override
@@ -362,4 +359,16 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get deniedDisputeStatus => 'مرفوض';
+
+  @override
+  String get timeInPastErrorMessage => 'لا يمكن أن يكون الوقت في الماضي';
+
+  @override
+  String get serviceFeesContainerLabel => 'رسوم الخدمة';
+
+  @override
+  String get servicePriceContainerLabel => 'سعر الخدمة';
+
+  @override
+  String get serviceTotalPriceContainerLabel => 'إجمالي سعر الخدمة';
 }

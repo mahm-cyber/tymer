@@ -29,3 +29,16 @@ extension ReservationServiceTypesCMtoDM on ReservationServiceTypesCM {
     return list.map((e) => e.toDomainModel()).toList();
   }
 }
+
+extension PricingSettingsCMtoDM on PricingSettingsCM {
+  PricingSettings toDomainModel() {
+    return PricingSettings(
+      reservationServiceMinPrice: reservationServiceMinPrice,
+      reservationServiceFee: reservationServiceFee,
+      reservationServiceFeeType: reservationServiceFeeType,
+      otherServiceMinPrice: otherServiceMinPrice,
+      otherServiceFee: otherServiceFee,
+      otherServiceFeeType: otherServiceFeeType,
+    );
+  }
+}

@@ -123,12 +123,6 @@ abstract class SignUpLocalizations {
   /// **'Required'**
   String get requiredTextFieldErrorMessage;
 
-  /// No description provided for @incompletePinErrorMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'Please enter a 6-digit code'**
-  String get incompletePinErrorMessage;
-
   /// No description provided for @invalidCredentialsErrorMessage.
   ///
   /// In en, this message translates to:

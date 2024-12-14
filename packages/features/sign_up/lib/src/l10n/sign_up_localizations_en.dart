@@ -20,9 +20,6 @@ class SignUpLocalizationsEn extends SignUpLocalizations {
   String get requiredTextFieldErrorMessage => 'Required';
 
   @override
-  String get incompletePinErrorMessage => 'Please enter a 6-digit code';
-
-  @override
   String get invalidCredentialsErrorMessage => 'Invalid credentials, please try again.';
 
   @override

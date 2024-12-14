@@ -7,12 +7,13 @@
   "imageTextFieldLabel": "صورة",
   "additionalDetailsTextFieldLabel": "تفاصيل إضافية",
   "reservationNumberTextFieldLabel": "رقم الحجز",
-  "requiredFieldErrorMessage": "هذا الحقل مطلوب.",
+  "requiredFieldErrorMessage": "مطلوب*",
   "timeTextFieldLabel": "الوقت",
   "dayTextFieldLabel": "اليوم",
   "serviceRequestSuccessMessage": "تم تنفيذ الطلب بنجاح",
   "serviceRequestFailureMessage": "فشل، حاول مرة أخرى",
   "backHomeButtonLabel": "العودة إلى الصفحة الرئيسية",
+  "serviceFeesContainerLabel": "رسوم الخدمة",
   "awaitingConfirmationButtonLabel": "جارى التأكيد"
 
 

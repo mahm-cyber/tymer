@@ -52,7 +52,6 @@ class _AddressTextFieldState extends State<AddressTextField> {
             decoration: InputDecoration(
               labelText: l10n.addressTextFieldLabel,
               hintText: l10n.addressTextFieldLabel,
-              helperText: '',
               errorText: addressError == DynamicValidationError.empty
                   ? l10n.requiredFieldErrorMessage
                   : null,

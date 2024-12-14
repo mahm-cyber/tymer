@@ -138,7 +138,7 @@ abstract class FulfillServiceRequestLocalizations {
   /// No description provided for @requiredFieldErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'This field is required.'**
+  /// **'Required*'**
   String get requiredFieldErrorMessage;
 
   /// No description provided for @timeTextFieldLabel.

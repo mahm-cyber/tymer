@@ -52,7 +52,6 @@ class _PlaceNameTextFieldState extends State<PlaceNameTextField> {
             decoration: InputDecoration(
               labelText: l10n.placeNameTextFieldLabel,
               hintText: l10n.placeNameTextFieldLabel,
-              helperText: '',
               errorText: placeNameError == DynamicValidationError.empty
                   ? l10n.requiredFieldErrorMessage
                   : null,

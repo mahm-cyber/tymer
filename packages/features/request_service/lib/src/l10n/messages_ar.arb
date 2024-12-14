@@ -4,7 +4,7 @@
   "addressTextFieldLabel": "العنوان*",
   "datePickerTextFieldLabel": "حدد التاريخ*",
   "placeNameTextFieldLabel": "اسم المكان*",
-  "requiredFieldErrorMessage": "هذا الحقل مطلوب.",
+  "requiredFieldErrorMessage": "مطلوب*",
   "reservationNameTextFieldLabel": "اسم الحجز*",
   "locationPickingCompletedButton": "تم",
   "locationPickerTextFieldLabel": "اختر الموقع*",

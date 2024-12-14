@@ -124,7 +124,7 @@ class AcceptServiceRequestView extends StatelessWidget {
                                     title: l10n.distanceToServiceLocation(
                                         '${state.service?.distanceBetweenProviderAndServiceLocation?.toStringAsFixed(0)}'),
                                     snippet:
-                                        '${state.service?.price.toStringAsFixed(0)} EGP',
+                                        '${state.service?.totalPrice.toStringAsFixed(0)} EGP',
                                   ),
                                 ),
                               },

@@ -2,7 +2,7 @@ import 'component_library_localizations.dart';
 
 /// The translations for English (`en`).
 class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
-  ComponentLibraryLocalizationsEn([super.locale = 'en']);
+  ComponentLibraryLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
   String get invalidCredentialsErrorMessage => 'Incorrect email or password';
@@ -322,9 +322,6 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
   String get viewOnMapButtonLabel => 'View';
 
   @override
-  String get serviceFeesContainerLabel => 'Service Fees';
-
-  @override
   String get serviceDetailsTitle => 'Request Details';
 
   @override
@@ -362,4 +359,16 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get deniedDisputeStatus => 'Denied';
+
+  @override
+  String get timeInPastErrorMessage => 'Time cannot be in the past';
+
+  @override
+  String get serviceFeesContainerLabel => 'Service Fee';
+
+  @override
+  String get servicePriceContainerLabel => 'Service Price';
+
+  @override
+  String get serviceTotalPriceContainerLabel => 'Service Total Price';
 }

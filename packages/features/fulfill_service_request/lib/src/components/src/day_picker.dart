@@ -54,7 +54,6 @@ class _DayPickerState extends State<DayPicker> {
     final isArabic = Localizations.localeOf(context).languageCode == 'ar';
     final l10n = FulfillServiceRequestLocalizations.of(context);
     final colorScheme = TymerTheme.of(context).materialThemeData.colorScheme;
-    final textTheme = Theme.of(context).textTheme;
     final theme = TymerTheme.of(context);
 
     return Column(
@@ -86,11 +85,7 @@ class _DayPickerState extends State<DayPicker> {
                       ? const Icon(Icons.calendar_today)
                       : null,
                   labelText: l10n.dayTextFieldLabel,
-                  labelStyle: TextStyle(
-                    color: widget.error != null
-                        ? colorScheme.error
-                        : colorScheme.onSurface,
-                  ),
+                  errorText: widget.error != null ? l10n.requiredFieldErrorMessage : null
                 ),
                 controller: TextEditingController(
                   //Date and time -- make hour and minute have 0 in the beignning if less than 10
@@ -119,16 +114,16 @@ class _DayPickerState extends State<DayPicker> {
               ),
           ],
         ),
-        if (widget.error != null) ...[
-          VerticalGap.xSmall(),
-          Padding(
-            padding: const EdgeInsetsDirectional.only(start: Spacing.medium),
-            child: Text(
-              l10n.requiredFieldErrorMessage,
-              style: textTheme.bodySmall?.copyWith(color: colorScheme.error),
-            ),
-          ),
-        ],
+        // if (widget.error != null) ...[
+        //   VerticalGap.xSmall(),
+        //   Padding(
+        //     padding: const EdgeInsetsDirectional.only(start: Spacing.medium),
+        //     child: Text(
+        //       l10n.requiredFieldErrorMessage,
+        //       style: textTheme.bodySmall?.copyWith(color: colorScheme.error),
+        //     ),
+        //   ),
+        // ],
       ],
     );
   }

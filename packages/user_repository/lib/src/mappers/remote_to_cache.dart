@@ -20,3 +20,17 @@ extension ReservationServiceTypesRMtoCM on ReservationServiceTypesRM {
     );
   }
 }
+
+extension PricingSettingsRMtoCM on PricingSettingsRM {
+  PricingSettingsCM toCacheModel() {
+    return PricingSettingsCM(
+      reservationServiceMinPrice: reservationServiceMinPrice,
+      reservationServiceFee: reservationServiceFee,
+      reservationServiceFeeType: reservationServiceFeeType,
+      otherServiceMinPrice: otherServiceMinPrice,
+      otherServiceFee: otherServiceFee,
+      otherServiceFeeType: otherServiceFeeType,
+    );
+  }
+}
+

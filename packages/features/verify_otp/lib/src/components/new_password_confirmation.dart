@@ -53,7 +53,6 @@ class _NewPasswordConfirmationState extends State<NewPasswordConfirmation> {
           obscureText: !isPasswordVisible,
           focusNode: _focusNode,
           decoration: InputDecoration(
-            helperText: '',
             prefixIcon: const SvgAsset(
               AssetPathConstants.lockPath,
             ),

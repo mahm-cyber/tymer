@@ -54,7 +54,6 @@ class _ReservationNameTextFieldState extends State<ReservationNameTextField> {
             decoration: InputDecoration(
               labelText: l10n.reservationNameTextFieldLabel,
               hintText: l10n.reservationNameTextFieldLabel,
-              helperText: '',
               errorText: reservationNameError == DynamicValidationError.empty
                   ? l10n.requiredFieldErrorMessage
                   : null,

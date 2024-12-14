@@ -118,7 +118,6 @@
   },
   "myLocationInfoWindowTitle": "My Location",
   "viewOnMapButtonLabel": "View",
-  "serviceFeesContainerLabel": "Service Fees",
   "serviceDetailsTitle": "Request Details",
   "pendingServiceRequestStatus": "Pending",
   "inProgressServiceRequestStatus": "In Progress",
@@ -131,8 +130,11 @@
   "providerServiceRequestsFetchMode": "Provided",
   "pendingReviewDisputeStatus": "Pending Review",
   "chargedBackDisputeStatus": "Charged Back",
-  "deniedDisputeStatus": "Denied"
-
+  "deniedDisputeStatus": "Denied",
+  "timeInPastErrorMessage": "Time cannot be in the past",
+  "serviceFeesContainerLabel": "Service Fee",
+  "servicePriceContainerLabel": "Service Price",
+  "serviceTotalPriceContainerLabel": "Service Total Price"
 
 
 }

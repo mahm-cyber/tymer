@@ -53,7 +53,6 @@ class _PasswordConfirmationState extends State<PasswordConfirmation> {
         decoration: InputDecoration(
           hintText: l10n.passwordConfirmationTextFieldHint,
           labelText: l10n.passwordConfirmationTextFieldLabel,
-          helperText: '',
           errorText: passwordConfirmationError ==
                   PasswordConfirmationValidationError.empty
               ? l10n.requiredTextFieldErrorMessage

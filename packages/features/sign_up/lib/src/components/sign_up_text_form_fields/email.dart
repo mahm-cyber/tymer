@@ -55,7 +55,6 @@ class _EmailState extends State<Email> {
           ),
           labelText: l10n.emailTextFieldLabel,
           hintText: l10n.emailTextFieldHint,
-          helperText: '',
           errorText: emailError == EmailValidationError.empty
               ? l10n.requiredTextFieldErrorMessage
               : emailError == EmailValidationError.invalidCredentials

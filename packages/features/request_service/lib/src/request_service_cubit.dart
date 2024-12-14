@@ -21,13 +21,39 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
             serviceType: serviceRepository.changeNotifier.serviceType,
           ),
         ) {
-    getReservationServiceTypes();
+    init();
   }
 
   final UserRepository userRepository;
   final ServiceRepository serviceRepository;
   final VoidCallback onGoToWalletTapped;
   final ValueSetter<int> onServiceRequestSuccess;
+
+  void init() {
+    getReservationServiceTypes();
+    getPricingSettings();
+  }
+
+  void getPricingSettings() async {
+    try {
+      final pricingSettings =
+          await userRepository.getPricingSettings(FetchPolicy.cachePreferably);
+      final minPrice = state.serviceType == ServiceType.reservation
+          ? pricingSettings.reservationServiceMinPrice
+          : pricingSettings.otherServiceMinPrice;
+      final newState = state.copyWith(
+        pricingSettings: pricingSettings,
+        price: minPrice.toDouble(),
+      );
+      emit(newState);
+    } catch (error) {
+      final newState = state.copyWith(
+        pricingSettings: null,
+        error: error,
+      );
+      emit(newState);
+    }
+  }
 
   void getReservationServiceTypes() async {
     try {
@@ -40,10 +66,9 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
         reservationServiceTypes: reservationServiceTypes,
       );
       emit(successState);
-    } catch (_) {
-      final failureState = state.copyWith(
-        reservationServiceTypes: [],
-      );
+    } catch (error) {
+      final failureState =
+          state.copyWith(reservationServiceTypes: [], error: error);
       emit(failureState);
     }
   }
@@ -79,11 +104,28 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
     emit(newState);
   }
 
-  void onDatePicked(DateTime dateTime) {
+  void onDatePicked(DateTime dateTime) async {
+    final resetTimeState = state.copyWith(
+      date: const Dynamic<DateTime?>.validated(null),
+      time: const Dynamic<TimeOfDay?>.unvalidated(null),
+    );
+    emit(resetTimeState);
+    // This is a workaround to fix the issue where the time picker is not reset
+    await Future.delayed(const Duration(milliseconds: 1));
     final newState = state.copyWith(
-      date: Dynamic<DateTime>.validated(
+      date: Dynamic<DateTime?>.validated(
         dateTime,
         isRequired: true,
+      ),
+      time: const Dynamic<TimeOfDay?>.unvalidated(null),
+    );
+    emit(newState);
+  }
+
+  void onTimeChanged(TimeOfDay? newValue) {
+    final newState = state.copyWith(
+      time: Dynamic<TimeOfDay?>.validated(
+        newValue,
       ),
     );
     emit(newState);
@@ -163,15 +205,18 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
 
   void onIncrementPrice() {
     final newState = state.copyWith(
-      price: state.price + 10,
+      price: state.price! + 10,
     );
     emit(newState);
   }
 
   void onDecrementPrice() {
-    if (state.price <= 20) return;
+    final minPrice = state.serviceType == ServiceType.reservation
+        ? state.pricingSettings!.reservationServiceMinPrice
+        : state.pricingSettings!.otherServiceMinPrice;
+    if (state.price! <= minPrice) return;
     final newState = state.copyWith(
-      price: state.price - 10,
+      price: state.price! - 10,
     );
     emit(newState);
   }
@@ -242,12 +287,13 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
         final requestId = await serviceRepository.requestService(
           serviceType: state.serviceType!,
           // price: 0,
-          price: state.price,
+          price: state.price!,
           coordinates: location.value!,
           placeName: placeName.value!,
           placeAddress: address.value!,
           reservedFor: reservationName.value,
           date: date.value!,
+          time: state.time.value,
           reservationServiceType: reservationServiceType.value,
           additionalComments: state.additionalComments.value,
         );

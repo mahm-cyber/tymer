@@ -723,12 +723,6 @@ abstract class ComponentLibraryLocalizations {
   /// **'View'**
   String get viewOnMapButtonLabel;
 
-  /// No description provided for @serviceFeesContainerLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Service Fees'**
-  String get serviceFeesContainerLabel;
-
   /// No description provided for @serviceDetailsTitle.
   ///
   /// In en, this message translates to:
@@ -806,6 +800,30 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'Denied'**
   String get deniedDisputeStatus;
+
+  /// No description provided for @timeInPastErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Time cannot be in the past'**
+  String get timeInPastErrorMessage;
+
+  /// No description provided for @serviceFeesContainerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Fee'**
+  String get serviceFeesContainerLabel;
+
+  /// No description provided for @servicePriceContainerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Price'**
+  String get servicePriceContainerLabel;
+
+  /// No description provided for @serviceTotalPriceContainerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Total Price'**
+  String get serviceTotalPriceContainerLabel;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

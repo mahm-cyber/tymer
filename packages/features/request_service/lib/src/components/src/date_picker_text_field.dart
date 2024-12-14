@@ -56,7 +56,6 @@ class DatePickerTextField extends StatelessWidget {
                             color: theme.primaryColor,
                           )
                         : null,
-                    helperText: '',
                     errorText: dateError == DynamicValidationError.empty
                         ? l10n.requiredFieldErrorMessage
                         : null,

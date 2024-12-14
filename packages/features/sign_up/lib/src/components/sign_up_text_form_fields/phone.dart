@@ -53,7 +53,6 @@ class _PhoneState extends State<Phone> {
             prefixIcon: const SvgAsset(
               AssetPathConstants.mobilePath,
             ),
-            helperText: '',
             hintText: l10n.phoneTextFieldHint,
             labelText: l10n.phoneTextFieldLabel,
             errorText: phoneError == MobileValidationError.empty

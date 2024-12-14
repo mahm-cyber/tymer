@@ -20,7 +20,7 @@ class RequestServiceLocalizationsAr extends RequestServiceLocalizations {
   String get placeNameTextFieldLabel => 'اسم المكان*';
 
   @override
-  String get requiredFieldErrorMessage => 'هذا الحقل مطلوب.';
+  String get requiredFieldErrorMessage => 'مطلوب*';
 
   @override
   String get reservationNameTextFieldLabel => 'اسم الحجز*';
@@ -48,6 +48,9 @@ class RequestServiceLocalizationsAr extends RequestServiceLocalizations {
 
   @override
   String get addFundsButtonLabel => 'اذهب إلى المحفظة';
+
+  @override
+  String get timeInPastErrorMessage => 'لا يمكن أن يكون الوقت في الماضي';
 
   @override
   String get successfulServiceRequestMessage => 'تم طلب الخدمة بنجاح';

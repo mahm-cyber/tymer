@@ -95,7 +95,8 @@ class UserRepository {
         phone: phone,
         password: password,
       );
-      _secureStorage.upsertUserToken(token: token);
+      await _secureStorage.upsertUserToken(token: token);
+      debugPrint('cachedToken: $token');
       final userRM = await remoteApi.getUser();
       final isPhoneVerified = userRM.phoneVerifiedAt != null;
       final userDM = userRM.toDomainModel();
@@ -119,6 +120,7 @@ class UserRepository {
       _userSubject.add(
         userDM,
       );
+
     } catch (error) {
       if (error is InvalidCredentialsTymerException) {
         throw InvalidCredentialsException();
@@ -126,7 +128,8 @@ class UserRepository {
       if (error is RateLimitedTymerException) {
         throw OtpRateLimitExceededException(
           error.seconds,
-        );      }
+        );
+      }
       rethrow;
     }
   }
@@ -343,6 +346,39 @@ class UserRepository {
   Future deleteRememberedCredentials() async {
     await _secureStorage.deleteRememberPhone();
     await _secureStorage.deleteRememberPassword();
+  }
+
+  Future<PricingSettings> _getPricingSettingsFromNetwork() async {
+    try {
+      final token = await getUserToken();
+      debugPrint('getPricingSettingsToken: $token');
+      final pricingSettingsRM = await remoteApi.getPricingSettings();
+      final pricingSettingsDM = pricingSettingsRM.toDomainModel();
+      final pricingSettingsCM = pricingSettingsRM.toCacheModel();
+      _localStorage.upsertPricingSettings(pricingSettingsCM);
+      return pricingSettingsDM;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<PricingSettings> getPricingSettings(FetchPolicy fetchPolicy) async {
+    try {
+      if (fetchPolicy == FetchPolicy.networkOnly) {
+        final pricingSettings = await _getPricingSettingsFromNetwork();
+        return pricingSettings;
+      }
+      final storedPricingSettingsCM = await _localStorage.getPricingSettings();
+      if (storedPricingSettingsCM == null) {
+        final pricingSettings = await _getPricingSettingsFromNetwork();
+        return pricingSettings;
+      } else {
+        final storedPricingSettings = storedPricingSettingsCM.toDomainModel();
+        return storedPricingSettings;
+      }
+    } catch (error) {
+      rethrow;
+    }
   }
 }
 

@@ -24,6 +24,8 @@ ServiceRM _$ServiceRMFromJson(Map<String, dynamic> json) => $checkedCreate(
               $checkedConvert('service_distance', (v) => v as String?),
           totalPrice:
               $checkedConvert('service_total_price', (v) => v as String),
+          servicePrice: $checkedConvert('service_price', (v) => v as String),
+          servicefee: $checkedConvert('service_fee', (v) => v as String),
           status: $checkedConvert('status', (v) => v as String),
           createdAt: $checkedConvert('created_at', (v) => v as String),
           response: $checkedConvert('service_response',
@@ -37,6 +39,8 @@ ServiceRM _$ServiceRMFromJson(Map<String, dynamic> json) => $checkedCreate(
         'location': 'service_location',
         'distanceBetweenProviderAndServiceLocation': 'service_distance',
         'totalPrice': 'service_total_price',
+        'servicePrice': 'service_price',
+        'servicefee': 'service_fee',
         'createdAt': 'created_at',
         'response': 'service_response'
       },
@@ -51,6 +55,7 @@ ServiceDetailsRM _$ServiceDetailsRMFromJson(Map<String, dynamic> json) =>
           placeName: $checkedConvert('place_name', (v) => v as String),
           placeAddress: $checkedConvert('place_address', (v) => v as String),
           date: $checkedConvert('date', (v) => v as String?),
+          time: $checkedConvert('time', (v) => v as String?),
           reservedFor: $checkedConvert('reserved_for', (v) => v as String?),
           reservationDate:
               $checkedConvert('reservation_date', (v) => v as String?),

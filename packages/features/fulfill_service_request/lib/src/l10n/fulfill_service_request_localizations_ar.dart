@@ -26,7 +26,7 @@ class FulfillServiceRequestLocalizationsAr extends FulfillServiceRequestLocaliza
   String get reservationNumberTextFieldLabel => 'رقم الحجز';
 
   @override
-  String get requiredFieldErrorMessage => 'هذا الحقل مطلوب.';
+  String get requiredFieldErrorMessage => 'مطلوب*';
 
   @override
   String get timeTextFieldLabel => 'الوقت';
@@ -44,7 +44,7 @@ class FulfillServiceRequestLocalizationsAr extends FulfillServiceRequestLocaliza
   String get backHomeButtonLabel => 'العودة إلى الصفحة الرئيسية';
 
   @override
-  String get serviceFeesContainerLabel => 'Service Fees';
+  String get serviceFeesContainerLabel => 'رسوم الخدمة';
 
   @override
   String get awaitingConfirmationButtonLabel => 'جارى التأكيد';

@@ -54,7 +54,9 @@ extension ServiceRMtoDM on ServiceRM {
         status: serviceStatusRMtoDM(status),
         createdAt: DateTime.parse(createdAt),
         type: serviceTypeRMtoDM(type),
-        price: double.parse(totalPrice),
+        totalPrice: double.parse(totalPrice),
+        price: double.parse(servicePrice),
+        fee: double.parse(servicefee),
         location: location.toDomainModel(),
         details: details?.toDomainModel(),
         response: serviceResponse,
@@ -115,8 +117,10 @@ extension ServiceDetailsRMtoDM on ServiceDetailsRM {
       reservedFor: reservedFor,
       reservationDate:
           reservationDate != null ? DateTime.parse(reservationDate!) : null,
-      reservationTime:
-          reservationTime != null ? stringToTimeOfDay(reservationTime!) : null,
+      reservationTime: reservationTime != null ? stringToTimeOfDay(reservationTime!) : null,
+      time: time != null
+              ? stringToTimeOfDay(time!)
+              : null,
       reservationServiceCategory: reservationServiceCategory?.toDomainModel(),
       additionalComments: additionalDetails,
     );

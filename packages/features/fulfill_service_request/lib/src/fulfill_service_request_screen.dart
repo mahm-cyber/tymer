@@ -116,7 +116,7 @@ class FulfillServiceRequestView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     VerticalGap.large(),
-                    VerticalGap.medium(),
+                    VerticalGap.small(),
                     if (!isRequestFulfilled)
                       Expanded(
                         child: ListView(
@@ -127,27 +127,28 @@ class FulfillServiceRequestView extends StatelessWidget {
                             ),
                             if (state.service?.type ==
                                 ServiceType.reservation) ...[
-                              VerticalGap.medium(),
+                              VerticalGap.small(),
                               const ReservationNumberTextField(),
+                              VerticalGap.small(),
                             ],
-                            VerticalGap.medium(),
                             DayPicker(
                               onChanged: cubit.onDayChanged,
                               error: state.day.error,
                               isSubmissionInProgress: isSubmissionInProgress,
                               initialValue: state.service?.response?.date,
                             ),
-                            VerticalGap.medium(),
+                            VerticalGap.small(),
                             TimePicker(
                               onChanged: cubit.onTimeChanged,
                               error: state.time.error,
                               isSubmissionInProgress: isSubmissionInProgress,
                               initialValue: state.service?.response?.time,
                             ),
-                            VerticalGap.medium(),
+                            VerticalGap.small(),
                             const ImagePickerTextField(),
-                            VerticalGap.medium(),
+                            VerticalGap.small(),
                             const AdditionalDetailsTextField(),
+                            VerticalGap.small(),
                           ],
                         ),
                       ),

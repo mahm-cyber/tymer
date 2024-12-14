@@ -275,7 +275,7 @@ class _VerifyOtpForm extends StatelessWidget {
                     VerticalGap.large(),
                     if (isForgotPassword) ...[
                       const NewPassword(),
-                      VerticalGap.xSmall(),
+                      VerticalGap.small(),
                       const NewPasswordConfirmation(),
                     ],
                     VerticalGap.large(),

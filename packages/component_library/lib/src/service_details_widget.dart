@@ -22,7 +22,11 @@ class ServiceRequestDetailsWidget extends StatelessWidget {
     final date = hasEitherDate
         ? serviceDetails?.date ?? serviceDetails?.reservationDate
         : null;
-    final hasTime = serviceDetails?.reservationTime != null;
+    final hasEitherTime =
+        serviceDetails?.time != null || serviceDetails?.reservationTime != null;
+    final time = hasEitherTime
+        ? serviceDetails?.time ?? serviceDetails?.reservationTime
+        : null;
     final theme = TymerTheme.of(context);
     final l10n = ComponentLibraryLocalizations.of(context);
     final isArabic = Localizations.localeOf(context).languageCode == 'ar';
@@ -44,7 +48,7 @@ class ServiceRequestDetailsWidget extends StatelessWidget {
               prefixIcon: const Icon(Icons.category_outlined),
             ),
           ),
-          VerticalGap.medium(),
+          VerticalGap.small(),
         ],
         if (serviceDetails?.reservedFor != null) ...[
           TextFormField(
@@ -58,7 +62,7 @@ class ServiceRequestDetailsWidget extends StatelessWidget {
               ),
             ),
           ),
-          VerticalGap.medium(),
+          VerticalGap.small(),
         ],
         if (hasEitherDate) ...[
           TextFormField(
@@ -72,19 +76,19 @@ class ServiceRequestDetailsWidget extends StatelessWidget {
               ),
             ),
           ),
-          VerticalGap.medium(),
+          VerticalGap.small(),
         ],
-        if (hasTime) ...[
+        if (hasEitherTime) ...[
           TextFormField(
             enableInteractiveSelection: true,
-            initialValue: serviceDetails!.reservationTime!.format(context),
+            initialValue: time!.format(context),
             enabled: false,
             decoration: InputDecoration(
               labelText: l10n.timeTextFieldLabel,
               prefixIcon: const Icon(Icons.calendar_today),
             ),
           ),
-          VerticalGap.medium(),
+          VerticalGap.small(),
         ],
         TextFormField(
           enableInteractiveSelection: true,
@@ -97,7 +101,7 @@ class ServiceRequestDetailsWidget extends StatelessWidget {
             ),
           ),
         ),
-        VerticalGap.medium(),
+        VerticalGap.small(),
         TextFormField(
           enableInteractiveSelection: true,
           initialValue: serviceDetails?.placeAddress,
@@ -109,7 +113,7 @@ class ServiceRequestDetailsWidget extends StatelessWidget {
             ),
           ),
         ),
-        VerticalGap.medium(),
+        VerticalGap.small(),
         GestureDetector(
           onTap: onViewServiceOnMap,
           child: Stack(
@@ -141,10 +145,10 @@ class ServiceRequestDetailsWidget extends StatelessWidget {
             ],
           ),
         ),
-        VerticalGap.medium(),
+        VerticalGap.small(),
         TextFormField(
           enableInteractiveSelection: true,
-          initialValue: '${service.price.toStringAsFixed(0)} EGP',
+          initialValue: '${service.price!.toStringAsFixed(0)} EGP',
           enabled: false,
           decoration: InputDecoration(
             labelText: l10n.priceTextFieldLabel,
@@ -153,7 +157,7 @@ class ServiceRequestDetailsWidget extends StatelessWidget {
             ),
           ),
         ),
-        VerticalGap.medium(),
+        VerticalGap.small(),
         if (serviceDetails?.additionalComments != null)
           TextFormField(
             enableInteractiveSelection: true,

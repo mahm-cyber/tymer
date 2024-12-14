@@ -5,7 +5,7 @@
   "submissionInProgressButtonLabel": "Submitting",
   "submitButtonLabel": "Submit",
   "newPasswordTextFieldLabel": "New Password",
-  "requiredFieldErrorMessage": "This field is required",
+  "requiredFieldErrorMessage": "Required*",
   "newPasswordTextFieldWeakPasswordError": "The password is too weak",
   "newPasswordTextFieldHint": "Enter your new password",
   "newPasswordConfirmationTextFieldLabel": "Confirm New Password",

@@ -85,7 +85,7 @@ class ServiceRequestCard extends StatelessWidget {
                     ),
                     HorizontalGap.medium(),
                     Text(
-                      '${service.price.toStringAsFixed(0)} EGP',
+                      '${service.price!.toStringAsFixed(0)} EGP',
                       style: textTheme.bodyMedium?.copyWith(
                         color: colorScheme.secondary,
                         fontWeight: FontWeight.bold,

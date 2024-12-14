@@ -38,7 +38,7 @@ class ServiceFeeContainer extends StatelessWidget {
               const SvgAsset(AssetPathConstants.bankNotePath),
               HorizontalGap.small(),
               Text(
-                '${state.service!.price.toStringAsFixed(0)} EGP',
+                '${state.service!.totalPrice.toStringAsFixed(0)} EGP',
                 style: textTheme.bodyMedium,
               ),
             ],

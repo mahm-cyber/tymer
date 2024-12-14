@@ -26,7 +26,7 @@ class FulfillServiceRequestLocalizationsEn extends FulfillServiceRequestLocaliza
   String get reservationNumberTextFieldLabel => 'Reservation Number';
 
   @override
-  String get requiredFieldErrorMessage => 'This field is required.';
+  String get requiredFieldErrorMessage => 'Required*';
 
   @override
   String get timeTextFieldLabel => 'Time';

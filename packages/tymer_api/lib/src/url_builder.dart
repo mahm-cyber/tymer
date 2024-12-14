@@ -126,8 +126,14 @@ class UrlBuilder {
     final pageQuery = '?page=$page';
     final modeQuery = '&mode=$userType';
     final statusQuery = status != null ? '&filter[status]=$status' : '';
-    const includeQuery = '&include=serviceRequest,serviceRequest.service,serviceRequest.serviceResponse';
-    final completeUrl = '$baseUrl/disputes$pageQuery$modeQuery$statusQuery$includeQuery';
+    const includeQuery =
+        '&include=serviceRequest,serviceRequest.service,serviceRequest.serviceResponse';
+    final completeUrl =
+        '$baseUrl/disputes$pageQuery$modeQuery$statusQuery$includeQuery';
     return completeUrl;
+  }
+
+  String buildGetPricingSettingsUrl() {
+    return '$baseUrl/settings/service-pricing';
   }
 }

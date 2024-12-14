@@ -32,7 +32,9 @@ class ServiceRequestDetailsRM {
     required this.placeAddress,
     this.reservedFor,
     this.reservationDate,
+    this.reservationTime,
     this.detailsDate,
+    this.detailsTime,
     this.reservationServiceCategoryId,
     this.additionalComments,
   });
@@ -45,8 +47,12 @@ class ServiceRequestDetailsRM {
   final String? reservedFor;
   @JsonKey(name: 'reservation_date', includeIfNull: false)
   final String? reservationDate;
+  @JsonKey(name: 'reservation_time', includeIfNull: false)
+  final String? reservationTime;
   @JsonKey(name: 'date', includeIfNull: false)
   final String? detailsDate;
+  @JsonKey(name: 'time', includeIfNull: false)
+  final String? detailsTime;
   @JsonKey(name: 'reservation_service_category_id', includeIfNull: false)
   final int? reservationServiceCategoryId;
   @JsonKey(name: 'other_details', includeIfNull: false)

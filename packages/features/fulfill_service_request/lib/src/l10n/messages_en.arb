@@ -6,7 +6,7 @@
   "imageTextFieldLabel": "Image",
   "additionalDetailsTextFieldLabel": "Additional Details",
   "reservationNumberTextFieldLabel": "Reservation Number",
-  "requiredFieldErrorMessage": "This field is required.",
+  "requiredFieldErrorMessage": "Required*",
   "timeTextFieldLabel": "Time",
   "dayTextFieldLabel": "Day",
   "serviceRequestSuccessMessage": "Request fulfilled successfully",

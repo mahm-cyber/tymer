@@ -1,4 +1,5 @@
 import 'package:domain_models/domain_models.dart';
+import 'package:form_fields/form_fields.dart';
 import 'package:request_service/src/components/components.dart';
 import 'package:request_service/src/components/src/reservation_service_type_picker.dart';
 import 'package:request_service/src/request_service_cubit.dart';
@@ -24,30 +25,46 @@ class _FormFieldsState extends State<FormFields>
       builder: (context, state) {
         final isReservationService =
             state.serviceType == ServiceType.reservation;
+        final cubit = context.read<RequestServiceCubit>();
+        final theme = TymerTheme.of(context);
         return Expanded(
           child: ListView(
             children: [
-                VerticalGap.xLarge(),
-                VerticalGap.medium(),
+              VerticalGap.xLarge(),
+              VerticalGap.medium(),
               if (isReservationService) ...[
                 const ReservationServiceTypePicker(),
-                VerticalGap.xSmall(),
+                VerticalGap.small(),
                 const ReservationNameTextField(),
-                VerticalGap.xSmall(),
+                VerticalGap.small(),
               ],
               const DatePickerTextField(),
-              VerticalGap.xSmall(),
+              VerticalGap.small(),
+              if (state.date.value != null) ...[
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
+                  child: TimePicker(
+                    onChanged: cubit.onTimeChanged,
+                    pickedDay: state.date.value,
+                    isSubmissionInProgress: state.submissionStatus ==
+                        FormzSubmissionStatus.inProgress,
+                    shouldAllowPastTime: false,
+                    error: state.time.error,
+                    initialValue: null,
+                  ),
+                ),
+                VerticalGap.small(),
+              ],
               const PlaceNameTextField(),
-              VerticalGap.xSmall(),
+              VerticalGap.small(),
               const AddressTextField(),
-              VerticalGap.xSmall(),
+              VerticalGap.small(),
               const LocationPickerTextField(),
-              VerticalGap.xSmall(),
+              VerticalGap.small(),
               const PricePickerTextField(),
-              VerticalGap.xSmall(),
+              VerticalGap.small(),
               const AdditionalCommentsTextField(),
-              VerticalGap.xSmall(),
-
+              VerticalGap.small(),
             ],
           ),
         );

@@ -58,6 +58,7 @@ class _ReservationNumberTextFieldState
             errorText: reservationNumberError == DynamicValidationError.empty
                 ? l10n.requiredFieldErrorMessage
                 : null,
+
           ),
         );
       },

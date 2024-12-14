@@ -31,11 +31,12 @@ class ServiceRepository {
     String? reservedFor,
     String? additionalComments,
     required DateTime date,
+    TimeOfDay? time,
     ReservationServiceType? reservationServiceType,
   }) async {
     final requestServiceRM = Service(
       type: serviceType,
-      price: price,
+      totalPrice: price,
       location: LocationDM(
         type: 'Point',
         coordinates: [
@@ -48,6 +49,7 @@ class ServiceRepository {
         placeAddress: placeAddress,
         reservedFor: reservedFor,
         date: date,
+        time: time,
         reservationServiceCategory: reservationServiceType,
         additionalComments: additionalComments,
       ),

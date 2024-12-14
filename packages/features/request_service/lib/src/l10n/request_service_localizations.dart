@@ -126,7 +126,7 @@ abstract class RequestServiceLocalizations {
   /// No description provided for @requiredFieldErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'This field is required.'**
+  /// **'Required*.'**
   String get requiredFieldErrorMessage;
 
   /// No description provided for @reservationNameTextFieldLabel.
@@ -182,6 +182,12 @@ abstract class RequestServiceLocalizations {
   /// In en, this message translates to:
   /// **'Go to Wallet'**
   String get addFundsButtonLabel;
+
+  /// No description provided for @timeInPastErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Time cannot be in the past'**
+  String get timeInPastErrorMessage;
 
   /// No description provided for @successfulServiceRequestMessage.
   ///

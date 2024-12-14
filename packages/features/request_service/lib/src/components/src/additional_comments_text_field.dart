@@ -51,7 +51,6 @@ class _AdditionalCommentsTextFieldState
             onChanged: cubit.onAdditionalCommentsChanged,
             decoration: InputDecoration(
               alignLabelWithHint: true,
-              helperText: '',
               labelText: l10n.additionalCommentsTextFieldLabel,
               hintText: l10n.additionalCommentsTextFieldLabel,
             ),

@@ -18,7 +18,7 @@ extension RequestServiceDMtoRM on Service {
     final serviceTypeRM = serviceTypeDMtoRM(type);
     return RequestServiceRM(
       type: serviceTypeRM,
-      price: price,
+      price: totalPrice,
       location: LocationRM(
         type: location.type,
         coordinates: location.coordinates,
@@ -28,7 +28,13 @@ extension RequestServiceDMtoRM on Service {
         placeAddress: details!.placeAddress,
         reservedFor: details!.reservedFor,
         reservationDate: type == ServiceType.reservation ? dateRM : null,
+        reservationTime: type == ServiceType.reservation
+            ? details!.time!.twentyFourHrFormat
+            : null,
         detailsDate: type == ServiceType.other ? dateRM : null,
+        detailsTime: type == ServiceType.other
+            ? details!.time!.twentyFourHrFormat
+            : null,
         reservationServiceCategoryId: type == ServiceType.reservation
             ? details!.reservationServiceCategory!.id
             : null,

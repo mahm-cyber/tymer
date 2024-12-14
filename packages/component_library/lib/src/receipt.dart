@@ -3,7 +3,6 @@ import 'package:domain_models/domain_models.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 
-
 class Receipt extends StatelessWidget {
   const Receipt({
     super.key,
@@ -16,7 +15,7 @@ class Receipt extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    final l10n = ComponentLibraryLocalizations.of(context);
 
     return Expanded(
       child: ListView(
@@ -29,15 +28,18 @@ class Receipt extends StatelessWidget {
             ),
           VerticalGap.medium(),
           ServiceFeeContainer(
-            service: service,
+            title: l10n.servicePriceContainerLabel,
+            amount: service.price!.toStringAsFixed(0),
           ),
           VerticalGap.medium(),
           ServiceFeeContainer(
-            service: service,
+            title: l10n.serviceFeesContainerLabel,
+            amount: service.fee!.toStringAsFixed(0),
           ),
           VerticalGap.medium(),
           ServiceFeeContainer(
-            service: service,
+            title: l10n.serviceTotalPriceContainerLabel,
+            amount: service.totalPrice.toStringAsFixed(0),
           ),
           VerticalGap.medium(),
         ],

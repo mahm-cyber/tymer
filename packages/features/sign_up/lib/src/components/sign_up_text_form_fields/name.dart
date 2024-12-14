@@ -54,7 +54,6 @@ class _NameState extends State<Name> {
             ),
             hintText: l10n.nameTextFieldHint,
             labelText: l10n.nameTextFieldLabel,
-            helperText: '',
             errorText: error == DynamicValidationError.empty
                 ? l10n.requiredTextFieldErrorMessage
                 : null,
