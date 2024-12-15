@@ -11,10 +11,10 @@ class ForgotPasswordLocalizationsAr extends ForgotPasswordLocalizations {
   String get forgotPasswordTitle => 'أدخل تفاصيلك وسنرسل لك OTP لإعادة تعيين كلمة المرور';
 
   @override
-  String get otpSentSuccessfullySnackBarMessage => 'تم إرسال OTP بنجاح';
+  String get otpSentSuccessfullySnackBarMessage => 'تم إرسال OTP بنجاح.';
 
   @override
-  String get generalErrorSnackBarMessage => 'حدث خطأ ما';
+  String get generalErrorSnackBarMessage => 'حدث خطأ ما.';
 
   @override
   String get requiredFieldErrorMessage => 'مطلوب*';
@@ -45,6 +45,6 @@ class ForgotPasswordLocalizationsAr extends ForgotPasswordLocalizations {
 
   @override
   String otpRateLimitExceededErrorSnackBarMessage(Object seconds) {
-    return 'لقد وصلت إلى الحد الأقصى لطلبات OTP. يرجى المحاولة مرة أخرى في $seconds ثانية';
+    return 'لقد وصلت إلى الحد الأقصى لطلبات OTP. يرجى المحاولة مرة أخرى في $seconds ثانية.';
   }
 }

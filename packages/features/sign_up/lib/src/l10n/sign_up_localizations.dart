@@ -120,13 +120,13 @@ abstract class SignUpLocalizations {
   /// No description provided for @requiredTextFieldErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'Required'**
+  /// **'Required*'**
   String get requiredTextFieldErrorMessage;
 
   /// No description provided for @invalidCredentialsErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'Invalid credentials, please try again.'**
+  /// **'Invalid credentials, please try again'**
   String get invalidCredentialsErrorMessage;
 
   /// No description provided for @invalidEmailFormatErrorMessage.
@@ -138,7 +138,7 @@ abstract class SignUpLocalizations {
   /// No description provided for @alreadyRegisteredErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'You are already registered.'**
+  /// **'You are already registered'**
   String get alreadyRegisteredErrorMessage;
 
   /// No description provided for @nameTextFieldHint.
@@ -168,7 +168,7 @@ abstract class SignUpLocalizations {
   /// No description provided for @passwordWeakErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'Your password is too weak.'**
+  /// **'Your password is too weak'**
   String get passwordWeakErrorMessage;
 
   /// No description provided for @passwordConfirmationTextFieldLabel.
@@ -186,7 +186,7 @@ abstract class SignUpLocalizations {
   /// No description provided for @passwordConfirmationTextFieldError.
   ///
   /// In en, this message translates to:
-  /// **'Passwords do not match.'**
+  /// **'Passwords do not match'**
   String get passwordConfirmationTextFieldError;
 
   /// No description provided for @phoneTextFieldLabel.

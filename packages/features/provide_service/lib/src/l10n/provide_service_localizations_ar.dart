@@ -13,7 +13,7 @@ class ProvideServiceLocalizationsAr extends ProvideServiceLocalizations {
   }
 
   @override
-  String get noServiceRequestsText => 'لا توجد طلبات خدمة متاحة.';
+  String get noServiceRequestsText => 'لا توجد طلبات خدمة متاحة';
 
   @override
   String get showInMapButtonLabel => 'عرض على الخريطة';
@@ -22,10 +22,10 @@ class ProvideServiceLocalizationsAr extends ProvideServiceLocalizations {
   String get viewButtonLabel => 'عرض';
 
   @override
-  String get userHasRunningServiceRequestSnackBarMessage => 'لديك طلب خدمة جاري. يرجى استكماله قبل تقديم طلب جديد';
+  String get userHasRunningServiceRequestSnackBarMessage => 'لديك طلب خدمة جاري. يرجى استكماله قبل تقديم طلب جديد.';
 
   @override
-  String get locationDataFailureSnackBarMessage => 'فشل في الحصول على بيانات الموقع. يرجى المحاولة مرة أخرى لاحقًا';
+  String get locationDataFailureSnackBarMessage => 'فشل في الحصول على بيانات الموقع. يرجى المحاولة مرة أخرى لاحقًا.';
 
   @override
   String get showInListViewButtonLabel => 'عرض القائمة';

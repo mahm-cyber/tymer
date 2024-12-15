@@ -126,7 +126,7 @@ abstract class RequestServiceLocalizations {
   /// No description provided for @requiredFieldErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'Required*.'**
+  /// **'Required*'**
   String get requiredFieldErrorMessage;
 
   /// No description provided for @reservationNameTextFieldLabel.

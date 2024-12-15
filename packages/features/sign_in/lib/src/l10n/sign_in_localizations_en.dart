@@ -8,7 +8,7 @@ class SignInLocalizationsEn extends SignInLocalizations {
   String get appBarTitle => 'Sign In';
 
   @override
-  String get generalErrorSnackBarMessage => 'ٍSomething went wrong';
+  String get generalErrorSnackBarMessage => 'ٍSomething went wrong.';
 
   @override
   String get invalidCredentialsErrorMessage => 'Incorrect phone or password';
@@ -41,7 +41,7 @@ class SignInLocalizationsEn extends SignInLocalizations {
   String get unverifiedPhoneErrorMessage => 'Phone is not verified';
 
   @override
-  String get phoneNotVerifiedErrorSnackBarMessage => 'Phone unverified, an OTP has been sent';
+  String get phoneNotVerifiedErrorSnackBarMessage => 'Phone unverified, an OTP has been sent.';
 
   @override
   String get orLoginWith => 'Or login with';
@@ -53,5 +53,5 @@ class SignInLocalizationsEn extends SignInLocalizations {
   String get signUpButtonLabel => 'Sign Up';
 
   @override
-  String get otpRateLimitExceededExceptionErrorSnackBarMessage => 'OTP rate limit exceeded, try again later';
+  String get otpRateLimitExceededExceptionErrorSnackBarMessage => 'OTP rate limit exceeded, try again later.';
 }

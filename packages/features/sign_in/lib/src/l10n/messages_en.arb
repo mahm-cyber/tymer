@@ -1,6 +1,6 @@
 {
   "appBarTitle": "Sign In",
-  "generalErrorSnackBarMessage": "ٍSomething went wrong",
+  "generalErrorSnackBarMessage": "ٍSomething went wrong.",
   "invalidCredentialsErrorMessage": "Incorrect phone or password",
   "requiredFieldErrorMessage": "Required*",
   "phoneTextFieldLabel": "Phone",
@@ -11,9 +11,9 @@
   "signInButtonLabel": "Sign In",
   "signInInProgressButtonLabel": "Signing In",
   "unverifiedPhoneErrorMessage": "Phone is not verified",
-  "phoneNotVerifiedErrorSnackBarMessage": "Phone unverified, an OTP has been sent",
+  "phoneNotVerifiedErrorSnackBarMessage": "Phone unverified, an OTP has been sent.",
   "orLoginWith": "Or login with",
   "dontHaveAnAccount": "Don't have an account?",
   "signUpButtonLabel": "Sign Up",
-  "otpRateLimitExceededExceptionErrorSnackBarMessage": "OTP rate limit exceeded, try again later"
+  "otpRateLimitExceededExceptionErrorSnackBarMessage": "OTP rate limit exceeded, try again later."
 }

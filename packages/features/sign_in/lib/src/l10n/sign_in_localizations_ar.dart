@@ -8,7 +8,7 @@ class SignInLocalizationsAr extends SignInLocalizations {
   String get appBarTitle => 'تسجيل الدخول';
 
   @override
-  String get generalErrorSnackBarMessage => 'حدث خطأ ما';
+  String get generalErrorSnackBarMessage => 'حدث خطأ ما.';
 
   @override
   String get invalidCredentialsErrorMessage => 'الهاتف او كلمة مرور خطأ';
@@ -41,7 +41,7 @@ class SignInLocalizationsAr extends SignInLocalizations {
   String get unverifiedPhoneErrorMessage => 'الهاتف غير مفعل';
 
   @override
-  String get phoneNotVerifiedErrorSnackBarMessage => 'الهاتف غير مفعل، تم إرسال رمز التحقق';
+  String get phoneNotVerifiedErrorSnackBarMessage => 'الهاتف غير مفعل، تم إرسال رمز التحقق.';
 
   @override
   String get orLoginWith => 'أو تسجيل الدخول بواسطة';
@@ -53,5 +53,5 @@ class SignInLocalizationsAr extends SignInLocalizations {
   String get signUpButtonLabel => 'سجل';
 
   @override
-  String get otpRateLimitExceededExceptionErrorSnackBarMessage => 'تجاوز حد الرسائل القصيرة، حاول لاحقا';
+  String get otpRateLimitExceededExceptionErrorSnackBarMessage => 'تجاوز حد الرسائل القصيرة، حاول لاحقا.';
 }

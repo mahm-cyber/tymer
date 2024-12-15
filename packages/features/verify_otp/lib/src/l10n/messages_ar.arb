@@ -1,8 +1,8 @@
 {
   "verifyOtpTitle": "أدخل الرمز للمتابعة",
-  "otpResentSuccessfullySnackBarMessage": "تم إرسال الرمز بنجاح",
-  "otpResentErrorSnackBarMessage": "حدث خطأ أثناء إرسال الرمز",
-  "otpVerifiedSuccessfullySnackBarMessage": "تم تأكيد الرمز بنجاح",
+  "otpResentSuccessfullySnackBarMessage": "تم إرسال الرمز بنجاح.",
+  "otpResentErrorSnackBarMessage": "حدث خطأ أثناء إرسال الرمز.",
+  "otpVerifiedSuccessfullySnackBarMessage": "تم تأكيد الرمز بنجاح.",
   "generalErrorSnackBarMessage": "حدث خطأ ما",
   "verifyOtpSubtitle": "تم إرسال رمز التحقق إلى",
   "requiredFieldErrorMessage": "مطلوب*",
@@ -19,8 +19,8 @@
   "newPasswordConfirmationTextFieldHint": "أعد إدخال كلمة المرور الجديدة",
   "passwordConfirmationTextFieldDoesNotMatchError": "كلمات المرور غير متطابقة",
   "passwordTextFieldWeakPasswordErrorDescription": "يجب أن تستوفي كلمة المرور المعايير التالية: - لا يقل طوله عن 6 أحرف - تحتوي على حرف كبير واحد على الأقل - تحتوي على حرف صغير واحد على الأقل - تحتوي على رقم واحد على الأقل - تحتوي على رمز واحد على الأقل (على سبيل المثال، @، $، !، إلخ.)",
-    "passwordResetSuccessfullySnackBarMessage": "تمت تغير كلمة المرور بنجاح",
-     "otpRateLimitExceededErrorSnackBarMessage": "لقد وصلت إلى الحد الأقصى لطلبات OTP. يرجى المحاولة مرة أخرى في {seconds} ثانية",
+    "passwordResetSuccessfullySnackBarMessage": "تمت تغير كلمة المرور بنجاح.",
+     "otpRateLimitExceededErrorSnackBarMessage": "لقد وصلت إلى الحد الأقصى لطلبات OTP. يرجى المحاولة مرة أخرى في {seconds} ثانية.",
       "@increment_message": {
         "placeholders": {
           "times": {

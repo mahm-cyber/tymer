@@ -20,13 +20,13 @@ class SignUpLocalizationsAr extends SignUpLocalizations {
   String get requiredTextFieldErrorMessage => 'مطلوب';
 
   @override
-  String get invalidCredentialsErrorMessage => 'بيانات الاعتماد غير صالحة، يرجى المحاولة مرة أخرى.';
+  String get invalidCredentialsErrorMessage => 'بيانات الاعتماد غير صالحة، يرجى المحاولة مرة أخرى';
 
   @override
   String get invalidEmailFormatErrorMessage => 'يرجى إدخال بريد إلكتروني صحيح';
 
   @override
-  String get alreadyRegisteredErrorMessage => 'أنت مسجل بالفعل.';
+  String get alreadyRegisteredErrorMessage => 'أنت مسجل بالفعل';
 
   @override
   String get nameTextFieldHint => 'أدخل اسمك';
@@ -41,7 +41,7 @@ class SignUpLocalizationsAr extends SignUpLocalizations {
   String get passwordTextFieldHint => 'أدخل كلمة المرور الخاصة بك';
 
   @override
-  String get passwordWeakErrorMessage => 'كلمة المرور الخاصة بك ضعيفة جدًا.';
+  String get passwordWeakErrorMessage => 'كلمة المرور الخاصة بك ضعيفة جدًا';
 
   @override
   String get passwordConfirmationTextFieldLabel => 'تأكيد كلمة المرور';

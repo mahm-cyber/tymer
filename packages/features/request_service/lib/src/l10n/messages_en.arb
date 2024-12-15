@@ -4,7 +4,7 @@
   "addressTextFieldLabel": "Address*",
   "datePickerTextFieldLabel": "Select Date*",
   "placeNameTextFieldLabel": "Place Name*",
-  "requiredFieldErrorMessage": "Required*.",
+  "requiredFieldErrorMessage": "Required*",
   "reservationNameTextFieldLabel": "Reservation Name*",
   "locationPickingCompletedButton": "Done",
   "locationPickerTextFieldLabel": "Pick Location*",

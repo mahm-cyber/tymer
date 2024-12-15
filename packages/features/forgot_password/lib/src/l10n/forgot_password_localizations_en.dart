@@ -11,10 +11,10 @@ class ForgotPasswordLocalizationsEn extends ForgotPasswordLocalizations {
   String get forgotPasswordTitle => 'Enter your details and we’ll send you an OTP to reset your password';
 
   @override
-  String get otpSentSuccessfullySnackBarMessage => 'OTP sent successfully';
+  String get otpSentSuccessfullySnackBarMessage => 'OTP sent successfully.';
 
   @override
-  String get generalErrorSnackBarMessage => 'ٍSomething went wrong';
+  String get generalErrorSnackBarMessage => 'ٍSomething went wrong.';
 
   @override
   String get requiredFieldErrorMessage => 'Required*';
@@ -45,6 +45,6 @@ class ForgotPasswordLocalizationsEn extends ForgotPasswordLocalizations {
 
   @override
   String otpRateLimitExceededErrorSnackBarMessage(Object seconds) {
-    return 'Maximum number of OTP requests reached. Please try again in $seconds seconds';
+    return 'Maximum number of OTP requests reached. Please try again in $seconds seconds.';
   }
 }

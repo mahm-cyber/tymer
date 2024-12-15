@@ -102,25 +102,25 @@ abstract class VerifyOtpLocalizations {
   /// No description provided for @otpResentSuccessfullySnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'OTP resent successfully'**
+  /// **'OTP resent successfully.'**
   String get otpResentSuccessfullySnackBarMessage;
 
   /// No description provided for @otpResentErrorSnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'Error occurred while resending OTP'**
+  /// **'Error occurred while resending OTP.'**
   String get otpResentErrorSnackBarMessage;
 
   /// No description provided for @otpVerifiedSuccessfullySnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'OTP verified successfully'**
+  /// **'OTP verified successfully.'**
   String get otpVerifiedSuccessfullySnackBarMessage;
 
   /// No description provided for @generalErrorSnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'An error occurred'**
+  /// **'An error occurred.'**
   String get generalErrorSnackBarMessage;
 
   /// No description provided for @verifyOtpSubtitle.
@@ -216,13 +216,13 @@ abstract class VerifyOtpLocalizations {
   /// No description provided for @passwordResetSuccessfullySnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'Password reset successfully'**
+  /// **'Password reset successfully.'**
   String get passwordResetSuccessfullySnackBarMessage;
 
   /// No description provided for @otpRateLimitExceededErrorSnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'Maximum number of OTP requests reached. Please try again in {seconds} seconds'**
+  /// **'Maximum number of OTP requests reached. Please try again in {seconds} seconds.'**
   String otpRateLimitExceededErrorSnackBarMessage(Object seconds);
 }
 

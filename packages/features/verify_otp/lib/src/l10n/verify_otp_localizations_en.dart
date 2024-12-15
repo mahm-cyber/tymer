@@ -8,16 +8,16 @@ class VerifyOtpLocalizationsEn extends VerifyOtpLocalizations {
   String get verifyOtpTitle => 'Enter the code to continue';
 
   @override
-  String get otpResentSuccessfullySnackBarMessage => 'OTP resent successfully';
+  String get otpResentSuccessfullySnackBarMessage => 'OTP resent successfully.';
 
   @override
-  String get otpResentErrorSnackBarMessage => 'Error occurred while resending OTP';
+  String get otpResentErrorSnackBarMessage => 'Error occurred while resending OTP.';
 
   @override
-  String get otpVerifiedSuccessfullySnackBarMessage => 'OTP verified successfully';
+  String get otpVerifiedSuccessfullySnackBarMessage => 'OTP verified successfully.';
 
   @override
-  String get generalErrorSnackBarMessage => 'An error occurred';
+  String get generalErrorSnackBarMessage => 'An error occurred.';
 
   @override
   String get verifyOtpSubtitle => 'A verification code has been sent to';
@@ -65,10 +65,10 @@ class VerifyOtpLocalizationsEn extends VerifyOtpLocalizations {
   String get passwordTextFieldWeakPasswordErrorDescription => 'The password must have At least 6 characters long, Contains at least one uppercase letter, Contains at least one lowercase letter, Contains at least one number, Contains at least one symbol (e.g., @, \$, !, etc.)';
 
   @override
-  String get passwordResetSuccessfullySnackBarMessage => 'Password reset successfully';
+  String get passwordResetSuccessfullySnackBarMessage => 'Password reset successfully.';
 
   @override
   String otpRateLimitExceededErrorSnackBarMessage(Object seconds) {
-    return 'Maximum number of OTP requests reached. Please try again in $seconds seconds';
+    return 'Maximum number of OTP requests reached. Please try again in $seconds seconds.';
   }
 }

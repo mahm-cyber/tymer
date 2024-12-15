@@ -1,6 +1,6 @@
 {
   "appBarTitle": "تسجيل الدخول",
-  "generalErrorSnackBarMessage": "حدث خطأ ما",
+  "generalErrorSnackBarMessage": "حدث خطأ ما.",
   "invalidCredentialsErrorMessage": "الهاتف او كلمة مرور خطأ",
   "requiredFieldErrorMessage": "مطلوب*",
   "phoneTextFieldLabel": "الهاتف",
@@ -11,9 +11,9 @@
   "signInButtonLabel": "تسجيل دخول",
   "signInInProgressButtonLabel": "جارى تسجيل الدخول",
   "unverifiedPhoneErrorMessage": "الهاتف غير مفعل",
-  "phoneNotVerifiedErrorSnackBarMessage": "الهاتف غير مفعل، تم إرسال رمز التحقق",
+  "phoneNotVerifiedErrorSnackBarMessage": "الهاتف غير مفعل، تم إرسال رمز التحقق.",
   "orLoginWith": "أو تسجيل الدخول بواسطة",
   "dontHaveAnAccount": "ليس لديك حساب؟",
   "signUpButtonLabel": "سجل",
-  "otpRateLimitExceededExceptionErrorSnackBarMessage": "تجاوز حد الرسائل القصيرة، حاول لاحقا"
+  "otpRateLimitExceededExceptionErrorSnackBarMessage": "تجاوز حد الرسائل القصيرة، حاول لاحقا."
 }

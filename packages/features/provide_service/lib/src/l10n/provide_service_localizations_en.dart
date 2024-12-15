@@ -13,7 +13,7 @@ class ProvideServiceLocalizationsEn extends ProvideServiceLocalizations {
   }
 
   @override
-  String get noServiceRequestsText => 'No service requests available.';
+  String get noServiceRequestsText => 'No service requests available';
 
   @override
   String get showInMapButtonLabel => 'Show in Map';

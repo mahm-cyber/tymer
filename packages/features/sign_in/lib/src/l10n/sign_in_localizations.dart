@@ -102,7 +102,7 @@ abstract class SignInLocalizations {
   /// No description provided for @generalErrorSnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'ٍSomething went wrong'**
+  /// **'ٍSomething went wrong.'**
   String get generalErrorSnackBarMessage;
 
   /// No description provided for @invalidCredentialsErrorMessage.
@@ -168,7 +168,7 @@ abstract class SignInLocalizations {
   /// No description provided for @phoneNotVerifiedErrorSnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'Phone unverified, an OTP has been sent'**
+  /// **'Phone unverified, an OTP has been sent.'**
   String get phoneNotVerifiedErrorSnackBarMessage;
 
   /// No description provided for @orLoginWith.
@@ -192,7 +192,7 @@ abstract class SignInLocalizations {
   /// No description provided for @otpRateLimitExceededExceptionErrorSnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'OTP rate limit exceeded, try again later'**
+  /// **'OTP rate limit exceeded, try again later.'**
   String get otpRateLimitExceededExceptionErrorSnackBarMessage;
 }
 

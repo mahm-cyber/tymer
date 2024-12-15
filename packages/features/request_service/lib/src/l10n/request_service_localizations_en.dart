@@ -20,7 +20,7 @@ class RequestServiceLocalizationsEn extends RequestServiceLocalizations {
   String get placeNameTextFieldLabel => 'Place Name*';
 
   @override
-  String get requiredFieldErrorMessage => 'Required*.';
+  String get requiredFieldErrorMessage => 'Required*';
 
   @override
   String get reservationNameTextFieldLabel => 'Reservation Name*';

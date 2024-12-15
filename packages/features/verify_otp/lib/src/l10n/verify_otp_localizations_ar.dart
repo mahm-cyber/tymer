@@ -8,13 +8,13 @@ class VerifyOtpLocalizationsAr extends VerifyOtpLocalizations {
   String get verifyOtpTitle => 'أدخل الرمز للمتابعة';
 
   @override
-  String get otpResentSuccessfullySnackBarMessage => 'تم إرسال الرمز بنجاح';
+  String get otpResentSuccessfullySnackBarMessage => 'تم إرسال الرمز بنجاح.';
 
   @override
-  String get otpResentErrorSnackBarMessage => 'حدث خطأ أثناء إرسال الرمز';
+  String get otpResentErrorSnackBarMessage => 'حدث خطأ أثناء إرسال الرمز.';
 
   @override
-  String get otpVerifiedSuccessfullySnackBarMessage => 'تم تأكيد الرمز بنجاح';
+  String get otpVerifiedSuccessfullySnackBarMessage => 'تم تأكيد الرمز بنجاح.';
 
   @override
   String get generalErrorSnackBarMessage => 'حدث خطأ ما';
@@ -65,10 +65,10 @@ class VerifyOtpLocalizationsAr extends VerifyOtpLocalizations {
   String get passwordTextFieldWeakPasswordErrorDescription => 'يجب أن تستوفي كلمة المرور المعايير التالية: - لا يقل طوله عن 6 أحرف - تحتوي على حرف كبير واحد على الأقل - تحتوي على حرف صغير واحد على الأقل - تحتوي على رقم واحد على الأقل - تحتوي على رمز واحد على الأقل (على سبيل المثال، @، \$، !، إلخ.)';
 
   @override
-  String get passwordResetSuccessfullySnackBarMessage => 'تمت تغير كلمة المرور بنجاح';
+  String get passwordResetSuccessfullySnackBarMessage => 'تمت تغير كلمة المرور بنجاح.';
 
   @override
   String otpRateLimitExceededErrorSnackBarMessage(Object seconds) {
-    return 'لقد وصلت إلى الحد الأقصى لطلبات OTP. يرجى المحاولة مرة أخرى في $seconds ثانية';
+    return 'لقد وصلت إلى الحد الأقصى لطلبات OTP. يرجى المحاولة مرة أخرى في $seconds ثانية.';
   }
 }

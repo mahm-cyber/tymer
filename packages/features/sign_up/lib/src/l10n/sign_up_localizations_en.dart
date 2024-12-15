@@ -17,16 +17,16 @@ class SignUpLocalizationsEn extends SignUpLocalizations {
   String get emailTextFieldHint => 'Enter your email';
 
   @override
-  String get requiredTextFieldErrorMessage => 'Required';
+  String get requiredTextFieldErrorMessage => 'Required*';
 
   @override
-  String get invalidCredentialsErrorMessage => 'Invalid credentials, please try again.';
+  String get invalidCredentialsErrorMessage => 'Invalid credentials, please try again';
 
   @override
   String get invalidEmailFormatErrorMessage => 'Please enter a valid email address';
 
   @override
-  String get alreadyRegisteredErrorMessage => 'You are already registered.';
+  String get alreadyRegisteredErrorMessage => 'You are already registered';
 
   @override
   String get nameTextFieldHint => 'Enter your name';
@@ -41,7 +41,7 @@ class SignUpLocalizationsEn extends SignUpLocalizations {
   String get passwordTextFieldHint => 'Enter your password';
 
   @override
-  String get passwordWeakErrorMessage => 'Your password is too weak.';
+  String get passwordWeakErrorMessage => 'Your password is too weak';
 
   @override
   String get passwordConfirmationTextFieldLabel => 'Confirm Password';
@@ -50,7 +50,7 @@ class SignUpLocalizationsEn extends SignUpLocalizations {
   String get passwordConfirmationTextFieldHint => 'Re-enter your password';
 
   @override
-  String get passwordConfirmationTextFieldError => 'Passwords do not match.';
+  String get passwordConfirmationTextFieldError => 'Passwords do not match';
 
   @override
   String get phoneTextFieldLabel => 'Phone Number';

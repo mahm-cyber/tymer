@@ -108,13 +108,13 @@ abstract class ForgotPasswordLocalizations {
   /// No description provided for @otpSentSuccessfullySnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'OTP sent successfully'**
+  /// **'OTP sent successfully.'**
   String get otpSentSuccessfullySnackBarMessage;
 
   /// No description provided for @generalErrorSnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'ٍSomething went wrong'**
+  /// **'ٍSomething went wrong.'**
   String get generalErrorSnackBarMessage;
 
   /// No description provided for @requiredFieldErrorMessage.
@@ -174,7 +174,7 @@ abstract class ForgotPasswordLocalizations {
   /// No description provided for @otpRateLimitExceededErrorSnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'Maximum number of OTP requests reached. Please try again in {seconds} seconds'**
+  /// **'Maximum number of OTP requests reached. Please try again in {seconds} seconds.'**
   String otpRateLimitExceededErrorSnackBarMessage(Object seconds);
 }
 

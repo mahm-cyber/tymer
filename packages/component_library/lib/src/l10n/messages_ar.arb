@@ -1,5 +1,5 @@
 {
-  "invalidCredentialsErrorMessage": "بريد الكترونى او كلمة مرور خطأ",
+  "invalidCredentialsErrorMessage": "الهاتف او كلمة مرور خطأ",
   "requiredFieldErrorMessage": "مطلوب*",
   "emailTextFieldLabel": "البريد الإلكتروني",
   "invalidEmailFormatErrorMessage": "صيغة البريد الإلكتروني غير صحيح",
@@ -97,7 +97,7 @@
   "companiesCustomDropdownLabel": "الشركات",
   "successSnackBarMessage": "تمت العملية بنجاح.",
   "emptyTaskLogListIndicator": "لا توجد مهام متاحة",
-  "unAuthSnackBarErrorMessage": "يجب تسجيل الدخول",
+  "unAuthSnackBarErrorMessage": "يجب تسجيل الدخول.",
   "reservedForTextFieldLabel": "محجوز لـ",
   "reservationServiceCategoryTextFieldLabel": "فئة الخدمة",
   "dateTextFieldLabel": "التاريخ",

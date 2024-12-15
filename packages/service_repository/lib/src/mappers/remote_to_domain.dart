@@ -49,8 +49,9 @@ extension ServiceRMtoDM on ServiceRM {
       }
       return Service(
         id: id,
-        distanceBetweenProviderAndServiceLocation:
-            double.tryParse(distanceBetweenProviderAndServiceLocation ?? ''),
+        distanceBetweenProviderAndServiceLocation: double.tryParse(
+          distanceBetweenProviderAndServiceLocation ?? '',
+        ),
         status: serviceStatusRMtoDM(status),
         createdAt: DateTime.parse(createdAt),
         type: serviceTypeRMtoDM(type),
@@ -117,10 +118,9 @@ extension ServiceDetailsRMtoDM on ServiceDetailsRM {
       reservedFor: reservedFor,
       reservationDate:
           reservationDate != null ? DateTime.parse(reservationDate!) : null,
-      reservationTime: reservationTime != null ? stringToTimeOfDay(reservationTime!) : null,
-      time: time != null
-              ? stringToTimeOfDay(time!)
-              : null,
+      reservationTime:
+          reservationTime != null ? stringToTimeOfDay(reservationTime!) : null,
+      time: time != null ? stringToTimeOfDay(time!) : null,
       reservationServiceCategory: reservationServiceCategory?.toDomainModel(),
       additionalComments: additionalDetails,
     );

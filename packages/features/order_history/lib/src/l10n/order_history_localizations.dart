@@ -108,7 +108,7 @@ abstract class OrderHistoryLocalizations {
   /// No description provided for @noServiceRequestsText.
   ///
   /// In en, this message translates to:
-  /// **'No service requests available.'**
+  /// **'No service requests available'**
   String get noServiceRequestsText;
 
   /// No description provided for @showInMapButtonLabel.

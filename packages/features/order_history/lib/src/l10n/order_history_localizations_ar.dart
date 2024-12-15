@@ -13,7 +13,7 @@ class OrderHistoryLocalizationsAr extends OrderHistoryLocalizations {
   }
 
   @override
-  String get noServiceRequestsText => 'لا توجد طلبات خدمة متاحة.';
+  String get noServiceRequestsText => 'لا توجد طلبات خدمة متاحة';
 
   @override
   String get showInMapButtonLabel => 'عرض على الخريطة';
