@@ -88,6 +88,7 @@ class RequestServiceView extends StatelessWidget {
         final isReservationServiceType =
             state.serviceType == ServiceType.reservation;
         final errorLoadingDependencies = state.error != null;
+        final cubit = context.read<RequestServiceCubit>();
         return GestureDetector(
           onTap: context.releaseFocus,
           child: Stack(
@@ -103,9 +104,7 @@ class RequestServiceView extends StatelessWidget {
                 ),
                 body: errorLoadingDependencies
                     ? ExceptionIndicator(
-                        onTryAgain: () {
-                          context.read<RequestServiceCubit>().init();
-                        },
+                        onTryAgain: cubit.init,
                       )
                     : loadingReservationServiceTypes || loadingPriceSettings
                         ? const CenteredCircularProgressIndicator()

@@ -7,6 +7,7 @@ class ProvideServiceState extends Equatable {
     this.runningServiceRequest,
     this.locationData,
     this.locationDataStatus = LocationDataStatus.initial,
+    this.isMapViewActive = false,
   });
 
   final List<Service>? serviceRequests;
@@ -14,6 +15,7 @@ class ProvideServiceState extends Equatable {
   final Service? runningServiceRequest;
   final LocationData? locationData;
   final LocationDataStatus locationDataStatus;
+  final bool isMapViewActive;
 
   List<Service>? get ascendingSortedServiceRequests => serviceRequests
       ?.where((service) => service.status == ServiceStatus.pending)
@@ -26,6 +28,7 @@ class ProvideServiceState extends Equatable {
     Service? runningServiceRequest,
     LocationData? locationData,
     LocationDataStatus? locationDataStatus,
+    bool? isMapViewActive,
   }) {
     return ProvideServiceState(
       serviceRequests: serviceRequests ?? this.serviceRequests,
@@ -34,6 +37,7 @@ class ProvideServiceState extends Equatable {
       runningServiceRequest: runningServiceRequest ?? this.runningServiceRequest,
       locationData: locationData ?? this.locationData,
       locationDataStatus: locationDataStatus ?? this.locationDataStatus,
+      isMapViewActive: isMapViewActive ?? this.isMapViewActive,
     );
   }
 
@@ -44,6 +48,7 @@ class ProvideServiceState extends Equatable {
         runningServiceRequest,
         locationData,
         locationDataStatus,
+        isMapViewActive,
       ];
 }
 

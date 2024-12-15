@@ -272,6 +272,7 @@ Map<String, PageBuilder> buildRoutingTable({
           name: 'accept-service-request-details',
           child: AcceptServiceRequestScreen(
             serviceRepository: serviceRepository,
+            userRepository: userRepository,
             onAcceptServiceRequestSuccess: () async {
               await routerDelegate.popRoute();
               await routerDelegate.popRoute();

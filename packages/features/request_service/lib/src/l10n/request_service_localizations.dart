@@ -183,12 +183,6 @@ abstract class RequestServiceLocalizations {
   /// **'Go to Wallet'**
   String get addFundsButtonLabel;
 
-  /// No description provided for @timeInPastErrorMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'Time cannot be in the past'**
-  String get timeInPastErrorMessage;
-
   /// No description provided for @successfulServiceRequestMessage.
   ///
   /// In en, this message translates to:

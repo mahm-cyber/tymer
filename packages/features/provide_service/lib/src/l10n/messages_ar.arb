@@ -12,5 +12,7 @@
   "showInMapButtonLabel": "عرض على الخريطة",
   "viewButtonLabel": "عرض",
   "userHasRunningServiceRequestSnackBarMessage": "لديك طلب خدمة جاري. يرجى استكماله قبل تقديم طلب جديد",
-    "locationDataFailureSnackBarMessage": "فشل في الحصول على بيانات الموقع. يرجى المحاولة مرة أخرى لاحقًا"
+    "locationDataFailureSnackBarMessage": "فشل في الحصول على بيانات الموقع. يرجى المحاولة مرة أخرى لاحقًا",
+      "showInListViewButtonLabel": "عرض القائمة"
+
 }

@@ -50,9 +50,6 @@ class RequestServiceLocalizationsAr extends RequestServiceLocalizations {
   String get addFundsButtonLabel => 'اذهب إلى المحفظة';
 
   @override
-  String get timeInPastErrorMessage => 'لا يمكن أن يكون الوقت في الماضي';
-
-  @override
   String get successfulServiceRequestMessage => 'تم طلب الخدمة بنجاح';
 
   @override

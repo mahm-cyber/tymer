@@ -32,7 +32,7 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
   void init() async {
     emit(state.copyWith(serviceRequestsFetchStatus: FetchStatus.loading));
     try {
-      final locationData = await serviceRepository.getUserLocation();
+      final locationData = await userRepository.getUserLocation();
       final locationActivatedState = state.copyWith(
         locationData: locationData,
         locationDataStatus: locationData == null
@@ -109,11 +109,11 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
         userType: UserType.provider,
         status: ServiceStatus.pendingReview,
       );
-      final hasRunningServiceRequest =
+      final hasInProgressServiceRequest =
           serviceRequestsInProgress.list.isNotEmpty;
       final hasPendingReviewServiceRequest =
           serviceRequestsPendingReview.list.isNotEmpty;
-      if (hasRunningServiceRequest) {
+      if (hasInProgressServiceRequest) {
         return serviceRequestsInProgress.list.first;
       } else if (hasPendingReviewServiceRequest) {
         return serviceRequestsPendingReview.list.first;
@@ -135,6 +135,11 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
   void onViewServiceRequestDetailsTapped(Service service) {
     onServiceRequestDetailsTapped();
     serviceRepository.changeNotifier.setServiceRequest(service);
+  }
+
+  void switchMapView() {
+    final switchState = state.copyWith(isMapViewActive: !state.isMapViewActive);
+    emit(switchState);
   }
 
   @override

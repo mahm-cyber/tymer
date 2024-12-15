@@ -4,7 +4,6 @@ import 'package:domain_models/domain_models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:service_repository/src/mappers/domain_to_remote.dart';
 import 'package:service_repository/src/mappers/mappers.dart';
 import 'package:service_repository/src/service_change_notifier.dart';
@@ -173,36 +172,6 @@ class ServiceRepository {
       await remoteApi.cancelServiceRequest(
         serviceRequestId: serviceRequestId,
       );
-    } catch (error) {
-      rethrow;
-    }
-  }
-
-  Future<LocationData?> getUserLocation() async {
-    try {
-      Location location = Location();
-
-      bool serviceEnabled;
-      PermissionStatus permissionGranted;
-
-      serviceEnabled = await location.serviceEnabled();
-      if (!serviceEnabled) {
-        serviceEnabled = await location.requestService();
-        if (!serviceEnabled) {
-          return null;
-        }
-      }
-
-      permissionGranted = await location.hasPermission();
-      if (permissionGranted == PermissionStatus.denied) {
-        permissionGranted = await location.requestPermission();
-        if (permissionGranted != PermissionStatus.granted) {
-          return null;
-        }
-      }
-      // await Future.delayed(const Duration(milliseconds: 300));
-      final locationData = await location.getLocation();
-      return locationData;
     } catch (error) {
       rethrow;
     }

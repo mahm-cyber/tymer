@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
+import 'package:geolocator/geolocator.dart' as geo;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:service_repository/service_repository.dart';
 
@@ -28,6 +31,7 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
   final ServiceRepository serviceRepository;
   final VoidCallback onGoToWalletTapped;
   final ValueSetter<int> onServiceRequestSuccess;
+  StreamSubscription<geo.ServiceStatus>? _geoLocationServiceStatusSubscription;
 
   void init() {
     getReservationServiceTypes();
@@ -71,6 +75,23 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
           state.copyWith(reservationServiceTypes: [], error: error);
       emit(failureState);
     }
+  }
+
+  // void requestServiceLocationPermission() async {
+  //   final permission = await geo.Geolocator.requestPermission();
+  //   if (permission == geo.LocationPermission.denied) {
+  //     final newState = state.copyWith(
+  //       locationServiceStatus: false,
+  //     );
+  //     emit(newState);
+  //   }
+  // }
+
+  void serviceTypeChanged(ServiceType serviceType) {
+    final newState = state.copyWith(
+      serviceType: serviceType,
+    );
+    emit(newState);
   }
 
   void serviceTypeSelected(ReservationServiceType serviceType) {
@@ -313,5 +334,12 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
         emit(newState);
       }
     }
+  }
+
+  //ondispose
+  @override
+  Future<void> close() {
+    _geoLocationServiceStatusSubscription?.cancel();
+    return super.close();
   }
 }

@@ -4,12 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:location/location.dart';
 import 'package:service_repository/service_repository.dart';
+import 'package:user_repository/user_repository.dart';
 
 part 'accept_service_request_state.dart';
 
 class AcceptServiceRequestCubit extends Cubit<AcceptServiceRequestState> {
   AcceptServiceRequestCubit({
     required this.serviceRepository,
+    required this.userRepository,
     required this.onAcceptServiceRequestSuccess,
   }) : super(
           AcceptServiceRequestState(
@@ -22,10 +24,11 @@ class AcceptServiceRequestCubit extends Cubit<AcceptServiceRequestState> {
   }
 
   final ServiceRepository serviceRepository;
+  final UserRepository userRepository;
   final VoidCallback onAcceptServiceRequestSuccess;
 
   void onViewServiceOnMap() async {
-    final myLocation = await serviceRepository.getUserLocation();
+    final myLocation = await userRepository.getUserLocation();
     emit(
       state.copyWith(
         myLocation: myLocation,

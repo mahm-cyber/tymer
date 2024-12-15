@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:location/location.dart';
 import 'package:tymer_api/tymer_api.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:key_value_storage/key_value_storage.dart';
@@ -380,6 +381,37 @@ class UserRepository {
       rethrow;
     }
   }
+
+  Future<LocationData?> getUserLocation() async {
+    try {
+      Location location = Location();
+
+      bool serviceEnabled;
+      PermissionStatus permissionGranted;
+
+      serviceEnabled = await location.serviceEnabled();
+      if (!serviceEnabled) {
+        serviceEnabled = await location.requestService();
+        if (!serviceEnabled) {
+          return null;
+        }
+      }
+
+      permissionGranted = await location.hasPermission();
+      if (permissionGranted == PermissionStatus.denied) {
+        permissionGranted = await location.requestPermission();
+        if (permissionGranted != PermissionStatus.granted) {
+          return null;
+        }
+      }
+      await Future.delayed(const Duration(milliseconds: 300));
+      final locationData = await location.getLocation();
+      return locationData;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
 }
 
 enum FetchPolicy {

@@ -134,6 +134,12 @@ abstract class ProvideServiceLocalizations {
   /// In en, this message translates to:
   /// **'Failed to get location data. Please try again later'**
   String get locationDataFailureSnackBarMessage;
+
+  /// No description provided for @showInListViewButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Show in List View'**
+  String get showInListViewButtonLabel;
 }
 
 class _ProvideServiceLocalizationsDelegate extends LocalizationsDelegate<ProvideServiceLocalizations> {

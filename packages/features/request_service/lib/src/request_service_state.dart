@@ -14,6 +14,7 @@ class RequestServiceState extends Equatable {
     this.address = const Dynamic<String?>.unvalidated(),
     this.location = const Dynamic<LatLng?>.unvalidated(),
     this.locationPickingInProgress = false,
+    this.locationServiceStatus,
     this.price,
     this.pricingSettings,
     this.additionalComments = const Dynamic<String?>.unvalidated(),
@@ -33,6 +34,7 @@ class RequestServiceState extends Equatable {
 
   final Dynamic<LatLng?> location;
   final bool locationPickingInProgress;
+  final geo.ServiceStatus? locationServiceStatus;
   final double? price;
   final PricingSettings? pricingSettings;
   final Dynamic<String?> additionalComments;
@@ -51,6 +53,7 @@ class RequestServiceState extends Equatable {
     Dynamic<String?>? address,
     Dynamic<LatLng?>? location,
     bool? locationPickingInProgress,
+    geo.ServiceStatus? locationServiceStatus,
     double? price,
     PricingSettings? pricingSettings,
     Dynamic<String?>? additionalComments,
@@ -72,6 +75,7 @@ class RequestServiceState extends Equatable {
       location: location ?? this.location,
       locationPickingInProgress:
           locationPickingInProgress ?? this.locationPickingInProgress,
+      locationServiceStatus: locationServiceStatus ?? this.locationServiceStatus,
       price: price ?? this.price,
       pricingSettings: pricingSettings ?? this.pricingSettings,
       additionalComments: additionalComments ?? this.additionalComments,
@@ -93,6 +97,7 @@ class RequestServiceState extends Equatable {
         address,
         location,
         locationPickingInProgress,
+        locationServiceStatus,
         price,
         pricingSettings,
         additionalComments,

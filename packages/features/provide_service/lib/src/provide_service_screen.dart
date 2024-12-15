@@ -1,4 +1,5 @@
 import 'package:provide_service/provide_service.dart';
+import 'package:provide_service/src/components/components.dart';
 import 'package:provide_service/src/provide_service_cubit.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
@@ -85,6 +86,12 @@ class ProvideServiceView extends StatelessWidget {
             children: [
               Scaffold(
                 appBar: AppBar(
+                  leading: IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: state.isMapViewActive
+                        ? cubit.switchMapView
+                        : popTillHome,
+                  ),
                   title: const SvgAsset(
                     AssetPathConstants.whiteLogoPath,
                     height: 30,
@@ -102,43 +109,46 @@ class ProvideServiceView extends StatelessWidget {
                             ? ExceptionIndicator(
                                 onTryAgain: cubit.init,
                               )
-                            : Column(
-                                children: [
-                                  Expanded(
-                                    child: ListView.separated(
-                                      padding: EdgeInsets.only(
-                                        left: theme.screenMargin,
-                                        right: theme.screenMargin,
-                                        top: Spacing.xxLarge,
+                            : state.isMapViewActive
+                                ? const GoogleMapWidget()
+                                : Column(
+                                    children: [
+                                      Expanded(
+                                        child: ListView.separated(
+                                          padding: EdgeInsets.only(
+                                            left: theme.screenMargin,
+                                            right: theme.screenMargin,
+                                            top: Spacing.xxLarge,
+                                          ),
+                                          itemCount: state
+                                              .ascendingSortedServiceRequests!
+                                              .length,
+                                          separatorBuilder: (context, index) =>
+                                              VerticalGap.medium(),
+                                          itemBuilder: (context, index) {
+                                            final service = state
+                                                    .ascendingSortedServiceRequests![
+                                                index];
+                                            return ServiceRequestCard(
+                                              onTapped: () => cubit
+                                                  .onViewServiceRequestDetailsTapped(
+                                                      service),
+                                              service: service,
+                                            );
+                                          },
+                                        ),
                                       ),
-                                      itemCount: state
-                                          .ascendingSortedServiceRequests!
-                                          .length,
-                                      separatorBuilder: (context, index) =>
-                                          VerticalGap.medium(),
-                                      itemBuilder: (context, index) {
-                                        final service = state
-                                                .ascendingSortedServiceRequests![
-                                            index];
-                                        return ServiceRequestCard(
-                                          onTapped: () => cubit
-                                              .onViewServiceRequestDetailsTapped(
-                                                  service),
-                                          service: service,
-                                        );
-                                      },
-                                    ),
+                                      Padding(
+                                        padding:
+                                            EdgeInsets.all(theme.screenMargin),
+                                        child: TymerElevatedButton(
+                                          label: l10n.showInMapButtonLabel,
+                                          onTap: cubit.switchMapView,
+                                          height: 50,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.all(theme.screenMargin),
-                                    child: TymerElevatedButton(
-                                      label: l10n.showInMapButtonLabel,
-                                      onTap: () {},
-                                      height: 50,
-                                    ),
-                                  ),
-                                ],
-                              ),
               ),
               AppBarTitleContainer(
                 top: theme.smallAppBarTitleContainerHeight,

@@ -6,15 +6,18 @@ import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:service_repository/service_repository.dart';
+import 'package:user_repository/user_repository.dart';
 
 class AcceptServiceRequestScreen extends StatelessWidget {
   const AcceptServiceRequestScreen({
     required this.serviceRepository,
+    required this.userRepository,
     required this.onAcceptServiceRequestSuccess,
     super.key,
   });
 
   final ServiceRepository serviceRepository;
+  final UserRepository userRepository;
   final VoidCallback onAcceptServiceRequestSuccess;
 
   @override
@@ -22,6 +25,7 @@ class AcceptServiceRequestScreen extends StatelessWidget {
     return BlocProvider<AcceptServiceRequestCubit>(
       create: (_) => AcceptServiceRequestCubit(
         serviceRepository: serviceRepository,
+        userRepository: userRepository,
         onAcceptServiceRequestSuccess: onAcceptServiceRequestSuccess,
       ),
       child: const AcceptServiceRequestView(),
@@ -75,7 +79,7 @@ class AcceptServiceRequestView extends StatelessWidget {
           children: [
             Scaffold(
               appBar: AppBar(
-                title: const SvgAsset(AssetPathConstants.whiteLogoPath),
+                title:  SvgAsset(AssetPathConstants.whiteLogoPath, height: 30,),
                 toolbarHeight: 70,
                 iconTheme: IconThemeData(color: colorScheme.surface),
                 leading: IconButton(

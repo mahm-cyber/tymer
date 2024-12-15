@@ -50,9 +50,6 @@ class RequestServiceLocalizationsEn extends RequestServiceLocalizations {
   String get addFundsButtonLabel => 'Go to Wallet';
 
   @override
-  String get timeInPastErrorMessage => 'Time cannot be in the past';
-
-  @override
   String get successfulServiceRequestMessage => 'Request successfully submitted';
 
   @override

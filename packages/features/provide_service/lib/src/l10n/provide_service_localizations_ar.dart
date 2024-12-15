@@ -26,4 +26,7 @@ class ProvideServiceLocalizationsAr extends ProvideServiceLocalizations {
 
   @override
   String get locationDataFailureSnackBarMessage => 'فشل في الحصول على بيانات الموقع. يرجى المحاولة مرة أخرى لاحقًا';
+
+  @override
+  String get showInListViewButtonLabel => 'عرض القائمة';
 }

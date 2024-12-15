@@ -26,4 +26,7 @@ class ProvideServiceLocalizationsEn extends ProvideServiceLocalizations {
 
   @override
   String get locationDataFailureSnackBarMessage => 'Failed to get location data. Please try again later';
+
+  @override
+  String get showInListViewButtonLabel => 'Show in List View';
 }
