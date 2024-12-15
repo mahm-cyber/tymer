@@ -458,6 +458,23 @@ class TymerApi {
     }
   }
 
+  Future<DisputeChatRM> getDisputeChat({
+    required int disputeId,
+    required String userType,
+  }) async {
+    final url = urlBuilder.buildGetDisputeChatUrl(
+      disputeId: disputeId,
+      userType: userType,
+    );
+    try {
+      final response = await _dio.get(url);
+      final disputeChat = DisputeChatRM.fromJson(response.data[_dataJsonKey]);
+      return disputeChat;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
   Future<PricingSettingsRM> getPricingSettings() async {
     final url = urlBuilder.buildGetPricingSettingsUrl();
     try {

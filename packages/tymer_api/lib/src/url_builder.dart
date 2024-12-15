@@ -133,6 +133,17 @@ class UrlBuilder {
     return completeUrl;
   }
 
+  String buildGetDisputeChatUrl({
+    required int disputeId,
+    required String userType,
+  }) {
+    final urlLastSlug = userType == 'provider'
+        ? 'selected-user-chat-messages'
+        : 'chat-messages';
+    final completeUrl = '$baseUrl/disputes/$disputeId/$urlLastSlug';
+    return completeUrl;
+  }
+
   String buildGetPricingSettingsUrl() {
     return '$baseUrl/settings/service-pricing';
   }

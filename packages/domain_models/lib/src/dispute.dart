@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:domain_models/src/service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 
 class Dispute {
   const Dispute({
@@ -31,6 +32,15 @@ class DisputeListPage {
   final bool isLastPage;
 }
 
+class DisputeChat {
+  DisputeChat({
+    required this.messages,
+  });
+
+  final List<Message> messages;
+}
+
+
 enum DisputeStatus {
   pendingReview,
   chargedBack,
@@ -47,3 +57,4 @@ enum DisputeStatus {
     }
   }
 }
+

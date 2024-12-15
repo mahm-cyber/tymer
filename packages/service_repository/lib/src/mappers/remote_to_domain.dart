@@ -1,5 +1,6 @@
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:tymer_api/tymer_api.dart';
 
 extension ServiceRMtoDM on ServiceRM {
@@ -170,6 +171,39 @@ extension DisputeListPageRMtoDM on DisputeListPageRM {
     return DisputeListPage(
       list: list.map((dispute) => dispute.toDomainModel()).toList(),
       isLastPage: isLastPage,
+    );
+  }
+}
+
+extension DisputeMessageRMtoDM on DisputeMessageRM {
+  types.Message toDomainModel() {
+    final messageType = content != null
+        ? types.MessageType.text
+        : chatImages.isNotEmpty
+            ? types.MessageType.image
+            : chatRecords.isNotEmpty
+                ? types.MessageType.audio
+                : chatDocuments.isNotEmpty
+                    ? types.MessageType.file
+                    : types.MessageType.text;
+    return types.AudioMessage(
+      author: types.User(
+        id: senderId.toString(),
+        firstName: senderName,
+      ),
+      id: id.toString(),
+      duration: const Duration(seconds: 0),
+      name: '',
+      size: 0,
+      uri: chatRecords[0],
+    );
+  }
+}
+
+extension DisputeChatRMtoDM on DisputeChatRM {
+  DisputeChat toDomainModel() {
+    return DisputeChat(
+      messages: messages.map((message) => message.toDomainModel()).toList(),
     );
   }
 }

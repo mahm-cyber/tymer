@@ -12,5 +12,6 @@ dependencies:
 
   function_and_extension_library:
     path: ../function_and_extension_library
+  flutter_chat_ui: ^1.6.15
 dev_dependencies:
   flutter_lints: ^4.0.0

@@ -79,7 +79,7 @@ class AcceptServiceRequestView extends StatelessWidget {
           children: [
             Scaffold(
               appBar: AppBar(
-                title:  SvgAsset(AssetPathConstants.whiteLogoPath, height: 30,),
+                title:  const SvgAsset(AssetPathConstants.whiteLogoPath, height: 30,),
                 toolbarHeight: 70,
                 iconTheme: IconThemeData(color: colorScheme.surface),
                 leading: IconButton(

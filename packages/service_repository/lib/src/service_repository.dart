@@ -243,4 +243,20 @@ class ServiceRepository {
       rethrow;
     }
   }
+
+  Future<DisputeChat> getDisputeChat({
+    required int disputeId,
+    required UserType userType,
+  }) async {
+    try {
+      final disputeChat = await remoteApi.getDisputeChat(
+        disputeId: disputeId,
+        userType: userType.toRemoteModel(),
+      );
+      final disputeDomainModel = disputeChat.toDomainModel();
+      return disputeDomainModel;
+    } catch (error) {
+      rethrow;
+    }
+  }
 }
