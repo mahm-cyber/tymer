@@ -46,7 +46,7 @@ class _NewPasswordConfirmationState extends State<NewPasswordConfirmation> {
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
         final textTheme = Theme.of(context).textTheme;
-        // final theme = GrowthInTheme.of(context);
+        // final theme = TymerTheme.of(context);
         final cubit = context.read<ResetPasswordCubit>();
         final l10n = ResetPasswordLocalizations.of(context);
         return Column(

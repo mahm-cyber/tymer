@@ -5,7 +5,7 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
   ComponentLibraryLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get invalidCredentialsErrorMessage => 'Incorrect email or password';
+  String get invalidCredentialsErrorMessage => 'Incorrect phone or password';
 
   @override
   String get requiredFieldErrorMessage => 'Required*';
@@ -260,7 +260,7 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
   String get noInternetConnectionSnackBarErrorMessage => 'No internet connection. Please check your network settings.';
 
   @override
-  String get userExpiredSnackBarErrorMessage => 'Your membership has expired';
+  String get userExpiredSnackBarErrorMessage => 'Your membership has expired.';
 
   @override
   String get contactsCustomDropdownLabel => 'Contacts';
@@ -278,7 +278,7 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
   String get emptyTaskLogListIndicator => 'No tasks available';
 
   @override
-  String get unAuthSnackBarErrorMessage => 'You must login first';
+  String get unAuthSnackBarErrorMessage => 'You must login first.';
 
   @override
   String get reservedForTextFieldLabel => 'Reserved For';
@@ -361,7 +361,7 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
   String get deniedDisputeStatus => 'Denied';
 
   @override
-  String get timeInPastErrorMessage => 'Time cannot be in the past';
+  String get timeInPastErrorMessage => 'Time cannot be in the past.';
 
   @override
   String get serviceFeesContainerLabel => 'Service Fee';

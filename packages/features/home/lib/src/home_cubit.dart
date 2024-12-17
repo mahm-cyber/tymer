@@ -16,7 +16,7 @@ class HomeCubit extends Cubit<HomeState> {
   }) : super(
           const HomeState(),
         ) {
-    userRepository.getPricingSettings(FetchPolicy.networkOnly);
+    // userRepository.getPricingSettings(FetchPolicy.networkOnly);
   }
 
   final UserRepository userRepository;

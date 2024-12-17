@@ -5,7 +5,7 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
   ComponentLibraryLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get invalidCredentialsErrorMessage => 'بريد الكترونى او كلمة مرور خطأ';
+  String get invalidCredentialsErrorMessage => 'الهاتف او كلمة مرور خطأ';
 
   @override
   String get requiredFieldErrorMessage => 'مطلوب*';
@@ -278,7 +278,7 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
   String get emptyTaskLogListIndicator => 'لا توجد مهام متاحة';
 
   @override
-  String get unAuthSnackBarErrorMessage => 'يجب تسجيل الدخول';
+  String get unAuthSnackBarErrorMessage => 'يجب تسجيل الدخول.';
 
   @override
   String get reservedForTextFieldLabel => 'محجوز لـ';

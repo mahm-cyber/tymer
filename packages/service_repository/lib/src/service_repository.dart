@@ -244,19 +244,67 @@ class ServiceRepository {
     }
   }
 
-  Future<DisputeChat> getDisputeChat({
-    required int disputeId,
-    required UserType userType,
-  }) async {
+  // Future<DisputeChat> getDisputeChat({
+  //   required int disputeId,
+  // }) async {
+  //   try {
+  //     final disputeChatUserType = changeNotifier.disputeChatUserType!;
+  //     final disputeChat = await remoteApi.getDisputeChat(
+  //       disputeId: disputeId,
+  //       userType: disputeChatUserType.toRemoteModel(),
+  //     );
+  //     final disputeDomainModel = disputeChat.toDomainModel(disputeId);
+  //     return disputeDomainModel;
+  //   } catch (error) {
+  //     rethrow;
+  //   }
+  // }
+
+  Future<DateGroupedChat> getDateGroupedChat(
+    int disputeId,
+    User user,
+  ) async {
     try {
-      final disputeChat = await remoteApi.getDisputeChat(
+      final disputeChatRM = await remoteApi.getDisputeChat(
         disputeId: disputeId,
-        userType: userType.toRemoteModel(),
+        userType: changeNotifier.disputeChatUserType!.toRemoteModel(),
       );
-      final disputeDomainModel = disputeChat.toDomainModel();
-      return disputeDomainModel;
+      final dateGroupedChats = disputeChatRM.toDomainModel(disputeId);
+      final dateGroupedChatsDM = dateGroupedChats.copyWith(
+        list: dateGroupedChats.list
+            .map(
+              (chat) => chat.copyWith(
+                messages: chat.messages.map(
+                  (message) {
+                    final isSentByMe = message.sender.id == user.id;
+                    return message.copyWith(
+                      isSentByMe: isSentByMe,
+                    );
+                  },
+                ).toList(),
+              ),
+            )
+            .toList(),
+      );
+      return dateGroupedChatsDM;
     } catch (error) {
       rethrow;
     }
   }
+
+  // Future sendChatMessage({
+  //   int? messageId,
+  //   String? message,
+  //   List<File>? files,
+  // }) async {
+  //   try {
+  //     await remoteApi.sendMessage(
+  //       messageId: messageId,
+  //       message: message,
+  //       files: files,
+  //     );
+  //   } catch (error) {
+  //     rethrow;
+  //   }
+  // }
 }

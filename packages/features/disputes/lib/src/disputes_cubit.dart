@@ -104,6 +104,13 @@ class DisputesCubit extends Cubit<DisputesState> {
     reFetchFirstPage();
   }
 
+  void onGoToDisputeDetailsTapped(int disputeId) {
+    serviceRepository.changeNotifier
+        .setDisputeChatUserType(state.userTypeFilter);
+    onDisputeTapped(disputeId);
+
+  }
+
 // @override
 // Future<void> close() async {
 //   return super.close();

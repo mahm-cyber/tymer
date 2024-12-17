@@ -1,14 +1,17 @@
 import 'dart:io';
 import 'package:accept_service_request/accept_service_request.dart';
+import 'package:chat/chat.dart';
 import 'package:choose_service/choose_service.dart';
 import 'package:component_library/component_library.dart';
 import 'package:confirm_dispute/confirm_dispute.dart';
+import 'package:dispute_chat/dispute_chat.dart';
 import 'package:disputes/disputes.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:forgot_password/forgot_password.dart';
 import 'package:fulfill_service_request/fulfill_service_request.dart';
@@ -62,6 +65,8 @@ final _keyValueStorage = KeyValueStorage();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
+
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -211,6 +216,8 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                 WalletLocalizations.delegate,
                 DisputesLocalizations.delegate,
                 ConfirmDisputeLocalizations.delegate,
+                DisputeChatLocalizations.delegate,
+                ChatLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [

@@ -7,6 +7,7 @@ class ServiceChangeNotifier with ChangeNotifier, EquatableMixin {
 
   final ValueNotifier<ServiceType?> _serviceType = ValueNotifier(null);
   final ValueNotifier<Service?> _serviceRequestDetails = ValueNotifier(null);
+  final ValueNotifier<UserType?> _disputeChatUserType = ValueNotifier(null);
 
 
   dynamic get serviceType => _serviceType.value;
@@ -29,11 +30,22 @@ class ServiceChangeNotifier with ChangeNotifier, EquatableMixin {
     notifyListeners();
   }
 
+  UserType? get disputeChatUserType => _disputeChatUserType.value;
+  void setDisputeChatUserType(UserType userType) {
+    _disputeChatUserType.value = userType;
+    notifyListeners();
+  }
+  Future clearDisputeChatUserType() async {
+    _disputeChatUserType.value = null;
+    notifyListeners();
+  }
+
 
 
   @override
   List<Object?> get props => [
         _serviceType,
         _serviceRequestDetails,
+        _disputeChatUserType,
       ];
 }

@@ -96,7 +96,7 @@ abstract class ComponentLibraryLocalizations {
   /// No description provided for @invalidCredentialsErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'Incorrect email or password'**
+  /// **'Incorrect phone or password'**
   String get invalidCredentialsErrorMessage;
 
   /// No description provided for @requiredFieldErrorMessage.
@@ -606,7 +606,7 @@ abstract class ComponentLibraryLocalizations {
   /// No description provided for @userExpiredSnackBarErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'Your membership has expired'**
+  /// **'Your membership has expired.'**
   String get userExpiredSnackBarErrorMessage;
 
   /// No description provided for @contactsCustomDropdownLabel.
@@ -642,7 +642,7 @@ abstract class ComponentLibraryLocalizations {
   /// No description provided for @unAuthSnackBarErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'You must login first'**
+  /// **'You must login first.'**
   String get unAuthSnackBarErrorMessage;
 
   /// No description provided for @reservedForTextFieldLabel.
@@ -804,7 +804,7 @@ abstract class ComponentLibraryLocalizations {
   /// No description provided for @timeInPastErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'Time cannot be in the past'**
+  /// **'Time cannot be in the past.'**
   String get timeInPastErrorMessage;
 
   /// No description provided for @serviceFeesContainerLabel.

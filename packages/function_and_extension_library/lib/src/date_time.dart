@@ -9,6 +9,23 @@ extension FormatedDateTime on DateTime {
     return '$year-$month-$day';
   }
 
+  String? formatDateTimeTo12Hour() {
+    // Extract hour and minute
+    int hour = this.hour;
+    int minute = this.minute;
+
+    // Determine AM or PM
+    String period = hour >= 12 ? 'PM' : 'AM';
+
+    // Convert to 12-hour format
+    int twelveHour = hour % 12;
+    twelveHour = twelveHour == 0 ? 12 : twelveHour; // Handle 12 AM/PM
+
+    // Format minute to always be two digits
+    String formattedMinute = minute.toString().padLeft(2, '0');
+
+    return '$twelveHour:$formattedMinute $period';
+  }
 
 }
 

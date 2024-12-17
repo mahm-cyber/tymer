@@ -53,6 +53,10 @@ dependencies:
     path: packages/features/accept_service_request
   fulfill_service_request:
     path: packages/features/fulfill_service_request
+  dispute_chat:
+    path: packages/features/dispute_chat
+  chat:
+    path: packages/features/chat
   order_history:
     path: packages/features/order_history
   wallet:
@@ -82,6 +86,7 @@ dependencies:
   component_library:
     path: packages/component_library
   firebase_core: ^3.3.0
+  flutter_downloader: ^1.11.8
 
 
 dependency_overrides:

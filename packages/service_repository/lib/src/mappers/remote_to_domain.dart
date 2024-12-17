@@ -1,6 +1,5 @@
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:tymer_api/tymer_api.dart';
 
 extension ServiceRMtoDM on ServiceRM {
@@ -176,34 +175,83 @@ extension DisputeListPageRMtoDM on DisputeListPageRM {
 }
 
 extension DisputeMessageRMtoDM on DisputeMessageRM {
-  types.Message toDomainModel() {
-    final messageType = content != null
-        ? types.MessageType.text
-        : chatImages.isNotEmpty
-            ? types.MessageType.image
-            : chatRecords.isNotEmpty
-                ? types.MessageType.audio
-                : chatDocuments.isNotEmpty
-                    ? types.MessageType.file
-                    : types.MessageType.text;
-    return types.AudioMessage(
-      author: types.User(
-        id: senderId.toString(),
-        firstName: senderName,
-      ),
-      id: id.toString(),
-      duration: const Duration(seconds: 0),
-      name: '',
-      size: 0,
-      uri: chatRecords[0],
-    );
+  ChatMessage toDomainModel(int disputeId) {
+    const filesUrl = '${UrlBuilder.baseUrl}/files';
+    try {
+      final messageUri = chatImages.isNotEmpty
+          ? '$filesUrl/${chatImages[0]}'
+          : chatRecords.isNotEmpty
+              ? '$filesUrl/${chatRecords[0]}'
+              : chatDocuments.isNotEmpty
+                  ? '$filesUrl/${chatDocuments[0]}'
+                  : '';
+      final messageFileName = chatImages.isNotEmpty
+          ? chatImages[0].split('/').last
+          : chatRecords.isNotEmpty
+              ? chatRecords[0].split('/').last
+              : chatDocuments.isNotEmpty
+                  ? chatDocuments[0].split('/').last
+                  : '';
+
+      final dateDM = DateTime.parse(createdAt);
+      final chatMessage = ChatMessage(
+        id: id,
+        text: content,
+        files: [
+          if(messageUri.isNotEmpty)
+          FileDM(
+            name: messageFileName,
+            dlUrl: messageUri,
+          ),
+        ],
+        date: dateDM,
+        sender: Sender(
+          id: senderId,
+          name: senderName,
+        ),
+      );
+      return chatMessage;
+    } catch (e) {
+      throw Exception('Error parsing DisputeMessageRM to MessageDM: $e');
+    }
   }
 }
 
 extension DisputeChatRMtoDM on DisputeChatRM {
-  DisputeChat toDomainModel() {
-    return DisputeChat(
-      messages: messages.map((message) => message.toDomainModel()).toList(),
+  DateGroupedChat toDomainModel(int disputeId) {
+    final messagesList =
+        messages.map((message) => message.toDomainModel(disputeId)).toList();
+    // group messageslist by date with two fields inside the map, the first is the date the second is the list of messages for that date
+    final groupedMessagesListOfMaps = <Map<String, dynamic>>[];
+    for (final message in messagesList) {
+      final messageDate = message.date;
+      final messageDateFormatted =
+          '${messageDate.year}-${messageDate.month}-${messageDate.day}';
+      final messageIndex = groupedMessagesListOfMaps
+          .indexWhere((element) => element['date'] == messageDateFormatted);
+      if (messageIndex == -1) {
+        groupedMessagesListOfMaps.add({
+          'date': messageDateFormatted,
+          'messages': [message],
+        });
+      } else {
+        groupedMessagesListOfMaps[messageIndex]['messages'].add(message);
+      }
+    }
+    final List<Chat> groupedMessagesList = [];
+    for (final groupedMessagesMap in groupedMessagesListOfMaps) {
+      final date = DateTime.parse(groupedMessagesMap['date']);
+      final messages = groupedMessagesMap['messages'] as List<ChatMessage>;
+      groupedMessagesList.add(
+        Chat(
+          date: date,
+          messages: messages,
+        ),
+      );
+    }
+
+    return DateGroupedChat(
+      list: groupedMessagesList,
     );
   }
 }

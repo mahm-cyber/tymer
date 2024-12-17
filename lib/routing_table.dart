@@ -1,4 +1,5 @@
 import 'package:accept_service_request/accept_service_request.dart';
+import 'package:chat/chat.dart';
 import 'package:choose_service/choose_service.dart';
 import 'package:confirm_dispute/confirm_dispute.dart';
 import 'package:disputes/disputes.dart';
@@ -138,10 +139,24 @@ Map<String, PageBuilder> buildRoutingTable({
             userRepository: userRepository,
             serviceRepository: serviceRepository,
             onDisputeTapped: (disputeId) {
-              routerDelegate.push(_PathConstants.disputesPath);
+              routerDelegate
+                  .push(_PathConstants.disputeChatPath(disputeId: disputeId));
             },
           ),
         ),
+    _PathConstants.disputeChatPath(): (info) {
+      final disputeId = int.parse(
+        info.pathParameters['disputeId'] ?? '',
+      );
+      return MaterialPage(
+        name: 'chat',
+        child: ChatScreen(
+          userRepository: userRepository,
+          serviceRepository: serviceRepository,
+          disputeId: disputeId,
+        ),
+      );
+    },
     _PathConstants.walletPath: (_) => MaterialPage(
           name: 'wallet',
           child: WalletScreen(
@@ -301,6 +316,9 @@ class _PathConstants {
   static String get homePath => '${initialPath}home';
 
   static String get disputesPath => '${initialPath}disputes';
+
+  static String disputeChatPath({int? disputeId}) =>
+      '$disputesPath/${disputeId ?? ':disputeId'}';
 
   static String get walletPath => '${initialPath}wallet';
 

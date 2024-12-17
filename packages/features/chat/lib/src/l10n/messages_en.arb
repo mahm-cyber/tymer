@@ -1,0 +1,9 @@
+{
+    "appBarTitle": "Open Line Chat",
+    "uploadFileIconLabel": "File",
+    "uploadImageFromGalleryIconLabel": "Gallery",
+    "captureImageIconLabel": "Capture",
+    "deleteFileIconLabel": "Delete",
+    "noMessagesIndicator": "No messages yet",
+    "messageSentByMeCardTitle": "You"
+}

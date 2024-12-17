@@ -468,7 +468,7 @@ class TymerApi {
     );
     try {
       final response = await _dio.get(url);
-      final disputeChat = DisputeChatRM.fromJson(response.data[_dataJsonKey]);
+      final disputeChat = DisputeChatRM.fromJson(response.data);
       return disputeChat;
     } catch (_) {
       rethrow;

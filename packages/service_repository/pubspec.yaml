@@ -21,5 +21,6 @@ dependencies:
   google_maps_flutter: ^2.9.0
   url_launcher: ^6.3.1
   flutter_chat_ui: ^1.6.15
+  flutter_chat_types: ^3.6.2
 dev_dependencies:
   flutter_lints: ^4.0.0
