@@ -1,5 +1,7 @@
 import 'component_library_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for Arabic (`ar`).
 class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
   ComponentLibraryLocalizationsAr([String locale = 'ar']) : super(locale);
@@ -371,4 +373,13 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get serviceTotalPriceContainerLabel => 'إجمالي سعر الخدمة';
+
+  @override
+  String get openFileSnackBarActionLabel => 'فتح الملف';
+
+  @override
+  String get downloadSuccessSnackBarMessage => 'تم تحميل الملف بنجاح!';
+
+  @override
+  String get downloadFailedSnackBarMessage => 'حدث حطأ. يرجى المحاولة مرة أخرى.';
 }

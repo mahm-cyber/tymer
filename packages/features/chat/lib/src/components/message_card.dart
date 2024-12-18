@@ -1,4 +1,5 @@
 import 'package:chat/src/components/message_file_widget.dart';
+import 'package:chat/src/l10n/chat_localizations.dart';
 import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
@@ -29,10 +30,30 @@ class MessageCard extends StatelessWidget {
     final theme = TymerTheme.of(context);
     final textTheme = Theme.of(context).textTheme;
     final isSentByMe = message.isSentByMe;
+    final l10n = ChatLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (isFirstElement) VerticalGap.medium(),
+        Row(
+          mainAxisAlignment: isSentByMe ? MainAxisAlignment.start: MainAxisAlignment.end,
+          children: [
+            if(isSentByMe)HorizontalGap.custom(theme.screenMargin * 2),
+            Text(
+              isSentByMe
+                  ? l10n.messageSentByMeCardTitle
+                  : message.sender.name,
+              style: textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: isSentByMe
+                    ? theme.materialThemeData.colorScheme.secondary
+                    : theme.materialThemeData.colorScheme.secondary,
+              ),
+            ),
+            if (!isSentByMe) HorizontalGap.custom(theme.screenMargin * 2),
+          ],
+        ),
+        VerticalGap.xSmall(),
         Container(
           width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.only(
@@ -58,6 +79,7 @@ class MessageCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
                     if (message.text != null &&
                         message.text?.isNotEmpty == true) ...[
                       SelectableText(

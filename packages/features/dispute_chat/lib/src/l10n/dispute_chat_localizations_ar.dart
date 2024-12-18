@@ -1,5 +1,7 @@
 import 'dispute_chat_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for Arabic (`ar`).
 class DisputeChatLocalizationsAr extends DisputeChatLocalizations {
   DisputeChatLocalizationsAr([String locale = 'ar']) : super(locale);

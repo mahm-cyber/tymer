@@ -134,7 +134,10 @@
   "timeInPastErrorMessage": "Time cannot be in the past.",
   "serviceFeesContainerLabel": "Service Fee",
   "servicePriceContainerLabel": "Service Price",
-  "serviceTotalPriceContainerLabel": "Service Total Price"
+  "serviceTotalPriceContainerLabel": "Service Total Price",
+  "openFileSnackBarActionLabel": "Open File",
+  "downloadSuccessSnackBarMessage": "Download completed successfully!",
+  "downloadFailedSnackBarMessage": "Download failed. Please try again."
 
 
 }

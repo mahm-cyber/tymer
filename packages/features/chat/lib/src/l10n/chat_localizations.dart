@@ -8,6 +8,8 @@ import 'package:intl/intl.dart' as intl;
 import 'chat_localizations_ar.dart';
 import 'chat_localizations_en.dart';
 
+// ignore_for_file: type=lint
+
 /// Callers can lookup localized strings with an instance of ChatLocalizations
 /// returned by `ChatLocalizations.of(context)`.
 ///

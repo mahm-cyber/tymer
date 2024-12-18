@@ -32,10 +32,10 @@ class Video extends StatelessWidget {
             top: Spacing.large,
           ),
           actions: [
-            // DownloadWidget(
-            //   userToken: userToken,
-            //   urls: [message.files![0].dlUrl!],
-            // ),
+            DownloadWidget(
+              userToken: userToken,
+              urls: [message.files![0].dlUrl!],
+            ),
             IconButton(
                 onPressed: () => Navigator.pop(dialogContext),
                 icon: const Icon(Icons.arrow_forward_ios))
@@ -94,7 +94,7 @@ class VideoDialogContentState extends State<VideoDialogContent> {
                     child: Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.black.withOpacity(0.5),
+                        color: Colors.black.withAlpha((255 * 0.5).toInt()),
                       ),
                       child: !_controller.value.isPlaying
                           ? IconButton(

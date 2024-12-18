@@ -20,8 +20,10 @@ class SuccessSnackBar extends SnackBar {
       icon: icon,
       messageColor: messageColor,
       action: snackBarAction,
+
     ),
     showCloseIcon: showClose,
+
     margin: marginalSpace ?? TymerTheme.of(context).snackBarMargin,
     backgroundColor: bgColor ??
         TymerTheme.of(context).successContainerColor,
@@ -30,12 +32,13 @@ class SuccessSnackBar extends SnackBar {
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10),
     ),
+    actionOverflowThreshold: 0.1
   );
 
   final EdgeInsets? marginalSpace;
   final String? message;
   final BuildContext context;
-  final Widget? snackBarAction;
+  final SnackBarAction? snackBarAction;
   final Widget? icon;
   final Color? bgColor;
   final Color? messageColor;
@@ -71,14 +74,15 @@ class SuccessSnackBarContent extends StatelessWidget {
               color: theme.orderedVoucherUsedStatusTextColor,
             ),
         HorizontalGap.xSmall(),
-        Text(
-          message ?? l10n.successSnackBarMessage,
-          style: textTheme.titleSmall?.copyWith(
-            color: messageColor ?? theme.orderedVoucherUsedStatusTextColor,
+        Expanded(
+          child: Text(
+            message ?? l10n.successSnackBarMessage,
+            style: textTheme.titleSmall?.copyWith(
+              color: messageColor ?? theme.orderedVoucherUsedStatusTextColor,
+            ),
           ),
         ),
         if (action != null) ...[
-          const Spacer(),
           action!
         ]
       ],

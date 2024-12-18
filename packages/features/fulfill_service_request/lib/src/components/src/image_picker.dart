@@ -188,7 +188,7 @@ class _State extends State<ImageDialog> {
       alignment: Alignment.center,
       child: AlertDialog(
         contentPadding: EdgeInsets.zero,
-        backgroundColor: Colors.white.withOpacity(0.0),
+        backgroundColor: Colors.white.withValues(alpha: 255 *0.0),
         elevation: 0,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(

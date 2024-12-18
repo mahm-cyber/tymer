@@ -1,5 +1,7 @@
 import 'request_service_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for English (`en`).
 class RequestServiceLocalizationsEn extends RequestServiceLocalizations {
   RequestServiceLocalizationsEn([String locale = 'en']) : super(locale);

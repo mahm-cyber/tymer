@@ -19,17 +19,32 @@ pods-clean:
 	rm ios/Podfile.lock ; \
 
 get:
-	flutter pub get
+	fvm flutter pub get
 	for feature in $(FEATURES); do \
 		cd $${feature} ; \
 		echo "Updating dependencies on $${feature}" ; \
-		flutter pub get ; \
+		fvm flutter pub get ; \
 		cd ../../../ ; \
 	done
 	for package in $(PACKAGES); do \
 		cd $${package} ; \
 		echo "Updating dependencies on $${package}" ; \
-		flutter pub get ; \
+		fvm flutter pub get ; \
+		cd ../../ ; \
+	done
+
+use_fvm:
+	fvm use 3.27.1
+	for feature in $(FEATURES); do \
+		cd $${feature} ; \
+		echo "Updating flutter to 3.27.1 on $${feature}" ; \
+		fvm use 3.27.1 ; \
+		cd ../../../ ; \
+	done
+	for package in $(PACKAGES); do \
+		cd $${package} ; \
+		echo "Updating flutter to 3.27.1 on $${package}" ; \
+		fvm use 3.27.1 ; \
 		cd ../../ ; \
 	done
 

@@ -8,6 +8,8 @@ import 'package:intl/intl.dart' as intl;
 import 'verify_otp_localizations_ar.dart';
 import 'verify_otp_localizations_en.dart';
 
+// ignore_for_file: type=lint
+
 /// Callers can lookup localized strings with an instance of VerifyOtpLocalizations
 /// returned by `VerifyOtpLocalizations.of(context)`.
 ///

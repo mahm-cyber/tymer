@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as diox;
 import 'package:flutter/material.dart';
+import 'package:tymer_api/src/pusher_api.dart';
 import 'package:tymer_api/tymer_api.dart';
 
 typedef UserTokenSupplier = Future<String?> Function();
@@ -21,6 +22,7 @@ class TymerApi {
     required this.isUserUnAuthSC,
     required this.internetConnectionErrorVN,
   })  : urlBuilder = UrlBuilder(),
+        pusherApi = PusherApi(userTokenSupplier),
         _dio = Dio() {
     _dio.setUpAuthHeaders(
       userTokenSupplier: userTokenSupplier,
@@ -45,6 +47,7 @@ class TymerApi {
   final ValueNotifier<bool> isUserUnAuthSC;
   final ValueNotifier internetConnectionErrorVN;
   final UrlBuilder urlBuilder;
+  final PusherApi pusherApi;
 
   //Auth
   Future<String> signIn({
@@ -479,7 +482,8 @@ class TymerApi {
     final url = urlBuilder.buildGetPricingSettingsUrl();
     try {
       final response = await _dio.get(url);
-      final pricingSettings = PricingSettingsRM.fromJson(response.data[_dataJsonKey]);
+      final pricingSettings =
+          PricingSettingsRM.fromJson(response.data[_dataJsonKey]);
       return pricingSettings;
     } catch (error) {
       rethrow;

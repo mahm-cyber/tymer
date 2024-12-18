@@ -1,5 +1,7 @@
 import 'reset_password_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for Arabic (`ar`).
 class ResetPasswordLocalizationsAr extends ResetPasswordLocalizations {
   ResetPasswordLocalizationsAr([String locale = 'ar']) : super(locale);

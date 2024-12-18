@@ -36,7 +36,7 @@ abstract class TymerThemeData {
   final profileDescriptionTextShadow = Shadow(
     offset: const Offset(0, 4),
     blurRadius: 4,
-    color: Colors.black.withOpacity(0.25),
+    color: Colors.black.withValues(alpha: 255 *0.25),
   );
 
   final snackBarMargin = const EdgeInsets.only(bottom: 70, left: 15, right: 15);
@@ -111,10 +111,10 @@ class LightTymerThemeData extends TymerThemeData {
             horizontal: Spacing.medium,
           ),
           labelStyle:  TextStyle(
-            color: const Color(0xFF6C6C6C).withOpacity(0.5),
+            color: const Color(0xFF6C6C6C).withValues(alpha: 255 *0.5),
           ),
           hintStyle:  TextStyle(
-            color: const Color(0xFF6C6C6C).withOpacity(0.6),
+            color: const Color(0xFF6C6C6C).withValues(alpha: 255 *0.6),
           ),
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(textFieldBorderRadius),
@@ -160,7 +160,7 @@ class DarkTymerThemeData extends TymerThemeData {
         colorScheme: const ColorScheme.dark(
             primary: Colors.indigo, secondary: Colors.deepPurpleAccent),
         tabBarTheme: TabBarTheme(
-          unselectedLabelColor: Colors.white.withOpacity(0.8),
+          unselectedLabelColor: Colors.white.withValues(alpha: 255 *0.8),
           labelColor: Colors.white,
           dividerColor: Colors.transparent,
         ),

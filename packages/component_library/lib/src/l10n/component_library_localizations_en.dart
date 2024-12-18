@@ -1,5 +1,7 @@
 import 'component_library_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for English (`en`).
 class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
   ComponentLibraryLocalizationsEn([String locale = 'en']) : super(locale);
@@ -371,4 +373,13 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get serviceTotalPriceContainerLabel => 'Service Total Price';
+
+  @override
+  String get openFileSnackBarActionLabel => 'Open File';
+
+  @override
+  String get downloadSuccessSnackBarMessage => 'Download completed successfully!';
+
+  @override
+  String get downloadFailedSnackBarMessage => 'Download failed. Please try again.';
 }

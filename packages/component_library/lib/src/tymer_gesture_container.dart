@@ -62,7 +62,7 @@ class TymerGestureContainer extends StatelessWidget {
                   Text(
                     subtitle!,
                     style: textTheme.bodyMedium?.copyWith(
-                      color: colorScheme.surface.withOpacity(0.6),
+                      color: colorScheme.surface.withValues(alpha: 255 *0.6),
                     ),
                   ),
                 ],

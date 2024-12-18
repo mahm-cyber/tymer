@@ -1,10 +1,9 @@
 import 'dart:developer';
 import 'dart:io';
-import 'dart:isolate';
-
 import 'package:component_library/component_library.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DownloadWidget extends StatefulWidget {
@@ -29,88 +28,143 @@ class DownloadWidget extends StatefulWidget {
 }
 
 class _DownloadWidgetState extends State<DownloadWidget> {
-  final ReceivePort _port = ReceivePort();
-
-  /// [downloadTaskId] variable is used to store the id of the download task created when the [FlutterDownloader.enqueue] method is called.
-  String? downloadTaskId;
-
-  /// [downloadTaskStatus] is used to store the task status.
-  int downloadTaskStatus = 0;
-
-  /// [downloadTaskProgress] store the progress of the download task. ranging between 1 to 100.
-  int downloadTaskProgress = 0;
-
-  /// [isDownloading] is set to true if the file is being downloaded.
-  bool isDownloading = false;
+  final dio = Dio();
+  final ValueNotifier<double> downloadProgress = ValueNotifier(0.0);
+  final ValueNotifier<DownloadStatus> downloadStatus =
+      ValueNotifier(DownloadStatus.initial);
+  bool fileAlreadyOnDevice = (false);
+  String? savePath;
 
   @override
+  //init
   void initState() {
     super.initState();
-    _port.listen((message) {
-      setState(
-        () {
-          downloadTaskId = message[0];
-          downloadTaskStatus = message[1];
-          downloadTaskProgress = message[2];
-        },
-      );
-
-      if (message[1] == 2) {
-        isDownloading = true;
-      } else {
-        isDownloading = false;
+    downloadStatus.addListener(() {
+      final l10n = ComponentLibraryLocalizations.of(context);
+      final theme = TymerTheme.of(context);
+      if (downloadStatus.value == DownloadStatus.success) {
+        showSnackBar(
+          context: context,
+          snackBar: SuccessSnackBar(
+            context: context,
+            snackBarAction: SnackBarAction(
+              backgroundColor: theme.primaryColor,
+              label: (l10n.openFileSnackBarActionLabel),
+              onPressed: () {
+                OpenFilex.open(savePath!);
+              },
+            ),
+            message: (l10n.downloadSuccessSnackBarMessage),
+          ),
+        );
       }
-      setState(() {});
+      if (downloadStatus.value == DownloadStatus.failed) {
+        showSnackBar(
+          context: context,
+          snackBar: ErrorSnackBar(
+            context: context,
+            message: (l10n.downloadFailedSnackBarMessage),
+          ),
+        );
+      }
     });
+    getApplicationDocumentsDirectory().then((downloadDirPath) {
+      final fileName = widget.urls[0].split('/').last;
+      savePath = '${downloadDirPath.path}/$fileName';
+      setState(() {});
+      checkIfFileAlreadyOnDevice();
+    });
+  }
+
+  void checkIfFileAlreadyOnDevice() async {
+    final file = File(savePath!);
+    if (await file.exists()) {
+      fileAlreadyOnDevice = true;
+      setState(() {});
+    }
   }
 
   /// [downloadFile] method is used to download the enqueue the file to be downloaded using the [url].
   Future<void> downloadFile({required String url}) async {
-    log('DownloadsController - downloadFile called');
-    log('DownloadsController - downloadFile - url = $url');
-
-    /// [downloadDirPath] var stores the path of device's download directory path.
-    late String downloadDirPath;
-    if (Platform.isIOS) {
-      downloadDirPath = (await getApplicationDocumentsDirectory()).path;
-    } else {
-      downloadDirPath = (await getApplicationDocumentsDirectory()).path;
+    if (savePath == null) return;
+    try {
+      downloadStatus.value = DownloadStatus.inProgress;
+      setState(() {});
+      await dio.downloadUri(
+        Uri.parse(url),
+        options: Options(
+          headers: {
+            "Authorization": "Bearer ${widget.userToken}",
+            "X-API-Key": "01f64a264be7442a9008abda93d5d6ae",
+          },
+        ),
+        savePath,
+        onReceiveProgress: (received, total) {
+          final progress = received / total;
+          downloadProgress.value = progress;
+          setState(() {});
+        },
+      );
+      downloadStatus.value = DownloadStatus.success;
+      downloadProgress.value = 0.0;
+      setState(() {});
+    } catch (e) {
+      log('Error downloading file: $e');
+      downloadStatus.value = DownloadStatus.failed;
+      setState(() {});
+      downloadStatus.value = DownloadStatus.initial;
     }
-    downloadTaskId = await FlutterDownloader.enqueue(
-      url: url,
-      headers: {
-        "Authorization": "Bearer ${widget.userToken}",
-        "X-API-Key": "01f64a264be7442a9008abda93d5d6ae",
-      },
-      // optional: header send with url (auth token etc)
-      savedDir: downloadDirPath,
-      saveInPublicStorage: true,
-      showNotification: true,
-      // show download progress in status bar (for Android)
-      openFileFromNotification:
-          true, // click on the notification to open the downloaded file (for Android)
-    );
+  }
+
+  @override
+  void dispose() {
+    downloadProgress.dispose();
+    downloadStatus.dispose();
+    if (fileAlreadyOnDevice) File(savePath!).delete();
+
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = TymerTheme.of(context);
     final isSentByMe = widget.isSentByMe ?? false;
+    final downloadInProgress =
+        downloadStatus.value == DownloadStatus.inProgress;
+    final downloadSuccessOrAlreadyOnDevice =
+        downloadStatus.value == DownloadStatus.success || fileAlreadyOnDevice;
     return GestureDetector(
       onTap: () {
         for (String url in widget.urls) {
           downloadFile(url: url);
         }
       },
-      child: true
+      child: downloadInProgress
           ? Transform.scale(
               scale: 0.5,
               child: CircularProgressIndicator(
+                value: downloadProgress.value,
                 color: isSentByMe ? null : Colors.white,
-                backgroundColor: theme.primaryColor.withOpacity(0.2),
               ),
             )
-          : widget.child ?? const Icon(Icons.download),
+          : downloadSuccessOrAlreadyOnDevice
+              ? IconButton(
+                  onPressed: () async {
+                    OpenFilex.open(savePath!);
+                  },
+                  icon: Icon(
+                    Icons.open_in_new,
+                    color: isSentByMe ? null : Colors.white,
+                  ),
+                )
+              : widget.child ?? const Icon(Icons.download),
     );
   }
+}
+
+enum DownloadStatus {
+  initial,
+  inProgress,
+  failed,
+  success,
 }

@@ -1,4 +1,3 @@
-
 enum Month {
   jan,
   feb,
@@ -39,8 +38,6 @@ enum Month {
         return 'نوفمبر';
       case dec:
         return 'ديسمبر';
-      default:
-        return 'Invalid month number';
     }
   }
 }

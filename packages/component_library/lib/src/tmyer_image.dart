@@ -46,7 +46,7 @@ class ImageLoadingErrorIndicator extends StatelessWidget {
 
     return Center(
       child: Container(
-        color: colorScheme.primary.withOpacity(0.1),
+        color: colorScheme.primary.withValues(alpha: 255 *0.1),
         height: double.maxFinite,
         width: double.maxFinite,
         child: Icon(
@@ -109,9 +109,9 @@ class _ImageLoadingFlasherState extends State<ImageLoadingFlasher>
             return LinearProgressIndicator(
               minHeight: double.maxFinite,
               backgroundColor:
-                  colorScheme.primary.withOpacity(controller.value * 0.5),
+                  colorScheme.primary.withValues(alpha: 255 *controller.value * 0.5),
               valueColor: AlwaysStoppedAnimation<Color>(
-                  colorScheme.primary.withOpacity(controller.value * 0.05)),
+                  colorScheme.primary.withValues(alpha: 255 *controller.value * 0.05)),
             );
           }),
     );

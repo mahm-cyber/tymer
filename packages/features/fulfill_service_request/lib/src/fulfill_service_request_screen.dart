@@ -104,7 +104,7 @@ class FulfillServiceRequestView extends StatelessWidget {
           children: [
             Scaffold(
               appBar: AppBar(
-                title: const SvgAsset(AssetPathConstants.whiteLogoPath),
+                title: const SvgAsset(AssetPathConstants.whiteLogoPath, height: 30,),
                 toolbarHeight: 70,
                 iconTheme: IconThemeData(color: colorScheme.surface),
               ),
@@ -125,9 +125,9 @@ class FulfillServiceRequestView extends StatelessWidget {
                               service: state.service!,
                               onViewServiceOnMap: cubit.onViewServiceOnMap,
                             ),
+                            VerticalGap.small(),
                             if (state.service?.type ==
                                 ServiceType.reservation) ...[
-                              VerticalGap.small(),
                               const ReservationNumberTextField(),
                               VerticalGap.small(),
                             ],

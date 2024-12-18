@@ -179,7 +179,7 @@ class _SendMessageState extends State<SendMessage> {
                               const CircleBorder(),
                             ),
                           ),
-                          icon: const Icon(Icons.camera_alt),
+                          icon: const Icon(Icons.image_outlined),
                           onPressed: submissionInProgress
                               ? null
                               : cubit.pickImageFromGallery,
@@ -201,7 +201,7 @@ class _SendMessageState extends State<SendMessage> {
                               const CircleBorder(),
                             ),
                           ),
-                          icon: const Icon(Icons.camera_alt),
+                          icon: const Icon(Icons.camera_alt_outlined),
                           onPressed:
                               submissionInProgress ? null : cubit.capturePhoto,
                         ),

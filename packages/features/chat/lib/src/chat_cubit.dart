@@ -173,6 +173,7 @@ class ChatCubit extends Cubit<ChatState> {
       submissionStatus: state.submissionStatus,
       message: state.message,
       files: null,
+      userToken: state.userToken,
     );
     emit(newState);
   }

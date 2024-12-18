@@ -102,21 +102,12 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
         userType: UserType.provider,
         status: ServiceStatus.inProgress,
       );
-      final serviceRequestsPendingReview =
-          await serviceRepository.getAllServiceRequests(
-        lat: 30.0444,
-        long: 31.2357,
-        userType: UserType.provider,
-        status: ServiceStatus.pendingReview,
-      );
+
       final hasInProgressServiceRequest =
           serviceRequestsInProgress.list.isNotEmpty;
-      final hasPendingReviewServiceRequest =
-          serviceRequestsPendingReview.list.isNotEmpty;
+
       if (hasInProgressServiceRequest) {
         return serviceRequestsInProgress.list.first;
-      } else if (hasPendingReviewServiceRequest) {
-        return serviceRequestsPendingReview.list.first;
       } else {
         return null;
       }

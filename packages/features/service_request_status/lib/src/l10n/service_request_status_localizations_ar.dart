@@ -1,5 +1,7 @@
 import 'service_request_status_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for Arabic (`ar`).
 class ServiceRequestStatusLocalizationsAr extends ServiceRequestStatusLocalizations {
   ServiceRequestStatusLocalizationsAr([String locale = 'ar']) : super(locale);

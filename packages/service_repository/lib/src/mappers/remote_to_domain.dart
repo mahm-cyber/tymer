@@ -240,7 +240,15 @@ extension DisputeChatRMtoDM on DisputeChatRM {
     }
     final List<Chat> groupedMessagesList = [];
     for (final groupedMessagesMap in groupedMessagesListOfMaps) {
-      final date = DateTime.parse(groupedMessagesMap['date']);
+      // convert  "2024-2-3" to "2024-02-03"
+      final remoteDate = groupedMessagesMap['date'];
+      final month = remoteDate.split('-')[1];
+      final day = remoteDate.split('-')[2];
+      //if month  or day is less than 10 add a 0 before it
+      final formattedMonth = month.length == 1 ? '0$month' : month;
+      final formattedDay = day.length == 1 ? '0$day' : day;
+      final formattedDate = '${remoteDate.split('-')[0]}-$formattedMonth-$formattedDay';
+      final date = DateTime.parse(formattedDate);
       final messages = groupedMessagesMap['messages'] as List<ChatMessage>;
       groupedMessagesList.add(
         Chat(

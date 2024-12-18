@@ -8,6 +8,8 @@ import 'package:intl/intl.dart' as intl;
 import 'component_library_localizations_ar.dart';
 import 'component_library_localizations_en.dart';
 
+// ignore_for_file: type=lint
+
 /// Callers can lookup localized strings with an instance of ComponentLibraryLocalizations
 /// returned by `ComponentLibraryLocalizations.of(context)`.
 ///
@@ -824,6 +826,24 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'Service Total Price'**
   String get serviceTotalPriceContainerLabel;
+
+  /// No description provided for @openFileSnackBarActionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Open File'**
+  String get openFileSnackBarActionLabel;
+
+  /// No description provided for @downloadSuccessSnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Download completed successfully!'**
+  String get downloadSuccessSnackBarMessage;
+
+  /// No description provided for @downloadFailedSnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Download failed. Please try again.'**
+  String get downloadFailedSnackBarMessage;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

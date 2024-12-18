@@ -134,7 +134,10 @@
   "timeInPastErrorMessage": "لا يمكن أن يكون الوقت في الماضي",
   "servicePriceContainerLabel": "سعر الخدمة",
   "serviceFeesContainerLabel": "رسوم الخدمة",
-  "serviceTotalPriceContainerLabel": "إجمالي سعر الخدمة"
+  "serviceTotalPriceContainerLabel": "إجمالي سعر الخدمة",
+  "openFileSnackBarActionLabel": "فتح الملف",
+  "downloadSuccessSnackBarMessage": "تم تحميل الملف بنجاح!",
+  "downloadFailedSnackBarMessage": "حدث حطأ. يرجى المحاولة مرة أخرى."
 
 
 }

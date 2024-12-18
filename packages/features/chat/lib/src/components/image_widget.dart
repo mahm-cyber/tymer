@@ -55,10 +55,11 @@ class _ImageWidgetState extends State<ImageWidget> {
           actionsPadding: EdgeInsetsDirectional.only(
               top: Spacing.large, start: theme.screenMargin),
           actions: [
-            // DownloadWidget(
-            //   userToken: widget.userToken,
-            //   urls: [widget.message.files![0].dlUrl!],
-            // ),
+            DownloadWidget(
+              userToken: widget.userToken,
+              isSentByMe: true,
+              urls: [widget.message.files![0].dlUrl!],
+            ),
             // CircularProgressIndicator(),
             IconButton(
               onPressed: () => Navigator.pop(context),

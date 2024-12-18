@@ -94,8 +94,10 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
     super.initState();
     _userRepository.getUser().first.then((user) {
       _signInSuccessVN.value = user?.phone != null;
+      if (user?.phone != null) {
+        _userRepository.getReservationServiceTypes(FetchPolicy.networkOnly);
+      }
     });
-    _userRepository.getReservationServiceTypes(FetchPolicy.networkOnly);
     WidgetsBinding.instance.addObserver(this);
   }
 

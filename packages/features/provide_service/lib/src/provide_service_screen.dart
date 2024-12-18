@@ -118,7 +118,7 @@ class ProvideServiceView extends StatelessWidget {
                                           padding: EdgeInsets.only(
                                             left: theme.screenMargin,
                                             right: theme.screenMargin,
-                                            top: Spacing.xxLarge,
+                                            top: Spacing.xLarge,
                                           ),
                                           itemCount: state
                                               .ascendingSortedServiceRequests!

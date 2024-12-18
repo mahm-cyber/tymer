@@ -3,7 +3,7 @@ name: tymer
 publish_to: 'none'
 version: 2.0.4+7
 environment:
-  sdk: ">=3.2.2 <4.0.0"
+  sdk: ">=3.5.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -89,14 +89,14 @@ dependencies:
   flutter_downloader: ^1.11.8
 
 
-dependency_overrides:
-  wakelock:
-    git:
-      url: https://github.com/chandrabezzo/wakelock.git # repository
-      ref: main # branch
-      path: wakelock/ # folder
-  wakelock_windows:
-    path: packages/fake_wakelock_windows
+#dependency_overrides:
+#  wakelock:
+#    git:
+#      url: https://github.com/chandrabezzo/wakelock.git # repository
+#      ref: main # branch
+#      path: wakelock/ # folder
+#  wakelock_windows:
+#    path: packages/fake_wakelock_windows
 
 flutter:
   uses-material-design: true
