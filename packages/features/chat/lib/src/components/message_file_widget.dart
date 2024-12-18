@@ -15,7 +15,7 @@ class MessageFileWidget extends StatelessWidget {
 
   });
 
-  final ChatMessage message;
+  final DisputeMessage message;
   final Function(String p1) openFileInExternalApp;
   final String userToken;
 

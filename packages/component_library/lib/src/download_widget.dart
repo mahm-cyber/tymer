@@ -127,7 +127,6 @@ class _DownloadWidgetState extends State<DownloadWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = TymerTheme.of(context);
     final isSentByMe = widget.isSentByMe ?? false;
     final downloadInProgress =
         downloadStatus.value == DownloadStatus.inProgress;

@@ -11,7 +11,7 @@ class Video extends StatelessWidget {
     required this.userToken,
   });
 
-  final ChatMessage message;
+  final DisputeMessage message;
   final String userToken;
 
   @override

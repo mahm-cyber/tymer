@@ -22,7 +22,7 @@ class DateGroupedChat extends Equatable {
 
 class Chat {
   final DateTime date;
-  final List<ChatMessage> messages;
+  final List<DisputeMessage> messages;
 
   Chat({
     required this.date,
@@ -31,7 +31,7 @@ class Chat {
 
   Chat copyWith({
     DateTime? date,
-    List<ChatMessage>? messages,
+    List<DisputeMessage>? messages,
   }) {
     return Chat(
       date: date ?? this.date,
@@ -40,7 +40,7 @@ class Chat {
   }
 }
 
-class ChatMessage {
+class DisputeMessage {
   final int id;
   final String? text;
   final List<FileDM>? files;
@@ -48,7 +48,7 @@ class ChatMessage {
   final Sender sender;
   final bool isSentByMe;
 
-  ChatMessage({
+  DisputeMessage({
     required this.id,
     this.text,
     this.files,
@@ -57,10 +57,10 @@ class ChatMessage {
     this.isSentByMe = false,
   });
 
-  ChatMessage copyWith({
+  DisputeMessage copyWith({
     bool? isSentByMe,
   }) {
-    return ChatMessage(
+    return DisputeMessage(
       id: id,
       text: text,
       files: files,

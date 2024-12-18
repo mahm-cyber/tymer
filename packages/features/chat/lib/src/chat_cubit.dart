@@ -20,9 +20,9 @@ class ChatCubit extends Cubit<ChatState> {
   })  : _imagePicker = ImagePicker(),
         super(const ChatState()) {
     getChat();
-    // serviceRepository.initPusher().then((_) {
-    //   serviceRepository.subscribeToChat();
-    // });
+    serviceRepository.initPusher().then((_) async {
+      serviceRepository.listenToChat(disputeId);
+    });
     // TODO: do this in a more elegant way using a stream builder
     // serviceRepository.chatStream().distinct().listen((dateGroupedChats) {
     //   final messageId = dateGroupedChats.list.first.messages.first.id;
@@ -190,7 +190,6 @@ class ChatCubit extends Cubit<ChatState> {
   void openFileInExternalApp(String url) async {
     if (await canLaunchUrl(Uri.parse(url))) {
       launchUrl(
-
         Uri.parse(url),
         mode: LaunchMode.externalApplication,
       );
@@ -206,6 +205,7 @@ class ChatCubit extends Cubit<ChatState> {
   //     debugPrint(e.toString());
   //   }
   // }
+
 
   void sendMessage() async {
     final newState = state.copyWith(

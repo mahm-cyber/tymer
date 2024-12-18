@@ -4,6 +4,7 @@ import 'package:domain_models/domain_models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:service_repository/src/mappers/domain_to_remote.dart';
 import 'package:service_repository/src/mappers/mappers.dart';
 import 'package:service_repository/src/service_change_notifier.dart';
@@ -19,6 +20,7 @@ class ServiceRepository {
 
   final TymerApi remoteApi;
   final ServiceChangeNotifier changeNotifier;
+  final _chatSubject = BehaviorSubject<DisputeMessage>();
 
   Future<int> requestService({
     required ServiceType serviceType,
@@ -292,19 +294,66 @@ class ServiceRepository {
     }
   }
 
-  // Future sendChatMessage({
-  //   int? messageId,
-  //   String? message,
-  //   List<File>? files,
-  // }) async {
-  //   try {
-  //     await remoteApi.sendMessage(
-  //       messageId: messageId,
-  //       message: message,
-  //       files: files,
-  //     );
-  //   } catch (error) {
-  //     rethrow;
-  //   }
-  // }
+  Future initPusher() async {
+    try {
+      remoteApi.pusherApi.initPusher();
+    } catch (error) {
+      debugPrint('Error initializing pusher: $error');
+      rethrow;
+    }
+  }
+
+  Future listenToChat(int disputeId) async {
+    final userType = changeNotifier.disputeChatUserType!;
+    try {
+      remoteApi.pusherApi.listenToChat(
+        disputeId: disputeId,
+        userType: userType.name,
+      );
+    } catch (error) {
+      debugPrint('Error listening to requester chat: $error');
+      rethrow;
+    }
+  }
+
+  Future stopListeningChat(int disputeId) async {
+    final userType = changeNotifier.disputeChatUserType!;
+    try {
+      remoteApi.pusherApi.stopListeningToChat(
+        disputeId: disputeId,
+        userType: userType.name,
+      );
+    } catch (error) {
+      debugPrint('Error stopping listening to requester chat: $error');
+      rethrow;
+    }
+  }
+
+  Stream<DisputeMessage> chatStream(User user, disputeId) async* {
+    remoteApi.pusherApi.disputeChatMessageSC.listen((DisputeMessageRM event) {
+      final disputeMessage = event.toDomainModel(disputeId);
+      final isSentByMe = disputeMessage.sender.id == user.id;
+      final updatedDisputeMessage = disputeMessage.copyWith(
+        isSentByMe: isSentByMe,
+      );
+      _chatSubject.add(updatedDisputeMessage);
+    });
+    yield* _chatSubject.stream;
+  }
+
+// Future sendChatMessage({
+//   int? messageId,
+//   String? message,
+//   List<File>? files,
+// }) async {
+//   try {
+//     await remoteApi.sendMessage(
+//       messageId: messageId,
+//       message: message,
+//       files: files,
+//     );
+//   } catch (error) {
+//     rethrow;
+//   }
+// }
 }

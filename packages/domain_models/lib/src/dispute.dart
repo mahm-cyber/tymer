@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:domain_models/src/service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 class Dispute {
   const Dispute({
@@ -30,14 +29,6 @@ class DisputeListPage {
 
   final List<Dispute> list;
   final bool isLastPage;
-}
-
-class DisputeChat {
-  DisputeChat({
-    required this.messages,
-  });
-
-  final List<types.Message> messages;
 }
 
 

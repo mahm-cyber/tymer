@@ -5,7 +5,6 @@ import 'dart:developer';
 import 'package:laravel_echo_null/laravel_echo_null.dart';
 import 'package:pusher_client_socket/pusher_client_socket.dart' as pusher;
 
-// import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:tymer_api/src/models/models.dart';
 import 'package:tymer_api/src/tymer_api.dart';
@@ -16,71 +15,107 @@ class PusherApi {
   ) : disputeChatMessageSC = BehaviorSubject();
 
   final BehaviorSubject<DisputeMessageRM> disputeChatMessageSC;
-  PusherChannel? _chatChannel;
-  Echo? _echo;
+  Echo<pusher.PusherClient, PusherChannel>? _echo;
   final UserTokenSupplier userTokenSupplier;
 
-  // void subscribeToChannel({
-  //   PusherChannel? pusherChannel,
-  //   required String channelName,
-  //   required Function onEvent,
-  // }) async {
-  //   pusherChannel = _pusher.getChannel(channelName) ??
-  //       await _pusher.subscribe(
-  //         channelName: channelName,
-  //         onEvent: onEvent,
-  //       );
-  // }
-  //
-  // void subscribeToRequesterChat({required int disputeId}) {
-  //   subscribeToChannel(
-  //     pusherChannel: _chatChannel,
-  //     channelName: '${_ChannelNames.requestChat}.$disputeId',
-  //     onEvent: _chatEvent,
-  //   );
-  // }
-  //
-  // void unsubscribeFromChannel(String channelName) async {
-  //   await _pusher.unsubscribe(channelName: channelName);
-  //   log('UNSUBSCRIBED SUCCESSFULLY FROM:::$channelName');
-  // }
-  //
-  // void unsubscribeFromChat({required int companyId}) async {
-  //   unsubscribeFromChannel('${_ChannelNames.chat}.$companyId');
-  // }
-
-  Future<void> initPusher() async {
-    final token = await userTokenSupplier();
-    Echo<pusher.PusherClient, PusherChannel> echo =
-        Echo<pusher.PusherClient, PusherChannel>(PusherConnector(
-      'tiqtbchiyhda7kZ0mnbz',
-      authEndPoint: 'https://api.tymer-eg.com/api/v1/auth/broadcasting',
-      authHeaders: {
-        'Authorization': 'Bearer $token',
-        'X-API-Key': '01f64a264be7442a9008abda93d5d6ae',
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      host: 'api.tymer-eg.com',
-      encrypted: false,
-    ));
+  void listenToChannel({
+    required String channelName,
+    required Function onEvent,
+    required String eventName,
+  }) async {
+    final privateChannel = _echo?.private(channelName);
+    privateChannel?.unsubscribe();
+    privateChannel?.subscribe();
+    privateChannel?.listen(eventName, onEvent);
+    log('LISTENING TO:::$channelName');
   }
 
-  // Future<void> disconnectPusher() async {
-  //   try {
-  //     await _pusher.disconnect();
-  //   } catch (e) {
-  //     log('Error disconnecting pusher::::::$e');
-  //   }
-  // }
+  void stopListeningToChannel({
+    required String channelName,
+    required Function onEvent,
+  }) async {
+    final privateChannel = _echo?.private(channelName);
+    privateChannel?.unsubscribe();
+    privateChannel?.stopListening(channelName, onEvent);
+    log('STOPPED LISTENING TO:::$channelName');
+  }
 
-  void _chatEvent(dynamic event) {
+  void listenToChat({
+    required int disputeId,
+    required String userType,
+  }) {
+    final isRequester = userType == 'requester';
+    final channelName =
+        isRequester ? _ChannelNames.requestChat : _ChannelNames.providerChat;
+    final eventName = isRequester
+        ? 'requester-dispute-chat-event'
+        : 'provider-dispute-chat-event';
+    listenToChannel(
+      channelName: '$channelName.$disputeId',
+      eventName: eventName,
+      onEvent: _disputeChatEvent,
+    );
+  }
+
+  void stopListeningToChat({
+    required int disputeId,
+    required String userType,
+  }) {
+    final isRequester = userType == 'requester';
+    final channelName =
+        isRequester ? _ChannelNames.requestChat : _ChannelNames.providerChat;
+    stopListeningToChannel(
+      channelName: '$channelName.$disputeId',
+      onEvent: _disputeChatEvent,
+    );
+  }
+
+  void _onSubscriptionSucceeded(String channelName, dynamic data) {
+    log('SubscriptionSucceeded: $channelName data: $data');
+  }
+
+  Future<void> initPusher() async {
+    try {
+      final token = await userTokenSupplier();
+      _echo = Echo<pusher.PusherClient, PusherChannel>(
+        PusherConnector(
+          'tiqtbchiyhda7kZ0mnbz',
+          enableLogging: true,
+          authEndPoint: 'https://api.tymer-eg.com/api/v1/auth/broadcasting',
+          authHeaders: {
+            'Authorization': 'Bearer $token',
+            'X-API-Key': '01f64a264be7442a9008abda93d5d6ae',
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          host: 'api.tymer-eg.com',
+          encrypted: false,
+        ),
+      );
+      _echo?.connect();
+    } catch (e) {
+      log('Error initializing pusher::::::$e');
+    }
+  }
+
+  Future<void> disconnectPusher() async {
+    try {
+      _echo?.disconnect();
+    } catch (e) {
+      log('Error disconnecting pusher::::::$e');
+    }
+  }
+
+  void _disputeChatEvent(dynamic event) {
     Map<String, dynamic> data = json.decode(event.data);
+    // check if the json has the following keys sender_id
+    // sender_name
     log('CHAT EVENT:::$data');
-    final DisputeMessageRM dateGroupedChatsRM = DisputeMessageRM.fromJson(data);
-    disputeChatMessageSC.add(dateGroupedChatsRM);
-    // final OfferRM? offerRM = OfferRM.fromJson(data[_offerJsonKey]);
-    // offerRM != null ? chatSC.add(offerRM) : chatSC.add(null);
+    if (data.containsKey('sender_id') && data.containsKey('sender_name')) {
+      final DisputeMessageRM dateGroupedChatsRM =
+          DisputeMessageRM.fromJson(data);
+      disputeChatMessageSC.add(dateGroupedChatsRM);
+    }
   }
 }
 

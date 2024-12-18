@@ -18,7 +18,7 @@ class MessageCard extends StatelessWidget {
   });
 
   final bool isSubmissionInProgress;
-  final ChatMessage message;
+  final DisputeMessage message;
   final bool isFirstElement;
   final Function(String) openFileInExternalApp;
   final String userToken;
