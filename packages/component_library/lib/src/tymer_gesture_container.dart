@@ -8,14 +8,12 @@ class TymerGestureContainer extends StatelessWidget {
     required this.icon,
     required this.title,
     this.subtitle,
-
   });
 
   final VoidCallback onTap;
   final Widget icon;
   final String title;
   final String? subtitle;
-
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +60,7 @@ class TymerGestureContainer extends StatelessWidget {
                   Text(
                     subtitle!,
                     style: textTheme.bodyMedium?.copyWith(
-                      color: colorScheme.surface.withValues(alpha: 255 *0.6),
+                      color: colorScheme.surface.withAlpha((255 * 0.6).toInt()),
                     ),
                   ),
                 ],

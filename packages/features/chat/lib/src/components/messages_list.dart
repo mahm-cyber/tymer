@@ -1,5 +1,3 @@
-import 'dart:isolate';
-import 'dart:ui';
 
 import 'package:chat/src/chat_cubit.dart';
 import 'package:chat/src/components/message_card.dart';
@@ -7,34 +5,12 @@ import 'package:chat/src/l10n/chat_localizations.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:intl/intl.dart' as intl;
 
-class MessagesList extends StatefulWidget {
+class MessagesList extends StatelessWidget {
   const MessagesList({
     super.key,
   });
-
-  @override
-  State<MessagesList> createState() => _MessagesListState();
-}
-
-class _MessagesListState extends State<MessagesList> {
-  final ReceivePort _port = ReceivePort();
-
-  @override
-  void initState() {
-    super.initState();
-    IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
-
-  }
-
-  @override
-  void dispose() {
-    FlutterDownloader.cancelAll();
-    IsolateNameServer.removePortNameMapping('downloader_send_port');
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +31,7 @@ class _MessagesListState extends State<MessagesList> {
                   ? ExceptionIndicator(
                       onTryAgain: context.read<ChatCubit>().getChat,
                     )
-                  : state.dateGroupedChats!.list.isEmpty
+                  : state.dateGroupedMessages!.list.isEmpty
                       ? Center(
                           child: Text(
                             l10n.noMessagesIndicator,
@@ -68,9 +44,9 @@ class _MessagesListState extends State<MessagesList> {
                           },
                           child: ListView.builder(
                             controller: cubit.scrollController,
-                            itemCount: state.dateGroupedChats!.list.length,
+                            itemCount: state.dateGroupedMessages!.list.length,
                             itemBuilder: (context, index) {
-                              final chat = state.dateGroupedChats!.list[index];
+                              final chat = state.dateGroupedMessages!.list[index];
                               return Column(
                                 children: [
                                   Text(

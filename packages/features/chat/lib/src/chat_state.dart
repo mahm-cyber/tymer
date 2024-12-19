@@ -4,7 +4,7 @@ class ChatState extends Equatable {
   const ChatState({
     this.files,
     this.message,
-    this.dateGroupedChats,
+    this.dateGroupedMessages,
     this.fetchingStatus = ChatFetchingStatus.initial,
     this.submissionStatus = ChatSubmissionStatus.initial,
     this.userToken,
@@ -12,7 +12,7 @@ class ChatState extends Equatable {
 
   final List<File>? files;
   final String? message;
-  final DateGroupedChat? dateGroupedChats;
+  final DateGroupedMessagesList? dateGroupedMessages;
   final ChatFetchingStatus fetchingStatus;
   final ChatSubmissionStatus submissionStatus;
   final String? userToken;
@@ -24,7 +24,7 @@ class ChatState extends Equatable {
   ChatState copyWith({
     List<File>? files,
     String? message,
-    DateGroupedChat? dateGroupedChats,
+    DateGroupedMessagesList? dateGroupedMessages,
     ChatFetchingStatus? fetchingStatus,
     ChatSubmissionStatus? submissionStatus,
     String? userToken,
@@ -32,7 +32,7 @@ class ChatState extends Equatable {
     return ChatState(
       files: files ?? this.files,
       message: message ?? this.message,
-      dateGroupedChats: dateGroupedChats ?? this.dateGroupedChats,
+      dateGroupedMessages: dateGroupedMessages ?? this.dateGroupedMessages,
       fetchingStatus: fetchingStatus ?? this.fetchingStatus,
       submissionStatus: submissionStatus ?? this.submissionStatus,
       userToken: userToken ?? this.userToken,
@@ -43,7 +43,7 @@ class ChatState extends Equatable {
   List<Object?> get props => [
         files,
         message,
-        dateGroupedChats,
+        dateGroupedMessages,
         fetchingStatus,
         submissionStatus,
         userToken,

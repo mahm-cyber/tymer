@@ -129,7 +129,7 @@ class DisputeChatView extends StatelessWidget {
                           return VoiceMessageView(
                             backgroundColor: isMine
                                 ? theme.primaryColor
-                                : Colors.grey.withValues(alpha: 255 *0.2),
+                                : Colors.grey.withAlpha((255 * 0.2).toInt()),
                             circlesColor:
                                 isMine ? theme.primaryColor : Colors.grey,
                             controller: VoiceController(
@@ -154,4 +154,3 @@ class DisputeChatView extends StatelessWidget {
     );
   }
 }
-

@@ -11,7 +11,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:forgot_password/forgot_password.dart';
 import 'package:fulfill_service_request/fulfill_service_request.dart';
@@ -65,7 +64,6 @@ final _keyValueStorage = KeyValueStorage();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
 
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   Firebase.initializeApp(

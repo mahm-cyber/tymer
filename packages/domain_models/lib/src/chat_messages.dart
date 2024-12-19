@@ -1,17 +1,17 @@
 import 'package:domain_models/src/file_dm.dart';
 import 'package:equatable/equatable.dart';
 
-class DateGroupedChat extends Equatable {
-  final List<Chat> list;
+class DateGroupedMessagesList extends Equatable {
+  final List<DateGroupedMessages> list;
 
-  const DateGroupedChat({
+  const DateGroupedMessagesList({
     required this.list,
   });
 
-  DateGroupedChat copyWith({
-    List<Chat>? list,
+  DateGroupedMessagesList copyWith({
+    List<DateGroupedMessages>? list,
   }) {
-    return DateGroupedChat(
+    return DateGroupedMessagesList(
       list: list ?? this.list,
     );
   }
@@ -20,20 +20,20 @@ class DateGroupedChat extends Equatable {
   List<Object?> get props => [list];
 }
 
-class Chat {
+class DateGroupedMessages {
   final DateTime date;
   final List<DisputeMessage> messages;
 
-  Chat({
+  DateGroupedMessages({
     required this.date,
     required this.messages,
   });
 
-  Chat copyWith({
+  DateGroupedMessages copyWith({
     DateTime? date,
     List<DisputeMessage>? messages,
   }) {
-    return Chat(
+    return DateGroupedMessages(
       date: date ?? this.date,
       messages: messages ?? this.messages,
     );

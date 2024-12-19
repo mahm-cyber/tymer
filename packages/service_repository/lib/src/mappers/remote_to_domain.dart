@@ -218,7 +218,7 @@ extension DisputeMessageRMtoDM on DisputeMessageRM {
 }
 
 extension DisputeChatRMtoDM on DisputeChatRM {
-  DateGroupedChat toDomainModel(int disputeId) {
+  DateGroupedMessagesList toDomainModel(int disputeId) {
     final messagesList =
         messages.map((message) => message.toDomainModel(disputeId)).toList();
     // group messageslist by date with two fields inside the map, the first is the date the second is the list of messages for that date
@@ -238,7 +238,7 @@ extension DisputeChatRMtoDM on DisputeChatRM {
         groupedMessagesListOfMaps[messageIndex]['messages'].add(message);
       }
     }
-    final List<Chat> groupedMessagesList = [];
+    final List<DateGroupedMessages> groupedMessagesList = [];
     for (final groupedMessagesMap in groupedMessagesListOfMaps) {
       // convert  "2024-2-3" to "2024-02-03"
       final remoteDate = groupedMessagesMap['date'];
@@ -251,14 +251,14 @@ extension DisputeChatRMtoDM on DisputeChatRM {
       final date = DateTime.parse(formattedDate);
       final messages = groupedMessagesMap['messages'] as List<DisputeMessage>;
       groupedMessagesList.add(
-        Chat(
+        DateGroupedMessages(
           date: date,
           messages: messages,
         ),
       );
     }
 
-    return DateGroupedChat(
+    return DateGroupedMessagesList(
       list: groupedMessagesList,
     );
   }

@@ -19,65 +19,7 @@ class ChatCubit extends Cubit<ChatState> {
     required this.disputeId,
   })  : _imagePicker = ImagePicker(),
         super(const ChatState()) {
-    getChat();
-    serviceRepository.initPusher().then((_) async {
-      await Future.delayed(const Duration(seconds: 1));
-      serviceRepository.listenToChat(disputeId);
-    });
-    // TODO: do this in a more elegant way using a stream builder
-    // serviceRepository.chatStream().distinct().listen((dateGroupedChats) {
-    //   final messageId = dateGroupedChats.list.first.messages.first.id;
-    //   //if message id already exists return;
-    //   for (int i = 0; i < state.dateGroupedChats!.list.length; i++) {
-    //     for (int j = 0;
-    //         j < state.dateGroupedChats!.list[i].messages.length;
-    //         j++) {
-    //       if (state.dateGroupedChats!.list[i].messages[j].id == messageId) {
-    //         return;
-    //       }
-    //     }
-    //   }
-    //   final currentDateGroupedChatsList = state.dateGroupedChats?.list ?? [];
-    //   final newChat = dateGroupedChats.list.first;
-    //   final newChatDateIsInCurrentList = currentDateGroupedChatsList.any(
-    //     (chat) =>
-    //         chat.date.year == newChat.date.year &&
-    //         chat.date.month == newChat.date.month &&
-    //         chat.date.day == newChat.date.day,
-    //   );
-    //   if (newChatDateIsInCurrentList) {
-    //     final newDateGroupedChats = currentDateGroupedChatsList.map((chat) {
-    //       if (chat.date.year == newChat.date.year &&
-    //           chat.date.month == newChat.date.month &&
-    //           chat.date.day == newChat.date.day) {
-    //         final updatedChat = chat.copyWith(
-    //           messages: [
-    //             ...chat.messages,
-    //             ...newChat.messages,
-    //           ],
-    //         );
-    //         return updatedChat;
-    //       }
-    //       return chat;
-    //     }).toList();
-    //     final newState = state.copyWith(
-    //       dateGroupedChats: state.dateGroupedChats?.copyWith(
-    //         list: newDateGroupedChats,
-    //       ),
-    //     );
-    //     emit(newState);
-    //   } else {
-    //     final newState = state.copyWith(
-    //       dateGroupedChats: state.dateGroupedChats?.copyWith(
-    //         list: [
-    //           ...currentDateGroupedChatsList,
-    //           newChat,
-    //         ],
-    //       ),
-    //     );
-    //     emit(newState);
-    //   }
-    // });
+    init();
   }
 
   final scrollController = ScrollController();
@@ -86,6 +28,51 @@ class ChatCubit extends Cubit<ChatState> {
   final ImagePicker _imagePicker;
   final TextEditingController messageController = TextEditingController();
   final int disputeId;
+
+  Future init() async {
+    await getChat();
+    serviceRepository.initPusher().then((_) async {
+      await Future.delayed(const Duration(seconds: 1));
+      serviceRepository.listenToChat(disputeId);
+    });
+    final user = await userRepository.getUser().first;
+    serviceRepository
+        .chatStream(user!, disputeId)
+        .listen((DisputeMessage message) {
+      final lastDateGroupedMessages = state.dateGroupedMessages?.list.last;
+      final lastDate = lastDateGroupedMessages?.date;
+      final newDate = message.date;
+      final isSameDay = lastDate?.year == newDate.year &&
+          lastDate?.month == newDate.month &&
+          lastDate?.day == newDate.day;
+      final messageAlreadyExists = lastDateGroupedMessages?.messages.any(
+        (element) => element.id == message.id,
+      );
+      if (messageAlreadyExists == true) return;
+
+      if (isSameDay) {
+        final lastGroupedMessagesUpdated = lastDateGroupedMessages?.copyWith(
+          messages: [
+            ...lastDateGroupedMessages.messages,
+            message,
+          ],
+        );
+        final groupedMessagesUpdated = state.dateGroupedMessages?.copyWith(
+          list: [
+            ...state.dateGroupedMessages!.list
+              ..removeLast()
+              ..add(lastGroupedMessagesUpdated!),
+          ],
+        );
+        final updatedState = state.copyWith(
+          dateGroupedMessages: groupedMessagesUpdated,
+        );
+        emit(const ChatState());
+        emit(updatedState);
+        jumpToBottomOfChat();
+      }
+    });
+  }
 
   // get ticket_messages
   Future getChat() async {
@@ -101,23 +88,34 @@ class ChatCubit extends Cubit<ChatState> {
       );
       final successState = state.copyWith(
         fetchingStatus: ChatFetchingStatus.success,
-        dateGroupedChats: dateGroupedChats,
+        dateGroupedMessages: dateGroupedChats,
         userToken: userToken,
       );
       emit(successState);
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (scrollController.hasClients) {
-          scrollController.jumpTo(
-            scrollController.position.maxScrollExtent,
-          );
-        }
-      });
+      jumpToBottomOfChat();
     } catch (_) {
       final failureState = state.copyWith(
         fetchingStatus: ChatFetchingStatus.failure,
       );
       emit(failureState);
     }
+  }
+
+  void jumpToBottomOfChat() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (scrollController.hasClients) {
+        scrollController.jumpTo(
+          scrollController.position.maxScrollExtent,
+        );
+        await Future.delayed(const Duration(milliseconds: 100));
+        if (scrollController.offset <
+            scrollController.position.maxScrollExtent) {
+          scrollController.jumpTo(
+            scrollController.position.maxScrollExtent,
+          );
+        }
+      }
+    });
   }
 
   Future pickFiles() async {
@@ -169,7 +167,7 @@ class ChatCubit extends Cubit<ChatState> {
 
   void deletePickedFile() {
     final newState = ChatState(
-      dateGroupedChats: state.dateGroupedChats,
+      dateGroupedMessages: state.dateGroupedMessages,
       fetchingStatus: state.fetchingStatus,
       submissionStatus: state.submissionStatus,
       message: state.message,
@@ -207,7 +205,6 @@ class ChatCubit extends Cubit<ChatState> {
   //   }
   // }
 
-
   void sendMessage() async {
     final newState = state.copyWith(
       submissionStatus: ChatSubmissionStatus.inProgress,
@@ -224,7 +221,7 @@ class ChatCubit extends Cubit<ChatState> {
       );
       emit(newState);
       final initialState = ChatState(
-        dateGroupedChats: state.dateGroupedChats,
+        dateGroupedMessages: state.dateGroupedMessages,
       );
       emit(initialState);
       messageController.clear();

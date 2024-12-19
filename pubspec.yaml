@@ -86,7 +86,6 @@ dependencies:
   component_library:
     path: packages/component_library
   firebase_core: ^3.3.0
-  flutter_downloader: ^1.11.8
 
 
 #dependency_overrides:

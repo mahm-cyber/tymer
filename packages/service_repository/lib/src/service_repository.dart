@@ -20,7 +20,7 @@ class ServiceRepository {
 
   final TymerApi remoteApi;
   final ServiceChangeNotifier changeNotifier;
-  final _chatSubject = BehaviorSubject<DisputeMessage>();
+  final chatSubject = BehaviorSubject<DisputeMessage>();
 
   Future<int> requestService({
     required ServiceType serviceType,
@@ -262,7 +262,7 @@ class ServiceRepository {
   //   }
   // }
 
-  Future<DateGroupedChat> getDateGroupedChat(
+  Future<DateGroupedMessagesList> getDateGroupedChat(
     int disputeId,
     User user,
   ) async {
@@ -344,9 +344,9 @@ class ServiceRepository {
       final updatedDisputeMessage = disputeMessage.copyWith(
         isSentByMe: isSentByMe,
       );
-      _chatSubject.add(updatedDisputeMessage);
+      chatSubject.add(updatedDisputeMessage);
     });
-    yield* _chatSubject.stream;
+    yield* chatSubject.stream;
   }
 
 // Future sendChatMessage({

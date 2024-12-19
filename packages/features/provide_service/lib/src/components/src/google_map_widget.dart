@@ -123,7 +123,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                     child: Container(
                       width: 40,
                       height: 40,
-                      color: Colors.black.withValues(alpha: 255 *0),
+                      color: Colors.black.withAlpha( 255 *0),
                     ),
                   ),
                 )

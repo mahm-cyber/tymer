@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:laravel_echo_null/laravel_echo_null.dart';
@@ -26,10 +25,15 @@ class PusherApi {
     try {
       final privateChannel = _echo?.private(channelName);
       // privateChannel?.onSubscribedSuccess(_onSubscriptionSucceeded);
-      // privateChannel?.unsubscribe();
+      privateChannel?.unsubscribe();
       privateChannel?.subscribe();
-      privateChannel?.listen(eventName, onEvent);
-      log('LISTENING TO:::$channelName');
+
+      privateChannel?.listen(
+        eventName,
+        _disputeChatEvent,
+      );
+
+      log('LISTENING TO:::$channelName::::::$eventName');
     } catch (e) {
       log('Error listening to channel:::$e');
     }
@@ -53,8 +57,8 @@ class PusherApi {
     final channelName =
         isRequester ? _ChannelNames.requestChat : _ChannelNames.providerChat;
     final eventName = isRequester
-        ? 'requester-dispute-chat-event'
-        : 'provider-dispute-chat-event';
+        ? 'App\\Events\\DisputeChatMessageSent'
+        : 'App\\Events\\DisputeSelectedUserChatMessageSent';
     listenToChannel(
       channelName: '$channelName.$disputeId',
       eventName: eventName,
@@ -75,9 +79,6 @@ class PusherApi {
     );
   }
 
-  _onSubscriptionSucceeded() {
-    log('SubscriptionSucceeded: CALLED!');
-  }
 
   Future initPusher() async {
     try {
@@ -95,11 +96,13 @@ class PusherApi {
           },
           host: 'api.tymer-eg.com',
           encrypted: false,
+
           // cluster: 'eu',
           // wsPort: 6001,
           // wssPort: 443,
         ),
       );
+      _echo?.disconnect();
       _echo?.connect();
     } catch (e) {
       log('Error initializing pusher::::::$e');
@@ -115,14 +118,15 @@ class PusherApi {
     }
   }
 
-  void _disputeChatEvent(dynamic event) {
-    Map<String, dynamic> data = json.decode(event.data);
+  void _disputeChatEvent(Map<String, dynamic> event) {
+    log('CHAT EVENT:::$event');
+
+    // Map<String, dynamic> data = json.decode(event);
     // check if the json has the following keys sender_id
     // sender_name
-    log('CHAT EVENT:::$data');
-    if (data.containsKey('sender_id') && data.containsKey('sender_name')) {
+    if (event.containsKey('sender_id') && event.containsKey('sender_name')) {
       final DisputeMessageRM dateGroupedChatsRM =
-          DisputeMessageRM.fromJson(data);
+          DisputeMessageRM.fromJson(event);
       disputeChatMessageSC.add(dateGroupedChatsRM);
     }
   }
