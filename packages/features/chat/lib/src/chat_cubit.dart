@@ -21,6 +21,7 @@ class ChatCubit extends Cubit<ChatState> {
         super(const ChatState()) {
     getChat();
     serviceRepository.initPusher().then((_) async {
+      await Future.delayed(const Duration(seconds: 1));
       serviceRepository.listenToChat(disputeId);
     });
     // TODO: do this in a more elegant way using a stream builder
@@ -235,5 +236,12 @@ class ChatCubit extends Cubit<ChatState> {
       emit(failureState);
       rethrow;
     }
+  }
+
+  @override
+  Future<void> close() {
+    // serviceRepository.stopListeningChat(disputeId);
+    serviceRepository.disconnectPusher();
+    return super.close();
   }
 }

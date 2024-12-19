@@ -23,11 +23,16 @@ class PusherApi {
     required Function onEvent,
     required String eventName,
   }) async {
-    final privateChannel = _echo?.private(channelName);
-    privateChannel?.unsubscribe();
-    privateChannel?.subscribe();
-    privateChannel?.listen(eventName, onEvent);
-    log('LISTENING TO:::$channelName');
+    try {
+      final privateChannel = _echo?.private(channelName);
+      // privateChannel?.onSubscribedSuccess(_onSubscriptionSucceeded);
+      // privateChannel?.unsubscribe();
+      privateChannel?.subscribe();
+      privateChannel?.listen(eventName, onEvent);
+      log('LISTENING TO:::$channelName');
+    } catch (e) {
+      log('Error listening to channel:::$e');
+    }
   }
 
   void stopListeningToChannel({
@@ -35,7 +40,7 @@ class PusherApi {
     required Function onEvent,
   }) async {
     final privateChannel = _echo?.private(channelName);
-    privateChannel?.unsubscribe();
+    // privateChannel?.unsubscribe();
     privateChannel?.stopListening(channelName, onEvent);
     log('STOPPED LISTENING TO:::$channelName');
   }
@@ -70,11 +75,11 @@ class PusherApi {
     );
   }
 
-  void _onSubscriptionSucceeded(String channelName, dynamic data) {
-    log('SubscriptionSucceeded: $channelName data: $data');
+  _onSubscriptionSucceeded() {
+    log('SubscriptionSucceeded: CALLED!');
   }
 
-  Future<void> initPusher() async {
+  Future initPusher() async {
     try {
       final token = await userTokenSupplier();
       _echo = Echo<pusher.PusherClient, PusherChannel>(
@@ -85,11 +90,14 @@ class PusherApi {
           authHeaders: {
             'Authorization': 'Bearer $token',
             'X-API-Key': '01f64a264be7442a9008abda93d5d6ae',
-            'Content-Type': 'application/json',
+            // 'Content-Type': 'application/json',
             'Accept': 'application/json',
           },
           host: 'api.tymer-eg.com',
           encrypted: false,
+          // cluster: 'eu',
+          // wsPort: 6001,
+          // wssPort: 443,
         ),
       );
       _echo?.connect();
@@ -101,6 +109,7 @@ class PusherApi {
   Future<void> disconnectPusher() async {
     try {
       _echo?.disconnect();
+      _echo = null;
     } catch (e) {
       log('Error disconnecting pusher::::::$e');
     }

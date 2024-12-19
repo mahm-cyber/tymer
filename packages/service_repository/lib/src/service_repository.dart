@@ -303,6 +303,14 @@ class ServiceRepository {
     }
   }
 
+  Future disconnectPusher() async {
+    try {
+      remoteApi.pusherApi.disconnectPusher();
+    } catch (error) {
+      rethrow;
+    }
+  }
+
   Future listenToChat(int disputeId) async {
     final userType = changeNotifier.disputeChatUserType!;
     try {
