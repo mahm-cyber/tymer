@@ -1,6 +1,7 @@
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 
 class ServiceChangeNotifier with ChangeNotifier, EquatableMixin {
   ServiceChangeNotifier();
@@ -8,6 +9,8 @@ class ServiceChangeNotifier with ChangeNotifier, EquatableMixin {
   final ValueNotifier<ServiceType?> _serviceType = ValueNotifier(null);
   final ValueNotifier<Service?> _serviceRequestDetails = ValueNotifier(null);
   final ValueNotifier<UserType?> _disputeChatUserType = ValueNotifier(null);
+  final ValueNotifier<Dispute?> currentDispute = ValueNotifier(null);
+  final chatSubject = BehaviorSubject<DisputeMessage>();
 
 
   dynamic get serviceType => _serviceType.value;
@@ -40,10 +43,20 @@ class ServiceChangeNotifier with ChangeNotifier, EquatableMixin {
     notifyListeners();
   }
 
+  void setCurrentDispute(Dispute dispute) {
+    currentDispute.value = dispute;
+    notifyListeners();
+  }
+  Future clearCurrentDisputeType() async {
+    currentDispute.value = null;
+    notifyListeners();
+  }
+
 
 
   @override
   List<Object?> get props => [
+        currentDispute,
         _serviceType,
         _serviceRequestDetails,
         _disputeChatUserType,

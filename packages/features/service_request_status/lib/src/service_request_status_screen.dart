@@ -140,7 +140,7 @@ class ServiceRequestStatusView extends StatelessWidget {
                         ],
                       )
                     : isRequestPendingReview
-                        ? ServiceResponseWidget(
+                        ? RequestAndResponseDetails(
                             service: state.service,
                           )
                         : Column(

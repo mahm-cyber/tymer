@@ -11,9 +11,11 @@ import 'package:tymer_api/src/tymer_api.dart';
 class PusherApi {
   PusherApi(
     this.userTokenSupplier,
-  ) : disputeChatMessageSC = BehaviorSubject();
+  )   : disputeChatMessageSC = BehaviorSubject(),
+        disputeStatusSC = BehaviorSubject();
 
   final BehaviorSubject<DisputeMessageRM> disputeChatMessageSC;
+  final BehaviorSubject<String> disputeStatusSC;
   Echo<pusher.PusherClient, PusherChannel>? _echo;
   final UserTokenSupplier userTokenSupplier;
 
@@ -57,8 +59,9 @@ class PusherApi {
     final channelName =
         isRequester ? _ChannelNames.requestChat : _ChannelNames.providerChat;
     final eventName = isRequester
-        ? 'App\\Events\\DisputeChatMessageSent'
-        : 'App\\Events\\DisputeSelectedUserChatMessageSent';
+        ? _ChannelNames.requestChatEventName
+        : _ChannelNames.providerChatEventName;
+
     listenToChannel(
       channelName: '$channelName.$disputeId',
       eventName: eventName,
@@ -79,6 +82,20 @@ class PusherApi {
     );
   }
 
+  void listenToChatResolved({
+    required int disputeId,
+    required String userType,
+  }) {
+    final isRequester = userType == 'requester';
+    final channelName =
+        isRequester ? _ChannelNames.requestChat : _ChannelNames.providerChat;
+
+    listenToChannel(
+      channelName: '$channelName.$disputeId',
+      eventName: _ChannelNames.disputeResolvedEventName,
+      onEvent: _disputeChatEvent,
+    );
+  }
 
   Future initPusher() async {
     try {
@@ -129,6 +146,10 @@ class PusherApi {
           DisputeMessageRM.fromJson(event);
       disputeChatMessageSC.add(dateGroupedChatsRM);
     }
+    if (event.containsKey('new_status')) {
+      final String newStatus = event['new_status'];
+      disputeStatusSC.add(newStatus);
+    }
   }
 }
 
@@ -137,5 +158,14 @@ class _ChannelNames {
 
   static String get requestChat => 'disputeChats';
 
+  static String get requestChatEventName =>
+      'App\\Events\\DisputeChatMessageSent';
+
   static String get providerChat => 'disputeSelectedUserChats';
+
+  static String get providerChatEventName =>
+      'App\\Events\\DisputeSelectedUserChatMessageSent';
+
+  static String get disputeResolvedEventName =>
+      'App\\Events\\DisputeResolvedAndClosed';
 }

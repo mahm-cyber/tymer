@@ -1,9 +1,10 @@
 import 'dart:ui';
 
 import 'package:domain_models/src/service.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-class Dispute {
+class Dispute extends Equatable {
   const Dispute({
     required this.id,
     required this.serviceRequestId,
@@ -19,6 +20,29 @@ class Dispute {
   final DisputeStatus status;
   final int? resolverId;
   final String? reason;
+
+  @override
+  List<Object?> get props => [
+        id,
+        serviceRequestId,
+        serviceRequest,
+        status,
+        resolverId,
+        reason,
+      ];
+
+  Dispute copyWith({
+    DisputeStatus? status,
+  }) {
+    return Dispute(
+      id: id,
+      serviceRequestId: serviceRequestId,
+      serviceRequest: serviceRequest,
+      status: status ?? this.status,
+      resolverId: resolverId,
+      reason: reason,
+    );
+  }
 }
 
 class DisputeListPage {
@@ -30,7 +54,6 @@ class DisputeListPage {
   final List<Dispute> list;
   final bool isLastPage;
 }
-
 
 enum DisputeStatus {
   pendingReview,
@@ -48,4 +71,3 @@ enum DisputeStatus {
     }
   }
 }
-

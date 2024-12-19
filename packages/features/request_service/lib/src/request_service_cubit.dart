@@ -39,19 +39,25 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
   }
 
   void getPricingSettings() async {
+    final loading = state.copyWith(
+        fetchingPricingSettingsStatus:
+            FetchingPricingSettingsStatus.inProgress);
+    emit(loading);
     try {
       final pricingSettings =
-          await userRepository.getPricingSettings(FetchPolicy.cachePreferably);
+          await userRepository.getPricingSettings(FetchPolicy.networkOnly);
       final minPrice = state.serviceType == ServiceType.reservation
           ? pricingSettings.reservationServiceMinPrice
           : pricingSettings.otherServiceMinPrice;
       final newState = state.copyWith(
+        fetchingPricingSettingsStatus: FetchingPricingSettingsStatus.success,
         pricingSettings: pricingSettings,
         price: minPrice.toDouble(),
       );
       emit(newState);
     } catch (error) {
       final newState = state.copyWith(
+        fetchingPricingSettingsStatus: FetchingPricingSettingsStatus.failure,
         pricingSettings: null,
         error: error,
       );

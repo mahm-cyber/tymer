@@ -97,14 +97,18 @@ class FulfillServiceRequestView extends StatelessWidget {
       builder: (context, state) {
         final cubit = context.read<FulfillServiceRequestCubit>();
         final isRequestFulfilled =
-            state.submissionStatus == FormzSubmissionStatus.success;
+            state.submissionStatus == FormzSubmissionStatus.success ||
+                state.service?.status == ServiceStatus.completed;
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
         return Stack(
           children: [
             Scaffold(
               appBar: AppBar(
-                title: const SvgAsset(AssetPathConstants.whiteLogoPath, height: 30,),
+                title: const SvgAsset(
+                  AssetPathConstants.whiteLogoPath,
+                  height: 30,
+                ),
                 toolbarHeight: 70,
                 iconTheme: IconThemeData(color: colorScheme.surface),
               ),

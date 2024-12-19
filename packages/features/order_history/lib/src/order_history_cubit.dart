@@ -14,11 +14,11 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
     required this.userRepository,
     required this.serviceRepository,
     required this.onCheckServiceRequestStatusTapped,
+    required this.navigateToFulfillServiceRequest,
   })  : serviceRequestsPagingController = PagingController(firstPageKey: 1),
         super(
           const OrderHistoryState(),
         ) {
-
     _handleServiceRequestListNextPageRequested();
     serviceRequestsPagingController.addPageRequestListener(
       (pageNumber) {
@@ -34,6 +34,7 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
   final ServiceRepository serviceRepository;
   final ValueSetter<int> onCheckServiceRequestStatusTapped;
   final PagingController<int, Service> serviceRequestsPagingController;
+  final VoidCallback navigateToFulfillServiceRequest;
 
   Future _handleServiceRequestListNextPageRequested({
     int page = 1,
@@ -112,12 +113,26 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
   }
 
   void onViewServiceRequestDetailsTapped(Service service) {
-    final shouldCheckServiceRequestStatus =
+    final shouldCheckRequestedServiceStatus =
         service.status == ServiceStatus.pending ||
             service.status == ServiceStatus.inProgress ||
-            service.status == ServiceStatus.pendingReview;
-    if (shouldCheckServiceRequestStatus) {
+            service.status == ServiceStatus.completed;
+
+    if (shouldCheckRequestedServiceStatus &&
+        state.userTypeFilter == UserType.requester) {
       onCheckServiceRequestStatusTapped(service.id!);
+    }
+
+    final shouldCheckProvidedServiceStatus =
+        service.status == ServiceStatus.inProgress ||
+            service.status == ServiceStatus.pendingReview ||
+            service.status == ServiceStatus.completed;
+
+    if (shouldCheckProvidedServiceStatus &&
+        state.userTypeFilter == UserType.provider) {
+      serviceRepository.changeNotifier.setServiceRequest(service);
+
+      navigateToFulfillServiceRequest();
     }
     // serviceRepository.changeNotifier.setServiceRequest(service);
   }

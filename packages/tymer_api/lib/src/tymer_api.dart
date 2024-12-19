@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as diox;
 import 'package:flutter/material.dart';
@@ -473,6 +474,84 @@ class TymerApi {
       final response = await _dio.get(url);
       final disputeChat = DisputeChatRM.fromJson(response.data);
       return disputeChat;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future sendChatMessage({
+    required int disputeId,
+    required String userType,
+    String? message,
+    List<File?>? documentFiles,
+    List<File?>? imageFiles,
+    List<File?>? audioFiles,
+  }) async {
+    final url = urlBuilder.buildSendChatMessageUrl(
+      disputeId: disputeId,
+      userType: userType,
+    );
+    List<MultipartFile> documentMultipartFiles = [];
+    List<MultipartFile> imageMultipartFiles = [];
+    List<MultipartFile> audioMultipartFiles = [];
+    if (documentFiles != null) {
+      for (final documentFile in documentFiles) {
+        if (documentFile != null) {
+          final multipartFile = await MultipartFile.fromFile(
+            documentFile.path,
+            filename: documentFile.path.split('/').last,
+
+          );
+          documentMultipartFiles.add(multipartFile);
+        }
+      }
+    }
+    if (imageFiles != null) {
+      for (final imageFile in imageFiles) {
+        if (imageFile != null) {
+          final multipartFile = await MultipartFile.fromFile(
+            imageFile.path,
+            filename: imageFile.path.split('/').last,
+
+          );
+          imageMultipartFiles.add(multipartFile);
+        }
+      }
+    }
+    if (audioFiles != null) {
+      for (final audioFile in audioFiles) {
+        if (audioFile != null) {
+          final multipartFile = await MultipartFile.fromFile(
+            audioFile.path,
+            filename: audioFile.path.split('/').last,
+          );
+          audioMultipartFiles.add(multipartFile);
+        }
+      }
+    }
+
+    final requestJsonBody = {
+      if (imageFiles != null)
+        for (var i = 0; i < imageMultipartFiles.length; i++)
+          'chat_images[]': imageMultipartFiles[i],
+      if (documentFiles != null)
+        for (var i = 0; i < documentMultipartFiles.length; i++)
+          'chat_documents[]': documentMultipartFiles[i],
+      if (audioFiles != null)
+        for (var i = 0; i < audioMultipartFiles.length; i++)
+          'chat_records[]': audioMultipartFiles[i],
+      'content': message,
+    };
+
+    final formData = FormData.fromMap(
+      requestJsonBody,
+      ListFormat.multiCompatible,
+    );
+    try {
+      await _dio.post(
+        url,
+        data: formData,
+      );
     } catch (_) {
       rethrow;
     }

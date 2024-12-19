@@ -63,7 +63,7 @@ class AcceptServiceRequestView extends StatelessWidget {
                   : null,
             ),
           );
-          if(alreadyAcceptedByAnotherProvider) {
+          if (alreadyAcceptedByAnotherProvider) {
             Navigator.of(context).pop();
           }
         }
@@ -79,7 +79,10 @@ class AcceptServiceRequestView extends StatelessWidget {
           children: [
             Scaffold(
               appBar: AppBar(
-                title:  const SvgAsset(AssetPathConstants.whiteLogoPath, height: 30,),
+                title: const SvgAsset(
+                  AssetPathConstants.whiteLogoPath,
+                  height: 30,
+                ),
                 toolbarHeight: 70,
                 iconTheme: IconThemeData(color: colorScheme.surface),
                 leading: IconButton(
@@ -128,7 +131,7 @@ class AcceptServiceRequestView extends StatelessWidget {
                                     title: l10n.distanceToServiceLocation(
                                         '${state.service?.distanceBetweenProviderAndServiceLocation?.toStringAsFixed(0)}'),
                                     snippet:
-                                        '${state.service?.totalPrice.toStringAsFixed(0)} EGP',
+                                        '${state.service?.price?.toStringAsFixed(0)} EGP',
                                   ),
                                 ),
                               },

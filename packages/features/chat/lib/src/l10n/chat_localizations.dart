@@ -8,8 +8,6 @@ import 'package:intl/intl.dart' as intl;
 import 'chat_localizations_ar.dart';
 import 'chat_localizations_en.dart';
 
-// ignore_for_file: type=lint
-
 /// Callers can lookup localized strings with an instance of ChatLocalizations
 /// returned by `ChatLocalizations.of(context)`.
 ///
@@ -98,7 +96,7 @@ abstract class ChatLocalizations {
   /// No description provided for @appBarTitle.
   ///
   /// In en, this message translates to:
-  /// **'Open Line Chat'**
+  /// **'Talk To Support'**
   String get appBarTitle;
 
   /// No description provided for @uploadFileIconLabel.

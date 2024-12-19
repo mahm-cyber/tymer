@@ -15,13 +15,14 @@ class OrderHistoryScreen extends StatefulWidget {
     required this.userRepository,
     required this.serviceRepository,
     required this.onCheckServiceRequestStatusTapped,
+    required this.navigateToFulfillServiceRequest,
     super.key,
   });
 
   final UserRepository userRepository;
   final ServiceRepository serviceRepository;
   final ValueSetter<int> onCheckServiceRequestStatusTapped;
-
+  final VoidCallback navigateToFulfillServiceRequest;
   @override
   State<OrderHistoryScreen> createState() => _OrderHistoryScreenState();
 }
@@ -37,6 +38,8 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
         serviceRepository: widget.serviceRepository,
         onCheckServiceRequestStatusTapped:
             widget.onCheckServiceRequestStatusTapped,
+        navigateToFulfillServiceRequest:
+            widget.navigateToFulfillServiceRequest,
       ),
       child: const OrderHistoryView(),
     );
@@ -181,10 +184,7 @@ class OrderHistoryView extends StatelessWidget {
                                 children: [
                                   if (index == 0) VerticalGap.medium(),
                                   ServiceRequestCard(
-                                    onTapped: () => state.userTypeFilter ==
-                                            UserType.provider
-                                        ? null
-                                        : cubit
+                                    onTapped: () => cubit
                                             .onViewServiceRequestDetailsTapped(
                                             service,
                                           ),

@@ -174,12 +174,13 @@ class DisputesView extends StatelessWidget {
                                   if (index == 0) VerticalGap.medium(),
                                   ServiceRequestCard(
                                     onTapped: () =>
-                                        cubit.onGoToDisputeDetailsTapped(
-                                      dispute.id,
+                                        cubit.onGoToDisputeChatTapped(
+                                      dispute,
                                     ),
                                     shouldShowRequestStatus: true,
                                     service: dispute.serviceRequest,
                                     dispute: dispute,
+                                    height: 90,
                                   ),
                                   if (isLastItem) VerticalGap.large(),
                                 ],

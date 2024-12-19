@@ -23,6 +23,7 @@ class _SendMessageState extends State<SendMessage> {
       builder: (context, state) {
         final submissionInProgress =
             state.submissionStatus == ChatSubmissionStatus.inProgress;
+
         return AnimatedContainer(
           duration: const Duration(milliseconds: 300),
           height: attachVisible ? 150 : 60,
@@ -42,6 +43,7 @@ class _SendMessageState extends State<SendMessage> {
                   children: [
                     Expanded(
                       child: TextField(
+                        maxLines: 2,
                         scrollPadding: EdgeInsets.only(
                             bottom: MediaQuery.of(context).viewInsets.bottom +
                                 16 * 4),
@@ -160,7 +162,7 @@ class _SendMessageState extends State<SendMessage> {
                           ),
                           icon: const Icon(Icons.attach_file),
                           onPressed:
-                              submissionInProgress ? null : cubit.pickFiles,
+                              submissionInProgress ? null : cubit.pickFile,
                         ),
                         Text(
                           l10n.uploadFileIconLabel,

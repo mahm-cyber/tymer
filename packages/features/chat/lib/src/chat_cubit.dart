@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:file_picker/file_picker.dart' as fp;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,7 +18,11 @@ class ChatCubit extends Cubit<ChatState> {
     required this.userRepository,
     required this.disputeId,
   })  : _imagePicker = ImagePicker(),
-        super(const ChatState()) {
+        super(
+          ChatState(
+            dispute: serviceRepository.changeNotifier.currentDispute.value,
+          ),
+        ) {
     init();
   }
 
@@ -36,8 +40,8 @@ class ChatCubit extends Cubit<ChatState> {
       serviceRepository.listenToChat(disputeId);
     });
     final user = await userRepository.getUser().first;
-    serviceRepository
-        .chatStream(user!, disputeId)
+    serviceRepository.initializeChatStream(user!, disputeId);
+    serviceRepository.changeNotifier.chatSubject
         .listen((DisputeMessage message) {
       final lastDateGroupedMessages = state.dateGroupedMessages?.list.last;
       final lastDate = lastDateGroupedMessages?.date;
@@ -71,6 +75,14 @@ class ChatCubit extends Cubit<ChatState> {
         emit(updatedState);
         jumpToBottomOfChat();
       }
+    });
+    serviceRepository.initializeDisputeResolutionStream();
+    serviceRepository.changeNotifier.currentDispute.addListener(() {
+      final dispute = serviceRepository.changeNotifier.currentDispute.value;
+      final newState = state.copyWith(
+        dispute: dispute,
+      );
+      emit(newState);
     });
   }
 
@@ -118,9 +130,19 @@ class ChatCubit extends Cubit<ChatState> {
     });
   }
 
-  Future pickFiles() async {
-    final FilePickerResult? result = await FilePicker.platform.pickFiles(
-      allowMultiple: true,
+  Future pickFile() async {
+    final fp.FilePickerResult? result = await fp.FilePicker.platform.pickFiles(
+      allowMultiple: false,
+      type: fp.FileType.custom,
+      allowedExtensions: [
+        'pdf',
+        'doc',
+        'docx',
+        'xls',
+        'xlsx',
+        'ppt',
+        'pptx',
+      ],
     );
 
     if (result != null) {
@@ -173,6 +195,7 @@ class ChatCubit extends Cubit<ChatState> {
       message: state.message,
       files: null,
       userToken: state.userToken,
+      dispute: state.dispute,
     );
     emit(newState);
   }
@@ -197,31 +220,33 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
-  // void downloadFile(FileDM file) async {
-  //   try {
-  //     folderRepository.downloadFiles([file.name]);
-  //   } catch (e) {
-  //     debugPrint(e.toString());
-  //   }
-  // }
-
   void sendMessage() async {
     final newState = state.copyWith(
       submissionStatus: ChatSubmissionStatus.inProgress,
     );
     emit(newState);
     try {
-      // await serviceRepository.sendChatMessage(
-      //   messageId: state.messageBeingRepliedTo?.id,
-      //   message: state.message,
-      //   files: state.files,
-      // );
+      final filesDM = state.files?.map((file) {
+        final fileName = file.path.split('/').last;
+        return FileDM(
+          file: file,
+          name: fileName,
+        );
+      }).toList();
+
+      await serviceRepository.sendChatMessage(
+        disputeId: disputeId,
+        message: state.message,
+        files: filesDM,
+      );
       final newState = state.copyWith(
         submissionStatus: ChatSubmissionStatus.success,
       );
       emit(newState);
       final initialState = ChatState(
         dateGroupedMessages: state.dateGroupedMessages,
+        userToken: state.userToken,
+        dispute: state.dispute,
       );
       emit(initialState);
       messageController.clear();

@@ -8,6 +8,7 @@ class ChatState extends Equatable {
     this.fetchingStatus = ChatFetchingStatus.initial,
     this.submissionStatus = ChatSubmissionStatus.initial,
     this.userToken,
+    this.dispute,
   });
 
   final List<File>? files;
@@ -16,6 +17,7 @@ class ChatState extends Equatable {
   final ChatFetchingStatus fetchingStatus;
   final ChatSubmissionStatus submissionStatus;
   final String? userToken;
+  final Dispute? dispute;
   bool get isSendButtonDisabled =>
       (message?.isEmpty == true || message == null) &&
       (files?.isEmpty == true || files == null);
@@ -28,6 +30,7 @@ class ChatState extends Equatable {
     ChatFetchingStatus? fetchingStatus,
     ChatSubmissionStatus? submissionStatus,
     String? userToken,
+    Dispute? dispute,
   }) {
     return ChatState(
       files: files ?? this.files,
@@ -36,6 +39,7 @@ class ChatState extends Equatable {
       fetchingStatus: fetchingStatus ?? this.fetchingStatus,
       submissionStatus: submissionStatus ?? this.submissionStatus,
       userToken: userToken ?? this.userToken,
+      dispute: dispute ?? this.dispute,
     );
   }
 
@@ -47,6 +51,7 @@ class ChatState extends Equatable {
         fetchingStatus,
         submissionStatus,
         userToken,
+        dispute,
       ];
 }
 

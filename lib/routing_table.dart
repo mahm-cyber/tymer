@@ -175,6 +175,9 @@ Map<String, PageBuilder> buildRoutingTable({
                 routerDelegate.push(
               _PathConstants.serviceRequestStatusPath(requestId: requestId),
             ),
+            navigateToFulfillServiceRequest: () async {
+              routerDelegate.push(_PathConstants.fulfillServiceRequestPath);
+            },
           ),
         ),
     _PathConstants.profilePath: (_) => MaterialPage(

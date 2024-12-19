@@ -4,7 +4,6 @@ import 'package:domain_models/domain_models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:service_repository/src/mappers/domain_to_remote.dart';
 import 'package:service_repository/src/mappers/mappers.dart';
 import 'package:service_repository/src/service_change_notifier.dart';
@@ -20,7 +19,6 @@ class ServiceRepository {
 
   final TymerApi remoteApi;
   final ServiceChangeNotifier changeNotifier;
-  final chatSubject = BehaviorSubject<DisputeMessage>();
 
   Future<int> requestService({
     required ServiceType serviceType,
@@ -337,31 +335,66 @@ class ServiceRepository {
     }
   }
 
-  Stream<DisputeMessage> chatStream(User user, disputeId) async* {
+  void initializeChatStream(User user, disputeId) {
     remoteApi.pusherApi.disputeChatMessageSC.listen((DisputeMessageRM event) {
       final disputeMessage = event.toDomainModel(disputeId);
       final isSentByMe = disputeMessage.sender.id == user.id;
       final updatedDisputeMessage = disputeMessage.copyWith(
         isSentByMe: isSentByMe,
       );
-      chatSubject.add(updatedDisputeMessage);
+      changeNotifier.chatSubject.add(updatedDisputeMessage);
     });
-    yield* chatSubject.stream;
   }
 
-// Future sendChatMessage({
-//   int? messageId,
-//   String? message,
-//   List<File>? files,
-// }) async {
-//   try {
-//     await remoteApi.sendMessage(
-//       messageId: messageId,
-//       message: message,
-//       files: files,
-//     );
-//   } catch (error) {
-//     rethrow;
-//   }
-// }
+  void initializeDisputeResolutionStream() {
+    remoteApi.pusherApi.disputeStatusSC.listen(
+      (String event) {
+        final currentDispute = changeNotifier.currentDispute;
+        final newStatus = disputeStatusRMtoDM(event);
+        final dispute = currentDispute.value!.copyWith(status: newStatus);
+        changeNotifier.setCurrentDispute(dispute);
+      },
+    );
+  }
+
+  Future sendChatMessage({
+    required int disputeId,
+    String? message,
+    List<FileDM>? files,
+  }) async {
+    List<File?>? imageFiles;
+    List<File?>? documentFiles;
+    List<File?>? audioFiles;
+    final hasFiles = files?.isNotEmpty == true;
+
+    if (hasFiles) {
+      imageFiles = getFilesOfType(files!, FileType.image);
+      documentFiles = getFilesOfType(files, FileType.document);
+      audioFiles = getFilesOfType(files, FileType.audio);
+    }
+
+    try {
+      await remoteApi.sendChatMessage(
+        userType: changeNotifier.disputeChatUserType!.toRemoteModel(),
+        disputeId: disputeId,
+        message: message,
+        imageFiles: imageFiles,
+        documentFiles: documentFiles,
+        audioFiles: audioFiles,
+      );
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  List<File?>? getFilesOfType(List<FileDM> files, FileType type) {
+    final filesOfType = files
+        .where((file) => file.type == type)
+        .map((fileDM) => fileDM.file)
+        .toList();
+    if (filesOfType.isEmpty) {
+      return null;
+    }
+    return filesOfType;
+  }
 }

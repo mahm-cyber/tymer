@@ -9,12 +9,14 @@ class ServiceRequestCard extends StatelessWidget {
     required this.service,
     this.dispute,
     this.shouldShowRequestStatus = false,
+    this.height = 100,
   });
 
   final VoidCallback onTapped;
   final Service service;
   final Dispute? dispute;
   final bool shouldShowRequestStatus;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class ServiceRequestCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTapped,
       child: Container(
+        height: height,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
@@ -77,7 +80,7 @@ class ServiceRequestCard extends StatelessWidget {
                   ),
                 ],
                 //price
-                VerticalGap.medium(),
+                const Spacer(),
                 Row(
                   children: [
                     const SvgAsset(
@@ -100,16 +103,17 @@ class ServiceRequestCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  StatusWidget(
+                  DisputeStatusWidget(
                     color: service.status?.color ?? Colors.black,
                     label: serviceRequestStatusToLocalizedString(
                         service.status!, l10n),
                   ),
                   if (dispute != null) ...[
-                    VerticalGap.medium(),
-                    StatusWidget(
+                    const Spacer(),
+                    DisputeStatusWidget(
                       color: dispute?.status.color ?? Colors.black,
-                      label: disputeStatusToLocalizedString(dispute!.status, l10n),
+                      label:
+                          disputeStatusToLocalizedString(dispute!.status, l10n),
                     ),
                   ],
                 ],

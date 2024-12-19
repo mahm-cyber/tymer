@@ -1,4 +1,6 @@
 import 'package:chat/src/l10n/chat_localizations.dart';
+import 'package:component_library/component_library.dart';
+import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:chat/src/chat_cubit.dart';
@@ -54,18 +56,38 @@ class ChatView extends StatelessWidget {
     return BlocBuilder<ChatCubit, ChatState>(
       builder: (context, state) {
         final l10n = ChatLocalizations.of(context);
+        final clL10n = ComponentLibraryLocalizations.of(context);
+        final disputeStatus = state.dispute?.status;
+        final isDisputeChargedBack = disputeStatus == DisputeStatus.chargedBack;
+        final idDisputeDenied = disputeStatus == DisputeStatus.denied;
+        final isResolved = isDisputeChargedBack || idDisputeDenied;
         return GestureDetector(
           onTap: context.releaseFocus,
           child: Scaffold(
             appBar: AppBar(
-              centerTitle: false,
+              // centerTitle: false,
               backgroundColor: Colors.white,
               title: Text(l10n.appBarTitle),
             ),
-            body: const Column(
+            body: Column(
               children: [
-                MessagesList(),
-                SendMessage(),
+                const MessagesList(),
+                isResolved
+                    ? Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(15),
+                        color: Colors.grey.withAlpha(50),
+                        child: Center(
+                          child: DisputeStatusWidget(
+                            color: state.dispute!.status.color,
+                            label: disputeStatusToLocalizedString(
+                              state.dispute!.status,
+                              clL10n,
+                            ),
+                          ),
+                        ),
+                      )
+                    : const SendMessage(),
               ],
             ),
           ),

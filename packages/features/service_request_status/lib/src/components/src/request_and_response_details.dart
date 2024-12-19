@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:service_request_status/src/service_request_status_cubit.dart';
 
-class ServiceResponseWidget extends StatelessWidget {
-  const ServiceResponseWidget({
+class RequestAndResponseDetails extends StatelessWidget {
+  const RequestAndResponseDetails({
     super.key,
     this.service,
   });
@@ -22,9 +22,14 @@ class ServiceResponseWidget extends StatelessWidget {
     final hasTime = response?.time != null;
     final hasAdditionalNotes = response?.additionalNotes != null;
     final hasImageUrl = response?.imageUrl != null;
-    final colorScheme = TymerTheme.of(context).materialThemeData.colorScheme;
+    final colorScheme = TymerTheme
+        .of(context)
+        .materialThemeData
+        .colorScheme;
     final l10n = ServiceRequestStatusLocalizations.of(context);
-    final textTheme = Theme.of(context).textTheme;
+    final textTheme = Theme
+        .of(context)
+        .textTheme;
     final theme = TymerTheme.of(context);
     final cubit = context.read<ServiceRequestStatusCubit>();
     return BlocBuilder<ServiceRequestStatusCubit, ServiceRequestStatusState>(
@@ -60,7 +65,11 @@ class ServiceResponseWidget extends StatelessWidget {
                     TextFormField(
                       enabled: false,
                       initialValue:
-                          response!.date!.toIso8601String().split('T').first,
+                      response!
+                          .date!
+                          .toIso8601String()
+                          .split('T')
+                          .first,
                       decoration: InputDecoration(
                         labelText: l10n.dateTextFieldLabel,
                         prefixIcon: const Icon(
@@ -108,24 +117,26 @@ class ServiceResponseWidget extends StatelessWidget {
                           ),
                           child: IconButton(
                             isSelected: true,
-                            onPressed: () => showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                insetPadding: EdgeInsets.zero,
-                                contentPadding: EdgeInsets.zero,
-                                content: InteractiveViewer(
-                                  child: Image.network(
-                                    response!.imageUrl!,
-                                    headers: {
-                                      "Authorization":
-                                          "Bearer ${state.userToken}",
-                                      "X-API-Key":
-                                          "01f64a264be7442a9008abda93d5d6ae",
-                                    },
-                                  ),
+                            onPressed: () =>
+                                showDialog(
+                                  context: context,
+                                  builder: (context) =>
+                                      AlertDialog(
+                                        insetPadding: EdgeInsets.zero,
+                                        contentPadding: EdgeInsets.zero,
+                                        content: InteractiveViewer(
+                                          child: Image.network(
+                                            response!.imageUrl!,
+                                            headers: {
+                                              "Authorization":
+                                              "Bearer ${state.userToken}",
+                                              "X-API-Key":
+                                              "01f64a264be7442a9008abda93d5d6ae",
+                                            },
+                                          ),
+                                        ),
+                                      ),
                                 ),
-                              ),
-                            ),
                             icon: const Icon(
                               Icons.image_outlined,
                               size: 35,
@@ -159,16 +170,16 @@ class ServiceResponseWidget extends StatelessWidget {
                       VerticalGap.medium(),
                       state.confirmationStatus == ConfirmationStatus.loading
                           ? Expanded(
-                              child: TymerElevatedButton.inProgress(
-                                label: l10n.yesButtonLabel,
-                              ),
-                            )
+                        child: TymerElevatedButton.inProgress(
+                          label: l10n.yesButtonLabel,
+                        ),
+                      )
                           : Expanded(
-                              child: TymerElevatedButton(
-                                label: l10n.yesButtonLabel,
-                                onTap: cubit.confirmService,
-                              ),
-                            ),
+                        child: TymerElevatedButton(
+                          label: l10n.yesButtonLabel,
+                          onTap: cubit.confirmService,
+                        ),
+                      ),
                       HorizontalGap.medium(),
                       Expanded(
                         child: TymerElevatedButton(

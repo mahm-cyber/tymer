@@ -147,4 +147,14 @@ class UrlBuilder {
   String buildGetPricingSettingsUrl() {
     return '$baseUrl/settings/service-pricing';
   }
+
+  String buildSendChatMessageUrl({
+    required int disputeId,
+    required String userType,
+  }) {
+    final urlLastSlug = userType == 'provider'
+        ? 'selected-user-chat-messages'
+        : 'chat-messages';
+    return '$baseUrl/disputes/$disputeId/$urlLastSlug';
+  }
 }

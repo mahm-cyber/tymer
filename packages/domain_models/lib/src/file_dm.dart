@@ -1,19 +1,27 @@
+import 'dart:io';
+
 class FileDM {
+  final File? file;
   final String name;
   final String? dlUrl;
 
   FileType get type => categorizeFileType(name.split('.').last);
+
   String get extension => name.split('.').last;
+
   FileDM({
     required this.name,
     this.dlUrl,
+    this.file,
   });
 }
 
 enum FileType {
   other,
   image,
+  audio,
   video,
+  document,
   unknown,
 }
 
@@ -22,18 +30,6 @@ FileType categorizeFileType(String extension) {
 
   // Determine the file category based on the extension using switch
   switch (extension.toLowerCase()) {
-    case 'txt':
-    case 'csv':
-    case 'doc':
-    case 'docx':
-    case 'odt':
-    case 'pdf':
-    case 'ppt':
-    case 'pptx':
-    case 'mp3':
-    case 'wav':
-    case 'ogg':
-    case 'aac':
     case 'zip':
     case 'rar':
     case 'tar':
@@ -55,11 +51,11 @@ FileType categorizeFileType(String extension) {
     case 'webp':
       return FileType.image;
 
-    // case 'mp3':
-    // case 'wav':
-    // case 'ogg':
-    // case 'aac':
-    //   return FileType.audio;
+    case 'mp3':
+    case 'wav':
+    case 'ogg':
+    case 'aac':
+      return FileType.audio;
 
     case 'mp4':
     case 'avi':
@@ -67,6 +63,17 @@ FileType categorizeFileType(String extension) {
     case 'wmv':
     case 'mkv':
       return FileType.video;
+
+    case 'txt':
+    case 'csv':
+    case 'doc':
+    case 'docx':
+    case 'odt':
+    case 'pdf':
+    case 'ppt':
+    case 'pptx':
+      return FileType.document;
+
 
     // case 'zip':
     // case 'rar':

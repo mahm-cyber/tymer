@@ -1,13 +1,11 @@
 import 'chat_localizations.dart';
 
-// ignore_for_file: type=lint
-
 /// The translations for Arabic (`ar`).
 class ChatLocalizationsAr extends ChatLocalizations {
-  ChatLocalizationsAr([String locale = 'ar']) : super(locale);
+  ChatLocalizationsAr([super.locale = 'ar']);
 
   @override
-  String get appBarTitle => 'الرسائل';
+  String get appBarTitle => 'التحدث إلى الدعم';
 
   @override
   String get uploadFileIconLabel => 'ملف';

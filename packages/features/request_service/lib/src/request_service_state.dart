@@ -17,6 +17,7 @@ class RequestServiceState extends Equatable {
     this.locationServiceStatus,
     this.price,
     this.pricingSettings,
+    this.fetchingPricingSettingsStatus = FetchingPricingSettingsStatus.initial,
     this.additionalComments = const Dynamic<String?>.unvalidated(),
     this.submissionStatus = FormzSubmissionStatus.initial,
     this.error,
@@ -37,6 +38,7 @@ class RequestServiceState extends Equatable {
   final geo.ServiceStatus? locationServiceStatus;
   final double? price;
   final PricingSettings? pricingSettings;
+  final FetchingPricingSettingsStatus fetchingPricingSettingsStatus;
   final Dynamic<String?> additionalComments;
   final FormzSubmissionStatus submissionStatus;
   final dynamic error;
@@ -56,6 +58,7 @@ class RequestServiceState extends Equatable {
     geo.ServiceStatus? locationServiceStatus,
     double? price,
     PricingSettings? pricingSettings,
+    FetchingPricingSettingsStatus? fetchingPricingSettingsStatus,
     Dynamic<String?>? additionalComments,
     FormzSubmissionStatus? submissionStatus,
     dynamic error,
@@ -78,6 +81,8 @@ class RequestServiceState extends Equatable {
       locationServiceStatus: locationServiceStatus ?? this.locationServiceStatus,
       price: price ?? this.price,
       pricingSettings: pricingSettings ?? this.pricingSettings,
+      fetchingPricingSettingsStatus:
+          fetchingPricingSettingsStatus ?? this.fetchingPricingSettingsStatus,
       additionalComments: additionalComments ?? this.additionalComments,
       submissionStatus: submissionStatus ?? this.submissionStatus,
       error: error,
@@ -100,8 +105,11 @@ class RequestServiceState extends Equatable {
         locationServiceStatus,
         price,
         pricingSettings,
+        fetchingPricingSettingsStatus,
         additionalComments,
         submissionStatus,
         error
       ];
 }
+
+enum FetchingPricingSettingsStatus { initial, inProgress, success, failure }
