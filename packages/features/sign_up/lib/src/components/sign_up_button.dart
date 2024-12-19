@@ -6,9 +6,6 @@ import 'package:sign_up/src/l10n/sign_up_localizations.dart';
 
 import 'package:sign_up/src/sign_up_cubit.dart';
 
-
-
-
 class SignUpButton extends StatelessWidget {
   const SignUpButton({
     super.key,
@@ -35,4 +32,3 @@ class SignUpButton extends StatelessWidget {
     );
   }
 }
-

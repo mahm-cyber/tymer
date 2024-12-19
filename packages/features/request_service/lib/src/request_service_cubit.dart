@@ -39,13 +39,9 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
   }
 
   void getPricingSettings() async {
-    final loading = state.copyWith(
-        fetchingPricingSettingsStatus:
-            FetchingPricingSettingsStatus.inProgress);
-    emit(loading);
     try {
       final pricingSettings =
-          await userRepository.getPricingSettings(FetchPolicy.networkOnly);
+          await userRepository.getPricingSettings(FetchPolicy.cachePreferably);
       final minPrice = state.serviceType == ServiceType.reservation
           ? pricingSettings.reservationServiceMinPrice
           : pricingSettings.otherServiceMinPrice;

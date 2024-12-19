@@ -83,7 +83,7 @@ class OrderHistoryView extends StatelessWidget {
                 body: Column(
                   children: [
                     VerticalGap.large(),
-                    VerticalGap.medium(),
+                    // VerticalGap.medium(),
                     SizedBox(
                       height: 50,
                       child: RowBuilder.separated(

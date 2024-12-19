@@ -118,7 +118,7 @@ class RequestServiceView extends StatelessWidget {
                           ),
               ),
               AppBarTitleContainer(
-                top: 63,
+                top: theme.smallAppBarTitleContainerHeight,
                 height: 30,
                 title: isReservationServiceType
                     ? l10n.reservationServiceTypeAppBarTitle
