@@ -38,7 +38,7 @@ class _ImageWidgetState extends State<ImageWidget> {
                     fit: BoxFit.fitHeight,
                     headers: {
                       "Authorization": "Bearer ${widget.userToken}",
-                      "X-API-Key": "01f64a264be7442a9008abda93d5d6ae",
+                      "X-API-Key": const String.fromEnvironment('x_api_key'),
                     },
                   )
                 : Image.network(
@@ -46,7 +46,7 @@ class _ImageWidgetState extends State<ImageWidget> {
                     fit: BoxFit.fitHeight,
                     headers: {
                       "Authorization": "Bearer ${widget.userToken}",
-                      "X-API-Key": "01f64a264be7442a9008abda93d5d6ae",
+                      "X-API-Key": const String.fromEnvironment('x_api_key'),
                     },
                   ),
           ),
@@ -74,7 +74,7 @@ class _ImageWidgetState extends State<ImageWidget> {
               fit: BoxFit.fitHeight,
               headers: {
                 "Authorization": "Bearer ${widget.userToken}",
-                "X-API-Key": "01f64a264be7442a9008abda93d5d6ae",
+                "X-API-Key": const String.fromEnvironment('x_api_key'),
               },
             )
           : Image.network(
@@ -83,7 +83,7 @@ class _ImageWidgetState extends State<ImageWidget> {
               height: 100,
               headers: {
                 "Authorization": "Bearer ${widget.userToken}",
-                "X-API-Key": "01f64a264be7442a9008abda93d5d6ae",
+                "X-API-Key": const String.fromEnvironment('x_api_key'),
               },
             ),
     );

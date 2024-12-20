@@ -47,7 +47,7 @@ class _ReservationNumberTextFieldState
             state.submissionStatus == FormzSubmissionStatus.inProgress;
         // final theme = TymerTheme.of(context);
         return TextFormField(
-          initialValue: state.service?.response?.reservationNumber,
+          initialValue: state.service?.responseDetails?.reservationNumber,
           enabled: !isSubmissionInProgress,
           focusNode: _reservationNumberFocusNode,
           onChanged: cubit.onReservationNumberChanged,

@@ -22,4 +22,7 @@ class OrderHistoryLocalizationsAr extends OrderHistoryLocalizations {
 
   @override
   String get viewButtonLabel => 'عرض';
+
+  @override
+  String get fabLabel => 'النزاعات';
 }

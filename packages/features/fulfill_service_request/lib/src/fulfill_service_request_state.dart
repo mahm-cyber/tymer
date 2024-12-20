@@ -2,6 +2,7 @@ part of 'fulfill_service_request_cubit.dart';
 
 class FulfillServiceRequestState extends Equatable {
   const FulfillServiceRequestState({
+    this.userToken,
     this.service,
     this.reservationNumber = const Dynamic<String>.unvalidated(),
     this.day = const Dynamic<DateTime?>.unvalidated(),
@@ -12,6 +13,7 @@ class FulfillServiceRequestState extends Equatable {
     this.submissionStatus = FormzSubmissionStatus.initial,
   });
 
+  final String? userToken;
   final Service? service;
   final Dynamic<String> reservationNumber;
   final Dynamic<DateTime?> day;
@@ -22,6 +24,7 @@ class FulfillServiceRequestState extends Equatable {
   final FormzSubmissionStatus submissionStatus;
 
   FulfillServiceRequestState copyWith({
+    String? userToken,
     Service? service,
     Dynamic<String>? reservationNumber,
     Dynamic<DateTime?>? day,
@@ -32,6 +35,7 @@ class FulfillServiceRequestState extends Equatable {
     FormzSubmissionStatus? submissionStatus,
   }) {
     return FulfillServiceRequestState(
+      userToken: userToken ?? this.userToken,
       service: service ?? this.service,
       reservationNumber: reservationNumber ?? this.reservationNumber,
       day: day ?? this.day,
@@ -46,6 +50,7 @@ class FulfillServiceRequestState extends Equatable {
 
   @override
   List<Object?> get props => [
+        userToken,
         service,
         reservationNumber,
         day,

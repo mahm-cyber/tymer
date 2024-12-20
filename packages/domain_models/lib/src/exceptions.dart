@@ -22,5 +22,6 @@ class PhoneAlreadyRegisteredException implements Exception {}
 class PhoneNotRegisteredException implements Exception {}
 class InsufficientBalanceException implements Exception {}
 class ServiceRequestAlreadyProcessed implements Exception {}
+class StaleMinimumPriceException implements Exception {}
 
 class PhoneNotVerifiedException implements Exception {}

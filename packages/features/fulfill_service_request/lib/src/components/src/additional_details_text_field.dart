@@ -20,9 +20,9 @@ class AdditionalDetailsTextField extends StatelessWidget {
             state.submissionStatus == FormzSubmissionStatus.inProgress;
         // final theme = TymerTheme.of(context);
         return TextField(
-          controller: state.service?.response?.additionalNotes != null
+          controller: state.service?.responseDetails?.additionalNotes != null
               ? TextEditingController(
-                  text: state.service?.response?.additionalNotes,
+                  text: state.service?.responseDetails?.additionalNotes,
                 )
               : null,
           textAlignVertical: TextAlignVertical.top,

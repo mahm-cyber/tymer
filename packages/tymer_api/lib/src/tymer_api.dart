@@ -290,8 +290,14 @@ class TymerApi {
       return requestId;
     } on DioException catch (error) {
       final errorObject = error.response?.data[_errorJsonKey];
-      if (errorObject[_codeJsonKey].contains('INSUFFICIENT_BALANCE')) {
+      final errorCode = errorObject[_codeJsonKey];
+      if (errorCode.contains('INSUFFICIENT_BALANCE')) {
         throw InsufficientBalanceTymerException();
+      }
+
+      if (errorCode.contains('VALIDATION_ERROR') &&
+          errorObject[_verificationErrorsJsonKey].containsKey('price')) {
+        throw StaleMinimumPriceTymerException();
       }
       rethrow;
     }
@@ -500,7 +506,6 @@ class TymerApi {
           final multipartFile = await MultipartFile.fromFile(
             documentFile.path,
             filename: documentFile.path.split('/').last,
-
           );
           documentMultipartFiles.add(multipartFile);
         }
@@ -512,7 +517,6 @@ class TymerApi {
           final multipartFile = await MultipartFile.fromFile(
             imageFile.path,
             filename: imageFile.path.split('/').last,
-
           );
           imageMultipartFiles.add(multipartFile);
         }
@@ -593,7 +597,7 @@ extension on Dio {
               "Accept": "application/json",
               // if (token != null) "Authorization": "Bearer 213|kjjsOyXpt2rxcZkVgnMJGmAOD26r0uIolCJqn8YNd4065eds",
               if (token != null) "Authorization": "Bearer $token",
-              "X-API-Key": "01f64a264be7442a9008abda93d5d6ae",
+              "X-API-Key": const String.fromEnvironment('x_api_key'),
             },
           );
 

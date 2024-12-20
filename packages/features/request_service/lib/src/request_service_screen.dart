@@ -90,6 +90,7 @@ class RequestServiceView extends StatelessWidget {
         final errorLoadingDependencies = state.error != null;
 
         final cubit = context.read<RequestServiceCubit>();
+
         return GestureDetector(
           onTap: context.releaseFocus,
           child: Stack(

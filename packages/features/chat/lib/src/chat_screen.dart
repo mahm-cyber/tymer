@@ -78,7 +78,7 @@ class ChatView extends StatelessWidget {
                         padding: const EdgeInsets.all(15),
                         color: Colors.grey.withAlpha(50),
                         child: Center(
-                          child: DisputeStatusWidget(
+                          child: ServiceStatusWidget(
                             color: state.dispute!.status.color,
                             label: disputeStatusToLocalizedString(
                               state.dispute!.status,

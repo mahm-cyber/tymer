@@ -73,10 +73,9 @@ class DisputesView extends StatelessWidget {
                 ),
                 body: Column(
                   children: [
-                    VerticalGap.large(),
-                    VerticalGap.medium(),
+                    VerticalGap.xLarge(),
                     SizedBox(
-                      height: 50,
+                      height: 45,
                       child: RowBuilder.separated(
                         separatorBuilder: (context, index) =>
                             HorizontalGap.medium(),
@@ -114,7 +113,7 @@ class DisputesView extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 50,
+                      height: 45,
                       child: ListView.separated(
                         separatorBuilder: (context, index) =>
                             HorizontalGap.medium(),
@@ -180,7 +179,7 @@ class DisputesView extends StatelessWidget {
                                     shouldShowRequestStatus: true,
                                     service: dispute.serviceRequest,
                                     dispute: dispute,
-                                    height: 90,
+                                    height: 110,
                                   ),
                                   if (isLastItem) VerticalGap.large(),
                                 ],

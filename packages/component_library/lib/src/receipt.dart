@@ -8,10 +8,12 @@ class Receipt extends StatelessWidget {
     super.key,
     required this.service,
     required this.onViewServiceOnMap,
+    required this.userToken,
   });
 
   final Service service;
   final VoidCallback onViewServiceOnMap;
+  final String? userToken;
 
   @override
   Widget build(BuildContext context) {
@@ -20,26 +22,33 @@ class Receipt extends StatelessWidget {
     return Expanded(
       child: ListView(
         children: [
-          VerticalGap.mediumLarge(),
-          if (service.details != null)
+          if (service.requestDetails != null) ...[
             ServiceRequestDetailsExpansionTile(
               service: service,
               onViewServiceOnMap: onViewServiceOnMap,
             ),
-          VerticalGap.medium(),
+            VerticalGap.medium(),
+          ],
+          if (service.responseDetails != null && userToken != null) ...[
+            ServiceResponseDetailsExpansionTile(
+              service: service,
+              userToken: userToken!,
+            ),
+            VerticalGap.medium(),
+          ],
           ServiceFeeContainer(
             title: l10n.servicePriceContainerLabel,
-            amount: service.price!.toStringAsFixed(0),
+            amount: service.price!,
           ),
           VerticalGap.medium(),
           ServiceFeeContainer(
             title: l10n.serviceFeesContainerLabel,
-            amount: service.fee!.toStringAsFixed(0),
+            amount: service.fee!,
           ),
           VerticalGap.medium(),
           ServiceFeeContainer(
             title: l10n.serviceTotalPriceContainerLabel,
-            amount: service.totalPrice.toStringAsFixed(0),
+            amount: service.totalPrice,
           ),
           VerticalGap.medium(),
         ],

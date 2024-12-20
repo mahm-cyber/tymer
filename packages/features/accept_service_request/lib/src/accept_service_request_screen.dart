@@ -1,6 +1,7 @@
 import 'package:accept_service_request/src/accept_service_request_cubit.dart';
 import 'package:accept_service_request/src/l10n/accept_service_request_localizations.dart';
 import 'package:domain_models/domain_models.dart';
+import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +44,8 @@ class AcceptServiceRequestView extends StatelessWidget {
     final theme = TymerTheme.of(context);
     final colorScheme = theme.materialThemeData.colorScheme;
     final l10n = AcceptServiceRequestLocalizations.of(context);
+    final clL10n = ComponentLibraryLocalizations.of(context);
+    final locale = Localizations.localeOf(context);
     return BlocConsumer<AcceptServiceRequestCubit, AcceptServiceRequestState>(
       listenWhen: (previous, current) =>
           previous.submissionStatus != current.submissionStatus,
@@ -131,7 +134,7 @@ class AcceptServiceRequestView extends StatelessWidget {
                                     title: l10n.distanceToServiceLocation(
                                         '${state.service?.distanceBetweenProviderAndServiceLocation?.toStringAsFixed(0)}'),
                                     snippet:
-                                        '${state.service?.price?.toStringAsFixed(0)} EGP',
+                                        '${state.service?.price!.localizeDouble(locale)} ${clL10n.eyptianPoundLetters}',
                                   ),
                                 ),
                               },

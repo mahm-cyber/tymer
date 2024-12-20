@@ -10,5 +10,7 @@
   },
   "noServiceRequestsText": "لا توجد طلبات خدمة متاحة",
   "showInMapButtonLabel": "عرض على الخريطة",
-  "viewButtonLabel": "عرض"
+  "viewButtonLabel": "عرض",
+  "fabLabel": "النزاعات"
+
 }

@@ -50,4 +50,10 @@ class FulfillServiceRequestLocalizationsEn extends FulfillServiceRequestLocaliza
 
   @override
   String get awaitingConfirmationButtonLabel => 'Awaiting Confirmation';
+
+  @override
+  String get continueWaitingButtonLabel => 'Continue Waiting';
+
+  @override
+  String get provideAnotherServiceButtonLabel => 'Provide Another Service';
 }

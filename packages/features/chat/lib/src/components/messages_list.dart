@@ -1,10 +1,10 @@
-
 import 'package:chat/src/chat_cubit.dart';
 import 'package:chat/src/components/message_card.dart';
 import 'package:chat/src/l10n/chat_localizations.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:intl/intl.dart' as intl;
 
 class MessagesList extends StatelessWidget {
@@ -23,7 +23,7 @@ class MessagesList extends StatelessWidget {
         final l10n = ChatLocalizations.of(context);
         final isSubmissionInProgress =
             state.submissionStatus == ChatSubmissionStatus.inProgress;
-
+        final locale = Localizations.localeOf(context);
         return Expanded(
           child: loading
               ? const CenteredCircularProgressIndicator()
@@ -46,12 +46,14 @@ class MessagesList extends StatelessWidget {
                             controller: cubit.scrollController,
                             itemCount: state.dateGroupedMessages!.list.length,
                             itemBuilder: (context, index) {
-                              final chat = state.dateGroupedMessages!.list[index];
+                              final chat =
+                                  state.dateGroupedMessages!.list[index];
                               return Column(
                                 children: [
                                   Text(
                                     intl.DateFormat('yyyy-MM-dd')
-                                        .format(chat.date),
+                                        .format(chat.date)
+                                        .localizeDateString(locale),
                                     style: textTheme.titleMedium
                                         ?.copyWith(fontWeight: FontWeight.bold),
                                   ),

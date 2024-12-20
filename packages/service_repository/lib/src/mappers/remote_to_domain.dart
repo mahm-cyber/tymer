@@ -37,7 +37,7 @@ extension ServiceRMtoDM on ServiceRM {
 
       final isOtherService = serviceTypeRMtoDM(type) == ServiceType.other;
 
-      ServiceResponse? serviceResponse;
+      ServiceResponseDetails? serviceResponse;
       if (isOtherService) {
         serviceResponse = response != null
             ? (response as OtherServiceRM).toDomainModel()
@@ -59,8 +59,8 @@ extension ServiceRMtoDM on ServiceRM {
         price: double.parse(servicePrice),
         fee: double.parse(servicefee),
         location: location.toDomainModel(),
-        details: details?.toDomainModel(),
-        response: serviceResponse,
+        requestDetails: details?.toDomainModel(),
+        responseDetails: serviceResponse,
       );
     } catch (e) {
       throw Exception('Error parsing ServiceRM to ServiceDM: $e');
@@ -78,8 +78,8 @@ extension ServiceListPageRMtoDM on ServiceListPageRM {
 }
 
 extension OtherServiceResponseRMtoDM on OtherServiceRM {
-  ServiceResponse toDomainModel() {
-    return ServiceResponse(
+  ServiceResponseDetails toDomainModel() {
+    return ServiceResponseDetails(
       date: date != null ? DateTime.parse(date!) : null,
       time: time != null ? stringToTimeOfDay(time!) : null,
       additionalNotes: additionalNotes,
@@ -89,8 +89,8 @@ extension OtherServiceResponseRMtoDM on OtherServiceRM {
 }
 
 extension ReservationServiceResponseRMtoDM on ReservationServiceRM {
-  ServiceResponse toDomainModel() {
-    return ServiceResponse(
+  ServiceResponseDetails toDomainModel() {
+    return ServiceResponseDetails(
       reservationNumber: code,
       time: stringToTimeOfDay(time),
       date: DateTime.parse(date),
@@ -110,8 +110,8 @@ extension LocationRMtoDM on LocationRM {
 }
 
 extension ServiceDetailsRMtoDM on ServiceDetailsRM {
-  ServiceDetails toDomainModel() {
-    return ServiceDetails(
+  ServiceRequestDetails toDomainModel() {
+    return ServiceRequestDetails(
       placeName: placeName,
       placeAddress: placeAddress,
       date: date != null ? DateTime.parse(date!) : null,

@@ -1,21 +1,22 @@
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 
-
-
 class AppBarTitleContainer extends StatelessWidget {
   const AppBarTitleContainer({
     super.key,
     required this.title,
+    this.widgetTitle,
     this.icon,
     this.top = 135,
     this.height = 50,
   });
 
   final String title;
+  final Widget? widgetTitle;
   final Widget? icon;
   final double top;
   final double height;
+
   @override
   Widget build(BuildContext context) {
     final theme = TymerTheme.of(context);
@@ -38,13 +39,16 @@ class AppBarTitleContainer extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (icon != null) icon!,
-            HorizontalGap.small(),
-            Text(
-              title,
-              style:
-                  textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-            ),
+            if (icon != null) ...[
+              icon!,
+              HorizontalGap.small(),
+            ],
+            widgetTitle ??
+                Text(
+                  title,
+                  style: textTheme.bodyMedium
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
           ],
         ),
       ),

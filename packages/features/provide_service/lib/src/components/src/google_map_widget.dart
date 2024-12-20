@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:domain_models/domain_models.dart';
+import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:provide_service/src/l10n/provide_service_localizations.dart';
@@ -56,6 +57,8 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
         final cubit = context.read<ProvideServiceCubit>();
         final theme = TymerTheme.of(context);
         final l10n = ProvideServiceLocalizations.of(context);
+        final clL10n = ComponentLibraryLocalizations.of(context);
+        final locale = Localizations.localeOf(context);
         return BackButtonListener(
           onBackButtonPressed: () async {
             cubit.switchMapView();
@@ -79,10 +82,9 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                           service.location.coordinates[0],
                           service.location.coordinates[1],
                         ),
-
                         infoWindow: InfoWindow(
-                          title: service.details!.placeName,
-                          snippet: '${service.price!.toStringAsFixed(0)} EGP',
+                          title: service.requestDetails!.placeName,
+                          snippet: '${service.price!.localizeDouble(locale)} ${clL10n.eyptianPoundLetters}',
                           onTap: () {
                             cubit.onViewServiceRequestDetailsTapped(service);
                           },

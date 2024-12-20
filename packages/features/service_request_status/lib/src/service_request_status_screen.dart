@@ -56,7 +56,7 @@ class ServiceRequestStatusView extends StatelessWidget {
         final cubit = context.read<ServiceRequestStatusCubit>();
         final isAlreadyCancelled =
             state.service?.status == ServiceStatus.canceled;
-        if(isAlreadyCancelled) {
+        if (isAlreadyCancelled) {
           cubit.goBackHome();
           showSnackBar(
             context: context,
@@ -107,11 +107,12 @@ class ServiceRequestStatusView extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        final isRequestPendingReview = state.service?.response != null;
+        final isRequestPendingReview = state.service?.responseDetails != null;
         final isRequestConfirmed =
             state.service?.status == ServiceStatus.completed ||
                 state.confirmationStatus == ConfirmationStatus.success;
         final cubit = context.read<ServiceRequestStatusCubit>();
+          final clL10n = ComponentLibraryLocalizations.of(context);
         return Stack(
           children: [
             Scaffold(
@@ -128,9 +129,11 @@ class ServiceRequestStatusView extends StatelessWidget {
                     ? Column(
                         children: [
                           VerticalGap.xLarge(),
+                          VerticalGap.medium(),
                           Receipt(
                             service: state.service!,
                             onViewServiceOnMap: cubit.onViewServiceOnMap,
+                            userToken: state.userToken,
                           ),
                           TymerElevatedButton(
                             label: l10n.backHomeButtonLabel,
@@ -150,7 +153,7 @@ class ServiceRequestStatusView extends StatelessWidget {
                                   children: [
                                     VerticalGap.xLarge(),
                                     VerticalGap.medium(),
-                                    if (state.service?.details != null)
+                                    if (state.service?.requestDetails != null)
                                       ServiceRequestDetailsExpansionTile(
                                         service: state.service!,
                                         onViewServiceOnMap:
@@ -212,10 +215,17 @@ class ServiceRequestStatusView extends StatelessWidget {
               ),
             ),
             AppBarTitleContainer(
-              title: l10n.appBarTitle,
-              icon: const SvgAsset(
-                AssetPathConstants.potPath,
-              ),
+              widgetTitle: state.service != null
+                  ? ServiceStatusWidget(
+                      color: state.service?.status?.color ?? Colors.black,
+                      label: serviceRequestStatusToLocalizedString(
+                        state.service!.status!,
+                        clL10n,
+                      ),
+                      border: const Border(),
+                    )
+                  : null,
+              title: '',
             ),
           ],
         );

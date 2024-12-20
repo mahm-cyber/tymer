@@ -324,7 +324,7 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
   String get viewOnMapButtonLabel => 'View';
 
   @override
-  String get serviceDetailsTitle => 'Request Details';
+  String get serviceRequestDetailsTileTitle => 'Request Details';
 
   @override
   String get pendingServiceRequestStatus => 'Pending';
@@ -382,4 +382,16 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get downloadFailedSnackBarMessage => 'Download failed. Please try again.';
+
+  @override
+  String get reservationNumberTextFieldLabel => 'Reservation Number';
+
+  @override
+  String get additionalNotesTextFieldLabel => 'Additional Notes';
+
+  @override
+  String get serviceResponseDetailsTileTitle => 'Response Details';
+
+  @override
+  String get eyptianPoundLetters => 'EGP';
 }

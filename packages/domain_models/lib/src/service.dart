@@ -12,8 +12,8 @@ class Service {
     this.price,
     this.fee,
     required this.location,
-    this.details,
-    this.response,
+    this.requestDetails,
+    this.responseDetails,
   });
 
   final int? id;
@@ -25,8 +25,8 @@ class Service {
   final double? price;
   final double? fee;
   final LocationDM location;
-  final ServiceDetails? details;
-  final ServiceResponse? response;
+  final ServiceRequestDetails? requestDetails;
+  final ServiceResponseDetails? responseDetails;
 }
 
 class LocationDM {
@@ -39,8 +39,8 @@ class LocationDM {
   final List<double> coordinates;
 }
 
-class ServiceDetails {
-  const ServiceDetails({
+class ServiceRequestDetails {
+  const ServiceRequestDetails({
     required this.placeName,
     required this.placeAddress,
     this.date,
@@ -64,11 +64,11 @@ class ServiceDetails {
 }
 
 enum ServiceStatus {
+  pendingReview,
   pending,
   inProgress,
   completed,
   canceled,
-  pendingReview,
   disputed;
 
   Color get color {

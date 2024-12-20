@@ -1,5 +1,6 @@
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
+import 'package:function_and_extension_library/function_and_extension_library.dart';
 
 class ServiceFeeContainer extends StatelessWidget {
   const ServiceFeeContainer({
@@ -9,12 +10,14 @@ class ServiceFeeContainer extends StatelessWidget {
   });
 
   final String title;
-  final String amount;
+  final double amount;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final theme = TymerTheme.of(context);
+    final locale = Localizations.localeOf(context);
+    final l10n = ComponentLibraryLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: Spacing.small,
@@ -34,9 +37,15 @@ class ServiceFeeContainer extends StatelessWidget {
           const Spacer(),
           const SvgAsset(AssetPathConstants.bankNotePath),
           HorizontalGap.small(),
-          Text(
-            '$amount EGP',
-            style: textTheme.bodyMedium,
+          Container(
+            constraints: const BoxConstraints(
+              maxWidth: 70,
+              minWidth: 55
+            ),
+            child: Text(
+              '${amount.localizeDouble(locale)} ${l10n.eyptianPoundLetters}',
+              style: textTheme.bodyMedium,
+            ),
           ),
         ],
       ),

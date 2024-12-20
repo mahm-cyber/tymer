@@ -20,11 +20,12 @@ class ImagePickerTextField extends StatelessWidget {
         final isImagePicked = state.imageBytes != null;
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
+        final imageUrl = state.service?.responseDetails?.imageUrl;
         return StreamBuilder<String>(
             stream: cubit.carImageFileNameSC.stream,
             builder: (context, snapshot) {
               final controller = TextEditingController(
-                text: state.service?.response?.imageUrl?.split('/').last,
+                text: state.service?.responseDetails?.imageUrl?.split('/').last,
               );
               if (snapshot.hasData) controller.text = snapshot.data!;
               return Row(
@@ -65,7 +66,7 @@ class ImagePickerTextField extends StatelessWidget {
                       ),
                     ),
                   ),
-                  if (isImagePicked) ...[
+                  if (isImagePicked || imageUrl != null) ...[
                     const SizedBox(
                       width: Spacing.small,
                     ),
@@ -73,6 +74,8 @@ class ImagePickerTextField extends StatelessWidget {
                       onTap: () => showImageDialog(
                         context,
                         imageBytes: state.imageBytes,
+                        imageUrl: imageUrl,
+                        userToken: state.userToken,
                       ),
                       child: CircleAvatar(
                         radius: MediaQuery.of(context).size.width / 13,
@@ -80,11 +83,13 @@ class ImagePickerTextField extends StatelessWidget {
                         child: CircleAvatar(
                           radius: MediaQuery.of(context).size.width / 13 - 1,
                           backgroundColor: Colors.black,
-                          foregroundImage: MemoryImage(state.imageBytes!),
+                          foregroundImage: isImagePicked
+                              ? MemoryImage(state.imageBytes!) as ImageProvider
+                              : NetworkImage(imageUrl!) as ImageProvider,
                         ),
                       ),
                     ),
-                  ]
+                  ],
                 ],
               );
             });
@@ -148,6 +153,7 @@ void showImageDialog(
   BuildContext context, {
   String? imageUrl,
   Uint8List? imageBytes,
+  String? userToken,
 }) {
   if (imageUrl == null && imageBytes == null) {
     throw Exception('either imageUrl or imageBytes should be provided');
@@ -158,6 +164,7 @@ void showImageDialog(
       return ImageDialog(
         imageUrl: imageUrl,
         imageBytes: imageBytes,
+        userToken: userToken!,
       );
     }),
   );
@@ -168,10 +175,12 @@ class ImageDialog extends StatefulWidget {
     super.key,
     this.imageUrl,
     this.imageBytes,
+    required this.userToken,
   });
 
   final String? imageUrl;
   final Uint8List? imageBytes;
+  final String userToken;
 
   @override
   State<ImageDialog> createState() => _State();
@@ -203,11 +212,13 @@ class _State extends State<ImageDialog> {
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
                   child: widget.imageUrl != null
-                      ? FadeInImage.assetNetwork(
-                          placeholderFit: BoxFit.fill,
-                          placeholder: 'assets/images/logo.png',
-                          image: widget.imageUrl!,
+                      ? Image.network(
+                          widget.imageUrl!,
                           fit: BoxFit.fill,
+                          headers: {
+                            "Authorization": "Bearer ${widget.userToken}",
+                            "X-API-Key": const String.fromEnvironment('x_api_key'),
+                          },
                         )
                       : Image.memory(widget.imageBytes!),
                 ),

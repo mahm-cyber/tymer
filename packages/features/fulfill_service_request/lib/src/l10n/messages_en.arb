@@ -13,6 +13,8 @@
   "serviceRequestFailureMessage": "Failed, try again",
   "backHomeButtonLabel": "Back to Home",
   "serviceFeesContainerLabel": "Service Fees",
-  "awaitingConfirmationButtonLabel": "Awaiting Confirmation"
+  "awaitingConfirmationButtonLabel": "Awaiting Confirmation",
+  "continueWaitingButtonLabel": "Continue Waiting",
+  "provideAnotherServiceButtonLabel": "Provide Another Service"
 
 }

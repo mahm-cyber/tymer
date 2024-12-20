@@ -38,10 +38,12 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
     getPricingSettings();
   }
 
-  void getPricingSettings() async {
+  Future getPricingSettings({
+    FetchPolicy fetchPolicy = FetchPolicy.cachePreferably,
+  }) async {
     try {
       final pricingSettings =
-          await userRepository.getPricingSettings(FetchPolicy.cachePreferably);
+          await userRepository.getPricingSettings(fetchPolicy);
       final minPrice = state.serviceType == ServiceType.reservation
           ? pricingSettings.reservationServiceMinPrice
           : pricingSettings.otherServiceMinPrice;
@@ -328,17 +330,25 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
         emit(newState);
       } catch (error) {
         final newState = state.copyWith(
-          submissionStatus: error is! InsufficientBalanceException
+          submissionStatus: error is! InsufficientBalanceException &&
+                  error is! StaleMinimumPriceException
               ? FormzSubmissionStatus.failure
               : FormzSubmissionStatus.initial,
           error: error,
         );
         emit(newState);
+        if (error is StaleMinimumPriceException) {
+          final loadingPricing = state.copyWith(
+            fetchingPricingSettingsStatus:
+                FetchingPricingSettingsStatus.inProgress,
+          );
+          emit(loadingPricing);
+          await getPricingSettings(fetchPolicy: FetchPolicy.networkOnly);
+        }
       }
     }
   }
 
-  //ondispose
   @override
   Future<void> close() {
     _geoLocationServiceStatusSubscription?.cancel();

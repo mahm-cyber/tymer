@@ -14,6 +14,7 @@ class OrderHistoryScreen extends StatefulWidget {
   const OrderHistoryScreen({
     required this.userRepository,
     required this.serviceRepository,
+    required this.onViewDisputesTapped,
     required this.onCheckServiceRequestStatusTapped,
     required this.navigateToFulfillServiceRequest,
     super.key,
@@ -21,8 +22,10 @@ class OrderHistoryScreen extends StatefulWidget {
 
   final UserRepository userRepository;
   final ServiceRepository serviceRepository;
+  final VoidCallback onViewDisputesTapped;
   final ValueSetter<int> onCheckServiceRequestStatusTapped;
   final VoidCallback navigateToFulfillServiceRequest;
+
   @override
   State<OrderHistoryScreen> createState() => _OrderHistoryScreenState();
 }
@@ -36,10 +39,10 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
       create: (_) => OrderHistoryCubit(
         userRepository: widget.userRepository,
         serviceRepository: widget.serviceRepository,
+        onViewDisputesTapped: widget.onViewDisputesTapped,
         onCheckServiceRequestStatusTapped:
             widget.onCheckServiceRequestStatusTapped,
-        navigateToFulfillServiceRequest:
-            widget.navigateToFulfillServiceRequest,
+        navigateToFulfillServiceRequest: widget.navigateToFulfillServiceRequest,
       ),
       child: const OrderHistoryView(),
     );
@@ -72,6 +75,32 @@ class OrderHistoryView extends StatelessWidget {
           child: Stack(
             children: [
               Scaffold(
+                floatingActionButton: SizedBox(
+                  height: 45,
+                  child: FloatingActionButton.extended(
+                    isExtended: true,
+                    label: Text(
+                      l10n.fabLabel,
+                      style: textTheme.labelLarge?.copyWith(
+                        color: theme.primaryColor,
+                      ),
+                    ),
+                    // shape: const CircleBorder(),
+                    onPressed: cubit.onViewDisputesTapped,
+                    extendedIconLabelSpacing: 0,
+                    extendedPadding: const EdgeInsetsDirectional.only(
+                      end: Spacing.smallMedium,
+                    ),
+                    icon: Transform.scale(
+                      scale: 0.65,
+                      child: const SvgAsset(
+                        AssetPathConstants.chatPath,
+                        // width: 50,
+                        // height: 50,
+                      ),
+                    ),
+                  ),
+                ),
                 appBar: AppBar(
                   title: const SvgAsset(
                     AssetPathConstants.whiteLogoPath,
@@ -83,9 +112,8 @@ class OrderHistoryView extends StatelessWidget {
                 body: Column(
                   children: [
                     VerticalGap.large(),
-                    // VerticalGap.medium(),
                     SizedBox(
-                      height: 50,
+                      height: 45,
                       child: RowBuilder.separated(
                         separatorBuilder: (context, index) =>
                             HorizontalGap.medium(),
@@ -123,7 +151,7 @@ class OrderHistoryView extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 50,
+                      height: 45,
                       child: ListView.separated(
                         separatorBuilder: (context, index) =>
                             HorizontalGap.medium(),
@@ -169,7 +197,8 @@ class OrderHistoryView extends StatelessWidget {
                         onRefresh: cubit.reFetchFirstPage,
                         child: PagedListView.separated(
                           padding: EdgeInsets.symmetric(
-                              horizontal: theme.screenMargin),
+                            horizontal: theme.screenMargin,
+                          ),
                           pagingController:
                               cubit.serviceRequestsPagingController,
                           separatorBuilder: (context, index) =>
@@ -182,16 +211,19 @@ class OrderHistoryView extends StatelessWidget {
                                       1;
                               return Column(
                                 children: [
-                                  if (index == 0) VerticalGap.medium(),
+                                  if (index == 0) VerticalGap.small(),
                                   ServiceRequestCard(
-                                    onTapped: () => cubit
-                                            .onViewServiceRequestDetailsTapped(
-                                            service,
-                                          ),
+                                    onTapped: () =>
+                                        cubit.onViewServiceRequestDetailsTapped(
+                                      service,
+                                    ),
                                     shouldShowRequestStatus: true,
                                     service: service,
                                   ),
-                                  if (isLastItem) VerticalGap.large(),
+                                  if (isLastItem)
+                                    VerticalGap.custom(
+                                      Spacing.xxxLarge + Spacing.small,
+                                    ),
                                 ],
                               );
                             },

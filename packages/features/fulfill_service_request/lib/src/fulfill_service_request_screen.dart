@@ -7,22 +7,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:service_repository/service_repository.dart';
+import 'package:user_repository/user_repository.dart';
 
 import 'components/components.dart';
 
 class FulfillServiceRequestScreen extends StatelessWidget {
   const FulfillServiceRequestScreen({
     required this.serviceRepository,
+    required this.userRepository,
+    required this.onNavigateToProvideService,
     super.key,
   });
 
   final ServiceRepository serviceRepository;
+  final UserRepository userRepository;
+  final VoidCallback onNavigateToProvideService;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<FulfillServiceRequestCubit>(
       create: (_) => FulfillServiceRequestCubit(
         serviceRepository: serviceRepository,
+        userRepository: userRepository,
+        onNavigateToProvideService: onNavigateToProvideService,
       ),
       child: GestureDetector(
         onTap: context.releaseFocus,
@@ -42,6 +49,7 @@ class FulfillServiceRequestView extends StatelessWidget {
     final theme = TymerTheme.of(context);
     final colorScheme = theme.materialThemeData.colorScheme;
     final l10n = FulfillServiceRequestLocalizations.of(context);
+    final clL10n = ComponentLibraryLocalizations.of(context);
     return BlocConsumer<FulfillServiceRequestCubit, FulfillServiceRequestState>(
       listener: (context, state) {
         final cubit = context.read<FulfillServiceRequestCubit>();
@@ -93,6 +101,28 @@ class FulfillServiceRequestView extends StatelessWidget {
             ),
           );
         }
+        if (state.submissionStatus == FormzSubmissionStatus.inProgress) {
+          //dialog asking if they want to provide another service or wait for confirmation
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text(l10n.awaitingConfirmationButtonLabel),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(l10n.continueWaitingButtonLabel),
+                    ),
+                    TextButton(
+                      onPressed: cubit.onNavigateToProvideService,
+                      child: Text(l10n.provideAnotherServiceButtonLabel),
+                    ),
+                  ],
+                );
+              });
+        }
       },
       builder: (context, state) {
         final cubit = context.read<FulfillServiceRequestCubit>();
@@ -119,8 +149,7 @@ class FulfillServiceRequestView extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    VerticalGap.large(),
-                    VerticalGap.small(),
+                    VerticalGap.xLarge(),
                     if (!isRequestFulfilled)
                       Expanded(
                         child: ListView(
@@ -139,14 +168,16 @@ class FulfillServiceRequestView extends StatelessWidget {
                               onChanged: cubit.onDayChanged,
                               error: state.day.error,
                               isSubmissionInProgress: isSubmissionInProgress,
-                              initialValue: state.service?.response?.date,
+                              initialValue:
+                                  state.service?.responseDetails?.date,
                             ),
                             VerticalGap.small(),
                             TimePicker(
                               onChanged: cubit.onTimeChanged,
                               error: state.time.error,
                               isSubmissionInProgress: isSubmissionInProgress,
-                              initialValue: state.service?.response?.time,
+                              initialValue:
+                                  state.service?.responseDetails?.time,
                             ),
                             VerticalGap.small(),
                             const ImagePickerTextField(),
@@ -160,10 +191,11 @@ class FulfillServiceRequestView extends StatelessWidget {
                       Receipt(
                         service: state.service!,
                         onViewServiceOnMap: cubit.onViewServiceOnMap,
+                        userToken: state.userToken,
                       ),
                     VerticalGap.medium(),
                     if (!isRequestFulfilled)
-                      state.submissionStatus == FormzSubmissionStatus.inProgress
+                      isSubmissionInProgress
                           ? TymerElevatedButton.inProgress(
                               label: l10n.awaitingConfirmationButtonLabel,
                             )
@@ -187,8 +219,17 @@ class FulfillServiceRequestView extends StatelessWidget {
             AppBarTitleContainer(
               top: theme.smallAppBarTitleContainerHeight,
               height: 30,
-              title: state.service!.details!.reservedFor ??
-                  state.service!.details!.placeName,
+              widgetTitle: state.service != null
+                  ? ServiceStatusWidget(
+                      color: state.service?.status?.color ?? Colors.black,
+                      label: serviceRequestStatusToLocalizedString(
+                        state.service!.status!,
+                        clL10n,
+                      ),
+                      border: const Border(),
+                    )
+                  : null,
+              title: '',
             ),
           ],
         );

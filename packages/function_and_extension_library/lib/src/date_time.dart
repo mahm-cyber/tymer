@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:function_and_extension_library/function_and_extension_library.dart';
 
 extension FormatedDateTime on DateTime {
   String get formattedDate {
@@ -26,7 +27,6 @@ extension FormatedDateTime on DateTime {
 
     return '$twelveHour:$formattedMinute $period';
   }
-
 }
 
 extension FormattedTimeOfDay on TimeOfDay {
@@ -38,6 +38,23 @@ extension FormattedTimeOfDay on TimeOfDay {
     final formattedHour = hour > 12 ? hour - 12 : hour;
     final amOrPm = hour > 12 ? 'PM' : 'AM';
     return '$formattedHour:$minute $amOrPm';
+  }
+
+  String get twelveHrFormatArabic {
+    //if hour or minute are less than 10 add 9 at the beignning
+    // final hour = this.hour < 10 ? '0${this.hour}' : '${this.hour}';
+    final minute = this.minute < 10 ? '0${this.minute}' : '${this.minute}';
+    // convert to 12 hr format and add am or pm
+    final formattedHour = hour > 12 ? hour - 12 : hour;
+    final formattedHourArabic = formattedHour.latinNumberToArabicString();
+    final minuteArabic = int.parse(minute).latinNumberToArabicString();
+    final amOrPm = hour > 12 ? 'م' : 'ص';
+    return '$minuteArabic:$formattedHourArabic $amOrPm';
+  }
+
+  String localizedTimeOfDay(Locale locale) {
+    final isArabic = locale.languageCode == 'ar';
+    return isArabic ? twelveHrFormatArabic : twelveHrFormat;
   }
 
   String get twentyFourHrFormat {

@@ -7,40 +7,52 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:service_repository/service_repository.dart';
+import 'package:user_repository/user_repository.dart';
 
 part 'fulfill_service_request_state.dart';
 
 class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
   FulfillServiceRequestCubit({
     required this.serviceRepository,
+    required this.userRepository,
+    required this.onNavigateToProvideService,
   })  : _imagePicker = ImagePicker(),
         super(
           FulfillServiceRequestState(
             service: serviceRepository.changeNotifier.serviceRequestDetails,
           ),
         ) {
-    final service = serviceRepository.changeNotifier.serviceRequestDetails;
-    if (service?.status == ServiceStatus.pendingReview) {
-      final awaitingConfirmationState = state.copyWith(
-        submissionStatus: FormzSubmissionStatus.inProgress,
-      );
-      emit(awaitingConfirmationState);
-      serviceRepository
-          .getServiceRequest(requestId: service!.id!)
-          .then((service) {
-        final awaitingConfirmationStateWithResponse = state.copyWith(
-          service: service,
-        );
-        emit(awaitingConfirmationStateWithResponse);
-        pollRequestConfirmation();
-      });
-    }
+    init();
   }
 
   final ServiceRepository serviceRepository;
+  final UserRepository userRepository;
+  final VoidCallback onNavigateToProvideService;
   final StreamController<String> carImageFileNameSC = StreamController();
   final ImagePicker _imagePicker;
   Timer? _awaitRequestConfirmationTimer;
+
+  void init() async {
+    final service = serviceRepository.changeNotifier.serviceRequestDetails;
+    final isPendingReview = service?.status == ServiceStatus.pendingReview;
+    final isCompleted = service?.status == ServiceStatus.completed;
+    if (isPendingReview || isCompleted) {
+      final newState = state.copyWith(
+        submissionStatus:
+            isPendingReview ? FormzSubmissionStatus.inProgress : null,
+      );
+      emit(newState);
+      final freshService =
+          await serviceRepository.getServiceRequest(requestId: service!.id!);
+      final userToken = await userRepository.getUserToken();
+      final newStateWithResponse = state.copyWith(
+        service: freshService,
+        userToken: userToken,
+      );
+      emit(newStateWithResponse);
+      if (isPendingReview) pollRequestConfirmation();
+    }
+  }
 
   void onDayChanged(DateTime? newValue) {
     final newState = state.copyWith(
@@ -241,6 +253,9 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
               additionalDetails: state.additionalDetails,
               imageBytes: state.imageBytes,
               service: state.service,
+              userToken: state.userToken,
+              isImagePickerBottomSheetVisible:
+                  state.isImagePickerBottomSheetVisible,
               submissionStatus: FormzSubmissionStatus.success,
             ),
           );

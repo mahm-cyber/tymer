@@ -351,8 +351,6 @@ class UserRepository {
 
   Future<PricingSettings> _getPricingSettingsFromNetwork() async {
     try {
-      final token = await getUserToken();
-      debugPrint('getPricingSettingsToken: $token');
       final pricingSettingsRM = await remoteApi.getPricingSettings();
       final pricingSettingsDM = pricingSettingsRM.toDomainModel();
       final pricingSettingsCM = pricingSettingsRM.toCacheModel();

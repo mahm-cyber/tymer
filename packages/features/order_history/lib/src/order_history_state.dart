@@ -7,7 +7,7 @@ class OrderHistoryState extends Equatable {
     this.nextListPageLoadError,
     this.serviceRequestsFetchStatus = FetchStatus.initial,
     this.userTypeFilter = UserType.requester,
-    this.statusFilter = ServiceStatus.completed,
+    this.statusFilter = ServiceStatus.pendingReview,
   });
 
   final List<Service>? serviceRequests;
@@ -20,17 +20,17 @@ class OrderHistoryState extends Equatable {
   List<ServiceStatus> get serviceStatusFilters =>
       userTypeFilter == UserType.requester
           ? [
+              ServiceStatus.pendingReview,
               ServiceStatus.pending,
               ServiceStatus.inProgress,
               ServiceStatus.completed,
               ServiceStatus.canceled,
-              ServiceStatus.pendingReview,
             ]
           : [
+              ServiceStatus.pendingReview,
               ServiceStatus.inProgress,
               ServiceStatus.completed,
-              ServiceStatus.canceled,
-              ServiceStatus.pendingReview,
+              // ServiceStatus.canceled,
             ];
 
   OrderHistoryState copyWith({

@@ -43,7 +43,7 @@ class ServiceRepository {
           coordinates.longitude,
         ],
       ),
-      details: ServiceDetails(
+      requestDetails: ServiceRequestDetails(
         placeName: placeName,
         placeAddress: placeAddress,
         reservedFor: reservedFor,
@@ -61,6 +61,9 @@ class ServiceRepository {
     } catch (error) {
       if (error is InsufficientBalanceTymerException) {
         throw InsufficientBalanceException();
+      }
+      if (error is StaleMinimumPriceTymerException) {
+        throw StaleMinimumPriceException();
       }
       rethrow;
     }

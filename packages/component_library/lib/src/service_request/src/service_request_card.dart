@@ -1,6 +1,7 @@
 import 'package:domain_models/domain_models.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
+import 'package:function_and_extension_library/function_and_extension_library.dart';
 
 class ServiceRequestCard extends StatelessWidget {
   const ServiceRequestCard({
@@ -10,6 +11,7 @@ class ServiceRequestCard extends StatelessWidget {
     this.dispute,
     this.shouldShowRequestStatus = false,
     this.height = 100,
+    this.shouldShowId = false,
   });
 
   final VoidCallback onTapped;
@@ -17,6 +19,7 @@ class ServiceRequestCard extends StatelessWidget {
   final Dispute? dispute;
   final bool shouldShowRequestStatus;
   final double height;
+  final bool shouldShowId;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +27,7 @@ class ServiceRequestCard extends StatelessWidget {
     final theme = TymerTheme.of(context);
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = theme.materialThemeData.colorScheme;
+    final locale = Localizations.localeOf(context);
     return GestureDetector(
       onTap: onTapped,
       child: Container(
@@ -49,7 +53,8 @@ class ServiceRequestCard extends StatelessWidget {
                       (2 * theme.screenMargin) -
                       170,
                   child: Text(
-                    service.details!.reservedFor ?? service.details!.placeName,
+                    service.requestDetails!.reservedFor ??
+                        service.requestDetails!.placeName,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: textTheme.titleMedium?.copyWith(
@@ -69,7 +74,7 @@ class ServiceRequestCard extends StatelessWidget {
                       Text(
                         l10n.distanceToServiceLocation(
                           service.distanceBetweenProviderAndServiceLocation!
-                              .toStringAsFixed(0),
+                              .localizeDouble(locale),
                         ),
                         style: textTheme.bodyMedium?.copyWith(
                           color: colorScheme.secondary,
@@ -88,7 +93,7 @@ class ServiceRequestCard extends StatelessWidget {
                     ),
                     HorizontalGap.medium(),
                     Text(
-                      '${service.price!.toStringAsFixed(0)} EGP',
+                      '${service.price!.localizeDouble(locale)} ${l10n.eyptianPoundLetters}',
                       style: textTheme.bodyMedium?.copyWith(
                         color: colorScheme.secondary,
                         fontWeight: FontWeight.bold,
@@ -103,19 +108,29 @@ class ServiceRequestCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  DisputeStatusWidget(
+                  ServiceStatusWidget(
                     color: service.status?.color ?? Colors.black,
                     label: serviceRequestStatusToLocalizedString(
-                        service.status!, l10n),
+                      service.status!,
+                      l10n,
+                    ),
                   ),
                   if (dispute != null) ...[
                     const Spacer(),
-                    DisputeStatusWidget(
+                    ServiceStatusWidget(
                       color: dispute?.status.color ?? Colors.black,
                       label:
                           disputeStatusToLocalizedString(dispute!.status, l10n),
                     ),
                   ],
+                  const Spacer(),
+                  SelectableText(
+                    '# ${service.id?.localizeInt(locale)}',
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: colorScheme.secondary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
               // StatusWidget(

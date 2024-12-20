@@ -1,6 +1,7 @@
 import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
+import 'package:function_and_extension_library/function_and_extension_library.dart';
 
 class ServiceRequestDetailsWidget extends StatelessWidget {
   const ServiceRequestDetailsWidget({
@@ -16,7 +17,7 @@ class ServiceRequestDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final serviceDetails = service.details;
+    final serviceDetails = service.requestDetails;
     final hasEitherDate =
         serviceDetails?.date != null || serviceDetails?.reservationDate != null;
     final date = hasEitherDate
@@ -30,6 +31,7 @@ class ServiceRequestDetailsWidget extends StatelessWidget {
     final theme = TymerTheme.of(context);
     final l10n = ComponentLibraryLocalizations.of(context);
     final isArabic = Localizations.localeOf(context).languageCode == 'ar';
+    final locale = Localizations.localeOf(context);
     return ListView(
       padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
       physics: physics,
@@ -67,7 +69,7 @@ class ServiceRequestDetailsWidget extends StatelessWidget {
         if (hasEitherDate) ...[
           TextFormField(
             enableInteractiveSelection: true,
-            initialValue: date!.toIso8601String().split('T').first,
+            initialValue: (date!.toIso8601String().split('T').first).localizeDateString(locale),
             enabled: false,
             decoration: InputDecoration(
               labelText: l10n.dateTextFieldLabel,
@@ -81,7 +83,7 @@ class ServiceRequestDetailsWidget extends StatelessWidget {
         if (hasEitherTime) ...[
           TextFormField(
             enableInteractiveSelection: true,
-            initialValue: time!.format(context),
+            initialValue: time!.localizedTimeOfDay(locale),
             enabled: false,
             decoration: InputDecoration(
               labelText: l10n.timeTextFieldLabel,
@@ -148,7 +150,8 @@ class ServiceRequestDetailsWidget extends StatelessWidget {
         VerticalGap.small(),
         TextFormField(
           enableInteractiveSelection: true,
-          initialValue: '${service.price!.toStringAsFixed(0)} EGP',
+          initialValue:
+              '${service.price!.localizeDouble(locale)} ${l10n.eyptianPoundLetters}',
           enabled: false,
           decoration: InputDecoration(
             labelText: l10n.priceTextFieldLabel,
@@ -194,7 +197,7 @@ class ServiceRequestDetailsExpansionTile extends StatelessWidget {
 
     return ExpansionTile(
       title: Text(
-        l10n.serviceDetailsTitle,
+        l10n.serviceRequestDetailsTileTitle,
         style: textTheme.titleMedium,
       ),
       collapsedShape: RoundedRectangleBorder(

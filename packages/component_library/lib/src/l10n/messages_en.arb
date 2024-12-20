@@ -20,6 +20,7 @@
   "lowPriorityTileTitle": "Low Priority",
   "lastModifiedTileTitle": "Last Modified",
   "emptyActivityLogListIndicator": "No activity logs available",
+
   "tabOneName": "Activity Log",
   "tabTwoName": "Notes",
   "tabThreeName": "Tasks",
@@ -118,7 +119,7 @@
   },
   "myLocationInfoWindowTitle": "My Location",
   "viewOnMapButtonLabel": "View",
-  "serviceDetailsTitle": "Request Details",
+  "serviceRequestDetailsTileTitle": "Request Details",
   "pendingServiceRequestStatus": "Pending",
   "inProgressServiceRequestStatus": "In Progress",
   "completedServiceRequestStatus": "Completed",
@@ -137,7 +138,12 @@
   "serviceTotalPriceContainerLabel": "Service Total Price",
   "openFileSnackBarActionLabel": "Open File",
   "downloadSuccessSnackBarMessage": "Download completed successfully!",
-  "downloadFailedSnackBarMessage": "Download failed. Please try again."
+  "downloadFailedSnackBarMessage": "Download failed. Please try again.",
+  "reservationNumberTextFieldLabel": "Reservation Number",
+  "additionalNotesTextFieldLabel": "Additional Notes",
+  "serviceResponseDetailsTileTitle": "Response Details",
+  "eyptianPoundLetters": "EGP"
+
 
 
 }

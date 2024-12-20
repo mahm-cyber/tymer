@@ -18,6 +18,8 @@ dependencies:
   domain_models:
     path: ../../domain_models
 
+  function_and_extension_library:
+    path: ../../function_and_extension_library
   service_repository:
     path: ../../service_repository
   user_repository:

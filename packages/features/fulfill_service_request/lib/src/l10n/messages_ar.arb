@@ -14,7 +14,9 @@
   "serviceRequestFailureMessage": "فشل، حاول مرة أخرى",
   "backHomeButtonLabel": "العودة إلى الصفحة الرئيسية",
   "serviceFeesContainerLabel": "رسوم الخدمة",
-  "awaitingConfirmationButtonLabel": "جارى التأكيد"
+  "awaitingConfirmationButtonLabel": "جارى التأكيد",
+  "continueWaitingButtonLabel": "متابعة الانتظار",
+  "provideAnotherServiceButtonLabel": "تقديم خدمة أخرى"
 
 
 

@@ -129,8 +129,6 @@ Map<String, PageBuilder> buildRoutingTable({
                 routerDelegate.push(_PathConstants.chooseServicePath),
             onProvideServiceTapped: () =>
                 routerDelegate.push(_PathConstants.provideServicePath),
-            onViewDisputesTapped: () =>
-                routerDelegate.push(_PathConstants.disputesPath),
           ),
         ),
     _PathConstants.disputesPath: (_) => MaterialPage(
@@ -171,6 +169,8 @@ Map<String, PageBuilder> buildRoutingTable({
           child: OrderHistoryScreen(
             userRepository: userRepository,
             serviceRepository: serviceRepository,
+            onViewDisputesTapped: () =>
+                routerDelegate.push(_PathConstants.disputesPath),
             onCheckServiceRequestStatusTapped: (requestId) =>
                 routerDelegate.push(
               _PathConstants.serviceRequestStatusPath(requestId: requestId),
@@ -302,6 +302,12 @@ Map<String, PageBuilder> buildRoutingTable({
           name: 'fulfill-service-request',
           child: FulfillServiceRequestScreen(
             serviceRepository: serviceRepository,
+            userRepository: userRepository,
+            onNavigateToProvideService: () async {
+              await routerDelegate
+                  .popUntil((route) => route.path == _PathConstants.homePath);
+              routerDelegate.push(_PathConstants.provideServicePath);
+            },
           ),
         ),
   };

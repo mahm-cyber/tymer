@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ServiceResponse {
-  const ServiceResponse({
+class ServiceResponseDetails {
+  const ServiceResponseDetails({
     this.reservationNumber,
     this.date,
     this.time,

@@ -725,11 +725,11 @@ abstract class ComponentLibraryLocalizations {
   /// **'View'**
   String get viewOnMapButtonLabel;
 
-  /// No description provided for @serviceDetailsTitle.
+  /// No description provided for @serviceRequestDetailsTileTitle.
   ///
   /// In en, this message translates to:
   /// **'Request Details'**
-  String get serviceDetailsTitle;
+  String get serviceRequestDetailsTileTitle;
 
   /// No description provided for @pendingServiceRequestStatus.
   ///
@@ -844,6 +844,30 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'Download failed. Please try again.'**
   String get downloadFailedSnackBarMessage;
+
+  /// No description provided for @reservationNumberTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation Number'**
+  String get reservationNumberTextFieldLabel;
+
+  /// No description provided for @additionalNotesTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Additional Notes'**
+  String get additionalNotesTextFieldLabel;
+
+  /// No description provided for @serviceResponseDetailsTileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Response Details'**
+  String get serviceResponseDetailsTileTitle;
+
+  /// No description provided for @eyptianPoundLetters.
+  ///
+  /// In en, this message translates to:
+  /// **'EGP'**
+  String get eyptianPoundLetters;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

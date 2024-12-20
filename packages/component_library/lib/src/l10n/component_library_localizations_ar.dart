@@ -324,7 +324,7 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
   String get viewOnMapButtonLabel => 'عرض';
 
   @override
-  String get serviceDetailsTitle => 'تفاصيل الطلب';
+  String get serviceRequestDetailsTileTitle => 'تفاصيل الطلب';
 
   @override
   String get pendingServiceRequestStatus => 'قيد الانتظار';
@@ -382,4 +382,16 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get downloadFailedSnackBarMessage => 'حدث حطأ. يرجى المحاولة مرة أخرى.';
+
+  @override
+  String get reservationNumberTextFieldLabel => 'رقم الحجز';
+
+  @override
+  String get additionalNotesTextFieldLabel => 'ملاحظات إضافية';
+
+  @override
+  String get serviceResponseDetailsTileTitle => 'تفاصيل الرد';
+
+  @override
+  String get eyptianPoundLetters => 'ج.م';
 }

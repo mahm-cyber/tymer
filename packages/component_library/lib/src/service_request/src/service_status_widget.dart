@@ -2,15 +2,17 @@ import 'package:domain_models/domain_models.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 
-class DisputeStatusWidget extends StatelessWidget {
-  const DisputeStatusWidget({
+class ServiceStatusWidget extends StatelessWidget {
+  const ServiceStatusWidget({
     super.key,
     required this.color,
     required this.label,
+    this.border,
   });
 
   final Color color;
   final String label;
+  final Border? border;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class DisputeStatusWidget extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        border: Border.all(
+        border: border??Border.all(
           width: 1,
           color: color,
         ),
@@ -78,9 +80,9 @@ String userTypeToLocalizedString(
 }
 
 String disputeStatusToLocalizedString(
-    DisputeStatus disputeStatus,
-    ComponentLibraryLocalizations l10n,
-    ) {
+  DisputeStatus disputeStatus,
+  ComponentLibraryLocalizations l10n,
+) {
   switch (disputeStatus) {
     case DisputeStatus.pendingReview:
       return l10n.pendingReviewDisputeStatus;

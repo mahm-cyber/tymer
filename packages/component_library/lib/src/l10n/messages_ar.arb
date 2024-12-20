@@ -118,7 +118,7 @@
   },
   "myLocationInfoWindowTitle": "موقعي",
   "viewOnMapButtonLabel": "عرض",
-  "serviceDetailsTitle": "تفاصيل الطلب",
+  "serviceRequestDetailsTileTitle": "تفاصيل الطلب",
   "pendingServiceRequestStatus": "قيد الانتظار",
   "inProgressServiceRequestStatus": "جارى التنفيذ",
   "completedServiceRequestStatus": "مكتمل",
@@ -137,7 +137,12 @@
   "serviceTotalPriceContainerLabel": "إجمالي سعر الخدمة",
   "openFileSnackBarActionLabel": "فتح الملف",
   "downloadSuccessSnackBarMessage": "تم تحميل الملف بنجاح!",
-  "downloadFailedSnackBarMessage": "حدث حطأ. يرجى المحاولة مرة أخرى."
+  "downloadFailedSnackBarMessage": "حدث حطأ. يرجى المحاولة مرة أخرى.",
+  "reservationNumberTextFieldLabel": "رقم الحجز",
+  "additionalNotesTextFieldLabel": "ملاحظات إضافية",
+  "serviceResponseDetailsTileTitle": "تفاصيل الرد",
+  "eyptianPoundLetters": "ج.م"
+
 
 
 }

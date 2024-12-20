@@ -14,7 +14,7 @@ extension RequestServiceDMtoRM on Service {
 
   RequestServiceRM toRemoteModel() {
     //2024-10-14 in this format
-    final dateRM = details!.date?.formattedDate;
+    final dateRM = requestDetails!.date?.formattedDate;
     final serviceTypeRM = serviceTypeDMtoRM(type);
     return RequestServiceRM(
       type: serviceTypeRM,
@@ -24,21 +24,21 @@ extension RequestServiceDMtoRM on Service {
         coordinates: location.coordinates,
       ),
       details: ServiceRequestDetailsRM(
-        placeName: details!.placeName,
-        placeAddress: details!.placeAddress,
-        reservedFor: details!.reservedFor,
+        placeName: requestDetails!.placeName,
+        placeAddress: requestDetails!.placeAddress,
+        reservedFor: requestDetails!.reservedFor,
         reservationDate: type == ServiceType.reservation ? dateRM : null,
-        reservationTime: type == ServiceType.reservation
-            ? details!.time!.twentyFourHrFormat
+        reservationTime: type == ServiceType.reservation && requestDetails!.time != null
+            ? requestDetails!.time!.twentyFourHrFormat
             : null,
         detailsDate: type == ServiceType.other ? dateRM : null,
-        detailsTime: type == ServiceType.other
-            ? details!.time!.twentyFourHrFormat
+        detailsTime: type == ServiceType.other&& requestDetails!.time != null
+            ? requestDetails!.time!.twentyFourHrFormat
             : null,
         reservationServiceCategoryId: type == ServiceType.reservation
-            ? details!.reservationServiceCategory!.id
+            ? requestDetails!.reservationServiceCategory!.id
             : null,
-        additionalComments: details!.additionalComments,
+        additionalComments: requestDetails!.additionalComments,
       ),
     );
   }

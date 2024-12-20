@@ -184,6 +184,18 @@ abstract class FulfillServiceRequestLocalizations {
   /// In en, this message translates to:
   /// **'Awaiting Confirmation'**
   String get awaitingConfirmationButtonLabel;
+
+  /// No description provided for @continueWaitingButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue Waiting'**
+  String get continueWaitingButtonLabel;
+
+  /// No description provided for @provideAnotherServiceButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Provide Another Service'**
+  String get provideAnotherServiceButtonLabel;
 }
 
 class _FulfillServiceRequestLocalizationsDelegate extends LocalizationsDelegate<FulfillServiceRequestLocalizations> {
