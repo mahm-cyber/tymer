@@ -95,7 +95,7 @@ class _DownloadWidgetState extends State<DownloadWidget> {
         options: Options(
           headers: {
             "Authorization": "Bearer ${widget.userToken}",
-            "X-API-Key": const String.fromEnvironment('x_api_key'),
+            "X-API-Key": const String.fromEnvironment('x-api-key'),
           },
         ),
         savePath,

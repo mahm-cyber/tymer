@@ -99,7 +99,7 @@ class DisputeChatView extends StatelessWidget {
                         messages: state.messages!,
                         imageHeaders: {
                           "Authorization": "Bearer ${state.userToken}",
-                          "X-API-Key": const String.fromEnvironment('x_api_key'),
+                          "X-API-Key": const String.fromEnvironment('x-api-key'),
                         },
                         imageMessageBuilder: (
                           types.ImageMessage imageMessage, {
@@ -118,7 +118,7 @@ class DisputeChatView extends StatelessWidget {
                                     "Authorization":
                                         "Bearer ${state.userToken}",
                                     "X-API-Key":
-                                        const String.fromEnvironment('x_api_key'),
+                                        const String.fromEnvironment('x-api-key'),
                                   },
                                 );
                         },

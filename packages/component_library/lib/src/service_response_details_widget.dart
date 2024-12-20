@@ -95,7 +95,7 @@ class ServiceResponseDetailsWidget extends StatelessWidget {
                           headers: {
                             "Authorization": "Bearer $userToken",
                             "X-API-Key":
-                                const String.fromEnvironment('x_api_key'),
+                                const String.fromEnvironment('x-api-key'),
                           },
                         ),
                       ),

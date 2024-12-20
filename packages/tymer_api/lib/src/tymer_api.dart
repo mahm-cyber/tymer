@@ -597,7 +597,7 @@ extension on Dio {
               "Accept": "application/json",
               // if (token != null) "Authorization": "Bearer 213|kjjsOyXpt2rxcZkVgnMJGmAOD26r0uIolCJqn8YNd4065eds",
               if (token != null) "Authorization": "Bearer $token",
-              "X-API-Key": const String.fromEnvironment('x_api_key'),
+              "X-API-Key": const String.fromEnvironment('x-api-key'),
             },
           );
 

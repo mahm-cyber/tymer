@@ -217,7 +217,7 @@ class _State extends State<ImageDialog> {
                           fit: BoxFit.fill,
                           headers: {
                             "Authorization": "Bearer ${widget.userToken}",
-                            "X-API-Key": const String.fromEnvironment('x_api_key'),
+                            "X-API-Key": const String.fromEnvironment('x-api-key'),
                           },
                         )
                       : Image.memory(widget.imageBytes!),

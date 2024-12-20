@@ -30,7 +30,7 @@ class OrderHistoryState extends Equatable {
               ServiceStatus.pendingReview,
               ServiceStatus.inProgress,
               ServiceStatus.completed,
-              // ServiceStatus.canceled,
+              ServiceStatus.canceled,
             ];
 
   OrderHistoryState copyWith({

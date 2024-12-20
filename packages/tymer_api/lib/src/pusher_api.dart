@@ -107,7 +107,7 @@ class PusherApi {
           authEndPoint: 'https://api.tymer-eg.com/api/v1/auth/broadcasting',
           authHeaders: {
             'Authorization': 'Bearer $token',
-            'X-API-Key': const String.fromEnvironment('x_api_key'),
+            'X-API-Key': const String.fromEnvironment('x-api-key'),
             // 'Content-Type': 'application/json',
             'Accept': 'application/json',
           },
