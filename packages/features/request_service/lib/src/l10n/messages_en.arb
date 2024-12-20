@@ -16,7 +16,8 @@
   "addFundsButtonLabel": "Go to Wallet",
     "successfulServiceRequestMessage": "Request successfully submitted",
     "selectServiceTypeLabel": "Select Service Type",
-    "additionalCommentsTextFieldLabel": "Additional Details"
+    "additionalCommentsTextFieldLabel": "Additional Details",
+    "loadMinPricingButtonLabel": "Reload Min Pricing"
 
 
 

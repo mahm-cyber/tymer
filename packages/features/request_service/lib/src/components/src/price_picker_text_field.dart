@@ -6,6 +6,7 @@ import 'package:form_fields/form_fields.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:request_service/src/l10n/request_service_localizations.dart';
 import 'package:request_service/src/request_service_cubit.dart';
+import 'package:user_repository/user_repository.dart';
 
 class PricePickerTextField extends StatelessWidget {
   const PricePickerTextField({super.key});
@@ -27,6 +28,8 @@ class PricePickerTextField extends StatelessWidget {
             : state.pricingSettings!.reservationServiceMinPrice;
         final loadingPricing = state.fetchingPricingSettingsStatus ==
             FetchingPricingSettingsStatus.inProgress;
+        // final errorLoadingMinPricing =
+        //     state.error is StaleMinimumPriceException;
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
           child: loadingPricing
@@ -37,6 +40,13 @@ class PricePickerTextField extends StatelessWidget {
                     backgroundColor: Colors.white,
                   ),
                 )
+              /*: errorLoadingMinPricing
+                  ? TymerElevatedButton(
+                      label: 'l10n.loadMinPricingButtonLabel',
+                      onTap: () => cubit.getPricingSettings(
+                        fetchPolicy: FetchPolicy.networkOnly,
+                      ),
+                    )*/
               : TextField(
                   controller: TextEditingController(
                     text:

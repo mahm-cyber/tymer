@@ -87,6 +87,10 @@ class RequestServiceView extends StatelessWidget {
             state.locationPickingInProgress == true;
         final isReservationServiceType =
             state.serviceType == ServiceType.reservation;
+        final errorLoadingDependencies =
+            state.error is StaleMinimumPriceException;
+
+        final cubit = context.read<RequestServiceCubit>();
 
         return GestureDetector(
           onTap: context.releaseFocus,
@@ -101,15 +105,13 @@ class RequestServiceView extends StatelessWidget {
                   toolbarHeight: 70,
                   iconTheme: IconThemeData(color: colorScheme.surface),
                 ),
-                body: loadingReservationServiceTypes || loadingPriceSettings
-                    ? const CenteredCircularProgressIndicator()
-                    : Column(
-                        children: [
-                          const FormFields(),
-                          const RequestServiceButton(),
-                          VerticalGap.small(),
-                        ],
-                      ),
+                body: Column(
+                  children: [
+                    const FormFields(),
+                    const RequestServiceButton(),
+                    VerticalGap.small(),
+                  ],
+                ),
               ),
               AppBarTitleContainer(
                 top: theme.smallAppBarTitleContainerHeight,
