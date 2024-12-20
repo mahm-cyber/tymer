@@ -23,28 +23,17 @@ class _FormFieldsState extends State<FormFields>
     super.build(context);
     return BlocBuilder<RequestServiceCubit, RequestServiceState>(
       builder: (context, state) {
-        final loadingReservationServiceTypes =
-            state.reservationServiceTypes == null;
         final isReservationService =
             state.serviceType == ServiceType.reservation;
         final cubit = context.read<RequestServiceCubit>();
         final theme = TymerTheme.of(context);
-
         return Expanded(
           child: ListView(
             children: [
               VerticalGap.xLarge(),
               VerticalGap.medium(),
               if (isReservationService) ...[
-                loadingReservationServiceTypes
-                    ? SizedBox(
-                        height: 55,
-                        child: LinearProgressIndicator(
-                          color: Colors.grey.withAlpha((255 * 0.3).toInt()),
-                          backgroundColor: Colors.white,
-                        ),
-                      )
-                    : const ReservationServiceTypePicker(),
+                const ReservationServiceTypePicker(),
                 VerticalGap.small(),
                 const ReservationNameTextField(),
                 VerticalGap.small(),

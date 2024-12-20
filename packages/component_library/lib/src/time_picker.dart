@@ -115,7 +115,7 @@ class _TimePickerState extends State<TimePicker> {
                   color: colorScheme.onSurface,
                 ),
                 decoration: InputDecoration(
-                  fillColor: colorScheme.surface,
+                  fillColor: widget.isSubmissionInProgress? null:colorScheme.surface,
                   disabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: widget.error != null
