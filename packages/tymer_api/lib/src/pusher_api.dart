@@ -14,8 +14,8 @@ class PusherApi {
   )   : disputeChatMessageSC = BehaviorSubject(),
         disputeStatusSC = BehaviorSubject();
 
-  final BehaviorSubject<DisputeMessageRM> disputeChatMessageSC;
-  final BehaviorSubject<String> disputeStatusSC;
+  final BehaviorSubject<DisputeMessageRM?> disputeChatMessageSC;
+  final BehaviorSubject<String?> disputeStatusSC;
   Echo<pusher.PusherClient, PusherChannel>? _echo;
   final UserTokenSupplier userTokenSupplier;
 

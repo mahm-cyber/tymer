@@ -1,54 +1,74 @@
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:rxdart/rxdart.dart';
 
 class ServiceChangeNotifier with ChangeNotifier, EquatableMixin {
   ServiceChangeNotifier();
 
-  final ValueNotifier<ServiceType?> _serviceType = ValueNotifier(null);
-  final ValueNotifier<Service?> _serviceRequestDetails = ValueNotifier(null);
-  final ValueNotifier<UserType?> _disputeChatUserType = ValueNotifier(null);
-  final ValueNotifier<Dispute?> currentDispute = ValueNotifier(null);
-  BehaviorSubject<DisputeMessage> chatSubject  = BehaviorSubject<DisputeMessage>();
+  final ValueNotifier<ServiceType?> _serviceTypeVN = ValueNotifier(null);
+  final ValueNotifier<Service?> _serviceRequestDetailsVN = ValueNotifier(null);
+  final ValueNotifier<UserType?> _disputeChatUserTypeVN = ValueNotifier(null);
+  final ValueNotifier<Dispute?> _currentDisputeVN = ValueNotifier(null);
+  final ValueNotifier<DisputeMessage?> _chatMessageVN  = ValueNotifier(null);
+  final ValueNotifier<bool?> _shouldReFetchDisputesVN = ValueNotifier(null);
 
-
-  dynamic get serviceType => _serviceType.value;
+  dynamic get serviceType => _serviceTypeVN.value;
   void setServiceType(ServiceType serviceType) {
-    _serviceType.value = serviceType;
+    _serviceTypeVN.value = serviceType;
     notifyListeners();
   }
   Future clearServiceType() async {
-    _serviceType.value = null;
+    _serviceTypeVN.value = null;
     notifyListeners();
   }
 
-  Service? get serviceRequestDetails => _serviceRequestDetails.value;
+  Service? get serviceRequestDetails => _serviceRequestDetailsVN.value;
   void setServiceRequest(Service serviceRequestDetails) {
-    _serviceRequestDetails.value = serviceRequestDetails;
+    _serviceRequestDetailsVN.value = serviceRequestDetails;
     notifyListeners();
   }
   Future clearServiceRequest() async {
-    _serviceRequestDetails.value = null;
+    _serviceRequestDetailsVN.value = null;
     notifyListeners();
   }
 
-  UserType? get disputeChatUserType => _disputeChatUserType.value;
+  UserType? get disputeChatUserType => _disputeChatUserTypeVN.value;
   void setDisputeChatUserType(UserType userType) {
-    _disputeChatUserType.value = userType;
+    _disputeChatUserTypeVN.value = userType;
     notifyListeners();
   }
   Future clearDisputeChatUserType() async {
-    _disputeChatUserType.value = null;
+    _disputeChatUserTypeVN.value = null;
     notifyListeners();
   }
 
+  Dispute? get currentDispute => _currentDisputeVN.value;
   Future setCurrentDispute(Dispute? dispute) async{
-    currentDispute.value = dispute;
+    _currentDisputeVN.value = dispute;
     notifyListeners();
   }
-  Future clearCurrentDisputeType() async {
-    currentDispute.value = null;
+  Future clearCurrentDispute() async {
+    _currentDisputeVN.value = null;
+    notifyListeners();
+  }
+
+  DisputeMessage? get chatMessage => _chatMessageVN.value;
+  void setChatMessage(DisputeMessage? message) {
+    _chatMessageVN.value = message;
+    notifyListeners();
+  }
+  Future clearChatMessage() async {
+    _chatMessageVN.value = null;
+    notifyListeners();
+  }
+
+  bool? get shouldReFetchDisputes => _shouldReFetchDisputesVN.value;
+  void setShouldReFetchDisputes(bool shouldReFetchDisputes) {
+    _shouldReFetchDisputesVN.value = shouldReFetchDisputes;
+    notifyListeners();
+  }
+  Future clearShouldReFetchDisputes() async {
+    _shouldReFetchDisputesVN.value = null;
     notifyListeners();
   }
 
@@ -57,8 +77,8 @@ class ServiceChangeNotifier with ChangeNotifier, EquatableMixin {
   @override
   List<Object?> get props => [
         currentDispute,
-        _serviceType,
-        _serviceRequestDetails,
-        _disputeChatUserType,
+        _serviceTypeVN,
+        _serviceRequestDetailsVN,
+        _disputeChatUserTypeVN,
       ];
 }

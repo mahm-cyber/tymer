@@ -21,7 +21,7 @@ class ChatCubit extends Cubit<ChatState> {
   })  : _imagePicker = ImagePicker(),
         super(
           ChatState(
-            dispute: serviceRepository.changeNotifier.currentDispute.value,
+            dispute: serviceRepository.changeNotifier.currentDispute,
           ),
         ) {
     init();
@@ -33,7 +33,6 @@ class ChatCubit extends Cubit<ChatState> {
   final ImagePicker _imagePicker;
   final TextEditingController messageController = TextEditingController();
   final int disputeId;
-  StreamSubscription<DisputeMessage?>? _chatSubscription;
 
   Future init() async {
     await getChat();
@@ -43,22 +42,23 @@ class ChatCubit extends Cubit<ChatState> {
     });
     final user = await userRepository.getUser().first;
     serviceRepository.initializeChatStream(user!, disputeId);
-    _chatSubscription = serviceRepository.changeNotifier.chatSubject.stream
-        .listen(_chatSubjectCallBack);
+    serviceRepository.changeNotifier.addListener(_chatSubjectCallBack);
+
     serviceRepository.initializeDisputeResolutionStream();
-    serviceRepository.changeNotifier.currentDispute
-        .addListener(_currentDisputeCallBack);
+    serviceRepository.changeNotifier.addListener(_currentDisputeCallBack);
+
+    serviceRepository.changeNotifier.addListener(_shouldReFetchDisputesCallBack);
   }
 
-  void _chatSubjectCallBack(DisputeMessage message) {
-    final isDummyMessage = message.id == -1;
-    if (isDummyMessage) return;
+  void _chatSubjectCallBack() {
+    final chatMessage = serviceRepository.changeNotifier.chatMessage;
+    if (chatMessage == null) return;
     final isFirstMessage = state.dateGroupedMessages == null ||
         state.dateGroupedMessages?.list.isEmpty == true;
     if (isFirstMessage) {
       final newGroupedMessages = DateGroupedMessages(
-        date: message.date,
-        messages: [message],
+        date: chatMessage.date,
+        messages: [chatMessage],
       );
       final groupedMessagesUpdated = DateGroupedMessagesList(
         list: [newGroupedMessages],
@@ -74,12 +74,12 @@ class ChatCubit extends Cubit<ChatState> {
 
     final lastDateGroupedMessages = state.dateGroupedMessages?.list.last;
     final lastDate = lastDateGroupedMessages?.date;
-    final newDate = message.date;
+    final newDate = chatMessage.date;
     final isSameDay = lastDate?.year == newDate.year &&
         lastDate?.month == newDate.month &&
         lastDate?.day == newDate.day;
     final messageAlreadyExists = lastDateGroupedMessages?.messages.any(
-      (element) => element.id == message.id,
+      (element) => element.id == chatMessage.id,
     );
     if (messageAlreadyExists == true) return;
 
@@ -87,7 +87,7 @@ class ChatCubit extends Cubit<ChatState> {
       final lastGroupedMessagesUpdated = lastDateGroupedMessages?.copyWith(
         messages: [
           ...lastDateGroupedMessages.messages,
-          message,
+          chatMessage,
         ],
       );
       final groupedMessagesUpdated = state.dateGroupedMessages?.copyWith(
@@ -100,13 +100,15 @@ class ChatCubit extends Cubit<ChatState> {
       final updatedState = state.copyWith(
         dateGroupedMessages: groupedMessagesUpdated,
       );
-      emit(const ChatState());
-      emit(updatedState);
-      jumpToBottomOfChat();
+      if (!isClosed) {
+        emit(const ChatState());
+        emit(updatedState);
+        jumpToBottomOfChat();
+      }
     } else {
       final newGroupedMessages = DateGroupedMessages(
         date: newDate,
-        messages: [message],
+        messages: [chatMessage],
       );
       final groupedMessagesUpdated = state.dateGroupedMessages?.copyWith(
         list: [
@@ -125,11 +127,21 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   void _currentDisputeCallBack() {
-    final dispute = serviceRepository.changeNotifier.currentDispute.value;
+    final dispute = serviceRepository.changeNotifier.currentDispute;
     final newState = state.copyWith(
       dispute: dispute,
     );
     if (!isClosed) emit(newState);
+    serviceRepository.changeNotifier.setShouldReFetchDisputes(true);
+    serviceRepository.changeNotifier.clearShouldReFetchDisputes();
+
+  }
+
+  void _shouldReFetchDisputesCallBack() {
+    final shouldReFetchDisputes = serviceRepository.changeNotifier.shouldReFetchDisputes;
+    if (shouldReFetchDisputes == true) {
+      getChat();
+    }
   }
 
   // get ticket_messages
@@ -253,8 +265,6 @@ class ChatCubit extends Cubit<ChatState> {
     emit(newState);
   }
 
-  // Stream<DateGroupedChats> get chatStream => serviceRepository.chatStream();
-
   void openFileInExternalApp(String url) async {
     if (await canLaunchUrl(Uri.parse(url))) {
       launchUrl(
@@ -308,15 +318,22 @@ class ChatCubit extends Cubit<ChatState> {
 
   @override
   Future<void> close() {
-    _chatSubscription?.cancel();
     serviceRepository.stopListeningChat(disputeId);
     serviceRepository.disconnectPusher();
-    serviceRepository.changeNotifier.currentDispute.removeListener(
+    serviceRepository.changeNotifier.removeListener(
       _currentDisputeCallBack,
     );
-    serviceRepository.changeNotifier.clearCurrentDisputeType();
+    serviceRepository.changeNotifier.removeListener(
+      _chatSubjectCallBack,
+    );
+
+    serviceRepository.changeNotifier.removeListener(
+      _shouldReFetchDisputesCallBack,
+    );
     serviceRepository.changeNotifier.clearDisputeChatUserType();
-    serviceRepository.changeNotifier.setCurrentDispute(null);
+    serviceRepository.changeNotifier.clearCurrentDispute();
+    serviceRepository.changeNotifier.clearChatMessage();
+
     return super.close();
   }
 }

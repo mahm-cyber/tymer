@@ -20,6 +20,8 @@ class ServiceRepository {
 
   final TymerApi remoteApi;
   final ServiceChangeNotifier changeNotifier;
+  late StreamSubscription<DisputeMessageRM?> _disputeChatSubscription;
+  late StreamSubscription<String?> _remoteDisputeResolutionSubscription;
 
   Future<int> requestService({
     required ServiceType serviceType,
@@ -69,9 +71,6 @@ class ServiceRepository {
       rethrow;
     }
   }
-
-  late StreamSubscription<DisputeMessageRM>? _remoteChatSubscription;
-  late StreamSubscription<String>? _remoteDisputeResolutionSubscription;
 
   Future<ServiceListPage> getAllServiceRequests({
     int? page,
@@ -329,8 +328,11 @@ class ServiceRepository {
         disputeId: disputeId,
         userType: userType.name,
       );
-      _remoteChatSubscription?.cancel();
-      _remoteDisputeResolutionSubscription?.cancel();
+
+      remoteApi.pusherApi.disputeChatMessageSC.add(null);
+      _disputeChatSubscription.cancel();
+      remoteApi.pusherApi.disputeStatusSC.add(null);
+      _remoteDisputeResolutionSubscription.cancel();
     } catch (error) {
       debugPrint('Error stopping listening to requester chat: $error');
       rethrow;
@@ -338,29 +340,26 @@ class ServiceRepository {
   }
 
   void initializeChatStream(User user, disputeId) {
-    remoteApi.pusherApi.disputeChatMessageSC.add(
-      DisputeMessageRM.dummy,
-    );
-    changeNotifier.chatSubject.sink.add(DisputeMessage.dummy);
-    _remoteChatSubscription = remoteApi.pusherApi.disputeChatMessageSC
-        .listen((DisputeMessageRM event) {
+    _disputeChatSubscription = remoteApi.pusherApi.disputeChatMessageSC
+        .listen((DisputeMessageRM? event) {
+      if (event == null) return;
       final disputeMessage = event.toDomainModel(disputeId);
       final isSentByMe = disputeMessage.sender.id == user.id;
       final updatedDisputeMessage = disputeMessage.copyWith(
         isSentByMe: isSentByMe,
       );
-      changeNotifier.chatSubject.sink.add(updatedDisputeMessage);
+      changeNotifier.setChatMessage(updatedDisputeMessage);
     });
   }
 
   void initializeDisputeResolutionStream() {
-    remoteApi.pusherApi.disputeStatusSC.add('');
     _remoteDisputeResolutionSubscription =
         remoteApi.pusherApi.disputeStatusSC.listen(
-      (String event) {
+      (String? event) {
+        if (event == null) return;
         final currentDispute = changeNotifier.currentDispute;
         final newStatus = disputeStatusRMtoDM(event);
-        final dispute = currentDispute.value!.copyWith(status: newStatus);
+        final dispute = currentDispute!.copyWith(status: newStatus);
         changeNotifier.setCurrentDispute(dispute);
       },
     );
