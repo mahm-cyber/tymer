@@ -52,22 +52,12 @@ class ServiceRequestStatusView extends StatelessWidget {
     final colorScheme = theme.materialThemeData.colorScheme;
     final l10n = ServiceRequestStatusLocalizations.of(context);
     return BlocConsumer<ServiceRequestStatusCubit, ServiceRequestStatusState>(
+      listenWhen: (previous, current) =>
+          previous.cancellationStatus != current.cancellationStatus ||
+          previous.confirmationStatus != current.confirmationStatus,
       listener: (context, state) {
-        final cubit = context.read<ServiceRequestStatusCubit>();
-        final isAlreadyCancelled =
-            state.service?.status == ServiceStatus.canceled;
-        if (isAlreadyCancelled) {
-          cubit.goBackHome();
-          showSnackBar(
-            context: context,
-            snackBar: ErrorSnackBar(
-              message: l10n.serviceRequestAlreadyCancelledMessage,
-              context: context,
-            ),
-          );
-        }
         if (state.cancellationStatus == CancellationStatus.success) {
-          cubit.goBackHome();
+          // cubit.goBackHome();
           showSnackBar(
             context: context,
             snackBar: SuccessSnackBar(
@@ -107,12 +97,17 @@ class ServiceRequestStatusView extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        final isRequestPendingReview = state.service?.responseDetails != null;
+        final isPendingReview =
+            state.service?.status == ServiceStatus.pendingReview;
+        final isPending = state.service?.status == ServiceStatus.pending;
+        final isInProgress = state.service?.status == ServiceStatus.inProgress;
+        final isCancelled = state.service?.status == ServiceStatus.canceled;
         final isRequestConfirmed =
             state.service?.status == ServiceStatus.completed ||
                 state.confirmationStatus == ConfirmationStatus.success;
+        final errorFetching = state.fetchStatus == FetchStatus.error;
         final cubit = context.read<ServiceRequestStatusCubit>();
-          final clL10n = ComponentLibraryLocalizations.of(context);
+        final clL10n = ComponentLibraryLocalizations.of(context);
         return Stack(
           children: [
             Scaffold(
@@ -125,93 +120,105 @@ class ServiceRequestStatusView extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                   horizontal: theme.screenMargin,
                 ),
-                child: isRequestConfirmed
-                    ? Column(
-                        children: [
-                          VerticalGap.xLarge(),
-                          VerticalGap.medium(),
-                          Receipt(
-                            service: state.service!,
-                            onViewServiceOnMap: cubit.onViewServiceOnMap,
-                            userToken: state.userToken,
-                          ),
-                          TymerElevatedButton(
-                            label: l10n.backHomeButtonLabel,
-                            onTap: cubit.goBackHome,
-                          ),
-                          VerticalGap.medium(),
-                        ],
+                child: errorFetching
+                    ? ExceptionIndicator(
+                        onTryAgain: cubit.init,
                       )
-                    : isRequestPendingReview
-                        ? RequestAndResponseDetails(
-                            service: state.service,
-                          )
-                        : Column(
+                    : isRequestConfirmed
+                        ? Column(
                             children: [
-                              Expanded(
-                                child: ListView(
-                                  children: [
-                                    VerticalGap.xLarge(),
-                                    VerticalGap.medium(),
-                                    if (state.service?.requestDetails != null)
-                                      ServiceRequestDetailsExpansionTile(
-                                        service: state.service!,
-                                        onViewServiceOnMap:
-                                            cubit.onViewServiceOnMap,
-                                      ),
-                                    VerticalGap.medium(),
-                                    RequestStatusStep(
-                                      title: l10n.findingSomeoneStepTitle,
-                                      status: state.service?.status == null
-                                          ? RequestStatus.idle
-                                          : state.service?.status ==
-                                                  ServiceStatus.pending
-                                              ? RequestStatus.loading
-                                              : RequestStatus.done,
-                                    ),
-                                    VerticalGap.medium(),
-                                    RequestStatusStep(
-                                      title: l10n.processingStepTitle,
-                                      status: state.service?.status ==
-                                              ServiceStatus.inProgress
-                                          ? RequestStatus.loading
-                                          : state.service?.status ==
-                                                  ServiceStatus.pendingReview
-                                              ? RequestStatus.done
-                                              : RequestStatus.idle,
-                                    ),
-                                    VerticalGap.medium(),
-                                    RequestStatusStep(
-                                      title: l10n.completeStepTitle,
-                                      status: state.service?.status ==
-                                                  ServiceStatus.completed ||
-                                              state.service?.status ==
-                                                  ServiceStatus.pendingReview
-                                          ? RequestStatus.done
-                                          : RequestStatus.idle,
-                                    ),
-                                    VerticalGap.medium(),
-                                  ],
-                                ),
+                              VerticalGap.xLarge(),
+                              VerticalGap.medium(),
+                              Receipt(
+                                service: state.service!,
+                                onViewServiceOnMap: cubit.onViewServiceOnMap,
+                                userToken: state.userToken,
                               ),
-                              if (state.service?.status ==
-                                  ServiceStatus.pending) ...[
-                                state.cancellationStatus ==
-                                        CancellationStatus.loading
-                                    ? TymerElevatedButton.inProgress(
-                                        label: l10n.cancelButtonLabel,
-                                      )
-                                    : TymerElevatedButton(
-                                        label: l10n.cancelButtonLabel,
-                                        bgColor: colorScheme.error,
-                                        onTap: () => context
-                                            .read<ServiceRequestStatusCubit>()
-                                            .cancelService(),
-                                      ),
-                                VerticalGap.medium(),
-                              ]
+                              TymerElevatedButton(
+                                label: l10n.backHomeButtonLabel,
+                                onTap: cubit.goBackHome,
+                              ),
+                              VerticalGap.medium(),
                             ],
-                          ),
+                          )
+                        : isPendingReview || isCancelled
+                            ? RequestAndResponseDetails(
+                                service: state.service,
+                              )
+                            : isPending || isInProgress
+                                ? Column(
+                                    children: [
+                                      Expanded(
+                                        child: ListView(
+                                          children: [
+                                            VerticalGap.xLarge(),
+                                            VerticalGap.medium(),
+                                            if (state.service?.requestDetails !=
+                                                null)
+                                              ServiceRequestDetailsExpansionTile(
+                                                service: state.service!,
+                                                onViewServiceOnMap:
+                                                    cubit.onViewServiceOnMap,
+                                              ),
+                                            VerticalGap.medium(),
+                                            RequestStatusStep(
+                                              title:
+                                                  l10n.findingSomeoneStepTitle,
+                                              status: state.service?.status ==
+                                                      null
+                                                  ? RequestStatus.idle
+                                                  : state.service?.status ==
+                                                          ServiceStatus.pending
+                                                      ? RequestStatus.loading
+                                                      : RequestStatus.done,
+                                            ),
+                                            VerticalGap.medium(),
+                                            RequestStatusStep(
+                                              title: l10n.processingStepTitle,
+                                              status: state.service?.status ==
+                                                      ServiceStatus.inProgress
+                                                  ? RequestStatus.loading
+                                                  : state.service?.status ==
+                                                          ServiceStatus
+                                                              .pendingReview
+                                                      ? RequestStatus.done
+                                                      : RequestStatus.idle,
+                                            ),
+                                            VerticalGap.medium(),
+                                            RequestStatusStep(
+                                              title: l10n.completeStepTitle,
+                                              status: state.service?.status ==
+                                                          ServiceStatus
+                                                              .completed ||
+                                                      state.service?.status ==
+                                                          ServiceStatus
+                                                              .pendingReview
+                                                  ? RequestStatus.done
+                                                  : RequestStatus.idle,
+                                            ),
+                                            VerticalGap.medium(),
+                                          ],
+                                        ),
+                                      ),
+                                      if (isPending) ...[
+                                        state.cancellationStatus ==
+                                                CancellationStatus.loading
+                                            ? TymerElevatedButton.inProgress(
+                                                label: l10n.cancelButtonLabel,
+                                              )
+                                            : TymerElevatedButton(
+                                                label: l10n.cancelButtonLabel,
+                                                bgColor: colorScheme.error,
+                                                onTap: () => context
+                                                    .read<
+                                                        ServiceRequestStatusCubit>()
+                                                    .cancelService(),
+                                              ),
+                                        VerticalGap.medium(),
+                                      ],
+                                    ],
+                                  )
+                                : const CenteredCircularProgressIndicator(),
               ),
             ),
             AppBarTitleContainer(

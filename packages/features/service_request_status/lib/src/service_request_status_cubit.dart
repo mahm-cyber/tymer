@@ -24,16 +24,8 @@ class ServiceRequestStatusCubit extends Cubit<ServiceRequestStatusState> {
     userRepository.getUserToken().then((token) {
       emit(state.copyWith(userToken: token));
     });
-    _timer = Timer.periodic(
-      const Duration(seconds: 1),
-      (timer) async {
-        await getService();
-        if (state.service?.status == ServiceStatus.completed ||
-            state.service?.status == ServiceStatus.pendingReview) {
-          timer.cancel();
-        }
-      },
-    );
+    //
+    init();
   }
 
   final UserRepository userRepository;
@@ -42,6 +34,22 @@ class ServiceRequestStatusCubit extends Cubit<ServiceRequestStatusState> {
   final int requestId;
   final ValueSetter<Service> onConfirmDisputeTapped;
   Timer? _timer;
+
+  void init() async {
+    await getService();
+    await Future.delayed(const Duration(milliseconds: 500));
+    _timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) async {
+        if (state.service?.status == ServiceStatus.completed ||
+            state.service?.status == ServiceStatus.pendingReview ||
+            state.fetchStatus == FetchStatus.error) {
+          timer.cancel();
+        }
+        await getService();
+      },
+    );
+  }
 
   Future<Service> getService() async {
     final loading = state.copyWith(fetchStatus: FetchStatus.loading);
@@ -54,11 +62,11 @@ class ServiceRequestStatusCubit extends Cubit<ServiceRequestStatusState> {
         fetchStatus: FetchStatus.loaded,
         service: service,
       );
-      if(!isClosed)emit(loaded);
+      if (!isClosed) emit(loaded);
       return service;
     } catch (error) {
       final errorState = state.copyWith(fetchStatus: FetchStatus.error);
-      if(!isClosed)emit(errorState);
+      if (!isClosed) emit(errorState);
       rethrow;
     }
   }
@@ -116,8 +124,6 @@ class ServiceRequestStatusCubit extends Cubit<ServiceRequestStatusState> {
       rethrow;
     }
   }
-
-
 
   @override
   Future<void> close() async {

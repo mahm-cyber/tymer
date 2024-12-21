@@ -19,8 +19,10 @@ class RequestAndResponseDetails extends StatelessWidget {
     final l10n = ServiceRequestStatusLocalizations.of(context);
     final textTheme = Theme.of(context).textTheme;
     final cubit = context.read<ServiceRequestStatusCubit>();
+
     return BlocBuilder<ServiceRequestStatusCubit, ServiceRequestStatusState>(
       builder: (context, state) {
+        final isCancelled = state.service?.status == ServiceStatus.canceled;
         final isConfirmationInProgress =
             state.confirmationStatus == ConfirmationStatus.loading;
         return Column(
@@ -48,53 +50,62 @@ class RequestAndResponseDetails extends StatelessWidget {
                 ],
               ),
             ),
-            VerticalGap.medium(),
-            Container(
-              padding: const EdgeInsets.all(Spacing.medium),
-              decoration: BoxDecoration(
-                color: colorScheme.surface,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    l10n.requestDoneContainerTitle,
-                    style: textTheme.titleMedium
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  VerticalGap.medium(),
-                  Row(
-                    children: [
-                      VerticalGap.medium(),
-                      isConfirmationInProgress
-                          ? Expanded(
-                              child: TymerElevatedButton.inProgress(
-                                label: l10n.yesButtonLabel,
+            if (!isCancelled) ...[
+              VerticalGap.medium(),
+              Container(
+                padding: const EdgeInsets.all(Spacing.medium),
+                decoration: BoxDecoration(
+                  color: colorScheme.surface,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(),
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      l10n.requestDoneContainerTitle,
+                      style: textTheme.titleMedium
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    VerticalGap.medium(),
+                    Row(
+                      children: [
+                        VerticalGap.medium(),
+                        isConfirmationInProgress
+                            ? Expanded(
+                                child: TymerElevatedButton.inProgress(
+                                  label: l10n.yesButtonLabel,
+                                ),
+                              )
+                            : Expanded(
+                                child: TymerElevatedButton(
+                                  label: l10n.yesButtonLabel,
+                                  onTap: cubit.confirmService,
+                                ),
                               ),
-                            )
-                          : Expanded(
-                              child: TymerElevatedButton(
-                                label: l10n.yesButtonLabel,
-                                onTap: cubit.confirmService,
-                              ),
-                            ),
-                      HorizontalGap.medium(),
-                      Expanded(
-                        child: TymerElevatedButton(
-                          label: l10n.noButtonLabel,
-                          onTap: isConfirmationInProgress
-                              ? null
-                              : () => cubit.onConfirmDisputeTapped(service!),
-                          bgColor: colorScheme.error,
+                        HorizontalGap.medium(),
+                        Expanded(
+                          child: TymerElevatedButton(
+                            label: l10n.noButtonLabel,
+                            onTap: isConfirmationInProgress
+                                ? null
+                                : () => cubit.onConfirmDisputeTapped(service!),
+                            bgColor: colorScheme.error,
+                          ),
                         ),
-                      ),
-                    ].reversed.toList(),
-                  ),
-                ],
+                      ].reversed.toList(),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            VerticalGap.medium(),
+            ],
+            if (isCancelled) ...[
+              VerticalGap.medium(),
+              TymerElevatedButton(
+                label: l10n.backHomeButtonLabel,
+                onTap: cubit.goBackHome,
+              ),
+              VerticalGap.medium(),
+            ]
           ],
         );
       },

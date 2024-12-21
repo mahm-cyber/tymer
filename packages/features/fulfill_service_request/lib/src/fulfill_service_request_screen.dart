@@ -51,6 +51,10 @@ class FulfillServiceRequestView extends StatelessWidget {
     final l10n = FulfillServiceRequestLocalizations.of(context);
     final clL10n = ComponentLibraryLocalizations.of(context);
     return BlocConsumer<FulfillServiceRequestCubit, FulfillServiceRequestState>(
+      listenWhen: (previous, current) =>
+          previous.isImagePickerBottomSheetVisible !=
+              current.isImagePickerBottomSheetVisible ||
+          previous.submissionStatus != current.submissionStatus,
       listener: (context, state) {
         final cubit = context.read<FulfillServiceRequestCubit>();
         if (state.isImagePickerBottomSheetVisible == true) {
@@ -131,6 +135,8 @@ class FulfillServiceRequestView extends StatelessWidget {
                 state.service?.status == ServiceStatus.completed;
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
+        final fetchServiceError = state.fetchStatus == FetchStatus.failure;
+        final isLoading = state.fetchStatus == FetchStatus.loading;
         return Stack(
           children: [
             Scaffold(
@@ -146,74 +152,84 @@ class FulfillServiceRequestView extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                   horizontal: theme.screenMargin,
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    VerticalGap.xLarge(),
-                    if (!isRequestFulfilled)
-                      Expanded(
-                        child: ListView(
-                          children: [
-                            ServiceRequestDetailsExpansionTile(
-                              service: state.service!,
-                              onViewServiceOnMap: cubit.onViewServiceOnMap,
-                            ),
-                            VerticalGap.small(),
-                            if (state.service?.type ==
-                                ServiceType.reservation) ...[
-                              const ReservationNumberTextField(),
+                child: isLoading
+                    ? const CenteredCircularProgressIndicator()
+                    : fetchServiceError
+                        ? ExceptionIndicator(
+                            onTryAgain: cubit.init,
+                          )
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              VerticalGap.xLarge(),
+                              if (!isRequestFulfilled)
+                                Expanded(
+                                  child: ListView(
+                                    children: [
+                                      ServiceRequestDetailsExpansionTile(
+                                        service: state.service!,
+                                        onViewServiceOnMap:
+                                            cubit.onViewServiceOnMap,
+                                      ),
+                                      VerticalGap.small(),
+                                      if (state.service?.type ==
+                                          ServiceType.reservation) ...[
+                                        const ReservationNumberTextField(),
+                                        VerticalGap.small(),
+                                      ],
+                                      DayPicker(
+                                        onChanged: cubit.onDayChanged,
+                                        error: state.day.error,
+                                        isSubmissionInProgress:
+                                            isSubmissionInProgress,
+                                        initialValue: state
+                                            .service?.responseDetails?.date,
+                                      ),
+                                      VerticalGap.small(),
+                                      TimePicker(
+                                        onChanged: cubit.onTimeChanged,
+                                        error: state.time.error,
+                                        isSubmissionInProgress:
+                                            isSubmissionInProgress,
+                                        initialValue: state
+                                            .service?.responseDetails?.time,
+                                      ),
+                                      VerticalGap.small(),
+                                      const ImagePickerTextField(),
+                                      VerticalGap.small(),
+                                      const AdditionalDetailsTextField(),
+                                      VerticalGap.small(),
+                                    ],
+                                  ),
+                                ),
+                              if (isRequestFulfilled)
+                                Receipt(
+                                  service: state.service!,
+                                  onViewServiceOnMap: cubit.onViewServiceOnMap,
+                                  userToken: state.userToken,
+                                ),
+                              VerticalGap.medium(),
+                              if (!isRequestFulfilled)
+                                isSubmissionInProgress
+                                    ? TymerElevatedButton.inProgress(
+                                        label: l10n
+                                            .awaitingConfirmationButtonLabel,
+                                      )
+                                    : TymerElevatedButton(
+                                        label: l10n.submitButtonLabel,
+                                        onTap: cubit.onSubmit,
+                                      ),
+                              VerticalGap.medium(),
+                              if (isRequestFulfilled)
+                                TymerElevatedButton(
+                                  label: l10n.backHomeButtonLabel,
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
                               VerticalGap.small(),
                             ],
-                            DayPicker(
-                              onChanged: cubit.onDayChanged,
-                              error: state.day.error,
-                              isSubmissionInProgress: isSubmissionInProgress,
-                              initialValue:
-                                  state.service?.responseDetails?.date,
-                            ),
-                            VerticalGap.small(),
-                            TimePicker(
-                              onChanged: cubit.onTimeChanged,
-                              error: state.time.error,
-                              isSubmissionInProgress: isSubmissionInProgress,
-                              initialValue:
-                                  state.service?.responseDetails?.time,
-                            ),
-                            VerticalGap.small(),
-                            const ImagePickerTextField(),
-                            VerticalGap.small(),
-                            const AdditionalDetailsTextField(),
-                            VerticalGap.small(),
-                          ],
-                        ),
-                      ),
-                    if (isRequestFulfilled)
-                      Receipt(
-                        service: state.service!,
-                        onViewServiceOnMap: cubit.onViewServiceOnMap,
-                        userToken: state.userToken,
-                      ),
-                    VerticalGap.medium(),
-                    if (!isRequestFulfilled)
-                      isSubmissionInProgress
-                          ? TymerElevatedButton.inProgress(
-                              label: l10n.awaitingConfirmationButtonLabel,
-                            )
-                          : TymerElevatedButton(
-                              label: l10n.submitButtonLabel,
-                              onTap: cubit.onSubmit,
-                            ),
-                    VerticalGap.medium(),
-                    if (isRequestFulfilled)
-                      TymerElevatedButton(
-                        label: l10n.backHomeButtonLabel,
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    VerticalGap.small(),
-                  ],
-                ),
+                          ),
               ),
             ),
             AppBarTitleContainer(

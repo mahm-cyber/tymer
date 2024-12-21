@@ -387,6 +387,14 @@ class UserRepository {
       bool serviceEnabled;
       PermissionStatus permissionGranted;
 
+      permissionGranted = await location.hasPermission();
+      if (permissionGranted == PermissionStatus.denied) {
+        permissionGranted = await location.requestPermission();
+        if (permissionGranted != PermissionStatus.granted) {
+          return null;
+        }
+      }
+
       serviceEnabled = await location.serviceEnabled();
       if (!serviceEnabled) {
         serviceEnabled = await location.requestService();
@@ -395,13 +403,7 @@ class UserRepository {
         }
       }
 
-      permissionGranted = await location.hasPermission();
-      if (permissionGranted == PermissionStatus.denied) {
-        permissionGranted = await location.requestPermission();
-        if (permissionGranted != PermissionStatus.granted) {
-          return null;
-        }
-      }
+
       await Future.delayed(const Duration(milliseconds: 300));
       final locationData = await location.getLocation();
       return locationData;

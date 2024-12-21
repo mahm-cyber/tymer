@@ -19,8 +19,8 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
   })  : _imagePicker = ImagePicker(),
         super(
           FulfillServiceRequestState(
-            service: serviceRepository.changeNotifier.serviceRequestDetails,
-          ),
+              service: serviceRepository.changeNotifier.serviceRequestDetails,
+              ),
         ) {
     init();
   }
@@ -36,22 +36,75 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
     final service = serviceRepository.changeNotifier.serviceRequestDetails;
     final isPendingReview = service?.status == ServiceStatus.pendingReview;
     final isCompleted = service?.status == ServiceStatus.completed;
+    final loadingState = state.copyWith(fetchStatus: FetchStatus.loading);
+    emit(loadingState);
+    final fetchedService = await getService();
+
     if (isPendingReview || isCompleted) {
       final newState = state.copyWith(
         submissionStatus:
             isPendingReview ? FormzSubmissionStatus.inProgress : null,
       );
       emit(newState);
-      final freshService =
-          await serviceRepository.getServiceRequest(requestId: service!.id!);
+      // final fetchedService = await getService();
       final userToken = await userRepository.getUserToken();
       final newStateWithResponse = state.copyWith(
-        service: freshService,
+        service: fetchedService,
         userToken: userToken,
       );
       emit(newStateWithResponse);
       if (isPendingReview) pollRequestConfirmation();
     }
+  }
+
+  Future<Service> getService() async {
+    // final loading = state.copyWith(fetchStatus: FetchStatus.loading);
+    // emit(loading);
+    try {
+      final service = await serviceRepository.getServiceRequest(
+        requestId: state.service!.id!,
+      );
+      final loaded = state.copyWith(
+        fetchStatus: FetchStatus.success,
+        service: service,
+      );
+      if (!isClosed) emit(loaded);
+      return service;
+    } catch (error) {
+      final errorState = state.copyWith(fetchStatus: FetchStatus.failure);
+      if (!isClosed) emit(errorState);
+      rethrow;
+    }
+  }
+
+  void pollRequestConfirmation({
+    Dynamic<TimeOfDay?>? time,
+    Dynamic<DateTime?>? day,
+    Dynamic<String>? reservationNumber,
+  }) async {
+    _awaitRequestConfirmationTimer =
+        Timer.periodic(const Duration(seconds: 1), (timer) async {
+      final service = await getService();
+      if (service.status == ServiceStatus.completed) {
+        if (!isClosed) {
+          emit(
+            FulfillServiceRequestState(
+              time: time ?? state.time,
+              day: day ?? state.day,
+              reservationNumber: reservationNumber ?? state.reservationNumber,
+              additionalDetails: state.additionalDetails,
+              imageBytes: state.imageBytes,
+              service: state.service,
+              userToken: state.userToken,
+              isImagePickerBottomSheetVisible:
+                  state.isImagePickerBottomSheetVisible,
+              submissionStatus: FormzSubmissionStatus.success,
+            ),
+          );
+        }
+        timer.cancel();
+      }
+    });
   }
 
   void onDayChanged(DateTime? newValue) {
@@ -232,37 +285,6 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
         emit(state.copyWith(submissionStatus: FormzSubmissionStatus.failure));
       }
     }
-  }
-
-  void pollRequestConfirmation({
-    Dynamic<TimeOfDay?>? time,
-    Dynamic<DateTime?>? day,
-    Dynamic<String>? reservationNumber,
-  }) async {
-    _awaitRequestConfirmationTimer =
-        Timer.periodic(const Duration(seconds: 1), (timer) async {
-      final service = await serviceRepository.getServiceRequest(
-          requestId: state.service!.id!);
-      if (service.status == ServiceStatus.completed) {
-        if (!isClosed) {
-          emit(
-            FulfillServiceRequestState(
-              time: time ?? state.time,
-              day: day ?? state.day,
-              reservationNumber: reservationNumber ?? state.reservationNumber,
-              additionalDetails: state.additionalDetails,
-              imageBytes: state.imageBytes,
-              service: state.service,
-              userToken: state.userToken,
-              isImagePickerBottomSheetVisible:
-                  state.isImagePickerBottomSheetVisible,
-              submissionStatus: FormzSubmissionStatus.success,
-            ),
-          );
-        }
-        timer.cancel();
-      }
-    });
   }
 
   @override

@@ -116,12 +116,9 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
 
   void onViewServiceRequestDetailsTapped(Service service) {
     final shouldCheckRequestedServiceStatus =
-        service.status == ServiceStatus.pending ||
-            service.status == ServiceStatus.inProgress ||
-            service.status == ServiceStatus.completed;
+        state.userTypeFilter == UserType.requester;
 
-    if (shouldCheckRequestedServiceStatus &&
-        state.userTypeFilter == UserType.requester) {
+    if (shouldCheckRequestedServiceStatus) {
       onCheckServiceRequestStatusTapped(service.id!);
     }
 
