@@ -136,7 +136,7 @@ class FulfillServiceRequestView extends StatelessWidget {
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
         final fetchServiceError = state.fetchStatus == FetchStatus.failure;
-        final isLoading = state.fetchStatus == FetchStatus.loading;
+        final isInitialFetchInProgress = state.fetchStatus == FetchStatus.loading;
         return Stack(
           children: [
             Scaffold(
@@ -152,7 +152,7 @@ class FulfillServiceRequestView extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                   horizontal: theme.screenMargin,
                 ),
-                child: isLoading
+                child: isInitialFetchInProgress
                     ? const CenteredCircularProgressIndicator()
                     : fetchServiceError
                         ? ExceptionIndicator(

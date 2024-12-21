@@ -36,6 +36,8 @@ class ServiceRequestStatusCubit extends Cubit<ServiceRequestStatusState> {
   Timer? _timer;
 
   void init() async {
+    final loading = state.copyWith(fetchStatus: FetchStatus.loading);
+    emit(loading);
     await getService();
     await Future.delayed(const Duration(milliseconds: 500));
     _timer = Timer.periodic(
@@ -52,8 +54,6 @@ class ServiceRequestStatusCubit extends Cubit<ServiceRequestStatusState> {
   }
 
   Future<Service> getService() async {
-    final loading = state.copyWith(fetchStatus: FetchStatus.loading);
-    emit(loading);
     try {
       final service = await serviceRepository.getServiceRequest(
         requestId: requestId,

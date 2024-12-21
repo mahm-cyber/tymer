@@ -105,6 +105,8 @@ class ServiceRequestStatusView extends StatelessWidget {
         final isRequestConfirmed =
             state.service?.status == ServiceStatus.completed ||
                 state.confirmationStatus == ConfirmationStatus.success;
+        final isInitialFetchSomeProgress =
+            state.fetchStatus == FetchStatus.loading;
         final errorFetching = state.fetchStatus == FetchStatus.error;
         final cubit = context.read<ServiceRequestStatusCubit>();
         final clL10n = ComponentLibraryLocalizations.of(context);
@@ -120,33 +122,35 @@ class ServiceRequestStatusView extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                   horizontal: theme.screenMargin,
                 ),
-                child: errorFetching
-                    ? ExceptionIndicator(
-                        onTryAgain: cubit.init,
-                      )
-                    : isRequestConfirmed
-                        ? Column(
-                            children: [
-                              VerticalGap.xLarge(),
-                              VerticalGap.medium(),
-                              Receipt(
-                                service: state.service!,
-                                onViewServiceOnMap: cubit.onViewServiceOnMap,
-                                userToken: state.userToken,
-                              ),
-                              TymerElevatedButton(
-                                label: l10n.backHomeButtonLabel,
-                                onTap: cubit.goBackHome,
-                              ),
-                              VerticalGap.medium(),
-                            ],
+                child: isInitialFetchSomeProgress
+                    ? const CenteredCircularProgressIndicator()
+                    : errorFetching
+                        ? ExceptionIndicator(
+                            onTryAgain: cubit.init,
                           )
-                        : isPendingReview || isCancelled
-                            ? RequestAndResponseDetails(
-                                service: state.service,
+                        : isRequestConfirmed
+                            ? Column(
+                                children: [
+                                  VerticalGap.xLarge(),
+                                  VerticalGap.medium(),
+                                  Receipt(
+                                    service: state.service!,
+                                    onViewServiceOnMap:
+                                        cubit.onViewServiceOnMap,
+                                    userToken: state.userToken,
+                                  ),
+                                  TymerElevatedButton(
+                                    label: l10n.backHomeButtonLabel,
+                                    onTap: cubit.goBackHome,
+                                  ),
+                                  VerticalGap.medium(),
+                                ],
                               )
-                            : isPending || isInProgress
-                                ? Column(
+                            : isPendingReview || isCancelled
+                                ? RequestAndResponseDetails(
+                                    service: state.service,
+                                  )
+                                : Column(
                                     children: [
                                       Expanded(
                                         child: ListView(
@@ -217,8 +221,7 @@ class ServiceRequestStatusView extends StatelessWidget {
                                         VerticalGap.medium(),
                                       ],
                                     ],
-                                  )
-                                : const CenteredCircularProgressIndicator(),
+                                  ),
               ),
             ),
             AppBarTitleContainer(
