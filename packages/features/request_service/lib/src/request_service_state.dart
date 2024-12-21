@@ -5,6 +5,8 @@ class RequestServiceState extends Equatable {
     this.requestId,
     this.serviceType,
     this.reservationServiceTypes,
+    this.fetchingReservationServiceTypesStatus =
+        FetchingReservationServiceTypesStatus.initial,
     this.selectedReservationServiceType =
         const Dynamic<ReservationServiceType?>.unvalidated(),
     this.reservationName = const Dynamic<String?>.unvalidated(),
@@ -26,6 +28,7 @@ class RequestServiceState extends Equatable {
   final int? requestId;
   final ServiceType? serviceType;
   final List<ReservationServiceType>? reservationServiceTypes;
+  final FetchingReservationServiceTypesStatus fetchingReservationServiceTypesStatus;
   final Dynamic<ReservationServiceType?> selectedReservationServiceType;
   final Dynamic<String?> reservationName;
   final Dynamic<DateTime?> date;
@@ -47,6 +50,7 @@ class RequestServiceState extends Equatable {
     int? requestId,
     ServiceType? serviceType,
     List<ReservationServiceType>? reservationServiceTypes,
+    FetchingReservationServiceTypesStatus? fetchingReservationServiceTypesStatus,
     Dynamic<ReservationServiceType?>? selectedReservationServiceType,
     Dynamic<String?>? reservationName,
     Dynamic<DateTime?>? date,
@@ -70,6 +74,7 @@ class RequestServiceState extends Equatable {
           selectedReservationServiceType ?? this.selectedReservationServiceType,
       reservationServiceTypes:
           reservationServiceTypes ?? this.reservationServiceTypes,
+      fetchingReservationServiceTypesStatus: fetchingReservationServiceTypesStatus ?? this.fetchingReservationServiceTypesStatus,
       reservationName: reservationName ?? this.reservationName,
       date: date ?? this.date,
       time: time ?? this.time,
@@ -78,7 +83,8 @@ class RequestServiceState extends Equatable {
       location: location ?? this.location,
       locationPickingInProgress:
           locationPickingInProgress ?? this.locationPickingInProgress,
-      locationServiceStatus: locationServiceStatus ?? this.locationServiceStatus,
+      locationServiceStatus:
+          locationServiceStatus ?? this.locationServiceStatus,
       price: price ?? this.price,
       pricingSettings: pricingSettings ?? this.pricingSettings,
       fetchingPricingSettingsStatus:
@@ -95,6 +101,7 @@ class RequestServiceState extends Equatable {
         serviceType,
         selectedReservationServiceType,
         reservationServiceTypes,
+        fetchingReservationServiceTypesStatus,
         reservationName,
         date,
         time,
@@ -112,4 +119,16 @@ class RequestServiceState extends Equatable {
       ];
 }
 
-enum FetchingPricingSettingsStatus { initial, inProgress, success, failure }
+enum FetchingPricingSettingsStatus {
+  initial,
+  inProgress,
+  success,
+  failure,
+}
+
+enum FetchingReservationServiceTypesStatus {
+  initial,
+  inProgress,
+  success,
+  failure,
+}

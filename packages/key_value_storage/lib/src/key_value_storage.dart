@@ -17,7 +17,7 @@ import 'package:path_provider/path_provider.dart';
 class KeyValueStorage {
   static const _localePreferenceBoxKey = 'locale-preference';
   static const _reservationTypesBoxKey = 'reservation-service-types';
-  static const _pricingSettingsBoxKey = 'pricing-settings';
+  static const _settingsBoxKey = 'settings';
 
   KeyValueStorage() : _hive = Hive {
     try {
@@ -26,6 +26,9 @@ class KeyValueStorage {
         ..registerAdapter(ReservationServiceTypesCMAdapter())
         ..registerAdapter(NameCMAdapter())
         ..registerAdapter(PricingSettingsCMAdapter())
+        ..registerAdapter(TermsAndConditionsCMAdapter())
+        ..registerAdapter(PrivacyPolicyCMAdapter())
+        ..registerAdapter(SettingsCMAdapter())
         ..registerAdapter(LocalePreferenceCMAdapter());
     } catch (error) {
       throw Exception(error);
@@ -46,9 +49,14 @@ class KeyValueStorage {
         isTemporary: false,
       );
 
-  Future<Box<PricingSettingsCM>> get pricingSettingsBoxKey =>
-      _openHiveBox<PricingSettingsCM>(
-        _pricingSettingsBoxKey,
+  // Future<Box<PricingSettingsCM>> get pricingSettingsBoxKey =>
+  //     _openHiveBox<PricingSettingsCM>(
+  //       _pricingSettingsBoxKey,
+  //       isTemporary: false,
+  //     );
+
+  Future<Box<SettingsCM>> get settingsBoxKey => _openHiveBox<SettingsCM>(
+        _settingsBoxKey,
         isTemporary: false,
       );
 

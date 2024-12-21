@@ -1,6 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'pricing_settings_rm.g.dart';
+part 'settings_rm.g.dart';
+
+
+
 
 @JsonSerializable(createToJson: false)
 class PricingSettingsRM {
@@ -27,4 +30,33 @@ class PricingSettingsRM {
   final String otherServiceFeeType;
 
   static const fromJson = _$PricingSettingsRMFromJson;
+}
+
+@JsonSerializable(createToJson: false)
+class TermsAndConditionsRM {
+  TermsAndConditionsRM({
+    required this.arHtml,
+    required this.enHtml,
+  });
+
+  @JsonKey(name: 'ar')
+  final String arHtml;
+  @JsonKey(name: 'en')
+  final String enHtml;
+
+  static const fromJson = _$TermsAndConditionsRMFromJson;
+}
+
+@JsonSerializable(createToJson: false)
+class PrivacyPolicyRM {
+  PrivacyPolicyRM({
+    required this.arHtml,
+    required this.enHtml,
+  });
+  @JsonKey(name: 'ar')
+  final String arHtml;
+  @JsonKey(name: 'en')
+  final String enHtml;
+
+  static const fromJson = _$PrivacyPolicyRMFromJson;
 }

@@ -157,4 +157,12 @@ class UrlBuilder {
         : 'chat-messages';
     return '$baseUrl/disputes/$disputeId/$urlLastSlug';
   }
+
+  String buildGetTermsAndConditionsUrl() {
+    return '$baseUrl/settings/terms-of-service';
+  }
+
+  String buildGetPrivacyPolicyUrl() {
+    return '$baseUrl/settings/privacy-policy';
+  }
 }

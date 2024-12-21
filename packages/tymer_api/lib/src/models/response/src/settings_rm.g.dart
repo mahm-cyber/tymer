@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pricing_settings_rm.dart';
+part of 'settings_rm.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -35,4 +35,33 @@ PricingSettingsRM _$PricingSettingsRMFromJson(Map<String, dynamic> json) =>
         'otherServiceFee': 'other_service_fee',
         'otherServiceFeeType': 'other_service_fee_type'
       },
+    );
+
+TermsAndConditionsRM _$TermsAndConditionsRMFromJson(
+        Map<String, dynamic> json) =>
+    $checkedCreate(
+      'TermsAndConditionsRM',
+      json,
+      ($checkedConvert) {
+        final val = TermsAndConditionsRM(
+          arHtml: $checkedConvert('ar', (v) => v as String),
+          enHtml: $checkedConvert('en', (v) => v as String),
+        );
+        return val;
+      },
+      fieldKeyMap: const {'arHtml': 'ar', 'enHtml': 'en'},
+    );
+
+PrivacyPolicyRM _$PrivacyPolicyRMFromJson(Map<String, dynamic> json) =>
+    $checkedCreate(
+      'PrivacyPolicyRM',
+      json,
+      ($checkedConvert) {
+        final val = PrivacyPolicyRM(
+          arHtml: $checkedConvert('ar', (v) => v as String),
+          enHtml: $checkedConvert('en', (v) => v as String),
+        );
+        return val;
+      },
+      fieldKeyMap: const {'arHtml': 'ar', 'enHtml': 'en'},
     );

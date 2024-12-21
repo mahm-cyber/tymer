@@ -87,6 +87,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                         ),
                     zoom: 14.5,
                   ),
+
                 ),
                 Positioned(
                   bottom: Spacing.medium,

@@ -23,22 +23,18 @@ class PricePickerTextField extends StatelessWidget {
         final theme = TymerTheme.of(context);
         final colorScheme = theme.materialThemeData.colorScheme;
         final minPrice = state.serviceType == ServiceType.other
-            ? state.pricingSettings!.otherServiceMinPrice
-            : state.pricingSettings!.reservationServiceMinPrice;
+            ? state.pricingSettings?.otherServiceMinPrice
+            : state.pricingSettings?.reservationServiceMinPrice;
         final loadingPricing = state.fetchingPricingSettingsStatus ==
-            FetchingPricingSettingsStatus.inProgress;
+                FetchingPricingSettingsStatus.inProgress ||
+            minPrice == null;
+
         // final errorLoadingMinPricing =
         //     state.error is StaleMinimumPriceException;
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
           child: loadingPricing
-              ? SizedBox(
-                  height: 55,
-                  child: LinearProgressIndicator(
-                    color: Colors.grey.withAlpha((255 * 0.3).toInt()),
-                    backgroundColor: Colors.white,
-                  ),
-                )
+              ? const LoadingInputField()
               /*: errorLoadingMinPricing
                   ? TymerElevatedButton(
                       label: 'l10n.loadMinPricingButtonLabel',
@@ -83,3 +79,5 @@ class PricePickerTextField extends StatelessWidget {
     );
   }
 }
+
+

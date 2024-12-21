@@ -81,12 +81,13 @@ class RequestServiceView extends StatelessWidget {
       },
       builder: (context, state) {
         final loadingReservationServiceTypes =
-            state.reservationServiceTypes == null;
+            state.reservationServiceTypes == null ||
+                state.fetchingReservationServiceTypesStatus ==
+                    FetchingReservationServiceTypesStatus.inProgress;
         final locationPickingInProgress =
             state.locationPickingInProgress == true;
         final isReservationServiceType =
             state.serviceType == ServiceType.reservation;
-
 
         return GestureDetector(
           onTap: context.releaseFocus,

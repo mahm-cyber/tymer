@@ -11,6 +11,7 @@ typedef UserTokenSupplier = Future<String?> Function();
 class TymerApi {
   static const _errorJsonKey = 'error';
   static const _dataJsonKey = 'data';
+  static const _contentJsonKey = 'content';
   static const _accessTokenJsonKey = 'access_token';
   static const _verificationErrorsJsonKey = 'verification_errors';
   static const _emailJsonKey = 'email';
@@ -73,6 +74,9 @@ class TymerApi {
       final token = response.data[_accessTokenJsonKey];
       return token;
     } on DioException catch (error) {
+      if (error.error is SocketException) {
+        rethrow;
+      }
       final errorObject =
           error.response?.data[_errorJsonKey][_verificationErrorsJsonKey];
       if (errorObject.containsKey(_phoneNumberJsonKey)) {
@@ -568,6 +572,30 @@ class TymerApi {
       final pricingSettings =
           PricingSettingsRM.fromJson(response.data[_dataJsonKey]);
       return pricingSettings;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<TermsAndConditionsRM> getTermsAndConditions() async {
+    final url = urlBuilder.buildGetTermsAndConditionsUrl();
+    try {
+      final response = await _dio.get(url);
+      final termsAndConditions = TermsAndConditionsRM.fromJson(
+          response.data[_dataJsonKey][_contentJsonKey]);
+      return termsAndConditions;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<PrivacyPolicyRM> getPrivacyPolicy() async {
+    final url = urlBuilder.buildGetPrivacyPolicyUrl();
+    try {
+      final response = await _dio.get(url);
+      final privacyPolicy = PrivacyPolicyRM.fromJson(
+          response.data[_dataJsonKey][_contentJsonKey]);
+      return privacyPolicy;
     } catch (error) {
       rethrow;
     }

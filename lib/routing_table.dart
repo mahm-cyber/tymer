@@ -42,6 +42,8 @@ Map<String, PageBuilder> buildRoutingTable({
     if (isUserUnAuthSC.value) {
       signInSuccessVN.value = false;
       routerDelegate.push(_PathConstants.signInPath);
+    } else {
+      signInSuccessVN.value = true;
     }
   });
   return {

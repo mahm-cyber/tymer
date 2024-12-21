@@ -5,6 +5,7 @@ export 'src/bottom_sheets/bottom_sheets.dart';
 export 'src/assets/assets.dart';
 export 'src/service_request_details_widget.dart';
 export 'src/service_response_details_widget.dart';
+export 'src/loading_input_field.dart';
 export 'src/time_picker.dart';
 export 'src/nav_bar_tab.dart';
 export 'src/tymer_gesture_container.dart';

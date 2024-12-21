@@ -34,3 +34,20 @@ extension PricingSettingsRMtoCM on PricingSettingsRM {
   }
 }
 
+extension TermsAndConditionsRMtoCM on TermsAndConditionsRM {
+  TermsAndConditionsCM toCacheModel() {
+    return TermsAndConditionsCM(
+      arHtml: arHtml,
+      enHtml: enHtml,
+    );
+  }
+}
+
+extension PrivacyPolicyRMtoCM on PrivacyPolicyRM {
+  PrivacyPolicyCM toCacheModel() {
+    return PrivacyPolicyCM(
+      arHtml: arHtml,
+      enHtml: enHtml,
+    );
+  }
+}

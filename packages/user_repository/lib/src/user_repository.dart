@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart';
 import 'package:tymer_api/tymer_api.dart';
 import 'package:domain_models/domain_models.dart';
@@ -348,12 +349,76 @@ class UserRepository {
     await _secureStorage.deleteRememberPassword();
   }
 
+  Future<Settings> _getSettingsFromNetwork() async {
+    try {
+      //future.wait
+
+      final settings = await Future.wait(
+        [
+          remoteApi.getPrivacyPolicy(),
+          remoteApi.getTermsAndConditions(),
+        ],
+      );
+      final currentSettings = await _localStorage.getSettings();
+      final privacyPolicyCM = (settings[0] as PrivacyPolicyRM).toCacheModel();
+      final termsAndConditionsCM =
+          (settings[1] as TermsAndConditionsRM).toCacheModel();
+      final settingsCM = currentSettings?.copyWith(
+            privacyPolicy: privacyPolicyCM,
+            termsAndConditions: termsAndConditionsCM,
+          ) ??
+          SettingsCM(
+            privacyPolicy: privacyPolicyCM,
+            termsAndConditions: termsAndConditionsCM,
+          );
+
+      final privacyPolicyDM = (settings[0] as PrivacyPolicyRM).toDomainModel();
+      final termsAndConditionsDM =
+          (settings[1] as TermsAndConditionsRM).toDomainModel();
+      final settingsDM = Settings(
+        privacyPolicy: privacyPolicyDM,
+        termsAndConditions: termsAndConditionsDM,
+      );
+
+      _localStorage.upsertSettings(settingsCM);
+      return settingsDM;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<Settings> getSettings(FetchPolicy fetchPolicy) async {
+    try {
+      if (fetchPolicy == FetchPolicy.networkOnly) {
+        final settings = await _getSettingsFromNetwork();
+        return settings;
+      }
+      final storedSettingsCM = await _localStorage.getSettings();
+      if (storedSettingsCM == null) {
+        final settings = await _getSettingsFromNetwork();
+        return settings;
+      } else {
+        final storedSettings = storedSettingsCM.toDomainModel();
+        return storedSettings;
+      }
+    } catch (error) {
+      rethrow;
+    }
+  }
+
   Future<PricingSettings> _getPricingSettingsFromNetwork() async {
     try {
       final pricingSettingsRM = await remoteApi.getPricingSettings();
       final pricingSettingsDM = pricingSettingsRM.toDomainModel();
       final pricingSettingsCM = pricingSettingsRM.toCacheModel();
-      _localStorage.upsertPricingSettings(pricingSettingsCM);
+      final currentSettings = await _localStorage.getSettings() ??
+          SettingsCM(
+            pricing: pricingSettingsCM,
+          );
+      final updatedSettings = currentSettings.copyWith(
+        pricing: pricingSettingsCM,
+      );
+      _localStorage.upsertSettings(updatedSettings);
       return pricingSettingsDM;
     } catch (error) {
       rethrow;
@@ -366,12 +431,13 @@ class UserRepository {
         final pricingSettings = await _getPricingSettingsFromNetwork();
         return pricingSettings;
       }
-      final storedPricingSettingsCM = await _localStorage.getPricingSettings();
-      if (storedPricingSettingsCM == null) {
+      final storedSettingsCM = await _localStorage.getSettings();
+      if (storedSettingsCM?.pricing == null) {
         final pricingSettings = await _getPricingSettingsFromNetwork();
         return pricingSettings;
       } else {
-        final storedPricingSettings = storedPricingSettingsCM.toDomainModel();
+        final storedPricingSettings =
+            storedSettingsCM!.pricing!.toDomainModel();
         return storedPricingSettings;
       }
     } catch (error) {
@@ -387,9 +453,12 @@ class UserRepository {
       PermissionStatus permissionStatus;
 
       permissionStatus = await location.hasPermission();
-      if (permissionStatus == PermissionStatus.denied ||
-          permissionStatus == PermissionStatus.deniedForever) {
+      if (permissionStatus == PermissionStatus.denied) {
         permissionStatus = await location.requestPermission();
+        if (permissionStatus == PermissionStatus.deniedForever) {
+          await Geolocator.openAppSettings();
+          return null;
+        }
         if (permissionStatus != PermissionStatus.granted) {
           return null;
         }

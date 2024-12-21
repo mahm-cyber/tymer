@@ -100,7 +100,6 @@ class ServiceRequestStatusView extends StatelessWidget {
         final isPendingReview =
             state.service?.status == ServiceStatus.pendingReview;
         final isPending = state.service?.status == ServiceStatus.pending;
-        final isInProgress = state.service?.status == ServiceStatus.inProgress;
         final isCancelled = state.service?.status == ServiceStatus.canceled;
         final isRequestConfirmed =
             state.service?.status == ServiceStatus.completed ||

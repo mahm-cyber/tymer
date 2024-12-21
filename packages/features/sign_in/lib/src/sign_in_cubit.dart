@@ -156,7 +156,6 @@ class SignInCubit extends Cubit<SignInState> {
         } else {
           await userRepository.deleteRememberedCredentials();
         }
-        await userRepository.getReservationServiceTypes(FetchPolicy.networkOnly);
         final newState = state.copyWith(
           submissionStatus: FormzSubmissionStatus.success,
         );
@@ -179,12 +178,7 @@ class SignInCubit extends Cubit<SignInState> {
             error is InvalidCredentialsException ? true : false,
             unVerified: error is PhoneNotVerifiedException ? true : false,
           ),
-          submissionStatus: error is! InvalidCredentialsException &&
-              error is! InvalidEmailFormatException &&
-              error is! PhoneNotVerifiedException &&
-              error is! OtpRateLimitExceededException
-              ? FormzSubmissionStatus.failure
-              : FormzSubmissionStatus.initial,
+          submissionStatus: FormzSubmissionStatus.initial,
           error: error,
         );
         emit(newState);

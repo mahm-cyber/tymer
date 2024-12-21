@@ -42,6 +42,10 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
     FetchPolicy fetchPolicy = FetchPolicy.cachePreferably,
   }) async {
     try {
+      final loadingPricing = state.copyWith(
+        fetchingPricingSettingsStatus: FetchingPricingSettingsStatus.inProgress,
+      );
+      emit(loadingPricing);
       final pricingSettings =
           await userRepository.getPricingSettings(fetchPolicy);
       final minPrice = state.serviceType == ServiceType.reservation
@@ -65,6 +69,11 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
 
   void getReservationServiceTypes() async {
     try {
+      final loadingReservationTypes = state.copyWith(
+        fetchingReservationServiceTypesStatus:
+            FetchingReservationServiceTypesStatus.inProgress,
+      );
+      emit(loadingReservationTypes);
       final reservationServiceTypes =
           await userRepository.getReservationServiceTypes(
         FetchPolicy.cachePreferably,
@@ -72,24 +81,19 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
 
       final successState = state.copyWith(
         reservationServiceTypes: reservationServiceTypes,
+        fetchingReservationServiceTypesStatus:
+            FetchingReservationServiceTypesStatus.success,
       );
       emit(successState);
     } catch (error) {
-      final failureState =
-          state.copyWith(reservationServiceTypes: [], error: error);
+      final failureState = state.copyWith(
+        reservationServiceTypes: [],
+        fetchingReservationServiceTypesStatus: FetchingReservationServiceTypesStatus.failure,
+        error: error,
+      );
       emit(failureState);
     }
   }
-
-  // void requestServiceLocationPermission() async {
-  //   final permission = await geo.Geolocator.requestPermission();
-  //   if (permission == geo.LocationPermission.denied) {
-  //     final newState = state.copyWith(
-  //       locationServiceStatus: false,
-  //     );
-  //     emit(newState);
-  //   }
-  // }
 
   void serviceTypeChanged(ServiceType serviceType) {
     final newState = state.copyWith(
@@ -338,11 +342,6 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
         );
         emit(newState);
         if (error is StaleMinimumPriceException) {
-          final loadingPricing = state.copyWith(
-            fetchingPricingSettingsStatus:
-                FetchingPricingSettingsStatus.inProgress,
-          );
-          emit(loadingPricing);
           await getPricingSettings(fetchPolicy: FetchPolicy.networkOnly);
         }
       }

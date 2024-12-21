@@ -42,3 +42,31 @@ extension PricingSettingsCMtoDM on PricingSettingsCM {
     );
   }
 }
+
+extension TermsAndConditionsCMtoDM on TermsAndConditionsCM {
+  TermsAndConditions toDomainModel() {
+    return TermsAndConditions(
+      arHtml: arHtml,
+      enHtml: enHtml,
+    );
+  }
+}
+
+extension PrivacyPolicyCMtoDM on PrivacyPolicyCM {
+  PrivacyPolicy toDomainModel() {
+    return PrivacyPolicy(
+      arHtml: arHtml,
+      enHtml: enHtml,
+    );
+  }
+}
+
+extension SettingsCMtoDM on SettingsCM {
+  Settings toDomainModel() {
+    return Settings(
+      pricing: pricing?.toDomainModel(),
+      termsAndConditions: termsAndConditions?.toDomainModel(),
+      privacyPolicy: privacyPolicy?.toDomainModel(),
+    );
+  }
+}

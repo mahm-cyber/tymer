@@ -49,3 +49,21 @@ extension PricingSettingsRMtoDM on PricingSettingsRM {
     );
   }
 }
+
+extension PrivacyPolicyRMtoDM on PrivacyPolicyRM {
+  PrivacyPolicy toDomainModel() {
+    return PrivacyPolicy(
+      arHtml: arHtml,
+      enHtml: enHtml,
+    );
+  }
+}
+
+extension TermsAndConditionsRMtoDM on TermsAndConditionsRM {
+  TermsAndConditions toDomainModel() {
+    return TermsAndConditions(
+      arHtml: arHtml,
+      enHtml: enHtml,
+    );
+  }
+}
