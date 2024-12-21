@@ -17,7 +17,6 @@ class HomeCubit extends Cubit<HomeState> {
         ) {
     userRepository.getReservationServiceTypes(FetchPolicy.networkOnly);
     userRepository.getPricingSettings(FetchPolicy.networkOnly);
-    userRepository.getSettings(FetchPolicy.networkOnly);
   }
 
   final UserRepository userRepository;
