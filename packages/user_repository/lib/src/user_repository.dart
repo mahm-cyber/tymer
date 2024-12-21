@@ -121,7 +121,6 @@ class UserRepository {
       _userSubject.add(
         userDM,
       );
-
     } catch (error) {
       if (error is InvalidCredentialsTymerException) {
         throw InvalidCredentialsException();
@@ -385,12 +384,13 @@ class UserRepository {
       Location location = Location();
 
       bool serviceEnabled;
-      PermissionStatus permissionGranted;
+      PermissionStatus permissionStatus;
 
-      permissionGranted = await location.hasPermission();
-      if (permissionGranted == PermissionStatus.denied) {
-        permissionGranted = await location.requestPermission();
-        if (permissionGranted != PermissionStatus.granted) {
+      permissionStatus = await location.hasPermission();
+      if (permissionStatus == PermissionStatus.denied ||
+          permissionStatus == PermissionStatus.deniedForever) {
+        permissionStatus = await location.requestPermission();
+        if (permissionStatus != PermissionStatus.granted) {
           return null;
         }
       }
@@ -403,7 +403,6 @@ class UserRepository {
         }
       }
 
-
       await Future.delayed(const Duration(milliseconds: 300));
       final locationData = await location.getLocation();
       return locationData;
@@ -411,8 +410,6 @@ class UserRepository {
       rethrow;
     }
   }
-
-
 }
 
 enum FetchPolicy {
