@@ -42,20 +42,20 @@ class PricingSettings {
 
 class PrivacyPolicy {
   PrivacyPolicy({
-    required this.arHtml,
-    required this.enHtml,
+    required this.arMarkdown,
+    required this.enMarkdown,
   });
 
-  final String arHtml;
-  final String enHtml;
+  final String arMarkdown;
+  final String enMarkdown;
 }
 
 class TermsAndConditions {
   TermsAndConditions({
-    required this.arHtml,
-    required this.enHtml,
+    required this.arMarkdown,
+    required this.enMarkdown,
   });
 
-  final String arHtml;
-  final String enHtml;
+  final String arMarkdown;
+  final String enMarkdown;
 }

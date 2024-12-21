@@ -15,6 +15,7 @@
   "serviceFeesContainerLabel": "Service Fees",
   "awaitingConfirmationButtonLabel": "Awaiting Confirmation",
   "continueWaitingButtonLabel": "Continue Waiting",
-  "provideAnotherServiceButtonLabel": "Provide Another Service"
+  "provideAnotherServiceButtonLabel": "Provide Another Service",
+  "serviceDisputedSnackBarMessage": "The requester has disputed the service, and a chat has been created with the administration"
 
 }

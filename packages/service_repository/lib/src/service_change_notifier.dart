@@ -10,7 +10,7 @@ class ServiceChangeNotifier with ChangeNotifier, EquatableMixin {
   final ValueNotifier<Service?> _serviceRequestDetails = ValueNotifier(null);
   final ValueNotifier<UserType?> _disputeChatUserType = ValueNotifier(null);
   final ValueNotifier<Dispute?> currentDispute = ValueNotifier(null);
-  final chatSubject = BehaviorSubject<DisputeMessage>();
+  BehaviorSubject<DisputeMessage> chatSubject  = BehaviorSubject<DisputeMessage>();
 
 
   dynamic get serviceType => _serviceType.value;
@@ -43,7 +43,7 @@ class ServiceChangeNotifier with ChangeNotifier, EquatableMixin {
     notifyListeners();
   }
 
-  void setCurrentDispute(Dispute dispute) {
+  Future setCurrentDispute(Dispute? dispute) async{
     currentDispute.value = dispute;
     notifyListeners();
   }

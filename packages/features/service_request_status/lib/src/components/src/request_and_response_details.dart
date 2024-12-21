@@ -51,7 +51,6 @@ class RequestAndResponseDetails extends StatelessWidget {
               ),
             ),
             if (!isCancelled) ...[
-              VerticalGap.medium(),
               Container(
                 padding: const EdgeInsets.all(Spacing.medium),
                 decoration: BoxDecoration(
@@ -97,6 +96,7 @@ class RequestAndResponseDetails extends StatelessWidget {
                   ],
                 ),
               ),
+              VerticalGap.medium(),
             ],
             if (isCancelled) ...[
               VerticalGap.medium(),

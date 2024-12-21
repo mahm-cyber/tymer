@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:domain_models/domain_models.dart';
@@ -32,6 +33,7 @@ class ChatCubit extends Cubit<ChatState> {
   final ImagePicker _imagePicker;
   final TextEditingController messageController = TextEditingController();
   final int disputeId;
+  StreamSubscription<DisputeMessage?>? _chatSubscription;
 
   Future init() async {
     await getChat();
@@ -41,49 +43,93 @@ class ChatCubit extends Cubit<ChatState> {
     });
     final user = await userRepository.getUser().first;
     serviceRepository.initializeChatStream(user!, disputeId);
-    serviceRepository.changeNotifier.chatSubject
-        .listen((DisputeMessage message) {
-      final lastDateGroupedMessages = state.dateGroupedMessages?.list.last;
-      final lastDate = lastDateGroupedMessages?.date;
-      final newDate = message.date;
-      final isSameDay = lastDate?.year == newDate.year &&
-          lastDate?.month == newDate.month &&
-          lastDate?.day == newDate.day;
-      final messageAlreadyExists = lastDateGroupedMessages?.messages.any(
-        (element) => element.id == message.id,
-      );
-      if (messageAlreadyExists == true) return;
-
-      if (isSameDay) {
-        final lastGroupedMessagesUpdated = lastDateGroupedMessages?.copyWith(
-          messages: [
-            ...lastDateGroupedMessages.messages,
-            message,
-          ],
-        );
-        final groupedMessagesUpdated = state.dateGroupedMessages?.copyWith(
-          list: [
-            ...state.dateGroupedMessages!.list
-              ..removeLast()
-              ..add(lastGroupedMessagesUpdated!),
-          ],
-        );
-        final updatedState = state.copyWith(
-          dateGroupedMessages: groupedMessagesUpdated,
-        );
-        emit(const ChatState());
-        emit(updatedState);
-        jumpToBottomOfChat();
-      }
-    });
+    _chatSubscription = serviceRepository.changeNotifier.chatSubject.stream
+        .listen(_chatSubjectCallBack);
     serviceRepository.initializeDisputeResolutionStream();
-    serviceRepository.changeNotifier.currentDispute.addListener(() {
-      final dispute = serviceRepository.changeNotifier.currentDispute.value;
-      final newState = state.copyWith(
-        dispute: dispute,
+    serviceRepository.changeNotifier.currentDispute
+        .addListener(_currentDisputeCallBack);
+  }
+
+  void _chatSubjectCallBack(DisputeMessage message) {
+    final isDummyMessage = message.id == -1;
+    if (isDummyMessage) return;
+    final isFirstMessage = state.dateGroupedMessages == null ||
+        state.dateGroupedMessages?.list.isEmpty == true;
+    if (isFirstMessage) {
+      final newGroupedMessages = DateGroupedMessages(
+        date: message.date,
+        messages: [message],
       );
-      emit(newState);
-    });
+      final groupedMessagesUpdated = DateGroupedMessagesList(
+        list: [newGroupedMessages],
+      );
+      final updatedState = state.copyWith(
+        dateGroupedMessages: groupedMessagesUpdated,
+      );
+      emit(const ChatState());
+      emit(updatedState);
+      jumpToBottomOfChat();
+      return;
+    }
+
+    final lastDateGroupedMessages = state.dateGroupedMessages?.list.last;
+    final lastDate = lastDateGroupedMessages?.date;
+    final newDate = message.date;
+    final isSameDay = lastDate?.year == newDate.year &&
+        lastDate?.month == newDate.month &&
+        lastDate?.day == newDate.day;
+    final messageAlreadyExists = lastDateGroupedMessages?.messages.any(
+      (element) => element.id == message.id,
+    );
+    if (messageAlreadyExists == true) return;
+
+    if (isSameDay) {
+      final lastGroupedMessagesUpdated = lastDateGroupedMessages?.copyWith(
+        messages: [
+          ...lastDateGroupedMessages.messages,
+          message,
+        ],
+      );
+      final groupedMessagesUpdated = state.dateGroupedMessages?.copyWith(
+        list: [
+          ...state.dateGroupedMessages!.list
+            ..removeLast()
+            ..add(lastGroupedMessagesUpdated!),
+        ],
+      );
+      final updatedState = state.copyWith(
+        dateGroupedMessages: groupedMessagesUpdated,
+      );
+      emit(const ChatState());
+      emit(updatedState);
+      jumpToBottomOfChat();
+    } else {
+      final newGroupedMessages = DateGroupedMessages(
+        date: newDate,
+        messages: [message],
+      );
+      final groupedMessagesUpdated = state.dateGroupedMessages?.copyWith(
+        list: [
+          ...state.dateGroupedMessages!.list,
+          newGroupedMessages,
+        ],
+      );
+      final updatedState = state.copyWith(
+        dateGroupedMessages: groupedMessagesUpdated,
+      );
+      emit(const ChatState());
+      emit(updatedState);
+      jumpToBottomOfChat();
+      return;
+    }
+  }
+
+  void _currentDisputeCallBack() {
+    final dispute = serviceRepository.changeNotifier.currentDispute.value;
+    final newState = state.copyWith(
+      dispute: dispute,
+    );
+    if (!isClosed) emit(newState);
   }
 
   // get ticket_messages
@@ -262,8 +308,15 @@ class ChatCubit extends Cubit<ChatState> {
 
   @override
   Future<void> close() {
-    // serviceRepository.stopListeningChat(disputeId);
+    _chatSubscription?.cancel();
+    serviceRepository.stopListeningChat(disputeId);
     serviceRepository.disconnectPusher();
+    serviceRepository.changeNotifier.currentDispute.removeListener(
+      _currentDisputeCallBack,
+    );
+    serviceRepository.changeNotifier.clearCurrentDisputeType();
+    serviceRepository.changeNotifier.clearDisputeChatUserType();
+    serviceRepository.changeNotifier.setCurrentDispute(null);
     return super.close();
   }
 }

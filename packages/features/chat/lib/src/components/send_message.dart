@@ -41,30 +41,6 @@ class _SendMessageState extends State<SendMessage> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: TextField(
-                        maxLines: 2,
-                        scrollPadding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).viewInsets.bottom +
-                                16 * 4),
-                        controller: cubit.messageController,
-                        enabled: !submissionInProgress,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide.none,
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: Spacing.medium,
-                          ),
-                        ),
-                        onEditingComplete: cubit.sendMessage,
-                        onChanged: cubit.onMessageChanged,
-                      ),
-                    ),
-                    HorizontalGap.medium(),
                     Stack(
                       children: [
                         IconButton(
@@ -92,6 +68,30 @@ class _SendMessageState extends State<SendMessage> {
                           )
                       ],
                     ),
+                    Expanded(
+                      child: TextField(
+                        maxLines: 2,
+                        scrollPadding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom +
+                                16 * 4),
+                        controller: cubit.messageController,
+                        enabled: !submissionInProgress,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide.none,
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: Spacing.medium,
+                          ),
+                        ),
+                        onEditingComplete: cubit.sendMessage,
+                        onChanged: cubit.onMessageChanged,
+                      ),
+                    ),
+                    HorizontalGap.medium(),
                     submissionInProgress
                         ? Transform.scale(
                             scale: 0.5,

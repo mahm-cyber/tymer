@@ -56,4 +56,7 @@ class FulfillServiceRequestLocalizationsAr extends FulfillServiceRequestLocaliza
 
   @override
   String get provideAnotherServiceButtonLabel => 'تقديم خدمة أخرى';
+
+  @override
+  String get serviceDisputedSnackBarMessage => 'تم نزاع على الخدمة، وتم إنشاء محادثة مع الإدارة';
 }

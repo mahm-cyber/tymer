@@ -196,6 +196,12 @@ abstract class FulfillServiceRequestLocalizations {
   /// In en, this message translates to:
   /// **'Provide Another Service'**
   String get provideAnotherServiceButtonLabel;
+
+  /// No description provided for @serviceDisputedSnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The requester has disputed the service, and a chat has been created with the administration'**
+  String get serviceDisputedSnackBarMessage;
 }
 
 class _FulfillServiceRequestLocalizationsDelegate extends LocalizationsDelegate<FulfillServiceRequestLocalizations> {

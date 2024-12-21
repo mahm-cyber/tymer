@@ -16,12 +16,14 @@ class FulfillServiceRequestScreen extends StatelessWidget {
     required this.serviceRepository,
     required this.userRepository,
     required this.onNavigateToProvideService,
+    required this.onServiceDisputed,
     super.key,
   });
 
   final ServiceRepository serviceRepository;
   final UserRepository userRepository;
   final VoidCallback onNavigateToProvideService;
+  final VoidCallback onServiceDisputed;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class FulfillServiceRequestScreen extends StatelessWidget {
         serviceRepository: serviceRepository,
         userRepository: userRepository,
         onNavigateToProvideService: onNavigateToProvideService,
+        onServiceDisputed: onServiceDisputed,
       ),
       child: GestureDetector(
         onTap: context.releaseFocus,
@@ -54,9 +57,23 @@ class FulfillServiceRequestView extends StatelessWidget {
       listenWhen: (previous, current) =>
           previous.isImagePickerBottomSheetVisible !=
               current.isImagePickerBottomSheetVisible ||
-          previous.submissionStatus != current.submissionStatus,
+          previous.submissionStatus != current.submissionStatus ||
+          previous.service?.status != current.service?.status,
       listener: (context, state) {
         final cubit = context.read<FulfillServiceRequestCubit>();
+        if (state.service?.status == ServiceStatus.disputed) {
+          cubit.onServiceDisputed();
+          showSnackBar(
+            context: context,
+            snackBar: ErrorSnackBar(
+              context: context,
+              message: l10n.serviceDisputedSnackBarMessage,
+              marginalSpace: theme.snackBarMargin,
+            ),
+          );
+          return;
+        }
+
         if (state.isImagePickerBottomSheetVisible == true) {
           showModalBottomSheet(
             shape: const RoundedRectangleBorder(
@@ -105,7 +122,8 @@ class FulfillServiceRequestView extends StatelessWidget {
             ),
           );
         }
-        if (state.submissionStatus == FormzSubmissionStatus.inProgress) {
+        if (state.submissionStatus == FormzSubmissionStatus.inProgress &&
+            state.service?.status == ServiceStatus.pendingReview) {
           //dialog asking if they want to provide another service or wait for confirmation
           showDialog(
               context: context,
@@ -136,7 +154,8 @@ class FulfillServiceRequestView extends StatelessWidget {
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
         final fetchServiceError = state.fetchStatus == FetchStatus.failure;
-        final isInitialFetchInProgress = state.fetchStatus == FetchStatus.loading;
+        final isInitialFetchInProgress =
+            state.fetchStatus == FetchStatus.loading;
         return Stack(
           children: [
             Scaffold(

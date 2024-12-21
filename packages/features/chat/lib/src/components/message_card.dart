@@ -23,39 +23,19 @@ class MessageCard extends StatelessWidget {
   final Function(String) openFileInExternalApp;
   final String userToken;
 
-
-
   @override
   Widget build(BuildContext context) {
     final theme = TymerTheme.of(context);
     final textTheme = Theme.of(context).textTheme;
     final isSentByMe = message.isSentByMe;
     final l10n = ChatLocalizations.of(context);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
       children: [
-        if (isFirstElement) VerticalGap.medium(),
-        Row(
-          mainAxisAlignment: isSentByMe ? MainAxisAlignment.start: MainAxisAlignment.end,
-          children: [
-            if(isSentByMe)HorizontalGap.custom(theme.screenMargin * 2),
-            Text(
-              isSentByMe
-                  ? l10n.messageSentByMeCardTitle
-                  : message.sender.name,
-              style: textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: isSentByMe
-                    ? theme.materialThemeData.colorScheme.secondary
-                    : theme.materialThemeData.colorScheme.secondary,
-              ),
-            ),
-            if (!isSentByMe) HorizontalGap.custom(theme.screenMargin * 2),
-          ],
-        ),
-        VerticalGap.xSmall(),
+        if (!isSentByMe) const Spacer(),
         Container(
-          width: MediaQuery.of(context).size.width,
+          constraints: BoxConstraints(
+              maxWidth: MediaQuery.of(context).size.width -
+                  (theme.screenMargin * 3)),
           padding: const EdgeInsets.only(
             left: Spacing.medium,
             right: Spacing.medium,
@@ -64,60 +44,62 @@ class MessageCard extends StatelessWidget {
           ),
           margin: EdgeInsetsDirectional.only(
             bottom: Spacing.medium,
-            end: isSentByMe ? theme.screenMargin : theme.screenMargin * 2,
-            start: isSentByMe ? theme.screenMargin * 2 : theme.screenMargin,
+            start: isSentByMe ? theme.screenMargin : theme.screenMargin * 2,
+            end: isSentByMe ? theme.screenMargin * 2 : theme.screenMargin,
           ),
           decoration: BoxDecoration(
             border: Border.all(color: theme.borderColor),
             borderRadius: BorderRadius.circular(10),
-            color: isSentByMe ? const Color(0xFFEFEFEF) : theme.secondaryColor,
+            color:
+            isSentByMe ? const Color(0xFFEFEFEF) : theme.secondaryColor,
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+          child: Column(
+            crossAxisAlignment:
+            isSentByMe ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+
             children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-
-                    if (message.text != null &&
-                        message.text?.isNotEmpty == true) ...[
-                      SelectableText(
-                        message.text!,
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: isSentByMe
-                              ? null
-                              : theme.materialThemeData.colorScheme.surface,
-                        ),
-                      ),
-                      VerticalGap.small(),
-                    ],
-                    if (message.files?.isNotEmpty == true) ...[
-                      MessageFileWidget(
-                        message: message,
-                        openFileInExternalApp: openFileInExternalApp,
-                        userToken: userToken,
-
-                      ),
-                      VerticalGap.small(),
-                    ],
-                    Row(
-                      children: [
-                        const Spacer(),
-                        SelectableText(
-                          message.date.formatDateTimeTo12Hour()!,
-                          textDirection: TextDirection.ltr,
-                          style: textTheme.bodySmall?.copyWith(
-                            color: isSentByMe
-                                ? const Color(0xFF797979)
-                                : theme.materialThemeData.colorScheme.surface,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+              Text(
+                isSentByMe
+                    ? l10n.messageSentByMeCardTitle
+                    : message.sender.name,
+                style: textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: isSentByMe
+                      ? theme.materialThemeData.colorScheme.secondary
+                      : theme.materialThemeData.colorScheme.surface,
                 ),
               ),
+              VerticalGap.medium(),
+              if (message.text != null &&
+                  message.text?.isNotEmpty == true) ...[
+                SelectableText(
+                  message.text!,
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: isSentByMe
+                        ? null
+                        : theme.materialThemeData.colorScheme.surface,
+                  ),
+                ),
+                VerticalGap.small(),
+              ],
+              if (message.files?.isNotEmpty == true) ...[
+                MessageFileWidget(
+                  message: message,
+                  openFileInExternalApp: openFileInExternalApp,
+                  userToken: userToken,
+                ),
+                VerticalGap.small(),
+              ],
+              SelectableText(
+                TimeOfDay.fromDateTime(message.date).localizedTimeOfDay(Localizations.localeOf(context)),
+                textDirection: TextDirection.ltr,
+                style: textTheme.labelMedium?.copyWith(
+                  color: isSentByMe
+                      ? const Color(0xFF797979)
+                      : theme.materialThemeData.colorScheme.surface,
+                ),
+              ),
+
             ],
           ),
         ),

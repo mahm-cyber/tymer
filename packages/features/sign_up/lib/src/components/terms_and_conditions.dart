@@ -19,34 +19,10 @@ class TermsAndConditions extends StatelessWidget {
       final error = state.termsAndConditionsAccepted.isNotValid
           ? state.termsAndConditionsAccepted.error
           : null;
-
       return Row(
         children: [
           TextButton(
-            onPressed: () => showModalBottomSheet(
-              context: context,
-              enableDrag: true,
-              showDragHandle: true,
-              builder: (context) => SizedBox(
-                width: double.infinity,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        l10n.termsAndConditionsBottomSheetTitle,
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      Text(
-                        'مثال لمحتوى شروط الخدمة',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            onPressed: cubit.getAndShowTermsAndConditions,
             child: Text(
               l10n.agreeAndAcceptAllButtonText,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(

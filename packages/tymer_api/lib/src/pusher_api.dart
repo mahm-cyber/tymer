@@ -51,7 +51,7 @@ class PusherApi {
     log('STOPPED LISTENING TO:::$channelName');
   }
 
-  void listenToChat({
+  void listenToRemoteChat({
     required int disputeId,
     required String userType,
   }) {
@@ -69,7 +69,7 @@ class PusherApi {
     );
   }
 
-  void stopListeningToChat({
+  void stopListeningToRemoteChat({
     required int disputeId,
     required String userType,
   }) {
@@ -92,7 +92,21 @@ class PusherApi {
 
     listenToChannel(
       channelName: '$channelName.$disputeId',
-      eventName: _ChannelNames.disputeResolvedEventName,
+      eventName: _ChannelNames.disputeResolvedAndClosedEventName,
+      onEvent: _disputeChatEvent,
+    );
+  }
+
+  void stopListeningToChatResolved({
+    required int disputeId,
+    required String userType,
+  }) {
+    final isRequester = userType == 'requester';
+    final channelName =
+        isRequester ? _ChannelNames.requestChat : _ChannelNames.providerChat;
+
+    stopListeningToChannel(
+      channelName: '$channelName.$disputeId',
       onEvent: _disputeChatEvent,
     );
   }
@@ -166,6 +180,6 @@ class _ChannelNames {
   static String get providerChatEventName =>
       'App\\Events\\DisputeSelectedUserChatMessageSent';
 
-  static String get disputeResolvedEventName =>
+  static String get disputeResolvedAndClosedEventName =>
       'App\\Events\\DisputeResolvedAndClosed';
 }

@@ -8,6 +8,8 @@ class SignUpState extends Equatable {
     this.termsAndConditionsAccepted = const Dynamic<bool>.unvalidated(),
     this.passwordConfirmation = const PasswordConfirmation.unvalidated(),
     this.email = const Email.unvalidated(),
+    this.termsAndConditions,
+    this.termsAndConditionsFetchStatus = FetchStatus.initial,
     this.submissionStatus = FormzSubmissionStatus.initial,
   });
 
@@ -17,6 +19,8 @@ class SignUpState extends Equatable {
   final Password password;
   final PasswordConfirmation passwordConfirmation;
   final Email email;
+  final TermsAndConditions? termsAndConditions;
+  final FetchStatus termsAndConditionsFetchStatus;
   final FormzSubmissionStatus submissionStatus;
 
   SignUpState copyWith({
@@ -26,6 +30,8 @@ class SignUpState extends Equatable {
     Password? password,
     PasswordConfirmation? passwordConfirmation,
     Email? email,
+    TermsAndConditions? termsAndConditions,
+    FetchStatus? termsAndConditionsFetchStatus,
     FormzSubmissionStatus? submissionStatus,
   }) {
     return SignUpState(
@@ -36,6 +42,9 @@ class SignUpState extends Equatable {
       password: password ?? this.password,
       passwordConfirmation: passwordConfirmation ?? this.passwordConfirmation,
       email: email ?? this.email,
+      termsAndConditions: termsAndConditions ?? this.termsAndConditions,
+      termsAndConditionsFetchStatus:
+          termsAndConditionsFetchStatus ?? this.termsAndConditionsFetchStatus,
       submissionStatus: submissionStatus ?? this.submissionStatus,
     );
   }
@@ -48,6 +57,10 @@ class SignUpState extends Equatable {
         password,
         passwordConfirmation,
         email,
+        termsAndConditions,
+        termsAndConditionsFetchStatus,
         submissionStatus,
       ];
 }
+
+enum FetchStatus { initial, loading, success, failure }

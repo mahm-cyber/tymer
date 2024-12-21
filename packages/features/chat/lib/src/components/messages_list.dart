@@ -58,6 +58,7 @@ class MessagesList extends StatelessWidget {
                                         ?.copyWith(fontWeight: FontWeight.bold),
                                   ),
                                   ColumnBuilder(
+
                                     itemBuilder: (context, index) {
                                       final message = chat.messages[index];
                                       return MessageCard(

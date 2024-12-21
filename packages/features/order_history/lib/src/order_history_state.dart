@@ -30,7 +30,6 @@ class OrderHistoryState extends Equatable {
               ServiceStatus.pendingReview,
               ServiceStatus.inProgress,
               ServiceStatus.completed,
-              ServiceStatus.canceled,
             ];
 
   OrderHistoryState copyWith({
@@ -47,8 +46,7 @@ class OrderHistoryState extends Equatable {
       nextListPageLoadError: nextListPageLoadError,
       serviceRequestsFetchStatus:
           serviceRequestsFetchStatus ?? this.serviceRequestsFetchStatus,
-      userTypeFilter:
-          userTypeFilter ?? this.userTypeFilter,
+      userTypeFilter: userTypeFilter ?? this.userTypeFilter,
       statusFilter: statusFilter ?? this.statusFilter,
     );
   }

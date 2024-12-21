@@ -176,6 +176,28 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(newState);
   }
 
+  void getAndShowTermsAndConditions() async {
+    final newState = state.copyWith(
+      termsAndConditionsFetchStatus: FetchStatus.loading,
+    );
+    emit(newState);
+    try {
+      final settings =
+          await userRepository.getSettings(FetchPolicy.cachePreferably);
+      final termsAndConditions = settings.termsAndConditions;
+      final newState = state.copyWith(
+        termsAndConditions: termsAndConditions,
+        termsAndConditionsFetchStatus: FetchStatus.success,
+      );
+      emit(newState);
+    } catch (error) {
+      final newState = state.copyWith(
+        termsAndConditionsFetchStatus: FetchStatus.failure,
+      );
+      emit(newState);
+    }
+  }
+
   void onSubmit() async {
     final name = Dynamic<String?>.validated(
       state.name.value,

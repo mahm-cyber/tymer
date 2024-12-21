@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:domain_models/domain_models.dart';
@@ -68,6 +69,9 @@ class ServiceRepository {
       rethrow;
     }
   }
+
+  late StreamSubscription<DisputeMessageRM>? _remoteChatSubscription;
+  late StreamSubscription<String>? _remoteDisputeResolutionSubscription;
 
   Future<ServiceListPage> getAllServiceRequests({
     int? page,
@@ -247,22 +251,6 @@ class ServiceRepository {
     }
   }
 
-  // Future<DisputeChat> getDisputeChat({
-  //   required int disputeId,
-  // }) async {
-  //   try {
-  //     final disputeChatUserType = changeNotifier.disputeChatUserType!;
-  //     final disputeChat = await remoteApi.getDisputeChat(
-  //       disputeId: disputeId,
-  //       userType: disputeChatUserType.toRemoteModel(),
-  //     );
-  //     final disputeDomainModel = disputeChat.toDomainModel(disputeId);
-  //     return disputeDomainModel;
-  //   } catch (error) {
-  //     rethrow;
-  //   }
-  // }
-
   Future<DateGroupedMessagesList> getDateGroupedChat(
     int disputeId,
     User user,
@@ -315,7 +303,11 @@ class ServiceRepository {
   Future listenToChat(int disputeId) async {
     final userType = changeNotifier.disputeChatUserType!;
     try {
-      remoteApi.pusherApi.listenToChat(
+      remoteApi.pusherApi.listenToRemoteChat(
+        disputeId: disputeId,
+        userType: userType.name,
+      );
+      remoteApi.pusherApi.listenToChatResolved(
         disputeId: disputeId,
         userType: userType.name,
       );
@@ -327,11 +319,18 @@ class ServiceRepository {
 
   Future stopListeningChat(int disputeId) async {
     final userType = changeNotifier.disputeChatUserType!;
+
     try {
-      remoteApi.pusherApi.stopListeningToChat(
+      remoteApi.pusherApi.stopListeningToRemoteChat(
         disputeId: disputeId,
         userType: userType.name,
       );
+      remoteApi.pusherApi.stopListeningToChatResolved(
+        disputeId: disputeId,
+        userType: userType.name,
+      );
+      _remoteChatSubscription?.cancel();
+      _remoteDisputeResolutionSubscription?.cancel();
     } catch (error) {
       debugPrint('Error stopping listening to requester chat: $error');
       rethrow;
@@ -339,18 +338,25 @@ class ServiceRepository {
   }
 
   void initializeChatStream(User user, disputeId) {
-    remoteApi.pusherApi.disputeChatMessageSC.listen((DisputeMessageRM event) {
+    remoteApi.pusherApi.disputeChatMessageSC.add(
+      DisputeMessageRM.dummy,
+    );
+    changeNotifier.chatSubject.sink.add(DisputeMessage.dummy);
+    _remoteChatSubscription = remoteApi.pusherApi.disputeChatMessageSC
+        .listen((DisputeMessageRM event) {
       final disputeMessage = event.toDomainModel(disputeId);
       final isSentByMe = disputeMessage.sender.id == user.id;
       final updatedDisputeMessage = disputeMessage.copyWith(
         isSentByMe: isSentByMe,
       );
-      changeNotifier.chatSubject.add(updatedDisputeMessage);
+      changeNotifier.chatSubject.sink.add(updatedDisputeMessage);
     });
   }
 
   void initializeDisputeResolutionStream() {
-    remoteApi.pusherApi.disputeStatusSC.listen(
+    remoteApi.pusherApi.disputeStatusSC.add('');
+    _remoteDisputeResolutionSubscription =
+        remoteApi.pusherApi.disputeStatusSC.listen(
       (String event) {
         final currentDispute = changeNotifier.currentDispute;
         final newStatus = disputeStatusRMtoDM(event);

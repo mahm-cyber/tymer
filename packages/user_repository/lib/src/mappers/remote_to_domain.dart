@@ -53,8 +53,8 @@ extension PricingSettingsRMtoDM on PricingSettingsRM {
 extension PrivacyPolicyRMtoDM on PrivacyPolicyRM {
   PrivacyPolicy toDomainModel() {
     return PrivacyPolicy(
-      arHtml: arHtml,
-      enHtml: enHtml,
+      arMarkdown: arHtml,
+      enMarkdown: enHtml,
     );
   }
 }
@@ -62,8 +62,8 @@ extension PrivacyPolicyRMtoDM on PrivacyPolicyRM {
 extension TermsAndConditionsRMtoDM on TermsAndConditionsRM {
   TermsAndConditions toDomainModel() {
     return TermsAndConditions(
-      arHtml: arHtml,
-      enHtml: enHtml,
+      arMarkdown: arHtml,
+      enMarkdown: enHtml,
     );
   }
 }

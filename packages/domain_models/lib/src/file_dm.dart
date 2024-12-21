@@ -1,6 +1,8 @@
 import 'dart:io';
 
-class FileDM {
+import 'package:equatable/equatable.dart';
+
+class FileDM  extends Equatable{
   final File? file;
   final String name;
   final String? dlUrl;
@@ -9,11 +11,14 @@ class FileDM {
 
   String get extension => name.split('.').last;
 
-  FileDM({
+  const FileDM({
     required this.name,
     this.dlUrl,
     this.file,
   });
+
+  @override
+  List<Object?> get props => [file, name, dlUrl];
 }
 
 enum FileType {

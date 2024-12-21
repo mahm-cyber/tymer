@@ -16,7 +16,9 @@
   "serviceFeesContainerLabel": "رسوم الخدمة",
   "awaitingConfirmationButtonLabel": "جارى التأكيد",
   "continueWaitingButtonLabel": "متابعة الانتظار",
-  "provideAnotherServiceButtonLabel": "تقديم خدمة أخرى"
+  "provideAnotherServiceButtonLabel": "تقديم خدمة أخرى",
+  "serviceDisputedSnackBarMessage": "تم نزاع على الخدمة، وتم إنشاء محادثة مع الإدارة"
+
 
 
 

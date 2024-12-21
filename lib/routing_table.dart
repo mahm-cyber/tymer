@@ -260,6 +260,7 @@ Map<String, PageBuilder> buildRoutingTable({
                       await routerDelegate.popUntil(
                         (route) => route.path == _PathConstants.homePath,
                       );
+                      routerDelegate.push(_PathConstants.orderHistory);
                       routerDelegate.push(_PathConstants.disputesPath);
                     },
                   );
@@ -309,6 +310,13 @@ Map<String, PageBuilder> buildRoutingTable({
               await routerDelegate
                   .popUntil((route) => route.path == _PathConstants.homePath);
               routerDelegate.push(_PathConstants.provideServicePath);
+            },
+            onServiceDisputed: () async {
+              await routerDelegate.popUntil(
+                (route) => route.path == _PathConstants.homePath,
+              );
+               routerDelegate.push(_PathConstants.orderHistory);
+              routerDelegate.push(_PathConstants.disputesPath);
             },
           ),
         ),

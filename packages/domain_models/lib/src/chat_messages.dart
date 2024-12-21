@@ -40,7 +40,7 @@ class DateGroupedMessages {
   }
 }
 
-class DisputeMessage {
+class DisputeMessage extends Equatable {
   final int id;
   final String? text;
   final List<FileDM>? files;
@@ -48,7 +48,7 @@ class DisputeMessage {
   final Sender sender;
   final bool isSentByMe;
 
-  DisputeMessage({
+  const DisputeMessage({
     required this.id,
     this.text,
     this.files,
@@ -69,6 +69,27 @@ class DisputeMessage {
       isSentByMe: isSentByMe ?? this.isSentByMe,
     );
   }
+
+  static DisputeMessage get dummy => DisputeMessage(
+        id: -1,
+        text: '',
+        files: const [],
+        date: DateTime.now(),
+        sender: Sender(
+          id: -1,
+          name: '',
+        ),
+      );
+
+  @override
+  List<Object?> get props => [
+        id,
+        text,
+        files,
+        date,
+        sender,
+        isSentByMe,
+      ];
 }
 
 class Sender {

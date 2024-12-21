@@ -84,6 +84,19 @@ class DisputeMessageRM {
 
   factory DisputeMessageRM.fromJson(Map<String, dynamic> json) =>
       _$DisputeMessageRMFromJson(json);
+
+  static DisputeMessageRM get dummy => DisputeMessageRM(
+        id: -1,
+        senderId: -1,
+        senderName: '',
+        content: '',
+        chatImages: [],
+        chatRecords: [],
+        chatDocuments: [],
+        readAt: '2024-12-21T12:36:45.000000Z',
+        createdAt: '2024-12-21T12:36:45.000000Z',
+        updatedAt: '2024-12-21T12:36:45.000000Z',
+      );
 }
 
 @JsonSerializable(createToJson: false)

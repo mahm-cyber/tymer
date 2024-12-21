@@ -44,7 +44,7 @@ class DisputesCubit extends Cubit<DisputesState> {
         disputeStatus: state.disputeStatusFilter,
       );
 
-      final newItemList = newPage.list;
+      final newItemList = newPage.list.reversed.toList();
       final oldItemList = state.disputes ?? [];
       final completeItemList =
           page == 1 ? newItemList : (oldItemList + newItemList);
@@ -104,10 +104,10 @@ class DisputesCubit extends Cubit<DisputesState> {
     reFetchFirstPage();
   }
 
-  void onGoToDisputeChatTapped(Dispute dispute) {
+  void onGoToDisputeChatTapped(Dispute dispute) async {
     serviceRepository.changeNotifier
         .setDisputeChatUserType(state.userTypeFilter);
-    serviceRepository.changeNotifier.setCurrentDispute(dispute);
+    await serviceRepository.changeNotifier.setCurrentDispute(dispute);
     onDisputeTapped(dispute.id);
 
   }

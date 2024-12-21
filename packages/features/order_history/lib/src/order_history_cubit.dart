@@ -106,8 +106,8 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
     final newState = state.copyWith(
       userTypeFilter: userType,
       statusFilter: userType == UserType.provider &&
-              state.statusFilter == ServiceStatus.pending
-          ? ServiceStatus.completed
+              (state.statusFilter == ServiceStatus.pending || state.statusFilter == ServiceStatus.canceled)
+          ? ServiceStatus.pendingReview
           : null,
     );
     emit(newState);
