@@ -203,6 +203,13 @@ packages:
       relative: true
     source: path
     version: "0.0.0"
+  dispute_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/dispute_repository"
+      relative: true
+    source: path
+    version: "0.0.0"
   disputes:
     dependency: "direct main"
     description:

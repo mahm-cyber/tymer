@@ -1,11 +1,11 @@
 import 'package:chat/src/l10n/chat_localizations.dart';
 import 'package:component_library/component_library.dart';
+import 'package:dispute_repository/dispute_repository.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:chat/src/chat_cubit.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
-import 'package:service_repository/service_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 import 'components/components.dart';
@@ -13,12 +13,13 @@ import 'components/components.dart';
 class ChatScreen extends StatefulWidget {
   const ChatScreen({
     super.key,
-    required this.serviceRepository,
+    required this.disputeRepository,
+
     required this.userRepository,
     required this.disputeId,
   });
 
-  final ServiceRepository serviceRepository;
+  final DisputeRepository disputeRepository;
   final UserRepository userRepository;
   final int disputeId;
 
@@ -33,7 +34,7 @@ class _ChatScreenState extends State<ChatScreen>
     super.build(context);
     return BlocProvider<ChatCubit>(
       create: (_) => ChatCubit(
-        serviceRepository: widget.serviceRepository,
+        disputeRepository: widget.disputeRepository,
         userRepository: widget.userRepository,
         disputeId: widget.disputeId,
       ),

@@ -1,9 +1,9 @@
+import 'package:dispute_repository/dispute_repository.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:service_repository/service_repository.dart';
 
 import 'package:user_repository/user_repository.dart';
 
@@ -12,13 +12,13 @@ part 'disputes_state.dart';
 class DisputesCubit extends Cubit<DisputesState> {
   DisputesCubit({
     required this.userRepository,
-    required this.serviceRepository,
+    required this.disputeRepository,
     required this.onDisputeTapped,
   })  : serviceRequestsPagingController = PagingController(firstPageKey: 1),
         super(
           const DisputesState(),
         ) {
-    serviceRepository.changeNotifier.shouldReFetchDisputesVN
+    disputeRepository.changeNotifier.shouldReFetchDisputesVN
         .addListener(_shouldReFetchDisputesCallBack);
     _handleDisputesListNextPageRequested();
     serviceRequestsPagingController.addPageRequestListener(
@@ -32,7 +32,7 @@ class DisputesCubit extends Cubit<DisputesState> {
   }
 
   final UserRepository userRepository;
-  final ServiceRepository serviceRepository;
+  final DisputeRepository disputeRepository;
   final ValueSetter<int> onDisputeTapped;
   final PagingController<int, Dispute> serviceRequestsPagingController;
 
@@ -40,13 +40,13 @@ class DisputesCubit extends Cubit<DisputesState> {
     int page = 1,
   }) async {
     try {
-      final newPage = await serviceRepository.getDisputes(
+      final newPage = await disputeRepository.getDisputes(
         page: page,
         userType: state.userTypeFilter,
         disputeStatus: state.disputeStatusFilter,
       );
 
-      final newItemList = newPage.list.reversed.toList();
+      final newItemList = newPage.list;
       final oldItemList = state.disputes ?? [];
       final completeItemList =
           page == 1 ? newItemList : (oldItemList + newItemList);
@@ -107,15 +107,15 @@ class DisputesCubit extends Cubit<DisputesState> {
   }
 
   void onGoToDisputeChatTapped(Dispute dispute) async {
-    serviceRepository.changeNotifier
+    disputeRepository.changeNotifier
         .setDisputeChatUserType(state.userTypeFilter);
-    await serviceRepository.changeNotifier.setCurrentDispute(dispute);
+    await disputeRepository.changeNotifier.setCurrentDispute(dispute);
     onDisputeTapped(dispute.id);
   }
 
   void _shouldReFetchDisputesCallBack() {
     final shouldReFetchDisputes =
-        serviceRepository.changeNotifier.shouldReFetchDisputesVN.value;
+        disputeRepository.changeNotifier.shouldReFetchDisputesVN.value;
     if (shouldReFetchDisputes == true) {
       _handleDisputesListNextPageRequested();
     }
@@ -123,7 +123,7 @@ class DisputesCubit extends Cubit<DisputesState> {
 
   @override
   Future<void> close() async {
-    serviceRepository.changeNotifier.shouldReFetchDisputesVN
+    disputeRepository.changeNotifier.shouldReFetchDisputesVN
         .removeListener(_shouldReFetchDisputesCallBack);
     return super.close();
   }

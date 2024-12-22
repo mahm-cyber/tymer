@@ -12,6 +12,7 @@ class Dispute extends Equatable {
     required this.status,
     this.resolverId,
     required this.reason,
+    required this.  createdAt,
   });
 
   final int id;
@@ -20,6 +21,7 @@ class Dispute extends Equatable {
   final DisputeStatus status;
   final int? resolverId;
   final String? reason;
+  final DateTime createdAt;
 
   @override
   List<Object?> get props => [
@@ -41,6 +43,7 @@ class Dispute extends Equatable {
       status: status ?? this.status,
       resolverId: resolverId,
       reason: reason,
+      createdAt: createdAt,
     );
   }
 }

@@ -18,6 +18,9 @@ class DisputesState extends Equatable {
 
   final DisputeStatus disputeStatusFilter;
 
+  List<Dispute>? get ascendingSortedDisputes =>
+      disputes?..sort((b, a) => a.createdAt.compareTo(b.createdAt));
+
   DisputesState copyWith({
     List<Dispute>? disputes,
     int? nextPage,

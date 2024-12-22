@@ -2,6 +2,7 @@ import 'package:accept_service_request/accept_service_request.dart';
 import 'package:chat/chat.dart';
 import 'package:choose_service/choose_service.dart';
 import 'package:confirm_dispute/confirm_dispute.dart';
+import 'package:dispute_repository/dispute_repository.dart';
 import 'package:disputes/disputes.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,7 @@ Map<String, PageBuilder> buildRoutingTable({
   required RoutemasterDelegate routerDelegate,
   required UserRepository userRepository,
   required ServiceRepository serviceRepository,
+  required DisputeRepository disputeRepository,
   required ValueNotifier<bool> signInSuccessVN,
   required ValueNotifier<bool> isUserUnAuthSC,
 }) {
@@ -137,7 +139,7 @@ Map<String, PageBuilder> buildRoutingTable({
           name: 'disputes',
           child: DisputesScreen(
             userRepository: userRepository,
-            serviceRepository: serviceRepository,
+            disputeRepository: disputeRepository,
             onDisputeTapped: (disputeId) {
               routerDelegate
                   .push(_PathConstants.disputeChatPath(disputeId: disputeId));
@@ -152,7 +154,7 @@ Map<String, PageBuilder> buildRoutingTable({
         name: 'chat',
         child: ChatScreen(
           userRepository: userRepository,
-          serviceRepository: serviceRepository,
+          disputeRepository: disputeRepository,
           disputeId: disputeId,
         ),
       );
@@ -254,7 +256,7 @@ Map<String, PageBuilder> buildRoutingTable({
                 context: context,
                 builder: (context) {
                   return ConfirmDisputeBottomSheet(
-                    serviceRepository: serviceRepository,
+                    disputeRepository: disputeRepository,
                     service: service,
                     onDisputeSuccess: () async {
                       await routerDelegate.popUntil(
@@ -315,7 +317,7 @@ Map<String, PageBuilder> buildRoutingTable({
               await routerDelegate.popUntil(
                 (route) => route.path == _PathConstants.homePath,
               );
-               routerDelegate.push(_PathConstants.orderHistory);
+              routerDelegate.push(_PathConstants.orderHistory);
               routerDelegate.push(_PathConstants.disputesPath);
             },
           ),

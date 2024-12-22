@@ -12,6 +12,7 @@ class DisputeRM {
     required this.status,
     this.resolvedBy,
     required this.reason,
+    required this.createdAt,
   });
 
   @JsonKey(name: 'id')
@@ -26,6 +27,8 @@ class DisputeRM {
   final int? resolvedBy;
   @JsonKey(name: 'other_details')
   final String? reason;
+  @JsonKey(name: 'created_at')
+  final String createdAt;
 
   factory DisputeRM.fromJson(Map<String, dynamic> json) =>
       _$DisputeRMFromJson(json);

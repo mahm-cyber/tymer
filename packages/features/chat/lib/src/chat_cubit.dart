@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:dispute_repository/dispute_repository.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart' as fp;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:service_repository/service_repository.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -15,20 +15,20 @@ part 'chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {
   ChatCubit({
-    required this.serviceRepository,
+    required this.disputeRepository,
     required this.userRepository,
     required this.disputeId,
   })  : _imagePicker = ImagePicker(),
         super(
           ChatState(
-            dispute: serviceRepository.changeNotifier.currentDisputeVN.value,
+            dispute: disputeRepository.changeNotifier.currentDisputeVN.value,
           ),
         ) {
     init();
   }
 
   final scrollController = ScrollController();
-  final ServiceRepository serviceRepository;
+  final DisputeRepository disputeRepository;
   final UserRepository userRepository;
   final ImagePicker _imagePicker;
   final TextEditingController messageController = TextEditingController();
@@ -36,24 +36,24 @@ class ChatCubit extends Cubit<ChatState> {
 
   Future init() async {
     await getChat();
-    serviceRepository.initPusher().then((_) async {
+    disputeRepository.initPusher().then((_) async {
       await Future.delayed(const Duration(seconds: 1));
-      serviceRepository.listenToChat(disputeId);
+      disputeRepository.listenToChat(disputeId);
     });
     final user = await userRepository.getUser().first;
-    serviceRepository.initializeChatStream(user!, disputeId);
-    serviceRepository.changeNotifier.chatMessageVN
+    disputeRepository.initializeChatStream(user!, disputeId);
+    disputeRepository.changeNotifier.chatMessageVN
         .addListener(_chatSubjectCallBack);
 
-    serviceRepository.initializeDisputeResolutionStream();
-    serviceRepository.changeNotifier.currentDisputeVN
+    disputeRepository.initializeDisputeResolutionStream();
+    disputeRepository.changeNotifier.currentDisputeVN
         .addListener(_currentDisputeCallBack);
 
 
   }
 
   void _chatSubjectCallBack() {
-    final chatMessage = serviceRepository.changeNotifier.chatMessageVN.value;
+    final chatMessage = disputeRepository.changeNotifier.chatMessageVN.value;
     if (chatMessage == null) return;
     final isFirstMessage = state.dateGroupedMessages == null ||
         state.dateGroupedMessages?.list.isEmpty == true;
@@ -129,13 +129,13 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   void _currentDisputeCallBack() {
-    final dispute = serviceRepository.changeNotifier.currentDisputeVN.value;
+    final dispute = disputeRepository.changeNotifier.currentDisputeVN.value;
     final newState = state.copyWith(
       dispute: dispute,
     );
     if (!isClosed) emit(newState);
-    serviceRepository.changeNotifier.setShouldReFetchDisputes(true);
-    serviceRepository.changeNotifier.clearShouldReFetchDisputes();
+    disputeRepository.changeNotifier.setShouldReFetchDisputes(true);
+    disputeRepository.changeNotifier.clearShouldReFetchDisputes();
   }
 
 
@@ -148,7 +148,7 @@ class ChatCubit extends Cubit<ChatState> {
     final user = await userRepository.getUser().first;
     final userToken = await userRepository.getUserToken();
     try {
-      final dateGroupedChats = await serviceRepository.getDateGroupedChat(
+      final dateGroupedChats = await disputeRepository.getDateGroupedChat(
         disputeId,
         user!,
       );
@@ -286,7 +286,7 @@ class ChatCubit extends Cubit<ChatState> {
         );
       }).toList();
 
-      await serviceRepository.sendChatMessage(
+      await disputeRepository.sendChatMessage(
         disputeId: disputeId,
         message: state.message,
         files: filesDM,
@@ -314,17 +314,17 @@ class ChatCubit extends Cubit<ChatState> {
 
   @override
   Future<void> close() {
-    serviceRepository.stopListeningChat(disputeId);
-    serviceRepository.disconnectPusher();
-    serviceRepository.changeNotifier.chatMessageVN
+    disputeRepository.stopListeningChat(disputeId);
+    disputeRepository.disconnectPusher();
+    disputeRepository.changeNotifier.chatMessageVN
         .removeListener(_chatSubjectCallBack);
-    serviceRepository.changeNotifier.currentDisputeVN
+    disputeRepository.changeNotifier.currentDisputeVN
         .removeListener(_currentDisputeCallBack);
 
 
-    serviceRepository.changeNotifier.clearDisputeChatUserType();
-    serviceRepository.changeNotifier.clearCurrentDispute();
-    serviceRepository.changeNotifier.clearChatMessage();
+    disputeRepository.changeNotifier.clearDisputeChatUserType();
+    disputeRepository.changeNotifier.clearCurrentDispute();
+    disputeRepository.changeNotifier.clearChatMessage();
 
     return super.close();
   }

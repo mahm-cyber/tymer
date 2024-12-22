@@ -1,3 +1,4 @@
+import 'package:dispute_repository/dispute_repository.dart';
 import 'package:disputes/src/l10n/disputes_localizations.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -6,20 +7,19 @@ import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
-import 'package:service_repository/service_repository.dart';
 
 import 'package:user_repository/user_repository.dart';
 
 class DisputesScreen extends StatefulWidget {
   const DisputesScreen({
     required this.userRepository,
-    required this.serviceRepository,
+    required this.disputeRepository,
     required this.onDisputeTapped,
     super.key,
   });
 
   final UserRepository userRepository;
-  final ServiceRepository serviceRepository;
+  final DisputeRepository disputeRepository;
   final ValueSetter<int> onDisputeTapped;
 
   @override
@@ -32,7 +32,7 @@ class _DisputesScreenState extends State<DisputesScreen> {
     return BlocProvider<DisputesCubit>(
       create: (_) => DisputesCubit(
         userRepository: widget.userRepository,
-        serviceRepository: widget.serviceRepository,
+        disputeRepository: widget.disputeRepository,
         onDisputeTapped: widget.onDisputeTapped,
       ),
       child: const DisputesView(),
@@ -226,7 +226,7 @@ class DisputesView extends StatelessWidget {
 extension on DisputesState {
   PagingState<int, Dispute> toPagingState() {
     return PagingState(
-      itemList: disputes,
+      itemList: ascendingSortedDisputes,
       nextPageKey: nextPage,
       error: nextListPageLoadError,
     );

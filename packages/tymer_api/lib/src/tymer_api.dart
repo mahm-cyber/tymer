@@ -135,13 +135,24 @@ class TymerApi {
     } on DioException catch (error) {
       final errorObject =
           error.response?.data[_errorJsonKey][_verificationErrorsJsonKey];
-      if (errorObject.containsKey(_emailJsonKey) &&
-          errorObject[_emailJsonKey].first.contains('تم أخذها مسبقاً')) {
-        throw EmailAlreadyRegisteredTymerException();
+      if (errorObject.containsKey(_emailJsonKey)) {
+        final arabicValidation =
+            errorObject[_emailJsonKey].first.contains('تم أخذها مسبقاً');
+        final englishValidation =
+            errorObject[_emailJsonKey].first.contains('has already been taken');
+        if (arabicValidation || englishValidation) {
+          throw EmailAlreadyRegisteredTymerException();
+        }
       }
-      if (errorObject.containsKey(_phoneNumberJsonKey) &&
-          errorObject[_phoneNumberJsonKey].first.contains('تم أخذها مسبقاً')) {
-        throw PhoneAlreadyRegisteredTymerException();
+      if (errorObject.containsKey(_phoneNumberJsonKey)) {
+        final arabicValidation =
+            errorObject[_phoneNumberJsonKey].first.contains('تم أخذها مسبقاً');
+        final englishValidation = errorObject[_phoneNumberJsonKey]
+            .first
+            .contains('has already been taken');
+        if (arabicValidation || englishValidation) {
+          throw PhoneAlreadyRegisteredTymerException();
+        }
       }
 
       rethrow;

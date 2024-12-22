@@ -20,6 +20,7 @@ DisputeRM _$DisputeRMFromJson(Map<String, dynamic> json) => $checkedCreate(
           resolvedBy:
               $checkedConvert('resolved_by', (v) => (v as num?)?.toInt()),
           reason: $checkedConvert('other_details', (v) => v as String?),
+          createdAt: $checkedConvert('created_at', (v) => v as String),
         );
         return val;
       },
@@ -27,7 +28,8 @@ DisputeRM _$DisputeRMFromJson(Map<String, dynamic> json) => $checkedCreate(
         'serviceRequestId': 'service_request_id',
         'serviceRequest': 'service_request',
         'resolvedBy': 'resolved_by',
-        'reason': 'other_details'
+        'reason': 'other_details',
+        'createdAt': 'created_at'
       },
     );
 

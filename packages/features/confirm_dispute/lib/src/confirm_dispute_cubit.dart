@@ -1,23 +1,23 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:dispute_repository/dispute_repository.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:service_repository/service_repository.dart';
 
 part 'confirm_dispute_state.dart';
 
 class ConfirmDisputeCubit extends Cubit<ConfirmDisputeState> {
   ConfirmDisputeCubit({
-    required this.serviceRepository,
+    required this.disputeRepository,
     required this.service,
     required this.onDisputeSuccess,
   }) : super(
           const ConfirmDisputeState(),
         );
 
-  final ServiceRepository serviceRepository;
+  final DisputeRepository disputeRepository;
   final Service service;
   final VoidCallback onDisputeSuccess;
 
@@ -27,7 +27,7 @@ class ConfirmDisputeCubit extends Cubit<ConfirmDisputeState> {
     );
     emit(loading);
     try {
-      await serviceRepository.disputeRequest(
+      await disputeRepository.disputeRequest(
         serviceRequestId: service.id!,
         reason: state.reason!,
       );

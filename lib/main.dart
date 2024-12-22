@@ -5,6 +5,7 @@ import 'package:choose_service/choose_service.dart';
 import 'package:component_library/component_library.dart';
 import 'package:confirm_dispute/confirm_dispute.dart';
 import 'package:dispute_chat/dispute_chat.dart';
+import 'package:dispute_repository/dispute_repository.dart';
 import 'package:disputes/disputes.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -56,6 +57,11 @@ final _userRepository = UserRepository(
   noSqlStorage: _keyValueStorage,
 );
 final _serviceRepository = ServiceRepository(
+  remoteApi: _connectInApi,
+  noSqlStorage: _keyValueStorage,
+);
+
+final _disputeRepository = DisputeRepository(
   remoteApi: _connectInApi,
   noSqlStorage: _keyValueStorage,
 );
@@ -120,6 +126,7 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
           routerDelegate: _routerDelegate,
           userRepository: _userRepository,
           serviceRepository: _serviceRepository,
+          disputeRepository: _disputeRepository,
           signInSuccessVN: _signInSuccessVN,
           isUserUnAuthSC: _isUserUnAuthSC,
         ),

@@ -1,20 +1,20 @@
+import 'package:dispute_repository/dispute_repository.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:confirm_dispute/src/l10n/confirm_dispute_localizations.dart';
 import 'package:confirm_dispute/src/confirm_dispute_cubit.dart';
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:service_repository/service_repository.dart';
 
 class ConfirmDisputeBottomSheet extends StatelessWidget {
   const ConfirmDisputeBottomSheet({
-    required this.serviceRepository,
+    required this.disputeRepository,
     required this.service,
     required this.onDisputeSuccess,
     super.key,
   });
 
-  final ServiceRepository serviceRepository;
+  final DisputeRepository disputeRepository;
   final Service service;
   final VoidCallback onDisputeSuccess;
 
@@ -22,7 +22,7 @@ class ConfirmDisputeBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<ConfirmDisputeCubit>(
       create: (_) => ConfirmDisputeCubit(
-        serviceRepository: serviceRepository,
+        disputeRepository: disputeRepository,
         service: service,
         onDisputeSuccess: onDisputeSuccess,
       ),
