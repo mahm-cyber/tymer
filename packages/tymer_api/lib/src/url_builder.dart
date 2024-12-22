@@ -92,7 +92,7 @@ class UrlBuilder {
   String buildGetServiceRequestUrl({
     required int serviceRequestId,
   }) {
-    const includeSlug = 'include=service,serviceResponse,serviceRequester';
+    const includeSlug = 'include=service,serviceResponse,dispute';
     final completeUrl =
         '$baseUrl/service-requests/$serviceRequestId?$includeSlug';
     return completeUrl;

@@ -58,13 +58,13 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCnJljNMKL0ejxCLljvfu4dDdDcWUU-Ugk',
-    appId: '1:908152938707:ios:a4cd2371a07cbc7a7a7426',
-    messagingSenderId: '908152938707',
-    projectId: 'ohub-a85b9',
-    storageBucket: 'ohub-a85b9.appspot.com',
+    apiKey: 'AIzaSyAuVUkArhvSaJTPMd9HMdTo70HhbsqkERs',
+    appId: '1:632819012871:ios:70e0aa1fe90783c75661a2',
+    messagingSenderId: '632819012871',
+    projectId: 'tymer-app',
+    storageBucket: 'tymer-app.firebasestorage.app',
     iosClientId: '908152938707-s034bpf7ac7f6ae8vt7s922ue5muno77.apps.googleusercontent.com',
     //TODO: change this bundleID to primo_coupon
-    iosBundleId: 'com.tymer',
+    iosBundleId: 'com.tymer.trial',
   );
 }

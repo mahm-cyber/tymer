@@ -63,17 +63,17 @@ lints:
 	done
 
 upgrade:
-	flutter pub upgrade
+	fvm flutter pub upgrade
 	for feature in $(FEATURES); do \
 		cd $${feature} ; \
 		echo "Updating dependencies on $${feature}" ; \
-		flutter pub upgrade ; \
+		fvm flutter pub upgrade ; \
 		cd ../../../ ; \
 	done
 	for package in $(PACKAGES); do \
 		cd $${package} ; \
 		echo "Updating dependencies on $${package}" ; \
-		flutter pub upgrade ; \
+		fvm flutter pub upgrade ; \
 		cd ../../ ; \
 	done
 
