@@ -64,29 +64,32 @@ class _DayPickerState extends State<DayPicker> {
             GestureDetector(
               onTap: widget.isSubmissionInProgress ? null : pickDateAndTime,
               child: TextField(
-                enabled: false,
+                enabled: !widget.isSubmissionInProgress,
                 textDirection: TextDirection.ltr,
                 textAlign: isArabic ? TextAlign.right : TextAlign.left,
                 style: TextStyle(
                   color: colorScheme.onSurface,
                 ),
                 decoration: InputDecoration(
-                  fillColor: colorScheme.surface,
-                  disabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: widget.error != null
-                          ? colorScheme.error
-                          : theme.materialThemeData.inputDecorationTheme
-                              .disabledBorder!.borderSide.color,
+                    fillColor: widget.isSubmissionInProgress
+                        ? null
+                        : colorScheme.surface,
+                    disabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: widget.error != null
+                            ? colorScheme.error
+                            : theme.materialThemeData.inputDecorationTheme
+                                .disabledBorder!.borderSide.color,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  suffixIcon: pickedDay == null
-                      ? const Icon(Icons.calendar_today)
-                      : null,
-                  labelText: l10n.dayTextFieldLabel,
-                  errorText: widget.error != null ? l10n.requiredFieldErrorMessage : null
-                ),
+                    suffixIcon: pickedDay == null
+                        ? const Icon(Icons.calendar_today)
+                        : null,
+                    labelText: l10n.dayTextFieldLabel,
+                    errorText: widget.error != null
+                        ? l10n.requiredFieldErrorMessage
+                        : null),
                 controller: TextEditingController(
                   //Date and time -- make hour and minute have 0 in the beignning if less than 10
                   text: widget.initialValue != null

@@ -302,14 +302,16 @@ class ServiceRepository {
   Future listenToChat(int disputeId) async {
     final userType = changeNotifier.disputeChatUserType!;
     try {
-      remoteApi.pusherApi.listenToRemoteChat(
-        disputeId: disputeId,
-        userType: userType.name,
-      );
       remoteApi.pusherApi.listenToChatResolved(
         disputeId: disputeId,
         userType: userType.name,
       );
+      await Future.delayed(const Duration(seconds: 1));
+      remoteApi.pusherApi.listenToRemoteChat(
+        disputeId: disputeId,
+        userType: userType.name,
+      );
+
     } catch (error) {
       debugPrint('Error listening to requester chat: $error');
       rethrow;
@@ -357,7 +359,7 @@ class ServiceRepository {
         remoteApi.pusherApi.disputeStatusSC.listen(
       (String? event) {
         if (event == null) return;
-        final currentDispute = changeNotifier.currentDispute;
+        final currentDispute = changeNotifier.currentDisputeVN.value;
         final newStatus = disputeStatusRMtoDM(event);
         final dispute = currentDispute!.copyWith(status: newStatus);
         changeNotifier.setCurrentDispute(dispute);

@@ -80,6 +80,7 @@ class ProvideServiceView extends StatelessWidget {
         final noServiceRequests = state.serviceRequests?.isEmpty == true;
         final cubit = context.read<ProvideServiceCubit>();
         final failure = state.serviceRequestsFetchStatus == FetchStatus.failure;
+        final textTheme = Theme.of(context).textTheme;
         return GestureDetector(
           onTap: context.releaseFocus,
           child: Stack(
@@ -103,7 +104,11 @@ class ProvideServiceView extends StatelessWidget {
                     ? const CenteredCircularProgressIndicator()
                     : noServiceRequests
                         ? Center(
-                            child: Text(l10n.noServiceRequestsText),
+                            child: Text(
+                              l10n.noServiceRequestsText,
+                              style: textTheme.headlineMedium,
+                              textAlign: TextAlign.center,
+                            ),
                           )
                         : failure
                             ? ExceptionIndicator(

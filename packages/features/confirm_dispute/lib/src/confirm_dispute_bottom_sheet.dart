@@ -83,13 +83,19 @@ class ConfirmDisputeView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  IconButton(
-                    icon: const Icon(Icons.cancel_outlined),
-                    onPressed: isSubmissionInProgress
-                        ? null
-                        : () {
-                            Navigator.of(context).pop();
-                          },
+                  Row(
+                    children: [
+                      const Spacer(),
+                      IconButton(
+                        icon: const Icon(Icons.cancel_outlined),
+                        onPressed: isSubmissionInProgress
+                            ? null
+                            : () {
+                                Navigator.of(context).pop();
+                              },
+                      ),
+
+                    ],
                   ),
                   TextField(
                     enabled: !isSubmissionInProgress,

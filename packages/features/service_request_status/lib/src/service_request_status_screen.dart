@@ -226,6 +226,7 @@ class ServiceRequestStatusView extends StatelessWidget {
             AppBarTitleContainer(
               widgetTitle: state.service != null
                   ? ServiceStatusWidget(
+                      width: 160,
                       color: state.service?.status?.color ?? Colors.black,
                       label: serviceRequestStatusToLocalizedString(
                         state.service!.status!,

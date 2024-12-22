@@ -26,7 +26,7 @@ class _SendMessageState extends State<SendMessage> {
 
         return AnimatedContainer(
           duration: const Duration(milliseconds: 300),
-          height: attachVisible ? 150 : 60,
+          height: attachVisible ? 150 : 70,
           padding: EdgeInsets.symmetric(
             horizontal: theme.screenMargin,
             vertical: Spacing.small,
@@ -36,88 +36,85 @@ class _SendMessageState extends State<SendMessage> {
           ),
           child: ListView(
             children: [
-              SizedBox(
-                height: 40,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Stack(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.attach_file),
-                          onPressed: () {
-                            attachVisible = !attachVisible;
-                            setState(() {});
-                          },
-                        ),
-                        if (state.files != null)
-                          PositionedDirectional(
-                            start: 0,
-                            top: 0,
-                            child: Container(
-                                padding: const EdgeInsets.all(2),
-                                decoration: const BoxDecoration(
-                                  color: Colors.green,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: const Icon(
-                                  Icons.attach_file,
-                                  size: 10,
-                                  color: Colors.white,
-                                )),
-                          )
-                      ],
-                    ),
-                    Expanded(
-                      child: TextField(
-                        maxLines: 2,
-                        scrollPadding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).viewInsets.bottom +
-                                16 * 4),
-                        controller: cubit.messageController,
-                        enabled: !submissionInProgress,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide.none,
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: Spacing.medium,
-                          ),
-                        ),
-                        onEditingComplete: cubit.sendMessage,
-                        onChanged: cubit.onMessageChanged,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Stack(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.attach_file),
+                        onPressed: () {
+                          attachVisible = !attachVisible;
+                          setState(() {});
+                        },
                       ),
+                      if (state.files != null)
+                        PositionedDirectional(
+                          start: 0,
+                          top: 0,
+                          child: Container(
+                              padding: const EdgeInsets.all(2),
+                              decoration: const BoxDecoration(
+                                color: Colors.green,
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.attach_file,
+                                size: 10,
+                                color: Colors.white,
+                              )),
+                        )
+                    ],
+                  ),
+                  Expanded(
+                    child: TextField(
+                      maxLines: null,
+                      scrollPadding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom +
+                              16 * 4),
+                      controller: cubit.messageController,
+                      enabled: !submissionInProgress,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide.none,
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: Spacing.medium,
+                        ),
+                      ),
+                      onEditingComplete: cubit.sendMessage,
+                      onChanged: cubit.onMessageChanged,
                     ),
-                    HorizontalGap.medium(),
-                    submissionInProgress
-                        ? Transform.scale(
-                            scale: 0.5,
-                            child: const CenteredCircularProgressIndicator(),
-                          )
-                        : IconButton(
-                            style: ButtonStyle(
-                              backgroundColor: WidgetStateProperty.all(
-                                state.isSendButtonDisabled
-                                    ? Colors.grey
-                                    : const Color(0xFF2B9279),
-                              ),
-                              shape: WidgetStateProperty.all(
-                                const CircleBorder(),
-                              ),
+                  ),
+                  HorizontalGap.medium(),
+                  submissionInProgress
+                      ? Transform.scale(
+                          scale: 0.5,
+                          child: const CenteredCircularProgressIndicator(),
+                        )
+                      : IconButton(
+                          style: ButtonStyle(
+                            backgroundColor: WidgetStateProperty.all(
+                              state.isSendButtonDisabled
+                                  ? Colors.grey
+                                  : const Color(0xFF2B9279),
                             ),
-                            icon: const Icon(
-                              Icons.send,
-                              color: Colors.white,
+                            shape: WidgetStateProperty.all(
+                              const CircleBorder(),
                             ),
-                            onPressed: state.isSendButtonDisabled
-                                ? null
-                                : cubit.sendMessage,
                           ),
-                  ],
-                ),
+                          icon: const Icon(
+                            Icons.send,
+                            color: Colors.white,
+                          ),
+                          onPressed: state.isSendButtonDisabled
+                              ? null
+                              : cubit.sendMessage,
+                        ),
+                ],
               ),
               if (attachVisible) ...[
                 VerticalGap.medium(),

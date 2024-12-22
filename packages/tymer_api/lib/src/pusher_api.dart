@@ -27,7 +27,7 @@ class PusherApi {
     try {
       final privateChannel = _echo?.private(channelName);
       // privateChannel?.onSubscribedSuccess(_onSubscriptionSucceeded);
-      privateChannel?.unsubscribe();
+      // privateChannel?.unsubscribe();
       privateChannel?.subscribe();
 
       privateChannel?.listen(

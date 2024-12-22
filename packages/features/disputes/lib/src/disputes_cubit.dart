@@ -18,6 +18,8 @@ class DisputesCubit extends Cubit<DisputesState> {
         super(
           const DisputesState(),
         ) {
+    serviceRepository.changeNotifier.shouldReFetchDisputesVN
+        .addListener(_shouldReFetchDisputesCallBack);
     _handleDisputesListNextPageRequested();
     serviceRequestsPagingController.addPageRequestListener(
       (pageNumber) {
@@ -109,11 +111,20 @@ class DisputesCubit extends Cubit<DisputesState> {
         .setDisputeChatUserType(state.userTypeFilter);
     await serviceRepository.changeNotifier.setCurrentDispute(dispute);
     onDisputeTapped(dispute.id);
-
   }
 
-// @override
-// Future<void> close() async {
-//   return super.close();
-// }
+  void _shouldReFetchDisputesCallBack() {
+    final shouldReFetchDisputes =
+        serviceRepository.changeNotifier.shouldReFetchDisputesVN.value;
+    if (shouldReFetchDisputes == true) {
+      _handleDisputesListNextPageRequested();
+    }
+  }
+
+  @override
+  Future<void> close() async {
+    serviceRepository.changeNotifier.shouldReFetchDisputesVN
+        .removeListener(_shouldReFetchDisputesCallBack);
+    return super.close();
+  }
 }

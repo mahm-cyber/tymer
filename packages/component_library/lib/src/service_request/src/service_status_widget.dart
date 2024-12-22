@@ -8,18 +8,19 @@ class ServiceStatusWidget extends StatelessWidget {
     required this.color,
     required this.label,
     this.border,
+    this.width = 140
   });
 
   final Color color;
   final String label;
   final Border? border;
-
+  final double width;
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Container(
-      constraints: const BoxConstraints(
-        maxWidth: 140,
+      constraints:  BoxConstraints(
+        maxWidth: width,
       ),
       padding: const EdgeInsets.symmetric(
         horizontal: Spacing.smallMedium,

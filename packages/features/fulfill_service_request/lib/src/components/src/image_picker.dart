@@ -53,6 +53,7 @@ class ImagePickerTextField extends StatelessWidget {
                           ),
                           IgnorePointer(
                             child: TextField(
+                              enabled: !isSubmissionInProgress,
                               controller: controller,
                               readOnly: true,
                               decoration: InputDecoration(
@@ -85,7 +86,15 @@ class ImagePickerTextField extends StatelessWidget {
                           backgroundColor: Colors.black,
                           foregroundImage: isImagePicked
                               ? MemoryImage(state.imageBytes!) as ImageProvider
-                              : NetworkImage(imageUrl!) as ImageProvider,
+                              : NetworkImage(
+                                  imageUrl!,
+                                  headers: {
+                                    "Authorization":
+                                        "Bearer ${state.userToken}",
+                                    "X-API-Key": const String.fromEnvironment(
+                                        'x-api-key'),
+                                  },
+                                ) as ImageProvider,
                         ),
                       ),
                     ),
@@ -217,7 +226,8 @@ class _State extends State<ImageDialog> {
                           fit: BoxFit.fill,
                           headers: {
                             "Authorization": "Bearer ${widget.userToken}",
-                            "X-API-Key": const String.fromEnvironment('x-api-key'),
+                            "X-API-Key":
+                                const String.fromEnvironment('x-api-key'),
                           },
                         )
                       : Image.memory(widget.imageBytes!),

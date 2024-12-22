@@ -8,9 +8,9 @@ class ServiceChangeNotifier with ChangeNotifier, EquatableMixin {
   final ValueNotifier<ServiceType?> _serviceTypeVN = ValueNotifier(null);
   final ValueNotifier<Service?> _serviceRequestDetailsVN = ValueNotifier(null);
   final ValueNotifier<UserType?> _disputeChatUserTypeVN = ValueNotifier(null);
-  final ValueNotifier<Dispute?> _currentDisputeVN = ValueNotifier(null);
-  final ValueNotifier<DisputeMessage?> _chatMessageVN  = ValueNotifier(null);
-  final ValueNotifier<bool?> _shouldReFetchDisputesVN = ValueNotifier(null);
+  final ValueNotifier<Dispute?> currentDisputeVN = ValueNotifier(null);
+  final ValueNotifier<DisputeMessage?> chatMessageVN  = ValueNotifier(null);
+  final ValueNotifier<bool?> shouldReFetchDisputesVN = ValueNotifier(null);
 
   dynamic get serviceType => _serviceTypeVN.value;
   void setServiceType(ServiceType serviceType) {
@@ -42,33 +42,33 @@ class ServiceChangeNotifier with ChangeNotifier, EquatableMixin {
     notifyListeners();
   }
 
-  Dispute? get currentDispute => _currentDisputeVN.value;
+  // Dispute? get currentDispute => _currentDisputeVN.value;
   Future setCurrentDispute(Dispute? dispute) async{
-    _currentDisputeVN.value = dispute;
+    currentDisputeVN.value = dispute;
     notifyListeners();
   }
   Future clearCurrentDispute() async {
-    _currentDisputeVN.value = null;
+    currentDisputeVN.value = null;
     notifyListeners();
   }
 
-  DisputeMessage? get chatMessage => _chatMessageVN.value;
+  // DisputeMessage? get chatMessage => _chatMessageVN.value;
   void setChatMessage(DisputeMessage? message) {
-    _chatMessageVN.value = message;
+    chatMessageVN.value = message;
     notifyListeners();
   }
   Future clearChatMessage() async {
-    _chatMessageVN.value = null;
+    chatMessageVN.value = null;
     notifyListeners();
   }
 
-  bool? get shouldReFetchDisputes => _shouldReFetchDisputesVN.value;
+  // bool? get shouldReFetchDisputes => _shouldReFetchDisputesVN.value;
   void setShouldReFetchDisputes(bool shouldReFetchDisputes) {
-    _shouldReFetchDisputesVN.value = shouldReFetchDisputes;
+    shouldReFetchDisputesVN.value = shouldReFetchDisputes;
     notifyListeners();
   }
   Future clearShouldReFetchDisputes() async {
-    _shouldReFetchDisputesVN.value = null;
+    shouldReFetchDisputesVN.value = null;
     notifyListeners();
   }
 
@@ -76,9 +76,11 @@ class ServiceChangeNotifier with ChangeNotifier, EquatableMixin {
 
   @override
   List<Object?> get props => [
-        currentDispute,
-        _serviceTypeVN,
-        _serviceRequestDetailsVN,
-        _disputeChatUserTypeVN,
+        serviceType,
+        serviceRequestDetails,
+        disputeChatUserType,
+        currentDisputeVN,
+        chatMessageVN,
+        shouldReFetchDisputesVN,
       ];
 }

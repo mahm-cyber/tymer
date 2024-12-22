@@ -315,7 +315,6 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
       try {
         final requestId = await serviceRepository.requestService(
           serviceType: state.serviceType!,
-          // price: 0,
           price: state.price!,
           coordinates: location.value!,
           placeName: placeName.value!,
@@ -326,6 +325,21 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
           reservationServiceType: reservationServiceType.value,
           additionalComments: state.additionalComments.value,
         );
+
+        // dummy request with dummy data
+        // final requestId = await serviceRepository.requestService(
+        //   serviceType: ServiceType.other,
+        //   price: 55,
+        //   coordinates: LatLng(0, 0),
+        //   placeName: 'dummy place name',
+        //   placeAddress: 'dummy place address',
+        //   reservedFor: 'dummy reserved for',
+        //   date: DateTime.now(),
+        //   time: TimeOfDay.now(),
+        //   reservationServiceType: null,
+        //   additionalComments: 'dummy additional comments',
+        // );
+
 
         final newState = state.copyWith(
           submissionStatus: FormzSubmissionStatus.success,
