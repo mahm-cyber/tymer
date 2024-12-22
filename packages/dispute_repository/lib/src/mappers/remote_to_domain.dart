@@ -1,5 +1,4 @@
 import 'package:domain_models/domain_models.dart';
-import 'package:flutter/material.dart';
 import 'package:service_repository/service_repository.dart';
 import 'package:tymer_api/tymer_api.dart';
 
@@ -130,9 +129,3 @@ extension DisputeChatRMtoDM on DisputeChatRM {
   }
 }
 
-TimeOfDay stringToTimeOfDay(String timeString) {
-  final parts = timeString.split(':');
-  final hour = int.parse(parts[0]);
-  final minute = int.parse(parts[1]);
-  return TimeOfDay(hour: hour, minute: minute);
-}

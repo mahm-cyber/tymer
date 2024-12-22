@@ -202,6 +202,12 @@ abstract class RequestServiceLocalizations {
   /// In en, this message translates to:
   /// **'Additional Details'**
   String get additionalCommentsTextFieldLabel;
+
+  /// No description provided for @loadMinPricingButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload Min Pricing'**
+  String get loadMinPricingButtonLabel;
 }
 
 class _RequestServiceLocalizationsDelegate extends LocalizationsDelegate<RequestServiceLocalizations> {

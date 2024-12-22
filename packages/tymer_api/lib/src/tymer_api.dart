@@ -441,6 +441,23 @@ class TymerApi {
     }
   }
 
+  Future<DisputeRM> getDispute({
+    required int disputeId,
+    required String userType,
+  }) async {
+    final url = urlBuilder.buildGetDisputeUrl(
+      disputeId: disputeId,
+      userType: userType,
+    );
+    try {
+      final response = await _dio.get(url);
+      final dispute = DisputeRM.fromJson(response.data[_dataJsonKey]);
+      return dispute;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
   Future disputeRequest({
     required int serviceRequestId,
     required String reason,

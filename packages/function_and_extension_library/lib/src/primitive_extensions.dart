@@ -51,6 +51,21 @@ extension StringExtension on String {
     }).join('-');
     return localizedDate;
   }
+
+  bool isFirstLetterArabic() {
+    // Ensure the string is not empty
+    if (isEmpty) {
+      return false;
+    }
+
+    // Get the first character of the string
+    String firstChar = this[0];
+
+    // Check if the first character is an Arabic letter by comparing its Unicode value
+    // Arabic letters are in the Unicode range: 0x0600 to 0x06FF
+    int codeUnit = firstChar.codeUnitAt(0);
+    return codeUnit >= 0x0600 && codeUnit <= 0x06FF;
+  }
 }
 
 extension DoubleExtension on double {

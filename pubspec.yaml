@@ -55,8 +55,6 @@ dependencies:
     path: packages/features/accept_service_request
   fulfill_service_request:
     path: packages/features/fulfill_service_request
-  dispute_chat:
-    path: packages/features/dispute_chat
   chat:
     path: packages/features/chat
   order_history:

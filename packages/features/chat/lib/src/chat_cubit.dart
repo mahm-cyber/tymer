@@ -35,6 +35,7 @@ class ChatCubit extends Cubit<ChatState> {
   final int disputeId;
 
   Future init() async {
+    await getDispute();
     await getChat();
     disputeRepository.initPusher().then((_) async {
       await Future.delayed(const Duration(seconds: 1));
@@ -48,8 +49,36 @@ class ChatCubit extends Cubit<ChatState> {
     disputeRepository.initializeDisputeResolutionStream();
     disputeRepository.changeNotifier.currentDisputeVN
         .addListener(_currentDisputeCallBack);
+  }
 
+  Future getDispute() async {
+    final loadingState = state.copyWith(
+      disputeFetchStatus: DisputeFetchStatus.inProgress,
+    );
+    emit(loadingState);
+    try {
+      final disputeFromDisputesScreen =
+          disputeRepository.changeNotifier.currentDisputeVN.value;
+      final freshDispute = await disputeRepository.getDispute(disputeId);
+      final hasSameStatus =
+          disputeFromDisputesScreen?.status == freshDispute.status;
+      if (!hasSameStatus) {
+        disputeRepository.changeNotifier.setCurrentDispute(freshDispute);
+        disputeRepository.changeNotifier.setShouldReFetchDisputes(true);
+        disputeRepository.changeNotifier.clearShouldReFetchDisputes();
+      }
 
+      final successState = state.copyWith(
+        disputeFetchStatus: DisputeFetchStatus.success,
+        dispute: !hasSameStatus ? freshDispute : disputeFromDisputesScreen,
+      );
+      emit(successState);
+    } catch (_) {
+      final failureState = state.copyWith(
+        disputeFetchStatus: DisputeFetchStatus.failure,
+      );
+      emit(failureState);
+    }
   }
 
   void _chatSubjectCallBack() {
@@ -136,14 +165,13 @@ class ChatCubit extends Cubit<ChatState> {
     if (!isClosed) emit(newState);
     disputeRepository.changeNotifier.setShouldReFetchDisputes(true);
     disputeRepository.changeNotifier.clearShouldReFetchDisputes();
+
   }
-
-
 
   // get ticket_messages
   Future getChat() async {
     final loadingState =
-        state.copyWith(fetchingStatus: ChatFetchingStatus.inProgress);
+        state.copyWith(chatFetchingStatus: ChatFetchingStatus.inProgress);
     emit(loadingState);
     final user = await userRepository.getUser().first;
     final userToken = await userRepository.getUserToken();
@@ -153,7 +181,7 @@ class ChatCubit extends Cubit<ChatState> {
         user!,
       );
       final successState = state.copyWith(
-        fetchingStatus: ChatFetchingStatus.success,
+        chatFetchingStatus: ChatFetchingStatus.success,
         dateGroupedMessages: dateGroupedChats,
         userToken: userToken,
       );
@@ -161,7 +189,7 @@ class ChatCubit extends Cubit<ChatState> {
       jumpToBottomOfChat();
     } catch (_) {
       final failureState = state.copyWith(
-        fetchingStatus: ChatFetchingStatus.failure,
+        chatFetchingStatus: ChatFetchingStatus.failure,
       );
       emit(failureState);
     }
@@ -244,7 +272,7 @@ class ChatCubit extends Cubit<ChatState> {
   void deletePickedFile() {
     final newState = ChatState(
       dateGroupedMessages: state.dateGroupedMessages,
-      fetchingStatus: state.fetchingStatus,
+      chatFetchingStatus: state.chatFetchingStatus,
       submissionStatus: state.submissionStatus,
       message: state.message,
       files: null,
@@ -320,7 +348,6 @@ class ChatCubit extends Cubit<ChatState> {
         .removeListener(_chatSubjectCallBack);
     disputeRepository.changeNotifier.currentDisputeVN
         .removeListener(_currentDisputeCallBack);
-
 
     disputeRepository.changeNotifier.clearDisputeChatUserType();
     disputeRepository.changeNotifier.clearCurrentDispute();

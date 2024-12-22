@@ -21,8 +21,21 @@ class DisputeRepository {
   late StreamSubscription<DisputeMessageRM?> _disputeChatSubscription;
   late StreamSubscription<String?> _remoteDisputeResolutionSubscription;
 
-
-
+  Future<Dispute> getDispute(
+    int disputeId,
+  ) async {
+    try {
+      final disputeRM = await remoteApi.getDispute(
+        disputeId: disputeId,
+        userType: changeNotifier.disputeChatUserType!.toRemoteModel(),
+      );
+      final dispute = disputeRM.toDomainModel();
+      changeNotifier.setCurrentDispute(dispute);
+      return dispute;
+    } catch (error) {
+      rethrow;
+    }
+  }
 
   Future disputeRequest({
     required int serviceRequestId,
@@ -117,7 +130,6 @@ class DisputeRepository {
         disputeId: disputeId,
         userType: userType.name,
       );
-
     } catch (error) {
       debugPrint('Error listening to requester chat: $error');
       rethrow;
@@ -202,6 +214,7 @@ class DisputeRepository {
       rethrow;
     }
   }
+
   List<File?>? getFilesOfType(List<FileDM> files, FileType type) {
     final filesOfType = files
         .where((file) => file.type == type)
@@ -212,5 +225,4 @@ class DisputeRepository {
     }
     return filesOfType;
   }
-
 }

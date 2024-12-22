@@ -5,19 +5,21 @@ class ChatState extends Equatable {
     this.files,
     this.message,
     this.dateGroupedMessages,
-    this.fetchingStatus = ChatFetchingStatus.initial,
+    this.chatFetchingStatus = ChatFetchingStatus.initial,
     this.submissionStatus = ChatSubmissionStatus.initial,
     this.userToken,
     this.dispute,
+    this.disputeFetchStatus = DisputeFetchStatus.initial,
   });
 
   final List<File>? files;
   final String? message;
   final DateGroupedMessagesList? dateGroupedMessages;
-  final ChatFetchingStatus fetchingStatus;
+  final ChatFetchingStatus chatFetchingStatus;
   final ChatSubmissionStatus submissionStatus;
   final String? userToken;
   final Dispute? dispute;
+  final DisputeFetchStatus disputeFetchStatus;
   bool get isSendButtonDisabled =>
       (message?.isEmpty == true || message == null) &&
       (files?.isEmpty == true || files == null);
@@ -27,19 +29,21 @@ class ChatState extends Equatable {
     List<File>? files,
     String? message,
     DateGroupedMessagesList? dateGroupedMessages,
-    ChatFetchingStatus? fetchingStatus,
+    ChatFetchingStatus? chatFetchingStatus,
     ChatSubmissionStatus? submissionStatus,
     String? userToken,
     Dispute? dispute,
+    DisputeFetchStatus? disputeFetchStatus,
   }) {
     return ChatState(
       files: files ?? this.files,
       message: message ?? this.message,
       dateGroupedMessages: dateGroupedMessages ?? this.dateGroupedMessages,
-      fetchingStatus: fetchingStatus ?? this.fetchingStatus,
+      chatFetchingStatus: chatFetchingStatus ?? this.chatFetchingStatus,
       submissionStatus: submissionStatus ?? this.submissionStatus,
       userToken: userToken ?? this.userToken,
       dispute: dispute ?? this.dispute,
+      disputeFetchStatus: disputeFetchStatus ?? this.disputeFetchStatus,
     );
   }
 
@@ -48,10 +52,11 @@ class ChatState extends Equatable {
         files,
         message,
         dateGroupedMessages,
-        fetchingStatus,
+        chatFetchingStatus,
         submissionStatus,
         userToken,
         dispute,
+        disputeFetchStatus,
       ];
 }
 
@@ -63,6 +68,13 @@ enum ChatSubmissionStatus {
 }
 
 enum ChatFetchingStatus {
+  initial,
+  inProgress,
+  success,
+  failure,
+}
+
+enum DisputeFetchStatus {
   initial,
   inProgress,
   success,

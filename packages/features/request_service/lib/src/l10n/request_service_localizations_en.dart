@@ -59,4 +59,7 @@ class RequestServiceLocalizationsEn extends RequestServiceLocalizations {
 
   @override
   String get additionalCommentsTextFieldLabel => 'Additional Details';
+
+  @override
+  String get loadMinPricingButtonLabel => 'Reload Min Pricing';
 }

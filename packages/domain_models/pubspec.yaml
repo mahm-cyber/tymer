@@ -8,11 +8,8 @@ dependencies:
   equatable: ^2.0.5
   flutter:
     sdk: flutter
-  lorem_ipsum: ^0.0.3
 
   function_and_extension_library:
     path: ../function_and_extension_library
-  flutter_chat_ui: ^1.6.15
-  flutter_chat_types: ^3.6.2
 dev_dependencies:
   flutter_lints: ^4.0.0

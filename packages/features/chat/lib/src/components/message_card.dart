@@ -29,6 +29,7 @@ class MessageCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final isSentByMe = message.isSentByMe;
     final l10n = ChatLocalizations.of(context);
+    final isFirstLetterArabic = message.text?.isFirstLetterArabic() == true;
     return Row(
       children: [
         if (!isSentByMe) const Spacer(),
@@ -74,6 +75,9 @@ class MessageCard extends StatelessWidget {
                   message.text?.isNotEmpty == true) ...[
                 SelectableText(
                   message.text!,
+                  textDirection: isFirstLetterArabic
+                      ? TextDirection.rtl
+                      : TextDirection.ltr,
                   style: textTheme.bodyMedium?.copyWith(
                     color: isSentByMe
                         ? null

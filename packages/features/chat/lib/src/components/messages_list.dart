@@ -16,8 +16,10 @@ class MessagesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ChatCubit, ChatState>(
       builder: (context, state) {
-        final loading = state.fetchingStatus == ChatFetchingStatus.inProgress;
-        final error = state.fetchingStatus == ChatFetchingStatus.failure;
+        final loading =
+            state.chatFetchingStatus == ChatFetchingStatus.inProgress ||
+                state.disputeFetchStatus == DisputeFetchStatus.inProgress;
+        final error = state.chatFetchingStatus == ChatFetchingStatus.failure;
         final textTheme = Theme.of(context).textTheme;
         final cubit = context.read<ChatCubit>();
         final l10n = ChatLocalizations.of(context);
@@ -58,7 +60,6 @@ class MessagesList extends StatelessWidget {
                                         ?.copyWith(fontWeight: FontWeight.bold),
                                   ),
                                   ColumnBuilder(
-
                                     itemBuilder: (context, index) {
                                       final message = chat.messages[index];
                                       return MessageCard(

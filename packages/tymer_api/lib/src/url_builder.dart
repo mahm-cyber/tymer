@@ -133,6 +133,14 @@ class UrlBuilder {
     return completeUrl;
   }
 
+  String buildGetDisputeUrl({
+    required int disputeId,
+    required String userType,
+  }) {
+    final completeUrl = '$baseUrl/disputes/$disputeId?mode=$userType';
+    return completeUrl;
+  }
+
   String buildGetDisputeChatUrl({
     required int disputeId,
     required String userType,

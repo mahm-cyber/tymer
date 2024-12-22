@@ -4,7 +4,6 @@ import 'package:chat/chat.dart';
 import 'package:choose_service/choose_service.dart';
 import 'package:component_library/component_library.dart';
 import 'package:confirm_dispute/confirm_dispute.dart';
-import 'package:dispute_chat/dispute_chat.dart';
 import 'package:dispute_repository/dispute_repository.dart';
 import 'package:disputes/disputes.dart';
 import 'package:domain_models/domain_models.dart';
@@ -221,7 +220,6 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                 WalletLocalizations.delegate,
                 DisputesLocalizations.delegate,
                 ConfirmDisputeLocalizations.delegate,
-                DisputeChatLocalizations.delegate,
                 ChatLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
