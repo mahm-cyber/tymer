@@ -6,6 +6,14 @@
     "deleteFileIconLabel": "Delete",
     "noMessagesIndicator": "No messages yet",
     "messageSentByMeCardTitle": "You",
-    "chargedBackSnackBarMessage": "Your money has been refunded",
-    "deniedSnackBarMessage": "Your request has been denied"
+    "refundedRequesterSnackBarMessage": "Your money has been refunded",
+    "refundedRequesterSnackBarLabel": "Refunded",
+    "deniedRequesterSnackBarMessage": "Your request has been denied",
+    "deniedRequesterSnackBarLabel": "Rejected",
+
+    "providerLostDisputeSnackBarMessage": "Money has been refunded to the requester",
+    "providerLostDisputeSnackBarLabel": "Refunded",
+    "providerWonDisputeSnackBarMessage": "The requester's dispute was rejected",
+    "providerWonDisputeSnackBarLabel": "Rejected"
+
 }

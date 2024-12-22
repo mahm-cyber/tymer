@@ -16,7 +16,7 @@ extension DisputeStatusDMtoRM on DisputeStatus {
     switch (this) {
       case DisputeStatus.pendingReview:
         return 'pending-review';
-      case DisputeStatus.chargedBack:
+      case DisputeStatus.refunded:
         return 'charged-back';
       case DisputeStatus.denied:
         return 'denied';

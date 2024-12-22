@@ -357,7 +357,7 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
   String get pendingReviewDisputeStatus => 'قيد المراجعة';
 
   @override
-  String get chargedBackDisputeStatus => 'مرتجع';
+  String get refundedDisputeStatus => 'مرتجع';
 
   @override
   String get deniedDisputeStatus => 'مرفوض';

@@ -791,11 +791,11 @@ abstract class ComponentLibraryLocalizations {
   /// **'Pending Review'**
   String get pendingReviewDisputeStatus;
 
-  /// No description provided for @chargedBackDisputeStatus.
+  /// No description provided for @refundedDisputeStatus.
   ///
   /// In en, this message translates to:
-  /// **'Charged Back'**
-  String get chargedBackDisputeStatus;
+  /// **'Refunded'**
+  String get refundedDisputeStatus;
 
   /// No description provided for @deniedDisputeStatus.
   ///

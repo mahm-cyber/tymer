@@ -357,7 +357,7 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
   String get pendingReviewDisputeStatus => 'Pending Review';
 
   @override
-  String get chargedBackDisputeStatus => 'Charged Back';
+  String get refundedDisputeStatus => 'Refunded';
 
   @override
   String get deniedDisputeStatus => 'Denied';

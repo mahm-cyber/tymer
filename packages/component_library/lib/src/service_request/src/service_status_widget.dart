@@ -87,8 +87,8 @@ String disputeStatusToLocalizedString(
   switch (disputeStatus) {
     case DisputeStatus.pendingReview:
       return l10n.pendingReviewDisputeStatus;
-    case DisputeStatus.chargedBack:
-      return l10n.chargedBackDisputeStatus;
+    case DisputeStatus.refunded:
+      return l10n.refundedDisputeStatus;
     case DisputeStatus.denied:
       return l10n.deniedDisputeStatus;
   }

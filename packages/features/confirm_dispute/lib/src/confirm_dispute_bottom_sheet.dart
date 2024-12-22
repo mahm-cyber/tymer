@@ -68,57 +68,59 @@ class ConfirmDisputeView extends StatelessWidget {
         final cubit = context.read<ConfirmDisputeCubit>();
         final isSubmissionInProgress =
             state.disputingStatus == DisputingStatus.loading;
-        return BottomSheet(
-          onClosing: () {},
-          builder: (context) {
-            return Container(
-              padding: const EdgeInsets.all(Spacing.medium),
-              decoration: BoxDecoration(
-                color: colorScheme.surface,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
+        return SafeArea(
+          child: BottomSheet(
+            onClosing: () {},
+            builder: (context) {
+              return Container(
+                padding: const EdgeInsets.all(Spacing.medium),
+                decoration: BoxDecoration(
+                  color: colorScheme.surface,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
                 ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    children: [
-                      const Spacer(),
-                      IconButton(
-                        icon: const Icon(Icons.cancel_outlined),
-                        onPressed: isSubmissionInProgress
-                            ? null
-                            : () {
-                                Navigator.of(context).pop();
-                              },
-                      ),
-
-                    ],
-                  ),
-                  TextField(
-                    enabled: !isSubmissionInProgress,
-                    onChanged: cubit.updateDisputeMessage,
-                    decoration: InputDecoration(
-                      labelText: l10n.disputeMessageLabel,
-                    ),
-                  ),
-                  VerticalGap.medium(),
-                  isSubmissionInProgress
-                      ? TymerElevatedButton.inProgress(
-                          label: l10n.disputeButtonLabel)
-                      : TymerElevatedButton(
-                          onTap: state.reason?.isNotEmpty == true
-                              ? cubit.disputeService
-                              : null,
-                          label: (l10n.disputeButtonLabel),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        const Spacer(),
+                        IconButton(
+                          icon: const Icon(Icons.cancel_outlined),
+                          onPressed: isSubmissionInProgress
+                              ? null
+                              : () {
+                                  Navigator.of(context).pop();
+                                },
                         ),
-                ],
-              ),
-            );
-          },
+          
+                      ],
+                    ),
+                    TextField(
+                      enabled: !isSubmissionInProgress,
+                      onChanged: cubit.updateDisputeMessage,
+                      decoration: InputDecoration(
+                        labelText: l10n.disputeMessageLabel,
+                      ),
+                    ),
+                    VerticalGap.medium(),
+                    isSubmissionInProgress
+                        ? TymerElevatedButton.inProgress(
+                            label: l10n.disputeButtonLabel)
+                        : TymerElevatedButton(
+                            onTap: state.reason?.isNotEmpty == true
+                                ? cubit.disputeService
+                                : null,
+                            label: (l10n.disputeButtonLabel),
+                          ),
+                  ],
+                ),
+              );
+            },
+          ),
         );
       },
     );

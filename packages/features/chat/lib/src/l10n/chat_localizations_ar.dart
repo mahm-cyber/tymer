@@ -28,8 +28,26 @@ class ChatLocalizationsAr extends ChatLocalizations {
   String get messageSentByMeCardTitle => 'أنت';
 
   @override
-  String get chargedBackSnackBarMessage => 'تم استرداد أموالك';
+  String get refundedRequesterSnackBarMessage => 'تم استرجاع أموالك';
 
   @override
-  String get deniedSnackBarMessage => 'تم رفض طلبك';
+  String get refundedRequesterSnackBarLabel => 'تم الاسترجاع';
+
+  @override
+  String get deniedRequesterSnackBarMessage => 'تم رفض طلبك';
+
+  @override
+  String get deniedRequesterSnackBarLabel => 'مرفوض';
+
+  @override
+  String get providerLostDisputeSnackBarMessage => 'تم استرجاع المال طالب الخدمه';
+
+  @override
+  String get providerLostDisputeSnackBarLabel => 'تم الاسترجاع';
+
+  @override
+  String get providerWonDisputeSnackBarMessage => 'تم رفض نزاع طالب الخدمه';
+
+  @override
+  String get providerWonDisputeSnackBarLabel => 'مرفوض';
 }

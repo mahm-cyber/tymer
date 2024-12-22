@@ -253,6 +253,7 @@ Map<String, PageBuilder> buildRoutingTable({
             onConfirmDisputeTapped: (Service service) {
               showModalBottomSheet(
                 isDismissible: false,
+                useSafeArea: true,
                 context: context,
                 builder: (context) {
                   return ConfirmDisputeBottomSheet(

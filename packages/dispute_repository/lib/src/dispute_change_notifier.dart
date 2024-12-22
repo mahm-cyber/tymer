@@ -1,8 +1,7 @@
 import 'package:domain_models/domain_models.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-class DisputeChangeNotifier with ChangeNotifier, EquatableMixin {
+class DisputeChangeNotifier with ChangeNotifier {
   DisputeChangeNotifier();
 
   // This is set from the disputes screen because we need the userType
@@ -64,12 +63,4 @@ class DisputeChangeNotifier with ChangeNotifier, EquatableMixin {
   }
 
 
-
-  @override
-  List<Object?> get props => [
-        _disputeChatUserTypeVN,
-        currentDisputeVN,
-        chatMessageVN,
-        shouldReFetchDisputesVN,
-      ];
 }

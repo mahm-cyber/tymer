@@ -22,8 +22,8 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
   })  : _imagePicker = ImagePicker(),
         super(
           FulfillServiceRequestState(
-              service: serviceRepository.changeNotifier.serviceRequestDetails,
-              ),
+            service: serviceRepository.changeNotifier.serviceRequestDetails,
+          ),
         ) {
     init();
   }
@@ -292,11 +292,11 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
     }
   }
 
-
   void onServiceRequestDisputed() {
-    onServiceDisputed(state.service!.id!);
-    disputeRepository.changeNotifier.setDisputeChatUserType(UserType.requester);
+    disputeRepository.changeNotifier.setDisputeChatUserType(UserType.provider);
+    onServiceDisputed(state.service!.dispute!.id);
   }
+
   @override
   Future<void> close() async {
     _awaitRequestConfirmationTimer?.cancel();

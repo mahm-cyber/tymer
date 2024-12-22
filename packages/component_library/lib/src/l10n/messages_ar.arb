@@ -129,7 +129,7 @@
   "requesterServiceRequestsFetchMode": "طالب خدمة",
   "providerServiceRequestsFetchMode": "منفذ خدمة",
   "pendingReviewDisputeStatus": "قيد المراجعة",
-  "chargedBackDisputeStatus": "مرتجع",
+  "refundedDisputeStatus": "مرتجع",
   "deniedDisputeStatus": "مرفوض",
   "timeInPastErrorMessage": "لا يمكن أن يكون الوقت في الماضي",
   "servicePriceContainerLabel": "سعر الخدمة",

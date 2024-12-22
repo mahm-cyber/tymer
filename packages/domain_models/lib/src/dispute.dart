@@ -60,14 +60,14 @@ class DisputeListPage {
 
 enum DisputeStatus {
   pendingReview,
-  chargedBack,
+  refunded,
   denied;
 
   Color get color {
     switch (this) {
       case DisputeStatus.pendingReview:
         return const Color(0xFF2D9CDB);
-      case DisputeStatus.chargedBack:
+      case DisputeStatus.refunded:
         return const Color(0xFF2C8268);
       case DisputeStatus.denied:
         return const Color(0xFFEB5757);

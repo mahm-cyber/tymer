@@ -1,8 +1,7 @@
 import 'package:domain_models/domain_models.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-class UserChangeNotifier with ChangeNotifier, EquatableMixin {
+class UserChangeNotifier with ChangeNotifier  {
   UserChangeNotifier();
 
   final ValueNotifier<OtpVerification?> _otpVerification = ValueNotifier(null);
@@ -18,8 +17,5 @@ class UserChangeNotifier with ChangeNotifier, EquatableMixin {
     notifyListeners();
   }
 
-  @override
-  List<Object?> get props => [
-        _otpVerification,
-      ];
+
 }

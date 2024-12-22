@@ -7,7 +7,7 @@ DisputeStatus disputeStatusRMtoDM(String status) {
     case 'pending-review':
       return DisputeStatus.pendingReview;
     case 'charged-back':
-      return DisputeStatus.chargedBack;
+      return DisputeStatus.refunded;
     case 'denied':
       return DisputeStatus.denied;
     default:

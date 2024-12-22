@@ -53,69 +53,175 @@ class ChatView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final isTablet = !View.of(context).isSmallTabletOrLess;
+    final l10n = ChatLocalizations.of(context);
+    final cubit = context.read<ChatCubit>();
+    final userType = cubit.getCurrentChatUserType();
+    final isRequesterChat = userType == UserType.requester;
+    final isProviderChat = userType == UserType.provider;
+    final theme = TymerTheme.of(context);
     return BlocConsumer<ChatCubit, ChatState>(
       listenWhen: (previous, current) =>
           previous.dispute?.status != current.dispute?.status,
       listener: (context, state) {
-        final l10n = ChatLocalizations.of(context);
-        if (state.dispute?.status == DisputeStatus.chargedBack) {
+        final isRequesterRefunded =
+            state.dispute?.status == DisputeStatus.refunded;
+        final isDisputeRejected =
+            state.dispute?.status == DisputeStatus.denied;
+        if (isRequesterChat && isRequesterRefunded) {
           showSnackBar(
             context: context,
             snackBar: SuccessSnackBar(
               context: context,
-              message: (l10n.chargedBackSnackBarMessage),
+              snackBarAction: SnackBarAction(
+                label: l10n.refundedRequesterSnackBarLabel,
+                onPressed: () {},
+                backgroundColor: theme.successContainerColor,
+              ),
+              message: (l10n.refundedRequesterSnackBarMessage),
             ),
           );
         }
-        if (state.dispute?.status == DisputeStatus.denied) {
+        if (isRequesterChat && isDisputeRejected) {
+          showSnackBar(
+            context: context,
+            snackBar: ErrorSnackBar(
+              snackBarAction: SnackBarAction(
+                label: l10n.deniedRequesterSnackBarLabel,
+                onPressed: () {},
+                backgroundColor: theme.errorColor,
+              ),
+              context: context,
+              message: (l10n.deniedRequesterSnackBarMessage),
+            ),
+          );
+        }
+        if (isProviderChat && isRequesterRefunded) {
           showSnackBar(
             context: context,
             snackBar: ErrorSnackBar(
               context: context,
-              message: (l10n.deniedSnackBarMessage),
+              message: (l10n.providerLostDisputeSnackBarMessage),
+              snackBarAction: SnackBarAction(
+                label: l10n.providerLostDisputeSnackBarLabel,
+                onPressed: () {},
+                backgroundColor: theme.errorColor,
+              ),
+            ),
+          );
+        }
+        if (isProviderChat && isDisputeRejected) {
+          showSnackBar(
+            context: context,
+            snackBar: SuccessSnackBar(
+              context: context,
+              snackBarAction: SnackBarAction(
+                label: l10n.providerWonDisputeSnackBarLabel,
+                onPressed: () {},
+                backgroundColor: theme.successContainerColor,
+              ),
+              message: (l10n.providerWonDisputeSnackBarMessage),
             ),
           );
         }
       },
       builder: (context, state) {
         final l10n = ChatLocalizations.of(context);
-        final clL10n = ComponentLibraryLocalizations.of(context);
         final disputeStatus = state.dispute?.status;
-        final isDisputeChargedBack = disputeStatus == DisputeStatus.chargedBack;
+        final isRequesterRefunded = disputeStatus == DisputeStatus.refunded;
         final idDisputeDenied = disputeStatus == DisputeStatus.denied;
-        final isResolved = isDisputeChargedBack || idDisputeDenied;
+        final isResolved = isRequesterRefunded || idDisputeDenied;
+
+        final resolution = _getResolutionDetails(
+          isRequesterRefunded,
+          idDisputeDenied,
+          isRequesterChat,
+          isProviderChat,
+          l10n,
+        );
+
         return GestureDetector(
           onTap: context.releaseFocus,
-          child: Scaffold(
-            appBar: AppBar(
-              // centerTitle: false,
-              backgroundColor: Colors.white,
-              title: Text(l10n.appBarTitle),
-            ),
-            body: Column(
-              children: [
-                const MessagesList(),
-                isResolved
-                    ? Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(15),
-                        color: Colors.grey.withAlpha(50),
-                        child: Center(
-                          child: ServiceStatusWidget(
-                            color: state.dispute!.status.color,
-                            label: disputeStatusToLocalizedString(
-                              state.dispute!.status,
-                              clL10n,
+          child: SafeArea(
+            top: false,
+            child: Scaffold(
+              appBar: AppBar(
+                // centerTitle: false,
+                backgroundColor: Colors.white,
+                title: Text(l10n.appBarTitle),
+              ),
+              body: Column(
+                children: [
+                  const MessagesList(),
+                  isResolved
+                      ? Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(15),
+                          color: Colors.grey.withAlpha(50),
+                          child: Center(
+                            child: ServiceStatusWidget(
+                              color: resolution.color,
+                              label: resolution.label,
                             ),
                           ),
-                        ),
-                      )
-                    : const SendMessage(),
-              ],
+                        )
+                      : const SendMessage(),
+                ],
+              ),
             ),
           ),
         );
       },
     );
   }
+}
+
+// Helper function to determine resolution details
+ResolutionDetails _getResolutionDetails(
+  bool isRequesterRefunded,
+  bool idDisputeDenied,
+  bool isRequesterChat,
+  bool isProviderChat,
+  ChatLocalizations l10n,
+) {
+  if (isRequesterChat) {
+    if (isRequesterRefunded) {
+      return ResolutionDetails(
+        label: l10n.refundedRequesterSnackBarLabel,
+        color: DisputeStatus.refunded.color,
+      );
+    } else if (idDisputeDenied) {
+      return ResolutionDetails(
+        label: l10n.deniedRequesterSnackBarLabel,
+        color: DisputeStatus.denied.color,
+      );
+    }
+  } else if (isProviderChat) {
+    if (isRequesterRefunded) {
+      return ResolutionDetails(
+        label: l10n.providerLostDisputeSnackBarLabel,
+        color: DisputeStatus.denied.color,
+      );
+    } else if (idDisputeDenied) {
+      return ResolutionDetails(
+        label: l10n.providerWonDisputeSnackBarLabel,
+        color: DisputeStatus.refunded.color,
+      );
+    }
+  }
+
+  return ResolutionDetails(
+    label: '',
+    color: Colors.grey,
+  ); // Default case
+}
+
+// A class to store resolution details
+class ResolutionDetails {
+  final String label;
+  final Color color;
+
+  ResolutionDetails({
+    required this.label,
+    required this.color,
+  });
 }

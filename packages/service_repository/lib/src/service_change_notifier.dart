@@ -1,8 +1,7 @@
 import 'package:domain_models/domain_models.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-class ServiceChangeNotifier with ChangeNotifier, EquatableMixin {
+class ServiceChangeNotifier with ChangeNotifier {
   ServiceChangeNotifier();
 
   final ValueNotifier<ServiceType?> _serviceTypeVN = ValueNotifier(null);
@@ -32,9 +31,4 @@ class ServiceChangeNotifier with ChangeNotifier, EquatableMixin {
     notifyListeners();
   }
 
-  @override
-  List<Object?> get props => [
-        serviceType,
-        serviceRequestDetails,
-      ];
 }

@@ -35,6 +35,7 @@ class _SendMessageState extends State<SendMessage> {
             color: Color(0xFFF4F4F4),
           ),
           child: ListView(
+            shrinkWrap: true,
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
