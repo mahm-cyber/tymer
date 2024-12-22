@@ -26,6 +26,8 @@ dependencies:
     path: ../../service_repository
   user_repository:
     path: ../../user_repository
+  dispute_repository:
+    path: ../../dispute_repository
 
   google_maps_flutter: ^2.9.0
   intl: ^0.19.0

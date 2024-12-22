@@ -1,3 +1,4 @@
+import 'package:dispute_repository/dispute_repository.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:tymer_api/tymer_api.dart';
@@ -52,8 +53,11 @@ extension ServiceRMtoDM on ServiceRM {
         distanceBetweenProviderAndServiceLocation: double.tryParse(
           distanceBetweenProviderAndServiceLocation ?? '',
         ),
+        dispute: dispute?.toDomainModel(),
         status: serviceStatusRMtoDM(status),
-        createdAt: DateTime.parse(createdAt),
+        createdAt: DateTime.parse(createdAt).toLocal().subtract(
+              const Duration(hours: 1),
+            ),
         type: serviceTypeRMtoDM(type),
         totalPrice: double.parse(totalPrice),
         price: double.parse(servicePrice),

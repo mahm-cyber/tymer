@@ -37,15 +37,16 @@ class DisputeRepository {
     }
   }
 
-  Future disputeRequest({
+  Future<int> disputeRequest({
     required int serviceRequestId,
     required String reason,
   }) async {
     try {
-      await remoteApi.disputeRequest(
+      final disputeId = await remoteApi.disputeRequest(
         serviceRequestId: serviceRequestId,
         reason: reason,
       );
+      return disputeId;
     } catch (error) {
       rethrow;
     }

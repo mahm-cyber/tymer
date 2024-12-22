@@ -64,7 +64,7 @@ class _DayPickerState extends State<DayPicker> {
             GestureDetector(
               onTap: widget.isSubmissionInProgress ? null : pickDateAndTime,
               child: TextField(
-                enabled: !widget.isSubmissionInProgress,
+                enabled: false,
                 textDirection: TextDirection.ltr,
                 textAlign: isArabic ? TextAlign.right : TextAlign.left,
                 style: TextStyle(

@@ -30,13 +30,18 @@ class MessageCard extends StatelessWidget {
     final isSentByMe = message.isSentByMe;
     final l10n = ChatLocalizations.of(context);
     final isFirstLetterArabic = message.text?.isFirstLetterArabic() == true;
+    final time = TimeOfDay.fromDateTime(message.date)
+        .localizedTimeOfDay(Localizations.localeOf(context));
+    final sentByMeTime =
+        '${time.split(' ')[0].split('').reversed.join('')} ${time.split(' ')[1]}';
+    final isArabic = Localizations.localeOf(context).languageCode == 'ar';
     return Row(
       children: [
         if (!isSentByMe) const Spacer(),
         Container(
           constraints: BoxConstraints(
-              maxWidth: MediaQuery.of(context).size.width -
-                  (theme.screenMargin * 3)),
+              maxWidth:
+                  MediaQuery.of(context).size.width - (theme.screenMargin * 3)),
           padding: const EdgeInsets.only(
             left: Spacing.medium,
             right: Spacing.medium,
@@ -51,13 +56,11 @@ class MessageCard extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border.all(color: theme.borderColor),
             borderRadius: BorderRadius.circular(10),
-            color:
-            isSentByMe ? const Color(0xFFEFEFEF) : theme.secondaryColor,
+            color: isSentByMe ? const Color(0xFFEFEFEF) : theme.secondaryColor,
           ),
           child: Column(
             crossAxisAlignment:
-            isSentByMe ? CrossAxisAlignment.start : CrossAxisAlignment.end,
-
+                isSentByMe ? CrossAxisAlignment.start : CrossAxisAlignment.end,
             children: [
               Text(
                 isSentByMe
@@ -71,8 +74,7 @@ class MessageCard extends StatelessWidget {
                 ),
               ),
               VerticalGap.medium(),
-              if (message.text != null &&
-                  message.text?.isNotEmpty == true) ...[
+              if (message.text != null && message.text?.isNotEmpty == true) ...[
                 SelectableText(
                   message.text!,
                   textDirection: isFirstLetterArabic
@@ -95,15 +97,15 @@ class MessageCard extends StatelessWidget {
                 VerticalGap.small(),
               ],
               SelectableText(
-                TimeOfDay.fromDateTime(message.date).localizedTimeOfDay(Localizations.localeOf(context)),
+                isSentByMe && isArabic ? sentByMeTime : time,
                 textDirection: TextDirection.ltr,
                 style: textTheme.labelMedium?.copyWith(
                   color: isSentByMe
                       ? const Color(0xFF797979)
                       : theme.materialThemeData.colorScheme.surface,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-
             ],
           ),
         ),

@@ -63,9 +63,7 @@ class ChatCubit extends Cubit<ChatState> {
       final hasSameStatus =
           disputeFromDisputesScreen?.status == freshDispute.status;
       if (!hasSameStatus) {
-        disputeRepository.changeNotifier.setCurrentDispute(freshDispute);
         disputeRepository.changeNotifier.setShouldReFetchDisputes(true);
-        disputeRepository.changeNotifier.clearShouldReFetchDisputes();
       }
 
       final successState = state.copyWith(
@@ -164,8 +162,6 @@ class ChatCubit extends Cubit<ChatState> {
     );
     if (!isClosed) emit(newState);
     disputeRepository.changeNotifier.setShouldReFetchDisputes(true);
-    disputeRepository.changeNotifier.clearShouldReFetchDisputes();
-
   }
 
   // get ticket_messages

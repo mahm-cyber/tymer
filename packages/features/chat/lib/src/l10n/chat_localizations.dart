@@ -8,8 +8,6 @@ import 'package:intl/intl.dart' as intl;
 import 'chat_localizations_ar.dart';
 import 'chat_localizations_en.dart';
 
-// ignore_for_file: type=lint
-
 /// Callers can lookup localized strings with an instance of ChatLocalizations
 /// returned by `ChatLocalizations.of(context)`.
 ///
@@ -136,6 +134,18 @@ abstract class ChatLocalizations {
   /// In en, this message translates to:
   /// **'You'**
   String get messageSentByMeCardTitle;
+
+  /// No description provided for @chargedBackSnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your money has been refunded'**
+  String get chargedBackSnackBarMessage;
+
+  /// No description provided for @deniedSnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your request has been denied'**
+  String get deniedSnackBarMessage;
 }
 
 class _ChatLocalizationsDelegate extends LocalizationsDelegate<ChatLocalizations> {

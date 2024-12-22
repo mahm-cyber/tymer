@@ -14,7 +14,6 @@ class ChatScreen extends StatefulWidget {
   const ChatScreen({
     super.key,
     required this.disputeRepository,
-
     required this.userRepository,
     required this.disputeId,
   });
@@ -54,7 +53,30 @@ class ChatView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final isTablet = !View.of(context).isSmallTabletOrLess;
-    return BlocBuilder<ChatCubit, ChatState>(
+    return BlocConsumer<ChatCubit, ChatState>(
+      listenWhen: (previous, current) =>
+          previous.dispute?.status != current.dispute?.status,
+      listener: (context, state) {
+        final l10n = ChatLocalizations.of(context);
+        if (state.dispute?.status == DisputeStatus.chargedBack) {
+          showSnackBar(
+            context: context,
+            snackBar: SuccessSnackBar(
+              context: context,
+              message: (l10n.chargedBackSnackBarMessage),
+            ),
+          );
+        }
+        if (state.dispute?.status == DisputeStatus.denied) {
+          showSnackBar(
+            context: context,
+            snackBar: ErrorSnackBar(
+              context: context,
+              message: (l10n.deniedSnackBarMessage),
+            ),
+          );
+        }
+      },
       builder: (context, state) {
         final l10n = ChatLocalizations.of(context);
         final clL10n = ComponentLibraryLocalizations.of(context);

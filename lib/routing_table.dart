@@ -258,12 +258,15 @@ Map<String, PageBuilder> buildRoutingTable({
                   return ConfirmDisputeBottomSheet(
                     disputeRepository: disputeRepository,
                     service: service,
-                    onDisputeSuccess: () async {
+                    onDisputeSuccess: (int disputeId) async {
                       await routerDelegate.popUntil(
                         (route) => route.path == _PathConstants.homePath,
                       );
                       routerDelegate.push(_PathConstants.orderHistory);
                       routerDelegate.push(_PathConstants.disputesPath);
+                      routerDelegate.push(_PathConstants.disputeChatPath(
+                        disputeId: disputeId,
+                      ));
                     },
                   );
                 },
@@ -306,6 +309,7 @@ Map<String, PageBuilder> buildRoutingTable({
     _PathConstants.fulfillServiceRequestPath: (_) => MaterialPage(
           name: 'fulfill-service-request',
           child: FulfillServiceRequestScreen(
+            disputeRepository: disputeRepository,
             serviceRepository: serviceRepository,
             userRepository: userRepository,
             onNavigateToProvideService: () async {
@@ -313,12 +317,15 @@ Map<String, PageBuilder> buildRoutingTable({
                   .popUntil((route) => route.path == _PathConstants.homePath);
               routerDelegate.push(_PathConstants.provideServicePath);
             },
-            onServiceDisputed: () async {
+            onServiceDisputed: (int disputeId ) async {
               await routerDelegate.popUntil(
                 (route) => route.path == _PathConstants.homePath,
               );
               routerDelegate.push(_PathConstants.orderHistory);
               routerDelegate.push(_PathConstants.disputesPath);
+              routerDelegate.push(_PathConstants.disputeChatPath(
+                disputeId: disputeId,
+              ));
             },
           ),
         ),

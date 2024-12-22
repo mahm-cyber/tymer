@@ -1,10 +1,8 @@
 import 'chat_localizations.dart';
 
-// ignore_for_file: type=lint
-
 /// The translations for Arabic (`ar`).
 class ChatLocalizationsAr extends ChatLocalizations {
-  ChatLocalizationsAr([String locale = 'ar']) : super(locale);
+  ChatLocalizationsAr([super.locale = 'ar']);
 
   @override
   String get appBarTitle => 'التحدث إلى الدعم';
@@ -26,4 +24,10 @@ class ChatLocalizationsAr extends ChatLocalizations {
 
   @override
   String get messageSentByMeCardTitle => 'أنت';
+
+  @override
+  String get chargedBackSnackBarMessage => 'تم استرداد أموالك';
+
+  @override
+  String get deniedSnackBarMessage => 'تم رفض طلبك';
 }

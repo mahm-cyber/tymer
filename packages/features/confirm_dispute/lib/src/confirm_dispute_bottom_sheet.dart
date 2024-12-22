@@ -16,7 +16,7 @@ class ConfirmDisputeBottomSheet extends StatelessWidget {
 
   final DisputeRepository disputeRepository;
   final Service service;
-  final VoidCallback onDisputeSuccess;
+  final ValueSetter<int> onDisputeSuccess;
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +43,9 @@ class ConfirmDisputeView extends StatelessWidget {
     final l10n = ConfirmDisputeLocalizations.of(context);
     return BlocConsumer<ConfirmDisputeCubit, ConfirmDisputeState>(
       listener: (context, state) {
+        final cubit = context.read<ConfirmDisputeCubit>();
         if (state.disputingStatus == DisputingStatus.success) {
-          context.read<ConfirmDisputeCubit>().onDisputeSuccess();
+          cubit.onDisputeSuccess(state.disputeId!);
           showSnackBar(
             context: context,
             snackBar: SuccessSnackBar(

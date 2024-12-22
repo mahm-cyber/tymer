@@ -1,3 +1,4 @@
+import 'package:dispute_repository/dispute_repository.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:form_fields/form_fields.dart';
 import 'package:fulfill_service_request/fulfill_service_request.dart';
@@ -13,6 +14,7 @@ import 'components/components.dart';
 
 class FulfillServiceRequestScreen extends StatelessWidget {
   const FulfillServiceRequestScreen({
+    required this.disputeRepository,
     required this.serviceRepository,
     required this.userRepository,
     required this.onNavigateToProvideService,
@@ -20,15 +22,17 @@ class FulfillServiceRequestScreen extends StatelessWidget {
     super.key,
   });
 
+  final DisputeRepository disputeRepository;
   final ServiceRepository serviceRepository;
   final UserRepository userRepository;
   final VoidCallback onNavigateToProvideService;
-  final VoidCallback onServiceDisputed;
+  final ValueSetter<int> onServiceDisputed;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<FulfillServiceRequestCubit>(
       create: (_) => FulfillServiceRequestCubit(
+        disputeRepository: disputeRepository,
         serviceRepository: serviceRepository,
         userRepository: userRepository,
         onNavigateToProvideService: onNavigateToProvideService,
@@ -62,7 +66,7 @@ class FulfillServiceRequestView extends StatelessWidget {
       listener: (context, state) {
         final cubit = context.read<FulfillServiceRequestCubit>();
         if (state.service?.status == ServiceStatus.disputed) {
-          cubit.onServiceDisputed();
+          cubit.onServiceRequestDisputed();
           showSnackBar(
             context: context,
             snackBar: ErrorSnackBar(

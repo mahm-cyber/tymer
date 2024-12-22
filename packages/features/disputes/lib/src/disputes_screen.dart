@@ -177,7 +177,7 @@ class DisputesView extends StatelessWidget {
                                       dispute,
                                     ),
                                     shouldShowRequestStatus: true,
-                                    service: dispute.serviceRequest,
+                                    service: dispute.serviceRequest!,
                                     dispute: dispute,
                                     height: 110,
                                   ),

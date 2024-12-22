@@ -5,7 +5,9 @@
     "captureImageIconLabel": "كاميرا",
     "deleteFileIconLabel": "حذف",
     "noMessagesIndicator": "لا توجد رسائل بعد",
-    "messageSentByMeCardTitle": "أنت"
+    "messageSentByMeCardTitle": "أنت",
+    "chargedBackSnackBarMessage": "تم استرداد أموالك",
+    "deniedSnackBarMessage": "تم رفض طلبك"
 
 
 }

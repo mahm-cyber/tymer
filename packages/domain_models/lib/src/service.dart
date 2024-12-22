@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class Service {
   const Service({
     this.id,
+    this.dispute,
     this.distanceBetweenProviderAndServiceLocation,
     this.status,
     this.createdAt,
@@ -17,6 +18,7 @@ class Service {
   });
 
   final int? id;
+  final Dispute? dispute;
   final double? distanceBetweenProviderAndServiceLocation;
   final ServiceStatus? status;
   final DateTime? createdAt;

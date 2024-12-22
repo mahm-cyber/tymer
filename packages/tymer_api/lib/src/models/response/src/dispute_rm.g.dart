@@ -14,8 +14,11 @@ DisputeRM _$DisputeRMFromJson(Map<String, dynamic> json) => $checkedCreate(
           id: $checkedConvert('id', (v) => (v as num).toInt()),
           serviceRequestId:
               $checkedConvert('service_request_id', (v) => (v as num).toInt()),
-          serviceRequest: $checkedConvert('service_request',
-              (v) => ServiceRM.fromJson(v as Map<String, dynamic>)),
+          serviceRequest: $checkedConvert(
+              'service_request',
+              (v) => v == null
+                  ? null
+                  : ServiceRM.fromJson(v as Map<String, dynamic>)),
           status: $checkedConvert('status', (v) => v as String),
           resolvedBy:
               $checkedConvert('resolved_by', (v) => (v as num?)?.toInt()),

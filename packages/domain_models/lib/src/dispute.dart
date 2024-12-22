@@ -8,16 +8,16 @@ class Dispute extends Equatable {
   const Dispute({
     required this.id,
     required this.serviceRequestId,
-    required this.serviceRequest,
+    this.serviceRequest,
     required this.status,
     this.resolverId,
     required this.reason,
-    required this.  createdAt,
+    required this.createdAt,
   });
 
   final int id;
   final int serviceRequestId;
-  final Service serviceRequest;
+  final Service? serviceRequest;
   final DisputeStatus status;
   final int? resolverId;
   final String? reason;

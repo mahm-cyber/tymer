@@ -9,6 +9,7 @@ class ServiceRM {
     required this.id,
     required this.type,
     this.details,
+    this.dispute,
     required this.location,
     this.distanceBetweenProviderAndServiceLocation,
     required this.totalPrice,
@@ -25,6 +26,8 @@ class ServiceRM {
   final String type;
   @JsonKey(name: 'service')
   final ServiceDetailsRM? details;
+  @JsonKey(name: 'dispute')
+  final DisputeRM? dispute;
   @JsonKey(name: 'service_location')
   final LocationRM location;
   @JsonKey(name: 'service_distance')

@@ -11,6 +11,7 @@ typedef UserTokenSupplier = Future<String?> Function();
 class TymerApi {
   static const _errorJsonKey = 'error';
   static const _dataJsonKey = 'data';
+  static const _idJsonKey = 'id';
   static const _contentJsonKey = 'content';
   static const _accessTokenJsonKey = 'access_token';
   static const _verificationErrorsJsonKey = 'verification_errors';
@@ -458,7 +459,7 @@ class TymerApi {
     }
   }
 
-  Future disputeRequest({
+  Future<int> disputeRequest({
     required int serviceRequestId,
     required String reason,
   }) async {
@@ -466,12 +467,14 @@ class TymerApi {
       serviceRequestId: serviceRequestId,
     );
     try {
-      await _dio.post(
+      final response = await _dio.post(
         url,
         data: {
           'other_details': reason,
         },
       );
+      final disputeId = response.data[_dataJsonKey][_idJsonKey] as int;
+      return disputeId;
     } catch (_) {
       rethrow;
     }

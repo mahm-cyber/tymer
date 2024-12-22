@@ -140,7 +140,7 @@ class _DownloadWidgetState extends State<DownloadWidget> {
       },
       child: downloadInProgress
           ? Transform.scale(
-              scale: 0.5,
+              scale: 0.55,
               child: CircularProgressIndicator(
                 value: downloadProgress.value,
                 color: isSentByMe ? null : Colors.white,
@@ -152,6 +152,7 @@ class _DownloadWidgetState extends State<DownloadWidget> {
                     OpenFilex.open(savePath!);
                   },
                   icon: Icon(
+
                     Icons.open_in_new,
                     color: isSentByMe ? null : Colors.white,
                   ),

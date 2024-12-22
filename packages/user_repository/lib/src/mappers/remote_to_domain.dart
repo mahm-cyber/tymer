@@ -12,9 +12,6 @@ extension UserRMtoDM on UserRM {
       phoneVerifiedAt: phoneVerifiedAt,
       permissions: permissions,
       roles: roles,
-      createdAt: createdAt,
-      updatedAt: updatedAt,
-      deletedAt: deletedAt,
     );
   }
 }

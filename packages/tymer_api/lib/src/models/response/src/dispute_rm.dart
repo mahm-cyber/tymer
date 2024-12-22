@@ -8,7 +8,7 @@ class DisputeRM {
   const DisputeRM({
     required this.id,
     required this.serviceRequestId,
-    required this.serviceRequest,
+    this.serviceRequest,
     required this.status,
     this.resolvedBy,
     required this.reason,
@@ -20,7 +20,7 @@ class DisputeRM {
   @JsonKey(name: 'service_request_id')
   final int serviceRequestId;
   @JsonKey(name: 'service_request')
-  final ServiceRM serviceRequest;
+  final ServiceRM? serviceRequest;
   @JsonKey(name: 'status')
   final String status;
   @JsonKey(name: 'resolved_by')

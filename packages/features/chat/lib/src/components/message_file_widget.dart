@@ -18,6 +18,11 @@ class MessageFileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final isSentByMe = message.isSentByMe;
+    final extension = message.files![0].extension;
+    final cleanExtension = extension.length > 4
+        ? extension.substring(0, 4).toUpperCase()
+        : extension.toUpperCase();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -31,9 +36,26 @@ class MessageFileWidget extends StatelessWidget {
             userToken: userToken,
             urls: [message.files![0].dlUrl!],
             isSentByMe: message.isSentByMe,
-            child: Icon(
-              Icons.insert_drive_file,
-              color: message.isSentByMe ? null : Colors.white,
+            child: Stack(
+              children: [
+                Icon(
+                  Icons.insert_drive_file_outlined,
+                  size: 35,
+                  color: isSentByMe ? null : Colors.white,
+                ),
+                 PositionedDirectional(
+                  end: 0,
+                  bottom: 0,
+                  top: 0  ,
+                  start: 0,
+                  child: Icon(
+                    Icons.download,
+                    size: 20,
+                    color: isSentByMe ? null : Colors.white,
+
+                  ),
+                )
+              ],
             ),
           ),
         // if (message.files![0].type == FileType.video)
@@ -42,18 +64,18 @@ class MessageFileWidget extends StatelessWidget {
         //     message: message,
         //   ),
         VerticalGap.xSmall(),
-        SizedBox(
-          width: 100,
-          child: Text(
-            message.files![0].name,
-            style: textTheme.bodySmall
-                ?.copyWith(color: message.isSentByMe ? null : Colors.white),
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-          ),
-        ),
+        // SizedBox(
+        //   width: 100,
+        //   child: Text(
+        //     message.files![0].name,
+        //     style: textTheme.bodySmall
+        //         ?.copyWith(color: message.isSentByMe ? null : Colors.white),
+        //     overflow: TextOverflow.ellipsis,
+        //     textAlign: TextAlign.center,
+        //   ),
+        // ),
         Text(
-          message.files![0].extension.toUpperCase(),
+          cleanExtension,
           style: textTheme.bodySmall
               ?.copyWith(color: message.isSentByMe ? null : Colors.white),
         ),

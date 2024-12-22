@@ -1,10 +1,8 @@
 import 'chat_localizations.dart';
 
-// ignore_for_file: type=lint
-
 /// The translations for English (`en`).
 class ChatLocalizationsEn extends ChatLocalizations {
-  ChatLocalizationsEn([String locale = 'en']) : super(locale);
+  ChatLocalizationsEn([super.locale = 'en']);
 
   @override
   String get appBarTitle => 'Talk To Support';
@@ -26,4 +24,10 @@ class ChatLocalizationsEn extends ChatLocalizations {
 
   @override
   String get messageSentByMeCardTitle => 'You';
+
+  @override
+  String get chargedBackSnackBarMessage => 'Your money has been refunded';
+
+  @override
+  String get deniedSnackBarMessage => 'Your request has been denied';
 }

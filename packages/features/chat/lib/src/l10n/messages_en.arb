@@ -5,5 +5,7 @@
     "captureImageIconLabel": "Capture",
     "deleteFileIconLabel": "Delete",
     "noMessagesIndicator": "No messages yet",
-    "messageSentByMeCardTitle": "You"
+    "messageSentByMeCardTitle": "You",
+    "chargedBackSnackBarMessage": "Your money has been refunded",
+    "deniedSnackBarMessage": "Your request has been denied"
 }

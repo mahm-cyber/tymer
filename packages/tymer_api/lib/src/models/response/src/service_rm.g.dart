@@ -18,6 +18,11 @@ ServiceRM _$ServiceRMFromJson(Map<String, dynamic> json) => $checkedCreate(
               (v) => v == null
                   ? null
                   : ServiceDetailsRM.fromJson(v as Map<String, dynamic>)),
+          dispute: $checkedConvert(
+              'dispute',
+              (v) => v == null
+                  ? null
+                  : DisputeRM.fromJson(v as Map<String, dynamic>)),
           location: $checkedConvert('service_location',
               (v) => LocationRM.fromJson(v as Map<String, dynamic>)),
           distanceBetweenProviderAndServiceLocation:

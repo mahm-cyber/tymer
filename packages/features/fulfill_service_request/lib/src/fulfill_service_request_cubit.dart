@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dispute_repository/dispute_repository.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -13,6 +14,7 @@ part 'fulfill_service_request_state.dart';
 
 class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
   FulfillServiceRequestCubit({
+    required this.disputeRepository,
     required this.serviceRepository,
     required this.userRepository,
     required this.onNavigateToProvideService,
@@ -26,10 +28,11 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
     init();
   }
 
+  final DisputeRepository disputeRepository;
   final ServiceRepository serviceRepository;
   final UserRepository userRepository;
   final VoidCallback onNavigateToProvideService;
-  final VoidCallback onServiceDisputed;
+  final ValueSetter<int> onServiceDisputed;
   final StreamController<String> carImageFileNameSC = StreamController();
   final ImagePicker _imagePicker;
   Timer? _awaitRequestConfirmationTimer;
@@ -289,6 +292,11 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
     }
   }
 
+
+  void onServiceRequestDisputed() {
+    onServiceDisputed(state.service!.id!);
+    disputeRepository.changeNotifier.setDisputeChatUserType(UserType.requester);
+  }
   @override
   Future<void> close() async {
     _awaitRequestConfirmationTimer?.cancel();
