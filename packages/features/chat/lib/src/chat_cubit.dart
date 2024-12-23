@@ -7,6 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart' as fp;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_fields/form_fields.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:user_repository/user_repository.dart';
@@ -227,12 +228,26 @@ class ChatCubit extends Cubit<ChatState> {
     );
 
     if (result != null) {
-      final files =
-          result.files.map((platformFile) => File(platformFile.path!)).toList();
+      final files = result.files
+          .map(
+            (platformFile) => FileSize<File?>.validated(
+              File(platformFile.path!),
+              sizeLimitInKb: 1024,
+            ),
+          )
+          .toList();
+
       final newState = state.copyWith(
-        files: [...?state.files, ...files],
+        files: [...files],
       );
       emit(newState);
+      final isNotValid = files.any((file) => file.isNotValid);
+      final deleteAllFilesState = state.copyWith(
+        files: const [],
+      );
+      if (isNotValid) {
+        emit(deleteAllFilesState);
+      }
     } else {
       // User canceled the picker
     }
@@ -242,29 +257,39 @@ class ChatCubit extends Cubit<ChatState> {
     XFile? xFile = await _imagePicker.pickImage(
       source: ImageSource.gallery,
     );
-    if (xFile != null) {
-      File? file = File(
-        xFile.path.toString(),
-      );
-      final newState = state.copyWith(
-        files: [...?state.files, file],
-      );
-      emit(newState);
-    }
+    onImagePicked(xFile);
   }
 
   Future<void> capturePhoto() async {
     XFile? xFile = await _imagePicker.pickImage(
       source: ImageSource.camera,
+      imageQuality: 30,
     );
+    onImagePicked(xFile);
+  }
+
+  void onImagePicked(XFile? xFile) {
     if (xFile != null) {
       File? file = File(
         xFile.path.toString(),
       );
-      final newState = state.copyWith(
-        files: [...?state.files, file],
+      final validatedFile = FileSize<File?>.validated(
+        file,
+        sizeLimitInKb: 1024,
       );
-      emit(newState);
+      final imagePicked = state.copyWith(
+        files: [validatedFile],
+      );
+      emit(imagePicked);
+      final isNotValid = validatedFile.isNotValid;
+      final deleteAllFilesState = state.copyWith(
+        files: const [],
+      );
+      if (isNotValid) {
+        emit(deleteAllFilesState);
+      }
+
+
     }
   }
 
@@ -274,7 +299,7 @@ class ChatCubit extends Cubit<ChatState> {
       chatFetchingStatus: state.chatFetchingStatus,
       submissionStatus: state.submissionStatus,
       message: state.message,
-      files: null,
+      files: const [],
       userToken: state.userToken,
       dispute: state.dispute,
     );
@@ -305,11 +330,11 @@ class ChatCubit extends Cubit<ChatState> {
     );
     emit(newState);
     try {
-      final filesDM = state.files?.map((file) {
-        final fileName = file.path.split('/').last;
+      final filesDM = state.files.map((file) {
+        final fileName = file.value?.path.split('/').last;
         return FileDM(
-          file: file,
-          name: fileName,
+          file: file.value,
+          name: fileName ?? '',
         );
       }).toList();
 

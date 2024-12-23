@@ -8,7 +8,7 @@ class FulfillServiceRequestState extends Equatable {
     this.reservationNumber = const Dynamic<String>.unvalidated(),
     this.day = const Dynamic<DateTime?>.unvalidated(),
     this.time = const Dynamic<TimeOfDay?>.unvalidated(),
-    this.imageBytes,
+    this.file = const FileSize<File?>.unvalidated(),
     this.isImagePickerBottomSheetVisible = false,
     this.additionalDetails,
     this.submissionStatus = FormzSubmissionStatus.initial,
@@ -20,7 +20,7 @@ class FulfillServiceRequestState extends Equatable {
   final Dynamic<String> reservationNumber;
   final Dynamic<DateTime?> day;
   final Dynamic<TimeOfDay?> time;
-  final Uint8List? imageBytes;
+  final FileSize<File?> file;
   final bool isImagePickerBottomSheetVisible;
   final String? additionalDetails;
   final FormzSubmissionStatus submissionStatus;
@@ -32,7 +32,7 @@ class FulfillServiceRequestState extends Equatable {
     Dynamic<String>? reservationNumber,
     Dynamic<DateTime?>? day,
     Dynamic<TimeOfDay?>? time,
-    Uint8List? imageBytes,
+    FileSize<File?>? file,
     bool? isImagePickerBottomSheetVisible,
     String? additionalDetails,
     FormzSubmissionStatus? submissionStatus,
@@ -44,11 +44,12 @@ class FulfillServiceRequestState extends Equatable {
       reservationNumber: reservationNumber ?? this.reservationNumber,
       day: day ?? this.day,
       time: time ?? this.time,
-      imageBytes: imageBytes ?? this.imageBytes,
+      file: file ?? this.file,
       isImagePickerBottomSheetVisible: isImagePickerBottomSheetVisible ??
           this.isImagePickerBottomSheetVisible,
       additionalDetails: additionalDetails ?? this.additionalDetails,
       submissionStatus: submissionStatus ?? this.submissionStatus,
+
     );
   }
 
@@ -60,7 +61,7 @@ class FulfillServiceRequestState extends Equatable {
         reservationNumber,
         day,
         time,
-        imageBytes,
+        file,
         isImagePickerBottomSheetVisible,
         additionalDetails,
         submissionStatus,

@@ -2,7 +2,7 @@ part of 'chat_cubit.dart';
 
 class ChatState extends Equatable {
   const ChatState({
-    this.files,
+    this.files = const [],
     this.message,
     this.dateGroupedMessages,
     this.chatFetchingStatus = ChatFetchingStatus.initial,
@@ -12,7 +12,7 @@ class ChatState extends Equatable {
     this.disputeFetchStatus = DisputeFetchStatus.initial,
   });
 
-  final List<File>? files;
+  final List<FileSize<File?>> files;
   final String? message;
   final DateGroupedMessagesList? dateGroupedMessages;
   final ChatFetchingStatus chatFetchingStatus;
@@ -20,13 +20,13 @@ class ChatState extends Equatable {
   final String? userToken;
   final Dispute? dispute;
   final DisputeFetchStatus disputeFetchStatus;
+
   bool get isSendButtonDisabled =>
       (message?.isEmpty == true || message == null) &&
-      (files?.isEmpty == true || files == null);
-
+      (files.isEmpty);
 
   ChatState copyWith({
-    List<File>? files,
+    List<FileSize<File?>>? files,
     String? message,
     DateGroupedMessagesList? dateGroupedMessages,
     ChatFetchingStatus? chatFetchingStatus,

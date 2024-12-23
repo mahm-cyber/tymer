@@ -13,6 +13,8 @@ dependencies:
     path: ../../component_library
   domain_models:
     path: ../../domain_models
+  form_fields:
+    path: ../../form_fields
   user_repository:
     path: ../../user_repository
   dispute_repository:

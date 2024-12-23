@@ -15,7 +15,7 @@
     "providerLostDisputeSnackBarMessage": "تم استرجاع المال طالب الخدمه",
     "providerLostDisputeSnackBarLabel": "تم الاسترجاع",
     "providerWonDisputeSnackBarMessage": "تم رفض نزاع طالب الخدمه",
-    "providerWonDisputeSnackBarLabel": "مرفوض"
-
+    "providerWonDisputeSnackBarLabel": "مرفوض",
+  "attachmentSizeExceedsLimitErrorSnackBarMessage": "يجب أن يكون حجم المرفق 1 ميجابايت أو أقل"
 
 }

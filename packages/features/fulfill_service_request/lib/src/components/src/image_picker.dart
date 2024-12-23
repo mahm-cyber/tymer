@@ -17,10 +17,11 @@ class ImagePickerTextField extends StatelessWidget {
         final l10n = FulfillServiceRequestLocalizations.of(context);
         final cubit = context.read<FulfillServiceRequestCubit>();
         final theme = TymerTheme.of(context);
-        final isImagePicked = state.imageBytes != null;
+        final isImagePicked = state.file.value != null;
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
         final imageUrl = state.service?.responseDetails?.imageUrl;
+        final imageError = state.file.isNotValid ? state.file.error : null;
         return StreamBuilder<String>(
             stream: cubit.carImageFileNameSC.stream,
             builder: (context, snapshot) {
@@ -30,7 +31,7 @@ class ImagePickerTextField extends StatelessWidget {
               if (snapshot.hasData) controller.text = snapshot.data!;
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: SizedBox(
@@ -56,10 +57,19 @@ class ImagePickerTextField extends StatelessWidget {
                               enabled: !isSubmissionInProgress,
                               controller: controller,
                               readOnly: true,
+                              style: TextStyle(
+                                color:
+                                    Colors.grey.withAlpha((255 * 0.7).toInt()),
+                              ),
                               decoration: InputDecoration(
                                 suffixIcon:
                                     const Icon(Icons.camera_alt_outlined),
                                 labelText: l10n.imageTextFieldLabel,
+                                errorText: imageError ==
+                                        FileSizeValidationError.exceedsSizeLimit
+                                    ? l10n
+                                        .imageSizeExceedsLimitErrorTextFieldMessage
+                                    : null,
                               ),
                             ),
                           )
@@ -74,7 +84,7 @@ class ImagePickerTextField extends StatelessWidget {
                     GestureDetector(
                       onTap: () => showImageDialog(
                         context,
-                        imageBytes: state.imageBytes,
+                        imageBytes: state.file.value?.readAsBytesSync(),
                         imageUrl: imageUrl,
                         userToken: state.userToken,
                       ),
@@ -85,7 +95,8 @@ class ImagePickerTextField extends StatelessWidget {
                           radius: MediaQuery.of(context).size.width / 13 - 1,
                           backgroundColor: Colors.black,
                           foregroundImage: isImagePicked
-                              ? MemoryImage(state.imageBytes!) as ImageProvider
+                              ? MemoryImage(state.file.value!.readAsBytesSync())
+                                  as ImageProvider
                               : NetworkImage(
                                   imageUrl!,
                                   headers: {

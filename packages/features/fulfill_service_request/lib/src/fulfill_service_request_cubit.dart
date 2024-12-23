@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:dispute_repository/dispute_repository.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
@@ -43,6 +43,10 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
     final isCompleted = service?.status == ServiceStatus.completed;
     final loadingState = state.copyWith(fetchStatus: FetchStatus.loading);
     emit(loadingState);
+    final userToken = await userRepository.getUserToken();
+    final tokenState = state.copyWith(userToken: userToken);
+    emit(tokenState);
+
     final fetchedService = await getService();
 
     if (isPendingReview || isCompleted) {
@@ -52,10 +56,8 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
       );
       emit(newState);
       // final fetchedService = await getService();
-      final userToken = await userRepository.getUserToken();
       final newStateWithResponse = state.copyWith(
         service: fetchedService,
-        userToken: userToken,
       );
       emit(newStateWithResponse);
       if (isPendingReview) pollRequestConfirmation();
@@ -98,7 +100,7 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
               day: day ?? state.day,
               reservationNumber: reservationNumber ?? state.reservationNumber,
               additionalDetails: state.additionalDetails,
-              imageBytes: state.imageBytes,
+              file: state.file,
               service: state.service,
               userToken: state.userToken,
               isImagePickerBottomSheetVisible:
@@ -178,45 +180,44 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
 
   Future<void> pickImageFromGallery() async {
     XFile? xFile = await _imagePicker.pickImage(
-        source: ImageSource.gallery, imageQuality: 30);
+      source: ImageSource.gallery,
+    );
     if (xFile != null) {
-      final imageBytes = await xFile.readAsBytes();
+      final file = File(xFile.path);
       onImagePicked(
         xFile.name,
-        imageBytes,
-      );
-      emit(
-        state.copyWith(
-          isImagePickerBottomSheetVisible: false,
-          imageBytes: imageBytes,
-        ),
+        file,
       );
     }
   }
 
   Future<void> capturePhoto() async {
     XFile? xFile = await _imagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 30);
+      source: ImageSource.camera,
+      imageQuality: 50,
+    );
     if (xFile != null) {
-      final imageBytes = await xFile.readAsBytes();
+      final file = File(xFile.path);
       onImagePicked(
         xFile.name,
-        imageBytes,
-      );
-      emit(
-        state.copyWith(
-          isImagePickerBottomSheetVisible: false,
-          imageBytes: imageBytes,
-        ),
+        file,
       );
     }
   }
 
   void onImagePicked(
     String carImageFileName,
-    Uint8List? imageBytes,
+    File? file,
   ) {
-    final carImagePicked = state.copyWith(imageBytes: imageBytes);
+    //image more than 1 mb
+    final validatedImageBytes = FileSize<File?>.validated(
+      file,
+      sizeLimitInKb: 1024,
+    );
+    final carImagePicked = state.copyWith(
+      isImagePickerBottomSheetVisible: false,
+      file: validatedImageBytes,
+    );
     emit(carImagePicked);
     carImageFileNameSC.add(carImageFileName);
   }
@@ -254,17 +255,17 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
               ? true
               : false,
     );
-
-    final isFormValid = Formz.validate([
-      reservationNumber,
-      day,
-      time,
-    ]);
+    final image = FileSize<File?>.validated(
+      state.file.value,
+      sizeLimitInKb: 1024,
+    );
+    final isFormValid = Formz.validate([reservationNumber, day, time, image]);
 
     final newState = state.copyWith(
       reservationNumber: reservationNumber,
       day: day,
       time: time,
+      file: image,
       submissionStatus: isFormValid
           ? FormzSubmissionStatus.inProgress
           : FormzSubmissionStatus.initial,
@@ -278,7 +279,7 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
           day: day.value,
           time: time.value,
           additionalDetails: state.additionalDetails,
-          imageBytes: state.imageBytes,
+          imageBytes: state.file.value?.readAsBytesSync(),
         );
 
         pollRequestConfirmation(

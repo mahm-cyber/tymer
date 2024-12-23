@@ -49,7 +49,7 @@ class _SendMessageState extends State<SendMessage> {
                           setState(() {});
                         },
                       ),
-                      if (state.files != null)
+                      if (state.files.any((file) => file.isValid))
                         PositionedDirectional(
                           start: 0,
                           top: 0,
@@ -122,7 +122,7 @@ class _SendMessageState extends State<SendMessage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (state.files != null) ...[
+                    if (state.files.any((file) => file.isValid)) ...[
                       Column(
                         children: [
                           IconButton(

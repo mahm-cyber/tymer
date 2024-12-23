@@ -400,4 +400,7 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get providerWonDisputeLabel => 'Denied';
+
+  @override
+  String get imageSizeExceedsLimitErrorSnackBarMessage => 'Attachment size should be 1MB or less';
 }

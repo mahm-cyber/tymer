@@ -202,6 +202,12 @@ abstract class FulfillServiceRequestLocalizations {
   /// In en, this message translates to:
   /// **'The requester has disputed the service, and a chat has been created with the administration'**
   String get serviceDisputedSnackBarMessage;
+
+  /// No description provided for @imageSizeExceedsLimitErrorTextFieldMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Image size should be 1MB or less'**
+  String get imageSizeExceedsLimitErrorTextFieldMessage;
 }
 
 class _FulfillServiceRequestLocalizationsDelegate extends LocalizationsDelegate<FulfillServiceRequestLocalizations> {

@@ -59,4 +59,7 @@ class FulfillServiceRequestLocalizationsAr extends FulfillServiceRequestLocaliza
 
   @override
   String get serviceDisputedSnackBarMessage => 'تم نزاع على الخدمة، وتم إنشاء محادثة مع الإدارة';
+
+  @override
+  String get imageSizeExceedsLimitErrorTextFieldMessage => 'يجب أن يكون حجم الصورة 1 ميجابايت أو أقل';
 }

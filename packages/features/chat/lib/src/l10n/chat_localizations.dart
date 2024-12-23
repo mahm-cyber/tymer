@@ -160,6 +160,12 @@ abstract class ChatLocalizations {
   /// In en, this message translates to:
   /// **'The requester\'s dispute was rejected'**
   String get providerWonDisputeSnackBarMessage;
+
+  /// No description provided for @attachmentSizeExceedsLimitErrorSnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Attachment size should be 1MB or less'**
+  String get attachmentSizeExceedsLimitErrorSnackBarMessage;
 }
 
 class _ChatLocalizationsDelegate extends LocalizationsDelegate<ChatLocalizations> {

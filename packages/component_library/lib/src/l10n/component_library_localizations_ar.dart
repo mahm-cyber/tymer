@@ -400,4 +400,7 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get providerWonDisputeLabel => 'مرفوض';
+
+  @override
+  String get imageSizeExceedsLimitErrorSnackBarMessage => 'يجب أن يكون حجم المرفق 1 ميجابايت أو أقل';
 }

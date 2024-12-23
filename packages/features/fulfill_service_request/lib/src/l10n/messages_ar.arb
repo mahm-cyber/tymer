@@ -17,7 +17,9 @@
   "awaitingConfirmationButtonLabel": "جارى التأكيد",
   "continueWaitingButtonLabel": "متابعة الانتظار",
   "provideAnotherServiceButtonLabel": "تقديم خدمة أخرى",
-  "serviceDisputedSnackBarMessage": "تم نزاع على الخدمة، وتم إنشاء محادثة مع الإدارة"
+  "serviceDisputedSnackBarMessage": "تم نزاع على الخدمة، وتم إنشاء محادثة مع الإدارة",
+  "imageSizeExceedsLimitErrorTextFieldMessage": "يجب أن يكون حجم الصورة 1 ميجابايت أو أقل"
+
 
 
 

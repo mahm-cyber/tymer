@@ -880,6 +880,12 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'Denied'**
   String get providerWonDisputeLabel;
+
+  /// No description provided for @imageSizeExceedsLimitErrorSnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Attachment size should be 1MB or less'**
+  String get imageSizeExceedsLimitErrorSnackBarMessage;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

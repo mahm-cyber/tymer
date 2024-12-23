@@ -5,6 +5,7 @@ import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:chat/src/chat_cubit.dart';
+import 'package:form_fields/form_fields.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -59,12 +60,12 @@ class ChatView extends StatelessWidget {
     final isProviderChat = userType == UserType.provider;
     return BlocConsumer<ChatCubit, ChatState>(
       listenWhen: (previous, current) =>
-          previous.dispute?.status != current.dispute?.status,
+          previous.dispute?.status != current.dispute?.status ||
+          previous.files != current.files,
       listener: (context, state) {
         final isRequesterRefunded =
             state.dispute?.status == DisputeStatus.refunded;
-        final isDisputeRejected =
-            state.dispute?.status == DisputeStatus.denied;
+        final isDisputeRejected = state.dispute?.status == DisputeStatus.denied;
         if (isRequesterChat && isRequesterRefunded) {
           showSnackBar(
             context: context,
@@ -98,6 +99,17 @@ class ChatView extends StatelessWidget {
             snackBar: SuccessSnackBar(
               context: context,
               message: (l10n.providerWonDisputeSnackBarMessage),
+            ),
+          );
+        }
+        if (state.files.any((file) =>
+            file.isNotValid &&
+            file.error == FileSizeValidationError.exceedsSizeLimit)) {
+          showSnackBar(
+            context: context,
+            snackBar: ErrorSnackBar(
+              context: context,
+              message: (l10n.attachmentSizeExceedsLimitErrorSnackBarMessage),
             ),
           );
         }
@@ -153,5 +165,3 @@ class ChatView extends StatelessWidget {
     );
   }
 }
-
-

@@ -59,4 +59,7 @@ class FulfillServiceRequestLocalizationsEn extends FulfillServiceRequestLocaliza
 
   @override
   String get serviceDisputedSnackBarMessage => 'The requester has disputed the service, and a chat has been created with the administration';
+
+  @override
+  String get imageSizeExceedsLimitErrorTextFieldMessage => 'Image size should be 1MB or less';
 }
