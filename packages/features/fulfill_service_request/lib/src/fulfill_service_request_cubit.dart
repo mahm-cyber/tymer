@@ -33,7 +33,7 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
   final UserRepository userRepository;
   final VoidCallback onNavigateToProvideService;
   final ValueSetter<int> onServiceDisputed;
-  final StreamController<String> carImageFileNameSC = StreamController();
+  final StreamController<String> imageFileNameSC = StreamController();
   final ImagePicker _imagePicker;
   Timer? _awaitRequestConfirmationTimer;
 
@@ -194,7 +194,7 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
   Future<void> capturePhoto() async {
     XFile? xFile = await _imagePicker.pickImage(
       source: ImageSource.camera,
-      imageQuality: 50,
+      imageQuality: 35,
     );
     if (xFile != null) {
       final file = File(xFile.path);
@@ -219,7 +219,15 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
       file: validatedImageBytes,
     );
     emit(carImagePicked);
-    carImageFileNameSC.add(carImageFileName);
+    imageFileNameSC.add(carImageFileName);
+  }
+  
+  void deletePickedImage() {
+    final imageDeletedState = state.copyWith(
+      file: const FileSize<File?>.unvalidated(null),
+    );
+    emit(imageDeletedState);
+    imageFileNameSC.add('');
   }
 
   void onImagePickerBottomSheetClosed() {
@@ -301,7 +309,7 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
   @override
   Future<void> close() async {
     _awaitRequestConfirmationTimer?.cancel();
-    carImageFileNameSC.close();
+    imageFileNameSC.close();
     super.close();
   }
 }

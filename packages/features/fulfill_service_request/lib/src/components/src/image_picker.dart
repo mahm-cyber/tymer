@@ -22,8 +22,9 @@ class ImagePickerTextField extends StatelessWidget {
             state.submissionStatus == FormzSubmissionStatus.inProgress;
         final imageUrl = state.service?.responseDetails?.imageUrl;
         final imageError = state.file.isNotValid ? state.file.error : null;
+        final hasPickedImage = state.file.value != null && state.file.isValid;
         return StreamBuilder<String>(
-            stream: cubit.carImageFileNameSC.stream,
+            stream: cubit.imageFileNameSC.stream,
             builder: (context, snapshot) {
               final controller = TextEditingController(
                 text: state.service?.responseDetails?.imageUrl?.split('/').last,
@@ -63,7 +64,7 @@ class ImagePickerTextField extends StatelessWidget {
                               ),
                               decoration: InputDecoration(
                                 suffixIcon:
-                                    const Icon(Icons.camera_alt_outlined),
+                                     Icon(Icons.camera_alt_outlined, color: hasPickedImage? Colors.transparent:null,),
                                 labelText: l10n.imageTextFieldLabel,
                                 errorText: imageError ==
                                         FileSizeValidationError.exceedsSizeLimit
@@ -72,7 +73,20 @@ class ImagePickerTextField extends StatelessWidget {
                                     : null,
                               ),
                             ),
-                          )
+                          ),
+                          if(hasPickedImage)
+                            Positioned(
+                              top: 0,
+                              bottom: 0,
+                              right: 0,
+                              child: IconButton(
+                                onPressed: cubit.deletePickedImage,
+                                icon: Icon(
+                                  Icons.cancel_outlined,
+                                  color: theme.primaryColor,
+                                ),
+                              ),
+                            ),
                         ],
                       ),
                     ),

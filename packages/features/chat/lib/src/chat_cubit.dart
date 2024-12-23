@@ -263,7 +263,7 @@ class ChatCubit extends Cubit<ChatState> {
   Future<void> capturePhoto() async {
     XFile? xFile = await _imagePicker.pickImage(
       source: ImageSource.camera,
-      imageQuality: 30,
+      imageQuality: 35,
     );
     onImagePicked(xFile);
   }
