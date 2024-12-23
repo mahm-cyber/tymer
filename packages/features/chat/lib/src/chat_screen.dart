@@ -110,7 +110,7 @@ class ChatView extends StatelessWidget {
         final idDisputeDenied = disputeStatus == DisputeStatus.denied;
         final isResolved = isRequesterRefunded || idDisputeDenied;
 
-        final resolution = getResolutionDetails(
+        final resolution = getDisputeResolutionDetails(
           isRequesterRefunded,
           idDisputeDenied,
           isRequesterChat,

@@ -74,3 +74,14 @@ enum DisputeStatus {
     }
   }
 }
+
+// A class to store resolution details
+class DisputeResolution{
+  final String label;
+  final Color color;
+
+  DisputeResolution({
+    required this.label,
+    required this.color,
+  });
+}

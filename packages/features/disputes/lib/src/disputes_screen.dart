@@ -179,7 +179,7 @@ class DisputesView extends StatelessWidget {
                               final idDisputeDenied =
                                   dispute.status == DisputeStatus.denied;
 
-                              final resolution = getResolutionDetails(
+                              final resolution = getDisputeResolutionDetails(
                                 isRequesterRefunded,
                                 idDisputeDenied,
                                 isRequesterChats,
