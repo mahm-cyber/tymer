@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -42,12 +43,14 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
   @override
   void initState() {
     super.initState();
-    getLocationServiceStatus();
-    geo.Geolocator.checkPermission().then((value) {
-      locationPermissionStatus = value;
-      setState(() {});
-    });
-    getLocationServiceStatus();
+    if(Platform.isAndroid) {
+      getLocationServiceStatus();
+      geo.Geolocator.checkPermission().then((value) {
+        locationPermissionStatus = value;
+        setState(() {});
+      });
+      getLocationServiceStatus();
+    }
   }
 
   @override
@@ -139,7 +142,8 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                         !isPermissionDeniedForever) {
                       final position =
                           await geo.Geolocator.getCurrentPosition();
-                      final latLng = LatLng(position.latitude, position.longitude);
+                      final latLng =
+                          LatLng(position.latitude, position.longitude);
                       controller.animateCamera(
                         CameraUpdate.newLatLng(latLng),
                       );
@@ -168,8 +172,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                   right: 0,
                   child: Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: theme.screenMargin * 4,
-                      vertical: Spacing.medium,
+                      horizontal: theme.screenMargin * 5,
                     ),
                     child: TymerElevatedButton(
                       onTap: cubit.onLocationConfirmed,
@@ -179,9 +182,10 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                 ),
 
                 // Location settings permission icon
-                if (locationServiceDisabled ||
-                    isPermissionDenied ||
-                    isPermissionDeniedForever)
+                if (Platform.isAndroid &&
+                    (locationServiceDisabled ||
+                        isPermissionDenied ||
+                        isPermissionDeniedForever))
                   PositionedDirectional(
                     end: Spacing.medium,
                     top: 10,
