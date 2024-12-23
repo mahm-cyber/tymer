@@ -65,6 +65,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
                   setState(() => isPasswordVisible = !isPasswordVisible),
               child: Icon(
                 isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                size: 26,
               ),
             ),
             prefixIcon: const SvgAsset(

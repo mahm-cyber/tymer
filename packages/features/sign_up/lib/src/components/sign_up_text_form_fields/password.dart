@@ -54,6 +54,7 @@ class _PasswordState extends State<Password> {
           enabled: !isSubmissionInProgress,
           obscureText: !isPasswordVisible,
           decoration: InputDecoration(
+
             prefixIcon: passwordError == PasswordValidationError.weak
                 ? GestureDetector(
                     onTap: () => showModalBottomSheet(
@@ -83,7 +84,7 @@ class _PasswordState extends State<Password> {
                   setState(() => isPasswordVisible = !isPasswordVisible),
               child: Icon(
                 isPasswordVisible ? Icons.visibility_off : Icons.visibility,
-                size: 24,
+                size: 26,
               ),
             ),
             labelText: l10n.passwordTextFieldLabel,

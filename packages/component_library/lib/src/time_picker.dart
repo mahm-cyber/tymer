@@ -112,7 +112,7 @@ class _TimePickerState extends State<TimePicker> {
                 textDirection: TextDirection.ltr,
                 textAlign: isArabic ? TextAlign.right : TextAlign.left,
                 style: TextStyle(
-                  color: colorScheme.onSurface,
+                  color: widget.initialValue!= null ? null:colorScheme.onSurface,
                 ),
                 decoration: InputDecoration(
                   fillColor: widget.isSubmissionInProgress? null:colorScheme.surface,
@@ -126,7 +126,7 @@ class _TimePickerState extends State<TimePicker> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   suffixIcon:
-                      pickedTime == null ? const Icon(Icons.access_time) : null,
+                      pickedTime == null || widget.initialValue!= null ? const Icon(Icons.access_time) : null,
                   labelText: l10n.timeTextFieldLabel,
                   errorText: /*isTimeInPast.value == true
                       ? l10n.timeInPastErrorMessage
@@ -145,7 +145,7 @@ class _TimePickerState extends State<TimePicker> {
                 ),
               ),
             ),
-            if (pickedTime != null)
+            if (pickedTime != null && widget.initialValue == null)
               PositionedDirectional(
                 end: 0,
                 top: 4,

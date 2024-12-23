@@ -68,7 +68,7 @@ class _DayPickerState extends State<DayPicker> {
                 textDirection: TextDirection.ltr,
                 textAlign: isArabic ? TextAlign.right : TextAlign.left,
                 style: TextStyle(
-                  color: colorScheme.onSurface,
+                  color: widget.initialValue!= null ? null:colorScheme.onSurface,
                 ),
                 decoration: InputDecoration(
                     fillColor: widget.isSubmissionInProgress

@@ -123,6 +123,7 @@ class ServiceRepository {
 
   Future fulfillServiceRequest({
     required Service serviceRequestDetails,
+    required LocationDM userLocation,
     required String? reservationNumber,
     required DateTime? day,
     required TimeOfDay? time,
@@ -132,9 +133,10 @@ class ServiceRepository {
     final isReservationService =
         serviceRequestDetails.type == ServiceType.reservation;
     final isOtherService = serviceRequestDetails.type == ServiceType.other;
+
     final fulfillServiceRequestRM = FulfillServiceRequest(
       serviceType: serviceRequestDetails.type,
-      location: serviceRequestDetails.location,
+      location: userLocation,
       details: FulfillServiceRequestDetails(
         reservationNumber: reservationNumber,
         date: day,

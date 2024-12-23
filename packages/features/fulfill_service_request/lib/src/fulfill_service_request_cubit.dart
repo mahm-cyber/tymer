@@ -221,7 +221,7 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
     emit(carImagePicked);
     imageFileNameSC.add(carImageFileName);
   }
-  
+
   void deletePickedImage() {
     final imageDeletedState = state.copyWith(
       file: const FileSize<File?>.unvalidated(null),
@@ -245,6 +245,17 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
   }
 
   void onSubmit() async {
+    final userLocation = await userRepository.getUserLocation();
+    if (userLocation == null) {
+      return;
+    }
+    final userLocationDM = LocationDM(
+      type: 'Point',
+      coordinates: [
+        userLocation.latitude!,
+        userLocation.longitude!,
+      ],
+    );
     final serviceType = state.service!.type;
     final isOtherService = serviceType == ServiceType.other;
     final isReservationService = serviceType == ServiceType.reservation;
@@ -268,7 +279,6 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
       sizeLimitInKb: 1024,
     );
     final isFormValid = Formz.validate([reservationNumber, day, time, image]);
-
     final newState = state.copyWith(
       reservationNumber: reservationNumber,
       day: day,
@@ -282,6 +292,7 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
     if (isFormValid) {
       try {
         await serviceRepository.fulfillServiceRequest(
+          userLocation: userLocationDM,
           serviceRequestDetails: state.service!,
           reservationNumber: reservationNumber.value,
           day: day.value,

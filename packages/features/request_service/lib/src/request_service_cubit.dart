@@ -31,7 +31,6 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
   final ServiceRepository serviceRepository;
   final VoidCallback onGoToWalletTapped;
   final ValueSetter<int> onServiceRequestSuccess;
-  StreamSubscription<geo.ServiceStatus>? _geoLocationServiceStatusSubscription;
 
   void init() {
     getReservationServiceTypes();
@@ -208,7 +207,7 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
     emit(newState);
   }
 
-  void onLocationPickerTapped() {
+  Future onLocationPickerTapped() async{
     final newState = state.copyWith(
       locationPickingInProgress: true,
     );
@@ -225,7 +224,7 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
     emit(newState);
   }
 
-  void onLocationConfirmed() {
+  Future onLocationConfirmed() async{
     final newState = state.copyWith(
       locationPickingInProgress: false,
     );
@@ -362,9 +361,8 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
     }
   }
 
-  @override
-  Future<void> close() {
-    _geoLocationServiceStatusSubscription?.cancel();
-    return super.close();
-  }
+  // @override
+  // Future<void> close() {
+  //   return super.close();
+  // }
 }
