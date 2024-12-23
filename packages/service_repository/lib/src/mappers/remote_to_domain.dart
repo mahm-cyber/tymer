@@ -55,9 +55,7 @@ extension ServiceRMtoDM on ServiceRM {
         ),
         dispute: dispute?.toDomainModel(),
         status: serviceStatusRMtoDM(status),
-        createdAt: DateTime.parse(createdAt).toLocal().subtract(
-              const Duration(hours: 1),
-            ),
+        createdAt: DateTime.parse(createdAt).toLocal(),
         type: serviceTypeRMtoDM(type),
         totalPrice: double.parse(totalPrice),
         price: double.parse(servicePrice),

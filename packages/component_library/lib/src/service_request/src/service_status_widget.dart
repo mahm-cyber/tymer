@@ -3,23 +3,23 @@ import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 
 class ServiceStatusWidget extends StatelessWidget {
-  const ServiceStatusWidget({
-    super.key,
-    required this.color,
-    required this.label,
-    this.border,
-    this.width = 140
-  });
+  const ServiceStatusWidget(
+      {super.key,
+      required this.color,
+      required this.label,
+      this.border,
+      this.width = 140});
 
   final Color color;
   final String label;
   final Border? border;
   final double width;
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Container(
-      constraints:  BoxConstraints(
+      constraints: BoxConstraints(
         maxWidth: width,
       ),
       padding: const EdgeInsets.symmetric(
@@ -28,10 +28,11 @@ class ServiceStatusWidget extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        border: border??Border.all(
-          width: 1,
-          color: color,
-        ),
+        border: border ??
+            Border.all(
+              width: 1,
+              color: color,
+            ),
       ),
       child: Text(
         label,
@@ -88,8 +89,59 @@ String disputeStatusToLocalizedString(
     case DisputeStatus.pendingReview:
       return l10n.pendingReviewDisputeStatus;
     case DisputeStatus.refunded:
-      return l10n.refundedDisputeStatus;
+      return l10n.refundedRequesterLabel;
     case DisputeStatus.denied:
-      return l10n.deniedDisputeStatus;
+      return l10n.deniedRequesterLabel;
   }
+}
+
+// Helper function to determine resolution details
+ResolutionDetails getResolutionDetails(
+    bool isRequesterRefunded,
+    bool idDisputeDenied,
+    bool isRequesterChat,
+    bool isProviderChat,
+    ComponentLibraryLocalizations l10n,
+    ) {
+  if (isRequesterChat) {
+    if (isRequesterRefunded) {
+      return ResolutionDetails(
+        label: l10n.refundedRequesterLabel,
+        color: DisputeStatus.refunded.color,
+      );
+    } else if (idDisputeDenied) {
+      return ResolutionDetails(
+        label: l10n.deniedRequesterLabel,
+        color: DisputeStatus.denied.color,
+      );
+    }
+  } else if (isProviderChat) {
+    if (isRequesterRefunded) {
+      return ResolutionDetails(
+        label: l10n.providerLostDisputeLabel,
+        color: DisputeStatus.denied.color,
+      );
+    } else if (idDisputeDenied) {
+      return ResolutionDetails(
+        label: l10n.providerWonDisputeLabel,
+        color: DisputeStatus.refunded.color,
+      );
+    }
+  }
+
+  return ResolutionDetails(
+    label: l10n.pendingReviewDisputeStatus,
+    color: DisputeStatus.pendingReview.color,
+  ); // Default case
+}
+
+// A class to store resolution details
+class ResolutionDetails {
+  final String label;
+  final Color color;
+
+  ResolutionDetails({
+    required this.label,
+    required this.color,
+  });
 }

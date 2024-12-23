@@ -357,12 +357,6 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
   String get pendingReviewDisputeStatus => 'قيد المراجعة';
 
   @override
-  String get refundedDisputeStatus => 'مرتجع';
-
-  @override
-  String get deniedDisputeStatus => 'مرفوض';
-
-  @override
   String get timeInPastErrorMessage => 'لا يمكن أن يكون الوقت في الماضي';
 
   @override
@@ -394,4 +388,16 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get eyptianPoundLetters => 'ج.م';
+
+  @override
+  String get refundedRequesterLabel => 'تم الاسترجاع';
+
+  @override
+  String get deniedRequesterLabel => 'مرفوض';
+
+  @override
+  String get providerLostDisputeLabel => 'تم الاسترجاع';
+
+  @override
+  String get providerWonDisputeLabel => 'مرفوض';
 }

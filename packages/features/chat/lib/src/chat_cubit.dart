@@ -68,7 +68,7 @@ class ChatCubit extends Cubit<ChatState> {
 
       final successState = state.copyWith(
         disputeFetchStatus: DisputeFetchStatus.success,
-        dispute: !hasSameStatus  ? freshDispute : disputeFromDisputesScreen,
+        dispute: !hasSameStatus ? freshDispute : disputeFromDisputesScreen,
       );
       emit(successState);
     } catch (_) {
@@ -342,6 +342,7 @@ class ChatCubit extends Cubit<ChatState> {
   UserType getCurrentChatUserType() {
     return disputeRepository.changeNotifier.disputeChatUserType!;
   }
+
   @override
   Future<void> close() {
     disputeRepository.stopListeningChat(disputeId);
@@ -357,5 +358,4 @@ class ChatCubit extends Cubit<ChatState> {
 
     return super.close();
   }
-
 }

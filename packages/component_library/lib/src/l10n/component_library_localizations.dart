@@ -791,18 +791,6 @@ abstract class ComponentLibraryLocalizations {
   /// **'Pending Review'**
   String get pendingReviewDisputeStatus;
 
-  /// No description provided for @refundedDisputeStatus.
-  ///
-  /// In en, this message translates to:
-  /// **'Refunded'**
-  String get refundedDisputeStatus;
-
-  /// No description provided for @deniedDisputeStatus.
-  ///
-  /// In en, this message translates to:
-  /// **'Denied'**
-  String get deniedDisputeStatus;
-
   /// No description provided for @timeInPastErrorMessage.
   ///
   /// In en, this message translates to:
@@ -868,6 +856,30 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'EGP'**
   String get eyptianPoundLetters;
+
+  /// No description provided for @refundedRequesterLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Refunded'**
+  String get refundedRequesterLabel;
+
+  /// No description provided for @deniedRequesterLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Denied'**
+  String get deniedRequesterLabel;
+
+  /// No description provided for @providerLostDisputeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Refunded'**
+  String get providerLostDisputeLabel;
+
+  /// No description provided for @providerWonDisputeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Denied'**
+  String get providerWonDisputeLabel;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

@@ -33,7 +33,7 @@ class MessageCard extends StatelessWidget {
     final time = TimeOfDay.fromDateTime(message.date)
         .localizedTimeOfDay(Localizations.localeOf(context));
     final sentByMeTime =
-        '${time.split(' ')[0].split('').reversed.join('')} ${time.split(' ')[1]}';
+        '${time.split(' ')[0].split(':').reversed.join(':')} ${time.split(' ')[1]}';
     final isArabic = Localizations.localeOf(context).languageCode == 'ar';
     return Row(
       children: [

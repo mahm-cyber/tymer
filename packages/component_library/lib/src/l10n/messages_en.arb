@@ -130,8 +130,6 @@
   "requesterServiceRequestsFetchMode": "Requested",
   "providerServiceRequestsFetchMode": "Provided",
   "pendingReviewDisputeStatus": "Pending Review",
-  "refundedDisputeStatus": "Refunded",
-  "deniedDisputeStatus": "Denied",
   "timeInPastErrorMessage": "Time cannot be in the past.",
   "serviceFeesContainerLabel": "Service Fee",
   "servicePriceContainerLabel": "Service Price",
@@ -142,7 +140,12 @@
   "reservationNumberTextFieldLabel": "Reservation Number",
   "additionalNotesTextFieldLabel": "Additional Notes",
   "serviceResponseDetailsTileTitle": "Response Details",
-  "eyptianPoundLetters": "EGP"
+  "eyptianPoundLetters": "EGP",
+  "refundedRequesterLabel": "Refunded",
+  "deniedRequesterLabel": "Denied",
+
+  "providerLostDisputeLabel": "Refunded",
+  "providerWonDisputeLabel": "Denied"
 
 
 

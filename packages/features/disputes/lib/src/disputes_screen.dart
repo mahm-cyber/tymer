@@ -51,6 +51,7 @@ class DisputesView extends StatelessWidget {
     final colorScheme = theme.materialThemeData.colorScheme;
     final l10n = DisputesLocalizations.of(context);
     final textTheme = Theme.of(context).textTheme;
+
     return BlocConsumer<DisputesCubit, DisputesState>(
       listener: (context, state) {
         final cubit = context.read<DisputesCubit>();
@@ -58,6 +59,8 @@ class DisputesView extends StatelessWidget {
       },
       builder: (context, state) {
         final cubit = context.read<DisputesCubit>();
+        final isRequesterChats = state.userTypeFilter == UserType.requester;
+        final isProviderChats = state.userTypeFilter == UserType.provider;
         return GestureDetector(
           onTap: context.releaseFocus,
           child: Stack(
@@ -168,6 +171,21 @@ class DisputesView extends StatelessWidget {
                                   cubit.serviceRequestsPagingController
                                           .itemList!.length -
                                       1;
+                              final clL10n =
+                                  ComponentLibraryLocalizations.of(context);
+
+                              final isRequesterRefunded =
+                                  dispute.status == DisputeStatus.refunded;
+                              final idDisputeDenied =
+                                  dispute.status == DisputeStatus.denied;
+
+                              final resolution = getResolutionDetails(
+                                isRequesterRefunded,
+                                idDisputeDenied,
+                                isRequesterChats,
+                                isProviderChats,
+                                clL10n,
+                              );
                               return Column(
                                 children: [
                                   if (index == 0) VerticalGap.medium(),
@@ -178,7 +196,10 @@ class DisputesView extends StatelessWidget {
                                     ),
                                     shouldShowRequestStatus: true,
                                     service: dispute.serviceRequest!,
-                                    dispute: dispute,
+                                    disputeStatusWidget: ServiceStatusWidget(
+                                      color: resolution.color,
+                                      label: resolution.label,
+                                    ),
                                     height: 110,
                                   ),
                                   if (isLastItem) VerticalGap.large(),

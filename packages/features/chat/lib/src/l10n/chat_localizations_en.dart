@@ -31,23 +31,11 @@ class ChatLocalizationsEn extends ChatLocalizations {
   String get refundedRequesterSnackBarMessage => 'Your money has been refunded';
 
   @override
-  String get refundedRequesterSnackBarLabel => 'Refunded';
-
-  @override
   String get deniedRequesterSnackBarMessage => 'Your request has been denied';
-
-  @override
-  String get deniedRequesterSnackBarLabel => 'Rejected';
 
   @override
   String get providerLostDisputeSnackBarMessage => 'Money has been refunded to the requester';
 
   @override
-  String get providerLostDisputeSnackBarLabel => 'Refunded';
-
-  @override
   String get providerWonDisputeSnackBarMessage => 'The requester\'s dispute was rejected';
-
-  @override
-  String get providerWonDisputeSnackBarLabel => 'Rejected';
 }

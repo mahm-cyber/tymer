@@ -129,8 +129,6 @@
   "requesterServiceRequestsFetchMode": "طالب خدمة",
   "providerServiceRequestsFetchMode": "منفذ خدمة",
   "pendingReviewDisputeStatus": "قيد المراجعة",
-  "refundedDisputeStatus": "مرتجع",
-  "deniedDisputeStatus": "مرفوض",
   "timeInPastErrorMessage": "لا يمكن أن يكون الوقت في الماضي",
   "servicePriceContainerLabel": "سعر الخدمة",
   "serviceFeesContainerLabel": "رسوم الخدمة",
@@ -141,7 +139,11 @@
   "reservationNumberTextFieldLabel": "رقم الحجز",
   "additionalNotesTextFieldLabel": "ملاحظات إضافية",
   "serviceResponseDetailsTileTitle": "تفاصيل الرد",
-  "eyptianPoundLetters": "ج.م"
+  "eyptianPoundLetters": "ج.م",
+   "refundedRequesterLabel": "تم الاسترجاع",
+   "deniedRequesterLabel": "مرفوض",
+   "providerLostDisputeLabel": "تم الاسترجاع",
+   "providerWonDisputeLabel": "مرفوض"
 
 
 

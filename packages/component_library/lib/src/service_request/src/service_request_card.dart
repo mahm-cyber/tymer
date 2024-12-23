@@ -8,7 +8,7 @@ class ServiceRequestCard extends StatelessWidget {
     super.key,
     required this.onTapped,
     required this.service,
-    this.dispute,
+    this.disputeStatusWidget,
     this.shouldShowRequestStatus = false,
     this.height = 100,
     this.shouldShowId = false,
@@ -16,7 +16,7 @@ class ServiceRequestCard extends StatelessWidget {
 
   final VoidCallback onTapped;
   final Service service;
-  final Dispute? dispute;
+  final ServiceStatusWidget? disputeStatusWidget;
   final bool shouldShowRequestStatus;
   final double height;
   final bool shouldShowId;
@@ -115,13 +115,9 @@ class ServiceRequestCard extends StatelessWidget {
                       l10n,
                     ),
                   ),
-                  if (dispute != null) ...[
+                  if (disputeStatusWidget != null) ...[
                     const Spacer(),
-                    ServiceStatusWidget(
-                      color: dispute?.status.color ?? Colors.black,
-                      label:
-                          disputeStatusToLocalizedString(dispute!.status, l10n),
-                    ),
+                    disputeStatusWidget!,
                   ],
                   const Spacer(),
                   SelectableText(

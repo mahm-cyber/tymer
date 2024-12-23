@@ -143,23 +143,11 @@ abstract class ChatLocalizations {
   /// **'Your money has been refunded'**
   String get refundedRequesterSnackBarMessage;
 
-  /// No description provided for @refundedRequesterSnackBarLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Refunded'**
-  String get refundedRequesterSnackBarLabel;
-
   /// No description provided for @deniedRequesterSnackBarMessage.
   ///
   /// In en, this message translates to:
   /// **'Your request has been denied'**
   String get deniedRequesterSnackBarMessage;
-
-  /// No description provided for @deniedRequesterSnackBarLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Rejected'**
-  String get deniedRequesterSnackBarLabel;
 
   /// No description provided for @providerLostDisputeSnackBarMessage.
   ///
@@ -167,23 +155,11 @@ abstract class ChatLocalizations {
   /// **'Money has been refunded to the requester'**
   String get providerLostDisputeSnackBarMessage;
 
-  /// No description provided for @providerLostDisputeSnackBarLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Refunded'**
-  String get providerLostDisputeSnackBarLabel;
-
   /// No description provided for @providerWonDisputeSnackBarMessage.
   ///
   /// In en, this message translates to:
   /// **'The requester\'s dispute was rejected'**
   String get providerWonDisputeSnackBarMessage;
-
-  /// No description provided for @providerWonDisputeSnackBarLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Rejected'**
-  String get providerWonDisputeSnackBarLabel;
 }
 
 class _ChatLocalizationsDelegate extends LocalizationsDelegate<ChatLocalizations> {

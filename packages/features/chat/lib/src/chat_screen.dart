@@ -52,13 +52,11 @@ class ChatView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final isTablet = !View.of(context).isSmallTabletOrLess;
     final l10n = ChatLocalizations.of(context);
     final cubit = context.read<ChatCubit>();
     final userType = cubit.getCurrentChatUserType();
     final isRequesterChat = userType == UserType.requester;
     final isProviderChat = userType == UserType.provider;
-    final theme = TymerTheme.of(context);
     return BlocConsumer<ChatCubit, ChatState>(
       listenWhen: (previous, current) =>
           previous.dispute?.status != current.dispute?.status,
@@ -72,11 +70,6 @@ class ChatView extends StatelessWidget {
             context: context,
             snackBar: SuccessSnackBar(
               context: context,
-              snackBarAction: SnackBarAction(
-                label: l10n.refundedRequesterSnackBarLabel,
-                onPressed: () {},
-                backgroundColor: theme.successContainerColor,
-              ),
               message: (l10n.refundedRequesterSnackBarMessage),
             ),
           );
@@ -85,11 +78,6 @@ class ChatView extends StatelessWidget {
           showSnackBar(
             context: context,
             snackBar: ErrorSnackBar(
-              snackBarAction: SnackBarAction(
-                label: l10n.deniedRequesterSnackBarLabel,
-                onPressed: () {},
-                backgroundColor: theme.errorColor,
-              ),
               context: context,
               message: (l10n.deniedRequesterSnackBarMessage),
             ),
@@ -101,11 +89,6 @@ class ChatView extends StatelessWidget {
             snackBar: ErrorSnackBar(
               context: context,
               message: (l10n.providerLostDisputeSnackBarMessage),
-              snackBarAction: SnackBarAction(
-                label: l10n.providerLostDisputeSnackBarLabel,
-                onPressed: () {},
-                backgroundColor: theme.errorColor,
-              ),
             ),
           );
         }
@@ -114,11 +97,6 @@ class ChatView extends StatelessWidget {
             context: context,
             snackBar: SuccessSnackBar(
               context: context,
-              snackBarAction: SnackBarAction(
-                label: l10n.providerWonDisputeSnackBarLabel,
-                onPressed: () {},
-                backgroundColor: theme.successContainerColor,
-              ),
               message: (l10n.providerWonDisputeSnackBarMessage),
             ),
           );
@@ -126,17 +104,18 @@ class ChatView extends StatelessWidget {
       },
       builder: (context, state) {
         final l10n = ChatLocalizations.of(context);
+        final clL10n = ComponentLibraryLocalizations.of(context);
         final disputeStatus = state.dispute?.status;
         final isRequesterRefunded = disputeStatus == DisputeStatus.refunded;
         final idDisputeDenied = disputeStatus == DisputeStatus.denied;
         final isResolved = isRequesterRefunded || idDisputeDenied;
 
-        final resolution = _getResolutionDetails(
+        final resolution = getResolutionDetails(
           isRequesterRefunded,
           idDisputeDenied,
           isRequesterChat,
           isProviderChat,
-          l10n,
+          clL10n,
         );
 
         return GestureDetector(
@@ -175,53 +154,4 @@ class ChatView extends StatelessWidget {
   }
 }
 
-// Helper function to determine resolution details
-ResolutionDetails _getResolutionDetails(
-  bool isRequesterRefunded,
-  bool idDisputeDenied,
-  bool isRequesterChat,
-  bool isProviderChat,
-  ChatLocalizations l10n,
-) {
-  if (isRequesterChat) {
-    if (isRequesterRefunded) {
-      return ResolutionDetails(
-        label: l10n.refundedRequesterSnackBarLabel,
-        color: DisputeStatus.refunded.color,
-      );
-    } else if (idDisputeDenied) {
-      return ResolutionDetails(
-        label: l10n.deniedRequesterSnackBarLabel,
-        color: DisputeStatus.denied.color,
-      );
-    }
-  } else if (isProviderChat) {
-    if (isRequesterRefunded) {
-      return ResolutionDetails(
-        label: l10n.providerLostDisputeSnackBarLabel,
-        color: DisputeStatus.denied.color,
-      );
-    } else if (idDisputeDenied) {
-      return ResolutionDetails(
-        label: l10n.providerWonDisputeSnackBarLabel,
-        color: DisputeStatus.refunded.color,
-      );
-    }
-  }
 
-  return ResolutionDetails(
-    label: '',
-    color: Colors.grey,
-  ); // Default case
-}
-
-// A class to store resolution details
-class ResolutionDetails {
-  final String label;
-  final Color color;
-
-  ResolutionDetails({
-    required this.label,
-    required this.color,
-  });
-}

@@ -357,12 +357,6 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
   String get pendingReviewDisputeStatus => 'Pending Review';
 
   @override
-  String get refundedDisputeStatus => 'Refunded';
-
-  @override
-  String get deniedDisputeStatus => 'Denied';
-
-  @override
   String get timeInPastErrorMessage => 'Time cannot be in the past.';
 
   @override
@@ -394,4 +388,16 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get eyptianPoundLetters => 'EGP';
+
+  @override
+  String get refundedRequesterLabel => 'Refunded';
+
+  @override
+  String get deniedRequesterLabel => 'Denied';
+
+  @override
+  String get providerLostDisputeLabel => 'Refunded';
+
+  @override
+  String get providerWonDisputeLabel => 'Denied';
 }

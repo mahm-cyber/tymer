@@ -24,9 +24,7 @@ extension DisputeRMtoDM on DisputeRM {
       status: disputeStatusRMtoDM(status),
       serviceRequest: serviceRequest?.toDomainModel(),
       reason: reason,
-      createdAt: DateTime.parse(createdAt).toLocal().subtract(
-        const Duration(hours: 1),
-      ),
+      createdAt: DateTime.parse(createdAt).toLocal(),
     );
   }
 }
@@ -59,9 +57,7 @@ extension DisputeMessageRMtoDM on DisputeMessageRM {
                   ? chatDocuments[0].split('/').last
                   : '';
 
-      final dateDM = DateTime.parse(createdAt).toLocal().subtract(
-            const Duration(hours: 1),
-          );
+      final dateDM = DateTime.parse(createdAt).toLocal();
       final chatMessage = DisputeMessage(
         id: id,
         text: content,
