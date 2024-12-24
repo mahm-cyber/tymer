@@ -1,4 +1,5 @@
 import 'package:component_library/component_library.dart';
+import 'package:domain_models/domain_models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:form_fields/form_fields.dart';
 import 'package:fulfill_service_request/fulfill_service_request.dart';
@@ -23,6 +24,7 @@ class ImagePickerTextField extends StatelessWidget {
         final imageUrl = state.service?.responseDetails?.imageUrl;
         final imageError = state.file.isNotValid ? state.file.error : null;
         final hasPickedImage = state.file.value != null && state.file.isValid;
+        final isStatusPendingReview = state.service?.status == ServiceStatus.pendingReview;
         return StreamBuilder<String>(
             stream: cubit.imageFileNameSC.stream,
             builder: (context, snapshot) {
@@ -64,7 +66,7 @@ class ImagePickerTextField extends StatelessWidget {
                               ),
                               decoration: InputDecoration(
                                 suffixIcon:
-                                     Icon(Icons.camera_alt_outlined, color: hasPickedImage? Colors.transparent:null,),
+                                     Icon(Icons.camera_alt_outlined, color: hasPickedImage && !isStatusPendingReview? Colors.transparent:null,),
                                 labelText: l10n.imageTextFieldLabel,
                                 errorText: imageError ==
                                         FileSizeValidationError.exceedsSizeLimit
@@ -74,7 +76,7 @@ class ImagePickerTextField extends StatelessWidget {
                               ),
                             ),
                           ),
-                          if(hasPickedImage)
+                          if(hasPickedImage && !isStatusPendingReview)
                             Positioned(
                               top: 0,
                               bottom: 0,
@@ -102,26 +104,35 @@ class ImagePickerTextField extends StatelessWidget {
                         imageUrl: imageUrl,
                         userToken: state.userToken,
                       ),
-                      child: CircleAvatar(
-                        radius: MediaQuery.of(context).size.width / 13,
-                        backgroundColor: theme.secondaryColor,
-                        child: CircleAvatar(
-                          radius: MediaQuery.of(context).size.width / 13 - 1,
-                          backgroundColor: Colors.black,
-                          foregroundImage: isImagePicked
-                              ? MemoryImage(state.file.value!.readAsBytesSync())
-                                  as ImageProvider
-                              : NetworkImage(
-                                  imageUrl!,
-                                  headers: {
-                                    "Authorization":
-                                        "Bearer ${state.userToken}",
-                                    "X-API-Key": const String.fromEnvironment(
-                                        'x-api-key'),
-                                  },
-                                ) as ImageProvider,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 6.5, // Equivalent to the radius of the CircleAvatar
+                        height: MediaQuery.of(context).size.width / 6.5, // Equal width and height to make it circular
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: theme.secondaryColor, // Background color
                         ),
-                      ),
+                        child: ClipOval(
+                          child: isImagePicked
+                              ? Image.memory(
+                            gaplessPlayback: true,
+                            state.file.value!.readAsBytesSync(),
+                            fit: BoxFit.cover, // Ensures the image covers the container
+                            width: MediaQuery.of(context).size.width / 6.5, // Image size matches the container
+                            height: MediaQuery.of(context).size.width / 6.5, // Image size matches the container
+                          )
+                              : Image.network(
+                            imageUrl!,
+                            headers: {
+                              "Authorization": "Bearer ${state.userToken}",
+                              "X-API-Key": const String.fromEnvironment('x-api-key'),
+                            },
+                            fit: BoxFit.cover, // Ensures the image covers the container
+                            width: MediaQuery.of(context).size.width / 6.5, // Image size matches the container
+                            height: MediaQuery.of(context).size.width / 6.5, // Image size matches the container
+                          ),
+                        ),
+                      )
+                      ,
                     ),
                   ],
                 ],
