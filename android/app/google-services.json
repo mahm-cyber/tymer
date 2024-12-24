@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "908152938707",
-    "project_id": "ohub-a85b9",
-    "storage_bucket": "ohub-a85b9.appspot.com"
+    "project_number": "632819012871",
+    "project_id": "tymer-app",
+    "storage_bucket": "tymer-app.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:908152938707:android:86b99770a144b9047a7426",
+        "mobilesdk_app_id": "1:632819012871:android:f6296969e170a9d25661a2",
         "android_client_info": {
           "package_name": "com.tymer"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "908152938707-s034bpf7ac7f6ae8vt7s922ue5muno77.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCepdSkelramF2VMgf4vUdWYNJEezYC8lI"
+          "current_key": "AIzaSyC8cTb-Dzo0l2-WqUSQnoUneHAX-y_K-A4"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "908152938707-s034bpf7ac7f6ae8vt7s922ue5muno77.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

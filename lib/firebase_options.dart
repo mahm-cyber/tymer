@@ -2,7 +2,7 @@
 // ignore_for_file: lines_longer_than_80_chars, avoid_classes_with_only_static_members
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
-    show defaultTargetPlatform, kIsWeb, TargetPlatform;
+    show defaultTargetPlatform, TargetPlatform;
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -16,32 +16,12 @@ import 'package:flutter/foundation.dart'
 /// ```
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
-    if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
-    }
+
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
         return ios;
-      case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
-      case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
-      case TargetPlatform.linux:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for linux - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -50,21 +30,21 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCepdSkelramF2VMgf4vUdWYNJEezYC8lI',
-    appId: '1:908152938707:android:86b99770a144b9047a7426',
-    messagingSenderId: '908152938707',
-    projectId: 'ohub-a85b9',
-    storageBucket: 'ohub-a85b9.appspot.com',
+    apiKey: 'AIzaSyC8cTb-Dzo0l2-WqUSQnoUneHAX-y_K-A4',
+    appId: '1:632819012871:android:f6296969e170a9d25661a2',
+    messagingSenderId: '632819012871',
+    projectId: 'tymer-app',
+    storageBucket: 'tymer-app.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAuVUkArhvSaJTPMd9HMdTo70HhbsqkERs',
-    appId: '1:632819012871:ios:70e0aa1fe90783c75661a2',
+    appId: '1:632819012871:ios:9776c8e1c16f140e5661a2',
     messagingSenderId: '632819012871',
     projectId: 'tymer-app',
     storageBucket: 'tymer-app.firebasestorage.app',
-    iosClientId: '908152938707-s034bpf7ac7f6ae8vt7s922ue5muno77.apps.googleusercontent.com',
-    //TODO: change this bundleID to primo_coupon
-    iosBundleId: 'com.tymer.trial',
+    iosBundleId: 'com.tymer',
   );
+
+
 }
