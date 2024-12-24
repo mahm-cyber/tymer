@@ -64,6 +64,9 @@ class VerifyOtpLocalizationsEn extends VerifyOtpLocalizations {
   String get passwordConfirmationTextFieldDoesNotMatchError => 'Passwords do not match';
 
   @override
+  String get phoneAlreadyRegisteredErrorSnackBarMessage => 'The phone number you entered is already registered';
+
+  @override
   String get passwordTextFieldWeakPasswordErrorDescription => 'The password must have At least 6 characters long, Contains at least one uppercase letter, Contains at least one lowercase letter, Contains at least one number, Contains at least one symbol (e.g., @, \$, !, etc.)';
 
   @override

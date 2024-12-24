@@ -12,7 +12,8 @@ part 'verify_otp_state.dart';
 class VerifyOtpCubit extends Cubit<VerifyOtpState> {
   VerifyOtpCubit({
     required this.userRepository,
-    required this.onResetPasswordSuccess,
+    required this.onResetPasswordVerifyOtpSuccess,
+    required this.onRegistrationVerifyOtpSuccess,
   })  : pinTEController = TextEditingController(),
         super(
           VerifyOtpState(
@@ -24,7 +25,8 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
 
   Timer? _timer;
   final UserRepository userRepository;
-  final VoidCallback onResetPasswordSuccess;
+  final VoidCallback onResetPasswordVerifyOtpSuccess;
+  final VoidCallback onRegistrationVerifyOtpSuccess;
   final TextEditingController pinTEController;
 
   onOtpCodeChanged(String newValue) {
@@ -225,7 +227,7 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
             newPasswordConfirmation.value,
           ),
           submissionStatus: error is! InvalidOtpException &&
-                  error is! OtpRateLimitExceededException
+                  error is! OtpRateLimitExceededException && error is! PhoneAlreadyRegisteredException
               ? FormzSubmissionStatus.failure
               : FormzSubmissionStatus.initial,
           resendOtpStatus: ResendOtpStatus.initial,

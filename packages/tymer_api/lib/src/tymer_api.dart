@@ -20,6 +20,10 @@ class TymerApi {
   static const _currentPasswordJsonKey = 'current_password';
   static const _codeJsonKey = 'code';
   static const _messageJsonKey = 'message';
+  static const _phoneOtpMismatchJsonKey =
+      'PHONE_NUMBER_VERIFICATION_OTP_MISMATCH';
+  static const _rateLimitedJsonKey = 'RATE_LIMITED';
+  static const _validationErrorJsonKey = 'VALIDATION_ERROR';
 
   TymerApi({
     required UserTokenSupplier userTokenSupplier,
@@ -210,7 +214,7 @@ class TymerApi {
     }
   }
 
-  Future requestOtpForChangePhone ({
+  Future requestOtpForChangePhone({
     required String phone,
     required String password,
   }) async {
@@ -226,18 +230,21 @@ class TymerApi {
       );
     } on DioException catch (error) {
       final errorObject = error.response?.data[_errorJsonKey];
-      if (errorObject[_codeJsonKey].contains('PHONE_NUMBER_ALREADY_REGISTERED')) {
-        throw PhoneAlreadyRegisteredTymerException();
-      }
-      if (errorObject[_codeJsonKey].contains('VALIDATION_ERROR') &&
-          errorObject[_verificationErrorsJsonKey].containsKey('current_password')) {
+      if (errorObject[_codeJsonKey].contains(_validationErrorJsonKey) &&
+          errorObject[_verificationErrorsJsonKey]
+              .containsKey('current_password')) {
         throw IncorrectPasswordTymerException();
+      }
+      if (errorObject[_codeJsonKey].contains(_validationErrorJsonKey) &&
+          errorObject[_verificationErrorsJsonKey]
+              .containsKey('new_phone_number')) {
+        throw PhoneAlreadyRegisteredTymerException();
       }
       rethrow;
     }
   }
 
-  Future verifyOtpForChangePhone ({
+  Future verifyOtpForChangePhone({
     required String otp,
   }) async {
     final url = urlBuilder.buildVerifyOtpForChangePhoneUrl();
@@ -251,10 +258,14 @@ class TymerApi {
       );
     } on DioException catch (error) {
       final errorObject = error.response?.data[_errorJsonKey];
-      if (errorObject[_codeJsonKey]
-          .contains('PHONE_NUMBER_VERIFICATION_OTP_MISMATCH')) {
+      if (errorObject[_codeJsonKey].contains(_phoneOtpMismatchJsonKey)) {
         throw InvalidOtpTymerException();
       }
+      if (errorObject[_codeJsonKey]
+          .contains('PHONE_NUMBER_ALREADY_REGISTERED')) {
+        throw PhoneAlreadyRegisteredTymerException();
+      }
+
       if (errorObject[_codeJsonKey].contains('RATE_LIMITED')) {
         final rateLimitedMessage = errorObject[_messageJsonKey] as String;
         final rateLimitedSeconds = int.parse(
@@ -281,11 +292,10 @@ class TymerApi {
       );
     } on DioException catch (error) {
       final errorObject = error.response?.data[_errorJsonKey];
-      if (errorObject[_codeJsonKey]
-          .contains('PHONE_NUMBER_VERIFICATION_OTP_MISMATCH')) {
+      if (errorObject[_codeJsonKey].contains(_phoneOtpMismatchJsonKey)) {
         throw InvalidOtpTymerException();
       }
-      if (errorObject[_codeJsonKey].contains('RATE_LIMITED')) {
+      if (errorObject[_codeJsonKey].contains(_rateLimitedJsonKey)) {
         final rateLimitedMessage = errorObject[_messageJsonKey] as String;
         final rateLimitedSeconds = int.parse(
           rateLimitedMessage
@@ -317,8 +327,7 @@ class TymerApi {
       );
     } on DioException catch (error) {
       final errorObject = error.response?.data[_errorJsonKey];
-      if (errorObject[_codeJsonKey]
-          .contains('PHONE_NUMBER_VERIFICATION_OTP_MISMATCH')) {
+      if (errorObject[_codeJsonKey].contains(_phoneOtpMismatchJsonKey)) {
         throw InvalidOtpTymerException();
       }
       if (errorObject[_codeJsonKey].contains('RATE_LIMITED')) {
@@ -369,7 +378,7 @@ class TymerApi {
         throw InsufficientBalanceTymerException();
       }
 
-      if (errorCode.contains('VALIDATION_ERROR') &&
+      if (errorCode.contains(_validationErrorJsonKey) &&
           errorObject[_verificationErrorsJsonKey].containsKey('price')) {
         throw StaleMinimumPriceTymerException();
       }

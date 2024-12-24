@@ -112,8 +112,14 @@ class UserRepository {
           error.seconds,
         );
       }
+      if(error is PhoneAlreadyRegisteredTymerException){
+        throw PhoneAlreadyRegisteredException();
+
+      }
       rethrow;
     }
+
+
   }
 
   Future verifyOtpForChangePhone(String otp) async{
@@ -129,6 +135,9 @@ class UserRepository {
         throw OtpRateLimitExceededException(
           error.seconds,
         );
+      }
+      if (error is PhoneAlreadyRegisteredTymerException) {
+        throw PhoneAlreadyRegisteredException();
       }
       rethrow;
     }

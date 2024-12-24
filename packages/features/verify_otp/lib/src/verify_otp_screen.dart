@@ -16,35 +16,31 @@ class VerifyOtpScreen extends StatelessWidget {
   const VerifyOtpScreen({
     required this.userRepository,
     required this.onRegistrationVerifyOtpSuccess,
-    required this.onResetPasswordSuccess,
+    required this.onResetPasswordVerifyOtpSuccess,
     super.key,
   });
 
   final UserRepository userRepository;
   final VoidCallback onRegistrationVerifyOtpSuccess;
-  final VoidCallback onResetPasswordSuccess;
+  final VoidCallback onResetPasswordVerifyOtpSuccess;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<VerifyOtpCubit>(
       create: (_) => VerifyOtpCubit(
         userRepository: userRepository,
-        onResetPasswordSuccess: onResetPasswordSuccess,
-      ),
-      child: VerifyOtpView(
+        onResetPasswordVerifyOtpSuccess: onResetPasswordVerifyOtpSuccess,
         onRegistrationVerifyOtpSuccess: onRegistrationVerifyOtpSuccess,
       ),
+      child: const VerifyOtpView(),
     );
   }
 }
 
 class VerifyOtpView extends StatelessWidget {
   const VerifyOtpView({
-    required this.onRegistrationVerifyOtpSuccess,
     super.key,
   });
-
-  final VoidCallback onRegistrationVerifyOtpSuccess;
 
   @override
   Widget build(BuildContext context) {
@@ -59,20 +55,14 @@ class VerifyOtpView extends StatelessWidget {
           backgroundColor: colorScheme.surface,
         ),
         extendBody: true,
-        body: _VerifyOtpForm(
-          onRegistrationVerifyOtpSuccess: onRegistrationVerifyOtpSuccess,
-        ),
+        body: const _VerifyOtpForm(),
       ),
     );
   }
 }
 
 class _VerifyOtpForm extends StatelessWidget {
-  const _VerifyOtpForm({
-    required this.onRegistrationVerifyOtpSuccess,
-  });
-
-  final VoidCallback onRegistrationVerifyOtpSuccess;
+  const _VerifyOtpForm();
 
   @override
   Widget build(BuildContext context) {
@@ -80,11 +70,22 @@ class _VerifyOtpForm extends StatelessWidget {
     return BlocConsumer<VerifyOtpCubit, VerifyOtpState>(
       listenWhen: (oldState, newState) =>
           oldState.submissionStatus != newState.submissionStatus ||
-          oldState.resendOtpStatus != newState.resendOtpStatus,
+          oldState.resendOtpStatus != newState.resendOtpStatus ||
+          oldState.error != newState.error,
       listener: (context, state) {
         final isForgotPassword = state.otpVerification?.reason ==
             OtpVerificationReason.forgotPassword;
         final cubit = context.read<VerifyOtpCubit>();
+        if (state.error is PhoneAlreadyRegisteredException) {
+          Navigator.pop(context);
+          showSnackBar(
+            context: context,
+            snackBar: ErrorSnackBar(
+              context: context,
+              message: l10n.phoneAlreadyRegisteredErrorSnackBarMessage,
+            ),
+          );
+        }
         if (state.otpCode.limitExceeded != null) {
           showSnackBar(
             context: context,
@@ -124,9 +125,9 @@ class _VerifyOtpForm extends StatelessWidget {
             ),
           );
           if (isForgotPassword) {
-            cubit.onResetPasswordSuccess();
+            cubit.onResetPasswordVerifyOtpSuccess();
           } else {
-            onRegistrationVerifyOtpSuccess();
+            cubit.onRegistrationVerifyOtpSuccess();
           }
           return;
         }
@@ -158,7 +159,6 @@ class _VerifyOtpForm extends StatelessWidget {
           children: [
             Expanded(
               child: SingleChildScrollView(
-
                 padding: EdgeInsets.symmetric(
                   horizontal: theme.screenMargin,
                 ),
@@ -189,8 +189,7 @@ class _VerifyOtpForm extends StatelessWidget {
                             text: ' ${state.otpVerification?.phone}',
                             // Email text
                             style: textTheme.bodyMedium?.copyWith(
-                                fontWeight:
-                                    FontWeight.bold), // Make email bold
+                                fontWeight: FontWeight.bold), // Make email bold
                           ),
                         ],
                       ),

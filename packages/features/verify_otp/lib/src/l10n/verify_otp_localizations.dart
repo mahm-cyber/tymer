@@ -209,6 +209,12 @@ abstract class VerifyOtpLocalizations {
   /// **'Passwords do not match'**
   String get passwordConfirmationTextFieldDoesNotMatchError;
 
+  /// No description provided for @phoneAlreadyRegisteredErrorSnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The phone number you entered is already registered'**
+  String get phoneAlreadyRegisteredErrorSnackBarMessage;
+
   /// No description provided for @passwordTextFieldWeakPasswordErrorDescription.
   ///
   /// In en, this message translates to:

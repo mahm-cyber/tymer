@@ -120,7 +120,7 @@ Map<String, PageBuilder> buildRoutingTable({
               signInSuccessVN.value = true;
               routerDelegate.push(_PathConstants.homePath);
             },
-            onResetPasswordSuccess: () async {
+            onResetPasswordVerifyOtpSuccess: () async {
               await routerDelegate.popRoute();
               await routerDelegate.popRoute();
             },

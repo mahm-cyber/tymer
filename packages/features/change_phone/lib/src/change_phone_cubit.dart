@@ -22,7 +22,6 @@ class ChangePhoneCubit extends Cubit<ChangePhoneState> {
       phone: shouldValidate
           ? Mobile.validated(
               newValue,
-              invalidCredentials: state.phone.invalidCredentials,
             )
           : Mobile.unvalidated(
               newValue,
@@ -36,6 +35,7 @@ class ChangePhoneCubit extends Cubit<ChangePhoneState> {
     final newState = state.copyWith(
       phone: Mobile.validated(
         state.phone.value,
+        isAlreadyRegistered: state.phone.isAlreadyRegistered,
       ),
     );
 
@@ -123,7 +123,8 @@ class ChangePhoneCubit extends Cubit<ChangePhoneState> {
           ),
           phone: Mobile.validated(
             phone.value,
-            isAlreadyRegistered: error is PhoneAlreadyRegisteredException ? true : false,
+            isAlreadyRegistered:
+                error is PhoneAlreadyRegisteredException ? true : false,
           ),
           submissionStatus: FormzSubmissionStatus.initial,
           error: error,

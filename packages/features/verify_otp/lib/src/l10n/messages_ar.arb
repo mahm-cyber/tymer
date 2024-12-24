@@ -12,6 +12,7 @@
   "verifyOtpButtonLabel": "تأكيد",
   "emailNotRegisteredErrorMessage": "البريد الإلكتروني الذي أدخلته غير مسجل",
   "resendOtpButtonLabel": "إعادة إرسال OTP",
+  "phoneAlreadyRegisteredErrorSnackBarMessage": "رقم الهاتف الذي أدخلته مسجل بالفعل",
   "newPasswordTextFieldLabel": "كلمة المرور الجديدة",
   "newPasswordTextFieldWeakPasswordError": "كلمة المرور ضعيفة جدًا",
   "newPasswordTextFieldHint": "أدخل كلمة المرور الجديدة",

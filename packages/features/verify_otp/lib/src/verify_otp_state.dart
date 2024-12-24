@@ -10,6 +10,7 @@ class VerifyOtpState extends Equatable {
     this.newPassword = const Password.unvalidated(),
     this.newPasswordConfirmation = const PasswordConfirmation.unvalidated(),
     this.submissionStatus = FormzSubmissionStatus.initial,
+    this.error,
   });
 
   final double resendOtpTotalTime;
@@ -20,7 +21,7 @@ class VerifyOtpState extends Equatable {
   final Password newPassword;
   final PasswordConfirmation newPasswordConfirmation;
   final FormzSubmissionStatus submissionStatus;
-
+  final dynamic error;
   VerifyOtpState copyWith({
     double? resendOtpTotalTime,
     double? resendOtpSecondTimer,
@@ -30,6 +31,7 @@ class VerifyOtpState extends Equatable {
     Password? newPassword,
     PasswordConfirmation? newPasswordConfirmation,
     FormzSubmissionStatus? submissionStatus,
+    dynamic error,
   }) {
     return VerifyOtpState(
       resendOtpTotalTime: resendOtpTotalTime ?? this.resendOtpTotalTime,
@@ -41,6 +43,7 @@ class VerifyOtpState extends Equatable {
       newPasswordConfirmation:
           newPasswordConfirmation ?? this.newPasswordConfirmation,
       submissionStatus: submissionStatus ?? this.submissionStatus,
+      error: error,
     );
   }
 
@@ -54,6 +57,7 @@ class VerifyOtpState extends Equatable {
         newPassword,
         newPasswordConfirmation,
         submissionStatus,
+        error,
       ];
 }
 

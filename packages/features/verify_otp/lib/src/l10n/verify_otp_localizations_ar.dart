@@ -64,6 +64,9 @@ class VerifyOtpLocalizationsAr extends VerifyOtpLocalizations {
   String get passwordConfirmationTextFieldDoesNotMatchError => 'كلمات المرور غير متطابقة';
 
   @override
+  String get phoneAlreadyRegisteredErrorSnackBarMessage => 'رقم الهاتف الذي أدخلته مسجل بالفعل';
+
+  @override
   String get passwordTextFieldWeakPasswordErrorDescription => 'يجب أن تستوفي كلمة المرور المعايير التالية: - لا يقل طوله عن 6 أحرف - تحتوي على حرف كبير واحد على الأقل - تحتوي على حرف صغير واحد على الأقل - تحتوي على رقم واحد على الأقل - تحتوي على رمز واحد على الأقل (على سبيل المثال، @، \$، !، إلخ.)';
 
   @override

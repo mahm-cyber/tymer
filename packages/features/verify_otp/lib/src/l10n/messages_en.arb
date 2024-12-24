@@ -18,6 +18,7 @@
   "newPasswordConfirmationTextFieldLabel": "Confirm New Password",
   "newPasswordConfirmationTextFieldHint": "Re-enter your new password",
   "passwordConfirmationTextFieldDoesNotMatchError": "Passwords do not match",
+  "phoneAlreadyRegisteredErrorSnackBarMessage": "The phone number you entered is already registered",
   "passwordTextFieldWeakPasswordErrorDescription": "The password must have At least 6 characters long, Contains at least one uppercase letter, Contains at least one lowercase letter, Contains at least one number, Contains at least one symbol (e.g., @, $, !, etc.)",
   "passwordResetSuccessfullySnackBarMessage": "Password reset successfully.",
    "otpRateLimitExceededErrorSnackBarMessage": "Maximum number of OTP requests reached. Please try again in {seconds} seconds.",
