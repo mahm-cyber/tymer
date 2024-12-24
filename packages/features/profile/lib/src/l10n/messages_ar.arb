@@ -6,5 +6,7 @@
   "notificationsTileTitle": "الإشعارات",
   "infoTileTitle": "معلومات",
   "changeLanguageTileTitle": "اللغة",
-  "logoutTileTitle": "تسجيل الخروج"
+  "logoutTileTitle": "تسجيل الخروج",
+    "changePasswordTileTitle": "تغيير كلمة المرور",
+  "changePhoneTileTitle": "تغيير الهاتف"
 }

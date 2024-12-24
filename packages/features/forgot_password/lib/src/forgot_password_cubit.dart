@@ -65,14 +65,10 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
 
     if (isFormValid) {
       try {
-        await userRepository.sendOtpForForgotPassword(
+        await userRepository.requestOtpForForgotPassword(
           phone: phone.value!,
         );
-        final otpVerification = OtpVerification(
-          phone: phone.value!,
-          reason: OtpVerificationReason.forgotPassword,
-        );
-        userRepository.changeNotifier.setOtpVerification(otpVerification);
+
         final newState = state.copyWith(
           submissionStatus: FormzSubmissionStatus.success,
         );

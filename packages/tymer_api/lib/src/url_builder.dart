@@ -24,7 +24,7 @@ class UrlBuilder {
     return completeUrl;
   }
 
-  String buildSendOtpUrl() {
+  String buildReSendOtpUrl() {
     const completeUrl = '$baseUrl/$_authSlug/phone-number/resend-verification';
     return completeUrl;
   }
@@ -173,5 +173,17 @@ class UrlBuilder {
 
   String buildGetPrivacyPolicyUrl() {
     return '$baseUrl/settings/privacy-policy';
+  }
+
+  String buildChangePasswordUrl() {
+    return '$baseUrl/$_authSlug/update-password';
+  }
+
+  String buildChangePhoneUrl() {
+    return '$baseUrl/$_authSlug/phone-number/request-update';
+  }
+
+  String buildVerifyOtpForChangePhoneUrl() {
+    return '$baseUrl/$_authSlug/phone-number/update';
   }
 }

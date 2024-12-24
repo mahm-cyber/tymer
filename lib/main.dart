@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:accept_service_request/accept_service_request.dart';
+import 'package:change_password/change_password.dart';
+import 'package:change_phone/change_phone.dart';
 import 'package:chat/chat.dart';
 import 'package:choose_service/choose_service.dart';
 import 'package:component_library/component_library.dart';
@@ -22,7 +24,6 @@ import 'package:order_history/order_history.dart';
 import 'package:profile/profile.dart';
 import 'package:provide_service/provide_service.dart';
 import 'package:request_service/request_service.dart';
-import 'package:reset_password/reset_password.dart';
 import 'package:service_repository/service_repository.dart';
 import 'package:service_request_status/service_request_status.dart';
 import 'package:sign_up/sign_up.dart';
@@ -199,9 +200,10 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                 // Authentication
                 SignInLocalizations.delegate,
                 SignUpLocalizations.delegate,
+                ChangePasswordLocalizations.delegate,
+                ChangePhoneLocalizations.delegate,
                 VerifyOtpLocalizations.delegate,
                 ForgotPasswordLocalizations.delegate,
-                ResetPasswordLocalizations.delegate,
                 TabContainerLocalizations.delegate,
                 InitialLocalizations.delegate,
                 HomeLocalizations.delegate,

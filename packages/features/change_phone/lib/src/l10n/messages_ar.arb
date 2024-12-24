@@ -1,0 +1,16 @@
+{
+  "appBarTitle": "تغيير الهاتف",
+  "incorrectPasswordErrorMessage": "كلمة المرور غير صحيحة، يرجى المحاولة مرة أخرى",
+  "generalErrorSnackBarMessage": "حدث خطأ ما",
+  "requiredFieldErrorMessage": "مطلوب*",
+  "phoneTextFieldLabel": "الهاتف الجديد",
+  "phoneTextFieldHint": "أدخل رقم هاتفك الجديد",
+  "invalidPhoneFormatErrorMessage": "يرجى إدخال رقم هاتف صحيح",
+  "passwordTextFieldLabel": "كلمة المرور",
+  "phoneIsAlreadyRegisteredErrorMessage": "الهاتف مسجل بالفعل",
+  "changePhoneButtonLabel": "تسجيل الدخول",
+  "changePhoneInProgressButtonLabel": "جاري تسجيل الدخول",
+  "changePhoneButtonLabel": "إرسال",
+  "otpRateLimitExceededExceptionErrorSnackBarMessage": "تم تجاوز حد طلبات OTP، يرجى المحاولة لاحقًا",
+    "otpSentSnackBarMessage": "تم إرسال OTP إلى هاتفك"
+}

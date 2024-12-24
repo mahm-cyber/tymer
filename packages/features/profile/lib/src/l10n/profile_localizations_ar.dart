@@ -29,4 +29,10 @@ class ProfileLocalizationsAr extends ProfileLocalizations {
 
   @override
   String get logoutTileTitle => 'تسجيل الخروج';
+
+  @override
+  String get changePasswordTileTitle => 'تغيير كلمة المرور';
+
+  @override
+  String get changePhoneTileTitle => 'تغيير الهاتف';
 }

@@ -54,9 +54,9 @@ class UserRepository {
     yield* _localePreferenceSubject.stream;
   }
 
-  Future sendOtp() async {
+  Future reSendOtp() async {
     try {
-      await remoteApi.sendOtp();
+      await remoteApi.reSendOtp();
     } catch (error) {
       if (error is RateLimitedTymerException) {
         throw OtpRateLimitExceededException(
@@ -67,13 +67,18 @@ class UserRepository {
     }
   }
 
-  Future sendOtpForForgotPassword({
+  Future requestOtpForForgotPassword({
     required String phone,
   }) async {
     try {
-      await remoteApi.forgotPassword(
+      await remoteApi.requestOtpForForgotPassword(
         phone: phone,
       );
+      final otpVerification = OtpVerification(
+        phone: phone,
+        reason: OtpVerificationReason.forgotPassword,
+      );
+      changeNotifier.setOtpVerification(otpVerification);
     } catch (error) {
       if (error is RateLimitedTymerException) {
         throw OtpRateLimitExceededException(
@@ -83,6 +88,52 @@ class UserRepository {
       rethrow;
     }
   }
+
+  Future requestOtpForChangePhone({
+    required String phone,
+    required String password,
+  }) async {
+    try {
+      await remoteApi.requestOtpForChangePhone(
+        phone: phone,
+        password: password,
+      );
+      final otpVerification = OtpVerification(
+        phone: phone,
+        reason: OtpVerificationReason.changePhone,
+      );
+      changeNotifier.setOtpVerification(otpVerification);
+    } catch (error) {
+      if(error is IncorrectPasswordTymerException){
+        throw IncorrectPasswordException();
+      }
+      if (error is RateLimitedTymerException) {
+        throw OtpRateLimitExceededException(
+          error.seconds,
+        );
+      }
+      rethrow;
+    }
+  }
+
+  Future verifyOtpForChangePhone(String otp) async{
+    try {
+      await remoteApi.verifyOtpForChangePhone(
+        otp: otp,
+      );
+    } catch (error) {
+      if (error is InvalidOtpTymerException) {
+        throw InvalidOtpException();
+      }
+      if (error is RateLimitedTymerException) {
+        throw OtpRateLimitExceededException(
+          error.seconds,
+        );
+      }
+      rethrow;
+    }
+  }
+
 
   Future signIn({
     required String phone,
@@ -110,12 +161,12 @@ class UserRepository {
       );
 
       if (!isPhoneVerified) {
-        await sendOtp();
-        final otpVer = OtpVerification(
+        await reSendOtp();
+        final otpVerification = OtpVerification(
           phone: phone,
           reason: OtpVerificationReason.login,
         );
-        changeNotifier.setOtpVerification(otpVer);
+        changeNotifier.setOtpVerification(otpVerification);
         throw PhoneNotVerifiedException();
       }
 
@@ -135,7 +186,7 @@ class UserRepository {
     }
   }
 
-  Future signUp({
+  Future requestOtpForSignUp({
     required String email,
     required String password,
     required String name,
@@ -143,7 +194,7 @@ class UserRepository {
     required String passwordConfirmation,
   }) async {
     try {
-      final token = await remoteApi.signUp(
+      final token = await remoteApi.requestOtpForSignUp(
         email: email,
         password: password,
         name: name,
@@ -154,22 +205,11 @@ class UserRepository {
       await _secureStorage.upsertUserToken(token: token);
       final otpVerification = OtpVerification(
         phone: phone,
+        // This password is passed on so that it can be used to sign in the user
         password: password,
         reason: OtpVerificationReason.register,
       );
       changeNotifier.setOtpVerification(otpVerification);
-      // final userRM = await remoteApi.getUser();
-      // final userDM = userRM.toDomainModel();
-      // await _secureStorage.upsertUser(
-      //   id: userRM.id,
-      //   name: name,
-      //   email: email,
-      //   phone: phone,
-      // );
-      //
-      // _userSubject.add(
-      //   userDM,
-      // );
     } catch (error) {
       if (error is EmailAlreadyRegisteredTymerException) {
         throw EmailAlreadyRegisteredException();
@@ -181,7 +221,7 @@ class UserRepository {
     }
   }
 
-  Future verifyOtp(
+  Future verifyOtpForRegisteration(
     String otp,
   ) async {
     try {
@@ -479,6 +519,28 @@ class UserRepository {
       rethrow;
     }
   }
+
+  Future changePassword({
+    required String password,
+    required String newPassword,
+    required String newPasswordConfirmation,
+  }) async {
+    try {
+      await remoteApi.changePassword(
+        password: password,
+        newPassword: newPassword,
+        newPasswordConfirmation: newPasswordConfirmation,
+      );
+      // clear remembered password
+      await _secureStorage.deleteRememberPassword();
+    } catch (error) {
+      if (error is IncorrectPasswordTymerException) {
+        throw IncorrectPasswordException();
+      }
+      rethrow;
+    }
+  }
+
 }
 
 enum FetchPolicy {

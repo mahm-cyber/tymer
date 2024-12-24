@@ -58,14 +58,14 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
 
   Future resendOtp() async {
     // Logic to resend the OTP
-    await userRepository.sendOtp();
+    // await userRepository.reSendOtp();
     final resendOtpInProgress = state.copyWith(
       resendOtpStatus: ResendOtpStatus.inProgress,
       submissionStatus: FormzSubmissionStatus.initial,
     );
     emit(resendOtpInProgress);
     try {
-      await userRepository.sendOtp();
+      await userRepository.reSendOtp();
       final resendOtpSuccess = state.copyWith(
         submissionStatus: FormzSubmissionStatus.initial,
         resendOtpStatus: ResendOtpStatus.success,
@@ -157,12 +157,14 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
         state.otpVerification?.reason == OtpVerificationReason.forgotPassword;
     final isVerificationReasonRegister =
         state.otpVerification?.reason == OtpVerificationReason.register;
+    final isVerificationReasonChangePhone =
+        state.otpVerification?.reason == OtpVerificationReason.changePhone;
     final isFormValid = Formz.validate([
       otpCode,
       if (isVerificationReasonForgotPassword) ...[
         newPassword,
         newPasswordConfirmation,
-      ]
+      ],
     ]);
 
     final newState = state.copyWith(
@@ -186,12 +188,16 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
             newPasswordConfirmation: newPassword.value!,
           );
         } else if (isVerificationReasonRegister) {
-          await userRepository.verifyOtp(
+          await userRepository.verifyOtpForRegisteration(
             otpCode.value,
           );
           await userRepository.signIn(
             phone: state.otpVerification!.phone,
             password: state.otpVerification!.password!,
+          );
+        } else if (isVerificationReasonChangePhone) {
+          await userRepository.verifyOtpForChangePhone(
+            otpCode.value,
           );
         }
 

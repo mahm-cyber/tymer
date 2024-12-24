@@ -158,6 +158,7 @@ class _VerifyOtpForm extends StatelessWidget {
           children: [
             Expanded(
               child: SingleChildScrollView(
+
                 padding: EdgeInsets.symmetric(
                   horizontal: theme.screenMargin,
                 ),

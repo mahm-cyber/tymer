@@ -13,7 +13,9 @@ class ProfileCubit extends Cubit<ProfileState> {
     required this.userRepository,
     required this.onRequestServiceTapped,
     required this.onProvideServiceTapped,
-    required this.onLogout,
+    required this.onLogoutSuccess,
+    required this.onChangePasswordTapped,
+    required this.onChangePhoneTapped,
   }) : super(
           const ProfileState(),
         ) {
@@ -27,7 +29,9 @@ class ProfileCubit extends Cubit<ProfileState> {
   final UserRepository userRepository;
   final VoidCallback onRequestServiceTapped;
   final VoidCallback onProvideServiceTapped;
-  final VoidCallback onLogout;
+  final VoidCallback onLogoutSuccess;
+  final VoidCallback onChangePasswordTapped;
+  final VoidCallback onChangePhoneTapped;
 
   void logout() async {
     try {
@@ -37,7 +41,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
       await userRepository.logout();
       emit(state.copyWith(logoutStatus: LogoutStatus.success));
-      onLogout();
+      onLogoutSuccess();
     } catch (e) {
       emit(state.copyWith(logoutStatus: LogoutStatus.failure));
     }

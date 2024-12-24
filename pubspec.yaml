@@ -72,10 +72,12 @@ dependencies:
     path: packages/features/sign_up
   verify_otp:
     path: packages/features/verify_otp
-  reset_password:
-    path: packages/features/reset_password
   forgot_password:
     path: packages/features/forgot_password
+  change_password:
+    path: packages/features/change_password
+  change_phone:
+    path: packages/features/change_phone
 
 
 

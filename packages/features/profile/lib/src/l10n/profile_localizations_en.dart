@@ -25,8 +25,14 @@ class ProfileLocalizationsEn extends ProfileLocalizations {
   String get infoTileTitle => 'Info';
 
   @override
-  String get changeLanguageTileTitle => 'Change Language';
+  String get changeLanguageTileTitle => 'Language';
 
   @override
   String get logoutTileTitle => 'Logout';
+
+  @override
+  String get changePasswordTileTitle => 'Change Password';
+
+  @override
+  String get changePhoneTileTitle => 'Change Phone';
 }

@@ -134,7 +134,7 @@ abstract class ProfileLocalizations {
   /// No description provided for @changeLanguageTileTitle.
   ///
   /// In en, this message translates to:
-  /// **'Change Language'**
+  /// **'Language'**
   String get changeLanguageTileTitle;
 
   /// No description provided for @logoutTileTitle.
@@ -142,6 +142,18 @@ abstract class ProfileLocalizations {
   /// In en, this message translates to:
   /// **'Logout'**
   String get logoutTileTitle;
+
+  /// No description provided for @changePasswordTileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Password'**
+  String get changePasswordTileTitle;
+
+  /// No description provided for @changePhoneTileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Phone'**
+  String get changePhoneTileTitle;
 }
 
 class _ProfileLocalizationsDelegate extends LocalizationsDelegate<ProfileLocalizations> {

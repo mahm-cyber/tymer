@@ -13,7 +13,7 @@ class OtpRateLimitExceededException implements Exception {
 
 class EmailNotRegisteredException implements Exception {}
 
-class WrongPasswordException implements Exception {}
+class IncorrectPasswordException implements Exception {}
 
 class EmailAlreadyRegisteredException implements Exception {}
 

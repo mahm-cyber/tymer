@@ -1,0 +1,17 @@
+{
+  "appBarTitle": "Change Phone",
+  "generalErrorSnackBarMessage": "Something went wrong",
+  "incorrectPasswordErrorMessage": "Incorrect password, please try again",
+  "requiredFieldErrorMessage": "Required*",
+  "phoneTextFieldLabel": "New Phone",
+  "phoneTextFieldHint": "Enter your new phone number",
+  "invalidPhoneFormatErrorMessage": "Please enter a valid phone number",
+  "phoneIsAlreadyRegisteredErrorMessage": "Phone is already registered",
+  "passwordTextFieldLabel": "Password",
+  "changePhoneButtonLabel": "Sign In",
+  "changePhoneInProgressButtonLabel": "Signing In",
+  "changePhoneButtonLabel": "Submit",
+  "otpRateLimitExceededExceptionErrorSnackBarMessage": "OTP rate limit exceeded, try again later",
+  "otpSentSnackBarMessage": "An OTP has been sent to your phone"
+
+}

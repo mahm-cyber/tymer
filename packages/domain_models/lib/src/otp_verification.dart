@@ -18,4 +18,5 @@ enum OtpVerificationReason {
   register,
   login,
   forgotPassword,
+  changePhone,
 }

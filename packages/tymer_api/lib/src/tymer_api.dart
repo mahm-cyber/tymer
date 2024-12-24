@@ -17,6 +17,7 @@ class TymerApi {
   static const _verificationErrorsJsonKey = 'verification_errors';
   static const _emailJsonKey = 'email';
   static const _phoneNumberJsonKey = 'phone_number';
+  static const _currentPasswordJsonKey = 'current_password';
   static const _codeJsonKey = 'code';
   static const _messageJsonKey = 'message';
 
@@ -109,7 +110,7 @@ class TymerApi {
     }
   }
 
-  Future<String> signUp({
+  Future<String> requestOtpForSignUp({
     required String email,
     required String password,
     required String passwordConfirmation,
@@ -160,8 +161,8 @@ class TymerApi {
     }
   }
 
-  Future sendOtp() async {
-    final url = urlBuilder.buildSendOtpUrl();
+  Future reSendOtp() async {
+    final url = urlBuilder.buildReSendOtpUrl();
 
     try {
       await _dio.post(
@@ -183,7 +184,7 @@ class TymerApi {
     }
   }
 
-  Future forgotPassword({
+  Future requestOtpForForgotPassword({
     required String phone,
   }) async {
     final url = urlBuilder.buildForgotPasswordUrl();
@@ -197,6 +198,63 @@ class TymerApi {
       );
     } on DioException catch (error) {
       final errorObject = error.response?.data[_errorJsonKey];
+      if (errorObject[_codeJsonKey].contains('RATE_LIMITED')) {
+        final rateLimitedMessage = errorObject[_messageJsonKey] as String;
+        final rateLimitedSeconds = int.parse(
+          rateLimitedMessage
+              .split(' ')[rateLimitedMessage.split(' ').length - 2],
+        );
+        throw RateLimitedTymerException(rateLimitedSeconds);
+      }
+      rethrow;
+    }
+  }
+
+  Future requestOtpForChangePhone ({
+    required String phone,
+    required String password,
+  }) async {
+    final url = urlBuilder.buildChangePhoneUrl();
+
+    try {
+      await _dio.post(
+        url,
+        data: {
+          "new_phone_number": '+2$phone',
+          "current_password": password,
+        },
+      );
+    } on DioException catch (error) {
+      final errorObject = error.response?.data[_errorJsonKey];
+      if (errorObject[_codeJsonKey].contains('PHONE_NUMBER_ALREADY_REGISTERED')) {
+        throw PhoneAlreadyRegisteredTymerException();
+      }
+      if (errorObject[_codeJsonKey].contains('VALIDATION_ERROR') &&
+          errorObject[_verificationErrorsJsonKey].containsKey('current_password')) {
+        throw IncorrectPasswordTymerException();
+      }
+      rethrow;
+    }
+  }
+
+  Future verifyOtpForChangePhone ({
+    required String otp,
+  }) async {
+    final url = urlBuilder.buildVerifyOtpForChangePhoneUrl();
+
+    try {
+      await _dio.post(
+        url,
+        data: {
+          "otp_code": otp,
+        },
+      );
+    } on DioException catch (error) {
+      final errorObject = error.response?.data[_errorJsonKey];
+      if (errorObject[_codeJsonKey]
+          .contains('PHONE_NUMBER_VERIFICATION_OTP_MISMATCH')) {
+        throw InvalidOtpTymerException();
+      }
       if (errorObject[_codeJsonKey].contains('RATE_LIMITED')) {
         final rateLimitedMessage = errorObject[_messageJsonKey] as String;
         final rateLimitedSeconds = int.parse(
@@ -628,6 +686,33 @@ class TymerApi {
           response.data[_dataJsonKey][_contentJsonKey]);
       return privacyPolicy;
     } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future changePassword({
+    required String password,
+    required String newPassword,
+    required String newPasswordConfirmation,
+  }) async {
+    final url = urlBuilder.buildChangePasswordUrl();
+    final requestJsonBody = {
+      'current_password': password,
+      'new_password': newPassword,
+      'new_password_confirmation': newPasswordConfirmation,
+    };
+    try {
+      final response = await _dio.post(
+        url,
+        data: requestJsonBody,
+      );
+      debugPrint(response.toString());
+    } on DioException catch (error) {
+      final errorObject =
+          error.response?.data[_errorJsonKey][_verificationErrorsJsonKey];
+      if (errorObject.containsKey(_currentPasswordJsonKey)) {
+        throw IncorrectPasswordTymerException();
+      }
       rethrow;
     }
   }

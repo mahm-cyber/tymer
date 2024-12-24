@@ -5,6 +5,8 @@
   "settingsTileTitle": "Settings",
   "notificationsTileTitle": "Notifications",
   "infoTileTitle": "Info",
-  "changeLanguageTileTitle": "Change Language",
-  "logoutTileTitle": "Logout"
+  "changeLanguageTileTitle": "Language",
+  "logoutTileTitle": "Logout",
+  "changePasswordTileTitle": "Change Password",
+  "changePhoneTileTitle": "Change Phone"
 }

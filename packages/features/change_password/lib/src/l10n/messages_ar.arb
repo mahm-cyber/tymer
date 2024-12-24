@@ -1,0 +1,21 @@
+{
+  "appBarTitle": "تغيير كلمة المرور",
+  "requiredTextFieldErrorMessage": "مطلوب*",
+  "incorrectPasswordErrorMessage": "كلمة المرور غير صحيحة، يرجى المحاولة مرة أخرى",
+
+  "passwordTextFieldLabel": "كلمة المرور",
+  "passwordTextFieldHint": "أدخل كلمة المرور الخاصة بك",
+  "newPasswordTextFieldLabel": "كلمة مرور جديدة",
+  "newPasswordTextFieldHint": "أدخل كلمة المرور الجديدة الخاصة بك",
+  "newPasswordWeakErrorMessage": "كلمة المرور الجديدة ضعيفة جدًا",
+  "newPasswordConfirmationTextFieldLabel": "تأكيد كلمة المرور الجديدة",
+  "newPasswordConfirmationTextFieldHint": "أعد إدخال كلمة المرور الجديدة",
+  "newPasswordConfirmationTextFieldError": "كلمتا المرور غير متطابقتين",
+
+  "changePasswordInProgressButtonLabel": "جارٍ تغيير كلمة المرور...",
+  "changePasswordButtonLabel": "تغيير كلمة المرور",
+  "changePasswordSuccessMessage": "تم تغيير كلمة المرور بنجاح",
+  "changePasswordFailureMessage": "فشل تغيير كلمة المرور، حاول مرة أخرى",
+
+  "newPasswordTextFieldWeakPasswordErrorDescription": "يجب أن تستوفي كلمة المرور المعايير التالية: - لا يقل طوله عن 8 أحرف - يحتوي على حرف كبير واحد على الأقل - يحتوي على حرف صغير واحد على الأقل - يحتوي على رقم واحد على الأقل - يحتوي على رمز واحد على الأقل (مثل @، $، !، إلخ.)"
+}

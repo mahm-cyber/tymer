@@ -1,4 +1,6 @@
 import 'package:accept_service_request/accept_service_request.dart';
+import 'package:change_password/change_password.dart';
+import 'package:change_phone/change_phone.dart';
 import 'package:chat/chat.dart';
 import 'package:choose_service/choose_service.dart';
 import 'package:confirm_dispute/confirm_dispute.dart';
@@ -14,7 +16,6 @@ import 'package:order_history/order_history.dart';
 import 'package:profile/profile.dart';
 import 'package:provide_service/provide_service.dart';
 import 'package:request_service/request_service.dart';
-import 'package:reset_password/reset_password.dart';
 
 import 'package:routemaster/routemaster.dart';
 import 'package:service_repository/service_repository.dart';
@@ -192,7 +193,32 @@ Map<String, PageBuilder> buildRoutingTable({
                 routerDelegate.push(_PathConstants.chooseServicePath),
             onProvideServiceTapped: () =>
                 routerDelegate.push(_PathConstants.provideServicePath),
-            onLogout: () => signInSuccessVN.value = false,
+            onLogoutSuccess: () => signInSuccessVN.value = false,
+            onChangePasswordTapped: () {
+              routerDelegate.push(_PathConstants.changePasswordPath);
+            },
+            onChangePhoneTapped: () {
+              routerDelegate.push(_PathConstants.changePhonePath);
+            },
+          ),
+        ),
+
+    _PathConstants.changePasswordPath: (_) => MaterialPage(
+          name: 'change-password',
+          child: ChangePasswordScreen(
+            userRepository: userRepository,
+            onChangePasswordSuccess: () {
+              routerDelegate.pop();
+            },
+          ),
+        ),
+    _PathConstants.changePhonePath: (_) => MaterialPage(
+          name: 'change-phone',
+          child: ChangePhoneScreen(
+            userRepository: userRepository,
+            onOtpSentSuccess: () {
+              routerDelegate.push(_PathConstants.verifyOtpPath);
+            },
           ),
         ),
     _PathConstants.forgotPasswordPath: (_) => MaterialPage(
@@ -211,14 +237,6 @@ Map<String, PageBuilder> buildRoutingTable({
             serviceRepository: serviceRepository,
             onRequestServiceTapped: () =>
                 routerDelegate.push(_PathConstants.requestServicePath),
-          ),
-        ),
-    _PathConstants.resetPasswordPath: (_) => MaterialPage(
-          name: 'reset-password',
-          child: ResetPasswordScreen(
-            userRepository: userRepository,
-            onBackTapped: () => routerDelegate.popRoute(),
-            onResetPasswordSuccess: () => routerDelegate.popRoute(),
           ),
         ),
     _PathConstants.requestServicePath: (_) => MaterialPage(
@@ -318,7 +336,7 @@ Map<String, PageBuilder> buildRoutingTable({
                   .popUntil((route) => route.path == _PathConstants.homePath);
               routerDelegate.push(_PathConstants.provideServicePath);
             },
-            onServiceDisputed: (int disputeId ) async {
+            onServiceDisputed: (int disputeId) async {
               await routerDelegate.popUntil(
                 (route) => route.path == _PathConstants.homePath,
               );
@@ -355,11 +373,13 @@ class _PathConstants {
 
   static String get profilePath => '${initialPath}profile';
 
+  static String get changePasswordPath => '${initialPath}change-password';
+
+  static String get changePhonePath => '${initialPath}change-phone';
+
   static String get verifyOtpPath => '${initialPath}verify-otp';
 
   static String get forgotPasswordPath => '${initialPath}forgot-password';
-
-  static String get resetPasswordPath => '${initialPath}reset-password';
 
   static String get chooseServicePath => '$homePath/choose-service';
 

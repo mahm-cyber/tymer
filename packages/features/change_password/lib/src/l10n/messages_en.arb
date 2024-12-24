@@ -1,0 +1,18 @@
+{
+  "appBarTitle": "Change Password",
+  "requiredTextFieldErrorMessage": "Required*",
+  "incorrectPasswordErrorMessage": "Incorrect password, please try again",
+  "passwordTextFieldLabel": "Password",
+  "passwordTextFieldHint": "Enter your password",
+  "newPasswordTextFieldLabel": "New Password",
+  "newPasswordTextFieldHint": "Enter your new password",
+  "newPasswordWeakErrorMessage": "Your new password is too weak",
+  "newPasswordConfirmationTextFieldLabel": "Confirm new password",
+  "newPasswordConfirmationTextFieldHint": "Re-enter your new password",
+  "newPasswordConfirmationTextFieldError": "Passwords do not match",
+  "changePasswordInProgressButtonLabel": "Signing Up...",
+  "changePasswordButtonLabel": "Change Password",
+  "changePasswordSuccessMessage": "Password changed successfully",
+  "changePasswordFailureMessage": "Change password failed, try again",
+  "newPasswordTextFieldWeakPasswordErrorDescription": "The password must have At least 8 characters long, Contains at least one uppercase letter, Contains at least one lowercase letter, Contains at least one number, Contains at least one symbol (e.g., @, "
+}

@@ -12,14 +12,18 @@ class ProfileScreen extends StatelessWidget {
     required this.userRepository,
     required this.onRequestServiceTapped,
     required this.onProvideServiceTapped,
-    required this.onLogout,
+    required this.onLogoutSuccess,
+    required this.onChangePasswordTapped,
+    required this.onChangePhoneTapped,
     super.key,
   });
 
   final UserRepository userRepository;
   final VoidCallback onRequestServiceTapped;
   final VoidCallback onProvideServiceTapped;
-  final VoidCallback onLogout;
+  final VoidCallback onLogoutSuccess;
+  final VoidCallback onChangePasswordTapped;
+  final VoidCallback onChangePhoneTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,9 @@ class ProfileScreen extends StatelessWidget {
         userRepository: userRepository,
         onRequestServiceTapped: onRequestServiceTapped,
         onProvideServiceTapped: onProvideServiceTapped,
-        onLogout: onLogout,
+        onLogoutSuccess: onLogoutSuccess,
+        onChangePasswordTapped: onChangePasswordTapped,
+        onChangePhoneTapped: onChangePhoneTapped,
       ),
       child: const ProfileView(),
     );
@@ -93,6 +99,20 @@ class ProfileView extends StatelessWidget {
               //   trailing: const Icon(Icons.arrow_forward_ios),
               //   tileColor: theme.borderColor,
               // ),
+              ListTile(
+                leading: const SvgAsset(AssetPathConstants.twoSlidersPath),
+                titleTextStyle: textTheme.titleMedium,
+                title: Text(l10n.changePhoneTileTitle),
+                trailing: const Icon(Icons.arrow_forward_ios),
+                onTap: cubit.onChangePhoneTapped,
+              ),
+              ListTile(
+                leading: const SvgAsset(AssetPathConstants.shieldDonePath),
+                titleTextStyle: textTheme.titleMedium,
+                title: Text(l10n.changePasswordTileTitle),
+                trailing: const Icon(Icons.arrow_forward_ios),
+                onTap: cubit.onChangePasswordTapped,
+              ),
               ListTile(
                 leading: const SvgAsset(AssetPathConstants.twoSlidersPath),
                 titleTextStyle: textTheme.titleMedium,

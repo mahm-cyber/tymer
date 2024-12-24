@@ -99,7 +99,6 @@ class SignUpCubit extends Cubit<SignUpState> {
     final newScreenState = state.copyWith(
       password: Password.validated(
         state.password.value,
-        invalidCredentials: state.password.invalidCredentials,
       ),
     );
     emit(newScreenState);
@@ -247,7 +246,7 @@ class SignUpCubit extends Cubit<SignUpState> {
 
     if (isFormValid) {
       try {
-        await userRepository.signUp(
+        await userRepository.requestOtpForSignUp(
           email: email.value!,
           password: password.value!,
           phone: phone.value!,
