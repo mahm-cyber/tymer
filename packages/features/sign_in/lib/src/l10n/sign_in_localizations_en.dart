@@ -19,7 +19,7 @@ class SignInLocalizationsEn extends SignInLocalizations {
   String get requiredFieldErrorMessage => 'Required*';
 
   @override
-  String get phoneTextFieldLabel => 'Phone';
+  String get phoneTextFieldLabel => 'Phone Number';
 
   @override
   String get invalidPhoneFormatErrorMessage => 'Please enter a valid phone number';
@@ -31,7 +31,7 @@ class SignInLocalizationsEn extends SignInLocalizations {
   String get rememberMeCheckBoxLabel => 'Remember Me';
 
   @override
-  String get forgotMyPasswordButtonLabel => 'Forgot Password';
+  String get forgotMyPasswordButtonLabel => 'Forgot Password?';
 
   @override
   String get signInButtonLabel => 'Sign In';
@@ -52,7 +52,7 @@ class SignInLocalizationsEn extends SignInLocalizations {
   String get dontHaveAnAccount => 'Don\'t have an account?';
 
   @override
-  String get signUpButtonLabel => 'Sign Up';
+  String get signUpButtonLabel => 'Sign Up Now';
 
   @override
   String otpRateLimitExceededErrorSnackBarMessage(Object seconds) {

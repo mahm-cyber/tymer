@@ -115,18 +115,25 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
   }
 
   void onDayChanged(DateTime? newValue) {
+    final serviceType = state.service?.type;
+    final isReservationService = serviceType == ServiceType.reservation;
+
     final newState = state.copyWith(
       day: Dynamic<DateTime?>.validated(
         newValue,
+        isRequired: isReservationService ? true : false,
       ),
     );
     emit(newState);
   }
 
   void onTimeChanged(TimeOfDay? newValue) {
+    final serviceType = state.service?.type;
+    final isReservationService = serviceType == ServiceType.reservation;
     final newState = state.copyWith(
       time: Dynamic<TimeOfDay?>.validated(
         newValue,
+        isRequired: isReservationService ? true : false,
       ),
     );
     emit(newState);
@@ -289,6 +296,7 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
           : FormzSubmissionStatus.initial,
     );
     emit(newState);
+
     if (isFormValid) {
       try {
         await serviceRepository.fulfillServiceRequest(

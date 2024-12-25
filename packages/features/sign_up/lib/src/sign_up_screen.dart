@@ -16,18 +16,21 @@ class SignUpScreen extends StatelessWidget {
     required this.userRepository,
     required this.onSignInTap,
     required this.onSignUpSuccess,
+    required this.onBackTapped,
     super.key,
   });
 
   final UserRepository userRepository;
   final VoidCallback onSignInTap;
   final VoidCallback onSignUpSuccess;
+  final VoidCallback onBackTapped;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<SignUpCubit>(
       create: (_) => SignUpCubit(
         userRepository: userRepository,
+        onBackTapped: onBackTapped,
       ),
       child: SignUpView(
         onSignInTap: onSignInTap,
@@ -91,7 +94,6 @@ class SignUpView extends StatelessWidget {
             builder: (context) => Container(
               width: double.infinity,
               padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
-
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,7 +119,7 @@ class SignUpView extends StatelessWidget {
         final theme = TymerTheme.of(context);
         final l10n = SignUpLocalizations.of(context);
         final colorScheme = Theme.of(context).colorScheme;
-
+        final cubit = context.read<SignUpCubit>();
         return GestureDetector(
           onTap: () {
             context.releaseFocus();
@@ -126,6 +128,10 @@ class SignUpView extends StatelessWidget {
             appBar: AppBar(
               title: Text(l10n.appBarTitle),
               backgroundColor: colorScheme.surface,
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: cubit.onBackTapped,
+              ),
             ),
             body: Padding(
               padding: EdgeInsets.symmetric(horizontal: theme.screenMargin * 2),

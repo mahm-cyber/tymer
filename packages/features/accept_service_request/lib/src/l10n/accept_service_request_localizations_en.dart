@@ -39,6 +39,9 @@ class AcceptServiceRequestLocalizationsEn extends AcceptServiceRequestLocalizati
   }
 
   @override
+  String get myLocationMarkerTitle => 'my-location';
+
+  @override
   String get myLocationInfoWindowTitle => 'My Location';
 
   @override

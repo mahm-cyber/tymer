@@ -1,14 +1,16 @@
 import 'forgot_password_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for Arabic (`ar`).
 class ForgotPasswordLocalizationsAr extends ForgotPasswordLocalizations {
-  ForgotPasswordLocalizationsAr([super.locale = 'ar']);
+  ForgotPasswordLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
   String get appBarTitle => 'نسيت كلمة المرور';
 
   @override
-  String get forgotPasswordTitle => 'أدخل تفاصيلك وسنرسل لك OTP لإعادة تعيين كلمة المرور';
+  String get forgotPasswordTitle => 'أدخل رقم الهاتف وسيتم إرسال رمز التحقق OTP حتى تتمكن من إعادة تعيين كلمة المرور.';
 
   @override
   String get otpSentSuccessfullySnackBarMessage => 'تم إرسال OTP بنجاح.';
@@ -29,10 +31,10 @@ class ForgotPasswordLocalizationsAr extends ForgotPasswordLocalizations {
   String get forgotPasswordProgressButtonLabel => 'جارٍ إرسال OTP';
 
   @override
-  String get forgotPasswordButtonLabel => 'تغيير كلمة المرور';
+  String get forgotPasswordButtonLabel => 'أرسل الرمز';
 
   @override
-  String get phoneTextFieldLabel => 'الهاتف';
+  String get phoneTextFieldLabel => 'رقم الهاتف';
 
   @override
   String get invalidPhoneFormatErrorMessage => 'يرجى إدخال رقم هاتف صحيح';

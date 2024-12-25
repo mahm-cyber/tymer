@@ -82,6 +82,7 @@ Map<String, PageBuilder> buildRoutingTable({
           name: 'sign-up',
           child: SignUpScreen(
             userRepository: userRepository,
+            onBackTapped: () => routerDelegate.popRoute(),
             onSignInTap: () => routerDelegate
                 .popRoute()
                 .then((_) => routerDelegate.push(_PathConstants.signInPath)),
@@ -115,12 +116,20 @@ Map<String, PageBuilder> buildRoutingTable({
           name: 'verify-otp',
           child: VerifyOtpScreen(
             userRepository: userRepository,
+            onBackTapped: () {
+              routerDelegate.popRoute();
+              routerDelegate.popRoute();
+            },
             onRegistrationVerifyOtpSuccess: () async {
               await routerDelegate.popRoute();
               signInSuccessVN.value = true;
               routerDelegate.push(_PathConstants.homePath);
             },
             onResetPasswordVerifyOtpSuccess: () async {
+              await routerDelegate.popRoute();
+              await routerDelegate.popRoute();
+            },
+            onChangePhoneVerifyOtpSuccess: () async {
               await routerDelegate.popRoute();
               await routerDelegate.popRoute();
             },
@@ -202,7 +211,6 @@ Map<String, PageBuilder> buildRoutingTable({
             },
           ),
         ),
-
     _PathConstants.changePasswordPath: (_) => MaterialPage(
           name: 'change-password',
           child: ChangePasswordScreen(
@@ -227,6 +235,9 @@ Map<String, PageBuilder> buildRoutingTable({
             userRepository: userRepository,
             onForgotPasswordSuccess: () {
               routerDelegate.push(_PathConstants.verifyOtpPath);
+            },
+            onBackTapped: () {
+              routerDelegate.popRoute();
             },
           ),
         ),

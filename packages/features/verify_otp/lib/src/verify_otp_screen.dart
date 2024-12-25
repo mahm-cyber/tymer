@@ -17,12 +17,16 @@ class VerifyOtpScreen extends StatelessWidget {
     required this.userRepository,
     required this.onRegistrationVerifyOtpSuccess,
     required this.onResetPasswordVerifyOtpSuccess,
+    required this.onChangePhoneVerifyOtpSuccess,
+    required this.onBackTapped,
     super.key,
   });
 
   final UserRepository userRepository;
   final VoidCallback onRegistrationVerifyOtpSuccess;
   final VoidCallback onResetPasswordVerifyOtpSuccess;
+  final VoidCallback onChangePhoneVerifyOtpSuccess;
+  final VoidCallback onBackTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +35,8 @@ class VerifyOtpScreen extends StatelessWidget {
         userRepository: userRepository,
         onResetPasswordVerifyOtpSuccess: onResetPasswordVerifyOtpSuccess,
         onRegistrationVerifyOtpSuccess: onRegistrationVerifyOtpSuccess,
+        onChangePhoneVerifyOtpSuccess: onChangePhoneVerifyOtpSuccess,
+        onBackTapped: onBackTapped,
       ),
       child: const VerifyOtpView(),
     );
@@ -45,6 +51,8 @@ class VerifyOtpView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = TymerTheme.of(context).materialThemeData.colorScheme;
+    final l10n = VerifyOtpLocalizations.of(context);
+    final cubit = context.read<VerifyOtpCubit>();
     return GestureDetector(
       onTap: context.releaseFocus,
       child: Scaffold(
@@ -52,7 +60,12 @@ class VerifyOtpView extends StatelessWidget {
           height: 55,
         ),
         appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: cubit.onBackTapped,
+          ),
           backgroundColor: colorScheme.surface,
+          title: Text(l10n.appBarTitle),
         ),
         extendBody: true,
         body: const _VerifyOtpForm(),
@@ -75,6 +88,8 @@ class _VerifyOtpForm extends StatelessWidget {
       listener: (context, state) {
         final isForgotPassword = state.otpVerification?.reason ==
             OtpVerificationReason.forgotPassword;
+        final isChangePhone =
+            state.otpVerification?.reason == OtpVerificationReason.changePhone;
         final cubit = context.read<VerifyOtpCubit>();
         if (state.error is PhoneAlreadyRegisteredException) {
           Navigator.pop(context);
@@ -97,7 +112,7 @@ class _VerifyOtpForm extends StatelessWidget {
               ),
             ),
           );
-          return ;
+          return;
         }
         if (state.resendOtpStatus == ResendOtpStatus.success) {
           showSnackBar(
@@ -129,6 +144,8 @@ class _VerifyOtpForm extends StatelessWidget {
           );
           if (isForgotPassword) {
             cubit.onResetPasswordVerifyOtpSuccess();
+          } else if (isChangePhone) {
+            cubit.onChangePhoneVerifyOtpSuccess();
           } else {
             cubit.onRegistrationVerifyOtpSuccess();
           }
@@ -201,6 +218,7 @@ class _VerifyOtpForm extends StatelessWidget {
                     Directionality(
                       textDirection: TextDirection.ltr,
                       child: PinCodeTextField(
+                        keyboardType: TextInputType.number,
                         enableActiveFill: true,
                         autoDisposeControllers: false,
                         controller: cubit.pinTEController,

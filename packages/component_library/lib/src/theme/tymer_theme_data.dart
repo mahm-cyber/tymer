@@ -47,6 +47,11 @@ abstract class TymerThemeData {
 class LightTymerThemeData extends TymerThemeData {
   @override
   ThemeData get materialThemeData => ThemeData(
+        timePickerTheme: TimePickerThemeData(
+          dayPeriodColor: primaryColor,
+          hourMinuteColor: primaryColor,
+        ),
+
         textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
           padding: const EdgeInsets.symmetric(

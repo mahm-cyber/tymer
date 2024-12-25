@@ -122,7 +122,7 @@ abstract class SignInLocalizations {
   /// No description provided for @phoneTextFieldLabel.
   ///
   /// In en, this message translates to:
-  /// **'Phone'**
+  /// **'Phone Number'**
   String get phoneTextFieldLabel;
 
   /// No description provided for @invalidPhoneFormatErrorMessage.
@@ -146,7 +146,7 @@ abstract class SignInLocalizations {
   /// No description provided for @forgotMyPasswordButtonLabel.
   ///
   /// In en, this message translates to:
-  /// **'Forgot Password'**
+  /// **'Forgot Password?'**
   String get forgotMyPasswordButtonLabel;
 
   /// No description provided for @signInButtonLabel.
@@ -188,7 +188,7 @@ abstract class SignInLocalizations {
   /// No description provided for @signUpButtonLabel.
   ///
   /// In en, this message translates to:
-  /// **'Sign Up'**
+  /// **'Sign Up Now'**
   String get signUpButtonLabel;
 
   /// No description provided for @otpRateLimitExceededErrorSnackBarMessage.

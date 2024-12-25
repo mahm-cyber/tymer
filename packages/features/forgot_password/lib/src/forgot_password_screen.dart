@@ -15,17 +15,20 @@ class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({
     required this.userRepository,
     required this.onForgotPasswordSuccess,
+    required this.onBackTapped,
     super.key,
   });
 
   final UserRepository userRepository;
   final VoidCallback onForgotPasswordSuccess;
+  final VoidCallback onBackTapped;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ForgotPasswordCubit>(
       create: (_) => ForgotPasswordCubit(
         userRepository: userRepository,
+        onBackTapped: onBackTapped,
       ),
       child: ForgotPasswordView(
         onForgotPasswordSuccess: onForgotPasswordSuccess,
@@ -86,6 +89,7 @@ class ForgotPasswordView extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        final cubit = context.read<ForgotPasswordCubit>();
         return GestureDetector(
           onTap: () {
             context.releaseFocus();
@@ -93,6 +97,12 @@ class ForgotPasswordView extends StatelessWidget {
           child: Scaffold(
             appBar: AppBar(
               title: Text(l10n.appBarTitle),
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  cubit.onBackTapped();
+                },
+              ),
               backgroundColor: theme.materialThemeData.colorScheme.surface,
             ),
             body: Padding(
@@ -104,6 +114,11 @@ class ForgotPasswordView extends StatelessWidget {
                       child: ListView(
                         shrinkWrap: true,
                         children: [
+                          const SvgAsset(
+                            AssetPathConstants.logoAndWordPath,
+                            width: 100,
+                          ),
+                          VerticalGap.large(),
                           Text(
                             l10n.forgotPasswordTitle,
                             style: textTheme.titleSmall?.copyWith(
@@ -113,6 +128,8 @@ class ForgotPasswordView extends StatelessWidget {
                           ),
                           VerticalGap.large(),
                           const PhoneTextField(),
+                          VerticalGap.xHuge(),
+
                         ],
                       ),
                     ),

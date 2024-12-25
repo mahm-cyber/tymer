@@ -1,4 +1,5 @@
 {
+  "appBarTitle": "Verify Phone Number",
   "verifyOtpTitle": "Enter the code to continue",
   "otpResentSuccessfullySnackBarMessage": "OTP resent successfully.",
   "otpResentErrorSnackBarMessage": "Error occurred while resending OTP.",

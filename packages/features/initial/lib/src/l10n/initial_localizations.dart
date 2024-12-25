@@ -104,7 +104,7 @@ abstract class InitialLocalizations {
   /// No description provided for @signUpButtonLabel.
   ///
   /// In en, this message translates to:
-  /// **'Sign Up'**
+  /// **'Create New Account'**
   String get signUpButtonLabel;
 }
 

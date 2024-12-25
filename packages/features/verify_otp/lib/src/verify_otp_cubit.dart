@@ -14,6 +14,8 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
     required this.userRepository,
     required this.onResetPasswordVerifyOtpSuccess,
     required this.onRegistrationVerifyOtpSuccess,
+    required this.onChangePhoneVerifyOtpSuccess,
+    required this.onBackTapped,
   })  : pinTEController = TextEditingController(),
         super(
           VerifyOtpState(
@@ -27,6 +29,8 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
   final UserRepository userRepository;
   final VoidCallback onResetPasswordVerifyOtpSuccess;
   final VoidCallback onRegistrationVerifyOtpSuccess;
+  final VoidCallback onChangePhoneVerifyOtpSuccess;
+  final VoidCallback onBackTapped;
   final TextEditingController pinTEController;
 
   onOtpCodeChanged(String newValue) {

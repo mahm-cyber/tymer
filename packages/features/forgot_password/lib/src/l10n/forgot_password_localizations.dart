@@ -8,6 +8,8 @@ import 'package:intl/intl.dart' as intl;
 import 'forgot_password_localizations_ar.dart';
 import 'forgot_password_localizations_en.dart';
 
+// ignore_for_file: type=lint
+
 /// Callers can lookup localized strings with an instance of ForgotPasswordLocalizations
 /// returned by `ForgotPasswordLocalizations.of(context)`.
 ///
@@ -102,7 +104,7 @@ abstract class ForgotPasswordLocalizations {
   /// No description provided for @forgotPasswordTitle.
   ///
   /// In en, this message translates to:
-  /// **'Enter your details and we’ll send you an OTP to reset your password'**
+  /// **'Enter your phone number, and an OTP will be sent to reset your password.'**
   String get forgotPasswordTitle;
 
   /// No description provided for @otpSentSuccessfullySnackBarMessage.
@@ -144,13 +146,13 @@ abstract class ForgotPasswordLocalizations {
   /// No description provided for @forgotPasswordButtonLabel.
   ///
   /// In en, this message translates to:
-  /// **'Reset My Password'**
+  /// **'Send Code'**
   String get forgotPasswordButtonLabel;
 
   /// No description provided for @phoneTextFieldLabel.
   ///
   /// In en, this message translates to:
-  /// **'Phone'**
+  /// **'Phone Number'**
   String get phoneTextFieldLabel;
 
   /// No description provided for @invalidPhoneFormatErrorMessage.

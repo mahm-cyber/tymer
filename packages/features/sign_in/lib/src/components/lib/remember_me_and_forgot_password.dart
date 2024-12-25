@@ -48,6 +48,9 @@ class RememberMeAndForgotPassword extends StatelessWidget {
               ),
               const Spacer(),
               TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.grey[100],
+                ),
                 onPressed: isSubmissionInProgress
                     ? null
                     : () => cubit.onForgotPasswordTapped(),

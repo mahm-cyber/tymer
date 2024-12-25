@@ -7,6 +7,9 @@ class VerifyOtpLocalizationsEn extends VerifyOtpLocalizations {
   VerifyOtpLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get appBarTitle => 'Verify Phone Number';
+
+  @override
   String get verifyOtpTitle => 'Enter the code to continue';
 
   @override

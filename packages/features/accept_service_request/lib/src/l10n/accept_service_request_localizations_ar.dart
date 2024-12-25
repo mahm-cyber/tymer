@@ -39,6 +39,9 @@ class AcceptServiceRequestLocalizationsAr extends AcceptServiceRequestLocalizati
   }
 
   @override
+  String get myLocationMarkerTitle => 'موقعي';
+
+  @override
   String get myLocationInfoWindowTitle => 'موقعي';
 
   @override

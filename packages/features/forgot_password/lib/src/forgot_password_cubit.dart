@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,11 +12,13 @@ part 'forgot_password_state.dart';
 class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   ForgotPasswordCubit({
     required this.userRepository,
+    required this.onBackTapped,
   }) : super(
           const ForgotPasswordState(),
         );
 
   final UserRepository userRepository;
+  final VoidCallback onBackTapped;
 
   void onMobileChanged(String newValue) {
     final previousScreenState = state;

@@ -10,5 +10,5 @@ class InitialLocalizationsEn extends InitialLocalizations {
   String get signInButtonLabel => 'Sign In';
 
   @override
-  String get signUpButtonLabel => 'Sign Up';
+  String get signUpButtonLabel => 'Create New Account';
 }

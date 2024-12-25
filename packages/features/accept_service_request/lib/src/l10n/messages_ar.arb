@@ -8,6 +8,7 @@
   "priceTextFieldLabel": "السعر",
   "additionalCommentsTextFieldLabel": "تعليقات إضافية",
   "acceptButtonLabel": "قبول",
+  "myLocationMarkerTitle": "موقعي",
   "distanceToServiceLocation": "{meters} متر",
   "@distanceToServiceLocation": {
       "placeholders": {

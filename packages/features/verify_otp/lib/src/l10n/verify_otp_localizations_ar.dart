@@ -7,6 +7,9 @@ class VerifyOtpLocalizationsAr extends VerifyOtpLocalizations {
   VerifyOtpLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
+  String get appBarTitle => 'النحقق من رقم الهاتف';
+
+  @override
   String get verifyOtpTitle => 'أدخل الرمز للمتابعة';
 
   @override

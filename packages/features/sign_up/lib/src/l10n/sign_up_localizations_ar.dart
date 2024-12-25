@@ -13,7 +13,7 @@ class SignUpLocalizationsAr extends SignUpLocalizations {
   String get signInButtonText => 'تسجيل الدخول';
 
   @override
-  String get emailTextFieldLabel => 'عنوان البريد الإلكتروني';
+  String get emailTextFieldLabel => 'البريد الإلكتروني';
 
   @override
   String get emailTextFieldHint => 'أدخل بريدك الإلكتروني';

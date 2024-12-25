@@ -1,7 +1,7 @@
 {
   "appBarTitle": "Create New Account",
   "signInButtonText": "Sign In",
-  "emailTextFieldLabel": "Email Address",
+  "emailTextFieldLabel": "Email",
   "emailTextFieldHint": "Enter your email",
   "requiredTextFieldErrorMessage": "Required*",
   "invalidCredentialsErrorMessage": "Invalid credentials, please try again",

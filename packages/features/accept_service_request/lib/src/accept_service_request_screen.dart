@@ -110,25 +110,25 @@ class AcceptServiceRequestView extends StatelessWidget {
                               return true;
                             },
                             child: GoogleMap(
+                              myLocationEnabled: true,
+                              myLocationButtonEnabled: true,
                               markers: {
-                                if (state.myLocation != null)
-                                  Marker(
-                                    markerId: const MarkerId(
-                                      'my-location',
-                                    ),
-                                    position: LatLng(
-                                      state.myLocation!.latitude!,
-                                      state.myLocation!.longitude!,
-                                    ),
-                                    infoWindow: InfoWindow(
-                                      title: l10n.myLocationInfoWindowTitle,
-                                    ),
-                                  ),
+                                // if (state.myLocation != null)
+                                //   Marker(
+                                //     markerId:  MarkerId(
+                                //       l10n.myLocationMarkerTitle,
+                                //     ),
+                                //     position: LatLng(
+                                //       state.myLocation!.latitude!,
+                                //       state.myLocation!.longitude!,
+                                //     ),
+
+                                //     infoWindow: InfoWindow(
+                                //       title: l10n.myLocationInfoWindowTitle,
+                                //     ),
+                                //   ),
                                 Marker(
                                   markerId: const MarkerId('service-location'),
-                                  icon: BitmapDescriptor.defaultMarkerWithHue(
-                                    BitmapDescriptor.hueBlue,
-                                  ),
                                   position: latLng,
                                   infoWindow: InfoWindow(
                                     title: l10n.distanceToServiceLocation(

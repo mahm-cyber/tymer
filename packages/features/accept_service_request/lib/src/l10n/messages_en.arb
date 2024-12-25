@@ -9,6 +9,7 @@
   "additionalCommentsTextFieldLabel": "Additional Comments",
   "acceptButtonLabel": "Accept",
   "distanceToServiceLocation": "{meters} meters",
+  "myLocationMarkerTitle": "my-location",
   "@distanceToServiceLocation": {
       "placeholders": {
           "meters": {

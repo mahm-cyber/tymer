@@ -110,7 +110,7 @@ abstract class SignUpLocalizations {
   /// No description provided for @emailTextFieldLabel.
   ///
   /// In en, this message translates to:
-  /// **'Email Address'**
+  /// **'Email'**
   String get emailTextFieldLabel;
 
   /// No description provided for @emailTextFieldHint.

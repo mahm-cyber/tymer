@@ -58,6 +58,7 @@ class _TimePickerState extends State<TimePicker> {
 
   void pickTime() async {
     final time = await showTimePicker(
+
       context: context,
       initialTime: pickedTime == null
           ? TimeOfDay.now()
@@ -112,10 +113,14 @@ class _TimePickerState extends State<TimePicker> {
                 textDirection: TextDirection.ltr,
                 textAlign: isArabic ? TextAlign.right : TextAlign.left,
                 style: TextStyle(
-                  color: widget.initialValue!= null ? null:colorScheme.onSurface,
+                  color: widget.initialValue != null
+                      ? null
+                      : colorScheme.onSurface,
                 ),
                 decoration: InputDecoration(
-                  fillColor: widget.isSubmissionInProgress? null:colorScheme.surface,
+                  fillColor: widget.isSubmissionInProgress
+                      ? null
+                      : colorScheme.surface,
                   disabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: widget.error != null
@@ -125,8 +130,9 @@ class _TimePickerState extends State<TimePicker> {
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  suffixIcon:
-                      pickedTime == null || widget.initialValue!= null ? const Icon(Icons.access_time) : null,
+                  suffixIcon: pickedTime == null || widget.initialValue != null
+                      ? const Icon(Icons.access_time)
+                      : null,
                   labelText: l10n.timeTextFieldLabel,
                   errorText: /*isTimeInPast.value == true
                       ? l10n.timeInPastErrorMessage

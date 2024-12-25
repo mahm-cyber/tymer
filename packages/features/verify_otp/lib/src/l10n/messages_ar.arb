@@ -1,4 +1,5 @@
 {
+  "appBarTitle": "النحقق من رقم الهاتف",
   "verifyOtpTitle": "أدخل الرمز للمتابعة",
   "otpResentSuccessfullySnackBarMessage": "تم إرسال الرمز بنجاح.",
   "otpResentErrorSnackBarMessage": "حدث خطأ أثناء إرسال الرمز.",

@@ -155,6 +155,12 @@ abstract class AcceptServiceRequestLocalizations {
   /// **'{meters} meters'**
   String distanceToServiceLocation(String meters);
 
+  /// No description provided for @myLocationMarkerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'my-location'**
+  String get myLocationMarkerTitle;
+
   /// No description provided for @myLocationInfoWindowTitle.
   ///
   /// In en, this message translates to:

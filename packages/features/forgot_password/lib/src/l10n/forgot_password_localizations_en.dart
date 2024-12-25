@@ -1,14 +1,16 @@
 import 'forgot_password_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for English (`en`).
 class ForgotPasswordLocalizationsEn extends ForgotPasswordLocalizations {
-  ForgotPasswordLocalizationsEn([super.locale = 'en']);
+  ForgotPasswordLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
   String get appBarTitle => 'Forgot Password';
 
   @override
-  String get forgotPasswordTitle => 'Enter your details and we’ll send you an OTP to reset your password';
+  String get forgotPasswordTitle => 'Enter your phone number, and an OTP will be sent to reset your password.';
 
   @override
   String get otpSentSuccessfullySnackBarMessage => 'OTP sent successfully.';
@@ -29,10 +31,10 @@ class ForgotPasswordLocalizationsEn extends ForgotPasswordLocalizations {
   String get forgotPasswordProgressButtonLabel => 'Sending OTP';
 
   @override
-  String get forgotPasswordButtonLabel => 'Reset My Password';
+  String get forgotPasswordButtonLabel => 'Send Code';
 
   @override
-  String get phoneTextFieldLabel => 'Phone';
+  String get phoneTextFieldLabel => 'Phone Number';
 
   @override
   String get invalidPhoneFormatErrorMessage => 'Please enter a valid phone number';

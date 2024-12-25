@@ -13,7 +13,7 @@ class SignUpLocalizationsEn extends SignUpLocalizations {
   String get signInButtonText => 'Sign In';
 
   @override
-  String get emailTextFieldLabel => 'Email Address';
+  String get emailTextFieldLabel => 'Email';
 
   @override
   String get emailTextFieldHint => 'Enter your email';

@@ -34,7 +34,7 @@ class _DayPickerState extends State<DayPicker> {
   void pickDateAndTime() async {
     final date = await showDatePicker(
       context: context,
-      initialDate: pickedDay ?? DateTime.now(),
+      initialDate: pickedDay,
       firstDate: DateTime(1900),
       lastDate: DateTime(2100),
     );

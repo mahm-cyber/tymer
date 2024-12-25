@@ -10,5 +10,5 @@ class InitialLocalizationsAr extends InitialLocalizations {
   String get signInButtonLabel => 'تسجيل الدخول';
 
   @override
-  String get signUpButtonLabel => 'إنشاء حساب';
+  String get signUpButtonLabel => 'إنشاء حساب جديد';
 }

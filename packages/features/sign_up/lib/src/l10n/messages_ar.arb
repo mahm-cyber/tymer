@@ -1,7 +1,7 @@
 {
   "appBarTitle": "إنشاء حساب جديد",
   "signInButtonText": "تسجيل الدخول",
-  "emailTextFieldLabel": "عنوان البريد الإلكتروني",
+  "emailTextFieldLabel": "البريد الإلكتروني",
   "emailTextFieldHint": "أدخل بريدك الإلكتروني",
   "requiredTextFieldErrorMessage": "مطلوب",
   "invalidCredentialsErrorMessage": "بيانات الاعتماد غير صالحة، يرجى المحاولة مرة أخرى",

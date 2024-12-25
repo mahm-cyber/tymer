@@ -95,6 +95,12 @@ abstract class VerifyOtpLocalizations {
     Locale('en')
   ];
 
+  /// No description provided for @appBarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify Phone Number'**
+  String get appBarTitle;
+
   /// No description provided for @verifyOtpTitle.
   ///
   /// In en, this message translates to:
