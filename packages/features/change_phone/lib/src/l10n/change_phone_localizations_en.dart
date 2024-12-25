@@ -40,7 +40,9 @@ class ChangePhoneLocalizationsEn extends ChangePhoneLocalizations {
   String get changePhoneInProgressButtonLabel => 'Signing In';
 
   @override
-  String get otpRateLimitExceededExceptionErrorSnackBarMessage => 'OTP rate limit exceeded, try again later';
+  String otpRateLimitExceededErrorSnackBarMessage(Object seconds) {
+    return 'Maximum number of OTP requests reached. Please try again in $seconds seconds.';
+  }
 
   @override
   String get otpSentSnackBarMessage => 'An OTP has been sent to your phone';

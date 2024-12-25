@@ -161,11 +161,11 @@ abstract class ChangePhoneLocalizations {
   /// **'Signing In'**
   String get changePhoneInProgressButtonLabel;
 
-  /// No description provided for @otpRateLimitExceededExceptionErrorSnackBarMessage.
+  /// No description provided for @otpRateLimitExceededErrorSnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'OTP rate limit exceeded, try again later'**
-  String get otpRateLimitExceededExceptionErrorSnackBarMessage;
+  /// **'Maximum number of OTP requests reached. Please try again in {seconds} seconds.'**
+  String otpRateLimitExceededErrorSnackBarMessage(Object seconds);
 
   /// No description provided for @otpSentSnackBarMessage.
   ///

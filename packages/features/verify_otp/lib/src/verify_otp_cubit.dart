@@ -79,6 +79,7 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
       final resendOtpError = state.copyWith(
         submissionStatus: FormzSubmissionStatus.initial,
         resendOtpStatus: ResendOtpStatus.error,
+        error: error,
       );
       emit(resendOtpError);
     }
@@ -184,13 +185,13 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
     if (isFormValid) {
       try {
         if (isVerificationReasonForgotPassword) {
-          await userRepository.resetPassword(
+          await userRepository.verifyOtpForPasswordReset(
             otp: otpCode.value,
             newPassword: newPassword.value!,
             newPasswordConfirmation: newPassword.value!,
           );
         } else if (isVerificationReasonRegister) {
-          await userRepository.verifyOtpForRegisteration(
+          await userRepository.verifyOtpForRegistration(
             otpCode.value,
           );
           await userRepository.signIn(
@@ -231,6 +232,7 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
               ? FormzSubmissionStatus.failure
               : FormzSubmissionStatus.initial,
           resendOtpStatus: ResendOtpStatus.initial,
+          error: error,
         );
         emit(newState);
       }

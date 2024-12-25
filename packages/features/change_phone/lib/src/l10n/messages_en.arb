@@ -11,7 +11,15 @@
   "changePhoneButtonLabel": "Sign In",
   "changePhoneInProgressButtonLabel": "Signing In",
   "changePhoneButtonLabel": "Submit",
-  "otpRateLimitExceededExceptionErrorSnackBarMessage": "OTP rate limit exceeded, try again later",
+
+ "otpRateLimitExceededErrorSnackBarMessage": "Maximum number of OTP requests reached. Please try again in {seconds} seconds.",
+  "@increment_message": {
+    "placeholders": {
+      "times": {
+        "type": "int"
+      }
+    }
+  },
   "otpSentSnackBarMessage": "An OTP has been sent to your phone"
 
 }

@@ -86,15 +86,18 @@ class _VerifyOtpForm extends StatelessWidget {
             ),
           );
         }
-        if (state.otpCode.limitExceeded != null) {
+        if (state.error is OtpRateLimitExceededException) {
+          final error = state.error as OtpRateLimitExceededException;
           showSnackBar(
             context: context,
             snackBar: ErrorSnackBar(
               context: context,
               message: l10n.otpRateLimitExceededErrorSnackBarMessage(
-                  state.otpCode.limitExceeded!.seconds),
+                error.seconds,
+              ),
             ),
           );
+          return ;
         }
         if (state.resendOtpStatus == ResendOtpStatus.success) {
           showSnackBar(
@@ -105,15 +108,15 @@ class _VerifyOtpForm extends StatelessWidget {
             ),
           );
         }
-        if (state.resendOtpStatus == ResendOtpStatus.error) {
-          showSnackBar(
-            context: context,
-            snackBar: ErrorSnackBar(
-              context: context,
-              message: l10n.otpResentErrorSnackBarMessage,
-            ),
-          );
-        }
+        // if (state.resendOtpStatus == ResendOtpStatus.error) {
+        //   showSnackBar(
+        //     context: context,
+        //     snackBar: ErrorSnackBar(
+        //       context: context,
+        //       message: l10n.otpResentErrorSnackBarMessage,
+        //     ),
+        //   );
+        // }
         if (state.submissionStatus == FormzSubmissionStatus.success) {
           showSnackBar(
             context: context,

@@ -55,5 +55,7 @@ class SignInLocalizationsAr extends SignInLocalizations {
   String get signUpButtonLabel => 'سجل';
 
   @override
-  String get otpRateLimitExceededExceptionErrorSnackBarMessage => 'تجاوز حد الرسائل القصيرة، حاول لاحقا.';
+  String otpRateLimitExceededErrorSnackBarMessage(Object seconds) {
+    return 'لقد وصلت إلى الحد الأقصى لطلبات OTP. يرجى المحاولة مرة أخرى في $seconds ثانية.';
+  }
 }

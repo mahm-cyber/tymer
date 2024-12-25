@@ -16,7 +16,7 @@ class VerifyOtpLocalizationsAr extends VerifyOtpLocalizations {
   String get otpResentErrorSnackBarMessage => 'حدث خطأ أثناء إرسال الرمز.';
 
   @override
-  String get otpVerifiedSuccessfullySnackBarMessage => 'تم تأكيد الرمز بنجاح.';
+  String get otpVerifiedSuccessfullySnackBarMessage => 'تم التحقق من الهاتف بنجاح.';
 
   @override
   String get generalErrorSnackBarMessage => 'حدث خطأ ما';

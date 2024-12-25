@@ -2,7 +2,7 @@
   "verifyOtpTitle": "أدخل الرمز للمتابعة",
   "otpResentSuccessfullySnackBarMessage": "تم إرسال الرمز بنجاح.",
   "otpResentErrorSnackBarMessage": "حدث خطأ أثناء إرسال الرمز.",
-  "otpVerifiedSuccessfullySnackBarMessage": "تم تأكيد الرمز بنجاح.",
+  "otpVerifiedSuccessfullySnackBarMessage": "تم التحقق من الهاتف بنجاح.",
   "generalErrorSnackBarMessage": "حدث خطأ ما",
   "verifyOtpSubtitle": "تم إرسال رمز التحقق إلى",
   "requiredFieldErrorMessage": "مطلوب*",
@@ -29,4 +29,5 @@
           }
         }
       }
+
 }

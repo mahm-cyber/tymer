@@ -116,7 +116,7 @@ abstract class VerifyOtpLocalizations {
   /// No description provided for @otpVerifiedSuccessfullySnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'OTP verified successfully.'**
+  /// **'Phone verified successfully.'**
   String get otpVerifiedSuccessfullySnackBarMessage;
 
   /// No description provided for @generalErrorSnackBarMessage.

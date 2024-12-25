@@ -104,7 +104,7 @@ class UserRepository {
       );
       changeNotifier.setOtpVerification(otpVerification);
     } catch (error) {
-      if(error is IncorrectPasswordTymerException){
+      if (error is IncorrectPasswordTymerException) {
         throw IncorrectPasswordException();
       }
       if (error is RateLimitedTymerException) {
@@ -112,21 +112,19 @@ class UserRepository {
           error.seconds,
         );
       }
-      if(error is PhoneAlreadyRegisteredTymerException){
+      if (error is PhoneAlreadyRegisteredTymerException) {
         throw PhoneAlreadyRegisteredException();
-
       }
       rethrow;
     }
-
-
   }
 
-  Future verifyOtpForChangePhone(String otp) async{
+  Future verifyOtpForChangePhone(String otp) async {
     try {
       await remoteApi.verifyOtpForChangePhone(
         otp: otp,
       );
+      _secureStorage.deleteRememberPhone();
     } catch (error) {
       if (error is InvalidOtpTymerException) {
         throw InvalidOtpException();
@@ -142,7 +140,6 @@ class UserRepository {
       rethrow;
     }
   }
-
 
   Future signIn({
     required String phone,
@@ -230,7 +227,7 @@ class UserRepository {
     }
   }
 
-  Future verifyOtpForRegisteration(
+  Future verifyOtpForRegistration(
     String otp,
   ) async {
     try {
@@ -250,7 +247,7 @@ class UserRepository {
     }
   }
 
-  Future<void> resetPassword({
+  Future<void> verifyOtpForPasswordReset({
     required String otp,
     required String newPassword,
     required String newPasswordConfirmation,
@@ -549,7 +546,6 @@ class UserRepository {
       rethrow;
     }
   }
-
 }
 
 enum FetchPolicy {

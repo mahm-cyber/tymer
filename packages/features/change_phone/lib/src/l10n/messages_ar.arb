@@ -11,6 +11,13 @@
   "changePhoneButtonLabel": "تسجيل الدخول",
   "changePhoneInProgressButtonLabel": "جاري تسجيل الدخول",
   "changePhoneButtonLabel": "إرسال",
-  "otpRateLimitExceededExceptionErrorSnackBarMessage": "تم تجاوز حد طلبات OTP، يرجى المحاولة لاحقًا",
+    "otpRateLimitExceededErrorSnackBarMessage": "لقد وصلت إلى الحد الأقصى لطلبات OTP. يرجى المحاولة مرة أخرى في {seconds} ثانية.",
+    "@increment_message": {
+      "placeholders": {
+        "times": {
+          "type": "int"
+        }
+      }
+    },
     "otpSentSnackBarMessage": "تم إرسال OTP إلى هاتفك"
 }

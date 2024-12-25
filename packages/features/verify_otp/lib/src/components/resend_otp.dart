@@ -1,4 +1,3 @@
-import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:verify_otp/src/l10n/verify_otp_localizations.dart';
@@ -22,9 +21,9 @@ class ResendOtp extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton.icon(
-              onPressed: isResendOtpInProgress || state.resendOtpTotalTime > 0
+              onPressed: /*isResendOtpInProgress || state.resendOtpTotalTime > 0
                   ? null
-                  : cubit.resendOtp,
+                  : */cubit.resendOtp,
               icon: isResendOtpInProgress
                   ? Transform.scale(
                       scale: 0.5,
@@ -33,10 +32,10 @@ class ResendOtp extends StatelessWidget {
                   : const Icon(Icons.refresh),
               label: Text(l10n.resendOtpButtonLabel),
             ),
-            HorizontalGap.medium(),
-            Text(
-              '${(state.resendOtpTotalTime / 60).toInt().floor()}:${(state.resendOtpSecondTimer) < 10 ? state.resendOtpSecondTimer.toStringAsFixed(0).padLeft(2, '0') : state.resendOtpSecondTimer.toStringAsFixed(0)}',
-            ),
+            // HorizontalGap.medium(),
+            // Text(
+            //   '${(state.resendOtpTotalTime / 60).toInt().floor()}:${(state.resendOtpSecondTimer) < 10 ? state.resendOtpSecondTimer.toStringAsFixed(0).padLeft(2, '0') : state.resendOtpSecondTimer.toStringAsFixed(0)}',
+            // ),
           ],
         );
       },

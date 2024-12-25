@@ -15,5 +15,12 @@
   "orLoginWith": "Or login with",
   "dontHaveAnAccount": "Don't have an account?",
   "signUpButtonLabel": "Sign Up",
-  "otpRateLimitExceededExceptionErrorSnackBarMessage": "OTP rate limit exceeded, try again later."
+   "otpRateLimitExceededErrorSnackBarMessage": "Maximum number of OTP requests reached. Please try again in {seconds} seconds.",
+    "@increment_message": {
+      "placeholders": {
+        "times": {
+          "type": "int"
+        }
+      }
+    }
 }

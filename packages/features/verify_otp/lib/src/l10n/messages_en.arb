@@ -2,7 +2,7 @@
   "verifyOtpTitle": "Enter the code to continue",
   "otpResentSuccessfullySnackBarMessage": "OTP resent successfully.",
   "otpResentErrorSnackBarMessage": "Error occurred while resending OTP.",
-  "otpVerifiedSuccessfullySnackBarMessage": "OTP verified successfully.",
+  "otpVerifiedSuccessfullySnackBarMessage": "Phone verified successfully.",
   "generalErrorSnackBarMessage": "An error occurred.",
   "verifyOtpSubtitle": "A verification code has been sent to",
   "requiredFieldErrorMessage": "Required*",

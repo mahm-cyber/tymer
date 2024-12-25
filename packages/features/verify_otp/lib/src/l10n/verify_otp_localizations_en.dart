@@ -16,7 +16,7 @@ class VerifyOtpLocalizationsEn extends VerifyOtpLocalizations {
   String get otpResentErrorSnackBarMessage => 'Error occurred while resending OTP.';
 
   @override
-  String get otpVerifiedSuccessfullySnackBarMessage => 'OTP verified successfully.';
+  String get otpVerifiedSuccessfullySnackBarMessage => 'Phone verified successfully.';
 
   @override
   String get generalErrorSnackBarMessage => 'An error occurred.';

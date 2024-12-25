@@ -68,11 +68,14 @@ class _ChangePhoneForm extends StatelessWidget {
         final l10n = ChangePhoneLocalizations.of(context);
 
         if (state.error is OtpRateLimitExceededException) {
+          final error = state.error as OtpRateLimitExceededException;
           showSnackBar(
             context: context,
             snackBar: ErrorSnackBar(
               context: context,
-              message: l10n.otpRateLimitExceededExceptionErrorSnackBarMessage,
+              message: l10n.otpRateLimitExceededErrorSnackBarMessage(
+                error.seconds,
+              ),
             ),
           );
           return;

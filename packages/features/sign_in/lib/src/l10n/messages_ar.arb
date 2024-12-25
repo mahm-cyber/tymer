@@ -15,5 +15,14 @@
   "orLoginWith": "أو تسجيل الدخول بواسطة",
   "dontHaveAnAccount": "ليس لديك حساب؟",
   "signUpButtonLabel": "سجل",
-  "otpRateLimitExceededExceptionErrorSnackBarMessage": "تجاوز حد الرسائل القصيرة، حاول لاحقا."
+    "otpRateLimitExceededErrorSnackBarMessage": "لقد وصلت إلى الحد الأقصى لطلبات OTP. يرجى المحاولة مرة أخرى في {seconds} ثانية.",
+      "@increment_message": {
+        "placeholders": {
+          "times": {
+            "type": "int",
+            "format": "decimalPattern",
+            "example": "123"
+          }
+        }
+      }
 }
