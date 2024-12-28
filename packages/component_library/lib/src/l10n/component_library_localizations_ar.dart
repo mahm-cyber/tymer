@@ -162,13 +162,13 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
   String get eyptianPoundLetters => 'ج.م';
 
   @override
-  String get refundedRequesterLabel => 'تم الاسترجاع';
+  String get refundedRequesterLabel => 'تم الاسترداد';
 
   @override
   String get deniedRequesterLabel => 'مرفوض';
 
   @override
-  String get providerLostDisputeLabel => 'تم الاسترجاع';
+  String get providerLostDisputeLabel => 'تم الاسترداد';
 
   @override
   String get providerWonDisputeLabel => 'مرفوض';

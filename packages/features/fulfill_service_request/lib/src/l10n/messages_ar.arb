@@ -14,10 +14,10 @@
   "serviceRequestFailureMessage": "فشل، حاول مرة أخرى",
   "backHomeButtonLabel": "العودة إلى الصفحة الرئيسية",
   "serviceFeesContainerLabel": "رسوم الخدمة",
-  "awaitingConfirmationButtonLabel": "جارى التأكيد",
+  "awaitingConfirmationButtonLabel": "في انتظار التأكيد",
   "continueWaitingButtonLabel": "متابعة الانتظار",
   "provideAnotherServiceButtonLabel": "تقديم خدمة أخرى",
-  "serviceDisputedSnackBarMessage": "تم نزاع على الخدمة، وتم إنشاء محادثة مع الإدارة",
+  "serviceDisputedSnackBarMessage": "تم النزاع على الخدمة، وتم إنشاء محادثة مع الإدارة",
   "imageSizeExceedsLimitErrorTextFieldMessage": "يجب أن يكون حجم الصورة 1 ميجابايت أو أقل"
 
 

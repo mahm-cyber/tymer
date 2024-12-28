@@ -1,7 +1,5 @@
 import 'change_password_localizations.dart';
 
-// ignore_for_file: type=lint
-
 /// The translations for English (`en`).
 class ChangePasswordLocalizationsEn extends ChangePasswordLocalizations {
   ChangePasswordLocalizationsEn([String locale = 'en']) : super(locale);
@@ -16,10 +14,10 @@ class ChangePasswordLocalizationsEn extends ChangePasswordLocalizations {
   String get incorrectPasswordErrorMessage => 'Incorrect password, please try again';
 
   @override
-  String get passwordTextFieldLabel => 'Password';
+  String get passwordTextFieldLabel => 'Current Password';
 
   @override
-  String get passwordTextFieldHint => 'Enter your password';
+  String get passwordTextFieldHint => 'Enter your current password';
 
   @override
   String get newPasswordTextFieldLabel => 'New Password';

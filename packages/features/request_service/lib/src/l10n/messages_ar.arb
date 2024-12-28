@@ -12,7 +12,7 @@
   "pricePickerTextFieldLabel": "السعر*",
   "requestServiceButtonInProgressLabel": "جاري الطلب...",
   "requestServiceButtonLabel": "طلب الخدمة",
-  "insufficientBalanceMessage": "رصيدك غير كاف. يرجى تعبئة الرصيد.",
+  "insufficientBalanceMessage": "رصيدك غير كافي",
   "addFundsButtonLabel": "اذهب إلى المحفظة",
     "successfulServiceRequestMessage": "تم طلب الخدمة بنجاح",
     "selectServiceTypeLabel": "اختر نوع الخدمة",

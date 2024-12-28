@@ -57,6 +57,7 @@ class FulfillServiceRequestView extends StatelessWidget {
     final colorScheme = theme.materialThemeData.colorScheme;
     final l10n = FulfillServiceRequestLocalizations.of(context);
     final clL10n = ComponentLibraryLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
     return BlocConsumer<FulfillServiceRequestCubit, FulfillServiceRequestState>(
       listenWhen: (previous, current) =>
           previous.isImagePickerBottomSheetVisible !=
@@ -130,20 +131,29 @@ class FulfillServiceRequestView extends StatelessWidget {
             state.service?.status == ServiceStatus.pendingReview) {
           //dialog asking if they want to provide another service or wait for confirmation
           showDialog(
+              useRootNavigator: false,
               context: context,
               builder: (context) {
                 return AlertDialog(
-                  title: Text(l10n.awaitingConfirmationButtonLabel),
+                  title: Text(
+                    l10n.awaitingConfirmationButtonLabel,
+                    style: textTheme.titleLarge,
+                  ),
+                  // actionsAlignment: MainAxisAlignment.center,
                   actions: [
-                    TextButton(
-                      onPressed: () {
+                    TymerElevatedButton(
+                      onTap: cubit.onNavigateToProvideService,
+                      label: (l10n.provideAnotherServiceButtonLabel),
+                    ),
+                    VerticalGap.medium(),
+                    TymerElevatedButton(
+                      bgColor: colorScheme.surface,
+                      borderColor: theme.borderColor,
+                      labelColor: colorScheme.onSurface,
+                      onTap: () {
                         Navigator.pop(context);
                       },
-                      child: Text(l10n.continueWaitingButtonLabel),
-                    ),
-                    TextButton(
-                      onPressed: cubit.onNavigateToProvideService,
-                      child: Text(l10n.provideAnotherServiceButtonLabel),
+                      label: (l10n.continueWaitingButtonLabel),
                     ),
                   ],
                 );

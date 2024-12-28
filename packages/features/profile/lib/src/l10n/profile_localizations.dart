@@ -8,8 +8,6 @@ import 'package:intl/intl.dart' as intl;
 import 'profile_localizations_ar.dart';
 import 'profile_localizations_en.dart';
 
-// ignore_for_file: type=lint
-
 /// Callers can lookup localized strings with an instance of ProfileLocalizations
 /// returned by `ProfileLocalizations.of(context)`.
 ///
@@ -152,7 +150,7 @@ abstract class ProfileLocalizations {
   /// No description provided for @changePhoneTileTitle.
   ///
   /// In en, this message translates to:
-  /// **'Change Phone'**
+  /// **'Change Phone Number'**
   String get changePhoneTileTitle;
 }
 

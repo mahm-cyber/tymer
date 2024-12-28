@@ -63,12 +63,14 @@ class ProfileView extends StatelessWidget {
           ),
           body: ListView(
             children: [
-              VerticalGap.large(),
+              // VerticalGap.large(),
               ListTile(
+
                 titleTextStyle: textTheme.titleMedium,
-                title: Text(l10n.greetingTileTitle),
+                title: Text('👋 ${l10n.greetingTileTitle}'),
                 subtitle: Text(state.user?.name ?? ''),
-                tileColor: theme.borderColor,
+                tileColor: theme.borderColor.withAlpha((255*0.3).toInt()),
+                // contentPadding: const EdgeInsets.symmetric(vertical: 0),
               ),
               // ListTile(
               //   leading: const SvgAsset(AssetPathConstants.profilePath),
@@ -119,6 +121,7 @@ class ProfileView extends StatelessWidget {
                 title: Text(l10n.changeLanguageTileTitle),
                 trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () => showModalBottomSheet(
+                  useRootNavigator: false,
                   backgroundColor: theme.primaryColor,
                   context: context,
                   builder: (_) => Column(

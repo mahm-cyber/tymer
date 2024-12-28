@@ -8,8 +8,6 @@ import 'package:intl/intl.dart' as intl;
 import 'request_service_localizations_ar.dart';
 import 'request_service_localizations_en.dart';
 
-// ignore_for_file: type=lint
-
 /// Callers can lookup localized strings with an instance of RequestServiceLocalizations
 /// returned by `RequestServiceLocalizations.of(context)`.
 ///
@@ -176,7 +174,7 @@ abstract class RequestServiceLocalizations {
   /// No description provided for @insufficientBalanceMessage.
   ///
   /// In en, this message translates to:
-  /// **'Your balance is insufficient. Please top up'**
+  /// **'Your balance is insufficient.'**
   String get insufficientBalanceMessage;
 
   /// No description provided for @addFundsButtonLabel.

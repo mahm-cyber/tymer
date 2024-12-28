@@ -8,8 +8,6 @@ import 'package:intl/intl.dart' as intl;
 import 'wallet_localizations_ar.dart';
 import 'wallet_localizations_en.dart';
 
-// ignore_for_file: type=lint
-
 /// Callers can lookup localized strings with an instance of WalletLocalizations
 /// returned by `WalletLocalizations.of(context)`.
 ///

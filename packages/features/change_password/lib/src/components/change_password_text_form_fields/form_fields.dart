@@ -23,7 +23,7 @@ class FormFields extends StatelessWidget {
           children: [
             const SvgAsset(
               AssetPathConstants.logoAndWordPath,
-              width: 60,
+              width: 100,
             ),
             VerticalGap.large(),
             VerticalGap.large(),

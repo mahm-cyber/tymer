@@ -1,7 +1,5 @@
 import 'sign_up_localizations.dart';
 
-// ignore_for_file: type=lint
-
 /// The translations for Arabic (`ar`).
 class SignUpLocalizationsAr extends SignUpLocalizations {
   SignUpLocalizationsAr([String locale = 'ar']) : super(locale);

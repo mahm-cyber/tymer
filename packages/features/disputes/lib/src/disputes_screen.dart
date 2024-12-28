@@ -200,7 +200,7 @@ class DisputesView extends StatelessWidget {
                                       color: resolution.color,
                                       label: resolution.label,
                                     ),
-                                    height: 110,
+                                    height: 80,
                                   ),
                                   if (isLastItem) VerticalGap.large(),
                                 ],

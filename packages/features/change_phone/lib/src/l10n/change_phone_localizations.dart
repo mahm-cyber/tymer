@@ -8,8 +8,6 @@ import 'package:intl/intl.dart' as intl;
 import 'change_phone_localizations_ar.dart';
 import 'change_phone_localizations_en.dart';
 
-// ignore_for_file: type=lint
-
 /// Callers can lookup localized strings with an instance of ChangePhoneLocalizations
 /// returned by `ChangePhoneLocalizations.of(context)`.
 ///
@@ -98,7 +96,7 @@ abstract class ChangePhoneLocalizations {
   /// No description provided for @appBarTitle.
   ///
   /// In en, this message translates to:
-  /// **'Change Phone'**
+  /// **'Change Phone Number'**
   String get appBarTitle;
 
   /// No description provided for @generalErrorSnackBarMessage.
@@ -122,7 +120,7 @@ abstract class ChangePhoneLocalizations {
   /// No description provided for @phoneTextFieldLabel.
   ///
   /// In en, this message translates to:
-  /// **'New Phone'**
+  /// **'New Phone Number'**
   String get phoneTextFieldLabel;
 
   /// No description provided for @phoneTextFieldHint.
@@ -146,7 +144,7 @@ abstract class ChangePhoneLocalizations {
   /// No description provided for @passwordTextFieldLabel.
   ///
   /// In en, this message translates to:
-  /// **'Password'**
+  /// **'Current Password'**
   String get passwordTextFieldLabel;
 
   /// No description provided for @changePhoneButtonLabel.

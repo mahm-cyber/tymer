@@ -57,9 +57,9 @@
   "serviceResponseDetailsTileTitle": "تفاصيل الرد",
   "noInternetConnectionSnackBarErrorMessage": "لا يوجد اتصال بالإنترنت. يرجى التحقق من إعدادات الشبكة.",
   "eyptianPoundLetters": "ج.م",
-   "refundedRequesterLabel": "تم الاسترجاع",
+   "refundedRequesterLabel": "تم الاسترداد",
    "deniedRequesterLabel": "مرفوض",
-   "providerLostDisputeLabel": "تم الاسترجاع",
+   "providerLostDisputeLabel": "تم الاسترداد",
    "providerWonDisputeLabel": "مرفوض"
 
 

@@ -1,6 +1,6 @@
 {
-  "disputeSuccessMessage": "Dispute submitted successfully",
-  "disputeErrorMessage": "Error submitting dispute",
+  "disputeSuccessMessage": "Dispute requested successfully",
+  "disputeErrorMessage": "Error requesting dispute",
   "disputeMessageLabel": "Dispute Reason",
   "disputeButtonLabel": "Confirm"
 

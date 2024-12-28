@@ -1,7 +1,5 @@
 import 'profile_localizations.dart';
 
-// ignore_for_file: type=lint
-
 /// The translations for English (`en`).
 class ProfileLocalizationsEn extends ProfileLocalizations {
   ProfileLocalizationsEn([String locale = 'en']) : super(locale);
@@ -34,5 +32,5 @@ class ProfileLocalizationsEn extends ProfileLocalizations {
   String get changePasswordTileTitle => 'Change Password';
 
   @override
-  String get changePhoneTileTitle => 'Change Phone';
+  String get changePhoneTileTitle => 'Change Phone Number';
 }

@@ -53,9 +53,10 @@ class MessagesList extends StatelessWidget {
                               return Column(
                                 children: [
                                   Text(
-                                    intl.DateFormat('yyyy-MM-dd')
+                                    intl.DateFormat('dd-MM-yyyy')
                                         .format(chat.date)
                                         .localizeDateString(locale),
+                                    textDirection: TextDirection.rtl,
                                     style: textTheme.titleMedium
                                         ?.copyWith(fontWeight: FontWeight.bold),
                                   ),

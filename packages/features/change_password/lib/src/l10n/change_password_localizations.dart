@@ -8,8 +8,6 @@ import 'package:intl/intl.dart' as intl;
 import 'change_password_localizations_ar.dart';
 import 'change_password_localizations_en.dart';
 
-// ignore_for_file: type=lint
-
 /// Callers can lookup localized strings with an instance of ChangePasswordLocalizations
 /// returned by `ChangePasswordLocalizations.of(context)`.
 ///
@@ -116,13 +114,13 @@ abstract class ChangePasswordLocalizations {
   /// No description provided for @passwordTextFieldLabel.
   ///
   /// In en, this message translates to:
-  /// **'Password'**
+  /// **'Current Password'**
   String get passwordTextFieldLabel;
 
   /// No description provided for @passwordTextFieldHint.
   ///
   /// In en, this message translates to:
-  /// **'Enter your password'**
+  /// **'Enter your current password'**
   String get passwordTextFieldHint;
 
   /// No description provided for @newPasswordTextFieldLabel.

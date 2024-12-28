@@ -1,7 +1,5 @@
 import 'request_service_localizations.dart';
 
-// ignore_for_file: type=lint
-
 /// The translations for English (`en`).
 class RequestServiceLocalizationsEn extends RequestServiceLocalizations {
   RequestServiceLocalizationsEn([String locale = 'en']) : super(locale);
@@ -46,7 +44,7 @@ class RequestServiceLocalizationsEn extends RequestServiceLocalizations {
   String get requestServiceButtonLabel => 'Request Service';
 
   @override
-  String get insufficientBalanceMessage => 'Your balance is insufficient. Please top up';
+  String get insufficientBalanceMessage => 'Your balance is insufficient.';
 
   @override
   String get addFundsButtonLabel => 'Go to Wallet';

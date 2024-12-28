@@ -8,8 +8,6 @@ import 'package:intl/intl.dart' as intl;
 import 'tab_container_localizations_ar.dart';
 import 'tab_container_localizations_en.dart';
 
-// ignore_for_file: type=lint
-
 /// Callers can lookup localized strings with an instance of TabContainerLocalizations
 /// returned by `TabContainerLocalizations.of(context)`.
 ///

@@ -6,16 +6,11 @@
     "deleteFileIconLabel": "حذف",
     "noMessagesIndicator": "لا توجد رسائل بعد",
     "messageSentByMeCardTitle": "أنت",
-    "chargedBackSnackBarMessage": "تم استرداد أموالك",
     "deniedSnackBarMessage": "تم رفض طلبك",
-    "refundedRequesterSnackBarMessage": "تم استرجاع أموالك",
-    "refundedRequesterSnackBarLabel": "تم الاسترجاع",
+    "refundedRequesterSnackBarMessage": "تم استرداد أموالك",
     "deniedRequesterSnackBarMessage": "تم رفض طلبك",
-    "deniedRequesterSnackBarLabel": "مرفوض",
-    "providerLostDisputeSnackBarMessage": "تم استرجاع المال طالب الخدمه",
-    "providerLostDisputeSnackBarLabel": "تم الاسترجاع",
-    "providerWonDisputeSnackBarMessage": "تم رفض نزاع طالب الخدمه",
-    "providerWonDisputeSnackBarLabel": "مرفوض",
+    "providerLostDisputeSnackBarMessage": "تم استرداد الأموال لطالب الخدمة",
+    "providerWonDisputeSnackBarMessage": "تم رفض النزاع الخاص بطالب الخدمة",
   "attachmentSizeExceedsLimitErrorSnackBarMessage": "يجب أن يكون حجم المرفق 1 ميجابايت أو أقل"
 
 }

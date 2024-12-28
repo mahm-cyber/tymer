@@ -1,13 +1,13 @@
 {
-  "appBarTitle": "Change Phone",
+  "appBarTitle": "Change Phone Number",
   "generalErrorSnackBarMessage": "Something went wrong",
   "incorrectPasswordErrorMessage": "Incorrect password, please try again",
   "requiredFieldErrorMessage": "Required*",
-  "phoneTextFieldLabel": "New Phone",
+  "phoneTextFieldLabel": "New Phone Number",
   "phoneTextFieldHint": "Enter your new phone number",
   "invalidPhoneFormatErrorMessage": "Please enter a valid phone number",
   "phoneIsAlreadyRegisteredErrorMessage": "Phone is already registered",
-  "passwordTextFieldLabel": "Password",
+  "passwordTextFieldLabel": "Current Password",
   "changePhoneButtonLabel": "Sign In",
   "changePhoneInProgressButtonLabel": "Signing In",
   "changePhoneButtonLabel": "Submit",
@@ -21,5 +21,4 @@
     }
   },
   "otpSentSnackBarMessage": "An OTP has been sent to your phone"
-
 }

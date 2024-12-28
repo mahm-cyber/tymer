@@ -12,7 +12,7 @@
   "pricePickerTextFieldLabel": "Price",
   "requestServiceButtonInProgressLabel": "Requesting...",
   "requestServiceButtonLabel": "Request Service",
-  "insufficientBalanceMessage": "Your balance is insufficient. Please top up",
+  "insufficientBalanceMessage": "Your balance is insufficient.",
   "addFundsButtonLabel": "Go to Wallet",
     "successfulServiceRequestMessage": "Request successfully submitted",
     "selectServiceTypeLabel": "Select Service Type",

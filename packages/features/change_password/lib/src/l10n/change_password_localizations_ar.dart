@@ -1,7 +1,5 @@
 import 'change_password_localizations.dart';
 
-// ignore_for_file: type=lint
-
 /// The translations for Arabic (`ar`).
 class ChangePasswordLocalizationsAr extends ChangePasswordLocalizations {
   ChangePasswordLocalizationsAr([String locale = 'ar']) : super(locale);
@@ -16,16 +14,16 @@ class ChangePasswordLocalizationsAr extends ChangePasswordLocalizations {
   String get incorrectPasswordErrorMessage => 'كلمة المرور غير صحيحة، يرجى المحاولة مرة أخرى';
 
   @override
-  String get passwordTextFieldLabel => 'كلمة المرور';
+  String get passwordTextFieldLabel => 'كلمة المرور الحالية';
 
   @override
-  String get passwordTextFieldHint => 'أدخل كلمة المرور الخاصة بك';
+  String get passwordTextFieldHint => 'أدخل كلمة المرور الحالية';
 
   @override
-  String get newPasswordTextFieldLabel => 'كلمة مرور جديدة';
+  String get newPasswordTextFieldLabel => 'كلمة المرور الجديدة';
 
   @override
-  String get newPasswordTextFieldHint => 'أدخل كلمة المرور الجديدة الخاصة بك';
+  String get newPasswordTextFieldHint => 'أدخل كلمة المرور الجديدة';
 
   @override
   String get newPasswordWeakErrorMessage => 'كلمة المرور الجديدة ضعيفة جدًا';

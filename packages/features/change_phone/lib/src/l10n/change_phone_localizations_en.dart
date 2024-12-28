@@ -1,13 +1,11 @@
 import 'change_phone_localizations.dart';
 
-// ignore_for_file: type=lint
-
 /// The translations for English (`en`).
 class ChangePhoneLocalizationsEn extends ChangePhoneLocalizations {
   ChangePhoneLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appBarTitle => 'Change Phone';
+  String get appBarTitle => 'Change Phone Number';
 
   @override
   String get generalErrorSnackBarMessage => 'Something went wrong';
@@ -19,7 +17,7 @@ class ChangePhoneLocalizationsEn extends ChangePhoneLocalizations {
   String get requiredFieldErrorMessage => 'Required*';
 
   @override
-  String get phoneTextFieldLabel => 'New Phone';
+  String get phoneTextFieldLabel => 'New Phone Number';
 
   @override
   String get phoneTextFieldHint => 'Enter your new phone number';
@@ -31,7 +29,7 @@ class ChangePhoneLocalizationsEn extends ChangePhoneLocalizations {
   String get phoneIsAlreadyRegisteredErrorMessage => 'Phone is already registered';
 
   @override
-  String get passwordTextFieldLabel => 'Password';
+  String get passwordTextFieldLabel => 'Current Password';
 
   @override
   String get changePhoneButtonLabel => 'Submit';

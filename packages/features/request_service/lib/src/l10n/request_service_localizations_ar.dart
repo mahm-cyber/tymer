@@ -1,7 +1,5 @@
 import 'request_service_localizations.dart';
 
-// ignore_for_file: type=lint
-
 /// The translations for Arabic (`ar`).
 class RequestServiceLocalizationsAr extends RequestServiceLocalizations {
   RequestServiceLocalizationsAr([String locale = 'ar']) : super(locale);
@@ -46,7 +44,7 @@ class RequestServiceLocalizationsAr extends RequestServiceLocalizations {
   String get requestServiceButtonLabel => 'طلب الخدمة';
 
   @override
-  String get insufficientBalanceMessage => 'رصيدك غير كاف. يرجى تعبئة الرصيد.';
+  String get insufficientBalanceMessage => 'رصيدك غير كافي';
 
   @override
   String get addFundsButtonLabel => 'اذهب إلى المحفظة';

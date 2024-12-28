@@ -11,7 +11,7 @@
 
     "providerLostDisputeSnackBarMessage": "Money has been refunded to the requester",
     "providerWonDisputeSnackBarMessage": "The requester's dispute was rejected",
-  "attachmentSizeExceedsLimitErrorSnackBarMessage": "Attachment size should be 1MB or less"
+    "attachmentSizeExceedsLimitErrorSnackBarMessage": "Attachment size should be 1MB or less"
 
 
 }

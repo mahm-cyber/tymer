@@ -1,12 +1,12 @@
 {
   "appBarTitle": "حسابى",
   "myProfileTileTitle": "حسابى",
-  "greetingTileTitle": "مرحبا",
+  "greetingTileTitle": "مرحباً",
   "settingsTileTitle": "الإعدادات",
   "notificationsTileTitle": "الإشعارات",
   "infoTileTitle": "معلومات",
   "changeLanguageTileTitle": "اللغة",
   "logoutTileTitle": "تسجيل الخروج",
     "changePasswordTileTitle": "تغيير كلمة المرور",
-  "changePhoneTileTitle": "تغيير الهاتف"
+  "changePhoneTileTitle": "تغيير رقم الهاتف"
 }

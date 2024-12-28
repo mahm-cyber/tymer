@@ -1,7 +1,5 @@
 import 'profile_localizations.dart';
 
-// ignore_for_file: type=lint
-
 /// The translations for Arabic (`ar`).
 class ProfileLocalizationsAr extends ProfileLocalizations {
   ProfileLocalizationsAr([String locale = 'ar']) : super(locale);
@@ -13,7 +11,7 @@ class ProfileLocalizationsAr extends ProfileLocalizations {
   String get myProfileTileTitle => 'حسابى';
 
   @override
-  String get greetingTileTitle => 'مرحبا';
+  String get greetingTileTitle => 'مرحباً';
 
   @override
   String get settingsTileTitle => 'الإعدادات';
@@ -34,5 +32,5 @@ class ProfileLocalizationsAr extends ProfileLocalizations {
   String get changePasswordTileTitle => 'تغيير كلمة المرور';
 
   @override
-  String get changePhoneTileTitle => 'تغيير الهاتف';
+  String get changePhoneTileTitle => 'تغيير رقم الهاتف';
 }

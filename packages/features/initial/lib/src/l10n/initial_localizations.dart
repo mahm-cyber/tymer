@@ -8,8 +8,6 @@ import 'package:intl/intl.dart' as intl;
 import 'initial_localizations_ar.dart';
 import 'initial_localizations_en.dart';
 
-// ignore_for_file: type=lint
-
 /// Callers can lookup localized strings with an instance of InitialLocalizations
 /// returned by `InitialLocalizations.of(context)`.
 ///

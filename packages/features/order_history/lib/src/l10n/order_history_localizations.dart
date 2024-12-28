@@ -8,8 +8,6 @@ import 'package:intl/intl.dart' as intl;
 import 'order_history_localizations_ar.dart';
 import 'order_history_localizations_en.dart';
 
-// ignore_for_file: type=lint
-
 /// Callers can lookup localized strings with an instance of OrderHistoryLocalizations
 /// returned by `OrderHistoryLocalizations.of(context)`.
 ///

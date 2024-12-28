@@ -1,7 +1,5 @@
 import 'fulfill_service_request_localizations.dart';
 
-// ignore_for_file: type=lint
-
 /// The translations for Arabic (`ar`).
 class FulfillServiceRequestLocalizationsAr extends FulfillServiceRequestLocalizations {
   FulfillServiceRequestLocalizationsAr([String locale = 'ar']) : super(locale);
@@ -49,7 +47,7 @@ class FulfillServiceRequestLocalizationsAr extends FulfillServiceRequestLocaliza
   String get serviceFeesContainerLabel => 'رسوم الخدمة';
 
   @override
-  String get awaitingConfirmationButtonLabel => 'جارى التأكيد';
+  String get awaitingConfirmationButtonLabel => 'في انتظار التأكيد';
 
   @override
   String get continueWaitingButtonLabel => 'متابعة الانتظار';
@@ -58,7 +56,7 @@ class FulfillServiceRequestLocalizationsAr extends FulfillServiceRequestLocaliza
   String get provideAnotherServiceButtonLabel => 'تقديم خدمة أخرى';
 
   @override
-  String get serviceDisputedSnackBarMessage => 'تم نزاع على الخدمة، وتم إنشاء محادثة مع الإدارة';
+  String get serviceDisputedSnackBarMessage => 'تم النزاع على الخدمة، وتم إنشاء محادثة مع الإدارة';
 
   @override
   String get imageSizeExceedsLimitErrorTextFieldMessage => 'يجب أن يكون حجم الصورة 1 ميجابايت أو أقل';

@@ -8,8 +8,6 @@ import 'package:intl/intl.dart' as intl;
 import 'confirm_dispute_localizations_ar.dart';
 import 'confirm_dispute_localizations_en.dart';
 
-// ignore_for_file: type=lint
-
 /// Callers can lookup localized strings with an instance of ConfirmDisputeLocalizations
 /// returned by `ConfirmDisputeLocalizations.of(context)`.
 ///
@@ -98,13 +96,13 @@ abstract class ConfirmDisputeLocalizations {
   /// No description provided for @disputeSuccessMessage.
   ///
   /// In en, this message translates to:
-  /// **'Dispute submitted successfully'**
+  /// **'Dispute requested successfully'**
   String get disputeSuccessMessage;
 
   /// No description provided for @disputeErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'Error submitting dispute'**
+  /// **'Error requesting dispute'**
   String get disputeErrorMessage;
 
   /// No description provided for @disputeMessageLabel.
