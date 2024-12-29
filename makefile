@@ -140,7 +140,7 @@ gen-l10n:
 	for feature in $(FEATURES); do \
 		cd $${feature} ; \
 		echo "Running gen-l10n on $${feature}" ; \
-		flutter gen-l10n ; \
+		fvm flutter gen-l10n ; \
 		cd ../../../ ; \
 	done
 
