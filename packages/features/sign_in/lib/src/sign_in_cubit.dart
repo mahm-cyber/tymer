@@ -105,7 +105,6 @@ class SignInCubit extends Cubit<SignInState> {
     emit(state.copyWith(shouldRememberCredentials: shouldRememberCredentials));
   }
 
-
   Future getRememberMeFromCache() async {
     final rememberMeLoading = state.copyWith(rememberMeLoading: true);
     emit(rememberMeLoading);
@@ -116,7 +115,6 @@ class SignInCubit extends Cubit<SignInState> {
     final rememberMeLoadingDone = state.copyWith(rememberMeLoading: false);
     emit(rememberMeLoadingDone);
   }
-
 
   void onSubmit() async {
     final phone = Mobile.validated(
@@ -166,17 +164,16 @@ class SignInCubit extends Cubit<SignInState> {
             password: password.value!,
           );
         }
-        userRepository.sendFcmToken();
       } catch (error) {
         final newState = state.copyWith(
           password: Password.validated(password.value,
               invalidCredentials:
-              error is InvalidCredentialsException ? true : false,
+                  error is InvalidCredentialsException ? true : false,
               shouldCheckStrength: false),
           phone: Mobile.validated(
             phone.value,
             invalidCredentials:
-            error is InvalidCredentialsException ? true : false,
+                error is InvalidCredentialsException ? true : false,
             unVerified: error is PhoneNotVerifiedException ? true : false,
           ),
           submissionStatus: FormzSubmissionStatus.initial,
@@ -186,7 +183,6 @@ class SignInCubit extends Cubit<SignInState> {
       }
     }
   }
-
 
 // @override
 // Future<void> close() async {

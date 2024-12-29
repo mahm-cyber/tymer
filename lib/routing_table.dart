@@ -119,7 +119,6 @@ Map<String, PageBuilder> buildRoutingTable({
             userRepository: userRepository,
             onBackTapped: () {
               routerDelegate.popRoute();
-              routerDelegate.popRoute();
             },
             onRegistrationVerifyOtpSuccess: () async {
               await routerDelegate.popRoute();

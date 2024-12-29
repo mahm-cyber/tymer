@@ -169,13 +169,7 @@ class UserRepository {
       final userRM = await remoteApi.getUser();
 
       final isPhoneVerified = userRM.phoneVerifiedAt != null;
-      final userDM = userRM.toDomainModel();
-      await _secureStorage.upsertUser(
-        id: userRM.id,
-        name: userRM.name,
-        email: userRM.email,
-        phone: userRM.phone,
-      );
+
 
       if (!isPhoneVerified) {
         await reSendOtp();
@@ -186,9 +180,16 @@ class UserRepository {
         changeNotifier.setOtpVerification(otpVerification);
         throw PhoneNotVerifiedException();
       }
+      await _secureStorage.upsertUser(
+        id: userRM.id,
+        name: userRM.name,
+        email: userRM.email,
+        phone: userRM.phone,
+      );
       final language = userRM.language;
       final localePreference = strToLocalePreferenceDM(language);
       await upsertLocalePreference(localePreference);
+      final userDM = userRM.toDomainModel();
       _userSubject.add(
         userDM,
       );
@@ -205,13 +206,7 @@ class UserRepository {
     }
   }
 
-  Future sendFcmToken() async {
-    try {
-      await remoteApi.sendFcmToken();
-    } catch (error) {
-      rethrow;
-    }
-  }
+
 
   Future requestOtpForSignUp({
     required String email,

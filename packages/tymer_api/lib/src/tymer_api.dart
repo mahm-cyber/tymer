@@ -70,8 +70,18 @@ class TymerApi {
       phone: '+2$phone',
       password: password,
     ).toJson();
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    final isAndroid = Platform.isAndroid;
+    final androidInfo = isAndroid ? await deviceInfo.androidInfo : null;
+    final isHuwaei =
+        androidInfo?.manufacturer.toLowerCase().contains('huawei') == true;
+
+    final token =
+    isHuwaei ? '' : await FirebaseMessaging.instance.getToken();
     final requestJsonBodyWithRemember = {
       ...requestJsonBody,
+      'token_type': isHuwaei ? 'huwaei' : 'fcm',
+      'token': token,
       'remember': true,
     };
     try {
@@ -94,30 +104,6 @@ class TymerApi {
     }
   }
 
-  Future sendFcmToken() async {
-    final url = urlBuilder.buildSendFcmTokenUrl();
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    final isAndroid = Platform.isAndroid;
-    final androidInfo = isAndroid ? await deviceInfo.androidInfo : null;
-    final isHuwaei =
-        androidInfo?.manufacturer.toLowerCase().contains('huawei') == true;
-
-    final token =
-        isHuwaei ? '' : await FirebaseMessaging.instance.getToken();
-    debugPrint('FCMTOKEN: $token');
-    final requestJsonBody = {
-      'token_type': isHuwaei ? 'huwaei' : 'fcm',
-      'token': token
-    };
-    try {
-      await _dio.post(
-        url,
-        data: requestJsonBody,
-      );
-    } catch (_) {
-      rethrow;
-    }
-  }
 
   Future signOut() async {
     final url = urlBuilder.buildSignOutUrl();
@@ -196,9 +182,10 @@ class TymerApi {
     final url = urlBuilder.buildReSendOtpUrl();
 
     try {
-      await _dio.post(
+      final response = await _dio.post(
         url,
       );
+      debugPrint(response.toString());
     } on DioException catch (error) {
       final errorObject = error.response?.data[_errorJsonKey];
 
