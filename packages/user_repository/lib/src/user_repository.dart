@@ -533,7 +533,7 @@ class UserRepository {
         }
       }
 
-      // await Future.delayed(const Duration(milliseconds: 10));
+      await Future.delayed(const Duration(milliseconds: 10));
       final locationData = await location.getLocation();
       return locationData;
     } catch (error) {
