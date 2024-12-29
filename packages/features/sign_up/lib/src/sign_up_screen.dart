@@ -91,25 +91,31 @@ class SignUpView extends StatelessWidget {
             showDragHandle: true,
             isScrollControlled: true,
             useSafeArea: true,
-            builder: (context) => Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    l10n.termsAndConditionsBottomSheetTitle,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  Expanded(
-                    child: Markdown(
-                      data: isArabic
-                          ? state.termsAndConditions!.arMarkdown
-                          : state.termsAndConditions!.enMarkdown,
+            builder: (context) => BackButtonListener(
+              onBackButtonPressed: () async {
+                Navigator.pop(context);
+                return true;
+              },
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.termsAndConditionsBottomSheetTitle,
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child: Markdown(
+                        data: isArabic
+                            ? state.termsAndConditions!.arMarkdown
+                            : state.termsAndConditions!.enMarkdown,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           );

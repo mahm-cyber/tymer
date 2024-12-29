@@ -29,14 +29,11 @@ class NotificationService {
     });
     final firebaseMessaging = FirebaseMessaging.instance;
 
-    final fcmToken = await firebaseMessaging.getToken();
-    debugPrint('FCM Token: $fcmToken');
   }
 
   Future<void> _requestPermission() async {
     final firebaseMessaging = FirebaseMessaging.instance;
-
-    NotificationSettings settings = await firebaseMessaging.requestPermission(
+    final settings = await firebaseMessaging.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
