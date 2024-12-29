@@ -22,6 +22,15 @@ class DatePickerTextField extends StatelessWidget {
         onTap() async {
           final dateTime = await showDatePicker(
             context: context,
+            builder: (context, child) {
+              return BackButtonListener(
+                onBackButtonPressed: () async{
+                  Navigator.of(context).pop();
+                  return true;
+                },
+                child: child!,
+              );
+            },
             initialDate: state.date.value,
             firstDate: DateTime.now(),
             lastDate: DateTime(2040),

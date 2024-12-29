@@ -128,6 +128,7 @@ class ServiceRequestStatusCubit extends Cubit<ServiceRequestStatusState> {
   @override
   Future<void> close() async {
     _timer?.cancel();
+    serviceRepository.changeNotifier.setShouldReFetchServices(true);
     return super.close();
   }
 }

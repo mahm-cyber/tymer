@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as diox;
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:tymer_api/src/pusher_api.dart';
 import 'package:tymer_api/tymer_api.dart';
@@ -88,6 +90,30 @@ class TymerApi {
       if (errorObject.containsKey(_phoneNumberJsonKey)) {
         throw InvalidCredentialsTymerException();
       }
+      rethrow;
+    }
+  }
+
+  Future sendFcmToken() async {
+    final url = urlBuilder.buildSendFcmTokenUrl();
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    final isAndroid = Platform.isAndroid;
+    final androidInfo = isAndroid ? await deviceInfo.androidInfo : null;
+    final isHuwaei =
+        androidInfo?.manufacturer.toLowerCase().contains('huawei') == true;
+
+    final token =
+        isHuwaei ? '' : await FirebaseMessaging.instance.getToken();
+    final requestJsonBody = {
+      'token_type': isHuwaei ? 'huwaei' : 'fcm',
+      'token': token
+    };
+    try {
+      await _dio.post(
+        url,
+        data: requestJsonBody,
+      );
+    } catch (_) {
       rethrow;
     }
   }

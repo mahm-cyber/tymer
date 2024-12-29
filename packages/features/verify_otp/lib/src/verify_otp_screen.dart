@@ -139,7 +139,9 @@ class _VerifyOtpForm extends StatelessWidget {
               context: context,
               message: isForgotPassword
                   ? l10n.passwordResetSuccessfullySnackBarMessage
-                  : l10n.otpVerifiedSuccessfullySnackBarMessage,
+                  : isChangePhone
+                      ? l10n.phoneChangedSuccessfullySnackBarMessage
+                      : l10n.otpVerifiedSuccessfullySnackBarMessage,
             ),
           );
           if (isForgotPassword) {

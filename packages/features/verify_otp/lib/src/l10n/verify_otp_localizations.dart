@@ -8,6 +8,8 @@ import 'package:intl/intl.dart' as intl;
 import 'verify_otp_localizations_ar.dart';
 import 'verify_otp_localizations_en.dart';
 
+// ignore_for_file: type=lint
+
 /// Callers can lookup localized strings with an instance of VerifyOtpLocalizations
 /// returned by `VerifyOtpLocalizations.of(context)`.
 ///
@@ -222,14 +224,20 @@ abstract class VerifyOtpLocalizations {
   /// No description provided for @passwordTextFieldWeakPasswordErrorDescription.
   ///
   /// In en, this message translates to:
-  /// **'The password must have At least 6 characters long, Contains at least one uppercase letter, Contains at least one lowercase letter, Contains at least one number, Contains at least one symbol (e.g., @, \$, !, etc.)'**
+  /// **'The password must be At least 8 characters long, Contain at least one uppercase letter, Contain at least one lowercase letter, Contain at least one number, Contain at least one symbol (e.g., @, \$, !, etc.)'**
   String get passwordTextFieldWeakPasswordErrorDescription;
 
   /// No description provided for @passwordResetSuccessfullySnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'Password reset successfully.'**
+  /// **'Password changed successfully.'**
   String get passwordResetSuccessfullySnackBarMessage;
+
+  /// No description provided for @phoneChangedSuccessfullySnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number changed successfully.'**
+  String get phoneChangedSuccessfullySnackBarMessage;
 
   /// No description provided for @otpRateLimitExceededErrorSnackBarMessage.
   ///

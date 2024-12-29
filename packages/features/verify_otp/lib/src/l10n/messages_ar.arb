@@ -21,7 +21,8 @@
   "newPasswordConfirmationTextFieldHint": "أعد إدخال كلمة المرور الجديدة",
   "passwordConfirmationTextFieldDoesNotMatchError": "كلمات المرور غير متطابقة",
   "passwordTextFieldWeakPasswordErrorDescription": "يجب أن تستوفي كلمة المرور المعايير التالية: - لا يقل طوله عن 6 أحرف - تحتوي على حرف كبير واحد على الأقل - تحتوي على حرف صغير واحد على الأقل - تحتوي على رقم واحد على الأقل - تحتوي على رمز واحد على الأقل (على سبيل المثال، @، $، !، إلخ.)",
-    "passwordResetSuccessfullySnackBarMessage": "تمت تغير كلمة المرور بنجاح.",
+    "passwordResetSuccessfullySnackBarMessage": "تم تغيير كلمة المرور بنجاح.",
+    "phoneChangedSuccessfullySnackBarMessage": "تم تغيير رقم الهاتف بنجاح.",
      "otpRateLimitExceededErrorSnackBarMessage": "لقد وصلت إلى الحد الأقصى لطلبات OTP. يرجى المحاولة مرة أخرى في {seconds} ثانية.",
       "@increment_message": {
         "placeholders": {

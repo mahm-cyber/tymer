@@ -33,9 +33,12 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
   final ValueSetter<int> onServiceRequestSuccess;
 
   void init() {
+
     getReservationServiceTypes();
     getPricingSettings();
   }
+
+
 
   Future getPricingSettings({
     FetchPolicy fetchPolicy = FetchPolicy.cachePreferably,
@@ -87,7 +90,8 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
     } catch (error) {
       final failureState = state.copyWith(
         reservationServiceTypes: [],
-        fetchingReservationServiceTypesStatus: FetchingReservationServiceTypesStatus.failure,
+        fetchingReservationServiceTypesStatus:
+            FetchingReservationServiceTypesStatus.failure,
         error: error,
       );
       emit(failureState);
@@ -207,7 +211,7 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
     emit(newState);
   }
 
-  Future onLocationPickerTapped() async{
+  Future onLocationPickerTapped() async {
     final newState = state.copyWith(
       locationPickingInProgress: true,
     );
@@ -224,7 +228,7 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
     emit(newState);
   }
 
-  Future onLocationConfirmed() async{
+  Future onLocationConfirmed() async {
     final newState = state.copyWith(
       locationPickingInProgress: false,
     );
@@ -339,7 +343,6 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
         //   additionalComments: 'dummy additional comments',
         // );
 
-
         final newState = state.copyWith(
           submissionStatus: FormzSubmissionStatus.success,
           requestId: requestId,
@@ -363,6 +366,7 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
 
   // @override
   // Future<void> close() {
+  //
   //   return super.close();
   // }
 }

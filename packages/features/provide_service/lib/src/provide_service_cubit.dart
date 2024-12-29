@@ -85,11 +85,13 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
       );
       emit(successState);
     } catch (e) {
-      emit(
+      if(!isClosed) {
+        emit(
         state.copyWith(
           serviceRequestsFetchStatus: FetchStatus.failure,
         ),
       );
+      }
     }
   }
 

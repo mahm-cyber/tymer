@@ -8,6 +8,8 @@ import 'package:intl/intl.dart' as intl;
 import 'request_service_localizations_ar.dart';
 import 'request_service_localizations_en.dart';
 
+// ignore_for_file: type=lint
+
 /// Callers can lookup localized strings with an instance of RequestServiceLocalizations
 /// returned by `RequestServiceLocalizations.of(context)`.
 ///

@@ -186,4 +186,8 @@ class UrlBuilder {
   String buildVerifyOtpForChangePhoneUrl() {
     return '$baseUrl/$_authSlug/phone-number/update';
   }
+
+  String buildSendFcmTokenUrl() {
+    return '$baseUrl/$_authSlug/me/push-tokens';
+  }
 }

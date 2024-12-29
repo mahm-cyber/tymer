@@ -8,6 +8,8 @@ import 'package:intl/intl.dart' as intl;
 import 'change_password_localizations_ar.dart';
 import 'change_password_localizations_en.dart';
 
+// ignore_for_file: type=lint
+
 /// Callers can lookup localized strings with an instance of ChangePasswordLocalizations
 /// returned by `ChangePasswordLocalizations.of(context)`.
 ///

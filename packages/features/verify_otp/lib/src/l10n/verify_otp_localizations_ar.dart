@@ -1,5 +1,7 @@
 import 'verify_otp_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for Arabic (`ar`).
 class VerifyOtpLocalizationsAr extends VerifyOtpLocalizations {
   VerifyOtpLocalizationsAr([String locale = 'ar']) : super(locale);
@@ -71,7 +73,10 @@ class VerifyOtpLocalizationsAr extends VerifyOtpLocalizations {
   String get passwordTextFieldWeakPasswordErrorDescription => 'يجب أن تستوفي كلمة المرور المعايير التالية: - لا يقل طوله عن 6 أحرف - تحتوي على حرف كبير واحد على الأقل - تحتوي على حرف صغير واحد على الأقل - تحتوي على رقم واحد على الأقل - تحتوي على رمز واحد على الأقل (على سبيل المثال، @، \$، !، إلخ.)';
 
   @override
-  String get passwordResetSuccessfullySnackBarMessage => 'تمت تغير كلمة المرور بنجاح.';
+  String get passwordResetSuccessfullySnackBarMessage => 'تم تغيير كلمة المرور بنجاح.';
+
+  @override
+  String get phoneChangedSuccessfullySnackBarMessage => 'تم تغيير رقم الهاتف بنجاح.';
 
   @override
   String otpRateLimitExceededErrorSnackBarMessage(Object seconds) {

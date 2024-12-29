@@ -1,5 +1,7 @@
 import 'change_password_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for Arabic (`ar`).
 class ChangePasswordLocalizationsAr extends ChangePasswordLocalizations {
   ChangePasswordLocalizationsAr([String locale = 'ar']) : super(locale);

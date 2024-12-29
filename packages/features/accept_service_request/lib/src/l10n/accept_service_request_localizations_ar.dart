@@ -1,5 +1,7 @@
 import 'accept_service_request_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for Arabic (`ar`).
 class AcceptServiceRequestLocalizationsAr extends AcceptServiceRequestLocalizations {
   AcceptServiceRequestLocalizationsAr([String locale = 'ar']) : super(locale);

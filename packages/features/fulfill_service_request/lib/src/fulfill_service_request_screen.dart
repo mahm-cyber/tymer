@@ -81,6 +81,7 @@ class FulfillServiceRequestView extends StatelessWidget {
 
         if (state.isImagePickerBottomSheetVisible == true) {
           showModalBottomSheet(
+
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadiusDirectional.vertical(
                 top: Radius.circular(20),
@@ -88,19 +89,25 @@ class FulfillServiceRequestView extends StatelessWidget {
             ),
             context: context,
             builder: (context) {
-              return ImagePickerBottomSheet(
-                galleryIcon: Icons.collections,
-                cameraIcon: Icons.camera_alt,
-                galleryText: l10n.bottomSheetGalleryButton,
-                cameraText: l10n.bottomSheetCaptureButton,
-                onTapGallery: () {
+              return BackButtonListener(
+                onBackButtonPressed: () async {
                   Navigator.pop(context);
-                  cubit.pickImageFromGallery();
+                  return true;
                 },
-                onTapCamera: () {
-                  Navigator.pop(context);
-                  cubit.capturePhoto();
-                },
+                child: ImagePickerBottomSheet(
+                  galleryIcon: Icons.collections,
+                  cameraIcon: Icons.camera_alt,
+                  galleryText: l10n.bottomSheetGalleryButton,
+                  cameraText: l10n.bottomSheetCaptureButton,
+                  onTapGallery: () {
+                    Navigator.pop(context);
+                    cubit.pickImageFromGallery();
+                  },
+                  onTapCamera: () {
+                    Navigator.pop(context);
+                    cubit.capturePhoto();
+                  },
+                ),
               );
             },
           ).whenComplete(() {
@@ -134,28 +141,34 @@ class FulfillServiceRequestView extends StatelessWidget {
               useRootNavigator: false,
               context: context,
               builder: (context) {
-                return AlertDialog(
-                  title: Text(
-                    l10n.awaitingConfirmationButtonLabel,
-                    style: textTheme.titleLarge,
+                return BackButtonListener(
+                  onBackButtonPressed: () async{
+                    Navigator.pop(context);
+                    return true;
+                  },
+                  child: AlertDialog(
+                    title: Text(
+                      l10n.awaitingConfirmationButtonLabel,
+                      style: textTheme.titleLarge,
+                    ),
+                    // actionsAlignment: MainAxisAlignment.center,
+                    actions: [
+                      TymerElevatedButton(
+                        onTap: cubit.onNavigateToProvideService,
+                        label: (l10n.provideAnotherServiceButtonLabel),
+                      ),
+                      VerticalGap.medium(),
+                      TymerElevatedButton(
+                        bgColor: colorScheme.surface,
+                        borderColor: theme.borderColor,
+                        labelColor: colorScheme.onSurface,
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        label: (l10n.continueWaitingButtonLabel),
+                      ),
+                    ],
                   ),
-                  // actionsAlignment: MainAxisAlignment.center,
-                  actions: [
-                    TymerElevatedButton(
-                      onTap: cubit.onNavigateToProvideService,
-                      label: (l10n.provideAnotherServiceButtonLabel),
-                    ),
-                    VerticalGap.medium(),
-                    TymerElevatedButton(
-                      bgColor: colorScheme.surface,
-                      borderColor: theme.borderColor,
-                      labelColor: colorScheme.onSurface,
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      label: (l10n.continueWaitingButtonLabel),
-                    ),
-                  ],
                 );
               });
         }

@@ -166,6 +166,7 @@ class SignInCubit extends Cubit<SignInState> {
             password: password.value!,
           );
         }
+        userRepository.sendFcmToken();
       } catch (error) {
         final newState = state.copyWith(
           password: Password.validated(password.value,

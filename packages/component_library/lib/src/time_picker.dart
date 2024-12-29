@@ -58,7 +58,16 @@ class _TimePickerState extends State<TimePicker> {
 
   void pickTime() async {
     final time = await showTimePicker(
-
+      useRootNavigator: false,
+      builder: (context, child) {
+        return BackButtonListener(
+          onBackButtonPressed: () async{
+            Navigator.of(context).pop();
+            return true;
+          },
+          child: child!,
+        );
+      },
       context: context,
       initialTime: pickedTime == null
           ? TimeOfDay.now()

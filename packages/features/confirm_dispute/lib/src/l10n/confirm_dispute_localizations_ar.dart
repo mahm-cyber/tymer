@@ -1,5 +1,7 @@
 import 'confirm_dispute_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for Arabic (`ar`).
 class ConfirmDisputeLocalizationsAr extends ConfirmDisputeLocalizations {
   ConfirmDisputeLocalizationsAr([String locale = 'ar']) : super(locale);

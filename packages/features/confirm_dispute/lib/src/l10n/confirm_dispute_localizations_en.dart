@@ -1,5 +1,7 @@
 import 'confirm_dispute_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for English (`en`).
 class ConfirmDisputeLocalizationsEn extends ConfirmDisputeLocalizations {
   ConfirmDisputeLocalizationsEn([String locale = 'en']) : super(locale);

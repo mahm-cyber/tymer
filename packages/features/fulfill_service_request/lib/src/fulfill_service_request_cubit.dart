@@ -329,6 +329,7 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
   Future<void> close() async {
     _awaitRequestConfirmationTimer?.cancel();
     imageFileNameSC.close();
+    serviceRepository.changeNotifier.setShouldReFetchServices(true);
     super.close();
   }
 }

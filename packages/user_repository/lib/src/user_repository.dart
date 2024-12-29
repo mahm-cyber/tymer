@@ -192,6 +192,14 @@ class UserRepository {
     }
   }
 
+  Future sendFcmToken() async {
+    try {
+      await remoteApi.sendFcmToken();
+    } catch (error) {
+      rethrow;
+    }
+  }
+
   Future requestOtpForSignUp({
     required String email,
     required String password,

@@ -238,84 +238,90 @@ class _State extends State<ImageDialog> {
   Widget build(BuildContext context) {
     final theme = TymerTheme.of(context);
 
-    return Align(
-      alignment: Alignment.center,
-      child: AlertDialog(
-        contentPadding: EdgeInsets.zero,
-        backgroundColor: Colors.white.withAlpha((255 * 0.0).toInt()),
-        elevation: 0,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
+    return BackButtonListener(
+      onBackButtonPressed: ()async {
+        Navigator.pop(context);
+        return true;
+      },
+      child: Align(
+        alignment: Alignment.center,
+        child: AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          backgroundColor: Colors.white.withAlpha((255 * 0.0).toInt()),
+          elevation: 0,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
           ),
-        ),
-        content: Stack(
-          children: [
-            InteractiveViewer(
-              child: RotatedBox(
-                quarterTurns: quarterTurns,
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  child: widget.imageUrl != null
-                      ? Image.network(
-                          widget.imageUrl!,
-                          fit: BoxFit.fill,
-                          headers: {
-                            "Authorization": "Bearer ${widget.userToken}",
-                            "X-API-Key":
-                                const String.fromEnvironment('x-api-key'),
-                          },
-                        )
-                      : Image.memory(widget.imageBytes!),
-                ),
-              ),
-            ),
-            Positioned(
-              top: Spacing.small,
-              right: Spacing.small,
-              child: InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.close,
-                    size: 30,
-                    color: theme.errorColor,
+          content: Stack(
+            children: [
+              InteractiveViewer(
+                child: RotatedBox(
+                  quarterTurns: quarterTurns,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    child: widget.imageUrl != null
+                        ? Image.network(
+                            widget.imageUrl!,
+                            fit: BoxFit.fill,
+                            headers: {
+                              "Authorization": "Bearer ${widget.userToken}",
+                              "X-API-Key":
+                                  const String.fromEnvironment('x-api-key'),
+                            },
+                          )
+                        : Image.memory(widget.imageBytes!),
                   ),
                 ),
               ),
-            ),
-            Positioned(
-              bottom: Spacing.small,
-              right: Spacing.small,
-              child: InkWell(
-                onTap: () {
-                  setState(() {
-                    quarterTurns++;
-                    // print('rotated');
-                  });
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.rotate_right,
-                    size: 30,
-                    color: theme.primaryColor,
+              Positioned(
+                top: Spacing.small,
+                right: Spacing.small,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.close,
+                      size: 30,
+                      color: theme.errorColor,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+              Positioned(
+                bottom: Spacing.small,
+                right: Spacing.small,
+                child: InkWell(
+                  onTap: () {
+                    setState(() {
+                      quarterTurns++;
+                      // print('rotated');
+                    });
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.rotate_right,
+                      size: 30,
+                      color: theme.primaryColor,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

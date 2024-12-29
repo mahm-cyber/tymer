@@ -20,6 +20,8 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
         super(
           const OrderHistoryState(),
         ) {
+    serviceRepository.changeNotifier
+        .addListener(_shouldReFetchServiceRequestsCallBack);
     _handleServiceRequestListNextPageRequested();
     serviceRequestsPagingController.addPageRequestListener(
       (pageNumber) {
@@ -37,6 +39,14 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
   final ValueSetter<int> onCheckServiceRequestStatusTapped;
   final PagingController<int, Service> serviceRequestsPagingController;
   final VoidCallback navigateToFulfillServiceRequest;
+
+  void _shouldReFetchServiceRequestsCallBack() {
+    final shouldReFetchDisputes =
+        serviceRepository.changeNotifier.shouldReFetchServiceRequests;
+    if (shouldReFetchDisputes == true) {
+      _handleServiceRequestListNextPageRequested();
+    }
+  }
 
   Future _handleServiceRequestListNextPageRequested({
     int page = 1,
@@ -106,7 +116,8 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
     final newState = state.copyWith(
       userTypeFilter: userType,
       statusFilter: userType == UserType.provider &&
-              (state.statusFilter == ServiceStatus.pending || state.statusFilter == ServiceStatus.canceled)
+              (state.statusFilter == ServiceStatus.pending ||
+                  state.statusFilter == ServiceStatus.canceled)
           ? ServiceStatus.pendingReview
           : null,
     );
@@ -136,8 +147,10 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
     // serviceRepository.changeNotifier.setServiceRequest(service);
   }
 
-// @override
-// Future<void> close() async {
-//   return super.close();
-// }
+  @override
+  Future<void> close() async {
+    serviceRepository.changeNotifier
+        .removeListener(_shouldReFetchServiceRequestsCallBack);
+    return super.close();
+  }
 }

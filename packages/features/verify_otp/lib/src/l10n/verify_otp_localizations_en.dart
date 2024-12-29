@@ -1,5 +1,7 @@
 import 'verify_otp_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for English (`en`).
 class VerifyOtpLocalizationsEn extends VerifyOtpLocalizations {
   VerifyOtpLocalizationsEn([String locale = 'en']) : super(locale);
@@ -68,10 +70,13 @@ class VerifyOtpLocalizationsEn extends VerifyOtpLocalizations {
   String get phoneAlreadyRegisteredErrorSnackBarMessage => 'The phone number you entered is already registered';
 
   @override
-  String get passwordTextFieldWeakPasswordErrorDescription => 'The password must have At least 6 characters long, Contains at least one uppercase letter, Contains at least one lowercase letter, Contains at least one number, Contains at least one symbol (e.g., @, \$, !, etc.)';
+  String get passwordTextFieldWeakPasswordErrorDescription => 'The password must be At least 8 characters long, Contain at least one uppercase letter, Contain at least one lowercase letter, Contain at least one number, Contain at least one symbol (e.g., @, \$, !, etc.)';
 
   @override
-  String get passwordResetSuccessfullySnackBarMessage => 'Password reset successfully.';
+  String get passwordResetSuccessfullySnackBarMessage => 'Password changed successfully.';
+
+  @override
+  String get phoneChangedSuccessfullySnackBarMessage => 'Phone number changed successfully.';
 
   @override
   String otpRateLimitExceededErrorSnackBarMessage(Object seconds) {

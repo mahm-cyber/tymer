@@ -1,5 +1,7 @@
 import 'wallet_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for Arabic (`ar`).
 class WalletLocalizationsAr extends WalletLocalizations {
   WalletLocalizationsAr([String locale = 'ar']) : super(locale);
