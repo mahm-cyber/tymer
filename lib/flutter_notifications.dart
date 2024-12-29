@@ -27,7 +27,6 @@ class NotificationService {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       showFlutterNotification(message);
     });
-    final firebaseMessaging = FirebaseMessaging.instance;
 
   }
 
