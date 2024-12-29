@@ -13,7 +13,7 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
   VerifyOtpCubit({
     required this.userRepository,
     required this.onResetPasswordVerifyOtpSuccess,
-    required this.onRegistrationVerifyOtpSuccess,
+    required this.onRegistrationOrLoginVerifyOtpSuccess,
     required this.onChangePhoneVerifyOtpSuccess,
     required this.onBackTapped,
   })  : pinTEController = TextEditingController(),
@@ -28,7 +28,7 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
   Timer? _timer;
   final UserRepository userRepository;
   final VoidCallback onResetPasswordVerifyOtpSuccess;
-  final VoidCallback onRegistrationVerifyOtpSuccess;
+  final VoidCallback onRegistrationOrLoginVerifyOtpSuccess;
   final VoidCallback onChangePhoneVerifyOtpSuccess;
   final VoidCallback onBackTapped;
   final TextEditingController pinTEController;
@@ -164,6 +164,8 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
         state.otpVerification?.reason == OtpVerificationReason.forgotPassword;
     final isVerificationReasonRegister =
         state.otpVerification?.reason == OtpVerificationReason.register;
+    final isVerificationReasonLogin =
+        state.otpVerification?.reason == OtpVerificationReason.login;
     final isVerificationReasonChangePhone =
         state.otpVerification?.reason == OtpVerificationReason.changePhone;
     final isFormValid = Formz.validate([
@@ -194,8 +196,8 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
             newPassword: newPassword.value!,
             newPasswordConfirmation: newPassword.value!,
           );
-        } else if (isVerificationReasonRegister) {
-          await userRepository.verifyOtpForRegistration(
+        } else if (isVerificationReasonRegister || isVerificationReasonLogin) {
+          await userRepository.verifyOtpForRegistrationOrLogin(
             otpCode.value,
           );
           await userRepository.signIn(
@@ -232,7 +234,8 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
             newPasswordConfirmation.value,
           ),
           submissionStatus: error is! InvalidOtpException &&
-                  error is! OtpRateLimitExceededException && error is! PhoneAlreadyRegisteredException
+                  error is! OtpRateLimitExceededException &&
+                  error is! PhoneAlreadyRegisteredException
               ? FormzSubmissionStatus.failure
               : FormzSubmissionStatus.initial,
           resendOtpStatus: ResendOtpStatus.initial,

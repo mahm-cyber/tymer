@@ -171,6 +171,7 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                     systemNavigationBarColor: Colors.white,
                   ),
             child: MaterialApp.router(
+              title: 'Tymer',
               theme: _lightTheme.materialThemeData.copyWith(
                 textTheme: _lightTheme.materialThemeData.textTheme.apply(
                   fontFamily: fontFamily,

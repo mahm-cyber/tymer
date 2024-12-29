@@ -34,7 +34,7 @@ class VerifyOtpScreen extends StatelessWidget {
       create: (_) => VerifyOtpCubit(
         userRepository: userRepository,
         onResetPasswordVerifyOtpSuccess: onResetPasswordVerifyOtpSuccess,
-        onRegistrationVerifyOtpSuccess: onRegistrationVerifyOtpSuccess,
+        onRegistrationOrLoginVerifyOtpSuccess: onRegistrationVerifyOtpSuccess,
         onChangePhoneVerifyOtpSuccess: onChangePhoneVerifyOtpSuccess,
         onBackTapped: onBackTapped,
       ),
@@ -149,7 +149,7 @@ class _VerifyOtpForm extends StatelessWidget {
           } else if (isChangePhone) {
             cubit.onChangePhoneVerifyOtpSuccess();
           } else {
-            cubit.onRegistrationVerifyOtpSuccess();
+            cubit.onRegistrationOrLoginVerifyOtpSuccess();
           }
           return;
         }

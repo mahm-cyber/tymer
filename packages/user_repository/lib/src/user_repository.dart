@@ -248,7 +248,7 @@ class UserRepository {
     }
   }
 
-  Future verifyOtpForRegistration(
+  Future verifyOtpForRegistrationOrLogin(
     String otp,
   ) async {
     try {
