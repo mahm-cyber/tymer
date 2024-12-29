@@ -135,6 +135,7 @@ class ProvideServiceView extends StatelessWidget {
                                                     .ascendingSortedServiceRequests![
                                                 index];
                                             return ServiceRequestCard(
+                                              shouldShowId: true,
                                               onTapped: () => cubit
                                                   .onViewServiceRequestDetailsTapped(
                                                       service),

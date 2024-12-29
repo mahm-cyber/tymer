@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:accept_service_request/accept_service_request.dart';
+import 'package:change_language/change_language.dart';
 import 'package:change_password/change_password.dart';
 import 'package:change_phone/change_phone.dart';
 import 'package:chat/chat.dart';
@@ -208,6 +209,7 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                 TabContainerLocalizations.delegate,
                 InitialLocalizations.delegate,
                 HomeLocalizations.delegate,
+                ChangeLanguageLocalizations.delegate,
 
                 // Request service
                 ChooseServiceLocalizations.delegate,

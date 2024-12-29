@@ -23,6 +23,7 @@ UserRM _$UserRMFromJson(Map<String, dynamic> json) => $checkedCreate(
               $checkedConvert('permissions', (v) => v as List<dynamic>),
           roles: $checkedConvert('roles', (v) => v as List<dynamic>),
           createdAt: $checkedConvert('created_at', (v) => v as String),
+          language: $checkedConvert('preferred_language', (v) => v as String),
           updatedAt: $checkedConvert('updated_at', (v) => v as String?),
           deletedAt: $checkedConvert('deleted_at', (v) => v as String?),
         );
@@ -33,6 +34,7 @@ UserRM _$UserRMFromJson(Map<String, dynamic> json) => $checkedCreate(
         'phone': 'phone_number',
         'phoneVerifiedAt': 'phone_number_verified_at',
         'createdAt': 'created_at',
+        'language': 'preferred_language',
         'updatedAt': 'updated_at',
         'deletedAt': 'deleted_at'
       },

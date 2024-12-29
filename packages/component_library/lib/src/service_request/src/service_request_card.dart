@@ -137,11 +137,25 @@ class ServiceRequestCard extends StatelessWidget {
               // ),
             ],
             if (!shouldShowRequestStatus) ...[
-              TymerElevatedButton(
-                label: l10n.viewButtonLabel,
-                onTap: onTapped,
-                width: 120,
-                height: 30,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  TymerElevatedButton(
+                    label: l10n.viewButtonLabel,
+                    onTap: onTapped,
+                    width: 120,
+                    height: 30,
+                  ),
+                  const Spacer(),
+                  if (shouldShowId)
+                    SelectableText(
+                      '# ${service.id?.localizeInt(locale)}',
+                      style: textTheme.bodyMedium?.copyWith(
+                        color: colorScheme.secondary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                ],
               ),
             ],
           ],

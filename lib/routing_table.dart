@@ -1,4 +1,5 @@
 import 'package:accept_service_request/accept_service_request.dart';
+import 'package:change_language/change_language.dart';
 import 'package:change_password/change_password.dart';
 import 'package:change_phone/change_phone.dart';
 import 'package:chat/chat.dart';
@@ -196,20 +197,29 @@ Map<String, PageBuilder> buildRoutingTable({
         ),
     _PathConstants.profilePath: (_) => MaterialPage(
           name: 'profile',
-          child: ProfileScreen(
-            userRepository: userRepository,
-            onRequestServiceTapped: () =>
-                routerDelegate.push(_PathConstants.chooseServicePath),
-            onProvideServiceTapped: () =>
-                routerDelegate.push(_PathConstants.provideServicePath),
-            onLogoutSuccess: () => signInSuccessVN.value = false,
-            onChangePasswordTapped: () {
-              routerDelegate.push(_PathConstants.changePasswordPath);
-            },
-            onChangePhoneTapped: () {
-              routerDelegate.push(_PathConstants.changePhonePath);
-            },
-          ),
+          child: Builder(builder: (context) {
+            return ProfileScreen(
+              userRepository: userRepository,
+              onRequestServiceTapped: () =>
+                  routerDelegate.push(_PathConstants.chooseServicePath),
+              onProvideServiceTapped: () =>
+                  routerDelegate.push(_PathConstants.provideServicePath),
+              onLogoutSuccess: () => signInSuccessVN.value = false,
+              onChangePasswordTapped: () {
+                routerDelegate.push(_PathConstants.changePasswordPath);
+              },
+              onChangePhoneTapped: () {
+                routerDelegate.push(_PathConstants.changePhonePath);
+              },
+              onChangeLanguageTapped: () => showModalBottomSheet(
+                useRootNavigator: false,
+                context: context,
+                builder: (_) => ChangeLanguageBottomSheet(
+                  userRepository: userRepository,
+                ),
+              ),
+            );
+          }),
         ),
     _PathConstants.changePasswordPath: (_) => MaterialPage(
           name: 'change-password',
@@ -281,6 +291,7 @@ Map<String, PageBuilder> buildRoutingTable({
             requestId: requestId,
             onConfirmDisputeTapped: (Service service) {
               showModalBottomSheet(
+                useRootNavigator: false,
                 isDismissible: false,
                 useSafeArea: true,
                 context: context,

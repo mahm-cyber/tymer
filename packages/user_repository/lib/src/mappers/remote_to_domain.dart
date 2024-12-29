@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:tymer_api/tymer_api.dart';
 import 'package:domain_models/domain_models.dart';
 
 extension UserRMtoDM on UserRM {
   User toDomainModel() {
+    final languageDM = Locale(language);
     return User(
       id: id,
       name: name,
@@ -11,6 +13,7 @@ extension UserRMtoDM on UserRM {
       emailVerifiedAt: emailVerifiedAt,
       phoneVerifiedAt: phoneVerifiedAt,
       permissions: permissions,
+      language: languageDM,
       roles: roles,
     );
   }

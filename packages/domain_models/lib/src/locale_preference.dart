@@ -17,3 +17,12 @@ LocalePreferenceDM strToLocalePreferenceDM(String str) {
       return LocalePreferenceDM.english;
   }
 }
+
+String localePreferenceDMToStr(LocalePreferenceDM localePreference) {
+  switch (localePreference) {
+    case LocalePreferenceDM.arabic:
+      return 'ar';
+    case LocalePreferenceDM.english:
+      return 'en';
+  }
+}

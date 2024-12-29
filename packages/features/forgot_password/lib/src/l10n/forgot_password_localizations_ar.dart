@@ -1,5 +1,7 @@
 import 'forgot_password_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for Arabic (`ar`).
 class ForgotPasswordLocalizationsAr extends ForgotPasswordLocalizations {
   ForgotPasswordLocalizationsAr([String locale = 'ar']) : super(locale);

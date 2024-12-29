@@ -119,6 +119,17 @@ class UserRepository {
     }
   }
 
+  Future changeLanguage({
+    required LocalePreferenceDM language,
+  }) async {
+    final languageStr = localePreferenceDMToStr(language);
+    try {
+      await remoteApi.changeLanguage(language: languageStr);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
   Future verifyOtpForChangePhone(String otp) async {
     try {
       await remoteApi.verifyOtpForChangePhone(
@@ -155,8 +166,8 @@ class UserRepository {
         password: password,
       );
       await _secureStorage.upsertUserToken(token: token);
-      debugPrint('cachedToken: $token');
       final userRM = await remoteApi.getUser();
+
       final isPhoneVerified = userRM.phoneVerifiedAt != null;
       final userDM = userRM.toDomainModel();
       await _secureStorage.upsertUser(
@@ -175,7 +186,9 @@ class UserRepository {
         changeNotifier.setOtpVerification(otpVerification);
         throw PhoneNotVerifiedException();
       }
-
+      final language = userRM.language;
+      final localePreference = strToLocalePreferenceDM(language);
+      await upsertLocalePreference(localePreference);
       _userSubject.add(
         userDM,
       );
@@ -526,8 +539,7 @@ class UserRepository {
         }
       }
 
-
-      await Future.delayed(const Duration(milliseconds: 50));
+      // await Future.delayed(const Duration(milliseconds: 10));
       final locationData = await location.getLocation();
       return locationData;
     } catch (error) {

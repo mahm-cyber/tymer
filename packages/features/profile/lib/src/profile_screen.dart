@@ -1,5 +1,4 @@
 import 'package:component_library/component_library.dart';
-import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:profile/src/l10n/profile_localizations.dart';
@@ -15,6 +14,7 @@ class ProfileScreen extends StatelessWidget {
     required this.onLogoutSuccess,
     required this.onChangePasswordTapped,
     required this.onChangePhoneTapped,
+    required this.onChangeLanguageTapped,
     super.key,
   });
 
@@ -24,6 +24,7 @@ class ProfileScreen extends StatelessWidget {
   final VoidCallback onLogoutSuccess;
   final VoidCallback onChangePasswordTapped;
   final VoidCallback onChangePhoneTapped;
+  final VoidCallback onChangeLanguageTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +36,7 @@ class ProfileScreen extends StatelessWidget {
         onLogoutSuccess: onLogoutSuccess,
         onChangePasswordTapped: onChangePasswordTapped,
         onChangePhoneTapped: onChangePhoneTapped,
+        onChangeLanguageTapped: onChangeLanguageTapped,
       ),
       child: const ProfileView(),
     );
@@ -52,7 +54,6 @@ class ProfileView extends StatelessWidget {
     final l10n = ProfileLocalizations.of(context);
     final cubit = context.read<ProfileCubit>();
     final textTheme = Theme.of(context).textTheme;
-    final locale = Localizations.localeOf(context);
     return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
         final logoutInProgress = state.logoutStatus == LogoutStatus.loading;
@@ -120,52 +121,7 @@ class ProfileView extends StatelessWidget {
                 titleTextStyle: textTheme.titleMedium,
                 title: Text(l10n.changeLanguageTileTitle),
                 trailing: const Icon(Icons.arrow_forward_ios),
-                onTap: () => showModalBottomSheet(
-                  useRootNavigator: false,
-                  backgroundColor: theme.primaryColor,
-                  context: context,
-                  builder: (_) => Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ListTile(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                          ),
-                        ),
-                        tileColor: theme.primaryColor,
-                        titleTextStyle: textTheme.titleMedium?.copyWith(
-                          color: theme.materialThemeData.colorScheme.surface,
-                        ),
-                        iconColor: theme.materialThemeData.colorScheme.surface,
-                        title: const Text('عربى'),
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          cubit.changeLocale(LocalePreferenceDM.arabic);
-                        },
-                        trailing: locale == const Locale('ar', '')
-                            ? const Icon(Icons.radio_button_checked_sharp)
-                            : const Icon(Icons.radio_button_unchecked_sharp),
-                      ),
-                      ListTile(
-                        tileColor: theme.primaryColor,
-                        title: const Text('English'),
-                        titleTextStyle: textTheme.titleMedium?.copyWith(
-                          color: theme.materialThemeData.colorScheme.surface,
-                        ),
-                        iconColor: theme.materialThemeData.colorScheme.surface,
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          cubit.changeLocale(LocalePreferenceDM.english);
-                        },
-                        trailing: locale == const Locale('en', '')
-                            ? const Icon(Icons.radio_button_checked_sharp)
-                            : const Icon(Icons.radio_button_unchecked_sharp),
-                      ),
-                    ],
-                  ),
-                ),
+                onTap: cubit.onChangeLanguageTapped,
               ),
               ListTile(
                 leading: logoutInProgress

@@ -16,6 +16,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     required this.onLogoutSuccess,
     required this.onChangePasswordTapped,
     required this.onChangePhoneTapped,
+    required this.onChangeLanguageTapped,
   }) : super(
           const ProfileState(),
         ) {
@@ -32,6 +33,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   final VoidCallback onLogoutSuccess;
   final VoidCallback onChangePasswordTapped;
   final VoidCallback onChangePhoneTapped;
+  final VoidCallback onChangeLanguageTapped;
 
   void logout() async {
     try {

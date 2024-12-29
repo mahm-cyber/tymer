@@ -190,4 +190,8 @@ class UrlBuilder {
   String buildSendFcmTokenUrl() {
     return '$baseUrl/$_authSlug/me/push-tokens';
   }
+
+  String buildChangeLanguageUrl() {
+    return '$baseUrl/$_authSlug/preferred-language';
+  }
 }

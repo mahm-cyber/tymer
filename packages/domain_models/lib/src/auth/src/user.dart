@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 class User extends Equatable {
   final int id;
@@ -10,6 +11,7 @@ class User extends Equatable {
   final List? permissions;
   final List? roles;
   final String? createdAt;
+  final Locale? language;
   final String? updatedAt;
   final String? deletedAt;
 
@@ -23,6 +25,7 @@ class User extends Equatable {
     this.permissions,
     this.roles,
     this.createdAt,
+    this.language,
     this.updatedAt,
     this.deletedAt,
   });

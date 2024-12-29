@@ -15,25 +15,16 @@ Map<String, dynamic> _$RequestServiceRMToJson(RequestServiceRM instance) =>
     };
 
 Map<String, dynamic> _$ServiceRequestDetailsRMToJson(
-    ServiceRequestDetailsRM instance) {
-  final val = <String, dynamic>{
-    'place_name': instance.placeName,
-    'place_address': instance.placeAddress,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('reserved_for', instance.reservedFor);
-  writeNotNull('reservation_date', instance.reservationDate);
-  writeNotNull('reservation_time', instance.reservationTime);
-  writeNotNull('date', instance.detailsDate);
-  writeNotNull('time', instance.detailsTime);
-  writeNotNull(
-      'reservation_service_category_id', instance.reservationServiceCategoryId);
-  writeNotNull('other_details', instance.additionalComments);
-  return val;
-}
+        ServiceRequestDetailsRM instance) =>
+    <String, dynamic>{
+      'place_name': instance.placeName,
+      'place_address': instance.placeAddress,
+      if (instance.reservedFor case final value?) 'reserved_for': value,
+      if (instance.reservationDate case final value?) 'reservation_date': value,
+      if (instance.reservationTime case final value?) 'reservation_time': value,
+      if (instance.detailsDate case final value?) 'date': value,
+      if (instance.detailsTime case final value?) 'time': value,
+      if (instance.reservationServiceCategoryId case final value?)
+        'reservation_service_category_id': value,
+      if (instance.additionalComments case final value?) 'other_details': value,
+    };

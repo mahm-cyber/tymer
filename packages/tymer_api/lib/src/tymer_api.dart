@@ -104,6 +104,7 @@ class TymerApi {
 
     final token =
         isHuwaei ? '' : await FirebaseMessaging.instance.getToken();
+    debugPrint('FCMTOKEN: $token');
     final requestJsonBody = {
       'token_type': isHuwaei ? 'huwaei' : 'fcm',
       'token': token
@@ -266,6 +267,24 @@ class TymerApi {
               .containsKey('new_phone_number')) {
         throw PhoneAlreadyRegisteredTymerException();
       }
+      rethrow;
+    }
+  }
+
+  Future changeLanguage ({
+    required String language,
+  }) async {
+    final url = urlBuilder.buildChangeLanguageUrl();
+
+    try {
+      final response = await _dio.post(
+        url,
+        data: {
+          "preferred_language": language,
+        },
+      );
+      debugPrint(response.toString());
+    } catch (_) {
       rethrow;
     }
   }

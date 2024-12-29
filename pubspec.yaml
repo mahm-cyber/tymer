@@ -63,6 +63,8 @@ dependencies:
     path: packages/features/wallet
   profile:
     path: packages/features/profile
+  change_language:
+    path: packages/features/change_language
 
 
   # Authentication

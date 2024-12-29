@@ -14,21 +14,13 @@ Map<String, dynamic> _$FulfillReservationServiceRMToJson(
     };
 
 Map<String, dynamic> _$FulfillReservationServiceDetailsRMToJson(
-    FulfillReservationServiceDetailsRM instance) {
-  final val = <String, dynamic>{
-    'reservation_date': instance.day,
-    'reservation_code': instance.code,
-    'reservation_time': instance.time,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('other_details', instance.additionalNotes);
-  writeNotNull('attached_image',
-      FulfillReservationServiceDetailsRM._uint8ToMultipart(instance.image));
-  return val;
-}
+        FulfillReservationServiceDetailsRM instance) =>
+    <String, dynamic>{
+      'reservation_date': instance.day,
+      'reservation_code': instance.code,
+      'reservation_time': instance.time,
+      if (instance.additionalNotes case final value?) 'other_details': value,
+      if (FulfillReservationServiceDetailsRM._uint8ToMultipart(instance.image)
+          case final value?)
+        'attached_image': value,
+    };

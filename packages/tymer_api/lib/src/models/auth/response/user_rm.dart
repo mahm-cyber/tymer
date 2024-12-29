@@ -14,6 +14,7 @@ class UserRM {
     required this.permissions,
     required this.roles,
     required this.createdAt,
+    required this.language,
     this.updatedAt,
     this.deletedAt,
   });
@@ -36,6 +37,8 @@ class UserRM {
   final List roles;
   @JsonKey(name: 'created_at')
   final String createdAt;
+  @JsonKey(name: 'preferred_language')
+  final String language;
   @JsonKey(name: 'updated_at')
   final String? updatedAt;
   @JsonKey(name: 'deleted_at')
