@@ -157,10 +157,7 @@ class UserRepository {
     required String password,
   }) async {
     try {
-      await cacheRememberedCredentials(
-        phone: phone,
-        password: password,
-      );
+
       final token = await remoteApi.signIn(
         phone: phone,
         password: password,
@@ -175,11 +172,13 @@ class UserRepository {
         await reSendOtp();
         final otpVerification = OtpVerification(
           phone: phone,
+          password: password,
           reason: OtpVerificationReason.login,
         );
         changeNotifier.setOtpVerification(otpVerification);
         throw PhoneNotVerifiedException();
       }
+
       await _secureStorage.upsertUser(
         id: userRM.id,
         name: userRM.name,

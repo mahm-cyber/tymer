@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_fields/form_fields.dart';
 import 'package:verify_otp/src/l10n/verify_otp_localizations.dart';
 
 import 'package:verify_otp/src/verify_otp_cubit.dart';
@@ -15,15 +16,15 @@ class ResendOtp extends StatelessWidget {
       builder: (context, state) {
         final isResendOtpInProgress =
             state.resendOtpStatus == ResendOtpStatus.inProgress;
+        final isSubmitInProgress =
+            state.submissionStatus == FormzSubmissionStatus.inProgress;
         final cubit = context.read<VerifyOtpCubit>();
         final l10n = VerifyOtpLocalizations.of(context);
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton.icon(
-              onPressed: /*isResendOtpInProgress || state.resendOtpTotalTime > 0
-                  ? null
-                  : */cubit.resendOtp,
+              onPressed: isSubmitInProgress ? null : cubit.resendOtp,
               icon: isResendOtpInProgress
                   ? Transform.scale(
                       scale: 0.5,

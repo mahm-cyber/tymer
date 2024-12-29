@@ -10,4 +10,7 @@ Map<String, dynamic> _$UserCredentialsRMToJson(UserCredentialsRM instance) =>
     <String, dynamic>{
       'phone_number': instance.phone,
       'password': instance.password,
+      'token_type': instance.pushTokenType,
+      'token': instance.pushToken,
+      'remember': instance.remember,
     };

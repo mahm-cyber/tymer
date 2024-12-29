@@ -65,29 +65,25 @@ class TymerApi {
     required String password,
   }) async {
     final url = urlBuilder.buildSignInUrl();
-
-    final requestJsonBody = UserCredentialsRM(
-      phone: '+2$phone',
-      password: password,
-    ).toJson();
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     final isAndroid = Platform.isAndroid;
     final androidInfo = isAndroid ? await deviceInfo.androidInfo : null;
     final isHuwaei =
         androidInfo?.manufacturer.toLowerCase().contains('huawei') == true;
 
-    final token =
-    isHuwaei ? '' : await FirebaseMessaging.instance.getToken();
-    final requestJsonBodyWithRemember = {
-      ...requestJsonBody,
-      'token_type': isHuwaei ? 'huwaei' : 'fcm',
-      'token': token,
-      'remember': true,
-    };
+    final token = isHuwaei ? '' : await FirebaseMessaging.instance.getToken();
+
+    final requestJsonBody = UserCredentialsRM(
+      phone: '+2$phone',
+      password: password,
+      pushTokenType: isHuwaei ? 'huwaei' : 'fcm',
+      pushToken: token!,
+    ).toJson();
+
     try {
       final response = await _dio.post(
         url,
-        data: requestJsonBodyWithRemember,
+        data: requestJsonBody,
       );
       final token = response.data[_accessTokenJsonKey];
       return token;
@@ -103,7 +99,6 @@ class TymerApi {
       rethrow;
     }
   }
-
 
   Future signOut() async {
     final url = urlBuilder.buildSignOutUrl();
@@ -258,7 +253,7 @@ class TymerApi {
     }
   }
 
-  Future changeLanguage ({
+  Future changeLanguage({
     required String language,
   }) async {
     final url = urlBuilder.buildChangeLanguageUrl();
