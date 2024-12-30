@@ -7,14 +7,13 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 class NotificationsService {
   NotificationsService._();
 
-  static final NotificationsService instance = NotificationsService._();
+  static final instance = NotificationsService._();
   static final _flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   static const _channel = AndroidNotificationChannel(
-    'tymer-notification-channel', // id
-    'Tymer Notification Channel', // title
-    description:
-        'This channel is used for important notifications.', // description
+    'tymer-notification-channel',
+    'Tymer Notification Channel',
+    description: 'This channel is used for important notifications.',
     importance: Importance.high,
   );
 
@@ -25,136 +24,87 @@ class NotificationsService {
     required ValueSetter<int> goToProviderDisputeChatScreen,
   }) async {
     await _requestPermission();
-    await _setupFlutterNotifications(
-      goToFulfillServiceScreen: goToFulfillServiceScreen,
-      goToRequestStatusScreen: goToRequestStatusScreen,
-      goToRequesterDisputeChatScreen: goToRequesterDisputeChatScreen,
-      goToProviderDisputeChatScreen: goToProviderDisputeChatScreen,
+    await _setupNotifications(
+      goToFulfillServiceScreen,
+      goToRequestStatusScreen,
+      goToRequesterDisputeChatScreen,
+      goToProviderDisputeChatScreen,
     );
   }
 
+  // Request permission for notifications
   Future<void> _requestPermission() async {
-    final firebaseMessaging = FirebaseMessaging.instance;
-    final settings = await firebaseMessaging.requestPermission(
+    final settings = await FirebaseMessaging.instance.requestPermission(
       alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
       sound: true,
+      badge: true,
     );
     debugPrint('User granted permission: ${settings.authorizationStatus}');
   }
 
-  Future<void> _setupFlutterNotifications({
-    required ValueSetter<int> goToFulfillServiceScreen,
-    required ValueSetter<int> goToRequestStatusScreen,
-    required ValueSetter<int> goToRequesterDisputeChatScreen,
-    required ValueSetter<int> goToProviderDisputeChatScreen,
-  }) async {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      showFlutterNotification(message);
+  // Setup notification handling
+  Future<void> _setupNotifications(
+    ValueSetter<int> goToFulfillServiceScreen,
+    ValueSetter<int> goToRequestStatusScreen,
+    ValueSetter<int> goToRequesterDisputeChatScreen,
+    ValueSetter<int> goToProviderDisputeChatScreen,
+  ) async {
+    FirebaseMessaging.onMessage
+        .listen((message) => showFlutterNotification(message));
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      _handleNotificationNavigation(
+          message,
+          goToFulfillServiceScreen,
+          goToRequestStatusScreen,
+          goToRequesterDisputeChatScreen,
+          goToProviderDisputeChatScreen);
     });
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      final title = message.notification?.title ?? '';
-      if (_shouldNavigateToFulfillServiceRequestScreen(title) ||
-          _shouldNavigateToRequestStatusScreen(title)) {
-        final serviceId = message.data['service_request_id'];
-        if (_shouldNavigateToFulfillServiceRequestScreen(title)) {
-          goToFulfillServiceScreen(int.parse(serviceId));
-        } else {
-          goToRequestStatusScreen(int.parse(serviceId));
-        }
-
-      }
-      if (_shouldNavigateToRequesterDisputeChatScreen(title) ||
-          _shouldNavigateToProviderDisputeChatScreen(title)) {
-        final disputeId = message.data['dispute_id'];
-        if (_shouldNavigateToRequesterDisputeChatScreen(title)) {
-          goToRequesterDisputeChatScreen(int.parse(disputeId));
-        } else {
-          goToProviderDisputeChatScreen(int.parse(disputeId));
-        }
-      }
-    });
-
     FirebaseMessaging.instance.getInitialMessage().then((message) {
-      final title = message?.notification?.title ?? '';
-      if (_shouldNavigateToFulfillServiceRequestScreen(title) ||
-          _shouldNavigateToRequestStatusScreen(title)) {
-        final serviceId = message?.data['service_request_id'];
-        if (_shouldNavigateToFulfillServiceRequestScreen(title)) {
-          goToFulfillServiceScreen(int.parse(serviceId));
-        } else {
-          goToRequestStatusScreen(int.parse(serviceId));
-        }
-      }
-
-      if (_shouldNavigateToRequesterDisputeChatScreen(title) ||
-          _shouldNavigateToProviderDisputeChatScreen(title)) {
-        final disputeId = message?.data['dispute_id'];
-        if (_shouldNavigateToRequesterDisputeChatScreen(title)) {
-          goToRequesterDisputeChatScreen(int.parse(disputeId));
-        } else {
-          goToProviderDisputeChatScreen(int.parse(disputeId));
-        }
+      if (message != null) {
+        _handleNotificationNavigation(
+            message,
+            goToFulfillServiceScreen,
+            goToRequestStatusScreen,
+            goToRequesterDisputeChatScreen,
+            goToProviderDisputeChatScreen);
       }
     });
 
+    // Initialize local notifications
     await _flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(_channel);
 
-    const android = AndroidInitializationSettings('@mipmap/ic_launcher');
-    const ios = DarwinInitializationSettings(
-      requestAlertPermission: true,
-      requestBadgePermission: true,
-      requestSoundPermission: true,
-    );
     const initializationSettings = InitializationSettings(
-      android: android,
-      iOS: ios,
+      android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+      iOS: DarwinInitializationSettings(
+          requestAlertPermission: true,
+          requestBadgePermission: true,
+          requestSoundPermission: true),
     );
     await _flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
-      onDidReceiveNotificationResponse: (NotificationResponse response) async {
+      onDidReceiveNotificationResponse: (response) async {
         final payload =
-            response.payload != null ? jsonDecode(response.payload!) : null;
+            response.payload != null ? jsonDecode(response.payload!) : {};
         final title = payload['title'];
-
-        if (_shouldNavigateToRequestStatusScreen(title) ||
-            _shouldNavigateToFulfillServiceRequestScreen(title)) {
-          final serviceId = payload['service_request_id'];
-          if (_shouldNavigateToFulfillServiceRequestScreen(title)) {
-            goToFulfillServiceScreen(int.parse(serviceId));
-          } else {
-            goToRequestStatusScreen(int.parse(serviceId));
-          }
-        }
-        if (_shouldNavigateToRequesterDisputeChatScreen(title) ||
-            _shouldNavigateToProviderDisputeChatScreen(title)) {
-          final disputeId = payload['dispute_id'];
-          if (_shouldNavigateToRequesterDisputeChatScreen(title)) {
-            goToRequesterDisputeChatScreen(int.parse(disputeId));
-          } else {
-            goToProviderDisputeChatScreen(int.parse(disputeId));
-          }
-        }
+        _handleNotificationNavigationFromResponse(
+            title,
+            payload,
+            goToFulfillServiceScreen,
+            goToRequestStatusScreen,
+            goToRequesterDisputeChatScreen,
+            goToProviderDisputeChatScreen);
       },
     );
   }
 
+  // Show Flutter notification
   void showFlutterNotification(RemoteMessage message) {
-    RemoteNotification? notification = message.notification;
-    AndroidNotification? android = message.notification?.android;
-    AppleNotification? apple = message.notification?.apple;
-    if (notification != null && (android != null || apple != null)) {
-      final payload = {
-        ...message.data,
-        'title': notification.title,
-      };
+    final notification = message.notification;
+    if (notification != null) {
+      final payload = {...message.data, 'title': notification.title};
       final jsonPayload = jsonEncode(payload);
       _flutterLocalNotificationsPlugin.show(
         notification.hashCode,
@@ -165,42 +115,86 @@ class NotificationsService {
           android: AndroidNotificationDetails(
             _channel.id,
             _channel.name,
-            playSound: true,
-            enableVibration: true,
-            importance: Importance.high,
             channelDescription: _channel.description,
+            importance: Importance.high,
             icon: '@mipmap/ic_launcher',
           ),
-          iOS: DarwinNotificationDetails(
-              presentAlert: true,
-              presentBadge: true,
-              presentSound: true,
-              subtitle: apple?.subtitle,
-              badgeNumber: int.tryParse(apple?.badge ?? ''),
-              presentBanner: true),
+          iOS: const DarwinNotificationDetails(
+            presentAlert: true,
+            presentBadge: true,
+            presentSound: true,
+          ),
         ),
       );
     }
   }
-}
 
-bool _shouldNavigateToRequestStatusScreen(String title) {
-  return title.contains('Service Request Accepted') ||
-      title.contains('Response Received');
-}
+  // Handle notification navigation when a notification is clicked
+  void _handleNotificationNavigation(
+    RemoteMessage message,
+    ValueSetter<int> goToFulfillServiceScreen,
+    ValueSetter<int> goToRequestStatusScreen,
+    ValueSetter<int> goToRequesterDisputeChatScreen,
+    ValueSetter<int> goToProviderDisputeChatScreen,
+  ) {
+    final title = message.notification?.title ?? '';
+    final serviceId = message.data['service_request_id'];
+    final disputeId = message.data['dispute_id'];
 
-bool _shouldNavigateToFulfillServiceRequestScreen(String title) {
-  return title.contains('Response Accepted');
-}
+    if (_shouldNavigateToFulfillServiceRequestScreen(title)) {
+      goToFulfillServiceScreen(int.parse(serviceId));
+    } else if (_shouldNavigateToRequestStatusScreen(title)) {
+      goToRequestStatusScreen(int.parse(serviceId));
+    } else if (_shouldNavigateToRequesterDisputeChatScreen(title)) {
+      goToRequesterDisputeChatScreen(int.parse(disputeId));
+    } else if (_shouldNavigateToProviderDisputeChatScreen(title)) {
+      goToProviderDisputeChatScreen(int.parse(disputeId));
+    }
+  }
 
-bool _shouldNavigateToRequesterDisputeChatScreen(String title) {
-  return title.contains('Dispute Chat Message Received') ||
-      title.contains('Dispute Raised by You');
-}
+  // Handle notification navigation from background or terminated state
+  void _handleNotificationNavigationFromResponse(
+    String title,
+    Map<String, dynamic> payload,
+    ValueSetter<int> goToFulfillServiceScreen,
+    ValueSetter<int> goToRequestStatusScreen,
+    ValueSetter<int> goToRequesterDisputeChatScreen,
+    ValueSetter<int> goToProviderDisputeChatScreen,
+  ) {
+    final serviceId = payload['service_request_id'];
+    final disputeId = payload['dispute_id'];
 
-bool _shouldNavigateToProviderDisputeChatScreen(String title) {
-  return title.contains('Dispute Selected User Chat Message Received') ||
-      title.contains('Dispute Raised Against You') ||
-      // this case the payload returns the request id not the dispute id, louise is working on it
-      title.contains('Response Refused');
+    if (_shouldNavigateToFulfillServiceRequestScreen(title)) {
+      goToFulfillServiceScreen(int.parse(serviceId));
+    } else if (_shouldNavigateToRequestStatusScreen(title)) {
+      goToRequestStatusScreen(int.parse(serviceId));
+    } else if (_shouldNavigateToRequesterDisputeChatScreen(title)) {
+      goToRequesterDisputeChatScreen(int.parse(disputeId));
+    } else if (_shouldNavigateToProviderDisputeChatScreen(title)) {
+      goToProviderDisputeChatScreen(int.parse(disputeId));
+    }
+  }
+
+  // Check if should navigate to Request Status screen
+  bool _shouldNavigateToRequestStatusScreen(String? title) {
+    return title?.contains('Service Request Accepted') ??
+        false || (title?.contains('Response Received') ?? false);
+  }
+
+  // Check if should navigate to Fulfill Service screen
+  bool _shouldNavigateToFulfillServiceRequestScreen(String? title) {
+    return title?.contains('Response Accepted') ?? false;
+  }
+
+  // Check if should navigate to Requester Dispute Chat screen
+  bool _shouldNavigateToRequesterDisputeChatScreen(String? title) {
+    return title?.contains('Dispute Chat Message Received') ??
+        false || (title?.contains('Dispute Raised by You') ?? false);
+  }
+
+  // Check if should navigate to Provider Dispute Chat screen
+  bool _shouldNavigateToProviderDisputeChatScreen(String? title) {
+    return title?.contains('Dispute Selected User Chat Message Received') ??
+        false || (title?.contains('Dispute Raised Against You') ?? false);
+  }
 }
