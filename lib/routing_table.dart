@@ -8,12 +8,12 @@ import 'package:confirm_dispute/confirm_dispute.dart';
 import 'package:dispute_repository/dispute_repository.dart';
 import 'package:disputes/disputes.dart';
 import 'package:domain_models/domain_models.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:forgot_password/forgot_password.dart';
 import 'package:fulfill_service_request/fulfill_service_request.dart';
 import 'package:home/home.dart';
 import 'package:initial/initial.dart';
+import 'package:notifications_service/notifications_service.dart';
 import 'package:order_history/order_history.dart';
 import 'package:profile/profile.dart';
 import 'package:provide_service/provide_service.dart';
@@ -52,11 +52,26 @@ Map<String, PageBuilder> buildRoutingTable({
     }
   });
 
-  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-  });
-
-  FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
-  });
+  NotificationsService.instance.init(
+    goToFulfillServiceScreen: (int requestId) => routerDelegate.push(
+      _PathConstants.fulfillServiceRequestPath,
+    ),
+    goToRequestStatusScreen: (int requestId) => routerDelegate.push(
+      _PathConstants.serviceRequestStatusPath(requestId: requestId),
+    ),
+    goToRequesterDisputeChatScreen: (int disputeId) async {
+      routerDelegate.push(_PathConstants.disputesPath);
+      disputeRepository.changeNotifier.setDisputeChatUserType(
+        UserType.requester,
+      );
+      routerDelegate.push(_PathConstants.disputeChatPath(disputeId: disputeId));
+    },
+    goToProviderDisputeChatScreen: (int disputeId) async {
+      routerDelegate.push(_PathConstants.disputesPath);
+      disputeRepository.changeNotifier.setDisputeChatUserType(UserType.provider);
+      routerDelegate.push(_PathConstants.disputeChatPath(disputeId: disputeId));
+    },
+  );
 
   return {
     _PathConstants.initialPath: (_) => TabPage(

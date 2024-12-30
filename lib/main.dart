@@ -29,7 +29,6 @@ import 'package:service_repository/service_repository.dart';
 import 'package:service_request_status/service_request_status.dart';
 import 'package:sign_up/sign_up.dart';
 import 'package:tymer/firebase_options.dart';
-import 'package:tymer/flutter_notifications.dart';
 import 'package:tymer/routing_table.dart';
 import 'package:tymer_api/tymer_api.dart';
 
@@ -72,9 +71,8 @@ final _keyValueStorage = KeyValueStorage();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  NotificationService.instance.init();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 

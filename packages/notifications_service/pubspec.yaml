@@ -1,0 +1,24 @@
+name: notifications_service
+publish_to: none
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  domain_models:
+    path: ../domain_models
+
+  function_and_extension_library:
+    path: ../function_and_extension_library
+  dispute_repository:
+    path: ../dispute_repository
+
+
+  firebase_messaging: ^15.1.6
+  flutter_local_notifications: ^18.0.1
+  firebase_core: ^3.3.0
+
+dev_dependencies:
+  flutter_lints: ^4.0.0
