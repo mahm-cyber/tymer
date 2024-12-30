@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart';
 import 'package:tymer_api/tymer_api.dart';
@@ -33,8 +31,6 @@ class UserRepository {
       preference.toCacheModel(),
     );
     _localePreferenceSubject.add(preference);
-    final cachedLocale = await getLocalePreference().first;
-    debugPrint('cachedLocale: $cachedLocale');
   }
 
   Stream<LocalePreferenceDM?> getLocalePreference() async* {

@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
+import 'package:service_repository/service_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 part 'sign_in_state.dart';
@@ -12,6 +13,7 @@ part 'sign_in_state.dart';
 class SignInCubit extends Cubit<SignInState> {
   SignInCubit({
     required this.userRepository,
+    required this.serviceRepository,
     required this.onUnverifiedSignIn,
     required this.onSignUpTapped,
     required this.onForgotPasswordTapped,
@@ -31,6 +33,7 @@ class SignInCubit extends Cubit<SignInState> {
   }
 
   final UserRepository userRepository;
+  final ServiceRepository serviceRepository;
   final VoidCallback onUnverifiedSignIn;
   final VoidCallback onSignUpTapped;
   final VoidCallback onForgotPasswordTapped;
@@ -164,6 +167,9 @@ class SignInCubit extends Cubit<SignInState> {
             password: password.value!,
           );
         }
+        //TODO: fetch fresh wallet data as well since there could be some data left in the
+        // main tab screens from the previous user
+        serviceRepository.changeNotifier.setShouldReFetchServices(true);
       } catch (error) {
         final newState = state.copyWith(
           password: Password.validated(password.value,

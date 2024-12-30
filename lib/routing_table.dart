@@ -8,6 +8,7 @@ import 'package:confirm_dispute/confirm_dispute.dart';
 import 'package:dispute_repository/dispute_repository.dart';
 import 'package:disputes/disputes.dart';
 import 'package:domain_models/domain_models.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:forgot_password/forgot_password.dart';
 import 'package:fulfill_service_request/fulfill_service_request.dart';
@@ -42,7 +43,7 @@ Map<String, PageBuilder> buildRoutingTable({
       debugPrint('Current route: ${routerDelegate.currentConfiguration?.path}');
     },
   );
-  isUserUnAuthSC.addListener(() {
+  isUserUnAuthSC.addListener(() async {
     if (isUserUnAuthSC.value) {
       signInSuccessVN.value = false;
       routerDelegate.push(_PathConstants.signInPath);
@@ -50,6 +51,13 @@ Map<String, PageBuilder> buildRoutingTable({
       signInSuccessVN.value = true;
     }
   });
+
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+  });
+
+  FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
+  });
+
   return {
     _PathConstants.initialPath: (_) => TabPage(
           backBehavior: TabBackBehavior.history,
@@ -97,6 +105,7 @@ Map<String, PageBuilder> buildRoutingTable({
           name: 'sign-in',
           child: SignInScreen(
             userRepository: userRepository,
+            serviceRepository: serviceRepository,
             onUnverifiedSignIn: () {
               routerDelegate.push(_PathConstants.verifyOtpPath);
             },

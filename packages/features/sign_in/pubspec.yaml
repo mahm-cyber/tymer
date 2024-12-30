@@ -16,6 +16,8 @@ dependencies:
     path: ../../component_library
   user_repository:
     path: ../../user_repository
+  service_repository:
+    path: ../../service_repository
   form_fields:
     path: ../../form_fields
   domain_models:

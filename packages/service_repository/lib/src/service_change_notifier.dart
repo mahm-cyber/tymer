@@ -28,7 +28,7 @@ class ServiceChangeNotifier with ChangeNotifier {
     notifyListeners();
   }
   
-  bool? get shouldReFetchServiceRequests => _shouldReFetchServicesVN.value;
+  bool? get shouldReFetchServiceRequestsHistory => _shouldReFetchServicesVN.value;
   void setShouldReFetchServices(bool shouldReFetchServices) {
     _shouldReFetchServicesVN.value = shouldReFetchServices;
     notifyListeners();

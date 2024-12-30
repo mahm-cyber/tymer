@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +13,8 @@ class NotificationService {
   static final _flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   static const _channel = AndroidNotificationChannel(
-    'high_importance_channel', // id
-    'High Importance Notifications', // title
+    'tymer-notification-channel', // id
+    'Tymer Notification Channel', // title
     description:
         'This channel is used for important notifications.', // description
     importance: Importance.high,
@@ -27,7 +29,9 @@ class NotificationService {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       showFlutterNotification(message);
     });
-
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      debugPrint('onMessageOpenedApp: $message');
+    });
   }
 
   Future<void> _requestPermission() async {
@@ -56,13 +60,18 @@ class NotificationService {
       requestBadgePermission: true,
       requestSoundPermission: true,
     );
-    const initializationSettings =
-        InitializationSettings(android: android, iOS: ios);
-    await _flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse:
-            (NotificationResponse response) async {
-      debugPrint('onDidReceiveNotificationResponse: $response');
-    });
+    const initializationSettings = InitializationSettings(
+      android: android,
+      iOS: ios,
+    );
+    await _flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: (NotificationResponse response) async {
+        final payload =
+            response.payload != null ? jsonDecode(response.payload!) : null;
+        debugPrint('onDidReceiveNotificationResponse: ${response}');
+      },
+    );
   }
 
   void showFlutterNotification(RemoteMessage message) {
@@ -70,14 +79,23 @@ class NotificationService {
     AndroidNotification? android = message.notification?.android;
     AppleNotification? apple = message.notification?.apple;
     if (notification != null && (android != null || apple != null)) {
+      final payload = {
+        ...message.data,
+        'title': notification.title,
+      };
+      final jsonPayload = jsonEncode(payload);
       _flutterLocalNotificationsPlugin.show(
         notification.hashCode,
         notification.title,
         notification.body,
+        payload: jsonPayload,
         NotificationDetails(
           android: AndroidNotificationDetails(
             _channel.id,
             _channel.name,
+            playSound: true,
+            enableVibration: true,
+            importance: Importance.high,
             channelDescription: _channel.description,
             icon: '@mipmap/ic_launcher',
           ),

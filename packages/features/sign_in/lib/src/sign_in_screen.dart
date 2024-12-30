@@ -3,6 +3,7 @@ import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
+import 'package:service_repository/service_repository.dart';
 import 'package:sign_in/sign_in.dart';
 import 'package:sign_in/src/components/lib/phone_text_field.dart';
 import 'package:sign_in/src/sign_in_cubit.dart';
@@ -15,6 +16,7 @@ class SignInScreen extends StatelessWidget {
   const SignInScreen({
     super.key,
     required this.userRepository,
+    required this.serviceRepository,
     required this.onSignInSuccess,
     required this.onUnverifiedSignIn,
     required this.onSignUpTapped,
@@ -22,6 +24,7 @@ class SignInScreen extends StatelessWidget {
   });
 
   final UserRepository userRepository;
+  final ServiceRepository serviceRepository;
   final VoidCallback onSignInSuccess;
   final VoidCallback onUnverifiedSignIn;
   final VoidCallback onSignUpTapped;
@@ -32,6 +35,7 @@ class SignInScreen extends StatelessWidget {
     return BlocProvider<SignInCubit>(
       create: (_) => SignInCubit(
         userRepository: userRepository,
+        serviceRepository: serviceRepository,
         onUnverifiedSignIn: onUnverifiedSignIn,
         onSignUpTapped: onSignUpTapped,
         onForgotPasswordTapped: onForgotPasswordTapped,

@@ -42,7 +42,7 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
 
   void _shouldReFetchServiceRequestsCallBack() {
     final shouldReFetchDisputes =
-        serviceRepository.changeNotifier.shouldReFetchServiceRequests;
+        serviceRepository.changeNotifier.shouldReFetchServiceRequestsHistory;
     if (shouldReFetchDisputes == true) {
       _handleServiceRequestListNextPageRequested();
     }

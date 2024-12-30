@@ -183,10 +183,9 @@ class TymerApi {
     final url = urlBuilder.buildReSendOtpUrl();
 
     try {
-      final response = await _dio.post(
+      await _dio.post(
         url,
       );
-      debugPrint(response.toString());
     } on DioException catch (error) {
       final errorObject = error.response?.data[_errorJsonKey];
 
@@ -265,13 +264,12 @@ class TymerApi {
     final url = urlBuilder.buildChangeLanguageUrl();
 
     try {
-      final response = await _dio.post(
+      await _dio.post(
         url,
         data: {
           "preferred_language": language,
         },
       );
-      debugPrint(response.toString());
     } catch (_) {
       rethrow;
     }
@@ -402,7 +400,6 @@ class TymerApi {
         data: requestJsonBody,
       );
       final requestId = response.data[_dataJsonKey]['id'] as int;
-      debugPrint(response.data.toString());
       return requestId;
     } on DioException catch (error) {
       final errorObject = error.response?.data[_errorJsonKey];
@@ -491,11 +488,10 @@ class TymerApi {
     }, ListFormat.multiCompatible);
 
     try {
-      final response = await _dio.post(
+       await _dio.post(
         url,
         data: formData,
       );
-      debugPrint(response.data.toString());
     } catch (_) {
       rethrow;
     }
@@ -744,11 +740,10 @@ class TymerApi {
       'new_password_confirmation': newPasswordConfirmation,
     };
     try {
-      final response = await _dio.post(
+       await _dio.post(
         url,
         data: requestJsonBody,
       );
-      debugPrint(response.toString());
     } on DioException catch (error) {
       final errorObject =
           error.response?.data[_errorJsonKey][_verificationErrorsJsonKey];
@@ -777,7 +772,6 @@ extension on Dio {
       InterceptorsWrapper(
         onRequest: (options, handler) async {
           final token = await userTokenSupplier();
-          // debugPrint('requestToken: $token');
           options.headers.addAll(
             {
               "Accept": "application/json",
