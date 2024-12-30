@@ -252,17 +252,8 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
   }
 
   void onSubmit() async {
-    final userLocation = await userRepository.getUserLocation();
-    if (userLocation == null) {
-      return;
-    }
-    final userLocationDM = LocationDM(
-      type: 'Point',
-      coordinates: [
-        userLocation.latitude!,
-        userLocation.longitude!,
-      ],
-    );
+
+
     final serviceType = state.service!.type;
     final isOtherService = serviceType == ServiceType.other;
     final isReservationService = serviceType == ServiceType.reservation;
@@ -281,11 +272,18 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
               ? true
               : false,
     );
-    final image = FileSize<File?>.validated(
-      state.file.value,
-      sizeLimitInKb: 1024,
-    );
-    final isFormValid = Formz.validate([reservationNumber, day, time, image]);
+    final image = state.file.value != null
+        ? FileSize<File>.validated(
+            state.file.value,
+            sizeLimitInKb: 1024,
+          )
+        : null;
+    final isFormValid = Formz.validate([
+      reservationNumber,
+      day,
+      time,
+      if (image != null) image,
+    ]);
     final newState = state.copyWith(
       reservationNumber: reservationNumber,
       day: day,
@@ -298,6 +296,21 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
     emit(newState);
 
     if (isFormValid) {
+      final userLocation = await userRepository.getUserLocation();
+      if (userLocation == null) {
+        final initialState = state.copyWith(
+          submissionStatus: FormzSubmissionStatus.initial,
+        );
+        emit(initialState);
+        return;
+      }
+      final userLocationDM = LocationDM(
+        type: 'Point',
+        coordinates: [
+          userLocation.latitude!,
+          userLocation.longitude!,
+        ],
+      );
       try {
         await serviceRepository.fulfillServiceRequest(
           userLocation: userLocationDM,

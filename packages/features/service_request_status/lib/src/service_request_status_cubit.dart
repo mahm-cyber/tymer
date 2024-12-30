@@ -81,6 +81,7 @@ class ServiceRequestStatusCubit extends Cubit<ServiceRequestStatusState> {
         serviceRequestId: requestId,
       );
       final loaded = state.copyWith(
+        service: state.service!.copyWith(status: ServiceStatus.completed),
         confirmationStatus: ConfirmationStatus.success,
       );
       emit(loaded);

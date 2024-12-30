@@ -70,14 +70,18 @@ class TymerApi {
     final androidInfo = isAndroid ? await deviceInfo.androidInfo : null;
     final isHuwaei =
         androidInfo?.manufacturer.toLowerCase().contains('huawei') == true;
-
-    final token = isHuwaei ? '' : await FirebaseMessaging.instance.getToken();
+    final isIos = Platform.isIOS;
+    final token = isHuwaei
+        ? ''
+        : isIos
+            ? await FirebaseMessaging.instance.getAPNSToken()
+            : await FirebaseMessaging.instance.getToken();
 
     final requestJsonBody = UserCredentialsRM(
       phone: '+2$phone',
       password: password,
       pushTokenType: isHuwaei ? 'huwaei' : 'fcm',
-      pushToken: token!,
+      pushToken: token ?? '',
     ).toJson();
 
     try {
@@ -96,6 +100,8 @@ class TymerApi {
       if (errorObject.containsKey(_phoneNumberJsonKey)) {
         throw InvalidCredentialsTymerException();
       }
+      rethrow;
+    } catch (_) {
       rethrow;
     }
   }

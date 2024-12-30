@@ -29,6 +29,26 @@ class Service {
   final LocationDM location;
   final ServiceRequestDetails? requestDetails;
   final ServiceResponseDetails? responseDetails;
+
+  Service copyWith({
+    required ServiceStatus status,
+  }) {
+    return Service(
+      id: id,
+      dispute: dispute,
+      distanceBetweenProviderAndServiceLocation:
+          distanceBetweenProviderAndServiceLocation,
+      status: status,
+      createdAt: createdAt,
+      type: type,
+      totalPrice: totalPrice,
+      price: price,
+      fee: fee,
+      location: location,
+      requestDetails: requestDetails,
+      responseDetails: responseDetails,
+    );
+  }
 }
 
 class LocationDM {

@@ -324,29 +324,7 @@ class UserRepository {
     }
   }
 
-  Future updateUser({
-    String? firstName,
-    String? lastName,
-    String? email,
-    String? phone,
-    String? jobTitle,
-    String? image,
-  }) async {
-    try {
-      // final user = await getUser().first;
-      // await remoteApi.updateProfile(
-      //   userId: user!.id,
-      //   firstName: firstName,
-      //   lastName: lastName,
-      //   email: email,
-      //   phone: phone,
-      //   jobTitle: jobTitle,
-      //   image: image,
-      // );
-    } catch (error) {
-      rethrow;
-    }
-  }
+
 
   Future<String?> getUserToken() async => await _secureStorage.getUserToken();
 
@@ -533,7 +511,7 @@ class UserRepository {
         }
       }
 
-      await Future.delayed(const Duration(milliseconds: 10));
+      await Future.delayed(const Duration(milliseconds: 100));
       final locationData = await location.getLocation();
       return locationData;
     } catch (error) {
