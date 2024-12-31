@@ -192,27 +192,30 @@ class NotificationsService {
   bool _shouldNavigateToRequestStatusScreen(String? title) {
     if (title == null) return false;
     return title.contains('Service Request Accepted') ||
-        (title.contains('Response Received'));
+        title.contains('Response Received') ||
+        title.contains('تم استلام الرد') ||
+        title.contains('قبول طلب الخدمة');
   }
 
   // Check if should navigate to Fulfill Service screen
   bool _shouldNavigateToFulfillServiceRequestScreen(String? title) {
     if (title == null) return false;
-    return title.contains('Response Accepted');
+    return title.contains('Response Accepted') || title.contains('قبول الرد');
   }
 
   // Check if should navigate to Requester Dispute Chat screen
   bool _shouldNavigateToRequesterDisputeChatScreen(String? title) {
     if (title == null) return false;
     return title.contains('Dispute Chat Message Received') ||
-        (title.contains('Dispute Raised by You'));
+        title.contains('تم استلام رسالة نزاع');
   }
 
   // Check if should navigate to Provider Dispute Chat screen
   bool _shouldNavigateToProviderDisputeChatScreen(String? title) {
     if (title == null) return false;
     return title.contains('Dispute Selected User Chat Message Received') ||
-        title.contains('Dispute Raised Against You') ||
-        title.contains('Response Refused');
+        title.contains('Response Refused') ||
+        title.contains('تم رفض الرد');
   }
 }
+
