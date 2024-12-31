@@ -19,13 +19,14 @@ class DatePickerTextField extends StatelessWidget {
         final dateError = state.date.isNotValid ? state.date.error : null;
         final l10n = RequestServiceLocalizations.of(context);
         final theme = TymerTheme.of(context);
+
         onTap() async {
           final dateTime = await showDatePicker(
             context: context,
             builder: (context, child) {
               return BackButtonListener(
                 onBackButtonPressed: () async{
-                  Navigator.of(context).pop();
+                  cubit.onBackButtonPressed();
                   return true;
                 },
                 child: child!,

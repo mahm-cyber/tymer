@@ -17,12 +17,14 @@ class RequestServiceScreen extends StatelessWidget {
     required this.serviceRepository,
     required this.onGoToWalletTapped,
     required this.onServiceRequestSuccess,
+    required this.onBackButtonPressed,
     super.key,
   });
 
   final UserRepository userRepository;
   final ServiceRepository serviceRepository;
   final VoidCallback onGoToWalletTapped;
+  final VoidCallback onBackButtonPressed;
   final ValueSetter<int> onServiceRequestSuccess;
 
   @override
@@ -33,6 +35,7 @@ class RequestServiceScreen extends StatelessWidget {
         serviceRepository: serviceRepository,
         onGoToWalletTapped: onGoToWalletTapped,
         onServiceRequestSuccess: onServiceRequestSuccess,
+        onBackButtonPressed: onBackButtonPressed,
       ),
       child: const RequestServiceView(),
     );

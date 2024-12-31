@@ -56,7 +56,7 @@ class ChooseServiceView extends StatelessWidget {
               iconTheme: IconThemeData(color: colorScheme.surface),
             ),
             body: Padding(
-              padding: EdgeInsets.symmetric(horizontal: theme.screenMargin * 2),
+              padding: EdgeInsets.symmetric(horizontal: theme.screenMargin ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

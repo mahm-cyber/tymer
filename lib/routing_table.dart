@@ -55,10 +55,11 @@ Map<String, PageBuilder> buildRoutingTable({
   NotificationsService.instance.init(
     goToFulfillServiceScreen: (int requestId) async {
       // If the current route is fulfill service, pop the current route and push again
-      if (routerDelegate.currentConfiguration?.path ==
-          _PathConstants.fulfillServiceRequestPath) {
-        await routerDelegate.popRoute();
-      }
+      final isFulfillService = routerDelegate.currentConfiguration?.path
+              .contains('fulfill-service-request') ==
+          true;
+      if (isFulfillService) await routerDelegate.popRoute();
+
       routerDelegate.push(_PathConstants.fulfillServiceRequestPath);
     },
     goToRequestStatusScreen: (int requestId) async {
@@ -136,7 +137,7 @@ Map<String, PageBuilder> buildRoutingTable({
           name: 'sign-up',
           child: SignUpScreen(
             userRepository: userRepository,
-            onBackTapped: () => routerDelegate.popRoute(),
+            onBackButtonPressed: () => routerDelegate.popRoute(),
             onSignInTap: () => routerDelegate
                 .popRoute()
                 .then((_) => routerDelegate.push(_PathConstants.signInPath)),
@@ -269,6 +270,7 @@ Map<String, PageBuilder> buildRoutingTable({
                 context: context,
                 builder: (_) => ChangeLanguageBottomSheet(
                   userRepository: userRepository,
+                  onBackButtonPressed: () => routerDelegate.pop(),
                 ),
               ),
             );
@@ -326,6 +328,7 @@ Map<String, PageBuilder> buildRoutingTable({
                 _PathConstants.serviceRequestStatusPath(requestId: requestId),
               );
             },
+            onBackButtonPressed: routerDelegate.pop,
           ),
         ),
     _PathConstants.serviceRequestStatusPath(): (info) {
@@ -421,6 +424,7 @@ Map<String, PageBuilder> buildRoutingTable({
                 disputeId: disputeId,
               ));
             },
+            onBackButtonPressed: routerDelegate.pop,
           ),
         ),
   };

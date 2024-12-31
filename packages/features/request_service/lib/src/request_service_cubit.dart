@@ -19,6 +19,7 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
     required this.serviceRepository,
     required this.onGoToWalletTapped,
     required this.onServiceRequestSuccess,
+    required this.onBackButtonPressed,
   }) : super(
           RequestServiceState(
             serviceType: serviceRepository.changeNotifier.serviceType,
@@ -30,6 +31,7 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
   final UserRepository userRepository;
   final ServiceRepository serviceRepository;
   final VoidCallback onGoToWalletTapped;
+  final VoidCallback onBackButtonPressed;
   final ValueSetter<int> onServiceRequestSuccess;
 
   void init() {

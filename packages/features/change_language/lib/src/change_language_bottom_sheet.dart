@@ -9,16 +9,19 @@ import 'package:user_repository/user_repository.dart';
 class ChangeLanguageBottomSheet extends StatelessWidget {
   const ChangeLanguageBottomSheet({
     required this.userRepository,
+    required this.onBackButtonPressed,
     super.key,
   });
 
   final UserRepository userRepository;
+  final VoidCallback onBackButtonPressed;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ChangeLanguageCubit>(
       create: (_) => ChangeLanguageCubit(
         userRepository: userRepository,
+        onBackButtonPressed: onBackButtonPressed,
       ),
       child: const ChangeLanguageView(),
     );
@@ -56,7 +59,7 @@ class ChangeLanguageView extends StatelessWidget {
         final colorScheme = theme.materialThemeData.colorScheme;
         return BackButtonListener(
           onBackButtonPressed: () async {
-            Navigator.of(context).pop();
+            cubit.onBackButtonPressed();
             return true;
           },
           child: Container(

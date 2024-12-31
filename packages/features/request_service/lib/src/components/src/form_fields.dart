@@ -51,6 +51,7 @@ class _FormFieldsState extends State<FormFields>
                     shouldAllowPastTime: false,
                     error: state.time.error,
                     initialValue: null,
+                    onBackButtonPressed: cubit.onBackButtonPressed,
                   ),
                 ),
                 VerticalGap.small(),

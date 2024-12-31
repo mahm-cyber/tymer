@@ -19,6 +19,7 @@ class FulfillServiceRequestScreen extends StatelessWidget {
     required this.userRepository,
     required this.onNavigateToProvideService,
     required this.onServiceDisputed,
+    required this.onBackButtonPressed,
     super.key,
   });
 
@@ -27,7 +28,7 @@ class FulfillServiceRequestScreen extends StatelessWidget {
   final UserRepository userRepository;
   final VoidCallback onNavigateToProvideService;
   final ValueSetter<int> onServiceDisputed;
-
+  final VoidCallback onBackButtonPressed;
   @override
   Widget build(BuildContext context) {
     return BlocProvider<FulfillServiceRequestCubit>(
@@ -37,6 +38,7 @@ class FulfillServiceRequestScreen extends StatelessWidget {
         userRepository: userRepository,
         onNavigateToProvideService: onNavigateToProvideService,
         onServiceDisputed: onServiceDisputed,
+        onBackButtonPressed: onBackButtonPressed,
       ),
       child: GestureDetector(
         onTap: context.releaseFocus,
@@ -91,7 +93,7 @@ class FulfillServiceRequestView extends StatelessWidget {
             builder: (context) {
               return BackButtonListener(
                 onBackButtonPressed: () async {
-                  Navigator.pop(context);
+                  cubit.onBackButtonPressed();
                   return true;
                 },
                 child: ImagePickerBottomSheet(
@@ -143,7 +145,7 @@ class FulfillServiceRequestView extends StatelessWidget {
               builder: (context) {
                 return BackButtonListener(
                   onBackButtonPressed: () async{
-                    Navigator.pop(context);
+                    cubit.onBackButtonPressed();
                     return true;
                   },
                   child: AlertDialog(
@@ -239,6 +241,7 @@ class FulfillServiceRequestView extends StatelessWidget {
                                             isSubmissionInProgress,
                                         initialValue: state
                                             .service?.responseDetails?.time,
+                                        onBackButtonPressed: cubit.onBackButtonPressed,
                                       ),
                                       VerticalGap.small(),
                                       const ImagePickerTextField(),

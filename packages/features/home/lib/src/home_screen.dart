@@ -52,7 +52,7 @@ class HomeView extends StatelessWidget {
               toolbarHeight: 160,
             ),
             body: Padding(
-              padding: EdgeInsets.symmetric(horizontal: theme.screenMargin * 2),
+              padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

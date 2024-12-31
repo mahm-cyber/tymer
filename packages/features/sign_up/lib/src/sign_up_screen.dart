@@ -16,21 +16,21 @@ class SignUpScreen extends StatelessWidget {
     required this.userRepository,
     required this.onSignInTap,
     required this.onSignUpSuccess,
-    required this.onBackTapped,
+    required this.onBackButtonPressed,
     super.key,
   });
 
   final UserRepository userRepository;
   final VoidCallback onSignInTap;
   final VoidCallback onSignUpSuccess;
-  final VoidCallback onBackTapped;
+  final VoidCallback onBackButtonPressed;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<SignUpCubit>(
       create: (_) => SignUpCubit(
         userRepository: userRepository,
-        onBackTapped: onBackTapped,
+        onBackButtonPressed: onBackButtonPressed,
       ),
       child: SignUpView(
         onSignInTap: onSignInTap,
@@ -60,7 +60,7 @@ class SignUpView extends StatelessWidget {
       listener: (context, state) {
         final l10n = SignUpLocalizations.of(context);
         final theme = TymerTheme.of(context);
-
+        final cubit = context.read<SignUpCubit>();
         if (state.submissionStatus == FormzSubmissionStatus.success) {
           showSnackBar(
             context: context,
@@ -93,7 +93,7 @@ class SignUpView extends StatelessWidget {
             useSafeArea: true,
             builder: (context) => BackButtonListener(
               onBackButtonPressed: () async {
-                Navigator.pop(context);
+                cubit.onBackButtonPressed();
                 return true;
               },
               child: Container(
@@ -136,11 +136,11 @@ class SignUpView extends StatelessWidget {
               backgroundColor: colorScheme.surface,
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
-                onPressed: cubit.onBackTapped,
+                onPressed: cubit.onBackButtonPressed,
               ),
             ),
             body: Padding(
-              padding: EdgeInsets.symmetric(horizontal: theme.screenMargin * 2),
+              padding: EdgeInsets.symmetric(horizontal: theme.screenMargin ),
               child: Column(
                 children: [
                   const SvgAsset(

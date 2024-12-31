@@ -1,5 +1,6 @@
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:user_repository/user_repository.dart';
@@ -9,6 +10,7 @@ part 'change_language_state.dart';
 class ChangeLanguageCubit extends Cubit<ChangeLanguageState> {
   ChangeLanguageCubit({
     required this.userRepository,
+    required this.onBackButtonPressed,
   }) : super(
           const ChangeLanguageState(),
         ) {
@@ -20,6 +22,7 @@ class ChangeLanguageCubit extends Cubit<ChangeLanguageState> {
   }
 
   final UserRepository userRepository;
+  final VoidCallback onBackButtonPressed;
 
   Future changeLocale(LocalePreferenceDM localePreference) async {
     if (state.locale == localePreference) return;

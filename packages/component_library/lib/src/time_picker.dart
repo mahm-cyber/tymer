@@ -12,6 +12,7 @@ class TimePicker extends StatefulWidget {
     this.initialValue,
     this.shouldAllowPastTime = true,
     this.pickedDay,
+    required this.onBackButtonPressed,
   });
 
   final ValueChanged<TimeOfDay?> onChanged;
@@ -20,7 +21,7 @@ class TimePicker extends StatefulWidget {
   final TimeOfDay? initialValue;
   final bool shouldAllowPastTime;
   final DateTime? pickedDay;
-
+  final VoidCallback onBackButtonPressed;
   @override
   State<TimePicker> createState() => _TimePickerState();
 }
@@ -62,7 +63,7 @@ class _TimePickerState extends State<TimePicker> {
       builder: (context, child) {
         return BackButtonListener(
           onBackButtonPressed: () async{
-            Navigator.of(context).pop();
+            widget.onBackButtonPressed();
             return true;
           },
           child: child!,

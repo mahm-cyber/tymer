@@ -237,10 +237,10 @@ class _State extends State<ImageDialog> {
   @override
   Widget build(BuildContext context) {
     final theme = TymerTheme.of(context);
-
+    final cubit = context.read<FulfillServiceRequestCubit>();
     return BackButtonListener(
       onBackButtonPressed: ()async {
-        Navigator.pop(context);
+        cubit.onBackButtonPressed();
         return true;
       },
       child: Align(

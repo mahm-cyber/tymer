@@ -19,6 +19,7 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
     required this.userRepository,
     required this.onNavigateToProvideService,
     required this.onServiceDisputed,
+    required this.onBackButtonPressed,
   })  : _imagePicker = ImagePicker(),
         super(
           FulfillServiceRequestState(
@@ -32,6 +33,7 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
   final ServiceRepository serviceRepository;
   final UserRepository userRepository;
   final VoidCallback onNavigateToProvideService;
+  final VoidCallback onBackButtonPressed;
   final ValueSetter<int> onServiceDisputed;
   final StreamController<String> imageFileNameSC = StreamController();
   final ImagePicker _imagePicker;

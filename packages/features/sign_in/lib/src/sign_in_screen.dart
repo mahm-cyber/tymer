@@ -132,7 +132,7 @@ class _SignInForm extends StatelessWidget {
           body: Center(
             child: ListView(
               shrinkWrap: true,
-              padding: EdgeInsets.symmetric(horizontal: theme.screenMargin * 2),
+              padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
               children: <Widget>[
                 const SvgAsset(
                   AssetPathConstants.logoAndWordPath,

@@ -12,13 +12,13 @@ part 'sign_up_state.dart';
 class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit({
     required this.userRepository,
-    required this.onBackTapped,
+    required this.onBackButtonPressed,
   }) : super(
           const SignUpState(),
         );
 
   final UserRepository userRepository;
-  final VoidCallback onBackTapped;
+  final VoidCallback onBackButtonPressed;
 
   void onNameChanged(String newValue) {
     final previousScreenState = state;
