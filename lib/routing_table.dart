@@ -53,23 +53,53 @@ Map<String, PageBuilder> buildRoutingTable({
   });
 
   NotificationsService.instance.init(
-    goToFulfillServiceScreen: (int requestId) => routerDelegate.push(
-      _PathConstants.fulfillServiceRequestPath,
-    ),
-    goToRequestStatusScreen: (int requestId) => routerDelegate.push(
-      _PathConstants.serviceRequestStatusPath(requestId: requestId),
-    ),
+    goToFulfillServiceScreen: (int requestId) async {
+      // If the current route is fulfill service, pop the current route and push again
+      if (routerDelegate.currentConfiguration?.path ==
+          _PathConstants.fulfillServiceRequestPath) {
+        await routerDelegate.popRoute();
+      }
+      routerDelegate.push(_PathConstants.fulfillServiceRequestPath);
+    },
+    goToRequestStatusScreen: (int requestId) async {
+      // If the current route is service request status, pop the current route and push again
+      final isServiceRequestStatus = routerDelegate.currentConfiguration?.path
+              .contains('service-request-status') ==
+          true;
+      if (isServiceRequestStatus) await routerDelegate.popRoute();
+
+      routerDelegate
+          .push(_PathConstants.serviceRequestStatusPath(requestId: requestId));
+    },
     goToRequesterDisputeChatScreen: (int disputeId) async {
+      // If the current route is the dispute chat for requester, pop the current route and push again
+      final isDisputeChat =
+          routerDelegate.currentConfiguration?.path.contains('dispute-chat') ==
+              true;
+      if (isDisputeChat) await routerDelegate.popRoute();
+
       routerDelegate.push(_PathConstants.disputesPath);
       disputeRepository.changeNotifier.setDisputeChatUserType(
         UserType.requester,
       );
-      routerDelegate.push(_PathConstants.disputeChatPath(disputeId: disputeId));
+      routerDelegate.push(
+        _PathConstants.disputeChatPath(disputeId: disputeId),
+      ); // Then push to specific dispute chat
     },
     goToProviderDisputeChatScreen: (int disputeId) async {
+      // If the current route is the dispute chat for provider, pop the current route and push again
+      final isDisputeChat =
+          routerDelegate.currentConfiguration?.path.contains('dispute-chat') ==
+              true;
+      if (isDisputeChat) await routerDelegate.popRoute();
+
       routerDelegate.push(_PathConstants.disputesPath);
-      disputeRepository.changeNotifier.setDisputeChatUserType(UserType.provider);
-      routerDelegate.push(_PathConstants.disputeChatPath(disputeId: disputeId));
+      disputeRepository.changeNotifier.setDisputeChatUserType(
+        UserType.provider,
+      );
+      routerDelegate.push(
+        _PathConstants.disputeChatPath(disputeId: disputeId),
+      ); // Then push to specific dispute chat
     },
   );
 
