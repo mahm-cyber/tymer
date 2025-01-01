@@ -146,30 +146,34 @@ class NotificationsService {
     ValueSetter<int> goToRequesterDisputeChatScreen,
     ValueSetter<int> goToProviderDisputeChatScreen,
   ) {
-    final notification = NotificationRM.fromJson(payload).toDomainModel();
+    try {
+      final notification = NotificationRM.fromJson(payload).toDomainModel();
 
-    // Navigate to Fulfill Service Screen
-    if (notification.shouldNavigateToFulfillServiceRequestScreen) {
-      goToFulfillServiceScreen(notification.serviceRequestId!);
-      return; // Early return to avoid checking other conditions
-    }
+      // Navigate to Fulfill Service Screen
+      if (notification.shouldNavigateToFulfillServiceRequestScreen) {
+        goToFulfillServiceScreen(notification.serviceRequestId!);
+        return; // Early return to avoid checking other conditions
+      }
 
-    // Navigate to Request Status Screen
-    if (notification.shouldNavigateToRequestStatusScreen) {
-      goToRequestStatusScreen(notification.serviceRequestId!);
-      return; // Early return
-    }
+      // Navigate to Request Status Screen
+      if (notification.shouldNavigateToRequestStatusScreen) {
+        goToRequestStatusScreen(notification.serviceRequestId!);
+        return; // Early return
+      }
 
-    // Navigate to Requester's Dispute Chat
-    if (notification.shouldNavigateToRequesterDisputeChatScreen) {
-      goToRequesterDisputeChatScreen(notification.disputeId!);
-      return; // Early return
-    }
+      // Navigate to Requester's Dispute Chat
+      if (notification.shouldNavigateToRequesterDisputeChatScreen) {
+        goToRequesterDisputeChatScreen(notification.disputeId!);
+        return; // Early return
+      }
 
-    // Navigate to Provider's Dispute Chat
-    if (notification.shouldNavigateToProviderDisputeChatScreen) {
-      goToProviderDisputeChatScreen(notification.disputeId!);
-      return; // Early return
+      // Navigate to Provider's Dispute Chat
+      if (notification.shouldNavigateToProviderDisputeChatScreen) {
+        goToProviderDisputeChatScreen(notification.disputeId!);
+        return; // Early return
+      }
+    } catch (error) {
+      debugPrint('Error handling notification navigation: $error');
     }
   }
 }

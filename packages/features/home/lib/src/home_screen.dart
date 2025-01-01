@@ -69,10 +69,10 @@ class HomeView extends StatelessWidget {
                     title: l10n.provideServiceContainerTitle,
                     subtitle: l10n.provideServiceContainerSubtitle,
                   ),
-                  TextButton(
-                    onPressed: () => throw Exception(),
-                    child: const Text("Throw Test Exception"),
-                  ),
+                  // TextButton(
+                  //   onPressed: () => throw Exception(),
+                  //   child: const Text("Throw Test Exception"),
+                  // ),
                 ],
               ),
             ),

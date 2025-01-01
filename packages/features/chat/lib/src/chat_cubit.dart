@@ -62,7 +62,8 @@ class ChatCubit extends Cubit<ChatState> {
           disputeRepository.changeNotifier.currentDisputeVN.value;
       final freshDispute = await disputeRepository.getDispute(disputeId);
       final hasSameStatus =
-          disputeFromDisputesScreen?.status == freshDispute.status;
+          disputeFromDisputesScreen?.status == freshDispute.status &&
+              disputeFromDisputesScreen?.id == freshDispute.id;
       if (!hasSameStatus) {
         disputeRepository.changeNotifier.setShouldReFetchDisputes(true);
       }
@@ -288,8 +289,6 @@ class ChatCubit extends Cubit<ChatState> {
       if (isNotValid) {
         emit(deleteAllFilesState);
       }
-
-
     }
   }
 

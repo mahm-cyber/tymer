@@ -37,6 +37,11 @@ Map<String, PageBuilder> buildRoutingTable({
   required ValueNotifier<bool> signInSuccessVN,
   required ValueNotifier<bool> isUserUnAuthSC,
 }) {
+  disputeRepository.changeNotifier.addListener(() {
+    debugPrint(
+        'Current disputeChatUserType: ${disputeRepository.changeNotifier.disputeChatUserType}');
+  });
+
   routerDelegate.addListener(
     //print current route
     () {
@@ -77,8 +82,16 @@ Map<String, PageBuilder> buildRoutingTable({
       final isDisputeChat =
           routerDelegate.currentConfiguration?.path.contains('disputes/') ==
               true;
-      if (isDisputeChat) await routerDelegate.pop();
-
+      if (isDisputeChat) {
+        await routerDelegate.popUntil(
+              (route) => route.path == _PathConstants.disputesPath,
+        );
+        // if set to less than 350, and the current screen is a chat screen,
+        // it causes an error because the userchaytype in the changenotifier
+        // doesnt get enough time to be able to change the user type
+      disputeRepository.changeNotifier.clearCurrentDispute();
+        await Future.delayed(const Duration(milliseconds: 350));
+      }
       routerDelegate.push(_PathConstants.disputesPath);
       disputeRepository.changeNotifier.setDisputeChatUserType(
         UserType.requester,
@@ -92,12 +105,22 @@ Map<String, PageBuilder> buildRoutingTable({
       final isDisputeChat =
           routerDelegate.currentConfiguration?.path.contains('disputes/') ==
               true;
-      if (isDisputeChat) await routerDelegate.pop();
+      if (isDisputeChat) {
+        await routerDelegate.popUntil(
+          (route) => route.path == _PathConstants.disputesPath,
+        );
+        // if set to less than 350, and the current screen is a chat screen,
+        // it causes an error because the userchaytype in the changenotifier
+        // doesnt get enough time to be able to change the user type
+      await disputeRepository.changeNotifier.clearCurrentDispute();
+        await Future.delayed(const Duration(milliseconds: 350));
+      }
 
       routerDelegate.push(_PathConstants.disputesPath);
       disputeRepository.changeNotifier.setDisputeChatUserType(
         UserType.provider,
       );
+
       routerDelegate.push(
         _PathConstants.disputeChatPath(disputeId: disputeId),
       ); // Then push to specific dispute chat

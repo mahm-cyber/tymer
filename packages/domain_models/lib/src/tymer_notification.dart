@@ -2,14 +2,14 @@ import 'user_type.dart';
 
 class TymerNotification {
   const TymerNotification({
-    required this.id,
+    this.id,
     this.userType,
     required this.type,
     this.disputeId,
     this.serviceRequestId,
   });
 
-  final String id;
+  final String? id;
   final UserType? userType;
   final NotificationType type;
   final int? disputeId;

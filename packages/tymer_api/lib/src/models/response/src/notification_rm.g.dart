@@ -12,7 +12,7 @@ NotificationRM _$NotificationRMFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = NotificationRM(
-          id: $checkedConvert('notification_id', (v) => v as String),
+          id: $checkedConvert('notification_id', (v) => v as String?),
           serviceRequestId:
               $checkedConvert('service_request_id', (v) => v as String?),
           disputeId: $checkedConvert('dispute_id', (v) => v as String?),

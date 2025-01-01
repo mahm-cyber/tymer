@@ -5,14 +5,14 @@ part 'notification_rm.g.dart';
 @JsonSerializable(createToJson: false)
 class NotificationRM {
   const NotificationRM({
-    required this.id,
+     this.id,
     this.serviceRequestId,
     this.disputeId,
     required this.type,
   });
 
   @JsonKey(name: 'notification_id')
-  final String id;
+  final String? id;
   @JsonKey(name: 'service_request_id')
   final String? serviceRequestId;
   @JsonKey(name: 'dispute_id')
