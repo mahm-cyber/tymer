@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:domain_models/domain_models.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:location/location.dart';
 import 'package:service_repository/service_repository.dart';
@@ -26,7 +26,7 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
   final UserRepository userRepository;
   final ServiceRepository serviceRepository;
   final VoidCallback onServiceRequestDetailsTapped;
-  final VoidCallback navigateToFulfillServiceRequest;
+  final ValueSetter<int> navigateToFulfillServiceRequest;
   Timer? _timer;
 
   void init() async {
@@ -48,7 +48,7 @@ class ProvideServiceCubit extends Cubit<ProvideServiceState> {
           runningServiceRequest: service,
         );
         emit(runningServiceRequestState);
-        navigateToFulfillServiceRequest();
+        navigateToFulfillServiceRequest(service.id!);
         return;
       }
       bool isApiCallInProgress = true;

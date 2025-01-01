@@ -19,7 +19,7 @@ class AcceptServiceRequestScreen extends StatelessWidget {
 
   final ServiceRepository serviceRepository;
   final UserRepository userRepository;
-  final VoidCallback onAcceptServiceRequestSuccess;
+  final ValueSetter<int> onAcceptServiceRequestSuccess;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class AcceptServiceRequestView extends StatelessWidget {
       listener: (context, state) {
         final cubit = context.read<AcceptServiceRequestCubit>();
         if (state.submissionStatus == SubmissionStatus.success) {
-          cubit.onAcceptServiceRequestSuccess();
+          cubit.onAcceptServiceRequestSuccess(state.service!.id!);
         }
         if (state.submissionStatus == SubmissionStatus.failure) {
           final alreadyAcceptedByAnotherProvider =

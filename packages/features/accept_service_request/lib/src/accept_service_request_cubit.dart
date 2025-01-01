@@ -25,7 +25,7 @@ class AcceptServiceRequestCubit extends Cubit<AcceptServiceRequestState> {
 
   final ServiceRepository serviceRepository;
   final UserRepository userRepository;
-  final VoidCallback onAcceptServiceRequestSuccess;
+  final ValueSetter<int> onAcceptServiceRequestSuccess;
 
   void onViewServiceOnMap() async {
     final myLocation = await userRepository.getUserLocation();

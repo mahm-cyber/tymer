@@ -14,6 +14,7 @@ part 'fulfill_service_request_state.dart';
 
 class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
   FulfillServiceRequestCubit({
+    required this.requestId,
     required this.disputeRepository,
     required this.serviceRepository,
     required this.userRepository,
@@ -29,6 +30,7 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
     init();
   }
 
+  final int requestId;
   final DisputeRepository disputeRepository;
   final ServiceRepository serviceRepository;
   final UserRepository userRepository;
@@ -71,7 +73,7 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
     // emit(loading);
     try {
       final service = await serviceRepository.getServiceRequest(
-        requestId: state.service!.id!,
+        requestId: requestId,
       );
       final loaded = state.copyWith(
         fetchStatus: FetchStatus.success,
@@ -345,6 +347,7 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
     _awaitRequestConfirmationTimer?.cancel();
     imageFileNameSC.close();
     serviceRepository.changeNotifier.setShouldReFetchServices(true);
+    serviceRepository.changeNotifier.clearServiceRequest();
     super.close();
   }
 }

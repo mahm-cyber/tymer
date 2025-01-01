@@ -24,7 +24,7 @@ class OrderHistoryScreen extends StatefulWidget {
   final ServiceRepository serviceRepository;
   final VoidCallback onViewDisputesTapped;
   final ValueSetter<int> onCheckServiceRequestStatusTapped;
-  final VoidCallback navigateToFulfillServiceRequest;
+  final ValueSetter<int> navigateToFulfillServiceRequest;
 
   @override
   State<OrderHistoryScreen> createState() => _OrderHistoryScreenState();

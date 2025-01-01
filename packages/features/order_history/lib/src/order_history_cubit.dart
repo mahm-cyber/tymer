@@ -38,7 +38,7 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
   final VoidCallback onViewDisputesTapped;
   final ValueSetter<int> onCheckServiceRequestStatusTapped;
   final PagingController<int, Service> serviceRequestsPagingController;
-  final VoidCallback navigateToFulfillServiceRequest;
+  final ValueSetter<int> navigateToFulfillServiceRequest;
 
   void _shouldReFetchServiceRequestsCallBack() {
     final shouldReFetchDisputes =
@@ -142,7 +142,7 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
         state.userTypeFilter == UserType.provider) {
       serviceRepository.changeNotifier.setServiceRequest(service);
 
-      navigateToFulfillServiceRequest();
+      navigateToFulfillServiceRequest(service.id!);
     }
     // serviceRepository.changeNotifier.setServiceRequest(service);
   }

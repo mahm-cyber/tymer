@@ -22,7 +22,7 @@ class ProvideServiceScreen extends StatelessWidget {
   final UserRepository userRepository;
   final ServiceRepository serviceRepository;
   final VoidCallback onServiceRequestDetailsTapped;
-  final VoidCallback navigateToFulfillServiceRequest;
+  final ValueSetter<int> navigateToFulfillServiceRequest;
 
   final VoidCallback popTillHome;
 

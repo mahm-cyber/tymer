@@ -65,7 +65,7 @@ Map<String, PageBuilder> buildRoutingTable({
           true;
       if (isFulfillService) await routerDelegate.pop();
 
-      routerDelegate.push(_PathConstants.fulfillServiceRequestPath);
+      routerDelegate.push(_PathConstants.fulfillServiceRequestPath(requestId: requestId));
     },
     goToRequestStatusScreen: (int requestId) async {
       // If the current route is service request status, pop the current route and push again
@@ -84,12 +84,12 @@ Map<String, PageBuilder> buildRoutingTable({
               true;
       if (isDisputeChat) {
         await routerDelegate.popUntil(
-              (route) => route.path == _PathConstants.disputesPath,
+          (route) => route.path == _PathConstants.disputesPath,
         );
         // if set to less than 350, and the current screen is a chat screen,
         // it causes an error because the userchaytype in the changenotifier
         // doesnt get enough time to be able to change the user type
-      disputeRepository.changeNotifier.clearCurrentDispute();
+        disputeRepository.changeNotifier.clearCurrentDispute();
         await Future.delayed(const Duration(milliseconds: 350));
       }
       routerDelegate.push(_PathConstants.disputesPath);
@@ -112,7 +112,7 @@ Map<String, PageBuilder> buildRoutingTable({
         // if set to less than 350, and the current screen is a chat screen,
         // it causes an error because the userchaytype in the changenotifier
         // doesnt get enough time to be able to change the user type
-      await disputeRepository.changeNotifier.clearCurrentDispute();
+        await disputeRepository.changeNotifier.clearCurrentDispute();
         await Future.delayed(const Duration(milliseconds: 350));
       }
 
@@ -267,8 +267,8 @@ Map<String, PageBuilder> buildRoutingTable({
                 routerDelegate.push(
               _PathConstants.serviceRequestStatusPath(requestId: requestId),
             ),
-            navigateToFulfillServiceRequest: () async {
-              routerDelegate.push(_PathConstants.fulfillServiceRequestPath);
+            navigateToFulfillServiceRequest: (int requestId) async {
+              routerDelegate.push(_PathConstants.fulfillServiceRequestPath(requestId: requestId));
             },
           ),
         ),
@@ -403,9 +403,9 @@ Map<String, PageBuilder> buildRoutingTable({
             serviceRepository: serviceRepository,
             onServiceRequestDetailsTapped: () => routerDelegate
                 .push(_PathConstants.acceptServiceRequestDetailsPath),
-            navigateToFulfillServiceRequest: () async {
+            navigateToFulfillServiceRequest: (int requestId) async {
               await routerDelegate.popRoute();
-              routerDelegate.push(_PathConstants.fulfillServiceRequestPath);
+              routerDelegate.push(_PathConstants.fulfillServiceRequestPath(requestId: requestId));
             },
             popTillHome: () async {
               await routerDelegate.popUntil(
@@ -419,37 +419,43 @@ Map<String, PageBuilder> buildRoutingTable({
           child: AcceptServiceRequestScreen(
             serviceRepository: serviceRepository,
             userRepository: userRepository,
-            onAcceptServiceRequestSuccess: () async {
+            onAcceptServiceRequestSuccess: (int requestId) async {
               await routerDelegate.popRoute();
               await routerDelegate.popRoute();
-              routerDelegate.push(_PathConstants.fulfillServiceRequestPath);
+              routerDelegate.push(_PathConstants.fulfillServiceRequestPath(requestId: requestId));
             },
           ),
         ),
-    _PathConstants.fulfillServiceRequestPath: (_) => MaterialPage(
-          name: 'fulfill-service-request',
-          child: FulfillServiceRequestScreen(
-            disputeRepository: disputeRepository,
-            serviceRepository: serviceRepository,
-            userRepository: userRepository,
-            onNavigateToProvideService: () async {
-              await routerDelegate
-                  .popUntil((route) => route.path == _PathConstants.homePath);
-              routerDelegate.push(_PathConstants.provideServicePath);
-            },
-            onServiceDisputed: (int disputeId) async {
-              await routerDelegate.popUntil(
-                (route) => route.path == _PathConstants.homePath,
-              );
-              routerDelegate.push(_PathConstants.orderHistory);
-              routerDelegate.push(_PathConstants.disputesPath);
-              routerDelegate.push(_PathConstants.disputeChatPath(
-                disputeId: disputeId,
-              ));
-            },
-            onBackButtonPressed: routerDelegate.pop,
-          ),
+    _PathConstants.fulfillServiceRequestPath(): (info) {
+      final requestId = int.parse(
+        info.pathParameters['requestId'] ?? '',
+      );
+      return MaterialPage(
+        name: 'fulfill-service-request',
+        child: FulfillServiceRequestScreen(
+          requestId: requestId,
+          disputeRepository: disputeRepository,
+          serviceRepository: serviceRepository,
+          userRepository: userRepository,
+          onNavigateToProvideService: () async {
+            await routerDelegate
+                .popUntil((route) => route.path == _PathConstants.homePath);
+            routerDelegate.push(_PathConstants.provideServicePath);
+          },
+          onServiceDisputed: (int disputeId) async {
+            await routerDelegate.popUntil(
+              (route) => route.path == _PathConstants.homePath,
+            );
+            routerDelegate.push(_PathConstants.orderHistory);
+            routerDelegate.push(_PathConstants.disputesPath);
+            routerDelegate.push(_PathConstants.disputeChatPath(
+              disputeId: disputeId,
+            ));
+          },
+          onBackButtonPressed: routerDelegate.pop,
         ),
+      );
+    },
   };
 }
 
@@ -501,6 +507,7 @@ class _PathConstants {
   static String get acceptServiceRequestDetailsPath =>
       '$provideServicePath/accept-service-request';
 
-  static String get fulfillServiceRequestPath =>
-      '${initialPath}fulfill-service-request';
+
+  static String  fulfillServiceRequestPath({int? requestId}) =>
+      '${initialPath}fulfill-service-request/${requestId ?? ':requestId'}';
 }

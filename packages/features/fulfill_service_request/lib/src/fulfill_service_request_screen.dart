@@ -14,6 +14,7 @@ import 'components/components.dart';
 
 class FulfillServiceRequestScreen extends StatelessWidget {
   const FulfillServiceRequestScreen({
+    required this.requestId,
     required this.disputeRepository,
     required this.serviceRepository,
     required this.userRepository,
@@ -23,6 +24,7 @@ class FulfillServiceRequestScreen extends StatelessWidget {
     super.key,
   });
 
+  final int requestId;
   final DisputeRepository disputeRepository;
   final ServiceRepository serviceRepository;
   final UserRepository userRepository;
@@ -33,6 +35,7 @@ class FulfillServiceRequestScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<FulfillServiceRequestCubit>(
       create: (_) => FulfillServiceRequestCubit(
+        requestId: requestId,
         disputeRepository: disputeRepository,
         serviceRepository: serviceRepository,
         userRepository: userRepository,
