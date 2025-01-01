@@ -83,7 +83,7 @@ class _DayPickerState extends State<DayPicker> {
                       ),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    suffixIcon: pickedDay == null
+                    suffixIcon: pickedDay == null || widget.isSubmissionInProgress
                         ? const Icon(Icons.calendar_today)
                         : null,
                     labelText: l10n.dayTextFieldLabel,

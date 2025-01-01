@@ -3,12 +3,8 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
-// @pragma('vm:entry-point')
-// Future<void> _handleBackgroundMessage(RemoteMessage message) async {
-//   final notificationsService = NotificationsService.instance;
-//   notificationsService.showFlutterNotification(message);
-// }
+import 'package:notifications_service/notifications_service.dart';
+import 'package:tymer_api/tymer_api.dart';
 
 class NotificationsService {
   NotificationsService._();
@@ -61,7 +57,7 @@ class NotificationsService {
     // FirebaseMessaging.onBackgroundMessage(_handleBackgroundMessage);
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       _handleNotificationNavigation(
-        message,
+        message.data,
         goToFulfillServiceScreen,
         goToRequestStatusScreen,
         goToRequesterDisputeChatScreen,
@@ -71,7 +67,7 @@ class NotificationsService {
     FirebaseMessaging.instance.getInitialMessage().then((message) {
       if (message != null) {
         _handleNotificationNavigation(
-          message,
+          message.data,
           goToFulfillServiceScreen,
           goToRequestStatusScreen,
           goToRequesterDisputeChatScreen,
@@ -99,9 +95,7 @@ class NotificationsService {
       onDidReceiveNotificationResponse: (response) async {
         final payload =
             response.payload != null ? jsonDecode(response.payload!) : {};
-        final title = payload['title'];
-        _handleNotificationNavigationFromResponse(
-          title,
+        _handleNotificationNavigation(
           payload,
           goToFulfillServiceScreen,
           goToRequestStatusScreen,
@@ -116,8 +110,7 @@ class NotificationsService {
   void showFlutterNotification(RemoteMessage message) {
     final notification = message.notification;
     if (notification != null) {
-      final payload = {...message.data, 'title': notification.title};
-      final jsonPayload = jsonEncode(payload);
+      final jsonPayload = jsonEncode(message.data);
       _flutterLocalNotificationsPlugin.show(
         notification.hashCode,
         notification.title,
@@ -144,78 +137,37 @@ class NotificationsService {
 
   // Handle notification navigation when a notification is clicked
   void _handleNotificationNavigation(
-    RemoteMessage message,
-    ValueSetter<int> goToFulfillServiceScreen,
-    ValueSetter<int> goToRequestStatusScreen,
-    ValueSetter<int> goToRequesterDisputeChatScreen,
-    ValueSetter<int> goToProviderDisputeChatScreen,
-  ) {
-    final title = message.notification?.title ?? '';
-    final serviceId = message.data['service_request_id'];
-    final disputeId = message.data['dispute_id'];
-
-    if (_shouldNavigateToFulfillServiceRequestScreen(title)) {
-      goToFulfillServiceScreen(int.parse(serviceId));
-    } else if (_shouldNavigateToRequestStatusScreen(title)) {
-      goToRequestStatusScreen(int.parse(serviceId));
-    } else if (_shouldNavigateToRequesterDisputeChatScreen(title)) {
-      goToRequesterDisputeChatScreen(int.parse(disputeId));
-    } else if (_shouldNavigateToProviderDisputeChatScreen(title)) {
-      goToProviderDisputeChatScreen(int.parse(disputeId));
-    }
-  }
-
-  // Handle notification navigation from background or terminated state
-  void _handleNotificationNavigationFromResponse(
-    String title,
     Map<String, dynamic> payload,
     ValueSetter<int> goToFulfillServiceScreen,
     ValueSetter<int> goToRequestStatusScreen,
     ValueSetter<int> goToRequesterDisputeChatScreen,
     ValueSetter<int> goToProviderDisputeChatScreen,
   ) {
-    final serviceId = payload['service_request_id'];
-    final disputeId = payload['dispute_id'];
+    final notification = NotificationRM.fromJson(payload).toDomainModel();
 
-    if (_shouldNavigateToFulfillServiceRequestScreen(title)) {
-      goToFulfillServiceScreen(int.parse(serviceId));
-    } else if (_shouldNavigateToRequestStatusScreen(title)) {
-      goToRequestStatusScreen(int.parse(serviceId));
-    } else if (_shouldNavigateToRequesterDisputeChatScreen(title)) {
-      goToRequesterDisputeChatScreen(int.parse(disputeId));
-    } else if (_shouldNavigateToProviderDisputeChatScreen(title)) {
-      goToProviderDisputeChatScreen(int.parse(disputeId));
+
+    // Navigate to Fulfill Service Screen
+    if (notification.shouldNavigateToFulfillServiceRequestScreen) {
+      goToFulfillServiceScreen(notification.serviceRequestId!);
+      return; // Early return to avoid checking other conditions
+    }
+
+    // Navigate to Request Status Screen
+    if (notification.shouldNavigateToRequestStatusScreen) {
+      goToRequestStatusScreen(notification.serviceRequestId!);
+      return; // Early return
+    }
+
+    // Navigate to Requester's Dispute Chat
+    if (notification.shouldNavigateToRequesterDisputeChatScreen) {
+      goToRequesterDisputeChatScreen(notification.disputeId!);
+      return; // Early return
+    }
+
+    // Navigate to Provider's Dispute Chat
+    if (notification.shouldNavigateToProviderDisputeChatScreen) {
+      goToProviderDisputeChatScreen(notification.disputeId!);
+      return; // Early return
     }
   }
-
-  // Check if should navigate to Request Status screen
-  bool _shouldNavigateToRequestStatusScreen(String? title) {
-    if (title == null) return false;
-    return title.contains('Service Request Accepted') ||
-        title.contains('Response Received') ||
-        title.contains('تم استلام الرد') ||
-        title.contains('قبول طلب الخدمة');
-  }
-
-  // Check if should navigate to Fulfill Service screen
-  bool _shouldNavigateToFulfillServiceRequestScreen(String? title) {
-    if (title == null) return false;
-    return title.contains('Response Accepted') || title.contains('قبول الرد');
-  }
-
-  // Check if should navigate to Requester Dispute Chat screen
-  bool _shouldNavigateToRequesterDisputeChatScreen(String? title) {
-    if (title == null) return false;
-    return title.contains('Dispute Chat Message Received') ||
-        title.contains('تم استلام رسالة نزاع');
-  }
-
-  // Check if should navigate to Provider Dispute Chat screen
-  bool _shouldNavigateToProviderDisputeChatScreen(String? title) {
-    if (title == null) return false;
-    return title.contains('Dispute Selected User Chat Message Received') ||
-        title.contains('Response Refused') ||
-        title.contains('تم رفض الرد');
-  }
 }
-

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:accept_service_request/accept_service_request.dart';
 import 'package:change_language/change_language.dart';
@@ -21,6 +22,7 @@ import 'package:home/home.dart';
 import 'package:initial/initial.dart';
 
 import 'package:key_value_storage/key_value_storage.dart';
+import 'package:monitoring/monitoring.dart';
 import 'package:order_history/order_history.dart';
 import 'package:profile/profile.dart';
 import 'package:provide_service/provide_service.dart';
@@ -40,44 +42,36 @@ import 'package:user_repository/user_repository.dart';
 import 'package:verify_otp/verify_otp.dart';
 import 'package:wallet/wallet.dart';
 
+//TODO:: wrap the whole app in a main cubit and toss these in there
 String? fontFamily;
-
 final ValueNotifier<bool> _isUserUnAuthSC = ValueNotifier(false);
 final ValueNotifier<InternetConnectionTymerException?>
     _internetConnectionErrorVN = ValueNotifier(null);
 final ValueNotifier<bool> _signInSuccessVN = ValueNotifier(false);
 
-final dynamic _connectInApi = TymerApi(
-  userTokenSupplier: () => _userRepository.getUserToken(),
-  isUserUnAuthSC: _isUserUnAuthSC,
-  internetConnectionErrorVN: _internetConnectionErrorVN,
-);
 
-final _userRepository = UserRepository(
-  remoteApi: _connectInApi,
-  noSqlStorage: _keyValueStorage,
-);
-final _serviceRepository = ServiceRepository(
-  remoteApi: _connectInApi,
-  noSqlStorage: _keyValueStorage,
-);
 
-final _disputeRepository = DisputeRepository(
-  remoteApi: _connectInApi,
-  noSqlStorage: _keyValueStorage,
-);
-
-final _keyValueStorage = KeyValueStorage();
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  late final errorReportingService = ErrorReportingService();
+  runZonedGuarded<Future<void>>(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      await SystemChrome.setPreferredOrientations(
+          [DeviceOrientation.portraitUp]);
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
 
-  return runApp(
-    const Tymer(),
+      return runApp(
+        const Tymer(),
+      );
+    },
+    (error, stack) => errorReportingService.recordError(
+      error,
+      stack,
+      fatal: true,
+    ),
   );
 }
 
@@ -92,7 +86,29 @@ class Tymer extends StatefulWidget {
 
 class TymerState extends State<Tymer> with WidgetsBindingObserver {
   Brightness? _appBrightness;
+  late final dynamic _connectInApi = TymerApi(
+    userTokenSupplier: () => _userRepository.getUserToken(),
+    isUserUnAuthSC: _isUserUnAuthSC,
+    internetConnectionErrorVN: _internetConnectionErrorVN,
+  );
 
+  late final _userRepository = UserRepository(
+    remoteApi: _connectInApi,
+    noSqlStorage: _keyValueStorage,
+  );
+  late final _serviceRepository = ServiceRepository(
+    remoteApi: _connectInApi,
+    noSqlStorage: _keyValueStorage,
+  );
+
+  late final _disputeRepository = DisputeRepository(
+    remoteApi: _connectInApi,
+    noSqlStorage: _keyValueStorage,
+  );
+
+  final _keyValueStorage = KeyValueStorage();
+
+  final _analyticsService = AnalyticsService();
   @override
   void initState() {
     super.initState();
@@ -120,6 +136,11 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
   }
 
   late final dynamic _routerDelegate = RoutemasterDelegate(
+    observers: [
+      ScreenViewObserver(
+        analyticsService: _analyticsService,
+      ),
+    ],
     routesBuilder: (context) {
       return RouteMap(
         routes: buildRoutingTable(

@@ -31,7 +31,7 @@ class ImagePickerTextField extends StatelessWidget {
               final controller = TextEditingController(
                 text: state.service?.responseDetails?.imageUrl?.split('/').last,
               );
-              if (snapshot.hasData) controller.text = snapshot.data!;
+              if (snapshot.hasData) controller.text = snapshot.data ?? '';
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,7 +137,7 @@ class ImagePickerTextField extends StatelessWidget {
                   ],
                 ],
               );
-            });
+            },);
       },
     );
   }

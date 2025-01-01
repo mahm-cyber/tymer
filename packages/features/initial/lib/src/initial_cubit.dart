@@ -11,7 +11,7 @@ class InitialCubit extends Cubit<InitialState> {
   }) : super(
           const InitialState(),
         ) {
-    userRepository.getLocalePreference().distinct().listen((locale) {
+    userRepository.getLocalePreference().listen((locale) {
       final newState = state.copyWith(locale: locale);
       if (!isClosed) emit(newState);
     });

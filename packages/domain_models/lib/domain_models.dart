@@ -8,8 +8,9 @@ export 'src/file_dm.dart';
 export 'src/pricing_settings.dart';
 export 'src/service_response.dart';
 export 'src/chat_messages.dart';
-export 'src/service_requests_fetch_mode.dart';
+export 'src/user_type.dart';
 export 'src/fulfill_service_request.dart';
 export 'src/service_type.dart';
 export 'src/dispute.dart';
+export 'src/tymer_notification.dart';
 

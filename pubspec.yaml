@@ -13,6 +13,7 @@ dependencies:
   intl: ^0.19.0
   routemaster: ^1.0.1
   cupertino_icons: ^1.0.6
+  firebase_core: ^3.3.0
   flutter_lints: ^3.0.1
 
   # Local Packages
@@ -30,6 +31,8 @@ dependencies:
     path: packages/function_and_extension_library
   notifications_service:
     path: packages/notifications_service
+  monitoring:
+    path: packages/monitoring
 
 
 
@@ -91,7 +94,7 @@ dependencies:
     path: packages/domain_models
   component_library:
     path: packages/component_library
-  firebase_core: ^3.3.0
+
 
 
 
