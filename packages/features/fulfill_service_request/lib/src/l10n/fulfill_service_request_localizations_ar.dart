@@ -43,7 +43,7 @@ class FulfillServiceRequestLocalizationsAr extends FulfillServiceRequestLocaliza
   String get serviceRequestFailureMessage => 'فشل، حاول مرة أخرى';
 
   @override
-  String get backHomeButtonLabel => 'العودة إلى الصفحة الرئيسية';
+  String get backHomeButtonLabel => 'العودة';
 
   @override
   String get serviceFeesContainerLabel => 'رسوم الخدمة';

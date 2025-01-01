@@ -38,6 +38,18 @@ class ServiceRequestDetailsWidget extends StatelessWidget {
       shrinkWrap: true,
       children: [
         VerticalGap.small(),
+        if (service.id != null) ...[
+          TextFormField(
+            enableInteractiveSelection: true,
+            initialValue: service.id.toString(),
+            enabled: false,
+            decoration: InputDecoration(
+              labelText: l10n.serviceIdTextFieldLabel,
+              prefixIcon: const Icon(Icons.tag),
+            ),
+          ),
+          VerticalGap.small(),
+        ],
         if (serviceDetails?.reservationServiceCategory != null) ...[
           TextFormField(
             enableInteractiveSelection: true,
@@ -69,7 +81,8 @@ class ServiceRequestDetailsWidget extends StatelessWidget {
         if (hasEitherDate) ...[
           TextFormField(
             enableInteractiveSelection: true,
-            initialValue: (date!.toIso8601String().split('T').first).localizeDateString(locale),
+            initialValue: (date!.toIso8601String().split('T').first)
+                .localizeDateString(locale),
             enabled: false,
             decoration: InputDecoration(
               labelText: l10n.dateTextFieldLabel,

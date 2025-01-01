@@ -172,4 +172,7 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get providerWonDisputeLabel => 'Denied';
+
+  @override
+  String get serviceIdTextFieldLabel => 'Request ID';
 }

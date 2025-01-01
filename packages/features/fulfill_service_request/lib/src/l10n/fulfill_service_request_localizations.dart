@@ -170,7 +170,7 @@ abstract class FulfillServiceRequestLocalizations {
   /// No description provided for @backHomeButtonLabel.
   ///
   /// In en, this message translates to:
-  /// **'Back to Home'**
+  /// **'Back'**
   String get backHomeButtonLabel;
 
   /// No description provided for @serviceFeesContainerLabel.

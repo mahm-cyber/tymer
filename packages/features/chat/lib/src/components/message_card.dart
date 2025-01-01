@@ -97,7 +97,7 @@ class MessageCard extends StatelessWidget {
                 VerticalGap.small(),
               ],
               SelectableText(
-                isSentByMe && isArabic ? sentByMeTime : time,
+                /*isSentByMe &&*/ isArabic ? sentByMeTime : time,
                 textDirection: TextDirection.ltr,
                 style: textTheme.labelMedium?.copyWith(
                   color: isSentByMe

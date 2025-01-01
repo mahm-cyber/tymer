@@ -61,7 +61,8 @@
   "deniedRequesterLabel": "Denied",
 
   "providerLostDisputeLabel": "Refunded",
-  "providerWonDisputeLabel": "Denied"
+  "providerWonDisputeLabel": "Denied",
+  "serviceIdTextFieldLabel": "Request ID"
 
 
 

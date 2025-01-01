@@ -140,11 +140,11 @@ class ServiceRequestStatusView extends StatelessWidget {
                                           cubit.onViewServiceOnMap,
                                       userToken: state.userToken,
                                     ),
-                                    TymerElevatedButton(
-                                      label: l10n.backHomeButtonLabel,
-                                      onTap: cubit.goBackHome,
-                                    ),
-                                    VerticalGap.medium(),
+                                    // TymerElevatedButton(
+                                    //   label: l10n.backHomeButtonLabel,
+                                    //   onTap: cubit.goBackHome,
+                                    // ),
+                                    // VerticalGap.medium(),
                                   ],
                                 )
                               : isPendingReview || isCancelled

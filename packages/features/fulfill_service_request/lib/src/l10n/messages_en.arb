@@ -11,7 +11,7 @@
   "dayTextFieldLabel": "Day",
   "serviceRequestSuccessMessage": "Request fulfilled successfully",
   "serviceRequestFailureMessage": "Failed, try again",
-  "backHomeButtonLabel": "Back to Home",
+  "backHomeButtonLabel": "Back",
   "serviceFeesContainerLabel": "Service Fees",
   "awaitingConfirmationButtonLabel": "Awaiting Confirmation",
   "continueWaitingButtonLabel": "Continue Waiting",

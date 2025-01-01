@@ -100,11 +100,11 @@ class RequestAndResponseDetails extends StatelessWidget {
             ],
             if (isCancelled) ...[
               VerticalGap.medium(),
-              TymerElevatedButton(
-                label: l10n.backHomeButtonLabel,
-                onTap: cubit.goBackHome,
-              ),
-              VerticalGap.medium(),
+              // TymerElevatedButton(
+              //   label: l10n.backHomeButtonLabel,
+              //   onTap: cubit.goBackHome,
+              // ),
+              // VerticalGap.medium(),
             ]
           ],
         );

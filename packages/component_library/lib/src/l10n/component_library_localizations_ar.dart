@@ -172,4 +172,7 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get providerWonDisputeLabel => 'مرفوض';
+
+  @override
+  String get serviceIdTextFieldLabel => 'رقم الطلب';
 }

@@ -12,7 +12,7 @@
   "dayTextFieldLabel": "اليوم",
   "serviceRequestSuccessMessage": "تم تنفيذ الطلب بنجاح",
   "serviceRequestFailureMessage": "فشل، حاول مرة أخرى",
-  "backHomeButtonLabel": "العودة إلى الصفحة الرئيسية",
+  "backHomeButtonLabel": "العودة",
   "serviceFeesContainerLabel": "رسوم الخدمة",
   "awaitingConfirmationButtonLabel": "في انتظار التأكيد",
   "continueWaitingButtonLabel": "متابعة الانتظار",

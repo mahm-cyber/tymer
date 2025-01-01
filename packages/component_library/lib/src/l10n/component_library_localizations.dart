@@ -424,6 +424,12 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'Denied'**
   String get providerWonDisputeLabel;
+
+  /// No description provided for @serviceIdTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Request ID'**
+  String get serviceIdTextFieldLabel;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

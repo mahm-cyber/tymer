@@ -17,6 +17,7 @@ class NotificationsService {
     'Tymer Notification Channel',
     description: 'This channel is used for important notifications.',
     importance: Importance.high,
+    playSound: true,
   );
 
   Future<void> init({
@@ -127,6 +128,7 @@ class NotificationsService {
             importance: Importance.high,
             color: const Color(0xFF2C8268),
             icon: '@mipmap/notification_icon',
+            playSound: true,
           ),
           iOS: const DarwinNotificationDetails(
             presentAlert: true,

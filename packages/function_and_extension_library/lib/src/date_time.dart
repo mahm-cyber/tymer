@@ -47,9 +47,11 @@ extension FormattedTimeOfDay on TimeOfDay {
     // convert to 12 hr format and add am or pm
     final formattedHour = hour > 12 ? hour - 12 : hour;
     final formattedHourArabic = formattedHour.latinNumberToArabicString();
+    final paddedHour = formattedHourArabic.length == 1 ? '٠$formattedHourArabic' : formattedHourArabic;
     final minuteArabic = int.parse(minute).latinNumberToArabicString();
+    final paddedMinute = minuteArabic.length == 1 ? '٠$minuteArabic' : minuteArabic;
     final amOrPm = hour > 12 ? 'م' : 'ص';
-    return '$minuteArabic:$formattedHourArabic $amOrPm';
+    return '$paddedMinute:$paddedHour $amOrPm';
   }
 
   String localizedTimeOfDay(Locale locale) {

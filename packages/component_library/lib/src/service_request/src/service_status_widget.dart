@@ -3,12 +3,13 @@ import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 
 class ServiceStatusWidget extends StatelessWidget {
-  const ServiceStatusWidget(
-      {super.key,
-      required this.color,
-      required this.label,
-      this.border,
-      this.width = 140});
+  const ServiceStatusWidget({
+    super.key,
+    required this.color,
+    required this.label,
+    this.border,
+    this.width = 140,
+  });
 
   final Color color;
   final String label;
@@ -97,12 +98,12 @@ String disputeStatusToLocalizedString(
 
 // Helper function to determine resolution details
 DisputeResolution getDisputeResolutionDetails(
-    bool isRequesterRefunded,
-    bool idDisputeDenied,
-    bool isRequesterChat,
-    bool isProviderChat,
-    ComponentLibraryLocalizations l10n,
-    ) {
+  bool isRequesterRefunded,
+  bool idDisputeDenied,
+  bool isRequesterChat,
+  bool isProviderChat,
+  ComponentLibraryLocalizations l10n,
+) {
   if (isRequesterChat) {
     if (isRequesterRefunded) {
       return DisputeResolution(
@@ -134,4 +135,3 @@ DisputeResolution getDisputeResolutionDetails(
     color: DisputeStatus.pendingReview.color,
   ); // Default case
 }
-

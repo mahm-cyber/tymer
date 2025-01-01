@@ -31,6 +31,7 @@ class FulfillServiceRequestScreen extends StatelessWidget {
   final VoidCallback onNavigateToProvideService;
   final ValueSetter<int> onServiceDisputed;
   final VoidCallback onBackButtonPressed;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<FulfillServiceRequestCubit>(
@@ -86,7 +87,6 @@ class FulfillServiceRequestView extends StatelessWidget {
 
         if (state.isImagePickerBottomSheetVisible == true) {
           showModalBottomSheet(
-
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadiusDirectional.vertical(
                 top: Radius.circular(20),
@@ -147,7 +147,7 @@ class FulfillServiceRequestView extends StatelessWidget {
               context: context,
               builder: (context) {
                 return BackButtonListener(
-                  onBackButtonPressed: () async{
+                  onBackButtonPressed: () async {
                     cubit.onBackButtonPressed();
                     return true;
                   },
@@ -244,7 +244,8 @@ class FulfillServiceRequestView extends StatelessWidget {
                                             isSubmissionInProgress,
                                         initialValue: state
                                             .service?.responseDetails?.time,
-                                        onBackButtonPressed: cubit.onBackButtonPressed,
+                                        onBackButtonPressed:
+                                            cubit.onBackButtonPressed,
                                       ),
                                       VerticalGap.small(),
                                       const ImagePickerTextField(),
@@ -272,13 +273,14 @@ class FulfillServiceRequestView extends StatelessWidget {
                                         onTap: cubit.onSubmit,
                                       ),
                               VerticalGap.medium(),
-                              if (isRequestFulfilled)
-                                TymerElevatedButton(
-                                  label: l10n.backHomeButtonLabel,
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                  },
-                                ),
+                              // if (isRequestFulfilled)
+                              //   TymerElevatedButton(
+                              //     label: l10n.backHomeButtonLabel,
+                              //     onTap: () {
+                              //       Navigator.pop(context);
+                              //     },
+                              //   ),
+
                               VerticalGap.small(),
                             ],
                           ),
