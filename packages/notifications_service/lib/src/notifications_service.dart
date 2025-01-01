@@ -54,18 +54,8 @@ class NotificationsService {
     FirebaseMessaging.onMessage.listen(
       (message) => showFlutterNotification(message),
     );
-    // FirebaseMessaging.onBackgroundMessage(_handleBackgroundMessage);
-    FirebaseMessaging.onMessageOpenedApp.listen((message) {
-      _handleNotificationNavigation(
-        message.data,
-        goToFulfillServiceScreen,
-        goToRequestStatusScreen,
-        goToRequesterDisputeChatScreen,
-        goToProviderDisputeChatScreen,
-      );
-    });
-    FirebaseMessaging.instance.getInitialMessage().then((message) {
-      if (message != null) {
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (message) {
         _handleNotificationNavigation(
           message.data,
           goToFulfillServiceScreen,
@@ -73,8 +63,21 @@ class NotificationsService {
           goToRequesterDisputeChatScreen,
           goToProviderDisputeChatScreen,
         );
-      }
-    });
+      },
+    );
+    FirebaseMessaging.instance.getInitialMessage().then(
+      (message) {
+        if (message != null) {
+          _handleNotificationNavigation(
+            message.data,
+            goToFulfillServiceScreen,
+            goToRequestStatusScreen,
+            goToRequesterDisputeChatScreen,
+            goToProviderDisputeChatScreen,
+          );
+        }
+      },
+    );
 
     // Initialize local notifications
     await _flutterLocalNotificationsPlugin
@@ -144,7 +147,6 @@ class NotificationsService {
     ValueSetter<int> goToProviderDisputeChatScreen,
   ) {
     final notification = NotificationRM.fromJson(payload).toDomainModel();
-
 
     // Navigate to Fulfill Service Screen
     if (notification.shouldNavigateToFulfillServiceRequestScreen) {

@@ -1,5 +1,5 @@
-import 'dart:async';
 import 'dart:io';
+import 'dart:ui';
 import 'package:accept_service_request/accept_service_request.dart';
 import 'package:change_language/change_language.dart';
 import 'package:change_password/change_password.dart';
@@ -49,29 +49,25 @@ final ValueNotifier<InternetConnectionTymerException?>
     _internetConnectionErrorVN = ValueNotifier(null);
 final ValueNotifier<bool> _signInSuccessVN = ValueNotifier(false);
 
-
-
-
 void main() async {
-  late final errorReportingService = ErrorReportingService();
-  runZonedGuarded<Future<void>>(
-    () async {
-      WidgetsFlutterBinding.ensureInitialized();
-      await SystemChrome.setPreferredOrientations(
-          [DeviceOrientation.portraitUp]);
-      await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      );
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  final errorReportingService = ErrorReportingService();
+  FlutterError.onError = (errorDetails) {
+    errorReportingService.recordFlutterError(errorDetails);
+  };
+  // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+  PlatformDispatcher.instance.onError = (error, stack) {
+    errorReportingService.recordError(error, stack, fatal: true);
+    return true;
+  };
+  FlutterError.onError = errorReportingService.recordFlutterError;
 
-      return runApp(
-        const Tymer(),
-      );
-    },
-    (error, stack) => errorReportingService.recordError(
-      error,
-      stack,
-      fatal: true,
-    ),
+  return runApp(
+    const Tymer(),
   );
 }
 
@@ -109,6 +105,7 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
   final _keyValueStorage = KeyValueStorage();
 
   final _analyticsService = AnalyticsService();
+
   @override
   void initState() {
     super.initState();
