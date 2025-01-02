@@ -339,7 +339,7 @@ Map<String, PageBuilder> buildRoutingTable({
           ),
         ),
     _PathConstants.requestServicePath: (_) => MaterialPage(
-          name: 'request',
+          name: 'request-service',
           child: RequestServiceScreen(
             userRepository: userRepository,
             serviceRepository: serviceRepository,
@@ -415,7 +415,7 @@ Map<String, PageBuilder> buildRoutingTable({
           ),
         ),
     _PathConstants.acceptServiceRequestDetailsPath: (_) => MaterialPage(
-          name: 'accept-service-request-details',
+          name: 'accept-service-request',
           child: AcceptServiceRequestScreen(
             serviceRepository: serviceRepository,
             userRepository: userRepository,
