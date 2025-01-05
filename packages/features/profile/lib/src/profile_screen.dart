@@ -66,7 +66,6 @@ class ProfileView extends StatelessWidget {
             children: [
               // VerticalGap.large(),
               ListTile(
-
                 titleTextStyle: textTheme.titleMedium,
                 title: Text('👋 ${l10n.greetingTileTitle}'),
                 subtitle: Text(state.user?.name ?? ''),

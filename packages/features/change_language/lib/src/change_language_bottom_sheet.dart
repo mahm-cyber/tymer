@@ -44,9 +44,8 @@ class ChangeLanguageView extends StatelessWidget {
           previous.localeChangeStatus != current.localeChangeStatus,
       listener: (context, state) {
         if (state.localeChangeStatus == LocaleChangeStatus.success) {
-          Navigator.of(context).pop();
-        }
-        if (state.localeChangeStatus == LocaleChangeStatus.failure) {
+          cubit.onBackButtonPressed();
+        } else if (state.localeChangeStatus == LocaleChangeStatus.failure) {
           showSnackBar(
             context: context,
             snackBar: ErrorSnackBar(context: context),

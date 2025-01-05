@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_places_autocomplete_text_field/google_places_autocomplete_text_field.dart'
+    as places;
 import 'package:location/location.dart';
 import 'package:request_service/src/l10n/request_service_localizations.dart';
 import 'package:request_service/src/request_service_cubit.dart';
@@ -9,6 +11,7 @@ import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart' as geo;
+import 'package:uuid/uuid.dart';
 
 class GoogleMapWidget extends StatefulWidget {
   const GoogleMapWidget({
@@ -25,6 +28,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
   geo.LocationPermission? locationPermissionStatus;
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
+  String _sessionToken = const Uuid().v4();
 
   void getLocationServiceStatus() async {
     final isServiceEnabled = await Location().serviceEnabled();
@@ -40,10 +44,12 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
     });
   }
 
+  final _searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
-    if(Platform.isAndroid) {
+    if (Platform.isAndroid) {
       getLocationServiceStatus();
       geo.Geolocator.checkPermission().then((value) {
         locationPermissionStatus = value;
@@ -165,6 +171,50 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                   ),
                 ),
 
+                // Search bar
+                Positioned(
+                  top: Spacing.medium,
+                  left: 0,
+                  right: 0,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: theme.screenMargin * 5,
+                    ),
+                    child: places.GooglePlacesAutoCompleteTextFormField(
+                      textEditingController: _searchController,
+                      sessionToken: _sessionToken,
+                      googleAPIKey: 'AIzaSyCKkPJMVmdqAkxN41uehsdra-qgOxg-xbE',
+                      decoration: const InputDecoration(
+                        hintText: 'Enter your address',
+                        labelText: 'Address',
+                        labelStyle: TextStyle(color: Colors.purple),
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
+                      // proxyURL: _yourProxyURL,
+                      maxLines: 1,
+                      countries: const ['eg'],
+                      debounceTime: 600,
+                      overlayContainerBuilder: (child) => Material(
+                        elevation: 1.0,
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        child: child,
+                      ),
+                      onPlaceDetailsWithCoordinatesReceived: (prediction) {
+                        print('placeDetails${prediction.lng}');
+                      },
+                      onSuggestionClicked: (prediction) =>
+                          _searchController.text = prediction.description!,
+                      minInputLength: 3,
+                    ),
+                  ),
+                ),
                 // Location confirmation button
                 Positioned(
                   bottom: Spacing.medium,
