@@ -120,7 +120,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
           return Colors.black.withAlpha(0);
         }
 
-        void onPlaceDetailsWithCoordinatesReceived(prediction)  {
+        void onPlaceDetailsWithCoordinatesReceived(prediction) {
           final bool hasCoordinates =
               prediction.lat != null && prediction.lng != null;
           if (hasCoordinates) {
@@ -215,21 +215,18 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                       ),
                       maxLines: 1,
                       countries: const ['eg'],
-
-                      // overlayContainerBuilder: (child) => Material(
-                      //   elevation: 1.0,
-                      //   color: Colors.white,
-                      //   borderRadius: BorderRadius.circular(12),
-                      //   child: child,
-                      // ),
+                      overlayContainerBuilder: (child) => Material(
+                        elevation: 1.0,
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        child: child,
+                      ),
                       onPlaceDetailsWithCoordinatesReceived:
                           onPlaceDetailsWithCoordinatesReceived,
                       onSuggestionClicked: (prediction) {
                         _searchController.text = prediction.description ?? '';
                       },
                       minInputLength: 3,
-
-                      enableInteractiveSelection: true,
                     ),
                   ),
                 ),
