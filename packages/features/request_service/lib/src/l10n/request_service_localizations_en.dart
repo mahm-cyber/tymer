@@ -62,4 +62,10 @@ class RequestServiceLocalizationsEn extends RequestServiceLocalizations {
 
   @override
   String get loadMinPricingButtonLabel => 'Reload Min Pricing';
+
+  @override
+  String get searchPlaceTextFieldHint => 'Enter Address';
+
+  @override
+  String get searchPlaceTextFieldLabel => 'Address';
 }

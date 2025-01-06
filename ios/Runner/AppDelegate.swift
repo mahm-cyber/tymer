@@ -12,7 +12,7 @@ import FirebaseCore
     if #available(iOS 10.0, *) {
       UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
     }
-    GMSServices.provideAPIKey("AIzaSyCKkPJMVmdqAkxN41uehsdra-qgOxg-xbE")
+    GMSServices.provideAPIKey("AIzaSyCfqmfFlq559OlNw9Zdx_YgDSeRZnN09Pc")
     GeneratedPluginRegistrant.register(with: self)
     FirebaseApp.configure()
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)

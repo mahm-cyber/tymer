@@ -16,5 +16,7 @@
   "addFundsButtonLabel": "اذهب إلى المحفظة",
     "successfulServiceRequestMessage": "تم طلب الخدمة بنجاح",
     "selectServiceTypeLabel": "اختر نوع الخدمة",
-    "additionalCommentsTextFieldLabel": "تفاصيل إضافية"
+    "additionalCommentsTextFieldLabel": "تفاصيل إضافية",
+    "searchPlaceTextFieldHint": "أدخل العنوان",
+    "searchPlaceTextFieldLabel": "العنوان"
 }

@@ -28,7 +28,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
   geo.LocationPermission? locationPermissionStatus;
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
-  String _sessionToken = const Uuid().v4();
+  final String _sessionToken = const Uuid().v4();
 
   void getLocationServiceStatus() async {
     final isServiceEnabled = await Location().serviceEnabled();
@@ -120,6 +120,27 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
           return Colors.black.withAlpha(0);
         }
 
+        void onPlaceDetailsWithCoordinatesReceived(prediction)  {
+          final bool hasCoordinates =
+              prediction.lat != null && prediction.lng != null;
+          if (hasCoordinates) {
+            final latLng = LatLng(
+              double.parse(prediction.lat!),
+              double.parse(prediction.lng!),
+            );
+            _controller.future.then(
+              (controller) {
+                controller.animateCamera(
+                  CameraUpdate.newLatLng(
+                    latLng,
+                  ),
+                );
+              },
+            );
+            cubit.onLocationChanged(latLng);
+          }
+        }
+
         // Helper method to return the correct icon based on the permission status
         Widget? getPermissionIcon() {
           return (isPermissionDenied || isPermissionDeniedForever)
@@ -177,41 +198,38 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                   left: 0,
                   right: 0,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: theme.screenMargin * 5,
+                    padding: EdgeInsetsDirectional.only(
+                      start: theme.screenMargin * 1.5,
+                      end: theme.screenMargin * 4,
                     ),
                     child: places.GooglePlacesAutoCompleteTextFormField(
+                      enableSuggestions: true,
                       textEditingController: _searchController,
                       sessionToken: _sessionToken,
-                      googleAPIKey: 'AIzaSyCKkPJMVmdqAkxN41uehsdra-qgOxg-xbE',
-                      decoration: const InputDecoration(
-                        hintText: 'Enter your address',
-                        labelText: 'Address',
-                        labelStyle: TextStyle(color: Colors.purple),
-                        border: OutlineInputBorder(),
+                      googleAPIKey: 'AIzaSyCfqmfFlq559OlNw9Zdx_YgDSeRZnN09Pc',
+                      decoration: InputDecoration(
+                        hintText: l10n.searchPlaceTextFieldHint,
+                        labelText: l10n.searchPlaceTextFieldLabel,
+                        labelStyle: const TextStyle(color: Colors.purple),
+                        border: const OutlineInputBorder(),
                       ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      // proxyURL: _yourProxyURL,
                       maxLines: 1,
                       countries: const ['eg'],
-                      debounceTime: 600,
-                      overlayContainerBuilder: (child) => Material(
-                        elevation: 1.0,
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        child: child,
-                      ),
-                      onPlaceDetailsWithCoordinatesReceived: (prediction) {
-                        print('placeDetails${prediction.lng}');
+
+                      // overlayContainerBuilder: (child) => Material(
+                      //   elevation: 1.0,
+                      //   color: Colors.white,
+                      //   borderRadius: BorderRadius.circular(12),
+                      //   child: child,
+                      // ),
+                      onPlaceDetailsWithCoordinatesReceived:
+                          onPlaceDetailsWithCoordinatesReceived,
+                      onSuggestionClicked: (prediction) {
+                        _searchController.text = prediction.description ?? '';
                       },
-                      onSuggestionClicked: (prediction) =>
-                          _searchController.text = prediction.description!,
                       minInputLength: 3,
+
+                      enableInteractiveSelection: true,
                     ),
                   ),
                 ),
@@ -238,7 +256,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                         isPermissionDeniedForever))
                   PositionedDirectional(
                     end: Spacing.medium,
-                    top: 10,
+                    top: 15,
                     child: GestureDetector(
                       onTap: onLocationSettingsTap,
                       child: Container(
@@ -246,7 +264,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                         height: 40,
                         decoration: BoxDecoration(
                           color: getPermissionIconColor(),
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(5),
                         ),
                         child: getPermissionIcon(),
                       ),

@@ -208,6 +208,18 @@ abstract class RequestServiceLocalizations {
   /// In en, this message translates to:
   /// **'Reload Min Pricing'**
   String get loadMinPricingButtonLabel;
+
+  /// No description provided for @searchPlaceTextFieldHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Address'**
+  String get searchPlaceTextFieldHint;
+
+  /// No description provided for @searchPlaceTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get searchPlaceTextFieldLabel;
 }
 
 class _RequestServiceLocalizationsDelegate extends LocalizationsDelegate<RequestServiceLocalizations> {

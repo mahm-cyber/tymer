@@ -2,6 +2,7 @@ import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
+import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:request_service/src/l10n/request_service_localizations.dart';
 import 'package:request_service/src/request_service_cubit.dart';
 
@@ -79,7 +80,10 @@ class LocationPickerTextField extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: !isSubmissionInProgress
-                    ? cubit.onLocationPickerTapped
+                    ? () {
+                        context.releaseFocus();
+                        cubit.onLocationPickerTapped();
+                      }
                     : null,
                 child: Container(
                   color: Colors.transparent,

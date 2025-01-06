@@ -35,7 +35,6 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
   final ValueSetter<int> onServiceRequestSuccess;
 
   void init() {
-
     getReservationServiceTypes();
     getPricingSettings();
   }
