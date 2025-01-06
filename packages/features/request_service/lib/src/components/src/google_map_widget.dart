@@ -80,6 +80,11 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
         final isPermissionDeniedForever =
             locationPermissionStatus == geo.LocationPermission.deniedForever;
 
+        final shouldShowLocationButtonManually = Platform.isAndroid &&
+            (locationServiceDisabled ||
+                isPermissionDenied ||
+                isPermissionDeniedForever);
+
         // Handles back button press to confirm location
         Future<bool> onBackPressed() async {
           cubit.onLocationConfirmed();
@@ -149,6 +154,24 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
               : null;
         }
 
+        void onMapCreated(GoogleMapController controller) async {
+          _controller.complete(controller);
+          if (state.location.value != null) {
+            controller.animateCamera(
+              CameraUpdate.newLatLng(state.location.value!),
+            );
+            return;
+          } else if (!locationServiceDisabled &&
+              !isPermissionDenied &&
+              !isPermissionDeniedForever) {
+            final position = await geo.Geolocator.getCurrentPosition();
+            final latLng = LatLng(position.latitude, position.longitude);
+            controller.animateCamera(
+              CameraUpdate.newLatLng(latLng),
+            );
+          }
+        }
+
         return BackButtonListener(
           onBackButtonPressed: onBackPressed,
           child: Scaffold(
@@ -157,25 +180,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
               children: [
                 // Google Map
                 GoogleMap(
-                  onMapCreated: (GoogleMapController controller) async {
-                    _controller.complete(controller);
-                    if (state.location.value != null) {
-                      controller.animateCamera(
-                        CameraUpdate.newLatLng(state.location.value!),
-                      );
-                      return;
-                    } else if (!locationServiceDisabled &&
-                        !isPermissionDenied &&
-                        !isPermissionDeniedForever) {
-                      final position =
-                          await geo.Geolocator.getCurrentPosition();
-                      final latLng =
-                          LatLng(position.latitude, position.longitude);
-                      controller.animateCamera(
-                        CameraUpdate.newLatLng(latLng),
-                      );
-                    }
-                  },
+                  onMapCreated: onMapCreated,
                   myLocationButtonEnabled: true,
                   myLocationEnabled: true,
                   onTap: (LatLng latLng) => cubit.onLocationChanged(latLng),
@@ -247,10 +252,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                 ),
 
                 // Location settings permission icon
-                if (Platform.isAndroid &&
-                    (locationServiceDisabled ||
-                        isPermissionDenied ||
-                        isPermissionDeniedForever))
+                if (shouldShowLocationButtonManually)
                   PositionedDirectional(
                     end: Spacing.medium,
                     top: 15,
