@@ -222,10 +222,11 @@ void showImageDialog(
     context: context,
     builder: ((_) {
       return ImageDialog(
-          imageUrl: imageUrl,
-          imageBytes: imageBytes,
-          userToken: userToken!,
-          onBackButtonPressed: onBackButtonPressed);
+        imageUrl: imageUrl,
+        imageBytes: imageBytes,
+        userToken: userToken!,
+        onBackButtonPressed: onBackButtonPressed,
+      );
     }),
   );
 }

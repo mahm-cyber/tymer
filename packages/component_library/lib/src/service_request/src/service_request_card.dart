@@ -108,14 +108,19 @@ class ServiceRequestCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  if(disputeStatusWidget == null)
-                  ServiceStatusWidget(
-                    color: service.status?.color ?? Colors.black,
-                    label: serviceRequestStatusToLocalizedString(
-                      service.status!,
-                      l10n,
+                  if (disputeStatusWidget == null)
+                    Container(
+                      constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width - 230,
+                      ),
+                      child: ServiceStatusWidget(
+                        color: service.status?.color ?? Colors.black,
+                        label: serviceRequestStatusToLocalizedString(
+                          service.status!,
+                          l10n,
+                        ),
+                      ),
                     ),
-                  ),
                   if (disputeStatusWidget != null) ...[
                     // const Spacer(),
                     disputeStatusWidget!,
