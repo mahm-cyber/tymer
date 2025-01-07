@@ -37,7 +37,7 @@ class ChatLocalizationsAr extends ChatLocalizations {
   String get providerLostDisputeSnackBarMessage => 'تم استرداد الأموال لطالب الخدمة';
 
   @override
-  String get providerWonDisputeSnackBarMessage => 'تم رفض النزاع الخاص بطالب الخدمة';
+  String get providerWonDisputeSnackBarMessage => 'تم رفض الشكوى';
 
   @override
   String get attachmentSizeExceedsLimitErrorSnackBarMessage => 'يجب أن يكون حجم المرفق 1 ميجابايت أو أقل';

@@ -13,7 +13,6 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
   OrderHistoryCubit({
     required this.userRepository,
     required this.serviceRepository,
-    required this.onViewDisputesTapped,
     required this.onCheckServiceRequestStatusTapped,
     required this.navigateToFulfillServiceRequest,
   })  : serviceRequestsPagingController = PagingController(firstPageKey: 1),
@@ -35,7 +34,6 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
 
   final UserRepository userRepository;
   final ServiceRepository serviceRepository;
-  final VoidCallback onViewDisputesTapped;
   final ValueSetter<int> onCheckServiceRequestStatusTapped;
   final PagingController<int, Service> serviceRequestsPagingController;
   final ValueSetter<int> navigateToFulfillServiceRequest;

@@ -158,7 +158,7 @@ abstract class ChatLocalizations {
   /// No description provided for @providerWonDisputeSnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'The requester\'s dispute was rejected'**
+  /// **'Ticker has been rejected'**
   String get providerWonDisputeSnackBarMessage;
 
   /// No description provided for @attachmentSizeExceedsLimitErrorSnackBarMessage.

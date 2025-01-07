@@ -15,6 +15,7 @@ class ProfileScreen extends StatelessWidget {
     required this.onChangePasswordTapped,
     required this.onChangePhoneTapped,
     required this.onChangeLanguageTapped,
+    required this.ticketsTapped,
     super.key,
   });
 
@@ -25,6 +26,7 @@ class ProfileScreen extends StatelessWidget {
   final VoidCallback onChangePasswordTapped;
   final VoidCallback onChangePhoneTapped;
   final VoidCallback onChangeLanguageTapped;
+  final VoidCallback ticketsTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,7 @@ class ProfileScreen extends StatelessWidget {
         onChangePasswordTapped: onChangePasswordTapped,
         onChangePhoneTapped: onChangePhoneTapped,
         onChangeLanguageTapped: onChangeLanguageTapped,
+        ticketsTapped: ticketsTapped,
       ),
       child: const ProfileView(),
     );
@@ -133,6 +136,13 @@ class ProfileView extends StatelessWidget {
                 title: Text(l10n.logoutTileTitle),
                 trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: logoutInProgress ? null : cubit.logout,
+              ),
+              ListTile(
+                leading: const SvgAsset(AssetPathConstants.twoSlidersPath),
+                titleTextStyle: textTheme.titleMedium,
+                title:  Text(l10n.ticketsTileTitle),
+                trailing: const Icon(Icons.arrow_forward_ios),
+                onTap: cubit.ticketsTapped,
               ),
             ],
           ),

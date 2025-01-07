@@ -98,19 +98,19 @@ abstract class ConfirmDisputeLocalizations {
   /// No description provided for @disputeSuccessMessage.
   ///
   /// In en, this message translates to:
-  /// **'Dispute requested successfully'**
+  /// **'Ticket Placed successfully'**
   String get disputeSuccessMessage;
 
   /// No description provided for @disputeErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'Error requesting dispute'**
+  /// **'Error Adding ticket'**
   String get disputeErrorMessage;
 
   /// No description provided for @disputeMessageLabel.
   ///
   /// In en, this message translates to:
-  /// **'Dispute Reason'**
+  /// **'Ticket Reason'**
   String get disputeMessageLabel;
 
   /// No description provided for @disputeButtonLabel.

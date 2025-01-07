@@ -3,5 +3,6 @@
   "requestServiceContainerTitle": "Request Service",
   "requestServiceContainerSubtitle": "Save Time",
   "provideServiceContainerTitle": "Provide Service",
-  "provideServiceContainerSubtitle": "Walk & Earn"
+  "provideServiceContainerSubtitle": "Walk & Earn",
+  "fabLabel": "Chat"
 }

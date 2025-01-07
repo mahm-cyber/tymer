@@ -7,7 +7,7 @@ class DisputesLocalizationsEn extends DisputesLocalizations {
   DisputesLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appBarTitle => 'Disputes List';
+  String get appBarTitle => 'Tickets';
 
   @override
   String distanceToServiceLocation(String meters) {
@@ -15,7 +15,7 @@ class DisputesLocalizationsEn extends DisputesLocalizations {
   }
 
   @override
-  String get noDisputesIndicatorText => 'No disputes available';
+  String get noDisputesIndicatorText => 'No tickets available';
 
   @override
   String get showInMapButtonLabel => 'Show in Map';

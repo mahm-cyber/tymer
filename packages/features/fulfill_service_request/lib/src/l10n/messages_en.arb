@@ -16,7 +16,7 @@
   "awaitingConfirmationButtonLabel": "Awaiting Confirmation",
   "continueWaitingButtonLabel": "Continue Waiting",
   "provideAnotherServiceButtonLabel": "Provide Another Service",
-  "serviceDisputedSnackBarMessage": "The requester has disputed the service, and a chat has been created with the administration",
+  "serviceDisputedSnackBarMessage": "A ticket has been raised, you can chat with Tymer",
   "imageSizeExceedsLimitErrorTextFieldMessage": "Image size should be 1MB or less"
 
 

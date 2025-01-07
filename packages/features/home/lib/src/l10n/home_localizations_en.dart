@@ -20,4 +20,7 @@ class HomeLocalizationsEn extends HomeLocalizations {
 
   @override
   String get provideServiceContainerSubtitle => 'Walk & Earn';
+
+  @override
+  String get fabLabel => 'Chat';
 }

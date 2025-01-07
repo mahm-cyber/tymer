@@ -37,7 +37,7 @@ class ChatLocalizationsEn extends ChatLocalizations {
   String get providerLostDisputeSnackBarMessage => 'Money has been refunded to the requester';
 
   @override
-  String get providerWonDisputeSnackBarMessage => 'The requester\'s dispute was rejected';
+  String get providerWonDisputeSnackBarMessage => 'Ticker has been rejected';
 
   @override
   String get attachmentSizeExceedsLimitErrorSnackBarMessage => 'Attachment size should be 1MB or less';

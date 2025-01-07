@@ -1,6 +1,9 @@
 {
-  "disputeSuccessMessage": "تم طلب النزاع بنجاح",
-  "disputeErrorMessage": "خطأ في طلب النزاع",
-  "disputeMessageLabel": "سبب النزاع",
+  "disputeSuccessMessage": "تم طلب الشكوى بنجاح",
+  "disputeErrorMessage": "خطأ في طلب الشكوى",
+  "disputeMessageLabel": "سبب الشكوى",
   "disputeButtonLabel": "تأكيد"
 }
+
+
+

@@ -8,5 +8,7 @@
   "changeLanguageTileTitle": "Language",
   "logoutTileTitle": "Logout",
   "changePasswordTileTitle": "Change Password",
-  "changePhoneTileTitle": "Change Phone Number"
+  "changePhoneTileTitle": "Change Phone Number",
+  "ticketsTileTitle": "Tickets"
+
 }

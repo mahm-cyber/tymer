@@ -7,13 +7,13 @@ class ConfirmDisputeLocalizationsEn extends ConfirmDisputeLocalizations {
   ConfirmDisputeLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get disputeSuccessMessage => 'Dispute requested successfully';
+  String get disputeSuccessMessage => 'Ticket Placed successfully';
 
   @override
-  String get disputeErrorMessage => 'Error requesting dispute';
+  String get disputeErrorMessage => 'Error Adding ticket';
 
   @override
-  String get disputeMessageLabel => 'Dispute Reason';
+  String get disputeMessageLabel => 'Ticket Reason';
 
   @override
   String get disputeButtonLabel => 'Confirm';

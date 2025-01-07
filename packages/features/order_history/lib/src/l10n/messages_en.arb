@@ -10,7 +10,6 @@
   },
   "noServiceRequestsText": "No service requests available",
   "showInMapButtonLabel": "Show in Map",
-  "viewButtonLabel": "View",
-  "fabLabel": "Disputes"
+  "viewButtonLabel": "View"
 
 }

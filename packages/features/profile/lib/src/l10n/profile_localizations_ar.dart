@@ -35,4 +35,7 @@ class ProfileLocalizationsAr extends ProfileLocalizations {
 
   @override
   String get changePhoneTileTitle => 'تغيير رقم الهاتف';
+
+  @override
+  String get ticketsTileTitle => 'التذاكر';
 }

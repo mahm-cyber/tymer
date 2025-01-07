@@ -124,6 +124,12 @@ abstract class HomeLocalizations {
   /// In en, this message translates to:
   /// **'Walk & Earn'**
   String get provideServiceContainerSubtitle;
+
+  /// No description provided for @fabLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat'**
+  String get fabLabel;
 }
 
 class _HomeLocalizationsDelegate extends LocalizationsDelegate<HomeLocalizations> {

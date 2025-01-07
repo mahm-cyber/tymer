@@ -7,7 +7,7 @@ class DisputesLocalizationsAr extends DisputesLocalizations {
   DisputesLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get appBarTitle => 'قائمة النزاعات';
+  String get appBarTitle => 'التذاكر';
 
   @override
   String distanceToServiceLocation(String meters) {
@@ -15,7 +15,7 @@ class DisputesLocalizationsAr extends DisputesLocalizations {
   }
 
   @override
-  String get noDisputesIndicatorText => 'لا توجد نزاعات متاحة';
+  String get noDisputesIndicatorText => 'لا توجد تذاكر متاحة';
 
   @override
   String get showInMapButtonLabel => 'عرض على الخريطة';

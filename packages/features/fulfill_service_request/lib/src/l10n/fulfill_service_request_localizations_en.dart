@@ -58,7 +58,7 @@ class FulfillServiceRequestLocalizationsEn extends FulfillServiceRequestLocaliza
   String get provideAnotherServiceButtonLabel => 'Provide Another Service';
 
   @override
-  String get serviceDisputedSnackBarMessage => 'The requester has disputed the service, and a chat has been created with the administration';
+  String get serviceDisputedSnackBarMessage => 'A ticket has been raised, you can chat with Tymer';
 
   @override
   String get imageSizeExceedsLimitErrorTextFieldMessage => 'Image size should be 1MB or less';

@@ -24,120 +24,134 @@ class ImagePickerTextField extends StatelessWidget {
         final imageUrl = state.service?.responseDetails?.imageUrl;
         final imageError = state.file.isNotValid ? state.file.error : null;
         final hasPickedImage = state.file.value != null && state.file.isValid;
-        final isStatusPendingReview = state.service?.status == ServiceStatus.pendingReview;
+        final isStatusPendingReview =
+            state.service?.status == ServiceStatus.pendingReview;
         return StreamBuilder<String>(
-            stream: cubit.imageFileNameSC.stream,
-            builder: (context, snapshot) {
-              final controller = TextEditingController(
-                text: state.service?.responseDetails?.imageUrl?.split('/').last,
-              );
-              if (snapshot.hasData) controller.text = snapshot.data ?? '';
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      width: isImagePicked
-                          ? MediaQuery.of(context).size.width / 1.35
-                          : MediaQuery.of(context).size.width,
-                      child: Stack(
-                        children: [
-                          GestureDetector(
-                            onTap: isSubmissionInProgress
-                                ? null
-                                : () {
-                                    cubit.onImagePickerTapped();
-                                  },
-                            child: Container(
-                              color: Colors.transparent,
-                              height: 50,
-                              width: double.infinity,
-                            ),
+          stream: cubit.imageFileNameSC.stream,
+          builder: (context, snapshot) {
+            final controller = TextEditingController(
+              text: state.service?.responseDetails?.imageUrl?.split('/').last,
+            );
+            if (snapshot.hasData) controller.text = snapshot.data ?? '';
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    width: isImagePicked
+                        ? MediaQuery.of(context).size.width / 1.35
+                        : MediaQuery.of(context).size.width,
+                    child: Stack(
+                      children: [
+                        GestureDetector(
+                          onTap: isSubmissionInProgress
+                              ? null
+                              : () {
+                                  cubit.onImagePickerTapped();
+                                },
+                          child: Container(
+                            color: Colors.transparent,
+                            height: 50,
+                            width: double.infinity,
                           ),
-                          IgnorePointer(
-                            child: TextField(
-                              enabled: !isSubmissionInProgress,
-                              controller: controller,
-                              readOnly: true,
-                              style: TextStyle(
-                                color:
-                                    Colors.grey.withAlpha((255 * 0.7).toInt()),
-                              ),
-                              decoration: InputDecoration(
-                                suffixIcon:
-                                     Icon(Icons.camera_alt_outlined, color: hasPickedImage && !isStatusPendingReview? Colors.transparent:null,),
-                                labelText: l10n.imageTextFieldLabel,
-                                errorText: imageError ==
-                                        FileSizeValidationError.exceedsSizeLimit
-                                    ? l10n
-                                        .imageSizeExceedsLimitErrorTextFieldMessage
+                        ),
+                        IgnorePointer(
+                          child: TextField(
+                            enabled: !isSubmissionInProgress,
+                            controller: controller,
+                            readOnly: true,
+                            style: TextStyle(
+                              color: Colors.grey.withAlpha((255 * 0.7).toInt()),
+                            ),
+                            decoration: InputDecoration(
+                              suffixIcon: Icon(
+                                Icons.camera_alt_outlined,
+                                color: hasPickedImage && !isStatusPendingReview
+                                    ? Colors.transparent
                                     : null,
                               ),
+                              labelText: l10n.imageTextFieldLabel,
+                              errorText: imageError ==
+                                      FileSizeValidationError.exceedsSizeLimit
+                                  ? l10n
+                                      .imageSizeExceedsLimitErrorTextFieldMessage
+                                  : null,
                             ),
                           ),
-                          if(hasPickedImage && !isStatusPendingReview)
-                            Positioned(
-                              top: 0,
-                              bottom: 0,
-                              right: 0,
-                              child: IconButton(
-                                onPressed: cubit.deletePickedImage,
-                                icon: Icon(
-                                  Icons.cancel_outlined,
-                                  color: theme.primaryColor,
-                                ),
+                        ),
+                        if (hasPickedImage && !isStatusPendingReview)
+                          Positioned(
+                            top: 0,
+                            bottom: 0,
+                            right: 0,
+                            child: IconButton(
+                              onPressed: cubit.deletePickedImage,
+                              icon: Icon(
+                                Icons.cancel_outlined,
+                                color: theme.primaryColor,
                               ),
                             ),
-                        ],
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+                if (isImagePicked || imageUrl != null) ...[
+                  const SizedBox(
+                    width: Spacing.small,
+                  ),
+                  GestureDetector(
+                    onTap: () => showImageDialog(
+                      context,
+                      imageBytes: state.file.value?.readAsBytesSync(),
+                      imageUrl: imageUrl,
+                      userToken: state.userToken,
+                      onBackButtonPressed: cubit.onBackButtonPressed,
+                    ),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 6.5,
+                      // Equivalent to the radius of the CircleAvatar
+                      height: MediaQuery.of(context).size.width / 6.5,
+                      // Equal width and height to make it circular
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: theme.secondaryColor, // Background color
+                      ),
+                      child: ClipOval(
+                        child: isImagePicked
+                            ? Image.memory(
+                                gaplessPlayback: true,
+                                state.file.value!.readAsBytesSync(),
+                                fit: BoxFit.cover,
+                                // Ensures the image covers the container
+                                width: MediaQuery.of(context).size.width / 6.5,
+                                // Image size matches the container
+                                height: MediaQuery.of(context).size.width /
+                                    6.5, // Image size matches the container
+                              )
+                            : Image.network(
+                                imageUrl!,
+                                headers: {
+                                  "Authorization": "Bearer ${state.userToken}",
+                                  "X-API-Key":
+                                      const String.fromEnvironment('x-api-key'),
+                                },
+                                fit: BoxFit.cover,
+                                // Ensures the image covers the container
+                                width: MediaQuery.of(context).size.width / 6.5,
+                                // Image size matches the container
+                                height: MediaQuery.of(context).size.width /
+                                    6.5, // Image size matches the container
+                              ),
                       ),
                     ),
                   ),
-                  if (isImagePicked || imageUrl != null) ...[
-                    const SizedBox(
-                      width: Spacing.small,
-                    ),
-                    GestureDetector(
-                      onTap: () => showImageDialog(
-                        context,
-                        imageBytes: state.file.value?.readAsBytesSync(),
-                        imageUrl: imageUrl,
-                        userToken: state.userToken,
-                      ),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width / 6.5, // Equivalent to the radius of the CircleAvatar
-                        height: MediaQuery.of(context).size.width / 6.5, // Equal width and height to make it circular
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: theme.secondaryColor, // Background color
-                        ),
-                        child: ClipOval(
-                          child: isImagePicked
-                              ? Image.memory(
-                            gaplessPlayback: true,
-                            state.file.value!.readAsBytesSync(),
-                            fit: BoxFit.cover, // Ensures the image covers the container
-                            width: MediaQuery.of(context).size.width / 6.5, // Image size matches the container
-                            height: MediaQuery.of(context).size.width / 6.5, // Image size matches the container
-                          )
-                              : Image.network(
-                            imageUrl!,
-                            headers: {
-                              "Authorization": "Bearer ${state.userToken}",
-                              "X-API-Key": const String.fromEnvironment('x-api-key'),
-                            },
-                            fit: BoxFit.cover, // Ensures the image covers the container
-                            width: MediaQuery.of(context).size.width / 6.5, // Image size matches the container
-                            height: MediaQuery.of(context).size.width / 6.5, // Image size matches the container
-                          ),
-                        ),
-                      )
-                      ,
-                    ),
-                  ],
                 ],
-              );
-            },);
+              ],
+            );
+          },
+        );
       },
     );
   }
@@ -199,6 +213,7 @@ void showImageDialog(
   String? imageUrl,
   Uint8List? imageBytes,
   String? userToken,
+  required VoidCallback onBackButtonPressed,
 }) {
   if (imageUrl == null && imageBytes == null) {
     throw Exception('either imageUrl or imageBytes should be provided');
@@ -207,10 +222,10 @@ void showImageDialog(
     context: context,
     builder: ((_) {
       return ImageDialog(
-        imageUrl: imageUrl,
-        imageBytes: imageBytes,
-        userToken: userToken!,
-      );
+          imageUrl: imageUrl,
+          imageBytes: imageBytes,
+          userToken: userToken!,
+          onBackButtonPressed: onBackButtonPressed);
     }),
   );
 }
@@ -221,11 +236,13 @@ class ImageDialog extends StatefulWidget {
     this.imageUrl,
     this.imageBytes,
     required this.userToken,
+    required this.onBackButtonPressed,
   });
 
   final String? imageUrl;
   final Uint8List? imageBytes;
   final String userToken;
+  final VoidCallback onBackButtonPressed;
 
   @override
   State<ImageDialog> createState() => _State();
@@ -237,10 +254,9 @@ class _State extends State<ImageDialog> {
   @override
   Widget build(BuildContext context) {
     final theme = TymerTheme.of(context);
-    final cubit = context.read<FulfillServiceRequestCubit>();
     return BackButtonListener(
-      onBackButtonPressed: ()async {
-        cubit.onBackButtonPressed();
+      onBackButtonPressed: () async {
+        widget.onBackButtonPressed();
         return true;
       },
       child: Align(

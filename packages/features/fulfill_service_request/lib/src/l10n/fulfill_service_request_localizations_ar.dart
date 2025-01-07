@@ -58,7 +58,7 @@ class FulfillServiceRequestLocalizationsAr extends FulfillServiceRequestLocaliza
   String get provideAnotherServiceButtonLabel => 'تقديم خدمة أخرى';
 
   @override
-  String get serviceDisputedSnackBarMessage => 'تم النزاع على الخدمة، وتم إنشاء محادثة مع الإدارة';
+  String get serviceDisputedSnackBarMessage => 'تم تقديم شكوى، يمكنك التحدث مع تيمر';
 
   @override
   String get imageSizeExceedsLimitErrorTextFieldMessage => 'يجب أن يكون حجم الصورة 1 ميجابايت أو أقل';

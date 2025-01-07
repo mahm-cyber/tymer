@@ -14,7 +14,6 @@ class OrderHistoryScreen extends StatefulWidget {
   const OrderHistoryScreen({
     required this.userRepository,
     required this.serviceRepository,
-    required this.onViewDisputesTapped,
     required this.onCheckServiceRequestStatusTapped,
     required this.navigateToFulfillServiceRequest,
     super.key,
@@ -22,7 +21,6 @@ class OrderHistoryScreen extends StatefulWidget {
 
   final UserRepository userRepository;
   final ServiceRepository serviceRepository;
-  final VoidCallback onViewDisputesTapped;
   final ValueSetter<int> onCheckServiceRequestStatusTapped;
   final ValueSetter<int> navigateToFulfillServiceRequest;
 
@@ -39,7 +37,6 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
       create: (_) => OrderHistoryCubit(
         userRepository: widget.userRepository,
         serviceRepository: widget.serviceRepository,
-        onViewDisputesTapped: widget.onViewDisputesTapped,
         onCheckServiceRequestStatusTapped:
             widget.onCheckServiceRequestStatusTapped,
         navigateToFulfillServiceRequest: widget.navigateToFulfillServiceRequest,
@@ -75,32 +72,7 @@ class OrderHistoryView extends StatelessWidget {
           child: Stack(
             children: [
               Scaffold(
-                floatingActionButton: SizedBox(
-                  height: 45,
-                  child: FloatingActionButton.extended(
-                    isExtended: true,
-                    label: Text(
-                      l10n.fabLabel,
-                      style: textTheme.labelLarge?.copyWith(
-                        color: theme.primaryColor,
-                      ),
-                    ),
-                    // shape: const CircleBorder(),
-                    onPressed: cubit.onViewDisputesTapped,
-                    extendedIconLabelSpacing: 0,
-                    extendedPadding: const EdgeInsetsDirectional.only(
-                      end: Spacing.smallMedium,
-                    ),
-                    icon: Transform.scale(
-                      scale: 0.65,
-                      child: const SvgAsset(
-                        AssetPathConstants.chatPath,
-                        // width: 50,
-                        // height: 50,
-                      ),
-                    ),
-                  ),
-                ),
+
                 appBar: AppBar(
                   title: const SvgAsset(
                     AssetPathConstants.whiteLogoPath,

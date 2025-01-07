@@ -7,13 +7,13 @@ class ConfirmDisputeLocalizationsAr extends ConfirmDisputeLocalizations {
   ConfirmDisputeLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get disputeSuccessMessage => 'تم طلب النزاع بنجاح';
+  String get disputeSuccessMessage => 'تم طلب الشكوى بنجاح';
 
   @override
-  String get disputeErrorMessage => 'خطأ في طلب النزاع';
+  String get disputeErrorMessage => 'خطأ في طلب الشكوى';
 
   @override
-  String get disputeMessageLabel => 'سبب النزاع';
+  String get disputeMessageLabel => 'سبب الشكوى';
 
   @override
   String get disputeButtonLabel => 'تأكيد';

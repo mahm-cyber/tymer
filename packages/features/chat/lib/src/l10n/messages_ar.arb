@@ -10,7 +10,7 @@
     "refundedRequesterSnackBarMessage": "تم استرداد أموالك",
     "deniedRequesterSnackBarMessage": "تم رفض طلبك",
     "providerLostDisputeSnackBarMessage": "تم استرداد الأموال لطالب الخدمة",
-    "providerWonDisputeSnackBarMessage": "تم رفض النزاع الخاص بطالب الخدمة",
+    "providerWonDisputeSnackBarMessage": "تم رفض الشكوى",
   "attachmentSizeExceedsLimitErrorSnackBarMessage": "يجب أن يكون حجم المرفق 1 ميجابايت أو أقل"
 
 }

@@ -154,6 +154,12 @@ abstract class ProfileLocalizations {
   /// In en, this message translates to:
   /// **'Change Phone Number'**
   String get changePhoneTileTitle;
+
+  /// No description provided for @ticketsTileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tickets'**
+  String get ticketsTileTitle;
 }
 
 class _ProfileLocalizationsDelegate extends LocalizationsDelegate<ProfileLocalizations> {

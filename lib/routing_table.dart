@@ -65,7 +65,8 @@ Map<String, PageBuilder> buildRoutingTable({
           true;
       if (isFulfillService) await routerDelegate.pop();
 
-      routerDelegate.push(_PathConstants.fulfillServiceRequestPath(requestId: requestId));
+      routerDelegate
+          .push(_PathConstants.fulfillServiceRequestPath(requestId: requestId));
     },
     goToRequestStatusScreen: (int requestId) async {
       // If the current route is service request status, pop the current route and push again
@@ -221,6 +222,8 @@ Map<String, PageBuilder> buildRoutingTable({
                 routerDelegate.push(_PathConstants.chooseServicePath),
             onProvideServiceTapped: () =>
                 routerDelegate.push(_PathConstants.provideServicePath),
+            onChatTapped: () =>
+                routerDelegate.push(_PathConstants.disputesPath),
           ),
         ),
     _PathConstants.disputesPath: (_) => MaterialPage(
@@ -261,14 +264,13 @@ Map<String, PageBuilder> buildRoutingTable({
           child: OrderHistoryScreen(
             userRepository: userRepository,
             serviceRepository: serviceRepository,
-            onViewDisputesTapped: () =>
-                routerDelegate.push(_PathConstants.disputesPath),
             onCheckServiceRequestStatusTapped: (requestId) =>
                 routerDelegate.push(
               _PathConstants.serviceRequestStatusPath(requestId: requestId),
             ),
             navigateToFulfillServiceRequest: (int requestId) async {
-              routerDelegate.push(_PathConstants.fulfillServiceRequestPath(requestId: requestId));
+              routerDelegate.push(_PathConstants.fulfillServiceRequestPath(
+                  requestId: requestId));
             },
           ),
         ),
@@ -296,6 +298,8 @@ Map<String, PageBuilder> buildRoutingTable({
                   onBackButtonPressed: () => routerDelegate.pop(),
                 ),
               ),
+              ticketsTapped: () =>
+                  routerDelegate.push(_PathConstants.disputesPath),
             );
           }),
         ),
@@ -405,7 +409,8 @@ Map<String, PageBuilder> buildRoutingTable({
                 .push(_PathConstants.acceptServiceRequestDetailsPath),
             navigateToFulfillServiceRequest: (int requestId) async {
               await routerDelegate.popRoute();
-              routerDelegate.push(_PathConstants.fulfillServiceRequestPath(requestId: requestId));
+              routerDelegate.push(_PathConstants.fulfillServiceRequestPath(
+                  requestId: requestId));
             },
             popTillHome: () async {
               await routerDelegate.popUntil(
@@ -422,7 +427,8 @@ Map<String, PageBuilder> buildRoutingTable({
             onAcceptServiceRequestSuccess: (int requestId) async {
               await routerDelegate.popRoute();
               await routerDelegate.popRoute();
-              routerDelegate.push(_PathConstants.fulfillServiceRequestPath(requestId: requestId));
+              routerDelegate.push(_PathConstants.fulfillServiceRequestPath(
+                  requestId: requestId));
             },
           ),
         ),
@@ -507,7 +513,6 @@ class _PathConstants {
   static String get acceptServiceRequestDetailsPath =>
       '$provideServicePath/accept-service-request';
 
-
-  static String  fulfillServiceRequestPath({int? requestId}) =>
+  static String fulfillServiceRequestPath({int? requestId}) =>
       '${initialPath}fulfill-service-request/${requestId ?? ':requestId'}';
 }

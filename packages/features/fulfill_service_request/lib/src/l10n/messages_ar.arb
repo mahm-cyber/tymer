@@ -1,8 +1,7 @@
 {
   "submitButtonLabel": "إرسال",
   "bottomSheetGalleryButton": "معرض",
-    "serviceDetailsTitle": "تفاصيل الطلب",
-
+  "serviceDetailsTitle": "تفاصيل الطلب",
   "bottomSheetCaptureButton": "التقاط",
   "imageTextFieldLabel": "صورة",
   "additionalDetailsTextFieldLabel": "تفاصيل إضافية",
@@ -17,7 +16,7 @@
   "awaitingConfirmationButtonLabel": "في انتظار التأكيد",
   "continueWaitingButtonLabel": "متابعة الانتظار",
   "provideAnotherServiceButtonLabel": "تقديم خدمة أخرى",
-  "serviceDisputedSnackBarMessage": "تم النزاع على الخدمة، وتم إنشاء محادثة مع الإدارة",
+  "serviceDisputedSnackBarMessage": "تم تقديم شكوى، يمكنك التحدث مع تيمر",
   "imageSizeExceedsLimitErrorTextFieldMessage": "يجب أن يكون حجم الصورة 1 ميجابايت أو أقل"
 
 

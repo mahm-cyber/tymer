@@ -98,7 +98,7 @@ abstract class DisputesLocalizations {
   /// No description provided for @appBarTitle.
   ///
   /// In en, this message translates to:
-  /// **'Disputes List'**
+  /// **'Tickets'**
   String get appBarTitle;
 
   /// No description provided for @distanceToServiceLocation.
@@ -110,7 +110,7 @@ abstract class DisputesLocalizations {
   /// No description provided for @noDisputesIndicatorText.
   ///
   /// In en, this message translates to:
-  /// **'No disputes available'**
+  /// **'No tickets available'**
   String get noDisputesIndicatorText;
 
   /// No description provided for @showInMapButtonLabel.

@@ -1,5 +1,5 @@
 {
-  "appBarTitle": "Disputes List",
+  "appBarTitle": "Tickets",
   "distanceToServiceLocation": "{meters} meters",
   "@distanceToServiceLocation": {
       "placeholders": {
@@ -8,7 +8,7 @@
           }
       }
   },
-  "noDisputesIndicatorText": "No disputes available",
+  "noDisputesIndicatorText": "No tickets available",
   "showInMapButtonLabel": "Show in Map",
   "viewButtonLabel": "View"
 

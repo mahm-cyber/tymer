@@ -10,7 +10,7 @@
     "deniedRequesterSnackBarMessage": "Your request has been denied",
 
     "providerLostDisputeSnackBarMessage": "Money has been refunded to the requester",
-    "providerWonDisputeSnackBarMessage": "The requester's dispute was rejected",
+    "providerWonDisputeSnackBarMessage": "Ticker has been rejected",
     "attachmentSizeExceedsLimitErrorSnackBarMessage": "Attachment size should be 1MB or less"
 
 

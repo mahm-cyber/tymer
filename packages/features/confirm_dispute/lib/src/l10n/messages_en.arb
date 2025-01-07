@@ -1,7 +1,7 @@
 {
-  "disputeSuccessMessage": "Dispute requested successfully",
-  "disputeErrorMessage": "Error requesting dispute",
-  "disputeMessageLabel": "Dispute Reason",
+  "disputeSuccessMessage": "Ticket Placed successfully",
+  "disputeErrorMessage": "Error Adding ticket",
+  "disputeMessageLabel": "Ticket Reason",
   "disputeButtonLabel": "Confirm"
 
 

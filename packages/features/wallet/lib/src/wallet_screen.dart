@@ -39,7 +39,6 @@ class WalletView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = TymerTheme.of(context);
     final l10n = WalletLocalizations.of(context);
     return GestureDetector(
       onTap: context.releaseFocus,

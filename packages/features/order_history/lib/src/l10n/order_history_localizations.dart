@@ -124,12 +124,6 @@ abstract class OrderHistoryLocalizations {
   /// In en, this message translates to:
   /// **'View'**
   String get viewButtonLabel;
-
-  /// No description provided for @fabLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Disputes'**
-  String get fabLabel;
 }
 
 class _OrderHistoryLocalizationsDelegate extends LocalizationsDelegate<OrderHistoryLocalizations> {

@@ -1,5 +1,5 @@
 {
-  "appBarTitle": "قائمة النزاعات",
+  "appBarTitle": "التذاكر",
   "distanceToServiceLocation": "{meters} متر",
   "@distanceToServiceLocation": {
       "placeholders": {
@@ -8,7 +8,7 @@
           }
       }
   },
-  "noDisputesIndicatorText": "لا توجد نزاعات متاحة",
+  "noDisputesIndicatorText": "لا توجد تذاكر متاحة",
   "showInMapButtonLabel": "عرض على الخريطة",
   "viewButtonLabel": "عرض"
 }

@@ -200,7 +200,7 @@ abstract class FulfillServiceRequestLocalizations {
   /// No description provided for @serviceDisputedSnackBarMessage.
   ///
   /// In en, this message translates to:
-  /// **'The requester has disputed the service, and a chat has been created with the administration'**
+  /// **'A ticket has been raised, you can chat with Tymer'**
   String get serviceDisputedSnackBarMessage;
 
   /// No description provided for @imageSizeExceedsLimitErrorTextFieldMessage.

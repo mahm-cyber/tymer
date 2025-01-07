@@ -12,12 +12,14 @@ class HomeScreen extends StatelessWidget {
     required this.userRepository,
     required this.onRequestServiceTapped,
     required this.onProvideServiceTapped,
+    required this.onChatTapped,
     super.key,
   });
 
   final UserRepository userRepository;
   final VoidCallback onRequestServiceTapped;
   final VoidCallback onProvideServiceTapped;
+  final VoidCallback onChatTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class HomeScreen extends StatelessWidget {
         userRepository: userRepository,
         onRequestServiceTapped: onRequestServiceTapped,
         onProvideServiceTapped: onProvideServiceTapped,
+        onChatTapped: onChatTapped,
       ),
       child: const HomeView(),
     );
@@ -42,11 +45,39 @@ class HomeView extends StatelessWidget {
     final theme = TymerTheme.of(context);
     final l10n = HomeLocalizations.of(context);
     final cubit = context.read<HomeCubit>();
+    final textTheme = Theme.of(context).textTheme;
+
     return GestureDetector(
       onTap: context.releaseFocus,
       child: Stack(
         children: [
           Scaffold(
+            floatingActionButton: SizedBox(
+              height: 45,
+              child: FloatingActionButton.extended(
+                isExtended: true,
+                label: Text(
+                  l10n.fabLabel,
+                  style: textTheme.labelLarge?.copyWith(
+                    color: theme.primaryColor,
+                  ),
+                ),
+                // shape: const CircleBorder(),
+                onPressed: cubit.onChatTapped,
+                extendedIconLabelSpacing: 0,
+                extendedPadding: const EdgeInsetsDirectional.only(
+                  end: Spacing.smallMedium,
+                ),
+                icon: Transform.scale(
+                  scale: 0.65,
+                  child: const SvgAsset(
+                    AssetPathConstants.chatPath,
+                    // width: 50,
+                    // height: 50,
+                  ),
+                ),
+              ),
+            ),
             appBar: AppBar(
               title: const SvgAsset(AssetPathConstants.whiteLogoPath),
               toolbarHeight: 160,
