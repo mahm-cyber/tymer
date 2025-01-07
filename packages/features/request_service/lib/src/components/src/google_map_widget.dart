@@ -235,6 +235,7 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                     ),
                   ),
                 ),
+
                 // Location confirmation button
                 Positioned(
                   bottom: Spacing.medium,
