@@ -50,27 +50,33 @@ class WalletView extends StatelessWidget {
               title: const SvgAsset(AssetPathConstants.whiteLogoPath),
               toolbarHeight: 160,
             ),
-            body: Column(
-              children: [
-                VerticalGap.xxLarge(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    HorizontalGap.custom(theme.screenMargin),
-                    WalletButton(
-                      icon: const SvgAsset(AssetPathConstants.whiteBankNote),
-                      title: l10n.withdrawalContainerTitle,
-                      onTap: (){},
-                    ),
-                    WalletButton(
-                      icon: const SvgAsset(AssetPathConstants.arrowTowardsBox),
-                      title: l10n.topUpContainerTitle,
-                      onTap: (){},
-                    ),
-                    HorizontalGap.custom(theme.screenMargin),
-                  ],
-                ),
-              ],
+            body: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  VerticalGap.xxLarge(),
+                  Wrap(
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    spacing: Spacing.medium,
+                    // crossAxisAlignment: WrapCrossAlignment.center,
+                    runSpacing: Spacing.medium,
+                    // runAlignment: WrapAlignment.center,
+                    // alignment: WrapAlignment.center,
+                    children: [
+                      WalletButton(
+                        icon: const SvgAsset(AssetPathConstants.whiteBankNote),
+                        title: l10n.withdrawalContainerTitle,
+                        onTap: () {},
+                      ),
+                      WalletButton(
+                        icon: const SvgAsset(AssetPathConstants.arrowTowardsBox),
+                        title: l10n.topUpContainerTitle,
+                        onTap: () {},
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           AppBarTitleContainer(
@@ -108,8 +114,10 @@ class WalletButton extends StatelessWidget {
           color: theme.materialThemeData.colorScheme.primary,
           borderRadius: BorderRadius.circular(10),
         ),
+        width: 175,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             icon,
             HorizontalGap.medium(),
