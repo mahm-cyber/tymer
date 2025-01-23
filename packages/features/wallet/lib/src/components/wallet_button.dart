@@ -15,9 +15,10 @@ class WalletButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     final theme = TymerTheme.of(context);
+    final textTheme = Theme.of(context).textTheme;
     return GestureDetector(
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(
           horizontal: Spacing.mediumLarge,
@@ -27,8 +28,10 @@ class WalletButton extends StatelessWidget {
           color: theme.materialThemeData.colorScheme.primary,
           borderRadius: BorderRadius.circular(10),
         ),
+        width: 175,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             icon,
             HorizontalGap.medium(),

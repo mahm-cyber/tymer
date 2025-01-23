@@ -30,6 +30,7 @@ import 'package:request_service/request_service.dart';
 import 'package:service_repository/service_repository.dart';
 import 'package:service_request_status/service_request_status.dart';
 import 'package:sign_up/sign_up.dart';
+import 'package:top_up/top_up.dart';
 import 'package:tymer/firebase_options.dart';
 import 'package:tymer/routing_table.dart';
 import 'package:tymer_api/tymer_api.dart';
@@ -41,6 +42,7 @@ import 'package:tab_container/tab_container.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:verify_otp/verify_otp.dart';
 import 'package:wallet/wallet.dart';
+import 'package:withdraw/withdraw.dart';
 
 //TODO:: wrap the whole app in a main cubit and toss these in there
 String? fontFamily;
@@ -243,6 +245,8 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                 DisputesLocalizations.delegate,
                 ConfirmDisputeLocalizations.delegate,
                 ChatLocalizations.delegate,
+                TopUpLocalizations.delegate,
+                WithdrawLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [

@@ -10,15 +10,15 @@ part 'wallet_state.dart';
 class WalletCubit extends Cubit<WalletState> {
   WalletCubit({
     required this.userRepository,
-    required this.onRequestServiceTapped,
-    required this.onProvideServiceTapped,
+    required this.onTopUpTapped,
+    required this.onWithdrawTapped,
   }) : super(
           const WalletState(),
         );
 
   final UserRepository userRepository;
-  final VoidCallback onRequestServiceTapped;
-  final VoidCallback onProvideServiceTapped;
+  final VoidCallback onTopUpTapped;
+  final VoidCallback onWithdrawTapped;
 
 // @override
 // Future<void> close() async {

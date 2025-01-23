@@ -2,6 +2,7 @@ import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
+import 'package:wallet/src/components/wallet_button.dart';
 import 'package:wallet/src/wallet_cubit.dart';
 import 'package:wallet/src/l10n/wallet_localizations.dart';
 
@@ -10,22 +11,22 @@ import 'package:user_repository/user_repository.dart';
 class WalletScreen extends StatelessWidget {
   const WalletScreen({
     required this.userRepository,
-    required this.onRequestServiceTapped,
-    required this.onProvideServiceTapped,
+    required this.onTopUpTapped,
+    required this.onWithdrawTapped,
     super.key,
   });
 
   final UserRepository userRepository;
-  final VoidCallback onRequestServiceTapped;
-  final VoidCallback onProvideServiceTapped;
+  final VoidCallback onTopUpTapped;
+  final VoidCallback onWithdrawTapped;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<WalletCubit>(
       create: (_) => WalletCubit(
         userRepository: userRepository,
-        onRequestServiceTapped: onRequestServiceTapped,
-        onProvideServiceTapped: onProvideServiceTapped,
+        onTopUpTapped: onTopUpTapped,
+        onWithdrawTapped: onWithdrawTapped,
       ),
       child: const WalletView(),
     );
@@ -40,6 +41,7 @@ class WalletView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = WalletLocalizations.of(context);
+    final cubit = context.read<WalletCubit>();
     return GestureDetector(
       onTap: context.releaseFocus,
       child: Stack(
@@ -65,12 +67,12 @@ class WalletView extends StatelessWidget {
                       WalletButton(
                         icon: const SvgAsset(AssetPathConstants.whiteBankNote),
                         title: l10n.withdrawalContainerTitle,
-                        onTap: () {},
+                        onTap: cubit.onWithdrawTapped,
                       ),
                       WalletButton(
                         icon: const SvgAsset(AssetPathConstants.arrowTowardsBox),
                         title: l10n.topUpContainerTitle,
-                        onTap: () {},
+                        onTap: cubit.onTopUpTapped,
                       ),
                     ],
                   ),
@@ -87,55 +89,3 @@ class WalletView extends StatelessWidget {
   }
 }
 
-class WalletButton extends StatelessWidget {
-  const WalletButton({
-    super.key,
-    required this.icon,
-    required this.title,
-    required this.onTap,
-  });
-
-  final Widget icon;
-  final String title;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = TymerTheme.of(context);
-    final textTheme = Theme.of(context).textTheme;
-    return GestureDetector(
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: Spacing.mediumLarge,
-          vertical: Spacing.medium,
-        ),
-        decoration: BoxDecoration(
-          color: theme.materialThemeData.colorScheme.primary,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        width: 175,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            icon,
-            HorizontalGap.medium(),
-            Text(
-              title,
-              style: textTheme.titleMedium?.copyWith(
-                color: theme.materialThemeData.colorScheme.surface,
-                fontSize: 16,
-                // fontWeight: FontWeight.w500,
-              ),
-            ),
-            HorizontalGap.medium(),
-            const SvgAsset(
-              AssetPathConstants.arrowRightSquarePath,
-              width: 15,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

@@ -1,0 +1,8 @@
+{
+  "appBarTitle": "السحب",
+  "withdrawAmountTextFieldLabel": "مبلغ السحب",
+  "withdrawAmountTextFieldHint": "أدخل مبلغ السحب",
+    "isNotNumberTextFieldErrorMessage": "الرجاء إدخال رقم صحيح",
+  "withdrawConfirmButtonLabel": "سحب"
+
+}

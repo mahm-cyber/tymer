@@ -1,0 +1,8 @@
+{
+  "appBarTitle": "الشحن",
+  "topUpAmountTextFieldLabel": "مبلغ الشحن",
+  "topUpAmountTextFieldHint": "أدخل مبلغ الشحن",
+    "isNotNumberTextFieldErrorMessage": "الرجاء إدخال رقم صحيح",
+  "topUpConfirmButtonLabel": "شحن"
+
+}

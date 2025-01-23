@@ -25,9 +25,11 @@ import 'package:service_request_status/service_request_status.dart';
 import 'package:sign_in/sign_in.dart';
 import 'package:sign_up/sign_up.dart';
 import 'package:tab_container/tab_container.dart';
+import 'package:top_up/top_up.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:verify_otp/verify_otp.dart';
 import 'package:wallet/wallet.dart';
+import 'package:withdraw/withdraw.dart';
 
 Map<String, PageBuilder> buildRoutingTable({
   required RoutemasterDelegate routerDelegate,
@@ -254,9 +256,27 @@ Map<String, PageBuilder> buildRoutingTable({
           name: 'wallet',
           child: WalletScreen(
             userRepository: userRepository,
-            onRequestServiceTapped: () =>
-                routerDelegate.push(_PathConstants.chooseServicePath),
-            onProvideServiceTapped: () {},
+            onTopUpTapped: () => routerDelegate.push(_PathConstants.topUpPath),
+            onWithdrawTapped: () =>
+                routerDelegate.push(_PathConstants.withdrawPath),
+          ),
+        ),
+    _PathConstants.topUpPath: (_) => MaterialPage(
+          name: 'top-up',
+          child: TopUpScreen(
+            userRepository: userRepository,
+            onBackTapped: routerDelegate.pop,
+            onProvideServiceTapped: () =>
+                routerDelegate.push(_PathConstants.provideServicePath),
+          ),
+        ),
+    _PathConstants.withdrawPath: (_) => MaterialPage(
+          name: 'withdraw',
+          child: WithdrawScreen(
+            userRepository: userRepository,
+            onBackTapped: routerDelegate.pop,
+            onProvideServiceTapped: () =>
+                routerDelegate.push(_PathConstants.provideServicePath),
           ),
         ),
     _PathConstants.orderHistory: (_) => MaterialPage(
@@ -482,6 +502,10 @@ class _PathConstants {
       '$disputesPath/${disputeId ?? ':disputeId'}';
 
   static String get walletPath => '${initialPath}wallet';
+
+  static String get topUpPath => '${initialPath}top-up';
+
+  static String get withdrawPath => '${initialPath}withdraw';
 
   static String get orderHistory => '${initialPath}order-history';
 

@@ -66,6 +66,10 @@ dependencies:
     path: packages/features/order_history
   wallet:
     path: packages/features/wallet
+  top_up:
+    path: packages/features/top_up
+  withdraw:
+    path: packages/features/withdraw
   profile:
     path: packages/features/profile
   change_language:

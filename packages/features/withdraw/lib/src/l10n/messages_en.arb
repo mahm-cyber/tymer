@@ -1,0 +1,9 @@
+{
+  "appBarTitle": "Withdraw",
+  "withdrawAmountTextFieldLabel": "Withdraw Amount",
+  "withdrawAmountTextFieldHint": "Enter Withdraw Amount",
+  "isNotNumberTextFieldErrorMessage": "Please enter a valid number",
+  "withdrawConfirmButtonLabel": "Withdraw"
+
+
+}
