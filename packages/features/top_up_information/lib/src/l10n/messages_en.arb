@@ -1,0 +1,21 @@
+{
+  "appBarTitle": "Top Up Information",
+    "bankCard": "Bank Card",
+  "vodafoneCash": "Vodafone Cash",
+  "orangeCash": "Orange Cash",
+  "etisalatCash": "Etisalat Cash",
+  "instaPay": "InstaPay",
+  "bankTransfer": "Bank Transfer",
+  "bankCardNumber": "Card Number",
+  "walletNumber": "Wallet Number",
+  "instantPaymentAddress": "Instant Payment Address",
+  "beneficiaryName": "Beneficiary Name",
+  "beneficiaryAddress": "Beneficiary Address",
+  "bankName": "Bank Name",
+  "accountNumber": "Account Number",
+  "iban": "IBAN",
+  "swiftCode": "SWIFT Code",
+  "messageAr": "Message (AR)",
+  "messageEn": "Message (EN)",
+  "error": "An error occurred. Please try again."
+}

@@ -1,0 +1,29 @@
+import 'package:flutter/material.dart';
+import 'package:domain_models/domain_models.dart';
+import 'package:top_up_information/src/components/components.dart';
+import 'package:top_up_information/top_up_information.dart';
+
+class EtisalatCashInfo extends StatelessWidget {
+  const EtisalatCashInfo({
+    required this.etisalatCash,
+    super.key,
+  });
+
+  final EtisalatCash etisalatCash;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = TopUpInformationLocalizations.of(context);
+    final isArabic = Localizations.localeOf(context).languageCode == 'ar';
+    return Column(
+      children: [
+        CopyableText(label: l10n.walletNumber, value: etisalatCash.walletNumber),
+        Text(
+          isArabic ? etisalatCash.message.ar : etisalatCash.message.en,
+        ),
+      ],
+    );
+  }
+
+
+} 

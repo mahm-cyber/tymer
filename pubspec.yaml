@@ -23,6 +23,8 @@ dependencies:
     path: packages/key_value_storage
   user_repository:
     path: packages/user_repository
+  wallet_repository:
+    path: packages/wallet_repository
   service_repository:
     path: packages/service_repository
   dispute_repository:
@@ -66,6 +68,10 @@ dependencies:
     path: packages/features/order_history
   wallet:
     path: packages/features/wallet
+  top_up_information:
+    path: packages/features/top_up_information
+  choose_top_up_method:
+    path: packages/features/choose_top_up_method
   top_up:
     path: packages/features/top_up
   withdraw:

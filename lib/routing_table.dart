@@ -4,10 +4,10 @@ import 'package:change_password/change_password.dart';
 import 'package:change_phone/change_phone.dart';
 import 'package:chat/chat.dart';
 import 'package:choose_service/choose_service.dart';
+import 'package:choose_top_up_method/choose_top_up_method.dart';
 import 'package:confirm_dispute/confirm_dispute.dart';
 import 'package:dispute_repository/dispute_repository.dart';
 import 'package:disputes/disputes.dart';
-import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 import 'package:forgot_password/forgot_password.dart';
 import 'package:fulfill_service_request/fulfill_service_request.dart';
@@ -26,9 +26,11 @@ import 'package:sign_in/sign_in.dart';
 import 'package:sign_up/sign_up.dart';
 import 'package:tab_container/tab_container.dart';
 import 'package:top_up/top_up.dart';
+import 'package:top_up_information/top_up_information.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:verify_otp/verify_otp.dart';
 import 'package:wallet/wallet.dart';
+import 'package:wallet_repository/wallet_repository.dart';
 import 'package:withdraw/withdraw.dart';
 
 Map<String, PageBuilder> buildRoutingTable({
@@ -38,6 +40,7 @@ Map<String, PageBuilder> buildRoutingTable({
   required DisputeRepository disputeRepository,
   required ValueNotifier<bool> signInSuccessVN,
   required ValueNotifier<bool> isUserUnAuthSC,
+  required WalletRepository walletRepository,
 }) {
   disputeRepository.changeNotifier.addListener(() {
     debugPrint(
@@ -173,6 +176,16 @@ Map<String, PageBuilder> buildRoutingTable({
             },
           ),
         ),
+    _PathConstants.chooseTopUpMethodPath: (_) => MaterialPage(
+          name: 'choose-top-up-method',
+          child: ChooseTopUpMethodScreen(
+            userRepository: userRepository,
+            walletRepository: walletRepository,
+            onTopUpMethodTapped: () {
+              routerDelegate.push(_PathConstants.topUpInformationPath);
+            },
+          ),
+        ),
     _PathConstants.signInPath: (_) => MaterialPage(
           name: 'sign-in',
           child: SignInScreen(
@@ -256,7 +269,8 @@ Map<String, PageBuilder> buildRoutingTable({
           name: 'wallet',
           child: WalletScreen(
             userRepository: userRepository,
-            onTopUpTapped: () => routerDelegate.push(_PathConstants.topUpPath),
+            onTopUpTapped: () =>
+                routerDelegate.push(_PathConstants.chooseTopUpMethodPath),
             onWithdrawTapped: () =>
                 routerDelegate.push(_PathConstants.withdrawPath),
           ),
@@ -268,6 +282,13 @@ Map<String, PageBuilder> buildRoutingTable({
             onBackTapped: routerDelegate.pop,
             onProvideServiceTapped: () =>
                 routerDelegate.push(_PathConstants.provideServicePath),
+          ),
+        ),
+    _PathConstants.topUpInformationPath: (_) => MaterialPage(
+          name: 'top-up-information',
+          child: TopUpInformationScreen(
+            userRepository: userRepository,
+            walletRepository: walletRepository,
           ),
         ),
     _PathConstants.withdrawPath: (_) => MaterialPage(
@@ -502,6 +523,12 @@ class _PathConstants {
       '$disputesPath/${disputeId ?? ':disputeId'}';
 
   static String get walletPath => '${initialPath}wallet';
+
+  static String get chooseTopUpMethodPath =>
+      '${initialPath}choose-top-up-method';
+
+  static String get topUpInformationPath =>
+      '$chooseTopUpMethodPath/top-up-information';
 
   static String get topUpPath => '${initialPath}top-up';
 

@@ -430,6 +430,42 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'Request ID'**
   String get serviceIdTextFieldLabel;
+
+  /// No description provided for @bankCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Card'**
+  String get bankCard;
+
+  /// No description provided for @vodafoneCash.
+  ///
+  /// In en, this message translates to:
+  /// **'Vodafone Cash'**
+  String get vodafoneCash;
+
+  /// No description provided for @orangeCash.
+  ///
+  /// In en, this message translates to:
+  /// **'Orange Cash'**
+  String get orangeCash;
+
+  /// No description provided for @etisalatCash.
+  ///
+  /// In en, this message translates to:
+  /// **'Etisalat Cash'**
+  String get etisalatCash;
+
+  /// No description provided for @instaPay.
+  ///
+  /// In en, this message translates to:
+  /// **'InstaPay'**
+  String get instaPay;
+
+  /// No description provided for @bankTransfer.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Transfer'**
+  String get bankTransfer;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

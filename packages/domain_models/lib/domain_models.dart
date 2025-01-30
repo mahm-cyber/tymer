@@ -13,4 +13,4 @@ export 'src/fulfill_service_request.dart';
 export 'src/service_type.dart';
 export 'src/dispute.dart';
 export 'src/tymer_notification.dart';
-
+export 'src/payment_methods/payment_methods.dart';

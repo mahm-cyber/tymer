@@ -175,4 +175,22 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get serviceIdTextFieldLabel => 'رقم الطلب';
+
+  @override
+  String get bankCard => 'بطاقة البنك';
+
+  @override
+  String get vodafoneCash => 'فودافون كاش';
+
+  @override
+  String get orangeCash => 'أورانج كاش';
+
+  @override
+  String get etisalatCash => 'أيتيسالات كاش';
+
+  @override
+  String get instaPay => 'إنستاباي';
+
+  @override
+  String get bankTransfer => 'تحويل بنكي';
 }

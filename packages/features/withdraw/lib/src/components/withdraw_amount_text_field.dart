@@ -43,8 +43,7 @@ class _WithdrawAmountInputFieldState extends State<WithdrawAmountInputField> {
           state.submissionStatus == FormzSubmissionStatus.inProgress;
       final clL10n = ComponentLibraryLocalizations.of(context);
       final l10n = WithdrawLocalizations.of(context);
-      final textTheme = Theme.of(context).textTheme;
-      final theme = TymerTheme.of(context);
+
       return TextFormField(
         enableInteractiveSelection: false,
         enabled: !isSubmissionInProgress,

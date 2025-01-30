@@ -157,6 +157,10 @@ class UrlBuilder {
     return '$baseUrl/settings/service-pricing';
   }
 
+  String buildGetPaymentMethodsUrl() {
+    return '$baseUrl/settings/top-up-requests';
+  }
+
   String buildSendChatMessageUrl({
     required int disputeId,
     required String userType,

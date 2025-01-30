@@ -97,7 +97,7 @@ class TymerApi {
       }
       final errorObject =
           error.response?.data[_errorJsonKey][_verificationErrorsJsonKey];
-      if (errorObject.containsKey(_phoneNumberJsonKey)) {
+      if (errorObject != null && errorObject.containsKey(_phoneNumberJsonKey)) {
         throw InvalidCredentialsTymerException();
       }
       rethrow;
@@ -750,6 +750,17 @@ class TymerApi {
       if (errorObject.containsKey(_currentPasswordJsonKey)) {
         throw IncorrectPasswordTymerException();
       }
+      rethrow;
+    }
+  }
+
+  Future<PaymentMethodsRM> getPaymentMethods() async {
+    final url = urlBuilder.buildGetPaymentMethodsUrl();
+    try {
+      final response = await _dio.get(url);
+      final paymentMethods = PaymentMethodsRM.fromJson(response.data[_dataJsonKey]);
+      return paymentMethods;
+    } catch (error) {
       rethrow;
     }
   }

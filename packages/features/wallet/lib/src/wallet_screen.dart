@@ -57,12 +57,8 @@ class WalletView extends StatelessWidget {
                 children: [
                   VerticalGap.xxLarge(),
                   Wrap(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     spacing: Spacing.medium,
-                    // crossAxisAlignment: WrapCrossAlignment.center,
                     runSpacing: Spacing.medium,
-                    // runAlignment: WrapAlignment.center,
-                    // alignment: WrapAlignment.center,
                     children: [
                       WalletButton(
                         icon: const SvgAsset(AssetPathConstants.whiteBankNote),

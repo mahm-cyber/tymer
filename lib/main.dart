@@ -6,11 +6,11 @@ import 'package:change_password/change_password.dart';
 import 'package:change_phone/change_phone.dart';
 import 'package:chat/chat.dart';
 import 'package:choose_service/choose_service.dart';
+import 'package:choose_top_up_method/choose_top_up_method.dart';
 import 'package:component_library/component_library.dart';
 import 'package:confirm_dispute/confirm_dispute.dart';
 import 'package:dispute_repository/dispute_repository.dart';
 import 'package:disputes/disputes.dart';
-import 'package:domain_models/domain_models.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -31,9 +31,9 @@ import 'package:service_repository/service_repository.dart';
 import 'package:service_request_status/service_request_status.dart';
 import 'package:sign_up/sign_up.dart';
 import 'package:top_up/top_up.dart';
+import 'package:top_up_information/top_up_information.dart';
 import 'package:tymer/firebase_options.dart';
 import 'package:tymer/routing_table.dart';
-import 'package:tymer_api/tymer_api.dart';
 
 import 'package:routemaster/routemaster.dart';
 import 'package:sign_in/sign_in.dart';
@@ -42,6 +42,7 @@ import 'package:tab_container/tab_container.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:verify_otp/verify_otp.dart';
 import 'package:wallet/wallet.dart';
+import 'package:wallet_repository/wallet_repository.dart';
 import 'package:withdraw/withdraw.dart';
 
 //TODO:: wrap the whole app in a main cubit and toss these in there
@@ -103,6 +104,9 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
     remoteApi: _connectInApi,
     noSqlStorage: _keyValueStorage,
   );
+  late final _walletRepository = WalletRepository(
+    remoteApi: _connectInApi,
+  );
 
   final _keyValueStorage = KeyValueStorage();
 
@@ -149,6 +153,7 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
           disputeRepository: _disputeRepository,
           signInSuccessVN: _signInSuccessVN,
           isUserUnAuthSC: _isUserUnAuthSC,
+          walletRepository: _walletRepository,
         ),
       );
     },
@@ -247,6 +252,8 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                 ChatLocalizations.delegate,
                 TopUpLocalizations.delegate,
                 WithdrawLocalizations.delegate,
+                ChooseTopUpMethodLocalizations.delegate,
+                TopUpInformationLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [

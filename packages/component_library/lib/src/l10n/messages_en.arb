@@ -62,7 +62,13 @@
 
   "providerLostDisputeLabel": "Refunded",
   "providerWonDisputeLabel": "Denied",
-  "serviceIdTextFieldLabel": "Request ID"
+  "serviceIdTextFieldLabel": "Request ID",
+  "bankCard": "Bank Card",
+  "vodafoneCash": "Vodafone Cash",
+  "orangeCash": "Orange Cash",
+  "etisalatCash": "Etisalat Cash",
+  "instaPay": "InstaPay",
+  "bankTransfer": "Bank Transfer"
 
 
 

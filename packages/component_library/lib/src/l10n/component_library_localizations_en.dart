@@ -175,4 +175,22 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get serviceIdTextFieldLabel => 'Request ID';
+
+  @override
+  String get bankCard => 'Bank Card';
+
+  @override
+  String get vodafoneCash => 'Vodafone Cash';
+
+  @override
+  String get orangeCash => 'Orange Cash';
+
+  @override
+  String get etisalatCash => 'Etisalat Cash';
+
+  @override
+  String get instaPay => 'InstaPay';
+
+  @override
+  String get bankTransfer => 'Bank Transfer';
 }

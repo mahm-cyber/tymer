@@ -1,0 +1,56 @@
+import 'package:component_library/component_library.dart';
+import 'package:flutter/material.dart';
+
+class ChooseTopUpMethodButton extends StatelessWidget {
+  const ChooseTopUpMethodButton({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.onTap,
+  });
+
+  final Widget icon;
+  final String title;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = TymerTheme.of(context);
+    final textTheme = Theme.of(context).textTheme;
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: Spacing.mediumLarge,
+          vertical: Spacing.medium,
+        ),
+        decoration: BoxDecoration(
+          color: theme.materialThemeData.colorScheme.primary,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        width: 175,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            icon,
+            HorizontalGap.medium(),
+            Text(
+              title,
+              style: textTheme.titleMedium?.copyWith(
+                color: theme.materialThemeData.colorScheme.surface,
+                fontSize: 16,
+                // fontWeight: FontWeight.w500,
+              ),
+            ),
+            HorizontalGap.medium(),
+            const SvgAsset(
+              AssetPathConstants.arrowRightSquarePath,
+              width: 15,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
