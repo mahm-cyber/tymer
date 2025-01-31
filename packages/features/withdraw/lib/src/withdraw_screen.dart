@@ -68,7 +68,9 @@ class WithdrawView extends StatelessWidget {
             cubit.onSuccess();
             showSnackBar(
               context: context,
-              snackBar: SuccessSnackBar(context: context,),
+              snackBar: SuccessSnackBar(
+                context: context,
+              ),
             );
           }
           if (state.submissionStatus == FormzSubmissionStatus.failure) {
@@ -117,7 +119,7 @@ class WithdrawView extends StatelessWidget {
                         PaymentMethodType.instaPay => const InstaPayTextField(),
                         _ => const SizedBox(),
                       },
-                      VerticalGap.xxLarge(),
+                      VerticalGap.medium(),
                       state.submissionStatus == FormzSubmissionStatus.inProgress
                           ? TymerElevatedButton.inProgress(
                               label: l10n.withdrawConfirmButtonLabel,
