@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
   equatable: ^2.0.5
   flutter_bloc: ^9.0.0
+  form_fields:
+    path: ../../form_fields
   component_library:
     path: ../../component_library
   domain_models:
@@ -21,6 +23,7 @@ dependencies:
     path: ../../user_repository
   wallet_repository:
     path: ../../wallet_repository
+  image_picker: ^1.1.2
 
 dev_dependencies:
   flutter_lints: ^4.0.0 

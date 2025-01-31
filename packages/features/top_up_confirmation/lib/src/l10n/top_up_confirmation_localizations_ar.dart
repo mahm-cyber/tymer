@@ -8,4 +8,25 @@ class TopUpConfirmationLocalizationsAr extends TopUpConfirmationLocalizations {
 
   @override
   String get appBarTitle => 'تأكيد الشحن';
+
+  @override
+  String get amountTextFieldLabel => 'المبلغ';
+
+  @override
+  String get invalidAmountFormatErrorMessage => 'برجاء إدخال مبلغ صحيح';
+
+  @override
+  String get requiredFieldErrorMessage => 'مطلوب*';
+
+  @override
+  String get confirmButtonLabel => 'تأكيد';
+
+  @override
+  String get confirmingButtonLabel => 'جاري التأكيد...';
+
+  @override
+  String get walletNumberTextFieldLabel => 'رقم المحفظة';
+
+  @override
+  String get instantPaymentAddressTextFieldLabel => 'عنوان الدفع الفوري';
 }

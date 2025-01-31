@@ -1,3 +1,10 @@
 {
-  "appBarTitle": "Top Up Confirmation"
+  "appBarTitle": "Top Up Confirmation",
+  "amountTextFieldLabel": "Amount",
+  "invalidAmountFormatErrorMessage": "Please enter a valid amount",
+  "requiredFieldErrorMessage": "Required*",
+  "confirmButtonLabel": "Confirm",
+  "confirmingButtonLabel": "Confirming...",
+  "walletNumberTextFieldLabel": "Wallet Number",
+  "instantPaymentAddressTextFieldLabel": "Instant Payment Address"
 } 

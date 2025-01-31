@@ -100,6 +100,48 @@ abstract class TopUpConfirmationLocalizations {
   /// In en, this message translates to:
   /// **'Top Up Confirmation'**
   String get appBarTitle;
+
+  /// No description provided for @amountTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get amountTextFieldLabel;
+
+  /// No description provided for @invalidAmountFormatErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid amount'**
+  String get invalidAmountFormatErrorMessage;
+
+  /// No description provided for @requiredFieldErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Required*'**
+  String get requiredFieldErrorMessage;
+
+  /// No description provided for @confirmButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirmButtonLabel;
+
+  /// No description provided for @confirmingButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirming...'**
+  String get confirmingButtonLabel;
+
+  /// No description provided for @walletNumberTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallet Number'**
+  String get walletNumberTextFieldLabel;
+
+  /// No description provided for @instantPaymentAddressTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Instant Payment Address'**
+  String get instantPaymentAddressTextFieldLabel;
 }
 
 class _TopUpConfirmationLocalizationsDelegate extends LocalizationsDelegate<TopUpConfirmationLocalizations> {

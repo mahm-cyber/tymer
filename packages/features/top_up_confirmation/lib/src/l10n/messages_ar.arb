@@ -1,3 +1,10 @@
 {
-  "appBarTitle": "تأكيد الشحن"
+  "appBarTitle": "تأكيد الشحن",
+  "amountTextFieldLabel": "المبلغ",
+  "invalidAmountFormatErrorMessage": "برجاء إدخال مبلغ صحيح",
+  "requiredFieldErrorMessage": "مطلوب*",
+  "confirmButtonLabel": "تأكيد",
+  "confirmingButtonLabel": "جاري التأكيد...",
+  "walletNumberTextFieldLabel": "رقم المحفظة",
+  "instantPaymentAddressTextFieldLabel": "عنوان الدفع الفوري"
 } 

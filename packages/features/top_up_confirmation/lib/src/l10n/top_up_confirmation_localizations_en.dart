@@ -8,4 +8,25 @@ class TopUpConfirmationLocalizationsEn extends TopUpConfirmationLocalizations {
 
   @override
   String get appBarTitle => 'Top Up Confirmation';
+
+  @override
+  String get amountTextFieldLabel => 'Amount';
+
+  @override
+  String get invalidAmountFormatErrorMessage => 'Please enter a valid amount';
+
+  @override
+  String get requiredFieldErrorMessage => 'Required*';
+
+  @override
+  String get confirmButtonLabel => 'Confirm';
+
+  @override
+  String get confirmingButtonLabel => 'Confirming...';
+
+  @override
+  String get walletNumberTextFieldLabel => 'Wallet Number';
+
+  @override
+  String get instantPaymentAddressTextFieldLabel => 'Instant Payment Address';
 }
