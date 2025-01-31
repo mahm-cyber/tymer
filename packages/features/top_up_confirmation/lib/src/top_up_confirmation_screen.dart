@@ -7,6 +7,7 @@ import 'package:top_up_confirmation/top_up_confirmation.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:wallet_repository/wallet_repository.dart';
 import 'package:form_fields/form_fields.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import 'components/amount_text_field.dart';
 import 'components/wallet_number_text_field.dart';
 import 'components/instant_payment_address_text_field.dart';
@@ -15,11 +16,15 @@ class TopUpConfirmationScreen extends StatelessWidget {
   const TopUpConfirmationScreen({
     required this.userRepository,
     required this.walletRepository,
+    required this.onBackButtonPressed,
+    required this.onSuccess,
     super.key,
   });
 
   final UserRepository userRepository;
   final WalletRepository walletRepository;
+  final VoidCallback onBackButtonPressed;
+  final VoidCallback onSuccess;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +32,8 @@ class TopUpConfirmationScreen extends StatelessWidget {
       create: (_) => TopUpConfirmationCubit(
         userRepository: userRepository,
         walletRepository: walletRepository,
+        onBackButtonPressed: onBackButtonPressed,
+        onSuccess: onSuccess,
       ),
       child: const TopUpConfirmationView(),
     );
@@ -42,66 +49,175 @@ class TopUpConfirmationView extends StatelessWidget {
     final l10n = TopUpConfirmationLocalizations.of(context);
     final theme = TymerTheme.of(context);
 
-    return BlocBuilder<TopUpConfirmationCubit, TopUpConfirmationState>(
+    return BlocConsumer<TopUpConfirmationCubit, TopUpConfirmationState>(
+      listenWhen: (previous, current) =>
+          previous.submissionStatus != current.submissionStatus ||
+          previous.isImagePickerBottomSheetVisible !=
+              current.isImagePickerBottomSheetVisible,
+      listener: (context, state) {
+        final cubit = context.read<TopUpConfirmationCubit>();
+        final cl10n = ComponentLibraryLocalizations.of(context);
+        if (state.isImagePickerBottomSheetVisible == true) {
+          showModalBottomSheet(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadiusDirectional.vertical(
+                top: Radius.circular(20),
+              ),
+            ),
+            context: context,
+            builder: (context) {
+              return BackButtonListener(
+                onBackButtonPressed: () async {
+                  cubit.onBackButtonPressed();
+                  return true;
+                },
+                child: ImagePickerBottomSheet(
+                  galleryIcon: Icons.collections,
+                  cameraIcon: Icons.camera_alt,
+                  galleryText: cl10n.bottomSheetGalleryButton,
+                  cameraText: cl10n.bottomSheetCaptureButton,
+                  onTapGallery: () {
+                    Navigator.pop(context);
+                    cubit.pickImageFromGallery();
+                  },
+                  onTapCamera: () {
+                    Navigator.pop(context);
+                    cubit.capturePhoto();
+                  },
+                ),
+              );
+            },
+          ).whenComplete(() {
+            cubit.onImagePickerBottomSheetClosed();
+          });
+        }
+        if (state.submissionStatus == FormzSubmissionStatus.success) {
+          cubit.onSuccess();
+          showSnackBar(
+            context: context,
+            snackBar: SuccessSnackBar(
+              context: context,
+              marginalSpace: theme.snackBarMargin,
+            ),
+          );
+        }
+        if (state.submissionStatus == FormzSubmissionStatus.failure) {
+          showSnackBar(
+            context: context,
+            snackBar: ErrorSnackBar(
+              context: context,
+              marginalSpace: theme.snackBarMargin,
+            ),
+          );
+        }
+      },
       builder: (context, state) {
         final pickedMethod = state.paymentMethods?.pickedPaymentMethodType;
         final isSubmissionInProgress =
             state.submissionStatus == FormzSubmissionStatus.inProgress;
-//add release focus
+        final cubit = context.read<TopUpConfirmationCubit>();
+        final isCardPaymentInProgress =
+            state.bankCardPaymentStatus == BankCardPaymentStatus.inProgress;
+        final isCardPaymentPageLoaded = state.bankCardPaymentStatus ==
+            BankCardPaymentStatus.paymentPageLoaded;
 
         return GestureDetector(
           onTap: context.releaseFocus,
           child: Stack(
             children: [
-              Scaffold(
-                appBar: AppBar(
-                  title: const SvgAsset(AssetPathConstants.whiteLogoPath),
-                  iconTheme: const IconThemeData(color: Colors.white),
-                  toolbarHeight: 160,
-                ),
-                body: Padding(
-                  padding: EdgeInsets.all(theme.screenMargin),
-                  child: Column(
-                    children: [
-                      VerticalGap.large(),
-                      const AmountTextField(),
-                      VerticalGap.medium(),
-                      if (state.paymentMethods?.pickedPaymentMethodType ==
-                          PaymentMethodType.instaPay)
-                        const InstantPaymentAddressTextField()
-                      else if ([
-                        PaymentMethodType.vodafoneCash,
-                        PaymentMethodType.orangeCash,
-                        PaymentMethodType.etisalatCash,
-                      ].contains(state.paymentMethods?.pickedPaymentMethodType))
-                        const WalletNumberTextField(),
-                        
-                      const Spacer(),
-                      isSubmissionInProgress
-                          ? TymerElevatedButton.inProgress(
+              if (isCardPaymentInProgress)
+                Scaffold(
+                  appBar: AppBar(
+                    title: const SvgAsset(AssetPathConstants.whiteLogoPath),
+                    iconTheme: const IconThemeData(color: Colors.white),
+                    toolbarHeight: 70,
+                  ),
+                  body: const CenteredCircularProgressIndicator(),
+                )
+              else if (isCardPaymentPageLoaded)
+                Scaffold(
+                  appBar: AppBar(
+                    title: const SvgAsset(AssetPathConstants.whiteLogoPath),
+                    iconTheme: const IconThemeData(color: Colors.white),
+                    toolbarHeight: 70,
+                  ),
+                  body: WebViewWidget(
+                    controller: cubit.webViewController,
+                  ),
+                )
+              else
+                Scaffold(
+                  appBar: AppBar(
+                    title: const SvgAsset(AssetPathConstants.whiteLogoPath),
+                    iconTheme: const IconThemeData(color: Colors.white),
+                    toolbarHeight: 160,
+                  ),
+                  body: Center(
+                    child: Expanded(
+                      child: ListView(
+                        shrinkWrap: true,
+                        padding: EdgeInsets.all(theme.screenMargin),
+                        children: [
+                          VerticalGap.large(),
+                          const AmountTextField(),
+                          VerticalGap.medium(),
+                          if (state.paymentMethods?.pickedPaymentMethodType ==
+                              PaymentMethodType.instaPay)
+                            const InstantPaymentAddressTextField()
+                          else if ([
+                            PaymentMethodType.vodafoneCash,
+                            PaymentMethodType.orangeCash,
+                            PaymentMethodType.etisalatCash,
+                          ].contains(
+                              state.paymentMethods?.pickedPaymentMethodType))
+                            const WalletNumberTextField(),
+                          VerticalGap.medium(),
+                          if (state.paymentMethods?.pickedPaymentMethodType !=
+                              PaymentMethodType.bankCard)
+                            ImagePickerTextField(
+                              imageFileNameSC: cubit.imageFileNameSC,
+                              onImagePickerTapped: cubit.onImagePickerTapped,
+                              deletePickedImage: cubit.deletePickedImage,
+                              onBackButtonPressed: cubit.onBackButtonPressed,
+                              isSubmissionInProgress: isSubmissionInProgress,
+                              imageError: state.file.isNotValid
+                                  ? state.file.error
+                                  : null,
+                              hasPickedImage: state.file.value != null &&
+                                  state.file.isValid,
+                              imageBytes: state.file.value?.readAsBytesSync(),
+                              isImagePicked: state.file.value != null,
+                            ),
+                          VerticalGap.medium(),
+                          if (isSubmissionInProgress)
+                            TymerElevatedButton.inProgress(
                               label: l10n.confirmingButtonLabel,
                             )
-                          : TymerElevatedButton(
-                              onTap: context
-                                  .read<TopUpConfirmationCubit>()
-                                  .onSubmit,
+                          else
+                            TymerElevatedButton(
+                              onTap: cubit.onSubmit,
                               label: l10n.confirmButtonLabel,
                             ),
-                    ],
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              AppBarTitleContainer(
-                title: switch (pickedMethod) {
-                  null => 'l10n.error',
-                  PaymentMethodType.bankCard => cl10n.bankCard,
-                  PaymentMethodType.vodafoneCash => cl10n.vodafoneCash,
-                  PaymentMethodType.orangeCash => cl10n.orangeCash,
-                  PaymentMethodType.etisalatCash => cl10n.etisalatCash,
-                  PaymentMethodType.instaPay => cl10n.instaPay,
-                  PaymentMethodType.bankTransfer => cl10n.bankTransfer,
-                },
-              ),
+              if (state.bankCardPaymentStatus !=
+                      BankCardPaymentStatus.paymentPageLoaded &&
+                  state.bankCardPaymentStatus !=
+                      BankCardPaymentStatus.inProgress)
+                AppBarTitleContainer(
+                  title: switch (pickedMethod) {
+                    null => 'l10n.error',
+                    PaymentMethodType.bankCard => cl10n.bankCard,
+                    PaymentMethodType.vodafoneCash => cl10n.vodafoneCash,
+                    PaymentMethodType.orangeCash => cl10n.orangeCash,
+                    PaymentMethodType.etisalatCash => cl10n.etisalatCash,
+                    PaymentMethodType.instaPay => cl10n.instaPay,
+                    PaymentMethodType.bankTransfer => cl10n.bankTransfer,
+                  },
+                ),
             ],
           ),
         );

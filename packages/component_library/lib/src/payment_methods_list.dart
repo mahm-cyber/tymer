@@ -1,0 +1,74 @@
+import 'package:component_library/component_library.dart';
+import 'package:domain_models/domain_models.dart';
+import 'package:flutter/material.dart';
+
+class PaymentMethodsList extends StatelessWidget {
+  const PaymentMethodsList({
+    super.key,
+    required this.onPaymentMethodTapped,
+    required this.paymentMethods,
+    required this.bankCardEnabled ,
+  });
+
+  final Function(PaymentMethodType) onPaymentMethodTapped;
+  final PaymentMethods paymentMethods;
+  final bool bankCardEnabled;
+  @override
+  Widget build(BuildContext context) {
+    final clL10n = ComponentLibraryLocalizations.of(context);
+    return Expanded(
+      child: ListView(
+        shrinkWrap: true,
+        children: [
+          VerticalGap.xxLarge(),
+          if (bankCardEnabled)
+            ListTile(
+              title: Text(clL10n.bankCard),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              leading: const Icon(Icons.credit_card),
+              onTap: () => onPaymentMethodTapped(PaymentMethodType.bankCard),
+            ),
+          if (paymentMethods.vodafoneCash.enabled)
+            ListTile(
+              title: Text(clL10n.vodafoneCash),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              leading: const Icon(Icons.phone_android),
+              onTap: () =>
+                  onPaymentMethodTapped(PaymentMethodType.vodafoneCash),
+            ),
+          if (paymentMethods.orangeCash.enabled)
+            ListTile(
+              title: Text(clL10n.orangeCash),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              leading: const Icon(Icons.phone_android),
+              onTap: () =>
+                  onPaymentMethodTapped(PaymentMethodType.orangeCash),
+            ),
+          if (paymentMethods.etisalatCash.enabled)
+            ListTile(
+              title: Text(clL10n.etisalatCash),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              leading: const Icon(Icons.phone_android),
+              onTap: () =>
+                  onPaymentMethodTapped(PaymentMethodType.etisalatCash),
+            ),
+          if (paymentMethods.instaPay.enabled)
+            ListTile(
+              title: Text(clL10n.instaPay),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              leading: const Icon(Icons.flash_on),
+              onTap: () => onPaymentMethodTapped(PaymentMethodType.instaPay),
+            ),
+          if (paymentMethods.bankTransfer.enabled)
+            ListTile(
+              title: Text(clL10n.bankTransfer),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              leading: const Icon(Icons.account_balance),
+              onTap: () =>
+                  onPaymentMethodTapped(PaymentMethodType.bankTransfer),
+            ),
+        ],
+      ),
+    );
+  }
+}

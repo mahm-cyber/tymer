@@ -256,8 +256,6 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
   }
 
   void onSubmit() async {
-
-
     final serviceType = state.service!.type;
     final isOtherService = serviceType == ServiceType.other;
     final isReservationService = serviceType == ServiceType.reservation;

@@ -167,8 +167,7 @@ class SignInCubit extends Cubit<SignInState> {
             password: password.value!,
           );
         }
-        //TODO: fetch fresh wallet data as well since there could be some data left in the
-        // main tab screens from the previous user
+
         serviceRepository.changeNotifier.setShouldReFetchServices(true);
       } catch (error) {
         final newState = state.copyWith(

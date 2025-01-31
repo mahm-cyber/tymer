@@ -122,8 +122,38 @@ abstract class WithdrawLocalizations {
   /// No description provided for @withdrawConfirmButtonLabel.
   ///
   /// In en, this message translates to:
-  /// **'Withdraw'**
+  /// **'Request Withdraw'**
   String get withdrawConfirmButtonLabel;
+
+  /// No description provided for @walletNumberTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallet Number'**
+  String get walletNumberTextFieldLabel;
+
+  /// No description provided for @ibanNumberTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'IBAN Number'**
+  String get ibanNumberTextFieldLabel;
+
+  /// No description provided for @beneficiaryNameTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Beneficiary Name'**
+  String get beneficiaryNameTextFieldLabel;
+
+  /// No description provided for @invalidWalletNumberErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid wallet number'**
+  String get invalidWalletNumberErrorMessage;
+
+  /// No description provided for @instantPaymentAddressTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Instant Payment Address'**
+  String get instantPaymentAddressTextFieldLabel;
 }
 
 class _WithdrawLocalizationsDelegate extends LocalizationsDelegate<WithdrawLocalizations> {

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:form_fields/form_fields.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:wallet_repository/wallet_repository.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 part 'top_up_confirmation_state.dart';
 
@@ -14,6 +16,8 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
   TopUpConfirmationCubit({
     required this.userRepository,
     required this.walletRepository,
+    required this.onBackButtonPressed,
+    required this.onSuccess,
   })  : _imagePicker = ImagePicker(),
         super(
           TopUpConfirmationState(
@@ -25,6 +29,9 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
   final WalletRepository walletRepository;
   final StreamController<String> imageFileNameSC = StreamController();
   final ImagePicker _imagePicker;
+  final VoidCallback onBackButtonPressed;
+  final VoidCallback onSuccess;
+  final WebViewController webViewController = WebViewController();
 
   void onAmountChanged(String? newValue) {
     final previousAmount = state.amount;
@@ -64,6 +71,11 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
         PaymentMethodType.instaPay;
   }
 
+  bool _needsProof() {
+    return state.paymentMethods?.pickedPaymentMethodType !=
+        PaymentMethodType.bankCard;
+  }
+
   void onWalletNumberChanged(String? newValue) {
     if (!_needsWalletNumber()) return;
 
@@ -71,7 +83,11 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
     final shouldValidate = previousValue.isNotValid;
     final newState = state.copyWith(
       walletNumber: shouldValidate
-          ? Dynamic.validated(newValue, isRequired: true)
+          ? Dynamic.validated(
+              newValue,
+              isRequired: true,
+              shouldCheckIfEgyptianMobile: true,
+            )
           : Dynamic.unvalidated(newValue),
     );
     emit(newState);
@@ -186,10 +202,15 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
       checkIfNumber: true,
       isRequired: true,
     );
-
+    final file = FileSize<File?>.validated(
+      state.file.value,
+      sizeLimitInKb: 1024,
+      isRequired: true,
+    );
     final walletNumber = Dynamic.validated(
       state.walletNumber.value,
       isRequired: true,
+      shouldCheckIfEgyptianMobile: true,
     );
 
     final instantPaymentAddress = Dynamic.validated(
@@ -197,17 +218,20 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
       isRequired: true,
     );
 
-    final formFields = [
+    final formFields = <FormzInput<dynamic, dynamic>>[
       amount,
+      if (_needsProof()) file,
       if (_needsWalletNumber()) walletNumber,
       if (_needsInstantPaymentAddress()) instantPaymentAddress,
     ];
+
     final isFormValid = Formz.validate(formFields);
 
     final newState = state.copyWith(
       amount: amount,
       walletNumber: walletNumber,
       instantPaymentAddress: instantPaymentAddress,
+      file: file,
       submissionStatus: isFormValid
           ? FormzSubmissionStatus.inProgress
           : FormzSubmissionStatus.initial,
@@ -218,15 +242,53 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
     if (isFormValid) {
       try {
         // Add your submission logic here
-        await walletRepository.confirmTopUp(
-          paymentMethodType: state.paymentMethods!.pickedPaymentMethodType!,
-          amount: int.parse(amount.value!),
-          walletNumber: walletNumber.value,
-          instantPaymentAddress: instantPaymentAddress.value,
-        );
+        if (state.paymentMethods?.pickedPaymentMethodType ==
+            PaymentMethodType.bankCard) {
+          final url = await walletRepository.confirmBankCardTopUp(
+            int.parse(amount.value!),
+          );
+
+          //url should be webviewed
+          webViewController
+            ..setJavaScriptMode(JavaScriptMode.unrestricted)
+            ..setNavigationDelegate(
+              NavigationDelegate(
+                onUrlChange: (UrlChange urlChange) {
+                  // Update the URL bar to show the new URL.
+                  final currentUrl = urlChange.url;
+                  final isPaymentPageLoaded =
+                      currentUrl?.contains('secure-egypt.paytabs.com') == true;
+
+                  final newState = state.copyWith(
+                    bankCardPaymentStatus: isPaymentPageLoaded
+                        ? BankCardPaymentStatus.paymentPageLoaded
+                        : null,
+                  );
+                  emit(newState);
+                },
+              ),
+            )
+            ..loadRequest(Uri.parse(url));
+        } else {
+          await walletRepository.confirmTopUp(
+            paymentMethodType: state.paymentMethods!.pickedPaymentMethodType!,
+            amount: int.parse(amount.value!),
+            walletNumber: walletNumber.value,
+            instantPaymentAddress: instantPaymentAddress.value,
+            image: state.file.value!,
+          );
+        }
 
         final newState = state.copyWith(
-          submissionStatus: FormzSubmissionStatus.success,
+          bankCardPaymentStatus:
+              state.paymentMethods?.pickedPaymentMethodType ==
+                      PaymentMethodType.bankCard
+                  ? BankCardPaymentStatus.inProgress
+                  : null,
+          submissionStatus: state.paymentMethods?.pickedPaymentMethodType ==
+                  PaymentMethodType.bankCard
+              ? null
+              : FormzSubmissionStatus.success,
         );
         emit(newState);
       } catch (error) {

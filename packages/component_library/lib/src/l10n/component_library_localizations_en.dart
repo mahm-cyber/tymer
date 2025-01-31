@@ -193,4 +193,22 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get bankTransfer => 'Bank Transfer';
+
+  @override
+  String get galleryButton => 'Gallery';
+
+  @override
+  String get captureButton => 'Capture';
+
+  @override
+  String get imageTextFieldLabel => 'Image';
+
+  @override
+  String get imageSizeExceedsLimitErrorTextFieldMessage => 'The image size must be 1 MB or less';
+
+  @override
+  String get bottomSheetGalleryButton => 'Gallery';
+
+  @override
+  String get bottomSheetCaptureButton => 'Capture';
 }

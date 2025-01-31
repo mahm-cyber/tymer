@@ -74,6 +74,8 @@ dependencies:
     path: packages/features/top_up_confirmation
   choose_top_up_method:
     path: packages/features/choose_top_up_method
+  choose_withdraw_method:
+    path: packages/features/choose_withdraw_method
   top_up:
     path: packages/features/top_up
   withdraw:

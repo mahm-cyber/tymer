@@ -19,5 +19,20 @@ class WithdrawLocalizationsAr extends WithdrawLocalizations {
   String get isNotNumberTextFieldErrorMessage => 'الرجاء إدخال رقم صحيح';
 
   @override
-  String get withdrawConfirmButtonLabel => 'سحب';
+  String get withdrawConfirmButtonLabel => 'طلب السحب';
+
+  @override
+  String get walletNumberTextFieldLabel => 'رقم المحفظة';
+
+  @override
+  String get ibanNumberTextFieldLabel => 'رقم الحساب البنكي';
+
+  @override
+  String get beneficiaryNameTextFieldLabel => 'اسم المستفيد';
+
+  @override
+  String get invalidWalletNumberErrorMessage => 'الرجاء إدخال رقم محفظة صحيح';
+
+  @override
+  String get instantPaymentAddressTextFieldLabel => 'عنوان الدفع الفوري';
 }

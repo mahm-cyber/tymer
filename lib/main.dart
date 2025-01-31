@@ -7,6 +7,7 @@ import 'package:change_phone/change_phone.dart';
 import 'package:chat/chat.dart';
 import 'package:choose_service/choose_service.dart';
 import 'package:choose_top_up_method/choose_top_up_method.dart';
+import 'package:choose_withdraw_method/choose_withdraw_method.dart';
 import 'package:component_library/component_library.dart';
 import 'package:confirm_dispute/confirm_dispute.dart';
 import 'package:dispute_repository/dispute_repository.dart';
@@ -46,7 +47,6 @@ import 'package:wallet/wallet.dart';
 import 'package:wallet_repository/wallet_repository.dart';
 import 'package:withdraw/withdraw.dart';
 
-//TODO:: wrap the whole app in a main cubit and toss these in there
 String? fontFamily;
 final ValueNotifier<bool> _isUserUnAuthSC = ValueNotifier(false);
 final ValueNotifier<InternetConnectionTymerException?>
@@ -256,6 +256,7 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                 ChooseTopUpMethodLocalizations.delegate,
                 TopUpInformationLocalizations.delegate,
                 TopUpConfirmationLocalizations.delegate,
+                ChooseWithdrawMethodLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [

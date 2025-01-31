@@ -67,6 +67,13 @@
   "orangeCash": "أورانج كاش",
   "etisalatCash": "اتصالات كاش",
   "instaPay": "إنستا باي",
-  "bankTransfer": "تحويل بنكي"
+  "bankTransfer": "تحويل بنكي",
+  "galleryButton": "معرض",
+  "captureButton": "التقاط",
+    "imageTextFieldLabel": "صورة",
+
+  "imageSizeExceedsLimitErrorTextFieldMessage": "يجب أن يكون حجم الصورة 1 ميجابايت أو أقل",
+  "bottomSheetGalleryButton": "معرض",
+  "bottomSheetCaptureButton": "التقاط"
 }
 

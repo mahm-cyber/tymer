@@ -19,6 +19,8 @@ dependencies:
     path: ../../domain_models
   user_repository:
     path: ../../user_repository
+  wallet_repository:
+    path: ../../wallet_repository
   function_and_extension_library:
     path: ../../function_and_extension_library
   form_fields:

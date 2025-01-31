@@ -13,13 +13,14 @@ class ChooseTopUpMethodScreen extends StatelessWidget {
     required this.userRepository,
     required this.walletRepository,
     required this.onTopUpMethodTapped,
+    required this.onBankCardTopUpTapped,
     super.key,
   });
 
   final UserRepository userRepository;
   final WalletRepository walletRepository;
   final VoidCallback onTopUpMethodTapped;
-
+  final VoidCallback onBankCardTopUpTapped;
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ChooseTopUpMethodCubit>(
@@ -27,6 +28,7 @@ class ChooseTopUpMethodScreen extends StatelessWidget {
         userRepository: userRepository,
         walletRepository: walletRepository,
         onTopUpMethodTapped: onTopUpMethodTapped,
+        onBankCardTopUpTapped: onBankCardTopUpTapped,
       ),
       child: const ChooseTopUpMethodView(),
     );
@@ -40,7 +42,6 @@ class ChooseTopUpMethodView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final clL10n = ComponentLibraryLocalizations.of(context);
     final l10n = ChooseTopUpMethodLocalizations.of(context);
     final cubit = context.read<ChooseTopUpMethodCubit>();
     return GestureDetector(
@@ -67,65 +68,10 @@ class ChooseTopUpMethodView extends StatelessWidget {
                   );
                 }
 
-                return Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      VerticalGap.xxLarge(),
-                      ListTile(
-                        title: Text(clL10n.bankCard),
-                        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                        leading: const Icon(Icons.credit_card),
-                        onTap: () => cubit
-                            .setPaymentMethodType(PaymentMethodType.bankCard),
-                      ),
-                      if (state.paymentMethods!.vodafoneCash.enabled)
-                        ListTile(
-                          title: Text(clL10n.vodafoneCash),
-                          trailing:
-                              const Icon(Icons.arrow_forward_ios, size: 16),
-                          leading: const Icon(Icons.phone_android),
-                          onTap: () => cubit.setPaymentMethodType(
-                              PaymentMethodType.vodafoneCash),
-                        ),
-                      if (state.paymentMethods!.orangeCash.enabled)
-                        ListTile(
-                          title: Text(clL10n.orangeCash),
-                          trailing:
-                              const Icon(Icons.arrow_forward_ios, size: 16),
-                          leading: const Icon(Icons.phone_android),
-                          onTap: () => cubit.setPaymentMethodType(
-                              PaymentMethodType.orangeCash),
-                        ),
-                      if (state.paymentMethods!.etisalatCash.enabled)
-                        ListTile(
-                          title: Text(clL10n.etisalatCash),
-                          trailing:
-                              const Icon(Icons.arrow_forward_ios, size: 16),
-                          leading: const Icon(Icons.phone_android),
-                          onTap: () => cubit.setPaymentMethodType(
-                              PaymentMethodType.etisalatCash),
-                        ),
-                      if (state.paymentMethods!.instaPay.enabled)
-                        ListTile(
-                          title: Text(clL10n.instaPay),
-                          trailing:
-                              const Icon(Icons.arrow_forward_ios, size: 16),
-                          leading: const Icon(Icons.flash_on),
-                          onTap: () => cubit
-                              .setPaymentMethodType(PaymentMethodType.instaPay),
-                        ),
-                      if (state.paymentMethods!.bankTransfer.enabled)
-                        ListTile(
-                          title: Text(clL10n.bankTransfer),
-                          trailing:
-                              const Icon(Icons.arrow_forward_ios, size: 16),
-                          leading: const Icon(Icons.account_balance),
-                          onTap: () => cubit.setPaymentMethodType(
-                              PaymentMethodType.bankTransfer),
-                        ),
-                    ],
-                  ),
+                return PaymentMethodsList(
+                  bankCardEnabled: true,
+                  onPaymentMethodTapped: cubit.setPaymentMethodType,
+                  paymentMethods: state.paymentMethods!,
                 );
               },
             ),

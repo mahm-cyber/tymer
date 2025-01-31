@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:wallet_repository/src/mappers/domain_to_remote.dart';
 import 'package:wallet_repository/src/mappers/mappers.dart';
 import 'package:wallet_repository/src/wallet_change_notifier.dart';
 
@@ -15,5 +18,66 @@ class WalletRepository {
     final paymentMethods = await remoteApi.getPaymentMethods();
     final paymentMethodsDomain = paymentMethods.toDomainModel();
     return paymentMethodsDomain;
+  }
+
+  Future<void> confirmTopUp({
+    required PaymentMethodType paymentMethodType,
+    required int amount,
+    String? walletNumber,
+    String? instantPaymentAddress,
+    required File image,
+  }) async {
+    final paymentMethodTypeString = paymentMethodType.toRemoteModel();
+
+    try {
+      await remoteApi.confirmTopUp(
+        paymentMethodType: paymentMethodTypeString,
+        amount: amount,
+        walletNumber: walletNumber,
+        instantPaymentAddress: instantPaymentAddress,
+        image: image.readAsBytesSync(),
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<String> confirmBankCardTopUp(int amount) async {
+    try {
+      final url = await remoteApi.confirmBankCardTopUp(amount);
+      return url;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<PaymentMethods> getWithdrawMethods() async {
+    final withdrawMethods = await remoteApi.getPaymentMethods();
+    final withdrawMethodsDomain = withdrawMethods.toDomainModel();
+    return withdrawMethodsDomain;
+  }
+
+  Future<void> confirmWithdraw({
+    required PaymentMethodType paymentMethodType,
+    required int amount,
+    String? walletNumber,
+    String? instantPaymentAddress,
+    String? ibanNumber,
+    String? beneficiaryName,
+  }) async {
+    final paymentMethodTypeString = paymentMethodType.toRemoteModel();
+
+    try {
+      await remoteApi.confirmWithdraw(
+        paymentMethodType: paymentMethodTypeString,
+        amount: amount,
+        walletNumber: walletNumber,
+        instantPaymentAddress: instantPaymentAddress,
+        ibanNumber: ibanNumber,
+        beneficiaryName: beneficiaryName,
+      );
+    } catch (e) {
+      rethrow;
+    }
   }
 }

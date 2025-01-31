@@ -29,7 +29,7 @@ class TopUpCubit extends Cubit<TopUpState> {
           ? Dynamic<String?>.validated(
               newValue,
               isRequired: true,
-              isNumber: true,
+              checkIfNumber: true,
             )
           : Dynamic<String?>.unvalidated(
               newValue,
@@ -43,7 +43,7 @@ class TopUpCubit extends Cubit<TopUpState> {
       topUpAmount: Dynamic<String?>.validated(
         state.topUpAmount.value,
         isRequired: true,
-        isNumber: true,
+        checkIfNumber: true,
       ),
     );
 
@@ -54,7 +54,7 @@ class TopUpCubit extends Cubit<TopUpState> {
     final topUpAmount = Dynamic<String?>.validated(
       state.topUpAmount.value,
       isRequired: true,
-      isNumber: true,
+      checkIfNumber: true,
     );
 
     final isFormValid = Formz.validate([
@@ -79,13 +79,12 @@ class TopUpCubit extends Cubit<TopUpState> {
           submissionStatus: FormzSubmissionStatus.success,
         );
         emit(newState);
-
       } catch (error) {
         final newState = state.copyWith(
           topUpAmount: Dynamic<String?>.validated(
             topUpAmount.value,
             isRequired: true,
-            isNumber: true,
+            checkIfNumber: true,
           ),
           submissionStatus: FormzSubmissionStatus.failure,
         );
@@ -93,7 +92,6 @@ class TopUpCubit extends Cubit<TopUpState> {
       }
     }
   }
-
 
 // @override
 // Future<void> close() async {

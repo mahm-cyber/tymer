@@ -107,18 +107,6 @@ abstract class FulfillServiceRequestLocalizations {
   /// **'Request Details'**
   String get serviceDetailsTitle;
 
-  /// No description provided for @bottomSheetGalleryButton.
-  ///
-  /// In en, this message translates to:
-  /// **'Gallery'**
-  String get bottomSheetGalleryButton;
-
-  /// No description provided for @bottomSheetCaptureButton.
-  ///
-  /// In en, this message translates to:
-  /// **'Capture'**
-  String get bottomSheetCaptureButton;
-
   /// No description provided for @imageTextFieldLabel.
   ///
   /// In en, this message translates to:

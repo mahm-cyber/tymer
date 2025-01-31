@@ -466,6 +466,42 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'Bank Transfer'**
   String get bankTransfer;
+
+  /// No description provided for @galleryButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get galleryButton;
+
+  /// No description provided for @captureButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Capture'**
+  String get captureButton;
+
+  /// No description provided for @imageTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Image'**
+  String get imageTextFieldLabel;
+
+  /// No description provided for @imageSizeExceedsLimitErrorTextFieldMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The image size must be 1 MB or less'**
+  String get imageSizeExceedsLimitErrorTextFieldMessage;
+
+  /// No description provided for @bottomSheetGalleryButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get bottomSheetGalleryButton;
+
+  /// No description provided for @bottomSheetCaptureButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Capture'**
+  String get bottomSheetCaptureButton;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

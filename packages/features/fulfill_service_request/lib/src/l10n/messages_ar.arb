@@ -1,8 +1,6 @@
 {
   "submitButtonLabel": "إرسال",
-  "bottomSheetGalleryButton": "معرض",
   "serviceDetailsTitle": "تفاصيل الطلب",
-  "bottomSheetCaptureButton": "التقاط",
   "imageTextFieldLabel": "صورة",
   "additionalDetailsTextFieldLabel": "تفاصيل إضافية",
   "reservationNumberTextFieldLabel": "رقم الحجز",

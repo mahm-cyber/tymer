@@ -13,12 +13,6 @@ class FulfillServiceRequestLocalizationsEn extends FulfillServiceRequestLocaliza
   String get serviceDetailsTitle => 'Request Details';
 
   @override
-  String get bottomSheetGalleryButton => 'Gallery';
-
-  @override
-  String get bottomSheetCaptureButton => 'Capture';
-
-  @override
   String get imageTextFieldLabel => 'Image';
 
   @override

@@ -2,26 +2,51 @@ part of 'withdraw_cubit.dart';
 
 class WithdrawState extends Equatable {
   const WithdrawState({
+    this.paymentMethodType,
     this.withdrawAmount = const Dynamic<String?>.unvalidated(),
     this.submissionStatus = FormzSubmissionStatus.initial,
+    this.walletNumber = const Dynamic<String?>.unvalidated(),
+    this.instantPaymentAddress = const Dynamic<String?>.unvalidated(),
+    this.ibanNumber = const Dynamic<String?>.unvalidated(),
+    this.beneficiaryName = const Dynamic<String?>.unvalidated(),
   });
 
+  final PaymentMethodType? paymentMethodType;
   final Dynamic<String?> withdrawAmount;
   final FormzSubmissionStatus submissionStatus;
+  final Dynamic<String?> walletNumber;
+  final Dynamic<String?> instantPaymentAddress;
+  final Dynamic<String?> ibanNumber;
+  final Dynamic<String?> beneficiaryName;
 
   WithdrawState copyWith({
+    PaymentMethodType? paymentMethodType,
     Dynamic<String?>? withdrawAmount,
     FormzSubmissionStatus? submissionStatus,
+    Dynamic<String?>? walletNumber,
+    Dynamic<String?>? instantPaymentAddress,
+    Dynamic<String?>? ibanNumber,
+    Dynamic<String?>? beneficiaryName,
   }) {
     return WithdrawState(
+      paymentMethodType: paymentMethodType ?? this.paymentMethodType,
       withdrawAmount: withdrawAmount ?? this.withdrawAmount,
       submissionStatus: submissionStatus ?? this.submissionStatus,
+      walletNumber: walletNumber ?? this.walletNumber,
+      instantPaymentAddress: instantPaymentAddress ?? this.instantPaymentAddress,
+      ibanNumber: ibanNumber ?? this.ibanNumber,
+      beneficiaryName: beneficiaryName ?? this.beneficiaryName,
     );
   }
 
   @override
   List<Object?> get props => [
+        paymentMethodType,
         withdrawAmount,
         submissionStatus,
+        walletNumber,
+        instantPaymentAddress,
+        ibanNumber,
+        beneficiaryName,
       ];
 }

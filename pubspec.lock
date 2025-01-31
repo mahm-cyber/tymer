@@ -138,6 +138,13 @@ packages:
       relative: true
     source: path
     version: "0.0.0"
+  choose_withdraw_method:
+    dependency: "direct main"
+    description:
+      path: "packages/features/choose_withdraw_method"
+      relative: true
+    source: path
+    version: "0.0.0"
   clock:
     dependency: transitive
     description:

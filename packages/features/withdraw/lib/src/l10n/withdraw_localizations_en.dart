@@ -19,5 +19,20 @@ class WithdrawLocalizationsEn extends WithdrawLocalizations {
   String get isNotNumberTextFieldErrorMessage => 'Please enter a valid number';
 
   @override
-  String get withdrawConfirmButtonLabel => 'Withdraw';
+  String get withdrawConfirmButtonLabel => 'Request Withdraw';
+
+  @override
+  String get walletNumberTextFieldLabel => 'Wallet Number';
+
+  @override
+  String get ibanNumberTextFieldLabel => 'IBAN Number';
+
+  @override
+  String get beneficiaryNameTextFieldLabel => 'Beneficiary Name';
+
+  @override
+  String get invalidWalletNumberErrorMessage => 'Please enter a valid wallet number';
+
+  @override
+  String get instantPaymentAddressTextFieldLabel => 'Instant Payment Address';
 }

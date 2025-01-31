@@ -1,8 +1,6 @@
 {
   "submitButtonLabel": "Submit",
     "serviceDetailsTitle": "Request Details",
-  "bottomSheetGalleryButton": "Gallery",
-  "bottomSheetCaptureButton": "Capture",
   "imageTextFieldLabel": "Image",
   "additionalDetailsTextFieldLabel": "Additional Details",
   "reservationNumberTextFieldLabel": "Reservation Number",

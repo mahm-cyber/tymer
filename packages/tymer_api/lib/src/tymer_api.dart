@@ -4,7 +4,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as diox;
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:tymer_api/src/pusher_api.dart';
 import 'package:tymer_api/tymer_api.dart';
 
@@ -26,7 +26,7 @@ class TymerApi {
       'PHONE_NUMBER_VERIFICATION_OTP_MISMATCH';
   static const _rateLimitedJsonKey = 'RATE_LIMITED';
   static const _validationErrorJsonKey = 'VALIDATION_ERROR';
-
+  static const _paymentLinkJsonKey = 'payment_link';
   TymerApi({
     required UserTokenSupplier userTokenSupplier,
     required this.isUserUnAuthSC,
@@ -478,17 +478,20 @@ class TymerApi {
         ? fulfillOtherServiceRM.toJson()
         : fulfillReservationServiceRM!.toJson();
 
-    final formData = diox.FormData.fromMap({
-      'location': (requestJsonBody['location'] as LocationRM).toJson(),
-      'details': fulfillOtherServiceRM != null
-          ? (requestJsonBody['details'] as FulfillOtherServiceDetailsRM)
-              .toJson()
-          : (requestJsonBody['details'] as FulfillReservationServiceDetailsRM)
-              .toJson(),
-    }, ListFormat.multiCompatible);
+    final formData = diox.FormData.fromMap(
+      {
+        'location': (requestJsonBody['location'] as LocationRM).toJson(),
+        'details': fulfillOtherServiceRM != null
+            ? (requestJsonBody['details'] as FulfillOtherServiceDetailsRM)
+                .toJson()
+            : (requestJsonBody['details'] as FulfillReservationServiceDetailsRM)
+                .toJson(),
+      },
+      ListFormat.multiCompatible,
+    );
 
     try {
-       await _dio.post(
+      await _dio.post(
         url,
         data: formData,
       );
@@ -740,7 +743,7 @@ class TymerApi {
       'new_password_confirmation': newPasswordConfirmation,
     };
     try {
-       await _dio.post(
+      await _dio.post(
         url,
         data: requestJsonBody,
       );
@@ -758,9 +761,97 @@ class TymerApi {
     final url = urlBuilder.buildGetPaymentMethodsUrl();
     try {
       final response = await _dio.get(url);
-      final paymentMethods = PaymentMethodsRM.fromJson(response.data[_dataJsonKey]);
+      final paymentMethods =
+          PaymentMethodsRM.fromJson(response.data[_dataJsonKey]);
       return paymentMethods;
     } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<void> confirmTopUp({
+    required String paymentMethodType,
+    required int amount,
+    String? walletNumber,
+    String? instantPaymentAddress,
+    required List<int> image,
+  }) async {
+    final url = urlBuilder.buildConfirmTopUpUrl(paymentMethodType);
+    final formData = FormData.fromMap(
+      {
+        'amount': amount.toStringAsFixed(2),
+        if (walletNumber != null) 'wallet_number': walletNumber,
+        if (instantPaymentAddress != null)
+          'instant_payment_address': instantPaymentAddress,
+        'proof': diox.MultipartFile.fromBytes(
+          image,
+          filename:
+              'top_up_image${DateTime.now().toString().split(" ").join("")}.jpg',
+        ),
+      },
+    );
+    try {
+      final response = await _dio.post(
+        url,
+        data: formData,
+      );
+      debugPrint(response.data.toString());
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<String> confirmBankCardTopUp(int amount) async {
+    final url = urlBuilder.buildConfirmBankCardTopUpUrl();
+    try {
+      final response = await _dio.post(
+        url,
+        data: {
+          'amount': amount,
+        },
+      );
+      return response.data[_paymentLinkJsonKey] as String;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<void> sendFcmToken(String fcmToken) async {
+    final url = urlBuilder.buildSendFcmTokenUrl();
+    await _dio.post(
+      url,
+      data: {
+        'fcm_token': fcmToken,
+      },
+    );
+  }
+
+  Future<void> confirmWithdraw({
+    required String paymentMethodType,
+    required int amount,
+    String? walletNumber,
+    String? instantPaymentAddress,
+    String? ibanNumber,
+    String? beneficiaryName,
+  }) async {
+    final url = urlBuilder.buildConfirmWalletWithdrawUrl(paymentMethodType);
+
+    final requestJsonBody = <String, dynamic>{
+      'amount': amount.toStringAsFixed(2),
+      if (walletNumber != null) 'wallet_number': walletNumber,
+      if (instantPaymentAddress != null)
+        'instant_payment_address': instantPaymentAddress,
+      if (ibanNumber != null) 'iban_number': ibanNumber,
+      if (beneficiaryName != null) 'beneficiary_name': beneficiaryName,
+    };
+
+    try {
+      final response = await _dio.post(
+        url,
+        data: requestJsonBody,
+      );
+      debugPrint('------- ${response.data}');
+    } catch (e) {
       rethrow;
     }
   }

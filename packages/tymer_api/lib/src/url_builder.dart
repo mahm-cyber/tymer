@@ -161,6 +161,18 @@ class UrlBuilder {
     return '$baseUrl/settings/top-up-requests';
   }
 
+  String buildConfirmTopUpUrl(String paymentMethodType) {
+    return '$baseUrl/transactions/top-up/$paymentMethodType/requests';
+  }
+
+  String buildConfirmBankCardTopUpUrl() {
+    return '$baseUrl/transactions/top-up/bank-card/requests';
+  }
+
+  String buildConfirmWalletWithdrawUrl(String paymentMethodType) {
+    return '$baseUrl/transactions/withdraw/$paymentMethodType/requests';
+  }
+
   String buildSendChatMessageUrl({
     required int disputeId,
     required String userType,

@@ -5,6 +5,7 @@ import 'package:change_phone/change_phone.dart';
 import 'package:chat/chat.dart';
 import 'package:choose_service/choose_service.dart';
 import 'package:choose_top_up_method/choose_top_up_method.dart';
+import 'package:choose_withdraw_method/choose_withdraw_method.dart';
 import 'package:confirm_dispute/confirm_dispute.dart';
 import 'package:dispute_repository/dispute_repository.dart';
 import 'package:disputes/disputes.dart';
@@ -185,6 +186,9 @@ Map<String, PageBuilder> buildRoutingTable({
             onTopUpMethodTapped: () {
               routerDelegate.push(_PathConstants.topUpInformationPath);
             },
+            onBankCardTopUpTapped: () {
+              routerDelegate.push(_PathConstants.bankCardTopUpPath);
+            },
           ),
         ),
     _PathConstants.signInPath: (_) => MaterialPage(
@@ -273,7 +277,7 @@ Map<String, PageBuilder> buildRoutingTable({
             onTopUpTapped: () =>
                 routerDelegate.push(_PathConstants.chooseTopUpMethodPath),
             onWithdrawTapped: () =>
-                routerDelegate.push(_PathConstants.withdrawPath),
+                routerDelegate.push(_PathConstants.chooseWithdrawMethodPath),
           ),
         ),
     _PathConstants.topUpPath: (_) => MaterialPage(
@@ -299,9 +303,14 @@ Map<String, PageBuilder> buildRoutingTable({
           name: 'withdraw',
           child: WithdrawScreen(
             userRepository: userRepository,
+            walletRepository: walletRepository,
             onBackTapped: routerDelegate.pop,
             onProvideServiceTapped: () =>
                 routerDelegate.push(_PathConstants.provideServicePath),
+            onSuccess: () {
+              routerDelegate.pop();
+              routerDelegate.pop();
+            },
           ),
         ),
     _PathConstants.orderHistory: (_) => MaterialPage(
@@ -512,6 +521,37 @@ Map<String, PageBuilder> buildRoutingTable({
           child: TopUpConfirmationScreen(
             userRepository: userRepository,
             walletRepository: walletRepository,
+            onBackButtonPressed: () {
+              routerDelegate.pop();
+            },
+            onSuccess: () {
+              routerDelegate
+                  .popUntil((route) => route.path == _PathConstants.walletPath);
+            },
+          ),
+        ),
+    _PathConstants.bankCardTopUpPath: (_) => MaterialPage(
+          name: 'bank-card-top-up',
+          child: TopUpConfirmationScreen(
+            userRepository: userRepository,
+            walletRepository: walletRepository,
+            onBackButtonPressed: () {
+              routerDelegate.pop();
+            },
+            onSuccess: () {
+              routerDelegate.pop();
+              routerDelegate.pop();
+            },
+          ),
+        ),
+    _PathConstants.chooseWithdrawMethodPath: (_) => MaterialPage(
+          name: 'choose-withdraw-method',
+          child: ChooseWithdrawMethodScreen(
+            userRepository: userRepository,
+            walletRepository: walletRepository,
+            onWithdrawMethodTapped: () {
+              routerDelegate.push(_PathConstants.withdrawPath);
+            },
           ),
         ),
   };
@@ -541,12 +581,15 @@ class _PathConstants {
   static String get topUpInformationPath =>
       '$chooseTopUpMethodPath/top-up-information';
 
+  static String get bankCardTopUpPath =>
+      '$chooseTopUpMethodPath/bank-card-top-up';
+
   static String get topUpConfirmationPath =>
       '$topUpInformationPath/top-up-confirmation';
 
   static String get topUpPath => '${initialPath}top-up';
 
-  static String get withdrawPath => '${initialPath}withdraw';
+  static String get withdrawPath => '$chooseWithdrawMethodPath/withdraw';
 
   static String get orderHistory => '${initialPath}order-history';
 
@@ -581,5 +624,6 @@ class _PathConstants {
   static String fulfillServiceRequestPath({int? requestId}) =>
       '${initialPath}fulfill-service-request/${requestId ?? ':requestId'}';
 
-
+  static String get chooseWithdrawMethodPath =>
+      '${initialPath}choose-withdraw-method';
 }

@@ -177,7 +177,7 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
   String get serviceIdTextFieldLabel => 'رقم الطلب';
 
   @override
-  String get bankCard => 'بطاقة البنك';
+  String get bankCard => 'بطاقة مصرفية';
 
   @override
   String get vodafoneCash => 'فودافون كاش';
@@ -186,11 +186,29 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
   String get orangeCash => 'أورانج كاش';
 
   @override
-  String get etisalatCash => 'أيتيسالات كاش';
+  String get etisalatCash => 'اتصالات كاش';
 
   @override
-  String get instaPay => 'إنستاباي';
+  String get instaPay => 'إنستا باي';
 
   @override
   String get bankTransfer => 'تحويل بنكي';
+
+  @override
+  String get galleryButton => 'معرض';
+
+  @override
+  String get captureButton => 'التقاط';
+
+  @override
+  String get imageTextFieldLabel => 'صورة';
+
+  @override
+  String get imageSizeExceedsLimitErrorTextFieldMessage => 'يجب أن يكون حجم الصورة 1 ميجابايت أو أقل';
+
+  @override
+  String get bottomSheetGalleryButton => 'معرض';
+
+  @override
+  String get bottomSheetCaptureButton => 'التقاط';
 }

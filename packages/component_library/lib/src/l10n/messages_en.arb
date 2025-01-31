@@ -68,8 +68,11 @@
   "orangeCash": "Orange Cash",
   "etisalatCash": "Etisalat Cash",
   "instaPay": "InstaPay",
-  "bankTransfer": "Bank Transfer"
-
-
-
+  "bankTransfer": "Bank Transfer",
+  "galleryButton": "Gallery",
+  "captureButton": "Capture",
+  "imageTextFieldLabel": "Image",
+  "imageSizeExceedsLimitErrorTextFieldMessage": "The image size must be 1 MB or less",
+  "bottomSheetGalleryButton": "Gallery",
+  "bottomSheetCaptureButton": "Capture"
 }

@@ -102,8 +102,8 @@ class FulfillServiceRequestView extends StatelessWidget {
                 child: ImagePickerBottomSheet(
                   galleryIcon: Icons.collections,
                   cameraIcon: Icons.camera_alt,
-                  galleryText: l10n.bottomSheetGalleryButton,
-                  cameraText: l10n.bottomSheetCaptureButton,
+                  galleryText: clL10n.bottomSheetGalleryButton,
+                  cameraText: clL10n.bottomSheetCaptureButton,
                   onTapGallery: () {
                     Navigator.pop(context);
                     cubit.pickImageFromGallery();
@@ -248,7 +248,33 @@ class FulfillServiceRequestView extends StatelessWidget {
                                             cubit.onBackButtonPressed,
                                       ),
                                       VerticalGap.small(),
-                                      const ImagePickerTextField(),
+
+                                      ImagePickerTextField(
+                                        imageFileNameSC: cubit.imageFileNameSC,
+                                        onImagePickerTapped:
+                                            cubit.onImagePickerTapped,
+                                        deletePickedImage:
+                                            cubit.deletePickedImage,
+                                        onBackButtonPressed:
+                                            cubit.onBackButtonPressed,
+                                        isSubmissionInProgress:
+                                            isSubmissionInProgress,
+                                        imageUrl: state
+                                            .service?.responseDetails?.imageUrl,
+                                        imageError: state.file.isNotValid
+                                            ? state.file.error
+                                            : null,
+                                        hasPickedImage:
+                                            state.file.value != null &&
+                                                state.file.isValid,
+                                        userToken: state.userToken!,
+                                        imageBytes:
+                                            state.file.value?.readAsBytesSync(),
+                                        isStatusPendingReview:
+                                            state.service?.status ==
+                                                ServiceStatus.pendingReview,
+                                        isImagePicked: state.file.value != null,
+                                      ),
                                       VerticalGap.small(),
                                       const AdditionalDetailsTextField(),
                                       VerticalGap.small(),
@@ -273,13 +299,7 @@ class FulfillServiceRequestView extends StatelessWidget {
                                         onTap: cubit.onSubmit,
                                       ),
                               VerticalGap.medium(),
-                              // if (isRequestFulfilled)
-                              //   TymerElevatedButton(
-                              //     label: l10n.backHomeButtonLabel,
-                              //     onTap: () {
-                              //       Navigator.pop(context);
-                              //     },
-                              //   ),
+
 
                               VerticalGap.small(),
                             ],

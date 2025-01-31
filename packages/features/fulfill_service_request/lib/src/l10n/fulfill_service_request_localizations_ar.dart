@@ -13,12 +13,6 @@ class FulfillServiceRequestLocalizationsAr extends FulfillServiceRequestLocaliza
   String get serviceDetailsTitle => 'تفاصيل الطلب';
 
   @override
-  String get bottomSheetGalleryButton => 'معرض';
-
-  @override
-  String get bottomSheetCaptureButton => 'التقاط';
-
-  @override
   String get imageTextFieldLabel => 'صورة';
 
   @override
