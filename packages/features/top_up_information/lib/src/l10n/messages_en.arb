@@ -1,11 +1,7 @@
 {
   "appBarTitle": "Top Up Information",
-    "bankCard": "Bank Card",
-  "vodafoneCash": "Vodafone Cash",
-  "orangeCash": "Orange Cash",
-  "etisalatCash": "Etisalat Cash",
-  "instaPay": "InstaPay",
-  "bankTransfer": "Bank Transfer",
+  "continueButtonLabel": "Continue",
+
   "bankCardNumber": "Card Number",
   "walletNumber": "Wallet Number",
   "instantPaymentAddress": "Instant Payment Address",

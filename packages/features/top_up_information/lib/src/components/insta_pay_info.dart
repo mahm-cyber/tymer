@@ -17,13 +17,13 @@ class InstaPayInfo extends StatelessWidget {
     final isArabic = Localizations.localeOf(context).languageCode == 'ar';
     return Column(
       children: [
-        CopyableText(label: l10n.instantPaymentAddress, value: instaPay.instantPaymentAddress),
         Text(
           isArabic ? instaPay.message.ar : instaPay.message.en,
         ),
+        CopyableText(
+            label: l10n.instantPaymentAddress,
+            value: instaPay.instantPaymentAddress),
       ],
     );
   }
-
-
-} 
+}

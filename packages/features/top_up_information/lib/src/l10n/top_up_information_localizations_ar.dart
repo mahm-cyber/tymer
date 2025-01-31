@@ -10,22 +10,7 @@ class TopUpInformationLocalizationsAr extends TopUpInformationLocalizations {
   String get appBarTitle => 'بيانات الشحن';
 
   @override
-  String get bankCard => 'بطاقة مصرفية';
-
-  @override
-  String get vodafoneCash => 'فودافون كاش';
-
-  @override
-  String get orangeCash => 'أورانج كاش';
-
-  @override
-  String get etisalatCash => 'اتصالات كاش';
-
-  @override
-  String get instaPay => 'إنستا باي';
-
-  @override
-  String get bankTransfer => 'تحويل بنكي';
+  String get continueButtonLabel => 'متابعة';
 
   @override
   String get bankCardNumber => 'رقم البطاقة';

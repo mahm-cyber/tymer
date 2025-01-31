@@ -1,11 +1,5 @@
 {
   "appBarTitle": "بيانات الشحن",
-  "bankCard": "بطاقة مصرفية",
-  "vodafoneCash": "فودافون كاش",
-  "orangeCash": "أورانج كاش",
-  "etisalatCash": "اتصالات كاش",
-  "instaPay": "إنستا باي",
-  "bankTransfer": "تحويل بنكي",
   "bankCardNumber": "رقم البطاقة",
   "walletNumber": "رقم المحفظة",
   "instantPaymentAddress": "عنوان الدفع الفوري",
@@ -17,5 +11,6 @@
   "swiftCode": "رمز السويفت",
   "messageAr": "الرسالة (عربي)",
   "messageEn": "الرسالة (إنجليزي)",
-  "error": "حدث خطأ. يرجى المحاولة مرة أخرى."
+  "error": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+  "continueButtonLabel": "متابعة"
 }

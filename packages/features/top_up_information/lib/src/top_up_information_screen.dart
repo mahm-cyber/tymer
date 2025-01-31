@@ -14,11 +14,13 @@ class TopUpInformationScreen extends StatelessWidget {
   const TopUpInformationScreen({
     required this.userRepository,
     required this.walletRepository,
+    required this.onNavigateToConfirmation,
     super.key,
   });
 
   final UserRepository userRepository;
   final WalletRepository walletRepository;
+  final VoidCallback onNavigateToConfirmation;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class TopUpInformationScreen extends StatelessWidget {
       create: (_) => TopUpInformationCubit(
         userRepository: userRepository,
         walletRepository: walletRepository,
+        onNavigateToConfirmation: onNavigateToConfirmation,
       ),
       child: const TopUpInformationView(),
     );
@@ -40,6 +43,7 @@ class TopUpInformationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = TopUpInformationLocalizations.of(context);
+    final clL10n = ComponentLibraryLocalizations.of(context);
     return GestureDetector(
       onTap: context.releaseFocus,
       child: BlocBuilder<TopUpInformationCubit, TopUpInformationState>(
@@ -50,7 +54,7 @@ class TopUpInformationView extends StatelessWidget {
 
           final paymentMethods = state.paymentMethods!;
           final pickedMethod = paymentMethods.pickedPaymentMethodType;
-
+          final theme = TymerTheme.of(context);
           Widget content;
           switch (pickedMethod) {
             // case PaymentMethodType.bankCard:
@@ -89,10 +93,20 @@ class TopUpInformationView extends StatelessWidget {
                 ),
                 body: Center(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       VerticalGap.xxLarge(),
                       content,
+                      if (pickedMethod != PaymentMethodType.bankTransfer)
+                        const Spacer(),
+                      Padding(
+                        padding: EdgeInsets.all(theme.screenMargin),
+                        child: TymerElevatedButton(
+                          label: l10n.continueButtonLabel,
+                          onTap: context
+                              .read<TopUpInformationCubit>()
+                              .onContinueTapped,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -100,12 +114,12 @@ class TopUpInformationView extends StatelessWidget {
               AppBarTitleContainer(
                 title: switch (pickedMethod) {
                   null => l10n.error,
-                  PaymentMethodType.bankCard => l10n.bankCard,
-                  PaymentMethodType.vodafoneCash => l10n.vodafoneCash,
-                  PaymentMethodType.orangeCash => l10n.orangeCash,
-                  PaymentMethodType.etisalatCash => l10n.etisalatCash,
-                  PaymentMethodType.instaPay => l10n.instaPay,
-                  PaymentMethodType.bankTransfer => l10n.bankTransfer,
+                  PaymentMethodType.bankCard => clL10n.bankCard,
+                  PaymentMethodType.vodafoneCash => clL10n.vodafoneCash,
+                  PaymentMethodType.orangeCash => clL10n.orangeCash,
+                  PaymentMethodType.etisalatCash => clL10n.etisalatCash,
+                  PaymentMethodType.instaPay => clL10n.instaPay,
+                  PaymentMethodType.bankTransfer => clL10n.bankTransfer,
                 },
               ),
             ],

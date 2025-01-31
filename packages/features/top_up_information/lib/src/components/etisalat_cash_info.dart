@@ -17,13 +17,12 @@ class EtisalatCashInfo extends StatelessWidget {
     final isArabic = Localizations.localeOf(context).languageCode == 'ar';
     return Column(
       children: [
-        CopyableText(label: l10n.walletNumber, value: etisalatCash.walletNumber),
         Text(
           isArabic ? etisalatCash.message.ar : etisalatCash.message.en,
         ),
+        CopyableText(
+            label: l10n.walletNumber, value: etisalatCash.walletNumber),
       ],
     );
   }
-
-
-} 
+}

@@ -1,27 +1,20 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:wallet_repository/wallet_repository.dart';
 
-part 'top_up_information_state.dart';
+part 'top_up_confirmation_state.dart';
 
-class TopUpInformationCubit extends Cubit<TopUpInformationState> {
-  TopUpInformationCubit({
+class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
+  TopUpConfirmationCubit({
     required this.userRepository,
     required this.walletRepository,
-    required this.onNavigateToConfirmation,
   }) : super(
-          TopUpInformationState(
+          TopUpConfirmationState(
             paymentMethods: walletRepository.changeNotifier.paymentMethods!,
           ),
         );
 
   final UserRepository userRepository;
   final WalletRepository walletRepository;
-  final VoidCallback onNavigateToConfirmation;
-
-  void onContinueTapped() {
-    onNavigateToConfirmation();
-  }
 }

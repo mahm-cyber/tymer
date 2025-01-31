@@ -62,16 +62,11 @@
    "providerLostDisputeLabel": "تم الاسترداد",
    "providerWonDisputeLabel": "مرفوض",
   "serviceIdTextFieldLabel": "رقم الطلب",
-  "bankCard": "بطاقة البنك",
+  "bankCard": "بطاقة مصرفية",
   "vodafoneCash": "فودافون كاش",
   "orangeCash": "أورانج كاش",
-  "etisalatCash": "أيتيسالات كاش",
-  "instaPay": "إنستاباي",
+  "etisalatCash": "اتصالات كاش",
+  "instaPay": "إنستا باي",
   "bankTransfer": "تحويل بنكي"
-
-
-
-
-
 }
 

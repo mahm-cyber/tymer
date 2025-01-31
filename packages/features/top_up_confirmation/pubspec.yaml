@@ -1,0 +1,26 @@
+name: top_up_confirmation
+publish_to: none
+
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  equatable: ^2.0.5
+  flutter_bloc: ^9.0.0
+  component_library:
+    path: ../../component_library
+  domain_models:
+    path: ../../domain_models
+  function_and_extension_library:
+    path: ../../function_and_extension_library
+  user_repository:
+    path: ../../user_repository
+  wallet_repository:
+    path: ../../wallet_repository
+
+dev_dependencies:
+  flutter_lints: ^4.0.0 

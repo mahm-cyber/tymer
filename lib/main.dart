@@ -31,6 +31,7 @@ import 'package:service_repository/service_repository.dart';
 import 'package:service_request_status/service_request_status.dart';
 import 'package:sign_up/sign_up.dart';
 import 'package:top_up/top_up.dart';
+import 'package:top_up_confirmation/top_up_confirmation.dart';
 import 'package:top_up_information/top_up_information.dart';
 import 'package:tymer/firebase_options.dart';
 import 'package:tymer/routing_table.dart';
@@ -254,6 +255,7 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                 WithdrawLocalizations.delegate,
                 ChooseTopUpMethodLocalizations.delegate,
                 TopUpInformationLocalizations.delegate,
+                TopUpConfirmationLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [

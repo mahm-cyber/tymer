@@ -17,10 +17,10 @@ class OrangeCashInfo extends StatelessWidget {
     final isArabic = Localizations.localeOf(context).languageCode == 'ar';
     return Column(
       children: [
-        CopyableText(label: l10n.walletNumber, value: orangeCash.walletNumber),
         Text(
           isArabic ? orangeCash.message.ar : orangeCash.message.en,
         ),
+        CopyableText(label: l10n.walletNumber, value: orangeCash.walletNumber),
       ],
     );
   }

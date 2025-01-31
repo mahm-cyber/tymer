@@ -17,13 +17,12 @@ class VodafoneCashInfo extends StatelessWidget {
     final isArabic = Localizations.localeOf(context).languageCode == 'ar';
     return Column(
       children: [
-        CopyableText(label: l10n.walletNumber, value: vodafoneCash.walletNumber),
         Text(
           isArabic ? vodafoneCash.message.ar : vodafoneCash.message.en,
         ),
+        CopyableText(
+            label: l10n.walletNumber, value: vodafoneCash.walletNumber),
       ],
     );
   }
-    
-
-} 
+}

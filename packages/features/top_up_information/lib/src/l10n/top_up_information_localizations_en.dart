@@ -10,22 +10,7 @@ class TopUpInformationLocalizationsEn extends TopUpInformationLocalizations {
   String get appBarTitle => 'Top Up Information';
 
   @override
-  String get bankCard => 'Bank Card';
-
-  @override
-  String get vodafoneCash => 'Vodafone Cash';
-
-  @override
-  String get orangeCash => 'Orange Cash';
-
-  @override
-  String get etisalatCash => 'Etisalat Cash';
-
-  @override
-  String get instaPay => 'InstaPay';
-
-  @override
-  String get bankTransfer => 'Bank Transfer';
+  String get continueButtonLabel => 'Continue';
 
   @override
   String get bankCardNumber => 'Card Number';

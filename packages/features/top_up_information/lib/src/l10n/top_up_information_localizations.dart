@@ -101,41 +101,11 @@ abstract class TopUpInformationLocalizations {
   /// **'Top Up Information'**
   String get appBarTitle;
 
-  /// No description provided for @bankCard.
+  /// No description provided for @continueButtonLabel.
   ///
   /// In en, this message translates to:
-  /// **'Bank Card'**
-  String get bankCard;
-
-  /// No description provided for @vodafoneCash.
-  ///
-  /// In en, this message translates to:
-  /// **'Vodafone Cash'**
-  String get vodafoneCash;
-
-  /// No description provided for @orangeCash.
-  ///
-  /// In en, this message translates to:
-  /// **'Orange Cash'**
-  String get orangeCash;
-
-  /// No description provided for @etisalatCash.
-  ///
-  /// In en, this message translates to:
-  /// **'Etisalat Cash'**
-  String get etisalatCash;
-
-  /// No description provided for @instaPay.
-  ///
-  /// In en, this message translates to:
-  /// **'InstaPay'**
-  String get instaPay;
-
-  /// No description provided for @bankTransfer.
-  ///
-  /// In en, this message translates to:
-  /// **'Bank Transfer'**
-  String get bankTransfer;
+  /// **'Continue'**
+  String get continueButtonLabel;
 
   /// No description provided for @bankCardNumber.
   ///

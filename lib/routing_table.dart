@@ -26,6 +26,7 @@ import 'package:sign_in/sign_in.dart';
 import 'package:sign_up/sign_up.dart';
 import 'package:tab_container/tab_container.dart';
 import 'package:top_up/top_up.dart';
+import 'package:top_up_confirmation/top_up_confirmation.dart';
 import 'package:top_up_information/top_up_information.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:verify_otp/verify_otp.dart';
@@ -289,6 +290,9 @@ Map<String, PageBuilder> buildRoutingTable({
           child: TopUpInformationScreen(
             userRepository: userRepository,
             walletRepository: walletRepository,
+            onNavigateToConfirmation: () => routerDelegate.push(
+              _PathConstants.topUpConfirmationPath,
+            ),
           ),
         ),
     _PathConstants.withdrawPath: (_) => MaterialPage(
@@ -503,6 +507,13 @@ Map<String, PageBuilder> buildRoutingTable({
         ),
       );
     },
+    _PathConstants.topUpConfirmationPath: (_) => MaterialPage(
+          name: 'top-up-confirmation',
+          child: TopUpConfirmationScreen(
+            userRepository: userRepository,
+            walletRepository: walletRepository,
+          ),
+        ),
   };
 }
 
@@ -529,6 +540,9 @@ class _PathConstants {
 
   static String get topUpInformationPath =>
       '$chooseTopUpMethodPath/top-up-information';
+
+  static String get topUpConfirmationPath =>
+      '$topUpInformationPath/top-up-confirmation';
 
   static String get topUpPath => '${initialPath}top-up';
 
@@ -566,4 +580,6 @@ class _PathConstants {
 
   static String fulfillServiceRequestPath({int? requestId}) =>
       '${initialPath}fulfill-service-request/${requestId ?? ':requestId'}';
+
+
 }

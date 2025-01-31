@@ -70,6 +70,8 @@ dependencies:
     path: packages/features/wallet
   top_up_information:
     path: packages/features/top_up_information
+  top_up_confirmation:
+    path: packages/features/top_up_confirmation
   choose_top_up_method:
     path: packages/features/choose_top_up_method
   top_up:
@@ -146,3 +148,5 @@ flutter:
     - assets/
     - assets/icons/
     - assets/icons/tab_container/
+
+# Add under features section
