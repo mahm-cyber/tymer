@@ -16,6 +16,7 @@ import 'package:home/home.dart';
 import 'package:initial/initial.dart';
 import 'package:notifications_service/notifications_service.dart';
 import 'package:order_history/order_history.dart';
+import 'package:payment_history/payment_history.dart';
 import 'package:profile/profile.dart';
 import 'package:provide_service/provide_service.dart';
 import 'package:request_service/request_service.dart';
@@ -26,7 +27,6 @@ import 'package:service_request_status/service_request_status.dart';
 import 'package:sign_in/sign_in.dart';
 import 'package:sign_up/sign_up.dart';
 import 'package:tab_container/tab_container.dart';
-import 'package:top_up/top_up.dart';
 import 'package:top_up_confirmation/top_up_confirmation.dart';
 import 'package:top_up_information/top_up_information.dart';
 import 'package:user_repository/user_repository.dart';
@@ -189,6 +189,9 @@ Map<String, PageBuilder> buildRoutingTable({
             onBankCardTopUpTapped: () {
               routerDelegate.push(_PathConstants.bankCardTopUpPath);
             },
+            onTopUpHistoryTapped: () {
+              routerDelegate.push(_PathConstants.topUpPaymentHistoryPath);
+            },
           ),
         ),
     _PathConstants.signInPath: (_) => MaterialPage(
@@ -274,21 +277,14 @@ Map<String, PageBuilder> buildRoutingTable({
           name: 'wallet',
           child: WalletScreen(
             userRepository: userRepository,
+            walletRepository: walletRepository,
             onTopUpTapped: () =>
                 routerDelegate.push(_PathConstants.chooseTopUpMethodPath),
             onWithdrawTapped: () =>
                 routerDelegate.push(_PathConstants.chooseWithdrawMethodPath),
           ),
         ),
-    _PathConstants.topUpPath: (_) => MaterialPage(
-          name: 'top-up',
-          child: TopUpScreen(
-            userRepository: userRepository,
-            onBackTapped: routerDelegate.pop,
-            onProvideServiceTapped: () =>
-                routerDelegate.push(_PathConstants.provideServicePath),
-          ),
-        ),
+
     _PathConstants.topUpInformationPath: (_) => MaterialPage(
           name: 'top-up-information',
           child: TopUpInformationScreen(
@@ -552,6 +548,24 @@ Map<String, PageBuilder> buildRoutingTable({
             onWithdrawMethodTapped: () {
               routerDelegate.push(_PathConstants.withdrawPath);
             },
+            onWithdrawalPaymentHistoryTapped: () =>
+                routerDelegate.push(
+              _PathConstants.withdrawalPaymentHistoryPath,
+            ),
+          ),
+        ),
+    _PathConstants.withdrawalPaymentHistoryPath: (_) => MaterialPage(
+          name: 'withdrawal-payment-history',
+          child: PaymentHistoryScreen(
+            userRepository: userRepository,
+            walletRepository: walletRepository,
+          ),
+        ),
+    _PathConstants.topUpPaymentHistoryPath: (_) => MaterialPage(
+          name: 'top-up-payment-history',
+          child: PaymentHistoryScreen(
+            userRepository: userRepository,
+            walletRepository: walletRepository,
           ),
         ),
   };
@@ -575,6 +589,12 @@ class _PathConstants {
 
   static String get walletPath => '${initialPath}wallet';
 
+  static String get withdrawalPaymentHistoryPath =>
+      '$chooseWithdrawMethodPath/payment-history';
+
+  static String get topUpPaymentHistoryPath =>
+      '$chooseTopUpMethodPath/payment-history';
+
   static String get chooseTopUpMethodPath =>
       '${initialPath}choose-top-up-method';
 
@@ -586,8 +606,6 @@ class _PathConstants {
 
   static String get topUpConfirmationPath =>
       '$topUpInformationPath/top-up-confirmation';
-
-  static String get topUpPath => '${initialPath}top-up';
 
   static String get withdrawPath => '$chooseWithdrawMethodPath/withdraw';
 

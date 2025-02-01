@@ -14,6 +14,7 @@ class ChooseTopUpMethodScreen extends StatelessWidget {
     required this.walletRepository,
     required this.onTopUpMethodTapped,
     required this.onBankCardTopUpTapped,
+    required this.onTopUpHistoryTapped,
     super.key,
   });
 
@@ -21,6 +22,7 @@ class ChooseTopUpMethodScreen extends StatelessWidget {
   final WalletRepository walletRepository;
   final VoidCallback onTopUpMethodTapped;
   final VoidCallback onBankCardTopUpTapped;
+  final VoidCallback onTopUpHistoryTapped;
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ChooseTopUpMethodCubit>(
@@ -29,6 +31,7 @@ class ChooseTopUpMethodScreen extends StatelessWidget {
         walletRepository: walletRepository,
         onTopUpMethodTapped: onTopUpMethodTapped,
         onBankCardTopUpTapped: onBankCardTopUpTapped,
+        onTopUpHistoryTapped: onTopUpHistoryTapped,
       ),
       child: const ChooseTopUpMethodView(),
     );
@@ -72,6 +75,8 @@ class ChooseTopUpMethodView extends StatelessWidget {
                   bankCardEnabled: true,
                   onPaymentMethodTapped: cubit.setPaymentMethodType,
                   paymentMethods: state.paymentMethods!,
+                  onViewHistoryTapped: cubit.onTopUpHistoryTapped,
+                  viewHistoryButtonLabel: l10n.topUpHistoryButtonLabel,
                 );
               },
             ),

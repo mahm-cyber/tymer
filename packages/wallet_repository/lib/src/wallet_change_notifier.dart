@@ -4,29 +4,47 @@ import 'package:flutter/material.dart';
 class WalletChangeNotifier with ChangeNotifier {
   WalletChangeNotifier();
 
+  // Payment Methods
   final ValueNotifier<PaymentMethods?> _paymentMethodsVN = ValueNotifier(null);
-  final ValueNotifier<PaymentMethods?> _withdrawMethodsVN = ValueNotifier(null);
-
   PaymentMethods? get paymentMethods => _paymentMethodsVN.value;
-  PaymentMethods? get withdrawMethods => _withdrawMethodsVN.value;
-
-  void setPaymentMethods(PaymentMethods paymentMethods) {
+  void setPaymentMethods(PaymentMethods paymentMethods) { 
     _paymentMethodsVN.value = paymentMethods;
     notifyListeners();
   }
-
-  void setWithdrawMethods(PaymentMethods withdrawMethods) {
-    _withdrawMethodsVN.value = withdrawMethods;
-    notifyListeners();
-  }
-
   Future clearPaymentMethods() async {
     _paymentMethodsVN.value = null;
     notifyListeners();
   }
 
+  // Withdraw Methods
+  final ValueNotifier<PaymentMethods?> _withdrawMethodsVN = ValueNotifier(null);
+  PaymentMethods? get withdrawMethods => _withdrawMethodsVN.value;
+  void setWithdrawMethods(PaymentMethods withdrawMethods) {
+    _withdrawMethodsVN.value = withdrawMethods;
+    notifyListeners();
+  }
   Future clearWithdrawMethods() async {
     _withdrawMethodsVN.value = null;
+    notifyListeners();
+  }
+
+  // Payment Type
+  final ValueNotifier<PaymentType?> _paymentTypeVN = ValueNotifier(null);
+  PaymentType? get paymentType => _paymentTypeVN.value;
+  void setPaymentType(PaymentType paymentType) {
+    _paymentTypeVN.value = paymentType;
+    notifyListeners();
+  }
+  void clearPaymentType() {
+    _paymentTypeVN.value = null;
+    notifyListeners();
+  }
+
+  // Clear All
+  void clearAll() {
+    _paymentMethodsVN.value = null;
+    _withdrawMethodsVN.value = null;
+    _paymentTypeVN.value = null;
     notifyListeners();
   }
 }

@@ -8,4 +8,7 @@ class ChooseTopUpMethodLocalizationsEn extends ChooseTopUpMethodLocalizations {
 
   @override
   String get appBarTitle => 'Choose Top Up Method';
+
+  @override
+  String get topUpHistoryButtonLabel => 'View Top Up History';
 }

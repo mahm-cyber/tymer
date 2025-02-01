@@ -7,14 +7,19 @@ class PaymentMethodsList extends StatelessWidget {
     super.key,
     required this.onPaymentMethodTapped,
     required this.paymentMethods,
-    required this.bankCardEnabled ,
+    required this.bankCardEnabled,
+    required this.onViewHistoryTapped,
+    required this.viewHistoryButtonLabel,
   });
 
   final Function(PaymentMethodType) onPaymentMethodTapped;
   final PaymentMethods paymentMethods;
   final bool bankCardEnabled;
+  final Function() onViewHistoryTapped;
+  final String viewHistoryButtonLabel;
   @override
   Widget build(BuildContext context) {
+    final theme = TymerTheme.of(context);
     final clL10n = ComponentLibraryLocalizations.of(context);
     return Expanded(
       child: ListView(
@@ -41,8 +46,7 @@ class PaymentMethodsList extends StatelessWidget {
               title: Text(clL10n.orangeCash),
               trailing: const Icon(Icons.arrow_forward_ios, size: 16),
               leading: const Icon(Icons.phone_android),
-              onTap: () =>
-                  onPaymentMethodTapped(PaymentMethodType.orangeCash),
+              onTap: () => onPaymentMethodTapped(PaymentMethodType.orangeCash),
             ),
           if (paymentMethods.etisalatCash.enabled)
             ListTile(
@@ -67,6 +71,23 @@ class PaymentMethodsList extends StatelessWidget {
               onTap: () =>
                   onPaymentMethodTapped(PaymentMethodType.bankTransfer),
             ),
+          
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton.icon(
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.symmetric(
+                    vertical: theme.screenMargin,
+                    horizontal: theme.screenMargin,
+                  ),
+                ),
+                onPressed: onViewHistoryTapped,
+                icon: const Icon(Icons.history),
+                label: Text(viewHistoryButtonLabel),
+              ),
+            ],
+          ),
         ],
       ),
     );

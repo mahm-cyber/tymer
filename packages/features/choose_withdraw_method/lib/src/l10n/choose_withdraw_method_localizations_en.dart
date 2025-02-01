@@ -8,4 +8,7 @@ class ChooseWithdrawMethodLocalizationsEn extends ChooseWithdrawMethodLocalizati
 
   @override
   String get appBarTitle => 'Choose Withdraw Method';
+
+  @override
+  String get withdrawalHistoryButtonLabel => 'Withdrawal History';
 }

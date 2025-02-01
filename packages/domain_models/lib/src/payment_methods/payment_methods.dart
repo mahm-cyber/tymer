@@ -6,3 +6,4 @@ export 'src/vodafone_cash.dart';
 export 'src/payment_method_type.dart';
 export 'src/localized_message.dart';
 export 'src/payment_methods.dart';
+export 'src/payment.dart';

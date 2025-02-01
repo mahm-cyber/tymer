@@ -8,4 +8,7 @@ class ChooseTopUpMethodLocalizationsAr extends ChooseTopUpMethodLocalizations {
 
   @override
   String get appBarTitle => 'اختيار طريقة الشحن';
+
+  @override
+  String get topUpHistoryButtonLabel => 'عرض طلبات الشحن السابقة';
 }

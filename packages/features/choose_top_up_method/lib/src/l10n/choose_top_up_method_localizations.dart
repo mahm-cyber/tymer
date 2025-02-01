@@ -100,6 +100,12 @@ abstract class ChooseTopUpMethodLocalizations {
   /// In en, this message translates to:
   /// **'Choose Top Up Method'**
   String get appBarTitle;
+
+  /// No description provided for @topUpHistoryButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'View Top Up History'**
+  String get topUpHistoryButtonLabel;
 }
 
 class _ChooseTopUpMethodLocalizationsDelegate extends LocalizationsDelegate<ChooseTopUpMethodLocalizations> {

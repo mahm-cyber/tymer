@@ -74,5 +74,8 @@
   "imageTextFieldLabel": "Image",
   "imageSizeExceedsLimitErrorTextFieldMessage": "The image size must be 1 MB or less",
   "bottomSheetGalleryButton": "Gallery",
-  "bottomSheetCaptureButton": "Capture"
+  "bottomSheetCaptureButton": "Capture",
+  "pending": "Pending",
+  "approved": "Approved",
+  "rejected": "Rejected"
 }

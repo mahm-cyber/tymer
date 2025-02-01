@@ -1,3 +1,4 @@
 {
-  "appBarTitle": "Choose Top Up Method"
+  "appBarTitle": "Choose Top Up Method",
+  "topUpHistoryButtonLabel": "View Top Up History"
 }

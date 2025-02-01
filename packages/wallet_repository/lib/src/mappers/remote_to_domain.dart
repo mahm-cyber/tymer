@@ -75,3 +75,31 @@ extension PaymentMethodsRMToDM on PaymentMethodsRM {
     );
   }
 }
+
+extension PaymentRMToDM on PaymentRM {
+
+
+  Payment toDomainModel() {
+    return Payment(
+      id: id,
+      userId: userId,
+      amount: double.parse(amount).toInt(),
+      ibanNumber: ibanNumber,
+      beneficiaryName: beneficiaryName,
+      instantPaymentAddress: instantPaymentAddress,
+      walletNumber: walletNumber,
+      status: PaymentStatus.fromString(status),
+      proofImage: proofImage,
+      updatedAt: DateTime.parse(updatedAt),
+    );
+  }
+}
+
+extension PaymentListPageRMToDM on PaymentListPageRM {
+  PaymentListPage toDomainModel() {
+    return PaymentListPage(
+      list: list.map((payment) => payment.toDomainModel()).toList(),
+      isLastPage: isLastPage,
+    );
+  }
+}

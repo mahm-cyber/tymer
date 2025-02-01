@@ -166,7 +166,7 @@ class UrlBuilder {
   }
 
   String buildConfirmBankCardTopUpUrl() {
-    return '$baseUrl/transactions/top-up/bank-card/requests';
+    return '$baseUrl/transactions/top-up/bank-card';
   }
 
   String buildConfirmWalletWithdrawUrl(String paymentMethodType) {
@@ -209,5 +209,13 @@ class UrlBuilder {
 
   String buildChangeLanguageUrl() {
     return '$baseUrl/$_authSlug/preferred-language';
+  }
+
+  String buildGetPaymentsUrl({
+    required String type,
+    required String paymentMethodType,
+    required int page,
+  }) {
+    return '$baseUrl/transactions/$type/$paymentMethodType/requests?page=$page';
   }
 }

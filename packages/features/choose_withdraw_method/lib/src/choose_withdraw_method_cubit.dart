@@ -11,6 +11,7 @@ class ChooseWithdrawMethodCubit extends Cubit<ChooseWithdrawMethodState> {
     required this.userRepository,
     required this.walletRepository,
     required this.onWithdrawMethodTapped,
+    required this.onWithdrawalPaymentHistoryTapped,
   }) : super(const ChooseWithdrawMethodState()) {
     getWithdrawMethods();
   }
@@ -18,7 +19,7 @@ class ChooseWithdrawMethodCubit extends Cubit<ChooseWithdrawMethodState> {
   final UserRepository userRepository;
   final WalletRepository walletRepository;
   final VoidCallback onWithdrawMethodTapped;
-
+  final VoidCallback onWithdrawalPaymentHistoryTapped;
   Future<void> getWithdrawMethods() async {
     final loadingState =
         state.copyWith(paymentMethodsLoadingStatus: LoadingStatus.loading);

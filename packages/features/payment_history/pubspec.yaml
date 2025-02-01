@@ -1,10 +1,8 @@
-name: top_up
+name: payment_history
 publish_to: none
-
 
 environment:
   sdk: '>=3.5.0 <4.0.0'
-
 
 dependencies:
   flutter:
@@ -19,10 +17,14 @@ dependencies:
     path: ../../domain_models
   user_repository:
     path: ../../user_repository
+  wallet_repository:
+    path: ../../wallet_repository
   function_and_extension_library:
     path: ../../function_and_extension_library
   form_fields:
     path: ../../form_fields
   intl: ^0.19.0
+  infinite_scroll_pagination: ^4.1.0
+
 dev_dependencies:
-  flutter_lints: ^4.0.0
+  flutter_lints: ^4.0.0 

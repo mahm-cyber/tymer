@@ -5,24 +5,24 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
-import 'top_up_localizations_ar.dart';
-import 'top_up_localizations_en.dart';
+import 'payment_history_localizations_ar.dart';
+import 'payment_history_localizations_en.dart';
 
 // ignore_for_file: type=lint
 
-/// Callers can lookup localized strings with an instance of TopUpLocalizations
-/// returned by `TopUpLocalizations.of(context)`.
+/// Callers can lookup localized strings with an instance of PaymentHistoryLocalizations
+/// returned by `PaymentHistoryLocalizations.of(context)`.
 ///
-/// Applications need to include `TopUpLocalizations.delegate()` in their app's
+/// Applications need to include `PaymentHistoryLocalizations.delegate()` in their app's
 /// `localizationDelegates` list, and the locales they support in the app's
 /// `supportedLocales` list. For example:
 ///
 /// ```dart
-/// import 'l10n/top_up_localizations.dart';
+/// import 'l10n/payment_history_localizations.dart';
 ///
 /// return MaterialApp(
-///   localizationsDelegates: TopUpLocalizations.localizationsDelegates,
-///   supportedLocales: TopUpLocalizations.supportedLocales,
+///   localizationsDelegates: PaymentHistoryLocalizations.localizationsDelegates,
+///   supportedLocales: PaymentHistoryLocalizations.supportedLocales,
 ///   home: MyApplicationHome(),
 /// );
 /// ```
@@ -59,18 +59,18 @@ import 'top_up_localizations_en.dart';
 /// Select and expand the newly-created Localizations item then, for each
 /// locale your application supports, add a new item and select the locale
 /// you wish to add from the pop-up menu in the Value field. This list should
-/// be consistent with the languages listed in the TopUpLocalizations.supportedLocales
+/// be consistent with the languages listed in the PaymentHistoryLocalizations.supportedLocales
 /// property.
-abstract class TopUpLocalizations {
-  TopUpLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+abstract class PaymentHistoryLocalizations {
+  PaymentHistoryLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
-  static TopUpLocalizations of(BuildContext context) {
-    return Localizations.of<TopUpLocalizations>(context, TopUpLocalizations)!;
+  static PaymentHistoryLocalizations of(BuildContext context) {
+    return Localizations.of<PaymentHistoryLocalizations>(context, PaymentHistoryLocalizations)!;
   }
 
-  static const LocalizationsDelegate<TopUpLocalizations> delegate = _TopUpLocalizationsDelegate();
+  static const LocalizationsDelegate<PaymentHistoryLocalizations> delegate = _PaymentHistoryLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -95,63 +95,99 @@ abstract class TopUpLocalizations {
     Locale('en')
   ];
 
-  /// No description provided for @appBarTitle.
+  /// No description provided for @noTopupPaymentsText.
   ///
   /// In en, this message translates to:
-  /// **'Top Up'**
-  String get appBarTitle;
+  /// **'No topups available'**
+  String get noTopupPaymentsText;
 
-  /// No description provided for @topUpAmountTextFieldLabel.
+  /// No description provided for @noWithdrawalPaymentsText.
   ///
   /// In en, this message translates to:
-  /// **'Top Up Amount'**
-  String get topUpAmountTextFieldLabel;
+  /// **'No withdrawals available'**
+  String get noWithdrawalPaymentsText;
 
-  /// No description provided for @topUpAmountTextFieldHint.
+  /// No description provided for @topupHistoryAppBarTitle.
   ///
   /// In en, this message translates to:
-  /// **'Enter Top Up Amount'**
-  String get topUpAmountTextFieldHint;
+  /// **'Topup History'**
+  String get topupHistoryAppBarTitle;
 
-  /// No description provided for @isNotNumberTextFieldErrorMessage.
+  /// No description provided for @withdrawHistoryAppBarTitle.
   ///
   /// In en, this message translates to:
-  /// **'Please enter a valid number'**
-  String get isNotNumberTextFieldErrorMessage;
+  /// **'Withdrawal History'**
+  String get withdrawHistoryAppBarTitle;
 
-  /// No description provided for @topUpConfirmButtonLabel.
+  /// No description provided for @ibanNumberLabel.
   ///
   /// In en, this message translates to:
-  /// **'Top Up'**
-  String get topUpConfirmButtonLabel;
+  /// **'IBAN'**
+  String get ibanNumberLabel;
+
+  /// No description provided for @beneficiaryNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Beneficiary'**
+  String get beneficiaryNameLabel;
+
+  /// No description provided for @walletNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallet'**
+  String get walletNumberLabel;
+
+  /// No description provided for @instantPaymentAddressLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'InstaPay'**
+  String get instantPaymentAddressLabel;
+
+  /// No description provided for @amountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get amountLabel;
+
+  /// No description provided for @statusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get statusLabel;
+
+  /// No description provided for @dateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get dateLabel;
 }
 
-class _TopUpLocalizationsDelegate extends LocalizationsDelegate<TopUpLocalizations> {
-  const _TopUpLocalizationsDelegate();
+class _PaymentHistoryLocalizationsDelegate extends LocalizationsDelegate<PaymentHistoryLocalizations> {
+  const _PaymentHistoryLocalizationsDelegate();
 
   @override
-  Future<TopUpLocalizations> load(Locale locale) {
-    return SynchronousFuture<TopUpLocalizations>(lookupTopUpLocalizations(locale));
+  Future<PaymentHistoryLocalizations> load(Locale locale) {
+    return SynchronousFuture<PaymentHistoryLocalizations>(lookupPaymentHistoryLocalizations(locale));
   }
 
   @override
   bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
-  bool shouldReload(_TopUpLocalizationsDelegate old) => false;
+  bool shouldReload(_PaymentHistoryLocalizationsDelegate old) => false;
 }
 
-TopUpLocalizations lookupTopUpLocalizations(Locale locale) {
+PaymentHistoryLocalizations lookupPaymentHistoryLocalizations(Locale locale) {
 
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'ar': return TopUpLocalizationsAr();
-    case 'en': return TopUpLocalizationsEn();
+    case 'ar': return PaymentHistoryLocalizationsAr();
+    case 'en': return PaymentHistoryLocalizationsEn();
   }
 
   throw FlutterError(
-    'TopUpLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'PaymentHistoryLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
     'that was used.'

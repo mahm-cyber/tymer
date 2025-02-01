@@ -8,4 +8,7 @@ class ChooseWithdrawMethodLocalizationsAr extends ChooseWithdrawMethodLocalizati
 
   @override
   String get appBarTitle => 'اختيار طريقة السحب';
+
+  @override
+  String get withdrawalHistoryButtonLabel => 'طلبات السحب';
 }

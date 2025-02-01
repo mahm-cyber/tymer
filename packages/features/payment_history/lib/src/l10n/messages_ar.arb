@@ -1,0 +1,13 @@
+{
+  "noTopupPaymentsText": "لا يوجد طلبات شحن متاحة",
+  "noWithdrawalPaymentsText": "لا يوجد طلبات سحب متاحة",
+  "topupHistoryAppBarTitle": "طلبات الشحن",
+  "withdrawHistoryAppBarTitle": "طلبات السحب",
+  "ibanNumberLabel": "رقم الحساب البنكي",
+  "beneficiaryNameLabel": "المستفيد",
+  "walletNumberLabel": "المحفظة",
+  "instantPaymentAddressLabel": "انستاباي",
+  "amountLabel": "المبلغ",
+  "statusLabel": "الحالة",
+  "dateLabel": "التاريخ"
+}

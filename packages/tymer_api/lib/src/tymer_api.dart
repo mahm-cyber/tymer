@@ -855,6 +855,30 @@ class TymerApi {
       rethrow;
     }
   }
+
+  Future<PaymentListPageRM> getPayments({
+    required String type,
+    required String paymentMethodType,
+    required int page,
+  }) async {
+    final url = urlBuilder.buildGetPaymentsUrl(
+      type: type,
+      paymentMethodType: paymentMethodType,
+      page: page,
+    );
+
+    try {
+      final response = await _dio.get(url);
+      final paymentListPage = PaymentListPageRM.fromJson(response.data);
+              final currentPage = response.data['meta']['current_page'] as int;
+      final lastPage = response.data['meta']['last_page'] as int;
+      final isLastPage = currentPage >= lastPage;
+      paymentListPage.isLastPage = isLastPage;
+      return paymentListPage;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
 
 extension on Dio {

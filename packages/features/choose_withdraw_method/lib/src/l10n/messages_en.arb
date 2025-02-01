@@ -1,3 +1,4 @@
 {
-  "appBarTitle": "Choose Withdraw Method"
+  "appBarTitle": "Choose Withdraw Method",
+  "withdrawalHistoryButtonLabel": "Withdrawal History"
 } 

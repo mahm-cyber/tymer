@@ -7,16 +7,19 @@ import 'package:wallet/src/wallet_cubit.dart';
 import 'package:wallet/src/l10n/wallet_localizations.dart';
 
 import 'package:user_repository/user_repository.dart';
+import 'package:wallet_repository/wallet_repository.dart';
 
 class WalletScreen extends StatelessWidget {
   const WalletScreen({
     required this.userRepository,
+    required this.walletRepository,
     required this.onTopUpTapped,
     required this.onWithdrawTapped,
     super.key,
   });
 
   final UserRepository userRepository;
+  final WalletRepository walletRepository;
   final VoidCallback onTopUpTapped;
   final VoidCallback onWithdrawTapped;
 
@@ -25,6 +28,7 @@ class WalletScreen extends StatelessWidget {
     return BlocProvider<WalletCubit>(
       create: (_) => WalletCubit(
         userRepository: userRepository,
+        walletRepository: walletRepository,
         onTopUpTapped: onTopUpTapped,
         onWithdrawTapped: onWithdrawTapped,
       ),
@@ -63,12 +67,13 @@ class WalletView extends StatelessWidget {
                       WalletButton(
                         icon: const SvgAsset(AssetPathConstants.whiteBankNote),
                         title: l10n.withdrawalContainerTitle,
-                        onTap: cubit.onWithdrawTapped,
+                        onTap: cubit.onNavigateToWithdrawTapped,
                       ),
                       WalletButton(
-                        icon: const SvgAsset(AssetPathConstants.arrowTowardsBox),
+                        icon:
+                            const SvgAsset(AssetPathConstants.arrowTowardsBox),
                         title: l10n.topUpContainerTitle,
-                        onTap: cubit.onTopUpTapped,
+                        onTap: cubit.onNavigateToTopUpTapped,
                       ),
                     ],
                   ),
@@ -84,4 +89,3 @@ class WalletView extends StatelessWidget {
     );
   }
 }
-

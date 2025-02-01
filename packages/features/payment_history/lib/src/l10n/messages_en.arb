@@ -1,0 +1,13 @@
+{
+  "noTopupPaymentsText": "No topups available",
+  "noWithdrawalPaymentsText": "No withdrawals available",
+  "topupHistoryAppBarTitle": "Topup History",
+  "withdrawHistoryAppBarTitle": "Withdrawal History",
+  "ibanNumberLabel": "IBAN",
+  "beneficiaryNameLabel": "Beneficiary",
+  "walletNumberLabel": "Wallet",
+  "instantPaymentAddressLabel": "InstaPay",
+  "amountLabel": "Amount",
+  "statusLabel": "Status",
+  "dateLabel": "Date"
+}

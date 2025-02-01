@@ -25,13 +25,13 @@ import 'package:initial/initial.dart';
 import 'package:key_value_storage/key_value_storage.dart';
 import 'package:monitoring/monitoring.dart';
 import 'package:order_history/order_history.dart';
+import 'package:payment_history/payment_history.dart';
 import 'package:profile/profile.dart';
 import 'package:provide_service/provide_service.dart';
 import 'package:request_service/request_service.dart';
 import 'package:service_repository/service_repository.dart';
 import 'package:service_request_status/service_request_status.dart';
 import 'package:sign_up/sign_up.dart';
-import 'package:top_up/top_up.dart';
 import 'package:top_up_confirmation/top_up_confirmation.dart';
 import 'package:top_up_information/top_up_information.dart';
 import 'package:tymer/firebase_options.dart';
@@ -251,12 +251,12 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                 DisputesLocalizations.delegate,
                 ConfirmDisputeLocalizations.delegate,
                 ChatLocalizations.delegate,
-                TopUpLocalizations.delegate,
                 WithdrawLocalizations.delegate,
                 ChooseTopUpMethodLocalizations.delegate,
                 TopUpInformationLocalizations.delegate,
                 TopUpConfirmationLocalizations.delegate,
                 ChooseWithdrawMethodLocalizations.delegate,
+                PaymentHistoryLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [

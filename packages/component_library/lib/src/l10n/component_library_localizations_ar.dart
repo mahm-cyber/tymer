@@ -211,4 +211,13 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get bottomSheetCaptureButton => 'التقاط';
+
+  @override
+  String get pending => 'قيد المراجعة';
+
+  @override
+  String get approved => 'موافق عليه';
+
+  @override
+  String get rejected => 'مرفوض';
 }

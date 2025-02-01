@@ -12,13 +12,14 @@ class ChooseWithdrawMethodScreen extends StatelessWidget {
     required this.userRepository,
     required this.walletRepository,
     required this.onWithdrawMethodTapped,
+    required this.onWithdrawalPaymentHistoryTapped,
     super.key,
   });
 
   final UserRepository userRepository;
   final WalletRepository walletRepository;
   final VoidCallback onWithdrawMethodTapped;
-
+  final VoidCallback onWithdrawalPaymentHistoryTapped;
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ChooseWithdrawMethodCubit>(
@@ -26,6 +27,7 @@ class ChooseWithdrawMethodScreen extends StatelessWidget {
         userRepository: userRepository,
         walletRepository: walletRepository,
         onWithdrawMethodTapped: onWithdrawMethodTapped,
+        onWithdrawalPaymentHistoryTapped: onWithdrawalPaymentHistoryTapped,
       ),
       child: const ChooseWithdrawMethodView(),
     );
@@ -67,6 +69,8 @@ class ChooseWithdrawMethodView extends StatelessWidget {
                   bankCardEnabled: false,
                   onPaymentMethodTapped: cubit.setPaymentMethodType,
                   paymentMethods: state.paymentMethods!,
+                  onViewHistoryTapped: cubit.onWithdrawalPaymentHistoryTapped,
+                  viewHistoryButtonLabel: l10n.withdrawalHistoryButtonLabel,
                 );
               },
             ),

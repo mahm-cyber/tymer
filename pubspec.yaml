@@ -68,6 +68,8 @@ dependencies:
     path: packages/features/order_history
   wallet:
     path: packages/features/wallet
+  payment_history:
+    path: packages/features/payment_history
   top_up_information:
     path: packages/features/top_up_information
   top_up_confirmation:
@@ -76,8 +78,6 @@ dependencies:
     path: packages/features/choose_top_up_method
   choose_withdraw_method:
     path: packages/features/choose_withdraw_method
-  top_up:
-    path: packages/features/top_up
   withdraw:
     path: packages/features/withdraw
   profile:

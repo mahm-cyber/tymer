@@ -100,6 +100,12 @@ abstract class ChooseWithdrawMethodLocalizations {
   /// In en, this message translates to:
   /// **'Choose Withdraw Method'**
   String get appBarTitle;
+
+  /// No description provided for @withdrawalHistoryButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Withdrawal History'**
+  String get withdrawalHistoryButtonLabel;
 }
 
 class _ChooseWithdrawMethodLocalizationsDelegate extends LocalizationsDelegate<ChooseWithdrawMethodLocalizations> {

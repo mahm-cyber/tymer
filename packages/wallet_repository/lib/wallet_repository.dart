@@ -80,4 +80,21 @@ class WalletRepository {
       rethrow;
     }
   }
+
+  Future<PaymentListPage> getPayments({
+    required PaymentType type,
+    required PaymentMethodType paymentMethodType,
+    required int page,
+  }) async {
+    try {
+      final paymentListPageRM = await remoteApi.getPayments(
+        type: type.toRemoteModel(),
+        paymentMethodType: paymentMethodType.toRemoteModel(),
+        page: page,
+      );
+      return paymentListPageRM.toDomainModel();
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

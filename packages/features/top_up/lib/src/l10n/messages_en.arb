@@ -1,9 +1,0 @@
-{
-  "appBarTitle": "Top Up",
-  "topUpAmountTextFieldLabel": "Top Up Amount",
-  "topUpAmountTextFieldHint": "Enter Top Up Amount",
-  "isNotNumberTextFieldErrorMessage": "Please enter a valid number",
-  "topUpConfirmButtonLabel": "Top Up"
-
-
-}

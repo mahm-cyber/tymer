@@ -20,3 +20,14 @@ extension PaymentMethodTypeDMtoRM on PaymentMethodType {
     }
   }
 }
+
+extension PaymentTypeDMtoRM on PaymentType {
+  String toRemoteModel() {
+    switch (this) {
+      case PaymentType.withdraw:
+        return 'withdraw';
+      case PaymentType.topup:
+        return 'top-up';
+    }
+  }
+}

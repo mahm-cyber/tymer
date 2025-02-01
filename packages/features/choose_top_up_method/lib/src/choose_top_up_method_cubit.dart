@@ -14,6 +14,7 @@ class ChooseTopUpMethodCubit extends Cubit<ChooseTopUpMethodState> {
     required this.walletRepository,
     required this.onTopUpMethodTapped,
     required this.onBankCardTopUpTapped,
+    required this.onTopUpHistoryTapped,
   }) : super(const ChooseTopUpMethodState()) {
     getPaymentMethods();
   }
@@ -22,6 +23,7 @@ class ChooseTopUpMethodCubit extends Cubit<ChooseTopUpMethodState> {
   final WalletRepository walletRepository;
   final VoidCallback onTopUpMethodTapped;
   final VoidCallback onBankCardTopUpTapped;
+  final VoidCallback onTopUpHistoryTapped;
   Future<void> getPaymentMethods() async {
     final loadingState =
         state.copyWith(paymentMethodsLoadingStatus: LoadingStatus.loading);
