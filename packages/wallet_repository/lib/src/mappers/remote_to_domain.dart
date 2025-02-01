@@ -77,7 +77,18 @@ extension PaymentMethodsRMToDM on PaymentMethodsRM {
 }
 
 extension PaymentRMToDM on PaymentRM {
-
+  static PaymentStatus fromString(String status) {
+    switch (status.toLowerCase()) {
+      case 'pending':
+        return PaymentStatus.pending;
+      case 'approved':
+        return PaymentStatus.approved;
+      case 'rejected':
+        return PaymentStatus.rejected;
+      default:
+        throw Exception('Unknown payment status: $status');
+    }
+  }
 
   Payment toDomainModel() {
     return Payment(
@@ -88,7 +99,7 @@ extension PaymentRMToDM on PaymentRM {
       beneficiaryName: beneficiaryName,
       instantPaymentAddress: instantPaymentAddress,
       walletNumber: walletNumber,
-      status: PaymentStatus.fromString(status),
+      status: fromString(status),
       proofImage: proofImage,
       updatedAt: DateTime.parse(updatedAt),
     );
@@ -100,6 +111,53 @@ extension PaymentListPageRMToDM on PaymentListPageRM {
     return PaymentListPage(
       list: list.map((payment) => payment.toDomainModel()).toList(),
       isLastPage: isLastPage,
+    );
+  }
+}
+
+extension InAppTransactionRMToDM on InAppTransactionRM {
+  static InAppTransactionStatus statusFromString(String status) {
+    switch (status.toLowerCase()) {
+      case 'pending':
+        return InAppTransactionStatus.pending;
+      case 'completed':
+        return InAppTransactionStatus.completed;
+      case 'rejected':
+        return InAppTransactionStatus.rejected;
+      default:
+        throw Exception('Unknown in-app transaction status: $status');
+    }
+  }
+
+  static InAppTransactionType typeFromString(String type) {
+    switch (type.toLowerCase()) {
+      case 'earning':
+        return InAppTransactionType.earning;
+      case 'payout':
+        return InAppTransactionType.payout;
+      default:
+        throw Exception('Unknown in-app transaction type: $type');
+    }
+  }
+
+  InAppTransaction toDomainModel() {
+    return InAppTransaction(
+      id: id,
+      userId: userId,
+      amount: double.parse(amount).toInt(),
+      status: statusFromString(status),
+      type: typeFromString(type),
+      createdAt: DateTime.parse(createdAt),
+      updatedAt: DateTime.parse(updatedAt),
+    );
+  }
+}
+
+extension InAppTransactionListPageRMToDM on InAppTransactionListPageRM {
+  InAppTransactionListPage toDomainModel() {
+    return InAppTransactionListPage(
+      list: list.map((transaction) => transaction.toDomainModel()).toList(),
+      isLastPage: isLastPage!,
     );
   }
 }

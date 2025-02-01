@@ -14,4 +14,13 @@ class WalletLocalizationsEn extends WalletLocalizations {
 
   @override
   String get topUpContainerTitle => 'Top Up';
+
+  @override
+  String get noTransactionsText => 'No transactions found';
+
+  @override
+  String get earning => 'Earning';
+
+  @override
+  String get payout => 'Payout';
 }

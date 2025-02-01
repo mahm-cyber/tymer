@@ -51,12 +51,6 @@ class WalletRepository {
     }
   }
 
-  Future<PaymentMethods> getWithdrawMethods() async {
-    final withdrawMethods = await remoteApi.getPaymentMethods();
-    final withdrawMethodsDomain = withdrawMethods.toDomainModel();
-    return withdrawMethodsDomain;
-  }
-
   Future<void> confirmWithdraw({
     required PaymentMethodType paymentMethodType,
     required int amount,
@@ -93,6 +87,18 @@ class WalletRepository {
         page: page,
       );
       return paymentListPageRM.toDomainModel();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<InAppTransactionListPage> getInAppTransactions({
+    required int page,
+  }) async {
+    try {
+      final inAppTransactionListPageRM =
+          await remoteApi.getInAppTransactions(page: page);
+      return inAppTransactionListPageRM.toDomainModel();
     } catch (e) {
       rethrow;
     }

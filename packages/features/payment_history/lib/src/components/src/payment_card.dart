@@ -1,12 +1,7 @@
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:intl/intl.dart';
 import 'package:payment_history/src/l10n/payment_history_localizations.dart';
-import 'package:payment_history/src/payment_history_cubit.dart';
-import 'package:user_repository/user_repository.dart';
 import 'package:wallet_repository/wallet_repository.dart';
 
 class PaymentCard extends StatelessWidget {

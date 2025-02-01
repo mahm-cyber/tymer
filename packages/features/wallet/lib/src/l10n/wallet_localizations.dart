@@ -112,6 +112,24 @@ abstract class WalletLocalizations {
   /// In en, this message translates to:
   /// **'Top Up'**
   String get topUpContainerTitle;
+
+  /// No description provided for @noTransactionsText.
+  ///
+  /// In en, this message translates to:
+  /// **'No transactions found'**
+  String get noTransactionsText;
+
+  /// No description provided for @earning.
+  ///
+  /// In en, this message translates to:
+  /// **'Earning'**
+  String get earning;
+
+  /// No description provided for @payout.
+  ///
+  /// In en, this message translates to:
+  /// **'Payout'**
+  String get payout;
 }
 
 class _WalletLocalizationsDelegate extends LocalizationsDelegate<WalletLocalizations> {

@@ -1,5 +1,8 @@
 {
   "appBarTitle": "Wallet",
   "withdrawalContainerTitle": "Withdraw",
-  "topUpContainerTitle": "Top Up"
+  "topUpContainerTitle": "Top Up",
+  "noTransactionsText": "No transactions found",
+  "earning": "Earning",
+  "payout": "Payout"
 }

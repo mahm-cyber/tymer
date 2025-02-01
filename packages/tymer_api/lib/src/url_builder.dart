@@ -161,6 +161,12 @@ class UrlBuilder {
     return '$baseUrl/settings/top-up-requests';
   }
 
+  String buildGetInAppTransactionsUrl({
+    required int page,
+  }) {
+    return '$baseUrl/transactions?page=$page';
+  }
+
   String buildConfirmTopUpUrl(String paymentMethodType) {
     return '$baseUrl/transactions/top-up/$paymentMethodType/requests';
   }

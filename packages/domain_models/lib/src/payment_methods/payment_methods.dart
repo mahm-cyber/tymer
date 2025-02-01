@@ -7,3 +7,4 @@ export 'src/payment_method_type.dart';
 export 'src/localized_message.dart';
 export 'src/payment_methods.dart';
 export 'src/payment.dart';
+export 'src/in_app_transaction.dart';

@@ -47,6 +47,9 @@ abstract class TymerThemeData {
 class LightTymerThemeData extends TymerThemeData {
   @override
   ThemeData get materialThemeData => ThemeData(
+        cardTheme: const CardTheme(
+          elevation: 3,
+        ),
         timePickerTheme: TimePickerThemeData(
           dayPeriodColor: primaryColor,
           hourMinuteColor: primaryColor,

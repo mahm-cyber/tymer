@@ -25,7 +25,7 @@ class ChooseWithdrawMethodCubit extends Cubit<ChooseWithdrawMethodState> {
         state.copyWith(paymentMethodsLoadingStatus: LoadingStatus.loading);
     emit(loadingState);
     try {
-      final withdrawMethods = await walletRepository.getWithdrawMethods();
+      final withdrawMethods = await walletRepository.getPaymentMethods();
       final successState = state.copyWith(
         paymentMethods: withdrawMethods,
         paymentMethodsLoadingStatus: LoadingStatus.success,

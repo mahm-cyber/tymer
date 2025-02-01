@@ -14,4 +14,13 @@ class WalletLocalizationsAr extends WalletLocalizations {
 
   @override
   String get topUpContainerTitle => 'شحن';
+
+  @override
+  String get noTransactionsText => 'لا يوجد عمليات';
+
+  @override
+  String get earning => 'إيراد';
+
+  @override
+  String get payout => 'خروج';
 }

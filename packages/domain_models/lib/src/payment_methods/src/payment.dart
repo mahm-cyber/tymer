@@ -3,18 +3,7 @@ enum PaymentStatus {
   approved,
   rejected;
 
-  static PaymentStatus fromString(String status) {
-    switch (status.toLowerCase()) {
-      case 'pending':
-        return PaymentStatus.pending;
-      case 'approved':
-        return PaymentStatus.approved;
-      case 'rejected':
-        return PaymentStatus.rejected;
-      default:
-        throw Exception('Unknown payment status: $status');
-    }
-  }
+ 
 }
 
 class Payment {
@@ -57,3 +46,5 @@ enum PaymentType {
   withdraw,
   topup;
 }
+
+

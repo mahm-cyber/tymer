@@ -769,6 +769,24 @@ class TymerApi {
     }
   }
 
+  Future<InAppTransactionListPageRM> getInAppTransactions({
+    required int page,
+  }) async {
+    final url = urlBuilder.buildGetInAppTransactionsUrl(page: page);
+    try {
+      final response = await _dio.get(url);
+      final inAppTransactions =
+          InAppTransactionListPageRM.fromJson(response.data);
+      final currentPage = response.data['meta']['current_page'] as int;
+      final lastPage = response.data['meta']['last_page'] as int;
+      final isLastPage = currentPage >= lastPage;
+      inAppTransactions.isLastPage = isLastPage;
+      return inAppTransactions;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
   Future<void> confirmTopUp({
     required String paymentMethodType,
     required int amount,
@@ -870,7 +888,7 @@ class TymerApi {
     try {
       final response = await _dio.get(url);
       final paymentListPage = PaymentListPageRM.fromJson(response.data);
-              final currentPage = response.data['meta']['current_page'] as int;
+      final currentPage = response.data['meta']['current_page'] as int;
       final lastPage = response.data['meta']['last_page'] as int;
       final isLastPage = currentPage >= lastPage;
       paymentListPage.isLastPage = isLastPage;

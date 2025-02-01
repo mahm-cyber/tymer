@@ -55,4 +55,5 @@ class PaymentListPageRM {
   bool? isLastPage;
 
   static const fromJson = _$PaymentListPageRMFromJson;
-} 
+}
+

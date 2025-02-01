@@ -1,5 +1,9 @@
 {
   "appBarTitle": "المحفظه",
   "withdrawalContainerTitle": "سحب",
-  "topUpContainerTitle": "شحن"
+  "topUpContainerTitle": "شحن",
+  "noTransactionsText": "لا يوجد عمليات",
+  "earning": "إيراد",
+  "payout": "خروج"
 }
+˙
