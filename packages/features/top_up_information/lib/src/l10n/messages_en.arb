@@ -5,6 +5,7 @@
   "bankCardNumber": "Card Number",
   "walletNumber": "Wallet Number",
   "instantPaymentAddress": "Instant Payment Address",
+  "teldaUsername": "Telda Username",
   "beneficiaryName": "Beneficiary Name",
   "beneficiaryAddress": "Beneficiary Address",
   "bankName": "Bank Name",

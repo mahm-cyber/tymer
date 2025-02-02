@@ -1,15 +1,15 @@
 import 'package:domain_models/domain_models.dart';
 
-class OrangeCash {
-  const OrangeCash({
+class Telda {
+  const Telda({
     required this.enabled,
-    this.walletNumber,
+    this.username,
     required this.message,
-    this.type = PaymentMethodType.orangeCash,
+    this.type = PaymentMethodType.telda,
   });
 
   final bool enabled;
-  final String? walletNumber;
+  final String? username;
   final LocalizedMessage message;
   final PaymentMethodType type;
 }

@@ -30,27 +30,27 @@ class BankTransferInfo extends StatelessWidget {
           ),
           CopyableText(
             label: l10n.beneficiaryName,
-            value: bankTransfer.beneficiaryName,
+            value: bankTransfer.beneficiaryName!,
           ),
           CopyableText(
             label: l10n.beneficiaryAddress,
-            value: bankTransfer.beneficiaryAddress,
+            value: bankTransfer.beneficiaryAddress!,
           ),
           CopyableText(
             label: l10n.bankName,
-            value: bankTransfer.bankName,
+            value: bankTransfer.bankName!,
           ),
           CopyableText(
             label: l10n.accountNumber,
-            value: bankTransfer.beneficiaryAccountNumber,
+            value: bankTransfer.beneficiaryAccountNumber!,
           ),
           CopyableText(
             label: l10n.iban,
-            value: bankTransfer.iban,
+            value: bankTransfer.iban!,
           ),
           CopyableText(
             label: l10n.swiftCode,
-            value: bankTransfer.swiftCode,
+            value: bankTransfer.swiftCode!,
           ),
         ],
       ),

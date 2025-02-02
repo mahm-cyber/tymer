@@ -7,6 +7,7 @@ class PaymentMethods {
     required this.etisalatCash,
     required this.instaPay,
     required this.bankTransfer,
+    required this.telda,
     this.pickedPaymentMethodType,
   });
 
@@ -15,6 +16,7 @@ class PaymentMethods {
   final EtisalatCash etisalatCash;
   final InstaPay instaPay;
   final BankTransfer bankTransfer;
+  final Telda telda;
   final PaymentMethodType? pickedPaymentMethodType;
 
   PaymentMethods copyWith({
@@ -26,6 +28,7 @@ class PaymentMethods {
         etisalatCash: etisalatCash,
         instaPay: instaPay,
         bankTransfer: bankTransfer,
+        telda: telda,
         pickedPaymentMethodType:
             pickedPaymentMethodType ?? this.pickedPaymentMethodType,
       );

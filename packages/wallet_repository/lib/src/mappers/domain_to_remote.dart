@@ -17,6 +17,8 @@ extension PaymentMethodTypeDMtoRM on PaymentMethodType {
         return 'instapay';
       case PaymentMethodType.bankTransfer:
         return 'bank-transfer';
+      case PaymentMethodType.telda:
+        return 'telda';
     }
   }
 }

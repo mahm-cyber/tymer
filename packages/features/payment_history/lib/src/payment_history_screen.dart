@@ -213,5 +213,7 @@ String paymentMethodTypeToLocalizedString(
       return l10n.instaPay;
     case PaymentMethodType.bankTransfer:
       return l10n.bankTransfer;
+    case PaymentMethodType.telda:
+      return l10n.telda;
   }
 }

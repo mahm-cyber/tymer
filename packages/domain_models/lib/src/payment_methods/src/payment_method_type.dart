@@ -4,5 +4,6 @@ enum PaymentMethodType {
   orangeCash,
   etisalatCash,
   instaPay,
-  bankTransfer;
+  bankTransfer,
+  telda;
 }

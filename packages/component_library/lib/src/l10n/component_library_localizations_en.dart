@@ -192,6 +192,9 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
   String get instaPay => 'InstaPay';
 
   @override
+  String get telda => 'Telda';
+
+  @override
   String get bankTransfer => 'Bank Transfer';
 
   @override

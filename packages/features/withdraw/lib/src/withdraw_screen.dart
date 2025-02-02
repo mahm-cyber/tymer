@@ -4,16 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:wallet_repository/wallet_repository.dart';
+import 'package:withdraw/src/components/components.dart';
 import 'package:withdraw/src/l10n/withdraw_localizations.dart';
 import 'package:withdraw/src/withdraw_cubit.dart';
 
 import 'package:user_repository/user_repository.dart';
 
-import 'components/withdraw_amount_text_field.dart';
-import 'components/wallet_number_text_field.dart';
-import 'components/iban_number_text_field.dart';
-import 'components/beneficiary_name_text_field.dart';
-import 'components/insta_pay_text_field.dart';
 
 class WithdrawScreen extends StatelessWidget {
   const WithdrawScreen({
@@ -117,6 +113,7 @@ class WithdrawView extends StatelessWidget {
                             ],
                           ),
                         PaymentMethodType.instaPay => const InstaPayTextField(),
+                        PaymentMethodType.telda => const TeldaUsernameTextField(),
                         _ => const SizedBox(),
                       },
                       VerticalGap.medium(),
@@ -141,6 +138,7 @@ class WithdrawView extends StatelessWidget {
                   PaymentMethodType.etisalatCash => cl10n.etisalatCash,
                   PaymentMethodType.instaPay => cl10n.instaPay,
                   PaymentMethodType.bankTransfer => cl10n.bankTransfer,
+                  PaymentMethodType.telda => cl10n.telda,
                 },
               ),
             ],

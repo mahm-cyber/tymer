@@ -8,5 +8,6 @@
   "ibanNumberTextFieldLabel": "رقم الحساب البنكي",
   "beneficiaryNameTextFieldLabel": "اسم المستفيد",
   "invalidWalletNumberErrorMessage": "الرجاء إدخال رقم محفظة صحيح",
-  "instantPaymentAddressTextFieldLabel": "عنوان الدفع الفوري"
+  "instantPaymentAddressTextFieldLabel": "عنوان الدفع الفوري",
+  "teldaUsernameTextFieldLabel": "اسم مستخدم تلدا"
 }

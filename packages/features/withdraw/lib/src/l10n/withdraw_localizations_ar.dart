@@ -35,4 +35,7 @@ class WithdrawLocalizationsAr extends WithdrawLocalizations {
 
   @override
   String get instantPaymentAddressTextFieldLabel => 'عنوان الدفع الفوري';
+
+  @override
+  String get teldaUsernameTextFieldLabel => 'اسم مستخدم تلدا';
 }

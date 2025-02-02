@@ -21,7 +21,9 @@ class EtisalatCashInfo extends StatelessWidget {
           isArabic ? etisalatCash.message.ar : etisalatCash.message.en,
         ),
         CopyableText(
-            label: l10n.walletNumber, value: etisalatCash.walletNumber),
+          label: l10n.walletNumber,
+          value: etisalatCash.walletNumber!,
+        ),
       ],
     );
   }

@@ -6,7 +6,7 @@
     "configurations": [
 
         {
-            "name": "Flutter",
+            "name": "tymer",
             "request": "launch",
             "type": "dart",
             "program": "lib/main.dart",
@@ -15,7 +15,7 @@
             ]
         },
         {
-            "name": "Flutter (Profile Mode)",
+            "name": "tymer (Profile Mode)",
             "request": "launch",
             "type": "dart",
             "program": "lib/main.dart",
@@ -25,7 +25,7 @@
             ]
         },
         {
-            "name": "Flutter (Release Mode)",
+            "name": "tymer (Release Mode)",
             "request": "launch",
             "type": "dart",
             "program": "lib/main.dart",

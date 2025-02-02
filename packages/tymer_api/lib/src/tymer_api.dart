@@ -757,8 +757,8 @@ class TymerApi {
     }
   }
 
-  Future<PaymentMethodsRM> getPaymentMethods() async {
-    final url = urlBuilder.buildGetPaymentMethodsUrl();
+  Future<PaymentMethodsRM> getPaymentMethods(String paymentType) async {
+    final url = urlBuilder.buildGetPaymentMethodsUrl(paymentType);
     try {
       final response = await _dio.get(url);
       final paymentMethods =
@@ -851,6 +851,7 @@ class TymerApi {
     String? instantPaymentAddress,
     String? ibanNumber,
     String? beneficiaryName,
+    String? teldaUsername,
   }) async {
     final url = urlBuilder.buildConfirmWalletWithdrawUrl(paymentMethodType);
 
@@ -861,6 +862,7 @@ class TymerApi {
         'instant_payment_address': instantPaymentAddress,
       if (ibanNumber != null) 'iban_number': ibanNumber,
       if (beneficiaryName != null) 'beneficiary_name': beneficiaryName,
+      if (teldaUsername != null) 'telda_username': teldaUsername,
     };
 
     try {

@@ -22,6 +22,9 @@ class TopUpInformationLocalizationsEn extends TopUpInformationLocalizations {
   String get instantPaymentAddress => 'Instant Payment Address';
 
   @override
+  String get teldaUsername => 'Telda Username';
+
+  @override
   String get beneficiaryName => 'Beneficiary Name';
 
   @override

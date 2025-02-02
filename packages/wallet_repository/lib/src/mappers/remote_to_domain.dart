@@ -59,12 +59,19 @@ extension PaymentMethodsRMToDM on PaymentMethodsRM {
           en: instapayMessage['en']!,
         ),
       ),
+      telda: Telda(
+        enabled: teldaEnabled,
+        username: teldaUsername,
+        message: LocalizedMessage(
+          ar: teldaMessage['ar']!,
+          en: teldaMessage['en']!,
+        ),
+      ),
       bankTransfer: BankTransfer(
         enabled: bankTransferEnabled,
         beneficiaryName: bankTransferBeneficiaryName,
         beneficiaryAddress: bankTransferBeneficiaryAddress,
         bankName: bankTransferBankName,
-        beneficiaryAccountNumber: bankTransferBeneficiaryAccountNumber,
         iban: bankTransferIban,
         swiftCode: bankTransferSwiftCode,
         message: LocalizedMessage(

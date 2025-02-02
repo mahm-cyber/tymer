@@ -216,6 +216,7 @@ class TopUpConfirmationView extends StatelessWidget {
                     PaymentMethodType.etisalatCash => cl10n.etisalatCash,
                     PaymentMethodType.instaPay => cl10n.instaPay,
                     PaymentMethodType.bankTransfer => cl10n.bankTransfer,
+                    PaymentMethodType.telda => cl10n.telda,
                   },
                 ),
             ],

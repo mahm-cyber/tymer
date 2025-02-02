@@ -10,7 +10,7 @@ import 'package:wallet/src/l10n/wallet_localizations.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:wallet_repository/wallet_repository.dart';
 
-class WalletScreen extends StatelessWidget {
+class WalletScreen extends StatefulWidget {
   const WalletScreen({
     required this.userRepository,
     required this.walletRepository,
@@ -25,17 +25,27 @@ class WalletScreen extends StatelessWidget {
   final VoidCallback onWithdrawTapped;
 
   @override
+  State<WalletScreen> createState() => _WalletScreenState();
+}
+
+class _WalletScreenState extends State<WalletScreen>
+    with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocProvider<WalletCubit>(
       create: (_) => WalletCubit(
-        userRepository: userRepository,
-        walletRepository: walletRepository,
-        onTopUpTapped: onTopUpTapped,
-        onWithdrawTapped: onWithdrawTapped,
+        userRepository: widget.userRepository,
+        walletRepository: widget.walletRepository,
+        onTopUpTapped: widget.onTopUpTapped,
+        onWithdrawTapped: widget.onWithdrawTapped,
       ),
       child: const WalletView(),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class WalletView extends StatelessWidget {
@@ -90,7 +100,6 @@ class WalletView extends StatelessWidget {
                         child: RefreshIndicator(
                           onRefresh: cubit.reFetchFirstPage,
                           child: PagedListView.separated(
-                            
                             pagingController:
                                 cubit.transactionsPagingController,
                             separatorBuilder: (context, index) =>
@@ -151,7 +160,6 @@ class WalletView extends StatelessWidget {
     );
   }
 }
-
 
 extension WalletStateToPagingState on WalletState {
   PagingState<int, InAppTransaction> toPagingState() {

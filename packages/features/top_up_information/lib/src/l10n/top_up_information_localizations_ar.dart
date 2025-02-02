@@ -22,6 +22,9 @@ class TopUpInformationLocalizationsAr extends TopUpInformationLocalizations {
   String get instantPaymentAddress => 'عنوان الدفع الفوري';
 
   @override
+  String get teldaUsername => 'اسم مستخدم تلدا';
+
+  @override
   String get beneficiaryName => 'اسم المستفيد';
 
   @override

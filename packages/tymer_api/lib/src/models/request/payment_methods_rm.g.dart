@@ -15,41 +15,46 @@ PaymentMethodsRM _$PaymentMethodsRMFromJson(Map<String, dynamic> json) =>
           vodafoneCashEnabled:
               $checkedConvert('vodafone_cash_enabled', (v) => v as bool),
           vodafoneCashWalletNumber: $checkedConvert(
-              'vodafone_cash_wallet_number', (v) => v as String),
+              'vodafone_cash_wallet_number', (v) => v as String?),
           vodafoneCashMessage: $checkedConvert('vodafone_cash_message',
               (v) => Map<String, String>.from(v as Map)),
           orangeCashEnabled:
               $checkedConvert('orange_cash_enabled', (v) => v as bool),
           orangeCashWalletNumber:
-              $checkedConvert('orange_cash_wallet_number', (v) => v as String),
+              $checkedConvert('orange_cash_wallet_number', (v) => v as String?),
           orangeCashMessage: $checkedConvert(
               'orange_cash_message', (v) => Map<String, String>.from(v as Map)),
           etisalatCashEnabled:
               $checkedConvert('etisalat_cash_enabled', (v) => v as bool),
           etisalatCashWalletNumber: $checkedConvert(
-              'etisalat_cash_wallet_number', (v) => v as String),
+              'etisalat_cash_wallet_number', (v) => v as String?),
           etisalatCashMessage: $checkedConvert('etisalat_cash_message',
               (v) => Map<String, String>.from(v as Map)),
           instapayEnabled:
               $checkedConvert('instapay_enabled', (v) => v as bool),
           instapayInstantPaymentAddress: $checkedConvert(
-              'instapay_instant_payment_address', (v) => v as String),
+              'instapay_instant_payment_address', (v) => v as String?),
           instapayMessage: $checkedConvert(
               'instapay_message', (v) => Map<String, String>.from(v as Map)),
+          teldaEnabled: $checkedConvert('telda_enabled', (v) => v as bool),
+          teldaUsername:
+              $checkedConvert('telda_payment_address', (v) => v as String?),
+          teldaMessage: $checkedConvert(
+              'telda_message', (v) => Map<String, String>.from(v as Map)),
           bankTransferEnabled:
               $checkedConvert('bank_transfer_enabled', (v) => v as bool),
           bankTransferBeneficiaryName: $checkedConvert(
-              'bank_transfer_beneficiary_name', (v) => v as String),
+              'bank_transfer_beneficiary_name', (v) => v as String?),
           bankTransferBeneficiaryAddress: $checkedConvert(
-              'bank_transfer_beneficiary_address', (v) => v as String),
+              'bank_transfer_beneficiary_address', (v) => v as String?),
           bankTransferBankName:
-              $checkedConvert('bank_transfer_bank_name', (v) => v as String),
+              $checkedConvert('bank_transfer_bank_name', (v) => v as String?),
           bankTransferBeneficiaryAccountNumber: $checkedConvert(
-              'bank_transfer_beneficiary_account_number', (v) => v as String),
+              'bank_transfer_beneficiary_account_number', (v) => v as String?),
           bankTransferIban:
-              $checkedConvert('bank_transfer_iban', (v) => v as String),
+              $checkedConvert('bank_transfer_iban', (v) => v as String?),
           bankTransferSwiftCode:
-              $checkedConvert('bank_transfer_swift_code', (v) => v as String),
+              $checkedConvert('bank_transfer_swift_code', (v) => v as String?),
           bankTransferMessage: $checkedConvert('bank_transfer_message',
               (v) => Map<String, String>.from(v as Map)),
         );
@@ -68,6 +73,9 @@ PaymentMethodsRM _$PaymentMethodsRMFromJson(Map<String, dynamic> json) =>
         'instapayEnabled': 'instapay_enabled',
         'instapayInstantPaymentAddress': 'instapay_instant_payment_address',
         'instapayMessage': 'instapay_message',
+        'teldaEnabled': 'telda_enabled',
+        'teldaPaymentAddress': 'telda_payment_address',
+        'teldaMessage': 'telda_message',
         'bankTransferEnabled': 'bank_transfer_enabled',
         'bankTransferBeneficiaryName': 'bank_transfer_beneficiary_name',
         'bankTransferBeneficiaryAddress': 'bank_transfer_beneficiary_address',

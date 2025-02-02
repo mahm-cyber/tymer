@@ -21,8 +21,9 @@ class InstaPayInfo extends StatelessWidget {
           isArabic ? instaPay.message.ar : instaPay.message.en,
         ),
         CopyableText(
-            label: l10n.instantPaymentAddress,
-            value: instaPay.instantPaymentAddress),
+          label: l10n.instantPaymentAddress,
+          value: instaPay.instantPaymentAddress!,
+        ),
       ],
     );
   }

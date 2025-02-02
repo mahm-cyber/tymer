@@ -14,8 +14,8 @@ class WalletRepository {
   final TymerApi remoteApi;
   final WalletChangeNotifier changeNotifier;
 
-  Future<PaymentMethods> getPaymentMethods() async {
-    final paymentMethods = await remoteApi.getPaymentMethods();
+  Future<PaymentMethods> getPaymentMethods(PaymentType paymentType) async {
+    final paymentMethods = await remoteApi.getPaymentMethods(paymentType.toRemoteModel());
     final paymentMethodsDomain = paymentMethods.toDomainModel();
     return paymentMethodsDomain;
   }
@@ -58,6 +58,7 @@ class WalletRepository {
     String? instantPaymentAddress,
     String? ibanNumber,
     String? beneficiaryName,
+    String? teldaUsername,
   }) async {
     final paymentMethodTypeString = paymentMethodType.toRemoteModel();
 
@@ -69,6 +70,7 @@ class WalletRepository {
         instantPaymentAddress: instantPaymentAddress,
         ibanNumber: ibanNumber,
         beneficiaryName: beneficiaryName,
+        teldaUsername: teldaUsername,
       );
     } catch (e) {
       rethrow;

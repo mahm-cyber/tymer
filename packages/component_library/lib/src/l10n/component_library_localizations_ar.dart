@@ -192,6 +192,9 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
   String get instaPay => 'إنستا باي';
 
   @override
+  String get telda => 'تلدا';
+
+  @override
   String get bankTransfer => 'تحويل بنكي';
 
   @override

@@ -4,3 +4,4 @@ export 'orange_cash_info.dart';
 export 'vodafone_cash_info.dart';
 export 'bank_transfer_info.dart';
 export 'copyable_text.dart';
+export 'telda_info.dart';

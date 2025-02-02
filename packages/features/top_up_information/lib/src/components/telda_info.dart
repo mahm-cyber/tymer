@@ -3,13 +3,13 @@ import 'package:domain_models/domain_models.dart';
 import 'package:top_up_information/src/components/components.dart';
 import 'package:top_up_information/top_up_information.dart';
 
-class VodafoneCashInfo extends StatelessWidget {
-  const VodafoneCashInfo({
-    required this.vodafoneCash,
+class TeldaInfo extends StatelessWidget {
+  const TeldaInfo({
+    required this.telda,
     super.key,
   });
 
-  final VodafoneCash vodafoneCash;
+  final Telda telda;
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +18,11 @@ class VodafoneCashInfo extends StatelessWidget {
     return Column(
       children: [
         Text(
-          isArabic ? vodafoneCash.message.ar : vodafoneCash.message.en,
+          isArabic ? telda.message.ar : telda.message.en,
         ),
         CopyableText(
-          label: l10n.walletNumber,
-          value: vodafoneCash.walletNumber!,
+          label: l10n.teldaUsername,
+          value: telda.username!,
         ),
       ],
     );

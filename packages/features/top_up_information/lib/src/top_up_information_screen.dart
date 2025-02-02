@@ -79,6 +79,9 @@ class TopUpInformationView extends StatelessWidget {
               content =
                   BankTransferInfo(bankTransfer: paymentMethods.bankTransfer);
               break;
+            case PaymentMethodType.telda:
+              content = TeldaInfo(telda: paymentMethods.telda);
+              break;
             default:
               content = Center(child: Text(l10n.error));
           }
@@ -120,6 +123,7 @@ class TopUpInformationView extends StatelessWidget {
                   PaymentMethodType.etisalatCash => clL10n.etisalatCash,
                   PaymentMethodType.instaPay => clL10n.instaPay,
                   PaymentMethodType.bankTransfer => clL10n.bankTransfer,
+                  PaymentMethodType.telda => clL10n.telda,
                 },
               ),
             ],

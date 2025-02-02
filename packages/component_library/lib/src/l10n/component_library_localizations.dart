@@ -461,6 +461,12 @@ abstract class ComponentLibraryLocalizations {
   /// **'InstaPay'**
   String get instaPay;
 
+  /// No description provided for @telda.
+  ///
+  /// In en, this message translates to:
+  /// **'Telda'**
+  String get telda;
+
   /// No description provided for @bankTransfer.
   ///
   /// In en, this message translates to:

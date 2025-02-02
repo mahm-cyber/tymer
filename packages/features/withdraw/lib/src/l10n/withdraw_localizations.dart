@@ -154,6 +154,12 @@ abstract class WithdrawLocalizations {
   /// In en, this message translates to:
   /// **'Instant Payment Address'**
   String get instantPaymentAddressTextFieldLabel;
+
+  /// No description provided for @teldaUsernameTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Telda Username'**
+  String get teldaUsernameTextFieldLabel;
 }
 
 class _WithdrawLocalizationsDelegate extends LocalizationsDelegate<WithdrawLocalizations> {

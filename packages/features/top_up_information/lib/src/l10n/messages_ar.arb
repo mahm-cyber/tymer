@@ -1,14 +1,15 @@
 {
   "appBarTitle": "بيانات الشحن",
   "bankCardNumber": "رقم البطاقة",
-  "walletNumber": "رقم المحفظة",
+  "walletNumber": "رقم المحفظة",  
   "instantPaymentAddress": "عنوان الدفع الفوري",
+  "teldaUsername": "اسم مستخدم تلدا",
   "beneficiaryName": "اسم المستفيد",
   "beneficiaryAddress": "عنوان المستفيد",
   "bankName": "اسم البنك",
   "accountNumber": "رقم الحساب",
   "iban": "رقم الآيبان",
-  "swiftCode": "رمز السويفت",
+  "swiftCode": "رمز السويفت",˙
   "messageAr": "الرسالة (عربي)",
   "messageEn": "الرسالة (إنجليزي)",
   "error": "حدث خطأ. يرجى المحاولة مرة أخرى.",

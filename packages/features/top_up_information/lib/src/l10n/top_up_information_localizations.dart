@@ -125,6 +125,12 @@ abstract class TopUpInformationLocalizations {
   /// **'Instant Payment Address'**
   String get instantPaymentAddress;
 
+  /// No description provided for @teldaUsername.
+  ///
+  /// In en, this message translates to:
+  /// **'Telda Username'**
+  String get teldaUsername;
+
   /// No description provided for @beneficiaryName.
   ///
   /// In en, this message translates to:

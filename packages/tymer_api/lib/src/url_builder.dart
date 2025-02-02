@@ -157,8 +157,8 @@ class UrlBuilder {
     return '$baseUrl/settings/service-pricing';
   }
 
-  String buildGetPaymentMethodsUrl() {
-    return '$baseUrl/settings/top-up-requests';
+  String buildGetPaymentMethodsUrl(String paymentType) {
+    return '$baseUrl/settings/$paymentType-requests';
   }
 
   String buildGetInAppTransactionsUrl({

@@ -151,6 +151,27 @@ class WithdrawCubit extends Cubit<WithdrawState> {
       ),
     );
     emit(newState);
+  } 
+
+  void onTeldaUsernameChanged(String? newValue) {
+    final previousTeldaUsername = state.teldaUsername;
+    final shouldValidate = previousTeldaUsername.isNotValid;
+    final newState = state.copyWith(
+      teldaUsername: shouldValidate
+          ? Dynamic<String?>.validated(newValue)
+          : Dynamic<String?>.unvalidated(newValue),
+    );
+    emit(newState);
+  }
+
+  void onTeldaUsernameUnfocused() { 
+    final newState = state.copyWith(
+      teldaUsername: Dynamic<String?>.validated(
+        state.teldaUsername.value,
+        isRequired: true,
+      ),
+    );
+    emit(newState);
   }
 
   void onSubmit() async {
@@ -172,6 +193,11 @@ class WithdrawCubit extends Cubit<WithdrawState> {
       isRequired: true,
     );
 
+    final teldaUsername = Dynamic<String?>.validated(
+      state.teldaUsername.value,
+      isRequired: true,
+    );
+
     final ibanNumber = Dynamic<String?>.validated(
       state.ibanNumber.value,
       isRequired: true,
@@ -188,6 +214,7 @@ class WithdrawCubit extends Cubit<WithdrawState> {
       if (instantPaymentAddress.value != null) instantPaymentAddress,
       if (ibanNumber.value != null) ibanNumber,
       if (beneficiaryName.value != null) beneficiaryName,
+      if (teldaUsername.value != null) teldaUsername,
     ]);
 
     final newState = state.copyWith(
@@ -196,6 +223,7 @@ class WithdrawCubit extends Cubit<WithdrawState> {
       instantPaymentAddress: instantPaymentAddress,
       ibanNumber: ibanNumber,
       beneficiaryName: beneficiaryName,
+      teldaUsername: teldaUsername,
       submissionStatus: isFormValid
           ? FormzSubmissionStatus.inProgress
           : FormzSubmissionStatus.initial,
@@ -211,6 +239,7 @@ class WithdrawCubit extends Cubit<WithdrawState> {
           amount: int.parse(withdrawAmount.value!),
           walletNumber: walletNumber.value,
           instantPaymentAddress: instantPaymentAddress.value,
+          teldaUsername: teldaUsername.value,
         );
         emit(state.copyWith(submissionStatus: FormzSubmissionStatus.success));
       } catch (error) {

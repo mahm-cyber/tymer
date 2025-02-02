@@ -20,7 +20,10 @@ class OrangeCashInfo extends StatelessWidget {
         Text(
           isArabic ? orangeCash.message.ar : orangeCash.message.en,
         ),
-        CopyableText(label: l10n.walletNumber, value: orangeCash.walletNumber),
+        CopyableText(
+          label: l10n.walletNumber,
+          value: orangeCash.walletNumber!,
+        ),
       ],
     );
   }

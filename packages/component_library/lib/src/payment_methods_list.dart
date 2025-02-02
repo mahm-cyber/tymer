@@ -21,75 +21,82 @@ class PaymentMethodsList extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = TymerTheme.of(context);
     final clL10n = ComponentLibraryLocalizations.of(context);
-    return Expanded(
-      child: ListView(
-        shrinkWrap: true,
-        children: [
-          VerticalGap.xxLarge(),
-          if (bankCardEnabled)
-            ListTile(
-              title: Text(clL10n.bankCard),
-              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-              leading: const Icon(Icons.credit_card),
-              onTap: () => onPaymentMethodTapped(PaymentMethodType.bankCard),
-            ),
-          if (paymentMethods.vodafoneCash.enabled)
-            ListTile(
-              title: Text(clL10n.vodafoneCash),
-              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-              leading: const Icon(Icons.phone_android),
-              onTap: () =>
-                  onPaymentMethodTapped(PaymentMethodType.vodafoneCash),
-            ),
-          if (paymentMethods.orangeCash.enabled)
-            ListTile(
-              title: Text(clL10n.orangeCash),
-              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-              leading: const Icon(Icons.phone_android),
-              onTap: () => onPaymentMethodTapped(PaymentMethodType.orangeCash),
-            ),
-          if (paymentMethods.etisalatCash.enabled)
-            ListTile(
-              title: Text(clL10n.etisalatCash),
-              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-              leading: const Icon(Icons.phone_android),
-              onTap: () =>
-                  onPaymentMethodTapped(PaymentMethodType.etisalatCash),
-            ),
-          if (paymentMethods.instaPay.enabled)
-            ListTile(
-              title: Text(clL10n.instaPay),
-              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-              leading: const Icon(Icons.flash_on),
-              onTap: () => onPaymentMethodTapped(PaymentMethodType.instaPay),
-            ),
-          if (paymentMethods.bankTransfer.enabled)
-            ListTile(
-              title: Text(clL10n.bankTransfer),
-              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-              leading: const Icon(Icons.account_balance),
-              onTap: () =>
-                  onPaymentMethodTapped(PaymentMethodType.bankTransfer),
-            ),
-          
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton.icon(
-                style: TextButton.styleFrom(
-                  padding: EdgeInsets.symmetric(
-                    vertical: theme.screenMargin,
-                    horizontal: theme.screenMargin,
-                  ),
-                ),
-                onPressed: onViewHistoryTapped,
-                icon: const Icon(Icons.history),
-                label: Text(viewHistoryButtonLabel),
-              ),
-            ],
+    return ListView(
+      shrinkWrap: true,
+      children: [
+        VerticalGap.xxLarge(),
+        if (bankCardEnabled)
+          ListTile(
+            title: Text(clL10n.bankCard),
+            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+            leading: const Icon(Icons.credit_card),
+            onTap: () => onPaymentMethodTapped(PaymentMethodType.bankCard),
           ),
-        ],
-      ),
+        if (paymentMethods.vodafoneCash.enabled)
+          ListTile(
+            title: Text(clL10n.vodafoneCash),
+            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+            leading: const Icon(Icons.phone_android),
+            onTap: () => onPaymentMethodTapped(PaymentMethodType.vodafoneCash),
+          ),
+        if (paymentMethods.orangeCash.enabled)
+          ListTile(
+            title: Text(clL10n.orangeCash),
+            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+            leading: const Icon(Icons.phone_android),
+            onTap: () => onPaymentMethodTapped(PaymentMethodType.orangeCash),
+          ),
+        if (paymentMethods.etisalatCash.enabled)
+          ListTile(
+            title: Text(clL10n.etisalatCash),
+            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+            leading: const Icon(Icons.phone_android),
+            onTap: () => onPaymentMethodTapped(PaymentMethodType.etisalatCash),
+          ),
+        if (paymentMethods.instaPay.enabled)
+          ListTile(
+            title: Text(clL10n.instaPay),
+            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+            leading: const Icon(Icons.flash_on),
+            onTap: () => onPaymentMethodTapped(PaymentMethodType.instaPay),
+          ),
+        if (paymentMethods.bankTransfer.enabled)
+          ListTile(
+            title: Text(clL10n.bankTransfer),
+            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+            leading: const Icon(Icons.account_balance),
+            onTap: () => onPaymentMethodTapped(PaymentMethodType.bankTransfer),
+          ),
+        if (paymentMethods.telda.enabled)
+          ListTile(
+            title: Text(clL10n.telda),
+            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+            leading: const Padding(
+              padding: EdgeInsetsDirectional.only(start: 3.0),
+              child: Text(
+                '~',
+                style: TextStyle(fontSize: 40),
+              ),
+            ),
+            onTap: () => onPaymentMethodTapped(PaymentMethodType.telda),
+          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton.icon(
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.symmetric(
+                  vertical: theme.screenMargin,
+                  horizontal: theme.screenMargin,
+                ),
+              ),
+              onPressed: onViewHistoryTapped,
+              icon: const Icon(Icons.history),
+              label: Text(viewHistoryButtonLabel),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

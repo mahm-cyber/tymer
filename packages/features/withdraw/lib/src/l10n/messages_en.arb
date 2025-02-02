@@ -8,6 +8,7 @@
   "ibanNumberTextFieldLabel": "IBAN Number",
   "beneficiaryNameTextFieldLabel": "Beneficiary Name",
   "invalidWalletNumberErrorMessage": "Please enter a valid wallet number",
-  "instantPaymentAddressTextFieldLabel": "Instant Payment Address"
+  "instantPaymentAddressTextFieldLabel": "Instant Payment Address",
+  "teldaUsernameTextFieldLabel": "Telda Username"
 }
   

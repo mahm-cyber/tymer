@@ -6,69 +6,79 @@ part 'payment_methods_rm.g.dart';
 class PaymentMethodsRM {
   const PaymentMethodsRM({
     required this.vodafoneCashEnabled,
-    required this.vodafoneCashWalletNumber,
+    this.vodafoneCashWalletNumber,
     required this.vodafoneCashMessage,
     required this.orangeCashEnabled,
-    required this.orangeCashWalletNumber,
+    this.orangeCashWalletNumber,
     required this.orangeCashMessage,
     required this.etisalatCashEnabled,
-    required this.etisalatCashWalletNumber,
+    this.etisalatCashWalletNumber,
     required this.etisalatCashMessage,
     required this.instapayEnabled,
-    required this.instapayInstantPaymentAddress,
+    this.instapayInstantPaymentAddress,
     required this.instapayMessage,
+    required this.teldaEnabled,
+    this.teldaUsername,
+    required this.teldaMessage,
     required this.bankTransferEnabled,
-    required this.bankTransferBeneficiaryName,
-    required this.bankTransferBeneficiaryAddress,
-    required this.bankTransferBankName,
-    required this.bankTransferBeneficiaryAccountNumber,
-    required this.bankTransferIban,
-    required this.bankTransferSwiftCode,
+    this.bankTransferBeneficiaryName,
+    this.bankTransferBeneficiaryAddress,
+    this.bankTransferBankName,
+    this.bankTransferBeneficiaryAccountNumber,
+    this.bankTransferIban,
+    this.bankTransferSwiftCode,
     required this.bankTransferMessage,
   });
 
   @JsonKey(name: 'vodafone_cash_enabled')
   final bool vodafoneCashEnabled;
   @JsonKey(name: 'vodafone_cash_wallet_number')
-  final String vodafoneCashWalletNumber;
+  final String? vodafoneCashWalletNumber;
   @JsonKey(name: 'vodafone_cash_message')
   final Map<String, String> vodafoneCashMessage;
 
   @JsonKey(name: 'orange_cash_enabled')
   final bool orangeCashEnabled;
   @JsonKey(name: 'orange_cash_wallet_number')
-  final String orangeCashWalletNumber;
+  final String? orangeCashWalletNumber;
   @JsonKey(name: 'orange_cash_message')
   final Map<String, String> orangeCashMessage;
 
   @JsonKey(name: 'etisalat_cash_enabled')
   final bool etisalatCashEnabled;
   @JsonKey(name: 'etisalat_cash_wallet_number')
-  final String etisalatCashWalletNumber;
+  final String? etisalatCashWalletNumber;
   @JsonKey(name: 'etisalat_cash_message')
   final Map<String, String> etisalatCashMessage;
 
   @JsonKey(name: 'instapay_enabled')
   final bool instapayEnabled;
   @JsonKey(name: 'instapay_instant_payment_address')
-  final String instapayInstantPaymentAddress;
+  final String? instapayInstantPaymentAddress;
   @JsonKey(name: 'instapay_message')
   final Map<String, String> instapayMessage;
+
+  @JsonKey(name: 'telda_enabled')
+  final bool teldaEnabled;
+  @JsonKey(name: 'telda_username')
+  final String? teldaUsername;
+  @JsonKey(name: 'telda_message')
+  final Map<String, String> teldaMessage;
 
   @JsonKey(name: 'bank_transfer_enabled')
   final bool bankTransferEnabled;
   @JsonKey(name: 'bank_transfer_beneficiary_name')
-  final String bankTransferBeneficiaryName;
+  final String? bankTransferBeneficiaryName;
   @JsonKey(name: 'bank_transfer_beneficiary_address')
-  final String bankTransferBeneficiaryAddress;
+  final String? bankTransferBeneficiaryAddress;
   @JsonKey(name: 'bank_transfer_bank_name')
-  final String bankTransferBankName;
+  final String? bankTransferBankName;
   @JsonKey(name: 'bank_transfer_beneficiary_account_number')
-  final String bankTransferBeneficiaryAccountNumber;
+  final String? bankTransferBeneficiaryAccountNumber;
   @JsonKey(name: 'bank_transfer_iban')
-  final String bankTransferIban;
+  final String? bankTransferIban;
   @JsonKey(name: 'bank_transfer_swift_code')
-  final String bankTransferSwiftCode;
+  final String? bankTransferSwiftCode;
   @JsonKey(name: 'bank_transfer_message')
   final Map<String, String> bankTransferMessage;
 
