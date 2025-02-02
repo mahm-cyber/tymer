@@ -153,53 +153,51 @@ class TopUpConfirmationView extends StatelessWidget {
                     toolbarHeight: 160,
                   ),
                   body: Center(
-                    child: Expanded(
-                      child: ListView(
-                        shrinkWrap: true,
-                        padding: EdgeInsets.all(theme.screenMargin),
-                        children: [
-                          VerticalGap.large(),
-                          const AmountTextField(),
-                          VerticalGap.medium(),
-                          if (state.paymentMethods?.pickedPaymentMethodType ==
-                              PaymentMethodType.instaPay)
-                            const InstantPaymentAddressTextField()
-                          else if ([
-                            PaymentMethodType.vodafoneCash,
-                            PaymentMethodType.orangeCash,
-                            PaymentMethodType.etisalatCash,
-                          ].contains(
-                              state.paymentMethods?.pickedPaymentMethodType))
-                            const WalletNumberTextField(),
-                          VerticalGap.medium(),
-                          if (state.paymentMethods?.pickedPaymentMethodType !=
-                              PaymentMethodType.bankCard)
-                            ImagePickerTextField(
-                              imageFileNameSC: cubit.imageFileNameSC,
-                              onImagePickerTapped: cubit.onImagePickerTapped,
-                              deletePickedImage: cubit.deletePickedImage,
-                              onBackButtonPressed: cubit.onBackButtonPressed,
-                              isSubmissionInProgress: isSubmissionInProgress,
-                              imageError: state.file.isNotValid
-                                  ? state.file.error
-                                  : null,
-                              hasPickedImage: state.file.value != null &&
-                                  state.file.isValid,
-                              imageBytes: state.file.value?.readAsBytesSync(),
-                              isImagePicked: state.file.value != null,
-                            ),
-                          VerticalGap.medium(),
-                          if (isSubmissionInProgress)
-                            TymerElevatedButton.inProgress(
-                              label: l10n.confirmingButtonLabel,
-                            )
-                          else
-                            TymerElevatedButton(
-                              onTap: cubit.onSubmit,
-                              label: l10n.confirmButtonLabel,
-                            ),
-                        ],
-                      ),
+                    child: ListView(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.all(theme.screenMargin),
+                      children: [
+                        VerticalGap.large(),
+                        const AmountTextField(),
+                        VerticalGap.medium(),
+                        if (state.paymentMethods?.pickedPaymentMethodType ==
+                            PaymentMethodType.instaPay)
+                          const InstantPaymentAddressTextField()
+                        else if ([
+                          PaymentMethodType.vodafoneCash,
+                          PaymentMethodType.orangeCash,
+                          PaymentMethodType.etisalatCash,
+                        ].contains(
+                            state.paymentMethods?.pickedPaymentMethodType))
+                          const WalletNumberTextField(),
+                        VerticalGap.medium(),
+                        if (state.paymentMethods?.pickedPaymentMethodType !=
+                            PaymentMethodType.bankCard)
+                          ImagePickerTextField(
+                            imageFileNameSC: cubit.imageFileNameSC,
+                            onImagePickerTapped: cubit.onImagePickerTapped,
+                            deletePickedImage: cubit.deletePickedImage,
+                            onBackButtonPressed: cubit.onBackButtonPressed,
+                            isSubmissionInProgress: isSubmissionInProgress,
+                            imageError: state.file.isNotValid
+                                ? state.file.error
+                                : null,
+                            hasPickedImage: state.file.value != null &&
+                                state.file.isValid,
+                            imageBytes: state.file.value?.readAsBytesSync(),
+                            isImagePicked: state.file.value != null,
+                          ),
+                        VerticalGap.medium(),
+                        if (isSubmissionInProgress)
+                          TymerElevatedButton.inProgress(
+                            label: l10n.confirmingButtonLabel,
+                          )
+                        else
+                          TymerElevatedButton(
+                            onTap: cubit.onSubmit,
+                            label: l10n.confirmButtonLabel,
+                          ),
+                      ],
                     ),
                   ),
                 ),

@@ -69,6 +69,7 @@ extension PaymentMethodsRMToDM on PaymentMethodsRM {
       ),
       bankTransfer: BankTransfer(
         enabled: bankTransferEnabled,
+        beneficiaryAccountNumber: bankTransferBeneficiaryAccountNumber,
         beneficiaryName: bankTransferBeneficiaryName,
         beneficiaryAddress: bankTransferBeneficiaryAddress,
         bankName: bankTransferBankName,
