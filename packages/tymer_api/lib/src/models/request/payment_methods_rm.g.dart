@@ -37,8 +37,7 @@ PaymentMethodsRM _$PaymentMethodsRMFromJson(Map<String, dynamic> json) =>
           instapayMessage: $checkedConvert(
               'instapay_message', (v) => Map<String, String>.from(v as Map)),
           teldaEnabled: $checkedConvert('telda_enabled', (v) => v as bool),
-          teldaUsername:
-              $checkedConvert('telda_payment_address', (v) => v as String?),
+          teldaUsername: $checkedConvert('telda_username', (v) => v as String?),
           teldaMessage: $checkedConvert(
               'telda_message', (v) => Map<String, String>.from(v as Map)),
           bankTransferEnabled:
@@ -74,7 +73,7 @@ PaymentMethodsRM _$PaymentMethodsRMFromJson(Map<String, dynamic> json) =>
         'instapayInstantPaymentAddress': 'instapay_instant_payment_address',
         'instapayMessage': 'instapay_message',
         'teldaEnabled': 'telda_enabled',
-        'teldaPaymentAddress': 'telda_payment_address',
+        'teldaUsername': 'telda_username',
         'teldaMessage': 'telda_message',
         'bankTransferEnabled': 'bank_transfer_enabled',
         'bankTransferBeneficiaryName': 'bank_transfer_beneficiary_name',
