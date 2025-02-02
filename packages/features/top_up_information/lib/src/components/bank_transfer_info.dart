@@ -14,43 +14,45 @@ class BankTransferInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = TopUpInformationLocalizations.of(context);
-    return ListView(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              _isArabic(context)
-                  ? bankTransfer.message.ar
-                  : bankTransfer.message.en,
-            ),
-          ],
-        ),
-        CopyableText(
-          label: l10n.beneficiaryName,
-          value: bankTransfer.beneficiaryName!,
-        ),
-        CopyableText(
-          label: l10n.beneficiaryAddress,
-          value: bankTransfer.beneficiaryAddress!,
-        ),
-        CopyableText(
-          label: l10n.bankName,
-          value: bankTransfer.bankName!,
-        ),
-        CopyableText(
-          label: l10n.accountNumber,
-          value: bankTransfer.beneficiaryAccountNumber!,
-        ),
-        CopyableText(
-          label: l10n.iban,
-          value: bankTransfer.iban!,
-        ),
-        CopyableText(
-          label: l10n.swiftCode,
-          value: bankTransfer.swiftCode!,
-        ),
-      ],
+    return Expanded(
+      child: ListView(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                _isArabic(context)
+                    ? bankTransfer.message.ar
+                    : bankTransfer.message.en,
+              ),
+            ],
+          ),
+          CopyableText(
+            label: l10n.beneficiaryName,
+            value: bankTransfer.beneficiaryName!,
+          ),
+          CopyableText(
+            label: l10n.beneficiaryAddress,
+            value: bankTransfer.beneficiaryAddress!,
+          ),
+          CopyableText(
+            label: l10n.bankName,
+            value: bankTransfer.bankName!,
+          ),
+          CopyableText(
+            label: l10n.accountNumber,
+            value: bankTransfer.beneficiaryAccountNumber!,
+          ),
+          CopyableText(
+            label: l10n.iban,
+            value: bankTransfer.iban!,
+          ),
+          CopyableText(
+            label: l10n.swiftCode,
+            value: bankTransfer.swiftCode!,
+          ),
+        ],
+      ),
     );
   }
 }
