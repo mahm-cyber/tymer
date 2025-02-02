@@ -9,6 +9,7 @@
   "beneficiaryNameTextFieldLabel": "Beneficiary Name",
   "invalidWalletNumberErrorMessage": "Please enter a valid wallet number",
   "instantPaymentAddressTextFieldLabel": "Instant Payment Address",
-  "teldaUsernameTextFieldLabel": "Telda Username"
+  "teldaUsernameTextFieldLabel": "Telda Username",
+  "ibanNumberTextFieldError": "Please enter a valid IBAN number"
 }
   

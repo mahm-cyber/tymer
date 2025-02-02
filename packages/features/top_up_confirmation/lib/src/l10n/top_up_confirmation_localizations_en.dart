@@ -29,4 +29,10 @@ class TopUpConfirmationLocalizationsEn extends TopUpConfirmationLocalizations {
 
   @override
   String get instantPaymentAddressTextFieldLabel => 'Instant Payment Address';
+
+  @override
+  String get isNotEgyptianMobileErrorMessage => 'Please enter a valid number';
+
+  @override
+  String get teldaUsernameTextFieldLabel => 'Telda Username';
 }

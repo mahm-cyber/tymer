@@ -20,3 +20,4 @@ export 'src/app_bar_title_container.dart';
 export 'src/l10n/component_library_localizations.dart';
 export 'src/service_request/service_request.dart';
 export 'src/image_picker.dart';
+export 'src/chat/chat.dart';

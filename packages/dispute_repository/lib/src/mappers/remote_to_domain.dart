@@ -39,7 +39,7 @@ extension DisputeListPageRMtoDM on DisputeListPageRM {
 }
 
 extension DisputeMessageRMtoDM on DisputeMessageRM {
-  DisputeMessage toDomainModel(int disputeId) {
+  ChatMessage toDomainModel(int disputeId) {
     const filesUrl = '${UrlBuilder.baseUrl}/files';
     try {
       final messageUri = chatImages.isNotEmpty
@@ -58,7 +58,7 @@ extension DisputeMessageRMtoDM on DisputeMessageRM {
                   : '';
 
       final dateDM = DateTime.parse(createdAt).toLocal();
-      final chatMessage = DisputeMessage(
+      final chatMessage = ChatMessage(
         id: id,
         text: content,
         files: [
@@ -114,7 +114,7 @@ extension DisputeChatRMtoDM on DisputeChatRM {
       final formattedDate =
           '${remoteDate.split('-')[0]}-$formattedMonth-$formattedDay';
       final date = DateTime.parse(formattedDate);
-      final messages = groupedMessagesMap['messages'] as List<DisputeMessage>;
+      final messages = groupedMessagesMap['messages'] as List<ChatMessage>;
       groupedMessagesList.add(
         DateGroupedMessages(
           date: date,
@@ -128,4 +128,3 @@ extension DisputeChatRMtoDM on DisputeChatRM {
     );
   }
 }
-

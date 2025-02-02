@@ -125,15 +125,13 @@ class ProvideServiceView extends StatelessWidget {
                                             right: theme.screenMargin,
                                             top: Spacing.xLarge,
                                           ),
-                                          itemCount: state
-                                              .ascendingSortedServiceRequests!
-                                              .length,
+                                          itemCount:
+                                              state.serviceRequests!.length,
                                           separatorBuilder: (context, index) =>
                                               VerticalGap.medium(),
                                           itemBuilder: (context, index) {
-                                            final service = state
-                                                    .ascendingSortedServiceRequests![
-                                                index];
+                                            final service =
+                                                state.serviceRequests![index];
                                             return ServiceRequestCard(
                                               shouldShowId: false,
                                               onTapped: () => cubit

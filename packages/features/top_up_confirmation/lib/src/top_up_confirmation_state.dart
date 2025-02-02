@@ -6,6 +6,7 @@ class TopUpConfirmationState extends Equatable {
     this.amount = const Dynamic<String?>.unvalidated(),
     this.walletNumber = const Dynamic<String?>.unvalidated(),
     this.instantPaymentAddress = const Dynamic<String?>.unvalidated(),
+    this.teldaUsername = const Dynamic<String?>.unvalidated(),
     this.file = const FileSize<File?>.unvalidated(),
     this.imageFileName,
     this.isImagePickerBottomSheetVisible = false,
@@ -17,6 +18,7 @@ class TopUpConfirmationState extends Equatable {
   final Dynamic<String?> amount;
   final Dynamic<String?> walletNumber;
   final Dynamic<String?> instantPaymentAddress;
+  final Dynamic<String?> teldaUsername;
   final FileSize<File?> file;
   final String? imageFileName;
   final bool isImagePickerBottomSheetVisible;
@@ -28,6 +30,7 @@ class TopUpConfirmationState extends Equatable {
     Dynamic<String?>? amount,
     Dynamic<String?>? walletNumber,
     Dynamic<String?>? instantPaymentAddress,
+    Dynamic<String?>? teldaUsername,
     FileSize<File?>? file,
     String? imageFileName,
     bool? isImagePickerBottomSheetVisible,
@@ -40,6 +43,7 @@ class TopUpConfirmationState extends Equatable {
       walletNumber: walletNumber ?? this.walletNumber,
       instantPaymentAddress:
           instantPaymentAddress ?? this.instantPaymentAddress,
+      teldaUsername: teldaUsername ?? this.teldaUsername,
       file: file ?? this.file,
       imageFileName: imageFileName ?? this.imageFileName,
       isImagePickerBottomSheetVisible:
@@ -55,6 +59,7 @@ class TopUpConfirmationState extends Equatable {
         amount,
         walletNumber,
         instantPaymentAddress,
+        teldaUsername,
         file,
         imageFileName,
         isImagePickerBottomSheetVisible,

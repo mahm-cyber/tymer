@@ -1,4 +1,3 @@
-import 'package:chat/src/components/image_widget.dart';
 import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,7 @@ class MessageFileWidget extends StatelessWidget {
     required this.userToken,
   });
 
-  final DisputeMessage message;
+  final ChatMessage message;
   final Function(String p1) openFileInExternalApp;
   final String userToken;
 
@@ -43,16 +42,15 @@ class MessageFileWidget extends StatelessWidget {
                   size: 35,
                   color: isSentByMe ? null : Colors.white,
                 ),
-                 PositionedDirectional(
+                PositionedDirectional(
                   end: 0,
                   bottom: 0,
-                  top: 0  ,
+                  top: 0,
                   start: 0,
                   child: Icon(
                     Icons.download,
                     size: 20,
                     color: isSentByMe ? null : Colors.white,
-
                   ),
                 )
               ],

@@ -1,8 +1,8 @@
 import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
-
 import 'package:video_player/video_player.dart';
+
 
 class Video extends StatelessWidget {
   const Video({
@@ -11,7 +11,7 @@ class Video extends StatelessWidget {
     required this.userToken,
   });
 
-  final DisputeMessage message;
+  final ChatMessage message;
   final String userToken;
 
   @override

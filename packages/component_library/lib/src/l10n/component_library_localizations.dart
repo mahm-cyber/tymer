@@ -509,23 +509,59 @@ abstract class ComponentLibraryLocalizations {
   /// **'Capture'**
   String get bottomSheetCaptureButton;
 
-  /// No description provided for @pending.
+  /// No description provided for @pendingPaymentStatus.
   ///
   /// In en, this message translates to:
   /// **'Pending'**
-  String get pending;
+  String get pendingPaymentStatus;
 
-  /// No description provided for @approved.
+  /// No description provided for @approvedPaymentStatus.
   ///
   /// In en, this message translates to:
   /// **'Approved'**
-  String get approved;
+  String get approvedPaymentStatus;
 
-  /// No description provided for @rejected.
+  /// No description provided for @rejectedPaymentStatus.
   ///
   /// In en, this message translates to:
   /// **'Rejected'**
-  String get rejected;
+  String get rejectedPaymentStatus;
+
+  /// No description provided for @uploadFileIconLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'File'**
+  String get uploadFileIconLabel;
+
+  /// No description provided for @uploadImageFromGalleryIconLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get uploadImageFromGalleryIconLabel;
+
+  /// No description provided for @captureImageIconLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Capture'**
+  String get captureImageIconLabel;
+
+  /// No description provided for @deleteFileIconLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get deleteFileIconLabel;
+
+  /// No description provided for @noMessagesIndicator.
+  ///
+  /// In en, this message translates to:
+  /// **'No messages yet'**
+  String get noMessagesIndicator;
+
+  /// No description provided for @messageSentByMeCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get messageSentByMeCardTitle;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

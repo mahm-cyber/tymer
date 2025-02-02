@@ -3,11 +3,12 @@
   "withdrawAmountTextFieldLabel": "مبلغ السحب",
   "withdrawAmountTextFieldHint": "أدخل مبلغ السحب",
   "isNotNumberTextFieldErrorMessage": "الرجاء إدخال رقم صحيح",
-  "withdrawConfirmButtonLabel": "طلب السحب",
+  "withdrawConfirmButtonLabel": "طلب السحب",  
   "walletNumberTextFieldLabel": "رقم المحفظة",
   "ibanNumberTextFieldLabel": "رقم الحساب البنكي",
   "beneficiaryNameTextFieldLabel": "اسم المستفيد",
   "invalidWalletNumberErrorMessage": "الرجاء إدخال رقم محفظة صحيح",
   "instantPaymentAddressTextFieldLabel": "عنوان الدفع الفوري",
-  "teldaUsernameTextFieldLabel": "اسم مستخدم تلدا"
+  "teldaUsernameTextFieldLabel": "اسم مستخدم تلدا",
+  "ibanNumberTextFieldError": "الرجاء إدخال رقم حساب بنكي صحيح"
 }

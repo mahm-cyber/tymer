@@ -216,11 +216,29 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
   String get bottomSheetCaptureButton => 'Capture';
 
   @override
-  String get pending => 'Pending';
+  String get pendingPaymentStatus => 'Pending';
 
   @override
-  String get approved => 'Approved';
+  String get approvedPaymentStatus => 'Approved';
 
   @override
-  String get rejected => 'Rejected';
+  String get rejectedPaymentStatus => 'Rejected';
+
+  @override
+  String get uploadFileIconLabel => 'File';
+
+  @override
+  String get uploadImageFromGalleryIconLabel => 'Gallery';
+
+  @override
+  String get captureImageIconLabel => 'Capture';
+
+  @override
+  String get deleteFileIconLabel => 'Delete';
+
+  @override
+  String get noMessagesIndicator => 'No messages yet';
+
+  @override
+  String get messageSentByMeCardTitle => 'You';
 }

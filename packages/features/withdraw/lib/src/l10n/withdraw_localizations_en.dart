@@ -38,4 +38,7 @@ class WithdrawLocalizationsEn extends WithdrawLocalizations {
 
   @override
   String get teldaUsernameTextFieldLabel => 'Telda Username';
+
+  @override
+  String get ibanNumberTextFieldError => 'Please enter a valid IBAN number';
 }

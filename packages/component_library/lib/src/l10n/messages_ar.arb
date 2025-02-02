@@ -76,8 +76,14 @@
   "imageSizeExceedsLimitErrorTextFieldMessage": "يجب أن يكون حجم الصورة 1 ميجابايت أو أقل",
   "bottomSheetGalleryButton": "معرض",
   "bottomSheetCaptureButton": "التقاط",
-  "pending": "قيد المراجعة",
-  "approved": "موافق عليه",
-  "rejected": "مرفوض"
+  "pendingPaymentStatus": "قيد المراجعة",
+  "approvedPaymentStatus": "موافق عليه",
+  "rejectedPaymentStatus": "مرفوض",
+  "deleteFileIconLabel": "حذف",
+  "uploadFileIconLabel": "ملف",
+  "uploadImageFromGalleryIconLabel": "صورة",
+  "captureImageIconLabel": "كاميرا",
+  "noMessagesIndicator": "لا توجد رسائل بعد",
+  "messageSentByMeCardTitle": "أنت"
 }
 

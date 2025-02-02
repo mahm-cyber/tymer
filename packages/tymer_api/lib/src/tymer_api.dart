@@ -792,6 +792,9 @@ class TymerApi {
     required int amount,
     String? walletNumber,
     String? instantPaymentAddress,
+    String? teldaUsername,
+    String? ibanNumber,
+    String? beneficiaryName,
     required List<int> image,
   }) async {
     final url = urlBuilder.buildConfirmTopUpUrl(paymentMethodType);
@@ -801,6 +804,7 @@ class TymerApi {
         if (walletNumber != null) 'wallet_number': walletNumber,
         if (instantPaymentAddress != null)
           'instant_payment_address': instantPaymentAddress,
+        if (teldaUsername != null) 'telda_username': teldaUsername,
         'proof': diox.MultipartFile.fromBytes(
           image,
           filename:

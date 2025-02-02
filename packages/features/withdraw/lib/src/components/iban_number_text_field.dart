@@ -44,12 +44,13 @@ class _IbanNumberTextFieldState extends State<IbanNumberTextField> {
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
           isDense: true,
-          helperText: '',
           prefixIcon: const SvgAsset(AssetPathConstants.bankNoteBlackPath),
           labelText: l10n.ibanNumberTextFieldLabel,
           errorText: error == DynamicValidationError.empty
               ? clL10n.requiredFieldErrorMessage
-              : null,
+              : error == DynamicValidationError.isNotIbanNumber
+                  ? l10n.ibanNumberTextFieldError
+                  : null,
         ),
       );
     });

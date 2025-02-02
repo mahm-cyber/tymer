@@ -10,7 +10,7 @@ class ImageWidget extends StatefulWidget {
     required this.userToken,
   });
 
-  final DisputeMessage message;
+  final ChatMessage message;
   final String userToken;
 
   @override

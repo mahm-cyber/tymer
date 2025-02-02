@@ -29,4 +29,10 @@ class TopUpConfirmationLocalizationsAr extends TopUpConfirmationLocalizations {
 
   @override
   String get instantPaymentAddressTextFieldLabel => 'عنوان الدفع الفوري';
+
+  @override
+  String get isNotEgyptianMobileErrorMessage => 'برجاء إدخال رقم صالح';
+
+  @override
+  String get teldaUsernameTextFieldLabel => 'اسم المستخدم';
 }

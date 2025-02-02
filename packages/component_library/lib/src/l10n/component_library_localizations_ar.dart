@@ -216,11 +216,29 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
   String get bottomSheetCaptureButton => 'التقاط';
 
   @override
-  String get pending => 'قيد المراجعة';
+  String get pendingPaymentStatus => 'قيد المراجعة';
 
   @override
-  String get approved => 'موافق عليه';
+  String get approvedPaymentStatus => 'موافق عليه';
 
   @override
-  String get rejected => 'مرفوض';
+  String get rejectedPaymentStatus => 'مرفوض';
+
+  @override
+  String get uploadFileIconLabel => 'ملف';
+
+  @override
+  String get uploadImageFromGalleryIconLabel => 'صورة';
+
+  @override
+  String get captureImageIconLabel => 'كاميرا';
+
+  @override
+  String get deleteFileIconLabel => 'حذف';
+
+  @override
+  String get noMessagesIndicator => 'لا توجد رسائل بعد';
+
+  @override
+  String get messageSentByMeCardTitle => 'أنت';
 }

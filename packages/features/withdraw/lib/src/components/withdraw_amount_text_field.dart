@@ -50,9 +50,12 @@ class _WithdrawAmountInputFieldState extends State<WithdrawAmountInputField> {
         focusNode: _topUpAmountFocusNode,
         onChanged: cubit.onWithdrawAmountChanged,
         keyboardType: TextInputType.number,
+        
         decoration: InputDecoration(
+          prefixIcon: const SvgAsset(
+            AssetPathConstants.bankNoteBlackPath,
+          ),
           isDense: true,
-          helperText: '',
           labelText: l10n.withdrawAmountTextFieldLabel,
           hintText: l10n.withdrawAmountTextFieldHint,
           errorText: withdrawAmountError == DynamicValidationError.empty

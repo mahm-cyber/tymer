@@ -9,8 +9,6 @@ import 'package:form_fields/form_fields.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:user_repository/user_repository.dart';
 
-import 'components/components.dart';
-
 class ChatScreen extends StatefulWidget {
   const ChatScreen({
     super.key,
@@ -142,7 +140,20 @@ class ChatView extends StatelessWidget {
               ),
               body: Column(
                 children: [
-                  const MessagesList(),
+                  MessagesList(
+                    userToken: state.userToken ?? '',
+                    dateGroupedMessages: state.dateGroupedMessages?.list ?? [],
+                    submissionInProgress: state.submissionStatus ==
+                        ChatSubmissionStatus.inProgress,
+                    sendMessage: cubit.sendMessage,
+                    onMessageChanged: cubit.onMessageChanged,
+                    loading: state.chatFetchingStatus ==
+                            ChatFetchingStatus.inProgress ||
+                        state.dateGroupedMessages == null,
+                    error:
+                        state.chatFetchingStatus == ChatFetchingStatus.failure,
+                    scrollController: cubit.scrollController,
+                  ),
                   isResolved
                       ? Container(
                           width: double.infinity,
@@ -155,7 +166,20 @@ class ChatView extends StatelessWidget {
                             ),
                           ),
                         )
-                      : const SendMessage(),
+                      : SendMessage(
+                          messageController: cubit.messageController,
+                          submissionInProgress: state.submissionStatus ==
+                              ChatSubmissionStatus.inProgress,
+                          files: state
+                              .files, // Assuming state.files is the list of files
+                          isSendButtonDisabled: state.isSendButtonDisabled,
+                          onSendMessage: cubit.sendMessage,
+                          onMessageChanged: cubit.onMessageChanged,
+                          onDeletePickedFile: cubit.deletePickedFile,
+                          onPickFile: cubit.pickFile,
+                          onPickImageFromGallery: cubit.pickImageFromGallery,
+                          onCapturePhoto: cubit.capturePhoto,
+                        ),
                 ],
               ),
             ),

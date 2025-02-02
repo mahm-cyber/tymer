@@ -45,7 +45,6 @@ class _WalletNumberTextFieldState extends State<WalletNumberTextField> {
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           isDense: true,
-          helperText: '',
           prefixIcon: const SvgAsset(AssetPathConstants.mobilePath),
           labelText: l10n.walletNumberTextFieldLabel,
           errorText: error == DynamicValidationError.empty

@@ -6,5 +6,7 @@
   "confirmButtonLabel": "تأكيد",
   "confirmingButtonLabel": "جاري التأكيد...",
   "walletNumberTextFieldLabel": "رقم المحفظة",
-  "instantPaymentAddressTextFieldLabel": "عنوان الدفع الفوري"
+  "instantPaymentAddressTextFieldLabel": "عنوان الدفع الفوري",
+  "isNotEgyptianMobileErrorMessage": "برجاء إدخال رقم صالح",
+  "teldaUsernameTextFieldLabel": "اسم المستخدم"
 } 

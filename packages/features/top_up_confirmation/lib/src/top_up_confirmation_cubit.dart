@@ -71,6 +71,11 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
         PaymentMethodType.instaPay;
   }
 
+  bool _needsTeldaUsername() {
+    return state.paymentMethods?.pickedPaymentMethodType ==
+        PaymentMethodType.telda;
+  }
+
   bool _needsProof() {
     return state.paymentMethods?.pickedPaymentMethodType !=
         PaymentMethodType.bankCard;
@@ -100,6 +105,7 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
       walletNumber: Dynamic.validated(
         state.walletNumber.value,
         isRequired: true,
+        shouldCheckIfEgyptianMobile: true,
       ),
     );
     emit(newState);
@@ -124,6 +130,31 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
     final newState = state.copyWith(
       instantPaymentAddress: Dynamic.validated(
         state.instantPaymentAddress.value,
+        isRequired: true,
+      ),
+    );
+    emit(newState);
+  }
+
+  void onTeldaUsernameChanged(String? newValue) {
+    if (!_needsTeldaUsername()) return;
+
+    final previousValue = state.teldaUsername;
+    final shouldValidate = previousValue.isNotValid;
+    final newState = state.copyWith(
+      teldaUsername: shouldValidate
+          ? Dynamic.validated(newValue, isRequired: true)
+          : Dynamic.unvalidated(newValue),
+    );
+    emit(newState);
+  }
+
+  void onTeldaUsernameUnfocused() {
+    if (!_needsTeldaUsername()) return;
+
+    final newState = state.copyWith(
+      teldaUsername: Dynamic.validated(
+        state.teldaUsername.value,
         isRequired: true,
       ),
     );
@@ -197,7 +228,12 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
   }
 
   void onSubmit() async {
-    final amount = Dynamic.validated(
+    final teldaUsername = Dynamic.validated(
+      state.teldaUsername.value,
+      isRequired: true,
+    );
+
+   final amount = Dynamic.validated(
       state.amount.value,
       checkIfNumber: true,
       isRequired: true,
@@ -223,6 +259,7 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
       if (_needsProof()) file,
       if (_needsWalletNumber()) walletNumber,
       if (_needsInstantPaymentAddress()) instantPaymentAddress,
+      if (_needsTeldaUsername()) teldaUsername,
     ];
 
     final isFormValid = Formz.validate(formFields);
@@ -231,6 +268,7 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
       amount: amount,
       walletNumber: walletNumber,
       instantPaymentAddress: instantPaymentAddress,
+      teldaUsername: teldaUsername,
       file: file,
       submissionStatus: isFormValid
           ? FormzSubmissionStatus.inProgress
@@ -274,6 +312,7 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
             paymentMethodType: state.paymentMethods!.pickedPaymentMethodType!,
             amount: int.parse(amount.value!),
             walletNumber: walletNumber.value,
+            teldaUsername: teldaUsername.value,
             instantPaymentAddress: instantPaymentAddress.value,
             image: state.file.value!,
           );

@@ -92,6 +92,7 @@ class WithdrawCubit extends Cubit<WithdrawState> {
           ? Dynamic<String?>.validated(
               newValue,
               isRequired: true,
+              shouldCheckIfIbanNumber: true,
             )
           : Dynamic<String?>.unvalidated(newValue),
     );
@@ -103,6 +104,7 @@ class WithdrawCubit extends Cubit<WithdrawState> {
       ibanNumber: Dynamic<String?>.validated(
         state.ibanNumber.value,
         isRequired: true,
+        shouldCheckIfIbanNumber: true,
       ),
     );
     emit(newState);
@@ -151,7 +153,7 @@ class WithdrawCubit extends Cubit<WithdrawState> {
       ),
     );
     emit(newState);
-  } 
+  }
 
   void onTeldaUsernameChanged(String? newValue) {
     final previousTeldaUsername = state.teldaUsername;
@@ -164,7 +166,7 @@ class WithdrawCubit extends Cubit<WithdrawState> {
     emit(newState);
   }
 
-  void onTeldaUsernameUnfocused() { 
+  void onTeldaUsernameUnfocused() {
     final newState = state.copyWith(
       teldaUsername: Dynamic<String?>.validated(
         state.teldaUsername.value,
@@ -201,6 +203,7 @@ class WithdrawCubit extends Cubit<WithdrawState> {
     final ibanNumber = Dynamic<String?>.validated(
       state.ibanNumber.value,
       isRequired: true,
+      shouldCheckIfIbanNumber: true,
     );
 
     final beneficiaryName = Dynamic<String?>.validated(
@@ -238,12 +241,19 @@ class WithdrawCubit extends Cubit<WithdrawState> {
               .changeNotifier.withdrawMethods!.pickedPaymentMethodType!,
           amount: int.parse(withdrawAmount.value!),
           walletNumber: walletNumber.value,
+          ibanNumber: ibanNumber.value,
+          beneficiaryName: beneficiaryName.value,
           instantPaymentAddress: instantPaymentAddress.value,
           teldaUsername: teldaUsername.value,
         );
-        emit(state.copyWith(submissionStatus: FormzSubmissionStatus.success));
+        final successState =
+            state.copyWith(submissionStatus: FormzSubmissionStatus.success);
+        emit(successState);
+        onSuccess();
       } catch (error) {
-        emit(state.copyWith(submissionStatus: FormzSubmissionStatus.failure));
+        final failureState =
+            state.copyWith(submissionStatus: FormzSubmissionStatus.failure);
+        emit(failureState);
       }
     }
   }

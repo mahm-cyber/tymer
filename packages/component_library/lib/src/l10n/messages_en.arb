@@ -76,7 +76,13 @@
   "imageSizeExceedsLimitErrorTextFieldMessage": "The image size must be 1 MB or less",
   "bottomSheetGalleryButton": "Gallery",
   "bottomSheetCaptureButton": "Capture",
-  "pending": "Pending",
-  "approved": "Approved",
-  "rejected": "Rejected"
+  "pendingPaymentStatus": "Pending",
+  "approvedPaymentStatus": "Approved",
+  "rejectedPaymentStatus": "Rejected",
+    "uploadFileIconLabel": "File",
+    "uploadImageFromGalleryIconLabel": "Gallery",
+    "captureImageIconLabel": "Capture",
+    "deleteFileIconLabel": "Delete",
+    "noMessagesIndicator": "No messages yet",
+    "messageSentByMeCardTitle": "You"
 }

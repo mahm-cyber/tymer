@@ -35,7 +35,7 @@ class PaymentCard extends StatelessWidget {
     );
     final locale = Localizations.localeOf(context);
     final clL10n = ComponentLibraryLocalizations.of(context);
-    
+
     Color getStatusColor(PaymentStatus status) {
       switch (status) {
         case PaymentStatus.pending:
@@ -114,10 +114,10 @@ String paymentStatusToLocalizedString(
 ) {
   switch (paymentStatus) {
     case PaymentStatus.pending:
-      return l10n.pending;
+      return l10n.pendingPaymentStatus;
     case PaymentStatus.approved:
-      return l10n.approved;
+      return l10n.approvedPaymentStatus;
     case PaymentStatus.rejected:
-      return l10n.rejected;
+      return l10n.rejectedPaymentStatus;
   }
 }

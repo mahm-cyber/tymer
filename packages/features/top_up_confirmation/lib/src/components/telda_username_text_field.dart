@@ -2,8 +2,8 @@ import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
-import 'package:withdraw/src/l10n/withdraw_localizations.dart';
-import 'package:withdraw/src/withdraw_cubit.dart';
+import 'package:top_up_confirmation/src/top_up_confirmation_cubit.dart';
+import 'package:top_up_confirmation/top_up_confirmation.dart';
 
 class TeldaUsernameTextField extends StatefulWidget {
   const TeldaUsernameTextField({super.key});
@@ -22,7 +22,7 @@ class _TeldaUsernameTextFieldState extends State<TeldaUsernameTextField> {
   }
 
   void _setUpFocusListener() {
-    final cubit = context.read<WithdrawCubit>();
+    final cubit = context.read<TopUpConfirmationCubit>();
     _focusNode.addListener(() {
       if (!_focusNode.hasFocus) {
         cubit.onTeldaUsernameUnfocused();
@@ -32,11 +32,12 @@ class _TeldaUsernameTextFieldState extends State<TeldaUsernameTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WithdrawCubit, WithdrawState>(builder: (context, state) {
-      final cubit = context.read<WithdrawCubit>();
+    return BlocBuilder<TopUpConfirmationCubit, TopUpConfirmationState>(
+        builder: (context, state) {
+      final cubit = context.read<TopUpConfirmationCubit>();
       final error =
           state.teldaUsername.isNotValid ? state.teldaUsername.error : null;
-      final l10n = WithdrawLocalizations.of(context);
+      final l10n = TopUpConfirmationLocalizations.of(context);
       final clL10n = ComponentLibraryLocalizations.of(context);
 
       return TextFormField(

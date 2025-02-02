@@ -142,6 +142,18 @@ abstract class TopUpConfirmationLocalizations {
   /// In en, this message translates to:
   /// **'Instant Payment Address'**
   String get instantPaymentAddressTextFieldLabel;
+
+  /// No description provided for @isNotEgyptianMobileErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid number'**
+  String get isNotEgyptianMobileErrorMessage;
+
+  /// No description provided for @teldaUsernameTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Telda Username'**
+  String get teldaUsernameTextFieldLabel;
 }
 
 class _TopUpConfirmationLocalizationsDelegate extends LocalizationsDelegate<TopUpConfirmationLocalizations> {

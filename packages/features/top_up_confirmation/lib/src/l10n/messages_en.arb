@@ -6,5 +6,7 @@
   "confirmButtonLabel": "Confirm",
   "confirmingButtonLabel": "Confirming...",
   "walletNumberTextFieldLabel": "Wallet Number",
-  "instantPaymentAddressTextFieldLabel": "Instant Payment Address"
+  "instantPaymentAddressTextFieldLabel": "Instant Payment Address",
+  "isNotEgyptianMobileErrorMessage": "Please enter a valid number",
+  "teldaUsernameTextFieldLabel": "Telda Username"
 } 

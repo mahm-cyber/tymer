@@ -44,7 +44,6 @@ class _BeneficiaryNameTextFieldState extends State<BeneficiaryNameTextField> {
         keyboardType: TextInputType.name,
         decoration: InputDecoration(
           isDense: true,
-          helperText: '',
           prefixIcon: const Icon(
             Icons.person,
           ),

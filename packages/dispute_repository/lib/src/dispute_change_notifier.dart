@@ -14,38 +14,40 @@ class DisputeChangeNotifier with ChangeNotifier {
 
   /// This is set from [PusherAPI] whenever a new message is received and
   /// listened to in the [ChatScreen]
-  final ValueNotifier<DisputeMessage?> chatMessageVN  = ValueNotifier(null);
+  final ValueNotifier<ChatMessage?> chatMessageVN = ValueNotifier(null);
 
   /// This is set from the [ChatScreen] whenever we need to make the
   /// [DisputesScreen] refresh the disputes list
   final ValueNotifier<bool?> shouldReFetchDisputesVN = ValueNotifier(null);
-
 
   UserType? get disputeChatUserType => _disputeChatUserTypeVN.value;
   void setDisputeChatUserType(UserType userType) {
     _disputeChatUserTypeVN.value = userType;
     notifyListeners();
   }
+
   Future clearDisputeChatUserType() async {
     _disputeChatUserTypeVN.value = null;
     notifyListeners();
   }
 
   // Dispute? get currentDispute => _currentDisputeVN.value;
-  Future setCurrentDispute(Dispute? dispute) async{
+  Future setCurrentDispute(Dispute? dispute) async {
     currentDisputeVN.value = dispute;
     notifyListeners();
   }
+
   Future clearCurrentDispute() async {
     currentDisputeVN.value = null;
     notifyListeners();
   }
 
   // DisputeMessage? get chatMessage => _chatMessageVN.value;
-  void setChatMessage(DisputeMessage? message) {
+  void setChatMessage(ChatMessage? message) {
     chatMessageVN.value = message;
     notifyListeners();
   }
+
   Future clearChatMessage() async {
     chatMessageVN.value = null;
     notifyListeners();
@@ -57,10 +59,9 @@ class DisputeChangeNotifier with ChangeNotifier {
     notifyListeners();
     clearShouldReFetchDisputes();
   }
+
   Future clearShouldReFetchDisputes() async {
     shouldReFetchDisputesVN.value = null;
     notifyListeners();
   }
-
-
 }

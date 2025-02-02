@@ -1,5 +1,3 @@
-import 'package:chat/src/components/message_file_widget.dart';
-import 'package:chat/src/l10n/chat_localizations.dart';
 import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +16,7 @@ class MessageCard extends StatelessWidget {
   });
 
   final bool isSubmissionInProgress;
-  final DisputeMessage message;
+  final ChatMessage message;
   final bool isFirstElement;
   final Function(String) openFileInExternalApp;
   final String userToken;
@@ -27,8 +25,8 @@ class MessageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = TymerTheme.of(context);
     final textTheme = Theme.of(context).textTheme;
+    final l10n = ComponentLibraryLocalizations.of(context);
     final isSentByMe = message.isSentByMe;
-    final l10n = ChatLocalizations.of(context);
     final isFirstLetterArabic = message.text?.isFirstLetterArabic() == true;
     final time = TimeOfDay.fromDateTime(message.date)
         .localizedTimeOfDay(Localizations.localeOf(context));

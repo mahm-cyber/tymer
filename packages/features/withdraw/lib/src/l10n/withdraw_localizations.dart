@@ -160,6 +160,12 @@ abstract class WithdrawLocalizations {
   /// In en, this message translates to:
   /// **'Telda Username'**
   String get teldaUsernameTextFieldLabel;
+
+  /// No description provided for @ibanNumberTextFieldError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid IBAN number'**
+  String get ibanNumberTextFieldError;
 }
 
 class _WithdrawLocalizationsDelegate extends LocalizationsDelegate<WithdrawLocalizations> {

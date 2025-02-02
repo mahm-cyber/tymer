@@ -38,4 +38,7 @@ class WithdrawLocalizationsAr extends WithdrawLocalizations {
 
   @override
   String get teldaUsernameTextFieldLabel => 'اسم مستخدم تلدا';
+
+  @override
+  String get ibanNumberTextFieldError => 'الرجاء إدخال رقم حساب بنكي صحيح';
 }

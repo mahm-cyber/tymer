@@ -1,4 +1,3 @@
-import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
@@ -57,9 +56,7 @@ class _InstantPaymentAddressTextFieldState
           decoration: InputDecoration(
             isDense: true,
             labelText: l10n.instantPaymentAddressTextFieldLabel,
-            prefixIcon: const SvgAsset(
-              AssetPathConstants.bankNoteBlackPath,
-            ),
+            prefixIcon: const Icon(Icons.electric_bolt_outlined),
             hintText: l10n.instantPaymentAddressTextFieldLabel,
             errorText: addressError == DynamicValidationError.empty
                 ? l10n.requiredFieldErrorMessage

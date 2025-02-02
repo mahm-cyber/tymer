@@ -1,11 +1,5 @@
 {
     "appBarTitle": "التحدث إلى الدعم",
-    "uploadFileIconLabel": "ملف",
-    "uploadImageFromGalleryIconLabel": "صورة",
-    "captureImageIconLabel": "كاميرا",
-    "deleteFileIconLabel": "حذف",
-    "noMessagesIndicator": "لا توجد رسائل بعد",
-    "messageSentByMeCardTitle": "أنت",
     "deniedSnackBarMessage": "تم رفض طلبك",
     "refundedRequesterSnackBarMessage": "تم استرداد أموالك",
     "deniedRequesterSnackBarMessage": "تم رفض طلبك",

@@ -7,6 +7,7 @@ class Dynamic<T> extends FormzInput<T?, DynamicValidationError>
       : isRequired = false,
         checkIfNumber = false,
         shouldCheckIfEgyptianMobile = false,
+        shouldCheckIfIbanNumber = false,
         super.pure();
 
   const Dynamic.validated(
@@ -14,11 +15,13 @@ class Dynamic<T> extends FormzInput<T?, DynamicValidationError>
     this.isRequired = false,
     this.checkIfNumber = false,
     this.shouldCheckIfEgyptianMobile = false,
+    this.shouldCheckIfIbanNumber = false,
   }) : super.dirty();
 
   final bool isRequired;
   final bool checkIfNumber;
   final bool shouldCheckIfEgyptianMobile;
+  final bool shouldCheckIfIbanNumber;
   @override
   DynamicValidationError? validator(T? value) {
     if (isPure) return null;
@@ -33,12 +36,18 @@ class Dynamic<T> extends FormzInput<T?, DynamicValidationError>
     if (value is String && checkIfNumber && double.tryParse(value) == null) {
       return DynamicValidationError.isNotNumber;
     }
-    if (value is String &&
-        shouldCheckIfEgyptianMobile &&
-        checkIfEgyptianMobile(value)) {
-      return DynamicValidationError.isNotEgyptianMobile;
+    if (value is String && shouldCheckIfEgyptianMobile) {
+      final isEgyptianMobile = checkIfEgyptianMobile(value);
+      if (!isEgyptianMobile) {
+        return DynamicValidationError.isNotEgyptianMobile;
+      }
     }
-
+    if (value is String && shouldCheckIfIbanNumber) {
+      final isIbanNumber = checkIfIbanNumber(value);
+      if (!isIbanNumber) {
+        return DynamicValidationError.isNotIbanNumber;
+      }
+    }
     return null;
   }
 
@@ -53,11 +62,18 @@ enum DynamicValidationError {
   empty,
   isNotNumber,
   isNotEgyptianMobile,
+  isNotIbanNumber,
 }
 
 bool checkIfEgyptianMobile(String value) {
   if (value.length != 11) return false;
   if (!value.startsWith('01')) return false;
+  if (!RegExp(r'^[0-9]+$').hasMatch(value)) return false;
+  return true;
+}
+
+bool checkIfIbanNumber(String value) {
+  if (value.length != 27) return false;
   if (!RegExp(r'^[0-9]+$').hasMatch(value)) return false;
   return true;
 }

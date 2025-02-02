@@ -17,10 +17,10 @@ class ProvideServiceState extends Equatable {
   final LocationDataStatus locationDataStatus;
   final bool isMapViewActive;
 
-  List<Service>? get ascendingSortedServiceRequests => serviceRequests
-      ?.where((service) => service.status == ServiceStatus.pending)
-      .toList()
-        ?..sort((b, a) => a.createdAt!.compareTo(b.createdAt!));
+  // List<Service>? get ascendingSortedServiceRequests => serviceRequests
+  //     ?.where((service) => service.status == ServiceStatus.pending)
+  //     .toList()
+  //       ?..sort((b, a) => a.createdAt!.compareTo(b.createdAt!));
 
   ProvideServiceState copyWith({
     List<Service>? serviceRequests,

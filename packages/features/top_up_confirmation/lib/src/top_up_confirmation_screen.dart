@@ -2,6 +2,7 @@ import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
+import 'package:top_up_confirmation/src/components/telda_username_text_field.dart';
 import 'package:top_up_confirmation/src/top_up_confirmation_cubit.dart';
 import 'package:top_up_confirmation/top_up_confirmation.dart';
 import 'package:user_repository/user_repository.dart';
@@ -120,6 +121,18 @@ class TopUpConfirmationView extends StatelessWidget {
             state.bankCardPaymentStatus == BankCardPaymentStatus.inProgress;
         final isCardPaymentPageLoaded = state.bankCardPaymentStatus ==
             BankCardPaymentStatus.paymentPageLoaded;
+        final isEWallet = [
+          PaymentMethodType.vodafoneCash,
+          PaymentMethodType.orangeCash,
+          PaymentMethodType.etisalatCash,
+        ].contains(state.paymentMethods?.pickedPaymentMethodType);
+        final isTelda = state.paymentMethods?.pickedPaymentMethodType ==
+            PaymentMethodType.telda;
+        final isInstaPay = state.paymentMethods?.pickedPaymentMethodType ==
+            PaymentMethodType.instaPay;
+
+        final isBankCard = state.paymentMethods?.pickedPaymentMethodType ==
+            PaymentMethodType.bankCard;
 
         return GestureDetector(
           onTap: context.releaseFocus,
@@ -160,30 +173,27 @@ class TopUpConfirmationView extends StatelessWidget {
                         VerticalGap.large(),
                         const AmountTextField(),
                         VerticalGap.medium(),
-                        if (state.paymentMethods?.pickedPaymentMethodType ==
-                            PaymentMethodType.instaPay)
-                          const InstantPaymentAddressTextField()
-                        else if ([
-                          PaymentMethodType.vodafoneCash,
-                          PaymentMethodType.orangeCash,
-                          PaymentMethodType.etisalatCash,
-                        ].contains(
-                            state.paymentMethods?.pickedPaymentMethodType))
+                        if (isInstaPay) ...[
+                          const InstantPaymentAddressTextField(),
+                          VerticalGap.medium(),
+                        ] else if (isTelda) ...[
+                          const TeldaUsernameTextField(),
+                          VerticalGap.medium(),
+                        ] else if (isEWallet) ...[
                           const WalletNumberTextField(),
-                        VerticalGap.medium(),
-                        if (state.paymentMethods?.pickedPaymentMethodType !=
-                            PaymentMethodType.bankCard)
+                          VerticalGap.medium(),
+                        ],
+                        if (!isBankCard)
                           ImagePickerTextField(
                             imageFileNameSC: cubit.imageFileNameSC,
                             onImagePickerTapped: cubit.onImagePickerTapped,
                             deletePickedImage: cubit.deletePickedImage,
                             onBackButtonPressed: cubit.onBackButtonPressed,
                             isSubmissionInProgress: isSubmissionInProgress,
-                            imageError: state.file.isNotValid
-                                ? state.file.error
-                                : null,
-                            hasPickedImage: state.file.value != null &&
-                                state.file.isValid,
+                            imageError:
+                                state.file.isNotValid ? state.file.error : null,
+                            hasPickedImage:
+                                state.file.value != null && state.file.isValid,
                             imageBytes: state.file.value?.readAsBytesSync(),
                             isImagePicked: state.file.value != null,
                           ),

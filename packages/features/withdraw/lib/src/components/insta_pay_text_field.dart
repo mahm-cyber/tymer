@@ -46,7 +46,6 @@ class _InstaPayTextFieldState extends State<InstaPayTextField> {
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
           isDense: true,
-          helperText: '',
           prefixIcon: const Icon(Icons.electric_bolt_outlined),
           labelText: l10n.instantPaymentAddressTextFieldLabel,
           errorText: error == DynamicValidationError.empty

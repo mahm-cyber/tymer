@@ -61,7 +61,9 @@ class _WalletNumberTextFieldState extends State<WalletNumberTextField> {
             hintText: l10n.walletNumberTextFieldLabel,
             errorText: walletNumberError == DynamicValidationError.empty
                 ? l10n.requiredFieldErrorMessage
-                : null,
+                : walletNumberError == DynamicValidationError.isNotEgyptianMobile
+                    ? l10n.isNotEgyptianMobileErrorMessage
+                    : null,
           ),
         );
       },
