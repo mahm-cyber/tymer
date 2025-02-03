@@ -40,7 +40,8 @@ Map<String, PageBuilder> buildRoutingTable({
   required UserRepository userRepository,
   required ServiceRepository serviceRepository,
   required DisputeRepository disputeRepository,
-  required ValueNotifier<bool> isUserUnAuthVN,
+  required ValueNotifier<bool> unAuthenticatedAccessVN,
+  required ValueNotifier<bool> signInSuccessVN,
   required WalletRepository walletRepository,
 }) {
   disputeRepository.changeNotifier.addListener(() {
@@ -54,12 +55,13 @@ Map<String, PageBuilder> buildRoutingTable({
       debugPrint('Current route: ${routerDelegate.currentConfiguration?.path}');
     },
   );
-  isUserUnAuthVN.addListener(() async {
-    if (isUserUnAuthVN.value) {
-      isUserUnAuthVN.value = true;
+  unAuthenticatedAccessVN.addListener(() async {
+    if (unAuthenticatedAccessVN.value) {
+      signInSuccessVN.value = false;
+      routerDelegate.popUntil((route) => route.path == _PathConstants.initialPath);
       routerDelegate.push(_PathConstants.signInPath);
     } else {
-      isUserUnAuthVN.value = false;
+      signInSuccessVN.value = true;
     }
   });
 
@@ -148,9 +150,9 @@ Map<String, PageBuilder> buildRoutingTable({
               return routerDelegate.history.canGoBack ? false : true;
             },
             child: ValueListenableBuilder(
-              valueListenable: isUserUnAuthVN,
-              builder: (context, isUserUnAuth, __) {
-                return !isUserUnAuth
+              valueListenable: signInSuccessVN,
+              builder: (context, shouldPassInitialAuthentication, __) {
+                return shouldPassInitialAuthentication
                     ? const TabContainerScreen()
                     : InitialScreen(
                         userRepository: userRepository,
@@ -206,7 +208,7 @@ Map<String, PageBuilder> buildRoutingTable({
             },
             onSignInSuccess: () async {
               await routerDelegate.popRoute();
-              isUserUnAuthVN.value = false;
+              signInSuccessVN.value = true;
               routerDelegate.push(_PathConstants.homePath);
             },
             onForgotPasswordTapped: () {
@@ -223,7 +225,7 @@ Map<String, PageBuilder> buildRoutingTable({
             },
             onRegistrationVerifyOtpSuccess: () async {
               await routerDelegate.popRoute();
-              isUserUnAuthVN.value = false;
+              signInSuccessVN.value = true;
               routerDelegate.push(_PathConstants.homePath);
             },
             onResetPasswordVerifyOtpSuccess: () async {
@@ -331,7 +333,7 @@ Map<String, PageBuilder> buildRoutingTable({
                   routerDelegate.push(_PathConstants.chooseServicePath),
               onProvideServiceTapped: () =>
                   routerDelegate.push(_PathConstants.provideServicePath),
-              onLogoutSuccess: () => isUserUnAuthVN.value = true,
+              onLogoutSuccess: () => signInSuccessVN.value = false,
               onChangePasswordTapped: () {
                 routerDelegate.push(_PathConstants.changePasswordPath);
               },

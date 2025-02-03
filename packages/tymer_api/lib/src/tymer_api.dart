@@ -29,14 +29,14 @@ class TymerApi {
   static const _paymentLinkJsonKey = 'payment_link';
   TymerApi({
     required UserTokenSupplier userTokenSupplier,
-    required this.isUserUnAuthVN,
+    required this.unAuthenticatedAccessVN,
     required this.internetConnectionErrorVN,
   })  : urlBuilder = UrlBuilder(),
         pusherApi = PusherApi(userTokenSupplier),
         _dio = Dio() {
     _dio.setUpAuthHeaders(
       userTokenSupplier: userTokenSupplier,
-      isUserUnAuthSC: isUserUnAuthVN,
+      unAuthenticatedAccessVN: unAuthenticatedAccessVN,
       internetConnectionErrorVN: internetConnectionErrorVN,
     );
     _dio.interceptors.add(
@@ -54,7 +54,7 @@ class TymerApi {
 
   // final FirebaseMessaging _firebaseMessaging;
   final Dio _dio;
-  final ValueNotifier<bool> isUserUnAuthVN;
+  final ValueNotifier<bool> unAuthenticatedAccessVN;
   final ValueNotifier internetConnectionErrorVN;
   final UrlBuilder urlBuilder;
   final PusherApi pusherApi;
@@ -908,7 +908,7 @@ class TymerApi {
 extension on Dio {
   void setUpAuthHeaders({
     required UserTokenSupplier userTokenSupplier,
-    required ValueNotifier<bool> isUserUnAuthSC,
+    required ValueNotifier<bool> unAuthenticatedAccessVN,
     required ValueNotifier internetConnectionErrorVN,
   }) async {
     options = diox.BaseOptions(
@@ -938,8 +938,8 @@ extension on Dio {
           final internetConnectionError =
               error.type == DioExceptionType.connectionError;
           if (isCustomerUnAuth) {
-            isUserUnAuthSC.value = (true);
-            isUserUnAuthSC.value = (false);
+            unAuthenticatedAccessVN.value = (true);
+            unAuthenticatedAccessVN.value = (false);
           }
           if (internetConnectionError) {
             final internetConnectionException =

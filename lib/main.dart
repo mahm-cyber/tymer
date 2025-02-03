@@ -47,8 +47,6 @@ import 'package:wallet/wallet.dart';
 import 'package:wallet_repository/wallet_repository.dart';
 import 'package:withdraw/withdraw.dart';
 
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -82,13 +80,14 @@ class Tymer extends StatefulWidget {
 
 class TymerState extends State<Tymer> with WidgetsBindingObserver {
   Brightness? _appBrightness;
-  final ValueNotifier<bool> _isUserUnAuthVN = ValueNotifier(false);
+  final ValueNotifier<bool> _unAuthenticatedAccessVN = ValueNotifier(false);
+  final ValueNotifier<bool> _signInSuccessVN = ValueNotifier(false);
   final ValueNotifier<InternetConnectionTymerException?>
       _internetConnectionErrorVN = ValueNotifier(null);
   String? fontFamily;
   late final dynamic _connectInApi = TymerApi(
     userTokenSupplier: () => _userRepository.getUserToken(),
-    isUserUnAuthVN: _isUserUnAuthVN,
+    unAuthenticatedAccessVN: _unAuthenticatedAccessVN,
     internetConnectionErrorVN: _internetConnectionErrorVN,
   );
 
@@ -117,7 +116,7 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     _userRepository.getUser().first.then((user) {
-      _isUserUnAuthVN.value = user == null;
+      _signInSuccessVN.value = user != null;
     });
     _userRepository.getSettings(FetchPolicy.networkOnly);
     WidgetsBinding.instance.addObserver(this);
@@ -152,7 +151,8 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
           userRepository: _userRepository,
           serviceRepository: _serviceRepository,
           disputeRepository: _disputeRepository,
-          isUserUnAuthVN: _isUserUnAuthVN,
+          unAuthenticatedAccessVN: _unAuthenticatedAccessVN,
+          signInSuccessVN: _signInSuccessVN,
           walletRepository: _walletRepository,
         ),
       );
@@ -211,7 +211,7 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                   textDirection:
                       isArabic ? TextDirection.rtl : TextDirection.ltr,
                   child: AppWideErrorIndicator(
-                    isUserUnAuthVN: _isUserUnAuthVN,
+                    isUserUnAuthVN: _unAuthenticatedAccessVN,
                     internetConnectionErrorVN: _internetConnectionErrorVN,
                     child: child!,
                   ),
