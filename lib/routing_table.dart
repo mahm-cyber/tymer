@@ -40,8 +40,7 @@ Map<String, PageBuilder> buildRoutingTable({
   required UserRepository userRepository,
   required ServiceRepository serviceRepository,
   required DisputeRepository disputeRepository,
-  required ValueNotifier<bool> signInSuccessVN,
-  required ValueNotifier<bool> isUserUnAuthSC,
+  required ValueNotifier<bool> isUserUnAuthVN,
   required WalletRepository walletRepository,
 }) {
   disputeRepository.changeNotifier.addListener(() {
@@ -55,12 +54,12 @@ Map<String, PageBuilder> buildRoutingTable({
       debugPrint('Current route: ${routerDelegate.currentConfiguration?.path}');
     },
   );
-  isUserUnAuthSC.addListener(() async {
-    if (isUserUnAuthSC.value) {
-      signInSuccessVN.value = false;
+  isUserUnAuthVN.addListener(() async {
+    if (isUserUnAuthVN.value) {
+      isUserUnAuthVN.value = true;
       routerDelegate.push(_PathConstants.signInPath);
     } else {
-      signInSuccessVN.value = true;
+      isUserUnAuthVN.value = false;
     }
   });
 
@@ -149,9 +148,9 @@ Map<String, PageBuilder> buildRoutingTable({
               return routerDelegate.history.canGoBack ? false : true;
             },
             child: ValueListenableBuilder(
-              valueListenable: signInSuccessVN,
-              builder: (context, shouldPassInitialAuthentication, __) {
-                return shouldPassInitialAuthentication
+              valueListenable: isUserUnAuthVN,
+              builder: (context, isUserUnAuth, __) {
+                return !isUserUnAuth
                     ? const TabContainerScreen()
                     : InitialScreen(
                         userRepository: userRepository,
@@ -207,7 +206,7 @@ Map<String, PageBuilder> buildRoutingTable({
             },
             onSignInSuccess: () async {
               await routerDelegate.popRoute();
-              signInSuccessVN.value = true;
+              isUserUnAuthVN.value = false;
               routerDelegate.push(_PathConstants.homePath);
             },
             onForgotPasswordTapped: () {
@@ -224,7 +223,7 @@ Map<String, PageBuilder> buildRoutingTable({
             },
             onRegistrationVerifyOtpSuccess: () async {
               await routerDelegate.popRoute();
-              signInSuccessVN.value = true;
+              isUserUnAuthVN.value = false;
               routerDelegate.push(_PathConstants.homePath);
             },
             onResetPasswordVerifyOtpSuccess: () async {
@@ -284,7 +283,6 @@ Map<String, PageBuilder> buildRoutingTable({
                 routerDelegate.push(_PathConstants.chooseWithdrawMethodPath),
           ),
         ),
-
     _PathConstants.topUpInformationPath: (_) => MaterialPage(
           name: 'top-up-information',
           child: TopUpInformationScreen(
@@ -333,7 +331,7 @@ Map<String, PageBuilder> buildRoutingTable({
                   routerDelegate.push(_PathConstants.chooseServicePath),
               onProvideServiceTapped: () =>
                   routerDelegate.push(_PathConstants.provideServicePath),
-              onLogoutSuccess: () => signInSuccessVN.value = false,
+              onLogoutSuccess: () => isUserUnAuthVN.value = true,
               onChangePasswordTapped: () {
                 routerDelegate.push(_PathConstants.changePasswordPath);
               },
@@ -548,8 +546,7 @@ Map<String, PageBuilder> buildRoutingTable({
             onWithdrawMethodTapped: () {
               routerDelegate.push(_PathConstants.withdrawPath);
             },
-            onWithdrawalPaymentHistoryTapped: () =>
-                routerDelegate.push(
+            onWithdrawalPaymentHistoryTapped: () => routerDelegate.push(
               _PathConstants.withdrawalPaymentHistoryPath,
             ),
           ),

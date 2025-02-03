@@ -29,14 +29,14 @@ class TymerApi {
   static const _paymentLinkJsonKey = 'payment_link';
   TymerApi({
     required UserTokenSupplier userTokenSupplier,
-    required this.isUserUnAuthSC,
+    required this.isUserUnAuthVN,
     required this.internetConnectionErrorVN,
   })  : urlBuilder = UrlBuilder(),
         pusherApi = PusherApi(userTokenSupplier),
         _dio = Dio() {
     _dio.setUpAuthHeaders(
       userTokenSupplier: userTokenSupplier,
-      isUserUnAuthSC: isUserUnAuthSC,
+      isUserUnAuthSC: isUserUnAuthVN,
       internetConnectionErrorVN: internetConnectionErrorVN,
     );
     _dio.interceptors.add(
@@ -54,7 +54,7 @@ class TymerApi {
 
   // final FirebaseMessaging _firebaseMessaging;
   final Dio _dio;
-  final ValueNotifier<bool> isUserUnAuthSC;
+  final ValueNotifier<bool> isUserUnAuthVN;
   final ValueNotifier internetConnectionErrorVN;
   final UrlBuilder urlBuilder;
   final PusherApi pusherApi;

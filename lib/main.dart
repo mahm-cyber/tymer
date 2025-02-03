@@ -47,11 +47,7 @@ import 'package:wallet/wallet.dart';
 import 'package:wallet_repository/wallet_repository.dart';
 import 'package:withdraw/withdraw.dart';
 
-String? fontFamily;
-final ValueNotifier<bool> _isUserUnAuthSC = ValueNotifier(false);
-final ValueNotifier<InternetConnectionTymerException?>
-    _internetConnectionErrorVN = ValueNotifier(null);
-final ValueNotifier<bool> _signInSuccessVN = ValueNotifier(false);
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -86,9 +82,13 @@ class Tymer extends StatefulWidget {
 
 class TymerState extends State<Tymer> with WidgetsBindingObserver {
   Brightness? _appBrightness;
+  final ValueNotifier<bool> _isUserUnAuthVN = ValueNotifier(false);
+  final ValueNotifier<InternetConnectionTymerException?>
+      _internetConnectionErrorVN = ValueNotifier(null);
+  String? fontFamily;
   late final dynamic _connectInApi = TymerApi(
     userTokenSupplier: () => _userRepository.getUserToken(),
-    isUserUnAuthSC: _isUserUnAuthSC,
+    isUserUnAuthVN: _isUserUnAuthVN,
     internetConnectionErrorVN: _internetConnectionErrorVN,
   );
 
@@ -117,7 +117,7 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     _userRepository.getUser().first.then((user) {
-      _signInSuccessVN.value = user != null;
+      _isUserUnAuthVN.value = user == null;
     });
     _userRepository.getSettings(FetchPolicy.networkOnly);
     WidgetsBinding.instance.addObserver(this);
@@ -152,8 +152,7 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
           userRepository: _userRepository,
           serviceRepository: _serviceRepository,
           disputeRepository: _disputeRepository,
-          signInSuccessVN: _signInSuccessVN,
-          isUserUnAuthSC: _isUserUnAuthSC,
+          isUserUnAuthVN: _isUserUnAuthVN,
           walletRepository: _walletRepository,
         ),
       );
@@ -212,6 +211,8 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                   textDirection:
                       isArabic ? TextDirection.rtl : TextDirection.ltr,
                   child: AppWideErrorIndicator(
+                    isUserUnAuthVN: _isUserUnAuthVN,
+                    internetConnectionErrorVN: _internetConnectionErrorVN,
                     child: child!,
                   ),
                 );
@@ -277,9 +278,14 @@ class AppWideErrorIndicator extends StatefulWidget {
   const AppWideErrorIndicator({
     super.key,
     required this.child,
+    required this.isUserUnAuthVN,
+    required this.internetConnectionErrorVN,
   });
 
   final Widget child;
+  final ValueNotifier<bool> isUserUnAuthVN;
+  final ValueNotifier<InternetConnectionTymerException?>
+      internetConnectionErrorVN;
 
   @override
   State<AppWideErrorIndicator> createState() => _AppWideErrorIndicatorState();
@@ -289,9 +295,9 @@ class _AppWideErrorIndicatorState extends State<AppWideErrorIndicator> {
   @override
   void initState() {
     super.initState();
-    _internetConnectionErrorVN.addListener(
+    widget.internetConnectionErrorVN.addListener(
       () {
-        if (_internetConnectionErrorVN.value != null) {
+        if (widget.internetConnectionErrorVN.value != null) {
           showSnackBar(
             context: context,
             snackBar: ErrorSnackBar(
@@ -303,9 +309,9 @@ class _AppWideErrorIndicatorState extends State<AppWideErrorIndicator> {
       },
     );
 
-    _isUserUnAuthSC.addListener(
+    widget.isUserUnAuthVN.addListener(
       () {
-        if (_isUserUnAuthSC.value) {
+        if (widget.isUserUnAuthVN.value) {
           showSnackBar(
             context: context,
             snackBar: ErrorSnackBar(
