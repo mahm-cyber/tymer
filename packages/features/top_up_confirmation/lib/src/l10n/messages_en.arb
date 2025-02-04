@@ -8,5 +8,6 @@
   "walletNumberTextFieldLabel": "Wallet Number",
   "instantPaymentAddressTextFieldLabel": "Instant Payment Address",
   "isNotEgyptianMobileErrorMessage": "Please enter a valid number",
-  "teldaUsernameTextFieldLabel": "Telda Username"
+  "teldaUsernameTextFieldLabel": "Telda Username",
+  "isNotGreaterThanZeroTextFieldErrorMessage": "Amount must be greater than 0"
 } 

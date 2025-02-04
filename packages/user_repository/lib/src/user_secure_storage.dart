@@ -9,7 +9,7 @@ class UserSecureStorage {
   static const _userToken = 'user-token';
   static const _rememberPhoneKey = 'remember-phone';
   static const _rememberPasswordKey = 'remember-password';
-
+  static const _userBalanceKey = 'user-balance';
   const UserSecureStorage({
     FlutterSecureStorage? secureStorage,
   }) : _secureStorage = secureStorage ?? const FlutterSecureStorage();
@@ -21,6 +21,7 @@ class UserSecureStorage {
     required String name,
     required String email,
     required String phone,
+    required double balance,
   }) async {
     await _secureStorage.write(
       key: _userIdKey,
@@ -40,6 +41,11 @@ class UserSecureStorage {
       key: _userPhoneKey,
       value: phone,
     );
+
+    await _secureStorage.write(
+      key: _userBalanceKey,
+      value: balance.toString(),
+    );
   }
 
   Future upsertUserToken({required String token}) async {
@@ -54,8 +60,8 @@ class UserSecureStorage {
     await _secureStorage.delete(key: _userNameKey);
     await _secureStorage.delete(key: _userEmailKey);
     await _secureStorage.delete(key: _userPhoneKey);
-
     await _secureStorage.delete(key: _userToken);
+    await _secureStorage.delete(key: _userBalanceKey);
   }
 
   Future<int?> getUserId() async {
@@ -70,6 +76,11 @@ class UserSecureStorage {
   Future<String?> getUserPhone() => _secureStorage.read(key: _userPhoneKey);
 
   Future<String?> getUserToken() => _secureStorage.read(key: _userToken);
+
+  Future<double?> getUserBalance() async {
+    final balance = await _secureStorage.read(key: _userBalanceKey);
+    return balance != null ? double.parse(balance) : null;
+  }
 
   Future<void> upsertRememberPhone({required String? phone}) async {
     await _secureStorage.write(

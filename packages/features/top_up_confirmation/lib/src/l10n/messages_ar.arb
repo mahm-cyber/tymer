@@ -8,5 +8,6 @@
   "walletNumberTextFieldLabel": "رقم المحفظة",
   "instantPaymentAddressTextFieldLabel": "عنوان الدفع الفوري",
   "isNotEgyptianMobileErrorMessage": "برجاء إدخال رقم صالح",
-  "teldaUsernameTextFieldLabel": "اسم المستخدم"
+  "teldaUsernameTextFieldLabel": "اسم المستخدم",
+  "isNotGreaterThanZeroTextFieldErrorMessage": "المبلغ يجب أن يكون أكبر من 0"
 } 

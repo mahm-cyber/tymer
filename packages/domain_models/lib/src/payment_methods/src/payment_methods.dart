@@ -2,6 +2,7 @@ import 'package:domain_models/domain_models.dart';
 
 class PaymentMethods {
   const PaymentMethods({
+    this.minimumAmount,
     required this.vodafoneCash,
     required this.orangeCash,
     required this.etisalatCash,
@@ -11,6 +12,7 @@ class PaymentMethods {
     this.pickedPaymentMethodType,
   });
 
+  final double? minimumAmount;
   final VodafoneCash vodafoneCash;
   final OrangeCash orangeCash;
   final EtisalatCash etisalatCash;
@@ -23,6 +25,7 @@ class PaymentMethods {
     PaymentMethodType? pickedPaymentMethodType,
   }) =>
       PaymentMethods(
+        minimumAmount: minimumAmount,
         vodafoneCash: vodafoneCash,
         orangeCash: orangeCash,
         etisalatCash: etisalatCash,

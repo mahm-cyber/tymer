@@ -562,6 +562,66 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'You'**
   String get messageSentByMeCardTitle;
+
+  /// No description provided for @transactionTypeEarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Earning'**
+  String get transactionTypeEarning;
+
+  /// No description provided for @transactionTypePayout.
+  ///
+  /// In en, this message translates to:
+  /// **'Payout'**
+  String get transactionTypePayout;
+
+  /// No description provided for @transactionTypeTopup.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Up'**
+  String get transactionTypeTopup;
+
+  /// No description provided for @transactionTypeWithdrawal.
+  ///
+  /// In en, this message translates to:
+  /// **'Withdrawal'**
+  String get transactionTypeWithdrawal;
+
+  /// No description provided for @transactionStatusPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get transactionStatusPending;
+
+  /// No description provided for @transactionStatusCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get transactionStatusCompleted;
+
+  /// No description provided for @transactionStatusFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get transactionStatusFailed;
+
+  /// No description provided for @transactionStatusCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get transactionStatusCancelled;
+
+  /// No description provided for @transactionStatusUnderReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Under Review'**
+  String get transactionStatusUnderReview;
+
+  /// No description provided for @transactionStatusRefunded.
+  ///
+  /// In en, this message translates to:
+  /// **'Refunded'**
+  String get transactionStatusRefunded;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

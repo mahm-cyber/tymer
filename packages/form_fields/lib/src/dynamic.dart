@@ -8,6 +8,7 @@ class Dynamic<T> extends FormzInput<T?, DynamicValidationError>
         checkIfNumber = false,
         shouldCheckIfEgyptianMobile = false,
         shouldCheckIfIbanNumber = false,
+        isGreatherThan = null,
         super.pure();
 
   const Dynamic.validated(
@@ -16,12 +17,14 @@ class Dynamic<T> extends FormzInput<T?, DynamicValidationError>
     this.checkIfNumber = false,
     this.shouldCheckIfEgyptianMobile = false,
     this.shouldCheckIfIbanNumber = false,
+    this.isGreatherThan,
   }) : super.dirty();
 
   final bool isRequired;
   final bool checkIfNumber;
   final bool shouldCheckIfEgyptianMobile;
   final bool shouldCheckIfIbanNumber;
+  final int? isGreatherThan;
   @override
   DynamicValidationError? validator(T? value) {
     if (isPure) return null;
@@ -35,6 +38,13 @@ class Dynamic<T> extends FormzInput<T?, DynamicValidationError>
 
     if (value is String && checkIfNumber && double.tryParse(value) == null) {
       return DynamicValidationError.isNotNumber;
+    }
+    if (value is String && isGreatherThan != null) {
+      final isGreaterThanZero = double.tryParse(value) != null &&
+          double.parse(value) > isGreatherThan!;
+      if (!isGreaterThanZero) {
+        return DynamicValidationError.isNotGreaterThanZero;
+      }
     }
     if (value is String && shouldCheckIfEgyptianMobile) {
       final isEgyptianMobile = checkIfEgyptianMobile(value);
@@ -63,6 +73,7 @@ enum DynamicValidationError {
   isNotNumber,
   isNotEgyptianMobile,
   isNotIbanNumber,
+  isNotGreaterThanZero,
 }
 
 bool checkIfEgyptianMobile(String value) {
@@ -73,7 +84,8 @@ bool checkIfEgyptianMobile(String value) {
 }
 
 bool checkIfIbanNumber(String value) {
-  if (value.length != 27) return false;
+  const lengthOfIbanNumber = 'EG121234567890'.length;
+  if (value.length > lengthOfIbanNumber) return false;
   if (!RegExp(r'^[0-9]+$').hasMatch(value)) return false;
   return true;
 }

@@ -10,6 +10,14 @@
   "invalidWalletNumberErrorMessage": "Please enter a valid wallet number",
   "instantPaymentAddressTextFieldLabel": "Instant Payment Address",
   "teldaUsernameTextFieldLabel": "Telda Username",
-  "ibanNumberTextFieldError": "Please enter a valid IBAN number"
+  "ibanNumberTextFieldError": "Please enter a valid IBAN number",
+  "isNotGreaterThanZeroTextFieldErrorMessage": "Amount must be greater than {minimumAmount}",
+  "@isNotGreaterThanZeroTextFieldErrorMessage": {
+    "placeholders": {
+      "minimumAmount": {
+        "type": "int"
+      }
+    }
+  }
 }
   

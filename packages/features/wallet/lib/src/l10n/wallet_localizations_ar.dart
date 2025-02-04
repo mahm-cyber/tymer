@@ -19,8 +19,5 @@ class WalletLocalizationsAr extends WalletLocalizations {
   String get noTransactionsText => 'لا يوجد عمليات';
 
   @override
-  String get earning => 'إيراد';
-
-  @override
-  String get payout => 'خروج';
+  String get balance => 'الرصيد';
 }

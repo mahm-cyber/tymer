@@ -15,6 +15,7 @@ extension UserRMtoDM on UserRM {
       permissions: permissions,
       language: languageDM,
       roles: roles,
+      balance: double.parse(balance),
     );
   }
 }
@@ -64,6 +65,16 @@ extension TermsAndConditionsRMtoDM on TermsAndConditionsRM {
     return TermsAndConditions(
       arMarkdown: arHtml,
       enMarkdown: enHtml,
+    );
+  }
+}
+
+extension FaqRMtoDM on FaqRM {
+  Faq toDomainModel() {
+    return Faq(
+      id: id,
+      question: question,
+      answer: answer,
     );
   }
 }

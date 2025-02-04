@@ -14,6 +14,7 @@ class User extends Equatable {
   final Locale? language;
   final String? updatedAt;
   final String? deletedAt;
+  final double balance;
 
   const User({
     required this.id,
@@ -28,6 +29,7 @@ class User extends Equatable {
     this.language,
     this.updatedAt,
     this.deletedAt,
+    required this.balance,
   });
 
   @override
@@ -41,7 +43,9 @@ class User extends Equatable {
         permissions,
         roles,
         createdAt,
+        language,
         updatedAt,
         deletedAt,
+        balance,
       ];
 }

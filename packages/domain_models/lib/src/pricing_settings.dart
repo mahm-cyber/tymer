@@ -3,21 +3,24 @@ class Settings {
      this.pricing,
     this.termsAndConditions,
     this.privacyPolicy,
+    this.faqs,
   });
 
   final PricingSettings? pricing;
   final PrivacyPolicy? privacyPolicy;
   final TermsAndConditions? termsAndConditions;
-
+  final List<Faq>? faqs;
   Settings copyWith({
     PricingSettings? pricing,
     TermsAndConditions? termsAndConditions,
     PrivacyPolicy? privacyPolicy,
+    List<Faq>? faqs,
   }) {
     return Settings(
       pricing: pricing ?? this.pricing,
       termsAndConditions: termsAndConditions?? this.termsAndConditions,
-      privacyPolicy: privacyPolicy?? this.privacyPolicy,
+      privacyPolicy: privacyPolicy ?? this.privacyPolicy,
+      faqs: faqs ?? this.faqs,
     );
   }
 }
@@ -58,4 +61,16 @@ class TermsAndConditions {
 
   final String arMarkdown;
   final String enMarkdown;
+}
+
+class Faq {
+  Faq({
+    required this.id,
+    required this.question,
+    required this.answer,
+  });
+
+  final int id;
+  final String question;
+  final String answer;
 }

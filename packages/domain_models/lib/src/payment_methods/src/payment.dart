@@ -2,8 +2,6 @@ enum PaymentStatus {
   pending,
   approved,
   rejected;
-
- 
 }
 
 class Payment {
@@ -40,11 +38,6 @@ class PaymentListPage {
 
   final List<Payment> list;
   final bool? isLastPage;
-}
-
-enum PaymentType {
-  withdraw,
-  topup;
 }
 
 

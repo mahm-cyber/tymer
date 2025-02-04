@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:domain_models/domain_models.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:top_up_information/src/components/components.dart';
 import 'package:top_up_information/top_up_information.dart';
 
@@ -17,8 +18,8 @@ class OrangeCashInfo extends StatelessWidget {
     final isArabic = Localizations.localeOf(context).languageCode == 'ar';
     return Column(
       children: [
-        Text(
-          isArabic ? orangeCash.message.ar : orangeCash.message.en,
+        MarkdownBody(
+          data: isArabic ? orangeCash.message.ar : orangeCash.message.en,
         ),
         CopyableText(
           label: l10n.walletNumber,

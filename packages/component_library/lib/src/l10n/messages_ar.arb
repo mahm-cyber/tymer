@@ -84,6 +84,16 @@
   "uploadImageFromGalleryIconLabel": "صورة",
   "captureImageIconLabel": "كاميرا",
   "noMessagesIndicator": "لا توجد رسائل بعد",
-  "messageSentByMeCardTitle": "أنت"
+  "messageSentByMeCardTitle": "أنت",
+  "transactionStatusPending": "قيد المراجعة",
+  "transactionStatusCompleted": "مكتمل",
+  "transactionStatusFailed": "فشل",
+  "transactionStatusCancelled": "ملغى",
+  "transactionStatusUnderReview": "قيد المراجعة",
+  "transactionStatusRefunded": "تم الاسترداد",
+  "transactionTypeEarning": "إيراد",
+  "transactionTypePayout": "صرف",
+  "transactionTypeTopup": "شحن",
+  "transactionTypeWithdrawal": "سحب"
 }
 

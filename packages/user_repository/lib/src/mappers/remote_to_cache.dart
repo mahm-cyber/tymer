@@ -51,3 +51,21 @@ extension PrivacyPolicyRMtoCM on PrivacyPolicyRM {
     );
   }
 }
+
+extension FaqRMtoCM on FaqRM {
+  FaqCM toCacheModel() {
+    return FaqCM(
+      id: id,
+      question: question,
+      answer: answer,
+    );
+  }
+}
+
+extension FaqsRMtoCM on List<FaqRM> {
+  FaqsCM toCacheModel() {
+    return FaqsCM(
+      list: map((e) => e.toCacheModel()).toList(),
+    );
+  }
+}

@@ -62,7 +62,10 @@ class _WithdrawAmountInputFieldState extends State<WithdrawAmountInputField> {
               ? clL10n.requiredFieldErrorMessage
               : withdrawAmountError == DynamicValidationError.isNotNumber
                   ? l10n.isNotNumberTextFieldErrorMessage
-                  : null,
+                  : withdrawAmountError == DynamicValidationError.isNotGreaterThanZero
+                      ? l10n.isNotGreaterThanZeroTextFieldErrorMessage(
+                          state.withdrawMethods?.minimumAmount?.toInt() ?? 0)
+                      : null,
         ),
       );
     });

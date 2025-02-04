@@ -25,22 +25,28 @@ class WalletCubit extends Cubit<WalletState> {
         }
       },
     );
+    userRepository.getFreshUser().then((user) {
+      final newState = state.copyWith(
+        balance: user.balance,
+        nextPage: state.nextPage,
+      );
+      emit(newState);
+    });
   }
 
   final UserRepository userRepository;
   final WalletRepository walletRepository;
   final VoidCallback onTopUpTapped;
   final VoidCallback onWithdrawTapped;
-  final PagingController<int, InAppTransaction> transactionsPagingController;
+  final PagingController<int, Transaction> transactionsPagingController;
 
   Future _handleTransactionListNextPageRequested({
     int page = 1,
   }) async {
     try {
-      final newPage = await walletRepository.getInAppTransactions(
+      final newPage = await walletRepository.getAllTransactions(
         page: page,
       );
-
       final newItemList = newPage.list;
       final oldItemList = state.transactions ?? [];
       final completeItemList =
@@ -69,6 +75,12 @@ class WalletCubit extends Cubit<WalletState> {
       transactionsFetchStatus: FetchStatus.initial,
     );
     emit(loadingFirstPageState);
+    final user = await userRepository.getFreshUser();
+    final newState = state.copyWith(
+      balance: user.balance,
+      nextPage: state.nextPage,
+    );
+    emit(newState);
     _handleTransactionListNextPageRequested();
   }
 
@@ -85,12 +97,12 @@ class WalletCubit extends Cubit<WalletState> {
   }
 
   Future<void> onNavigateToWithdrawTapped() async {
-    walletRepository.changeNotifier.setPaymentType(PaymentType.withdraw);
+    walletRepository.changeNotifier.setPaymentType(TransactionType.withdraw);
     onWithdrawTapped();
   }
 
   Future<void> onNavigateToTopUpTapped() async {
-    walletRepository.changeNotifier.setPaymentType(PaymentType.topup);
+    walletRepository.changeNotifier.setPaymentType(TransactionType.topup);
     onTopUpTapped();
   }
 

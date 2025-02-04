@@ -128,7 +128,7 @@ abstract class HomeLocalizations {
   /// No description provided for @fabLabel.
   ///
   /// In en, this message translates to:
-  /// **'Chat'**
+  /// **'Support'**
   String get fabLabel;
 }
 

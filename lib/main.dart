@@ -4,7 +4,7 @@ import 'package:accept_service_request/accept_service_request.dart';
 import 'package:change_language/change_language.dart';
 import 'package:change_password/change_password.dart';
 import 'package:change_phone/change_phone.dart';
-import 'package:chat/chat.dart';
+import 'package:dispute_chat/dispute_chat.dart';
 import 'package:choose_service/choose_service.dart';
 import 'package:choose_top_up_method/choose_top_up_method.dart';
 import 'package:choose_withdraw_method/choose_withdraw_method.dart';
@@ -32,6 +32,8 @@ import 'package:request_service/request_service.dart';
 import 'package:service_repository/service_repository.dart';
 import 'package:service_request_status/service_request_status.dart';
 import 'package:sign_up/sign_up.dart';
+import 'package:support_chat/support_chat.dart';
+import 'package:support_repository/support_repository.dart';
 import 'package:top_up_confirmation/top_up_confirmation.dart';
 import 'package:top_up_information/top_up_information.dart';
 import 'package:tymer/firebase_options.dart';
@@ -104,6 +106,9 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
     remoteApi: _connectInApi,
     noSqlStorage: _keyValueStorage,
   );
+  late final _supportRepository = SupportRepository(
+    remoteApi: _connectInApi,
+  );
   late final _walletRepository = WalletRepository(
     remoteApi: _connectInApi,
   );
@@ -151,6 +156,7 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
           userRepository: _userRepository,
           serviceRepository: _serviceRepository,
           disputeRepository: _disputeRepository,
+          supportRepository: _supportRepository,
           unAuthenticatedAccessVN: _unAuthenticatedAccessVN,
           signInSuccessVN: _signInSuccessVN,
           walletRepository: _walletRepository,
@@ -211,7 +217,7 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                   textDirection:
                       isArabic ? TextDirection.rtl : TextDirection.ltr,
                   child: AppWideErrorIndicator(
-                    isUserUnAuthVN: _unAuthenticatedAccessVN,
+                    unAuthenticatedAccessVN: _unAuthenticatedAccessVN,
                     internetConnectionErrorVN: _internetConnectionErrorVN,
                     child: child!,
                   ),
@@ -251,13 +257,14 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                 WalletLocalizations.delegate,
                 DisputesLocalizations.delegate,
                 ConfirmDisputeLocalizations.delegate,
-                ChatLocalizations.delegate,
+                DisputeChatLocalizations.delegate,
                 WithdrawLocalizations.delegate,
                 ChooseTopUpMethodLocalizations.delegate,
                 TopUpInformationLocalizations.delegate,
                 TopUpConfirmationLocalizations.delegate,
                 ChooseWithdrawMethodLocalizations.delegate,
                 PaymentHistoryLocalizations.delegate,
+                SupportChatLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [
@@ -278,12 +285,12 @@ class AppWideErrorIndicator extends StatefulWidget {
   const AppWideErrorIndicator({
     super.key,
     required this.child,
-    required this.isUserUnAuthVN,
+    required this.unAuthenticatedAccessVN,
     required this.internetConnectionErrorVN,
   });
 
   final Widget child;
-  final ValueNotifier<bool> isUserUnAuthVN;
+  final ValueNotifier<bool?> unAuthenticatedAccessVN;
   final ValueNotifier<InternetConnectionTymerException?>
       internetConnectionErrorVN;
 
@@ -309,9 +316,10 @@ class _AppWideErrorIndicatorState extends State<AppWideErrorIndicator> {
       },
     );
 
-    widget.isUserUnAuthVN.addListener(
+    widget.unAuthenticatedAccessVN.addListener(
       () {
-        if (widget.isUserUnAuthVN.value) {
+        final unAuthenticatedAccess = widget.unAuthenticatedAccessVN.value;
+        if (unAuthenticatedAccess == true) {
           showSnackBar(
             context: context,
             snackBar: ErrorSnackBar(

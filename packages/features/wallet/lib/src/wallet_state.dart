@@ -6,21 +6,23 @@ class WalletState extends Equatable {
     this.nextPage,
     this.nextListPageLoadError,
     this.transactionsFetchStatus = FetchStatus.initial,
+    this.balance,
   });
 
-  final List<InAppTransaction>? transactions;
+  final List<Transaction>? transactions;
   final int? nextPage;
   final dynamic nextListPageLoadError;
   final FetchStatus transactionsFetchStatus;
-
-  List<InAppTransaction>? get ascendingSortedTransactions =>
-      transactions?..sort((b, a) => a.createdAt.compareTo(b.createdAt));
+  final double? balance;
+  // List<InAppTransaction>? get ascendingSortedTransactions =>
+  //     transactions?..sort((b, a) => a.createdAt.compareTo(b.createdAt));
 
   WalletState copyWith({
-    List<InAppTransaction>? transactions,
+    List<Transaction>? transactions,
     int? nextPage,
     dynamic nextListPageLoadError,
     FetchStatus? transactionsFetchStatus,
+    double? balance,
   }) {
     return WalletState(
       transactions: transactions ?? this.transactions,
@@ -28,6 +30,7 @@ class WalletState extends Equatable {
       nextListPageLoadError: nextListPageLoadError,
       transactionsFetchStatus:
           transactionsFetchStatus ?? this.transactionsFetchStatus,
+      balance: balance ?? this.balance,
     );
   }
 
@@ -37,6 +40,7 @@ class WalletState extends Equatable {
         nextPage,
         nextListPageLoadError,
         transactionsFetchStatus,
+        balance,
       ];
 }
 

@@ -241,4 +241,34 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get messageSentByMeCardTitle => 'أنت';
+
+  @override
+  String get transactionTypeEarning => 'إيراد';
+
+  @override
+  String get transactionTypePayout => 'صرف';
+
+  @override
+  String get transactionTypeTopup => 'شحن';
+
+  @override
+  String get transactionTypeWithdrawal => 'سحب';
+
+  @override
+  String get transactionStatusPending => 'قيد المراجعة';
+
+  @override
+  String get transactionStatusCompleted => 'مكتمل';
+
+  @override
+  String get transactionStatusFailed => 'فشل';
+
+  @override
+  String get transactionStatusCancelled => 'ملغى';
+
+  @override
+  String get transactionStatusUnderReview => 'قيد المراجعة';
+
+  @override
+  String get transactionStatusRefunded => 'تم الاسترداد';
 }

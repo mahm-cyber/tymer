@@ -164,7 +164,8 @@ class UrlBuilder {
   String buildGetInAppTransactionsUrl({
     required int page,
   }) {
-    return '$baseUrl/transactions?page=$page';
+    //sort by created_at most recent to least recent
+    return '$baseUrl/transactions?page=$page&sort=-created_at';
   }
 
   String buildConfirmTopUpUrl(String paymentMethodType) {
@@ -179,7 +180,7 @@ class UrlBuilder {
     return '$baseUrl/transactions/withdraw/$paymentMethodType/requests';
   }
 
-  String buildSendChatMessageUrl({
+  String buildSendDisputeChatMessageUrl({
     required int disputeId,
     required String userType,
   }) {
@@ -195,6 +196,26 @@ class UrlBuilder {
 
   String buildGetPrivacyPolicyUrl() {
     return '$baseUrl/settings/privacy-policy';
+  }
+
+  String buildGetFaqsUrl() {
+    return '$baseUrl/frequently-asked-questions';
+  }
+
+  String buildCheckIfUserHasSupportChatUrl() {
+    return '$baseUrl/support-chat-conversations/existing-one';
+  }
+
+  String buildCreateSupportChatUrl() {
+    return '$baseUrl/support-chat-conversations/start';
+  }
+
+  String buildGetSupportChatUrl(int supportChatId) {
+    return '$baseUrl/support-chat-conversations/$supportChatId/chat-messages';
+  }
+
+  String buildSendSupportChatMessageUrl(int supportChatId) {
+    return '$baseUrl/support-chat-conversations/$supportChatId/chat-messages';
   }
 
   String buildChangePasswordUrl() {
@@ -222,6 +243,6 @@ class UrlBuilder {
     required String paymentMethodType,
     required int page,
   }) {
-    return '$baseUrl/transactions/$type/$paymentMethodType/requests?page=$page';
+    return '$baseUrl/transactions/$type/$paymentMethodType/requests?page=$page&sort=-created_at';
   }
 }

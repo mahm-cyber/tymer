@@ -22,5 +22,5 @@ class HomeLocalizationsAr extends HomeLocalizations {
   String get provideServiceContainerSubtitle => 'امشِ واكسب';
 
   @override
-  String get fabLabel => 'محادثة';
+  String get fabLabel => 'الدعم';
 }

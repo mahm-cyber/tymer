@@ -42,10 +42,7 @@ extension NotificationRMtoDM on NotificationRM {
     }
   }
 
-
-
   TymerNotification toDomainModel() {
-
     return TymerNotification(
       id: id,
       disputeId: _parseId(disputeId),

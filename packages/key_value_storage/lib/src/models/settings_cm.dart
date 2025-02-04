@@ -5,9 +5,10 @@ part 'settings_cm.g.dart';
 @HiveType(typeId: 8)
 class SettingsCM {
   SettingsCM({
-     this.pricing,
+    this.pricing,
     this.termsAndConditions,
     this.privacyPolicy,
+    this.faqs,
   });
 
   @HiveField(0)
@@ -16,16 +17,20 @@ class SettingsCM {
   final TermsAndConditionsCM? termsAndConditions;
   @HiveField(2)
   final PrivacyPolicyCM? privacyPolicy;
+  @HiveField(3)
+  final FaqsCM? faqs;
 
   SettingsCM copyWith({
     PricingSettingsCM? pricing,
     TermsAndConditionsCM? termsAndConditions,
     PrivacyPolicyCM? privacyPolicy,
+    FaqsCM? faqs,
   }) {
     return SettingsCM(
       pricing: pricing ?? this.pricing,
-      termsAndConditions: termsAndConditions?? this.termsAndConditions,
-      privacyPolicy: privacyPolicy?? this.privacyPolicy,
+      termsAndConditions: termsAndConditions ?? this.termsAndConditions,
+      privacyPolicy: privacyPolicy ?? this.privacyPolicy,
+      faqs: faqs ?? this.faqs,
     );
   }
 }
@@ -79,4 +84,30 @@ class PrivacyPolicyCM {
   final String arHtml;
   @HiveField(1)
   final String enHtml;
+}
+
+@HiveType(typeId: 9)
+class FaqCM {
+  FaqCM({
+    required this.id,
+    required this.question,
+    required this.answer,
+  });
+
+  @HiveField(0)
+  final int id;
+  @HiveField(1)
+  final String question;
+  @HiveField(2)
+  final String answer;
+}
+
+@HiveType(typeId: 10)
+class FaqsCM {
+  FaqsCM({
+    required this.list,
+  });
+
+  @HiveField(0)
+  final List<FaqCM> list;
 }

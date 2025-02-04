@@ -20,6 +20,7 @@ class WithdrawCubit extends Cubit<WithdrawState> {
           WithdrawState(
             paymentMethodType: walletRepository
                 .changeNotifier.withdrawMethods?.pickedPaymentMethodType,
+            withdrawMethods: walletRepository.changeNotifier.withdrawMethods,
           ),
         );
 
@@ -37,6 +38,7 @@ class WithdrawCubit extends Cubit<WithdrawState> {
               newValue,
               isRequired: true,
               checkIfNumber: true,
+              isGreatherThan: state.withdrawMethods?.minimumAmount?.toInt(),
             )
           : Dynamic<String?>.unvalidated(
               newValue,
@@ -51,6 +53,7 @@ class WithdrawCubit extends Cubit<WithdrawState> {
         state.withdrawAmount.value,
         isRequired: true,
         checkIfNumber: true,
+        isGreatherThan: state.withdrawMethods?.minimumAmount?.toInt(),
       ),
     );
     emit(newState);
@@ -181,6 +184,7 @@ class WithdrawCubit extends Cubit<WithdrawState> {
       state.withdrawAmount.value,
       isRequired: true,
       checkIfNumber: true,
+      isGreatherThan: state.withdrawMethods?.minimumAmount?.toInt(),
     );
 
     final walletNumber = Dynamic<String?>.validated(
@@ -237,15 +241,15 @@ class WithdrawCubit extends Cubit<WithdrawState> {
     if (isFormValid) {
       try {
         await walletRepository.confirmWithdraw(
-          paymentMethodType: walletRepository
-              .changeNotifier.withdrawMethods!.pickedPaymentMethodType!,
-          amount: int.parse(withdrawAmount.value!),
+          paymentMethodType: state.withdrawMethods!.pickedPaymentMethodType!,
+          amount: double.parse(withdrawAmount.value!),
           walletNumber: walletNumber.value,
           ibanNumber: ibanNumber.value,
           beneficiaryName: beneficiaryName.value,
           instantPaymentAddress: instantPaymentAddress.value,
           teldaUsername: teldaUsername.value,
         );
+        await userRepository.getFreshUser();
         final successState =
             state.copyWith(submissionStatus: FormzSubmissionStatus.success);
         emit(successState);

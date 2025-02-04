@@ -10,5 +10,13 @@
   "invalidWalletNumberErrorMessage": "الرجاء إدخال رقم محفظة صحيح",
   "instantPaymentAddressTextFieldLabel": "عنوان الدفع الفوري",
   "teldaUsernameTextFieldLabel": "اسم مستخدم تلدا",
-  "ibanNumberTextFieldError": "الرجاء إدخال رقم حساب بنكي صحيح"
+  "ibanNumberTextFieldError": "الرجاء إدخال رقم حساب بنكي صحيح",
+  "isNotGreaterThanZeroTextFieldErrorMessage": "المبلغ يجب أن يكون أكبر من {minimumAmount}",
+  "@isNotGreaterThanZeroTextFieldErrorMessage": {
+    "placeholders": {
+      "minimumAmount": {
+        "type": "int"
+      }
+    }
+  }
 }

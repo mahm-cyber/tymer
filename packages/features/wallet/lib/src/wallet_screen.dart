@@ -28,11 +28,9 @@ class WalletScreen extends StatefulWidget {
   State<WalletScreen> createState() => _WalletScreenState();
 }
 
-class _WalletScreenState extends State<WalletScreen>
-    with AutomaticKeepAliveClientMixin {
+class _WalletScreenState extends State<WalletScreen> {
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return BlocProvider<WalletCubit>(
       create: (_) => WalletCubit(
         userRepository: widget.userRepository,
@@ -43,9 +41,6 @@ class _WalletScreenState extends State<WalletScreen>
       child: const WalletView(),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
 
 class WalletView extends StatelessWidget {
@@ -57,7 +52,11 @@ class WalletView extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = WalletLocalizations.of(context);
     final cubit = context.read<WalletCubit>();
-
+    final theme = TymerTheme.of(context);
+    final colorScheme = theme.materialThemeData.colorScheme;
+    final clL10n = ComponentLibraryLocalizations.of(context);
+    final locale = Localizations.localeOf(context);
+    final textTheme = Theme.of(context).textTheme;
     return BlocConsumer<WalletCubit, WalletState>(
       listener: (context, state) {
         cubit.transactionsPagingController.value = state.toPagingState();
@@ -69,14 +68,44 @@ class WalletView extends StatelessWidget {
             children: [
               Scaffold(
                 appBar: AppBar(
-                  title: const SvgAsset(AssetPathConstants.whiteLogoPath),
-                  toolbarHeight: 160,
+                  title: const SvgAsset(
+                    AssetPathConstants.whiteLogoPath,
+                    height: 30,
+                  ),
+                  toolbarHeight: 70,
+                  iconTheme: IconThemeData(color: colorScheme.surface),
                 ),
                 body: Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      VerticalGap.xxLarge(),
+                      VerticalGap.xLarge(),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: Spacing.medium,
+                          vertical: Spacing.small,
+                        ),
+                        decoration: BoxDecoration(
+                          color: theme.secondaryContainerBgColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        height: 50,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const SvgAsset(AssetPathConstants.bankNotePath),
+                            HorizontalGap.small(),
+                            if (state.balance != null)
+                              Text(
+                                '${l10n.balance} ${state.balance!.localizeDouble(locale)} ${clL10n.eyptianPoundLetters}',
+                                style: textTheme.labelMedium
+                                    ?.copyWith(color: colorScheme.primary),
+                              ),
+                          ],
+                        ),
+                      ),
+                      VerticalGap.small(),
                       Wrap(
                         spacing: Spacing.medium,
                         runSpacing: Spacing.medium,
@@ -105,7 +134,7 @@ class WalletView extends StatelessWidget {
                             separatorBuilder: (context, index) =>
                                 VerticalGap.medium(),
                             builderDelegate:
-                                PagedChildBuilderDelegate<InAppTransaction>(
+                                PagedChildBuilderDelegate<Transaction>(
                               itemBuilder: (context, transaction, index) {
                                 final isLastItem = index ==
                                     cubit.transactionsPagingController.itemList!
@@ -137,6 +166,9 @@ class WalletView extends StatelessWidget {
                                   message: l10n.noTransactionsText,
                                 );
                               },
+                              firstPageProgressIndicatorBuilder: (_) {
+                                return const SizedBox.shrink();
+                              },
                               newPageErrorIndicatorBuilder: (_) {
                                 return NextPageExceptionIndicator(
                                   onTryAgain: cubit.reFetchNextSearchListPage,
@@ -151,6 +183,8 @@ class WalletView extends StatelessWidget {
                 ),
               ),
               AppBarTitleContainer(
+                top: theme.smallAppBarTitleContainerHeight,
+                height: 30,
                 title: l10n.appBarTitle,
               ),
             ],
@@ -162,9 +196,9 @@ class WalletView extends StatelessWidget {
 }
 
 extension WalletStateToPagingState on WalletState {
-  PagingState<int, InAppTransaction> toPagingState() {
+  PagingState<int, Transaction> toPagingState() {
     return PagingState(
-      itemList: ascendingSortedTransactions,
+      itemList: transactions,
       nextPageKey: nextPage,
       error: nextListPageLoadError,
     );

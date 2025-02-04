@@ -1,10 +1,8 @@
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
-import 'package:wallet/src/l10n/wallet_localizations.dart';
 
 import 'package:wallet_repository/wallet_repository.dart';
-
 
 class TransactionCard extends StatelessWidget {
   const TransactionCard({
@@ -12,23 +10,28 @@ class TransactionCard extends StatelessWidget {
     required this.transaction,
   });
 
-  final InAppTransaction transaction;
+  final Transaction transaction;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final l10n = WalletLocalizations.of(context);
+    final theme = TymerTheme.of(context);
+    final textTheme = Theme.of(context).textTheme;
     final locale = Localizations.localeOf(context);
     final clL10n = ComponentLibraryLocalizations.of(context);
     Color getStatusColor() {
       switch (transaction.status) {
-        case InAppTransactionStatus.completed:
-          return theme.colorScheme.secondary;
-        case InAppTransactionStatus.pending:
-          return theme.colorScheme.primary;
-        case InAppTransactionStatus.rejected:
-          return theme.colorScheme.error;
-      
+        case TransactionStatus.completed:
+          return theme.primaryColor;
+        case TransactionStatus.pending:
+          return theme.secondaryIconColor;
+        case TransactionStatus.failed:
+          return theme.errorColor;
+        case TransactionStatus.cancelled:
+          return theme.errorColor;
+        case TransactionStatus.underReview:
+          return theme.secondaryColor;
+        case TransactionStatus.refunded:
+          return theme.secondaryColor;
       }
     }
 
@@ -44,8 +47,7 @@ class TransactionCard extends StatelessWidget {
           children: [
             Text(
               '#${transaction.id.localizeInt(locale)}',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
+              style: textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -54,10 +56,11 @@ class TransactionCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    transaction.type == InAppTransactionType.earning
-                        ? l10n.earning
-                        : l10n.payout,
-                    style: theme.textTheme.titleMedium?.copyWith(
+                    transactionTypeToLocalizeString(
+                      transaction.type,
+                      clL10n,
+                    ),
+                    style: textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
                     maxLines: 1,
@@ -66,10 +69,10 @@ class TransactionCard extends StatelessWidget {
                 ),
                 Text(
                   '${transaction.amount.localizeInt(locale)} ${clL10n.eyptianPoundLetters}',
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    color: transaction.type == InAppTransactionType.earning
-                        ? theme.colorScheme.primary
-                        : theme.colorScheme.error,
+                  style: textTheme.titleMedium?.copyWith(
+                    color: transaction.type == TransactionType.earning
+                        ? theme.primaryColor
+                        : theme.errorColor,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -85,13 +88,14 @@ class TransactionCard extends StatelessWidget {
                       .split('T')
                       .first
                       .localizeDateString(locale),
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
+                  style: textTheme.bodyMedium,
                 ),
                 Text(
-                  transaction.status.toString().split('.').last.capitalize(),
-                  style: theme.textTheme.bodyMedium?.copyWith(
+                  transactionStatusToLocalizeString(
+                    transaction.status,
+                    clL10n,
+                  ),
+                  style: textTheme.bodyMedium?.copyWith(
                     color: getStatusColor(),
                     fontWeight: FontWeight.bold,
                   ),
@@ -105,3 +109,38 @@ class TransactionCard extends StatelessWidget {
   }
 }
 
+String transactionStatusToLocalizeString(
+  TransactionStatus status,
+  ComponentLibraryLocalizations l10n,
+) {
+  switch (status) {
+    case TransactionStatus.completed:
+      return l10n.transactionStatusCompleted;
+    case TransactionStatus.pending:
+      return l10n.transactionStatusPending;
+    case TransactionStatus.failed:
+      return l10n.transactionStatusFailed;
+    case TransactionStatus.cancelled:
+      return l10n.transactionStatusCancelled;
+    case TransactionStatus.underReview:
+      return l10n.transactionStatusUnderReview;
+    case TransactionStatus.refunded:
+      return l10n.transactionStatusRefunded;
+  }
+}
+
+String transactionTypeToLocalizeString(
+  TransactionType type,
+  ComponentLibraryLocalizations l10n,
+) {
+  switch (type) {
+    case TransactionType.earning:
+      return l10n.transactionTypeEarning;
+    case TransactionType.payout:
+      return l10n.transactionTypePayout;
+    case TransactionType.topup:
+      return l10n.transactionTypeTopup;
+    case TransactionType.withdraw:
+      return l10n.transactionTypeWithdrawal;
+  }
+}

@@ -26,6 +26,7 @@ UserRM _$UserRMFromJson(Map<String, dynamic> json) => $checkedCreate(
           language: $checkedConvert('preferred_language', (v) => v as String),
           updatedAt: $checkedConvert('updated_at', (v) => v as String?),
           deletedAt: $checkedConvert('deleted_at', (v) => v as String?),
+          balance: $checkedConvert('balance', (v) => v as String),
         );
         return val;
       },

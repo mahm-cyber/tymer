@@ -153,7 +153,6 @@ class UserRepository {
     required String password,
   }) async {
     try {
-
       final token = await remoteApi.signIn(
         phone: phone,
         password: password,
@@ -162,7 +161,6 @@ class UserRepository {
       final userRM = await remoteApi.getUser();
 
       final isPhoneVerified = userRM.phoneVerifiedAt != null;
-
 
       if (!isPhoneVerified) {
         await reSendOtp();
@@ -180,6 +178,7 @@ class UserRepository {
         name: userRM.name,
         email: userRM.email,
         phone: userRM.phone,
+        balance: double.parse(userRM.balance),
       );
       final language = userRM.language;
       final localePreference = strToLocalePreferenceDM(language);
@@ -201,7 +200,23 @@ class UserRepository {
     }
   }
 
-
+  Future<User> getFreshUser() async {
+    try {
+      final userRM = await remoteApi.getUser();
+      final userDM = userRM.toDomainModel();
+      await _secureStorage.upsertUser(
+        id: userRM.id,
+        name: userRM.name,
+        email: userRM.email,
+        phone: userRM.phone,
+        balance: double.parse(userRM.balance),
+      );
+      _userSubject.add(userDM);
+      return userDM;
+    } catch (error) {
+      rethrow;
+    }
+  }
 
   Future requestOtpForSignUp({
     required String email,
@@ -320,8 +335,6 @@ class UserRepository {
     }
   }
 
-
-
   Future<String?> getUserToken() async => await _secureStorage.getUserToken();
 
   Future logout() async {
@@ -343,16 +356,19 @@ class UserRepository {
     final userName = await _secureStorage.getUserName();
     final userEmail = await _secureStorage.getUserEmail();
     final userPhone = await _secureStorage.getUserPhone();
+    final userBalance = await _secureStorage.getUserBalance();
 
     if (userId != null &&
         userName != null &&
         userEmail != null &&
-        userPhone != null) {
+        userPhone != null &&
+        userBalance != null) {
       final user = User(
         id: userId,
         name: userName,
         email: userEmail,
         phone: userPhone,
+        balance: userBalance,
       );
       _userSubject.add(user);
     } else {
@@ -385,41 +401,44 @@ class UserRepository {
   }
 
   Future<Settings> _getSettingsFromNetwork() async {
-    try {
-      //future.wait
+    final fetchedSettings = await Future.wait([
+      remoteApi.getPrivacyPolicy(),
+      remoteApi.getTermsAndConditions(),
+      remoteApi.getFaqs(),
+    ]);
 
-      final settings = await Future.wait(
-        [
-          remoteApi.getPrivacyPolicy(),
-          remoteApi.getTermsAndConditions(),
-        ],
-      );
-      final currentSettings = await _localStorage.getSettings();
-      final privacyPolicyCM = (settings[0] as PrivacyPolicyRM).toCacheModel();
-      final termsAndConditionsCM =
-          (settings[1] as TermsAndConditionsRM).toCacheModel();
-      final settingsCM = currentSettings?.copyWith(
-            privacyPolicy: privacyPolicyCM,
-            termsAndConditions: termsAndConditionsCM,
-          ) ??
-          SettingsCM(
-            privacyPolicy: privacyPolicyCM,
-            termsAndConditions: termsAndConditionsCM,
-          );
+    final currentSettings = await _localStorage.getSettings();
 
-      final privacyPolicyDM = (settings[0] as PrivacyPolicyRM).toDomainModel();
-      final termsAndConditionsDM =
-          (settings[1] as TermsAndConditionsRM).toDomainModel();
-      final settingsDM = Settings(
-        privacyPolicy: privacyPolicyDM,
-        termsAndConditions: termsAndConditionsDM,
-      );
+    // Convert network models to cache models
+    final privacyPolicyRM = fetchedSettings[0] as PrivacyPolicyRM;
+    final termsRM = fetchedSettings[1] as TermsAndConditionsRM;
+    final faqsRM = fetchedSettings[2] as List<FaqRM>;
 
-      _localStorage.upsertSettings(settingsCM);
-      return settingsDM;
-    } catch (error) {
-      rethrow;
-    }
+    final privacyPolicyCM = privacyPolicyRM.toCacheModel();
+    final termsCM = termsRM.toCacheModel();
+    final faqsCM = faqsRM.toCacheModel();
+
+    // Update or create cache entry
+    final settingsCM = currentSettings?.copyWith(
+          privacyPolicy: privacyPolicyCM,
+          termsAndConditions: termsCM,
+          faqs: faqsCM,
+        ) ??
+        SettingsCM(
+          privacyPolicy: privacyPolicyCM,
+          termsAndConditions: termsCM,
+          faqs: faqsCM,
+        );
+
+    // Convert network models to domain models
+    final settingsDM = Settings(
+      privacyPolicy: privacyPolicyRM.toDomainModel(),
+      termsAndConditions: termsRM.toDomainModel(),
+      faqs: faqsRM.map((faq) => faq.toDomainModel()).toList(),
+    );
+
+    await _localStorage.upsertSettings(settingsCM);
+    return settingsDM;
   }
 
   Future<Settings> getSettings(FetchPolicy fetchPolicy) async {

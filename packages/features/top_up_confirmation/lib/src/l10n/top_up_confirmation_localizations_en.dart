@@ -35,4 +35,7 @@ class TopUpConfirmationLocalizationsEn extends TopUpConfirmationLocalizations {
 
   @override
   String get teldaUsernameTextFieldLabel => 'Telda Username';
+
+  @override
+  String get isNotGreaterThanZeroTextFieldErrorMessage => 'Amount must be greater than 0';
 }

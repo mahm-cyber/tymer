@@ -14,15 +14,16 @@ class WalletRepository {
   final TymerApi remoteApi;
   final WalletChangeNotifier changeNotifier;
 
-  Future<PaymentMethods> getPaymentMethods(PaymentType paymentType) async {
-    final paymentMethods = await remoteApi.getPaymentMethods(paymentType.toRemoteModel());
+  Future<PaymentMethods> getPaymentMethods(TransactionType paymentType) async {
+    final paymentMethods =
+        await remoteApi.getPaymentMethods(paymentType.toRemoteModel());
     final paymentMethodsDomain = paymentMethods.toDomainModel();
     return paymentMethodsDomain;
   }
 
   Future<void> confirmTopUp({
     required PaymentMethodType paymentMethodType,
-    required int amount,
+    required double amount,
     String? walletNumber,
     String? instantPaymentAddress,
     String? teldaUsername,
@@ -44,7 +45,7 @@ class WalletRepository {
     }
   }
 
-  Future<String> confirmBankCardTopUp(int amount) async {
+  Future<String> confirmBankCardTopUp(double amount) async {
     try {
       final url = await remoteApi.confirmBankCardTopUp(amount);
       return url;
@@ -55,7 +56,7 @@ class WalletRepository {
 
   Future<void> confirmWithdraw({
     required PaymentMethodType paymentMethodType,
-    required int amount,
+    required double amount,
     String? walletNumber,
     String? instantPaymentAddress,
     String? ibanNumber,
@@ -80,7 +81,7 @@ class WalletRepository {
   }
 
   Future<PaymentListPage> getPayments({
-    required PaymentType type,
+    required TransactionType type,
     required PaymentMethodType paymentMethodType,
     required int page,
   }) async {
@@ -96,13 +97,13 @@ class WalletRepository {
     }
   }
 
-  Future<InAppTransactionListPage> getInAppTransactions({
+  Future<TransactionListPage> getAllTransactions({
     required int page,
   }) async {
     try {
-      final inAppTransactionListPageRM =
-          await remoteApi.getInAppTransactions(page: page);
-      return inAppTransactionListPageRM.toDomainModel();
+      final transactionListPageRM =
+          await remoteApi.getAllTransactions(page: page);
+      return transactionListPageRM.toDomainModel();
     } catch (e) {
       rethrow;
     }

@@ -154,9 +154,10 @@ class PaymentHistoryView extends StatelessWidget {
                             },
                             noItemsFoundIndicatorBuilder: (_) {
                               return NoItemsFoundIndicator(
-                                message: state.paymentType == PaymentType.topup
-                                    ? l10n.noTopupPaymentsText
-                                    : l10n.noWithdrawalPaymentsText,
+                                message:
+                                    state.paymentType == TransactionType.topup
+                                        ? l10n.noTopupPaymentsText
+                                        : l10n.noWithdrawalPaymentsText,
                               );
                             },
                             newPageErrorIndicatorBuilder: (_) {
@@ -174,7 +175,7 @@ class PaymentHistoryView extends StatelessWidget {
               AppBarTitleContainer(
                 top: theme.smallAppBarTitleContainerHeight,
                 height: 30,
-                title: state.paymentType == PaymentType.topup
+                title: state.paymentType == TransactionType.topup
                     ? l10n.topupHistoryAppBarTitle
                     : l10n.withdrawHistoryAppBarTitle,
               ),

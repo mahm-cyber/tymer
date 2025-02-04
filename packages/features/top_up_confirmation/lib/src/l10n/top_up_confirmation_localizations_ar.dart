@@ -35,4 +35,7 @@ class TopUpConfirmationLocalizationsAr extends TopUpConfirmationLocalizations {
 
   @override
   String get teldaUsernameTextFieldLabel => 'اسم المستخدم';
+
+  @override
+  String get isNotGreaterThanZeroTextFieldErrorMessage => 'المبلغ يجب أن يكون أكبر من 0';
 }

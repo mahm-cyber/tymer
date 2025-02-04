@@ -1,0 +1,13 @@
+{
+    "appBarTitle": "Dispute Chat",
+    "noMessagesIndicator": "No messages yet",
+    "deniedSnackBarMessage": "Your request has been denied",
+    "messageSentByMeCardTitle": "You",
+    "refundedRequesterSnackBarMessage": "Your money has been refunded",
+    "deniedRequesterSnackBarMessage": "Your request has been denied",
+    "providerLostDisputeSnackBarMessage": "Money has been refunded to the requester",
+    "providerWonDisputeSnackBarMessage": "Ticker has been rejected",
+    "attachmentSizeExceedsLimitErrorSnackBarMessage": "Attachment size should be 1MB or less"
+
+
+}

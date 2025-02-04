@@ -5,6 +5,7 @@ part 'payment_methods_rm.g.dart';
 @JsonSerializable(createToJson: false)
 class PaymentMethodsRM {
   const PaymentMethodsRM({
+    this.withdrawMinimumAmount,
     required this.vodafoneCashEnabled,
     this.vodafoneCashWalletNumber,
     required this.vodafoneCashMessage,
@@ -29,7 +30,8 @@ class PaymentMethodsRM {
     this.bankTransferSwiftCode,
     required this.bankTransferMessage,
   });
-
+  @JsonKey(name: 'withdraw_minimum')
+  final double? withdrawMinimumAmount;
   @JsonKey(name: 'vodafone_cash_enabled')
   final bool vodafoneCashEnabled;
   @JsonKey(name: 'vodafone_cash_wallet_number')

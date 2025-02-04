@@ -29,7 +29,9 @@ class KeyValueStorage {
         ..registerAdapter(TermsAndConditionsCMAdapter())
         ..registerAdapter(PrivacyPolicyCMAdapter())
         ..registerAdapter(SettingsCMAdapter())
-        ..registerAdapter(LocalePreferenceCMAdapter());
+        ..registerAdapter(LocalePreferenceCMAdapter())
+        ..registerAdapter(FaqCMAdapter())
+        ..registerAdapter(FaqsCMAdapter());
     } catch (error) {
       throw Exception(error);
     }

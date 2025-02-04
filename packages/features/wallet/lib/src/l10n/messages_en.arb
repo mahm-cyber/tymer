@@ -3,6 +3,5 @@
   "withdrawalContainerTitle": "Withdraw",
   "topUpContainerTitle": "Top Up",
   "noTransactionsText": "No transactions found",
-  "earning": "Earning",
-  "payout": "Payout"
+  "balance": "Balance"
 }

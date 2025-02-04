@@ -5,17 +5,19 @@ import 'package:laravel_echo_null/laravel_echo_null.dart';
 import 'package:pusher_client_socket/pusher_client_socket.dart' as pusher;
 
 import 'package:rxdart/subjects.dart';
-import 'package:tymer_api/src/models/models.dart';
+import 'package:tymer_api/src/models/response/src/chat_rm.dart';
 import 'package:tymer_api/src/tymer_api.dart';
 
 class PusherApi {
   PusherApi(
     this.userTokenSupplier,
   )   : disputeChatMessageSC = BehaviorSubject(),
+        supportChatMessageSC = BehaviorSubject(),
         disputeStatusSC = BehaviorSubject();
 
-  final BehaviorSubject<DisputeMessageRM?> disputeChatMessageSC;
+  final BehaviorSubject<ChatMessageRM?> disputeChatMessageSC;
   final BehaviorSubject<String?> disputeStatusSC;
+  final BehaviorSubject<ChatMessageRM?> supportChatMessageSC;
   Echo<pusher.PusherClient, PusherChannel>? _echo;
   final UserTokenSupplier userTokenSupplier;
 
@@ -23,6 +25,7 @@ class PusherApi {
     required String channelName,
     required Function onEvent,
     required String eventName,
+    
   }) async {
     try {
       final privateChannel = _echo?.private(channelName);
@@ -32,7 +35,7 @@ class PusherApi {
 
       privateChannel?.listen(
         eventName,
-        _disputeChatEvent,
+        onEvent,
       );
 
       log('LISTENING TO:::$channelName::::::$eventName');
@@ -51,7 +54,7 @@ class PusherApi {
     log('STOPPED LISTENING TO:::$channelName');
   }
 
-  void listenToRemoteChat({
+  void listenToRemoteDisputeChat({
     required int disputeId,
     required String userType,
   }) {
@@ -69,7 +72,7 @@ class PusherApi {
     );
   }
 
-  void stopListeningToRemoteChat({
+  void stopListeningToRemoteDisputeChat({
     required int disputeId,
     required String userType,
   }) {
@@ -82,7 +85,7 @@ class PusherApi {
     );
   }
 
-  void listenToChatResolved({
+  void listenToDisputeChatResolved({
     required int disputeId,
     required String userType,
   }) {
@@ -97,7 +100,7 @@ class PusherApi {
     );
   }
 
-  void stopListeningToChatResolved({
+  void stopListeningToDisputeChatResolved({
     required int disputeId,
     required String userType,
   }) {
@@ -108,6 +111,27 @@ class PusherApi {
     stopListeningToChannel(
       channelName: '$channelName.$disputeId',
       onEvent: _disputeChatEvent,
+    );
+  }
+
+  void listenToRemoteSupportChat({
+    required int chatId,
+  }) {
+    final channelName = _ChannelNames.supportChat;
+    listenToChannel(
+      channelName: '$channelName.$chatId',
+      eventName: _ChannelNames.supportChatEventName,
+      onEvent: _supportChatEvent,
+    );
+  }
+
+  void stopListeningToRemoteSupportChat({
+    required int chatId,
+  }) {
+    final channelName = _ChannelNames.supportChat;
+    stopListeningToChannel(
+      channelName: '$channelName.$chatId',
+      onEvent: _supportChatEvent,
     );
   }
 
@@ -156,14 +180,19 @@ class PusherApi {
     // check if the json has the following keys sender_id
     // sender_name
     if (event.containsKey('sender_id') && event.containsKey('sender_name')) {
-      final DisputeMessageRM dateGroupedChatsRM =
-          DisputeMessageRM.fromJson(event);
+      final ChatMessageRM dateGroupedChatsRM = ChatMessageRM.fromJson(event);
       disputeChatMessageSC.add(dateGroupedChatsRM);
     }
     if (event.containsKey('new_status')) {
       final String newStatus = event['new_status'];
       disputeStatusSC.add(newStatus);
     }
+  }
+
+  void _supportChatEvent(Map<String, dynamic> event) {
+    log('SUPPORT CHAT EVENT:::$event');
+    final ChatMessageRM dateGroupedChatsRM = ChatMessageRM.fromJson(event);
+    supportChatMessageSC.add(dateGroupedChatsRM);
   }
 }
 
@@ -182,4 +211,9 @@ class _ChannelNames {
 
   static String get disputeResolvedAndClosedEventName =>
       'App\\Events\\DisputeResolvedAndClosed';
+
+  static String get supportChat => 'supportChatConversations';
+
+  static String get supportChatEventName =>
+      'App\\Events\\SupportChatMessageSent';
 }

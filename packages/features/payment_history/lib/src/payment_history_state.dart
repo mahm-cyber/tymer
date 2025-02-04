@@ -16,7 +16,7 @@ class PaymentHistoryState extends Equatable {
   final dynamic nextListPageLoadError;
   final FetchStatus paymentsFetchStatus;
   final PaymentStatus statusFilter;
-  final PaymentType? paymentType;
+  final TransactionType? paymentType;
   final PaymentMethodType? paymentMethodType;
   List<PaymentStatus> get paymentStatusFilters => [
         PaymentStatus.pending,
@@ -33,7 +33,7 @@ class PaymentHistoryState extends Equatable {
     dynamic nextListPageLoadError,
     FetchStatus? paymentsFetchStatus,
     PaymentStatus? statusFilter,
-    PaymentType? paymentType,
+    TransactionType? paymentType,
     PaymentMethodType? paymentMethodType,
   }) {
     return PaymentHistoryState(
@@ -64,4 +64,4 @@ enum FetchStatus {
   loading,
   success,
   failure,
-} 
+}

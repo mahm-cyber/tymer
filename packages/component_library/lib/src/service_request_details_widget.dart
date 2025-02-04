@@ -182,9 +182,7 @@ class ServiceRequestDetailsWidget extends StatelessWidget {
             maxLines: 4,
             decoration: InputDecoration(
               labelText: l10n.additionalCommentsTextFieldLabel,
-              // prefixIcon: const SvgAsset(
-              //   AssetPathConstants.chatPath,
-              // ),
+      
             ),
           ),
       ],

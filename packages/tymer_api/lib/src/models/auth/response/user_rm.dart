@@ -17,6 +17,7 @@ class UserRM {
     required this.language,
     this.updatedAt,
     this.deletedAt,
+    required this.balance,
   });
 
   @JsonKey(name: 'id')
@@ -43,6 +44,8 @@ class UserRM {
   final String? updatedAt;
   @JsonKey(name: 'deleted_at')
   final String? deletedAt;
+  @JsonKey(name: 'balance')
+  final String balance;
 
   static const fromJson = _$UserRMFromJson;
 }

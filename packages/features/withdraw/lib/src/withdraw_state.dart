@@ -3,6 +3,7 @@ part of 'withdraw_cubit.dart';
 class WithdrawState extends Equatable {
   const WithdrawState({
     this.paymentMethodType,
+    this.withdrawMethods,
     this.withdrawAmount = const Dynamic<String?>.unvalidated(),
     this.submissionStatus = FormzSubmissionStatus.initial,
     this.walletNumber = const Dynamic<String?>.unvalidated(),
@@ -13,6 +14,7 @@ class WithdrawState extends Equatable {
   });
 
   final PaymentMethodType? paymentMethodType;
+  final PaymentMethods? withdrawMethods;
   final Dynamic<String?> withdrawAmount;
   final FormzSubmissionStatus submissionStatus;
   final Dynamic<String?> walletNumber;
@@ -23,6 +25,7 @@ class WithdrawState extends Equatable {
 
   WithdrawState copyWith({
     PaymentMethodType? paymentMethodType,
+    PaymentMethods? withdrawMethods,
     Dynamic<String?>? withdrawAmount,
     FormzSubmissionStatus? submissionStatus,
     Dynamic<String?>? walletNumber,
@@ -33,10 +36,12 @@ class WithdrawState extends Equatable {
   }) {
     return WithdrawState(
       paymentMethodType: paymentMethodType ?? this.paymentMethodType,
+      withdrawMethods: withdrawMethods ?? this.withdrawMethods,
       withdrawAmount: withdrawAmount ?? this.withdrawAmount,
       submissionStatus: submissionStatus ?? this.submissionStatus,
       walletNumber: walletNumber ?? this.walletNumber,
-      instantPaymentAddress: instantPaymentAddress ?? this.instantPaymentAddress,
+      instantPaymentAddress:
+          instantPaymentAddress ?? this.instantPaymentAddress,
       ibanNumber: ibanNumber ?? this.ibanNumber,
       beneficiaryName: beneficiaryName ?? this.beneficiaryName,
       teldaUsername: teldaUsername ?? this.teldaUsername,
@@ -46,6 +51,7 @@ class WithdrawState extends Equatable {
   @override
   List<Object?> get props => [
         paymentMethodType,
+        withdrawMethods,
         withdrawAmount,
         submissionStatus,
         walletNumber,

@@ -65,3 +65,16 @@ PrivacyPolicyRM _$PrivacyPolicyRMFromJson(Map<String, dynamic> json) =>
       },
       fieldKeyMap: const {'arHtml': 'ar', 'enHtml': 'en'},
     );
+
+FaqRM _$FaqRMFromJson(Map<String, dynamic> json) => $checkedCreate(
+      'FaqRM',
+      json,
+      ($checkedConvert) {
+        final val = FaqRM(
+          id: $checkedConvert('id', (v) => (v as num).toInt()),
+          question: $checkedConvert('question', (v) => v as String),
+          answer: $checkedConvert('answer', (v) => v as String),
+        );
+        return val;
+      },
+    );

@@ -55,7 +55,8 @@ class TymerApi {
   // final FirebaseMessaging _firebaseMessaging;
   final Dio _dio;
   final ValueNotifier<bool> unAuthenticatedAccessVN;
-  final ValueNotifier internetConnectionErrorVN;
+  final ValueNotifier<InternetConnectionTymerException?>
+      internetConnectionErrorVN;
   final UrlBuilder urlBuilder;
   final PusherApi pusherApi;
 
@@ -602,7 +603,7 @@ class TymerApi {
     }
   }
 
-  Future<DisputeChatRM> getDisputeChat({
+  Future<ChatRM> getDisputeChat({
     required int disputeId,
     required String userType,
   }) async {
@@ -612,14 +613,14 @@ class TymerApi {
     );
     try {
       final response = await _dio.get(url);
-      final disputeChat = DisputeChatRM.fromJson(response.data);
+      final disputeChat = ChatRM.fromJson(response.data);
       return disputeChat;
     } catch (_) {
       rethrow;
     }
   }
 
-  Future sendChatMessage({
+  Future sendDisputeChatMessage({
     required int disputeId,
     required String userType,
     String? message,
@@ -627,7 +628,7 @@ class TymerApi {
     List<File?>? imageFiles,
     List<File?>? audioFiles,
   }) async {
-    final url = urlBuilder.buildSendChatMessageUrl(
+    final url = urlBuilder.buildSendDisputeChatMessageUrl(
       disputeId: disputeId,
       userType: userType,
     );
@@ -731,6 +732,123 @@ class TymerApi {
     }
   }
 
+  Future<List<FaqRM>> getFaqs() async {
+    final url = urlBuilder.buildGetFaqsUrl();
+    try {
+      final response = await _dio.get(url);
+      final json = response.data[_dataJsonKey] as List;
+      final faqs = json.map((e) => FaqRM.fromJson(e)).toList();
+      return faqs;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<int?> checkIfUserHasSupportChat() async {
+    final url = urlBuilder.buildCheckIfUserHasSupportChatUrl();
+    try {
+      final response = await _dio.get(url);
+      return response.data[_idJsonKey] as int?;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<int> createSupportChat() async {
+    final url = urlBuilder.buildCreateSupportChatUrl();
+    try {
+      final response = await _dio.post(url);
+      return response.data[_idJsonKey] as int;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<ChatRM> getSupportChat({
+    required int supportChatId,
+  }) async {
+    final url = urlBuilder.buildGetSupportChatUrl(supportChatId);
+    try {
+      final response = await _dio.get(url);
+      final supportChat = ChatRM.fromJson(response.data);
+      return supportChat;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future sendSupportChatMessage({
+    required int supportChatId,
+    String? message,
+    List<File?>? documentFiles,
+    List<File?>? imageFiles,
+    List<File?>? audioFiles,
+  }) async {
+    final url = urlBuilder.buildSendSupportChatMessageUrl(supportChatId);
+    List<MultipartFile> documentMultipartFiles = [];
+    List<MultipartFile> imageMultipartFiles = [];
+    List<MultipartFile> audioMultipartFiles = [];
+    if (documentFiles != null) {
+      for (final documentFile in documentFiles) {
+        if (documentFile != null) {
+          final multipartFile = await MultipartFile.fromFile(
+            documentFile.path,
+            filename: documentFile.path.split('/').last,
+          );
+          documentMultipartFiles.add(multipartFile);
+        }
+      }
+    }
+    if (imageFiles != null) {
+      for (final imageFile in imageFiles) {
+        if (imageFile != null) {
+          final multipartFile = await MultipartFile.fromFile(
+            imageFile.path,
+            filename: imageFile.path.split('/').last,
+          );
+          imageMultipartFiles.add(multipartFile);
+        }
+      }
+    }
+    if (audioFiles != null) {
+      for (final audioFile in audioFiles) {
+        if (audioFile != null) {
+          final multipartFile = await MultipartFile.fromFile(
+            audioFile.path,
+            filename: audioFile.path.split('/').last,
+          );
+          audioMultipartFiles.add(multipartFile);
+        }
+      }
+    }
+
+    final requestJsonBody = {
+      if (imageFiles != null)
+        for (var i = 0; i < imageMultipartFiles.length; i++)
+          'chat_images[]': imageMultipartFiles[i],
+      if (documentFiles != null)
+        for (var i = 0; i < documentMultipartFiles.length; i++)
+          'chat_documents[]': documentMultipartFiles[i],
+      if (audioFiles != null)
+        for (var i = 0; i < audioMultipartFiles.length; i++)
+          'chat_records[]': audioMultipartFiles[i],
+      'content': message,
+    };
+
+    final formData = FormData.fromMap(
+      requestJsonBody,
+      ListFormat.multiCompatible,
+    );
+    try {
+      await _dio.post(
+        url,
+        data: formData,
+      );
+    } catch (_) {
+      rethrow;
+    }
+  }
+
   Future changePassword({
     required String password,
     required String newPassword,
@@ -769,19 +887,18 @@ class TymerApi {
     }
   }
 
-  Future<InAppTransactionListPageRM> getInAppTransactions({
+  Future<TransactionListPageRM> getAllTransactions({
     required int page,
   }) async {
     final url = urlBuilder.buildGetInAppTransactionsUrl(page: page);
     try {
       final response = await _dio.get(url);
-      final inAppTransactions =
-          InAppTransactionListPageRM.fromJson(response.data);
+      final transactions = TransactionListPageRM.fromJson(response.data);
       final currentPage = response.data['meta']['current_page'] as int;
       final lastPage = response.data['meta']['last_page'] as int;
       final isLastPage = currentPage >= lastPage;
-      inAppTransactions.isLastPage = isLastPage;
-      return inAppTransactions;
+      transactions.isLastPage = isLastPage;
+      return transactions;
     } catch (error) {
       rethrow;
     }
@@ -789,7 +906,7 @@ class TymerApi {
 
   Future<void> confirmTopUp({
     required String paymentMethodType,
-    required int amount,
+    required double amount,
     String? walletNumber,
     String? instantPaymentAddress,
     String? teldaUsername,
@@ -823,7 +940,7 @@ class TymerApi {
     }
   }
 
-  Future<String> confirmBankCardTopUp(int amount) async {
+  Future<String> confirmBankCardTopUp(double amount) async {
     final url = urlBuilder.buildConfirmBankCardTopUpUrl();
     try {
       final response = await _dio.post(
@@ -850,7 +967,7 @@ class TymerApi {
 
   Future<void> confirmWithdraw({
     required String paymentMethodType,
-    required int amount,
+    required double amount,
     String? walletNumber,
     String? instantPaymentAddress,
     String? ibanNumber,
@@ -909,7 +1026,8 @@ extension on Dio {
   void setUpAuthHeaders({
     required UserTokenSupplier userTokenSupplier,
     required ValueNotifier<bool> unAuthenticatedAccessVN,
-    required ValueNotifier internetConnectionErrorVN,
+    required ValueNotifier<InternetConnectionTymerException?>
+        internetConnectionErrorVN,
   }) async {
     options = diox.BaseOptions(
       contentType: Headers.jsonContentType,

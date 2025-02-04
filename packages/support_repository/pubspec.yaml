@@ -1,0 +1,24 @@
+name: support_repository
+publish_to: none
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  tymer_api:
+    path: ../tymer_api
+  key_value_storage:
+    path: ../key_value_storage
+  domain_models:
+
+    path: ../domain_models
+  function_and_extension_library:
+    path: ../function_and_extension_library
+  rxdart: ^0.27.1
+  equatable: ^2.0.5
+  dispute_repository:
+    path: ../dispute_repository
+dev_dependencies:
+  flutter_lints: ^4.0.0

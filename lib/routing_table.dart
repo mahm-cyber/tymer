@@ -2,7 +2,7 @@ import 'package:accept_service_request/accept_service_request.dart';
 import 'package:change_language/change_language.dart';
 import 'package:change_password/change_password.dart';
 import 'package:change_phone/change_phone.dart';
-import 'package:chat/chat.dart';
+import 'package:dispute_chat/dispute_chat.dart';
 import 'package:choose_service/choose_service.dart';
 import 'package:choose_top_up_method/choose_top_up_method.dart';
 import 'package:choose_withdraw_method/choose_withdraw_method.dart';
@@ -26,6 +26,8 @@ import 'package:service_repository/service_repository.dart';
 import 'package:service_request_status/service_request_status.dart';
 import 'package:sign_in/sign_in.dart';
 import 'package:sign_up/sign_up.dart';
+import 'package:support_chat/support_chat.dart';
+import 'package:support_repository/support_repository.dart';
 import 'package:tab_container/tab_container.dart';
 import 'package:top_up_confirmation/top_up_confirmation.dart';
 import 'package:top_up_information/top_up_information.dart';
@@ -40,7 +42,8 @@ Map<String, PageBuilder> buildRoutingTable({
   required UserRepository userRepository,
   required ServiceRepository serviceRepository,
   required DisputeRepository disputeRepository,
-  required ValueNotifier<bool> unAuthenticatedAccessVN,
+  required SupportRepository supportRepository,
+  required ValueNotifier<bool?> unAuthenticatedAccessVN,
   required ValueNotifier<bool> signInSuccessVN,
   required WalletRepository walletRepository,
 }) {
@@ -56,9 +59,11 @@ Map<String, PageBuilder> buildRoutingTable({
     },
   );
   unAuthenticatedAccessVN.addListener(() async {
-    if (unAuthenticatedAccessVN.value) {
+    final unAuthenticatedAccess = unAuthenticatedAccessVN.value;
+    if (unAuthenticatedAccess == true) {
       signInSuccessVN.value = false;
-      routerDelegate.popUntil((route) => route.path == _PathConstants.initialPath);
+      await routerDelegate
+          .popUntil((route) => route.path == _PathConstants.initialPath);
       routerDelegate.push(_PathConstants.signInPath);
     } else {
       signInSuccessVN.value = true;
@@ -247,7 +252,14 @@ Map<String, PageBuilder> buildRoutingTable({
             onProvideServiceTapped: () =>
                 routerDelegate.push(_PathConstants.provideServicePath),
             onChatTapped: () =>
-                routerDelegate.push(_PathConstants.disputesPath),
+                routerDelegate.push(_PathConstants.supportChatPath),
+          ),
+        ),
+    _PathConstants.supportChatPath: (_) => MaterialPage(
+          name: 'support-chat',
+          child: SupportChatScreen(
+            supportRepository: supportRepository,
+            userRepository: userRepository,
           ),
         ),
     _PathConstants.disputesPath: (_) => MaterialPage(
@@ -266,8 +278,8 @@ Map<String, PageBuilder> buildRoutingTable({
         info.pathParameters['disputeId'] ?? '',
       );
       return MaterialPage(
-        name: 'chat',
-        child: ChatScreen(
+        name: 'dispute-chat',
+        child: DisputeChatScreen(
           userRepository: userRepository,
           disputeRepository: disputeRepository,
           disputeId: disputeId,
@@ -580,6 +592,8 @@ class _PathConstants {
   static String get signInPath => '${initialPath}sign-in';
 
   static String get homePath => '${initialPath}home';
+
+  static String get supportChatPath => '${initialPath}support-chat';
 
   static String get disputesPath => '${initialPath}disputes';
 

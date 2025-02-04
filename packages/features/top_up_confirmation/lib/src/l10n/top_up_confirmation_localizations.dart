@@ -154,6 +154,12 @@ abstract class TopUpConfirmationLocalizations {
   /// In en, this message translates to:
   /// **'Telda Username'**
   String get teldaUsernameTextFieldLabel;
+
+  /// No description provided for @isNotGreaterThanZeroTextFieldErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount must be greater than 0'**
+  String get isNotGreaterThanZeroTextFieldErrorMessage;
 }
 
 class _TopUpConfirmationLocalizationsDelegate extends LocalizationsDelegate<TopUpConfirmationLocalizations> {

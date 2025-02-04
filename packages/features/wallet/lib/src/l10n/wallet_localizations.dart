@@ -119,17 +119,11 @@ abstract class WalletLocalizations {
   /// **'No transactions found'**
   String get noTransactionsText;
 
-  /// No description provided for @earning.
+  /// No description provided for @balance.
   ///
   /// In en, this message translates to:
-  /// **'Earning'**
-  String get earning;
-
-  /// No description provided for @payout.
-  ///
-  /// In en, this message translates to:
-  /// **'Payout'**
-  String get payout;
+  /// **'Balance'**
+  String get balance;
 }
 
 class _WalletLocalizationsDelegate extends LocalizationsDelegate<WalletLocalizations> {

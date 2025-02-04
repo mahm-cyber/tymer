@@ -29,7 +29,8 @@ class ChooseTopUpMethodCubit extends Cubit<ChooseTopUpMethodState> {
         state.copyWith(paymentMethodsLoadingStatus: LoadingStatus.loading);
     emit(loadingState);
     try {
-      final paymentMethods = await walletRepository.getPaymentMethods(PaymentType.topup);
+      final paymentMethods =
+          await walletRepository.getPaymentMethods(TransactionType.topup);
       final successState = state.copyWith(
         paymentMethods: paymentMethods,
         paymentMethodsLoadingStatus: LoadingStatus.success,

@@ -19,8 +19,5 @@ class WalletLocalizationsEn extends WalletLocalizations {
   String get noTransactionsText => 'No transactions found';
 
   @override
-  String get earning => 'Earning';
-
-  @override
-  String get payout => 'Payout';
+  String get balance => 'Balance';
 }

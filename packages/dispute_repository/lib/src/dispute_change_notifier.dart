@@ -14,7 +14,7 @@ class DisputeChangeNotifier with ChangeNotifier {
 
   /// This is set from [PusherAPI] whenever a new message is received and
   /// listened to in the [ChatScreen]
-  final ValueNotifier<ChatMessage?> chatMessageVN = ValueNotifier(null);
+  final ValueNotifier<ChatMessage?> disputeChatMessageVN = ValueNotifier(null);
 
   /// This is set from the [ChatScreen] whenever we need to make the
   /// [DisputesScreen] refresh the disputes list
@@ -43,13 +43,13 @@ class DisputeChangeNotifier with ChangeNotifier {
   }
 
   // DisputeMessage? get chatMessage => _chatMessageVN.value;
-  void setChatMessage(ChatMessage? message) {
-    chatMessageVN.value = message;
+  void setDisputeChatMessage(ChatMessage? message) {
+    disputeChatMessageVN.value = message;
     notifyListeners();
   }
 
-  Future clearChatMessage() async {
-    chatMessageVN.value = null;
+  Future clearDisputeChatMessage() async {
+    disputeChatMessageVN.value = null;
     notifyListeners();
   }
 

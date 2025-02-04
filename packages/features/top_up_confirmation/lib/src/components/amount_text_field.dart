@@ -62,7 +62,9 @@ class _AmountTextFieldState extends State<AmountTextField> {
                 ? l10n.requiredFieldErrorMessage
                 : amountError == DynamicValidationError.isNotNumber
                     ? l10n.invalidAmountFormatErrorMessage
-                    : null,
+                    : amountError == DynamicValidationError.isNotGreaterThanZero
+                        ? l10n.isNotGreaterThanZeroTextFieldErrorMessage
+                        : null,
           ),
         );
       },

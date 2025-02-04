@@ -29,6 +29,8 @@ dependencies:
     path: packages/service_repository
   dispute_repository:
     path: packages/dispute_repository
+  support_repository:
+    path: packages/support_repository
   function_and_extension_library:
     path: packages/function_and_extension_library
   notifications_service:
@@ -46,6 +48,8 @@ dependencies:
     path: packages/features/tab_container
   home:
     path: packages/features/home
+  support_chat:
+    path: packages/features/support_chat
   disputes:
     path: packages/features/disputes
   confirm_dispute:
@@ -62,8 +66,8 @@ dependencies:
     path: packages/features/accept_service_request
   fulfill_service_request:
     path: packages/features/fulfill_service_request
-  chat:
-    path: packages/features/chat
+  dispute_chat:
+    path: packages/features/dispute_chat
   order_history:
     path: packages/features/order_history
   wallet:

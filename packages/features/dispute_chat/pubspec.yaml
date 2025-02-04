@@ -1,0 +1,35 @@
+name: dispute_chat
+publish_to: none
+
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  equatable: ^2.0.5
+  flutter_bloc: ^9.0.0
+  component_library:
+    path: ../../component_library
+  domain_models:
+    path: ../../domain_models
+  form_fields:
+    path: ../../form_fields
+  user_repository:
+    path: ../../user_repository
+  dispute_repository:
+    path: ../../dispute_repository
+  function_and_extension_library:
+    path: ../../function_and_extension_library
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.19.0
+  image_picker: ^1.1.2
+  file_picker: ^8.1.2
+  rxdart: ^0.27.7
+  url_launcher: ^6.3.1
+  flutter_svg: ^2.0.16
+dev_dependencies:
+  flutter_lints: ^4.0.0
+
+

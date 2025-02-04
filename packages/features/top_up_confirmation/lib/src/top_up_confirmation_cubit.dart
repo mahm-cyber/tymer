@@ -42,6 +42,7 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
               newValue,
               checkIfNumber: true,
               isRequired: true,
+              isGreatherThan: 0,
             )
           : Dynamic.unvalidated(newValue),
     );
@@ -54,6 +55,7 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
         state.amount.value,
         checkIfNumber: true,
         isRequired: true,
+        isGreatherThan: 0,
       ),
     );
     emit(newState);
@@ -233,10 +235,11 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
       isRequired: true,
     );
 
-   final amount = Dynamic.validated(
+    final amount = Dynamic.validated(
       state.amount.value,
       checkIfNumber: true,
       isRequired: true,
+      isGreatherThan: 0,
     );
     final file = FileSize<File?>.validated(
       state.file.value,
@@ -283,7 +286,7 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
         if (state.paymentMethods?.pickedPaymentMethodType ==
             PaymentMethodType.bankCard) {
           final url = await walletRepository.confirmBankCardTopUp(
-            int.parse(amount.value!),
+            double.parse(amount.value!),
           );
 
           //url should be webviewed
@@ -291,7 +294,7 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
             ..setJavaScriptMode(JavaScriptMode.unrestricted)
             ..setNavigationDelegate(
               NavigationDelegate(
-                onUrlChange: (UrlChange urlChange) {
+                onUrlChange: (UrlChange urlChange) async {
                   // Update the URL bar to show the new URL.
                   final currentUrl = urlChange.url;
                   final isPaymentPageLoaded =
@@ -303,6 +306,11 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
                         : null,
                   );
                   emit(newState);
+                  final isPaymentProccessFinished =
+                      currentUrl?.contains('result') == true;
+                  if (isPaymentProccessFinished) {
+                    await userRepository.getFreshUser();
+                  }
                 },
               ),
             )
@@ -310,14 +318,14 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
         } else {
           await walletRepository.confirmTopUp(
             paymentMethodType: state.paymentMethods!.pickedPaymentMethodType!,
-            amount: int.parse(amount.value!),
+            amount: double.parse(amount.value!),
             walletNumber: walletNumber.value,
             teldaUsername: teldaUsername.value,
             instantPaymentAddress: instantPaymentAddress.value,
             image: state.file.value!,
           );
+          await userRepository.getFreshUser();
         }
-
         final newState = state.copyWith(
           bankCardPaymentStatus:
               state.paymentMethods?.pickedPaymentMethodType ==

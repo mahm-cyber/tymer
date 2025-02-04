@@ -166,6 +166,12 @@ abstract class WithdrawLocalizations {
   /// In en, this message translates to:
   /// **'Please enter a valid IBAN number'**
   String get ibanNumberTextFieldError;
+
+  /// No description provided for @isNotGreaterThanZeroTextFieldErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount must be greater than {minimumAmount}'**
+  String isNotGreaterThanZeroTextFieldErrorMessage(int minimumAmount);
 }
 
 class _WithdrawLocalizationsDelegate extends LocalizationsDelegate<WithdrawLocalizations> {

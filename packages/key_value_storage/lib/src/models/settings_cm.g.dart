@@ -20,19 +20,22 @@ class SettingsCMAdapter extends TypeAdapter<SettingsCM> {
       pricing: fields[0] as PricingSettingsCM?,
       termsAndConditions: fields[1] as TermsAndConditionsCM?,
       privacyPolicy: fields[2] as PrivacyPolicyCM?,
+      faqs: fields[3] as FaqsCM?,
     );
   }
 
   @override
   void write(BinaryWriter writer, SettingsCM obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.pricing)
       ..writeByte(1)
       ..write(obj.termsAndConditions)
       ..writeByte(2)
-      ..write(obj.privacyPolicy);
+      ..write(obj.privacyPolicy)
+      ..writeByte(3)
+      ..write(obj.faqs);
   }
 
   @override
@@ -165,6 +168,80 @@ class PrivacyPolicyCMAdapter extends TypeAdapter<PrivacyPolicyCM> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is PrivacyPolicyCMAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class FaqCMAdapter extends TypeAdapter<FaqCM> {
+  @override
+  final int typeId = 9;
+
+  @override
+  FaqCM read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return FaqCM(
+      id: fields[0] as int,
+      question: fields[1] as String,
+      answer: fields[2] as String,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, FaqCM obj) {
+    writer
+      ..writeByte(3)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.question)
+      ..writeByte(2)
+      ..write(obj.answer);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is FaqCMAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class FaqsCMAdapter extends TypeAdapter<FaqsCM> {
+  @override
+  final int typeId = 10;
+
+  @override
+  FaqsCM read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return FaqsCM(
+      list: (fields[0] as List).cast<FaqCM>(),
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, FaqsCM obj) {
+    writer
+      ..writeByte(1)
+      ..writeByte(0)
+      ..write(obj.list);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is FaqsCMAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

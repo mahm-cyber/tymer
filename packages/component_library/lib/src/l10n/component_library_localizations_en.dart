@@ -241,4 +241,34 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get messageSentByMeCardTitle => 'You';
+
+  @override
+  String get transactionTypeEarning => 'Earning';
+
+  @override
+  String get transactionTypePayout => 'Payout';
+
+  @override
+  String get transactionTypeTopup => 'Top Up';
+
+  @override
+  String get transactionTypeWithdrawal => 'Withdrawal';
+
+  @override
+  String get transactionStatusPending => 'Pending';
+
+  @override
+  String get transactionStatusCompleted => 'Completed';
+
+  @override
+  String get transactionStatusFailed => 'Failed';
+
+  @override
+  String get transactionStatusCancelled => 'Cancelled';
+
+  @override
+  String get transactionStatusUnderReview => 'Under Review';
+
+  @override
+  String get transactionStatusRefunded => 'Refunded';
 }

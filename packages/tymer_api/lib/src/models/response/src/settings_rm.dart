@@ -60,3 +60,22 @@ class PrivacyPolicyRM {
 
   static const fromJson = _$PrivacyPolicyRMFromJson;
 }
+
+@JsonSerializable(createToJson: false)
+class FaqRM {
+  FaqRM({
+    required this.id,
+    required this.question,
+    required this.answer,
+  });
+
+  @JsonKey(name: 'id')
+  final int id;
+  @JsonKey(name: 'question')
+  final String question;
+  @JsonKey(name: 'answer')
+  final String answer;
+
+  static const fromJson = _$FaqRMFromJson;
+}
+

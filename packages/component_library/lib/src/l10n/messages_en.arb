@@ -84,5 +84,15 @@
     "captureImageIconLabel": "Capture",
     "deleteFileIconLabel": "Delete",
     "noMessagesIndicator": "No messages yet",
-    "messageSentByMeCardTitle": "You"
-}
+    "messageSentByMeCardTitle": "You",
+    "transactionTypeEarning": "Earning",
+    "transactionTypePayout": "Payout",
+    "transactionTypeTopup": "Top Up",
+    "transactionTypeWithdrawal": "Withdrawal",
+    "transactionStatusPending": "Pending",
+    "transactionStatusCompleted": "Completed",
+    "transactionStatusFailed": "Failed",
+    "transactionStatusCancelled": "Cancelled",
+    "transactionStatusUnderReview": "Under Review",
+    "transactionStatusRefunded": "Refunded"
+}˙

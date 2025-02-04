@@ -7,10 +7,11 @@ class WalletChangeNotifier with ChangeNotifier {
   // Payment Methods
   final ValueNotifier<PaymentMethods?> _paymentMethodsVN = ValueNotifier(null);
   PaymentMethods? get paymentMethods => _paymentMethodsVN.value;
-  void setPaymentMethods(PaymentMethods paymentMethods) { 
+  void setPaymentMethods(PaymentMethods paymentMethods) {
     _paymentMethodsVN.value = paymentMethods;
     notifyListeners();
   }
+
   Future clearPaymentMethods() async {
     _paymentMethodsVN.value = null;
     notifyListeners();
@@ -23,18 +24,20 @@ class WalletChangeNotifier with ChangeNotifier {
     _withdrawMethodsVN.value = withdrawMethods;
     notifyListeners();
   }
+
   Future clearWithdrawMethods() async {
     _withdrawMethodsVN.value = null;
     notifyListeners();
   }
 
   // Payment Type
-  final ValueNotifier<PaymentType?> _paymentTypeVN = ValueNotifier(null);
-  PaymentType? get paymentType => _paymentTypeVN.value;
-  void setPaymentType(PaymentType paymentType) {
+  final ValueNotifier<TransactionType?> _paymentTypeVN = ValueNotifier(null);
+  TransactionType? get paymentType => _paymentTypeVN.value;
+  void setPaymentType(TransactionType paymentType) {
     _paymentTypeVN.value = paymentType;
     notifyListeners();
   }
+
   void clearPaymentType() {
     _paymentTypeVN.value = null;
     notifyListeners();

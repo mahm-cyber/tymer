@@ -61,12 +61,29 @@ extension PrivacyPolicyCMtoDM on PrivacyPolicyCM {
   }
 }
 
+extension FaqCMtoDM on FaqCM {
+  Faq toDomainModel() {
+    return Faq(
+      id: id,
+      question: question,
+      answer: answer,
+    );
+  }
+}
+
+extension FaqsCMtoDM on FaqsCM {
+  List<Faq> toDomainModel() {
+    return list.map((e) => e.toDomainModel()).toList();
+  }
+}
+
 extension SettingsCMtoDM on SettingsCM {
   Settings toDomainModel() {
     return Settings(
       pricing: pricing?.toDomainModel(),
       termsAndConditions: termsAndConditions?.toDomainModel(),
       privacyPolicy: privacyPolicy?.toDomainModel(),
+      faqs: faqs?.toDomainModel(),
     );
   }
 }

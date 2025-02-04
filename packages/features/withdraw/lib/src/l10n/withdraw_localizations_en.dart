@@ -41,4 +41,9 @@ class WithdrawLocalizationsEn extends WithdrawLocalizations {
 
   @override
   String get ibanNumberTextFieldError => 'Please enter a valid IBAN number';
+
+  @override
+  String isNotGreaterThanZeroTextFieldErrorMessage(int minimumAmount) {
+    return 'Amount must be greater than $minimumAmount';
+  }
 }

@@ -38,7 +38,7 @@ extension DisputeListPageRMtoDM on DisputeListPageRM {
   }
 }
 
-extension DisputeMessageRMtoDM on DisputeMessageRM {
+extension DisputeMessageRMtoDM on ChatMessageRM {
   ChatMessage toDomainModel(int disputeId) {
     const filesUrl = '${UrlBuilder.baseUrl}/files';
     try {
@@ -81,7 +81,7 @@ extension DisputeMessageRMtoDM on DisputeMessageRM {
   }
 }
 
-extension DisputeChatRMtoDM on DisputeChatRM {
+extension DisputeChatRMtoDM on ChatRM {
   DateGroupedMessagesList toDomainModel(int disputeId) {
     final messagesList =
         messages.map((message) => message.toDomainModel(disputeId)).toList();

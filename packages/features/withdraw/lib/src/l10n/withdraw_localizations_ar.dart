@@ -41,4 +41,9 @@ class WithdrawLocalizationsAr extends WithdrawLocalizations {
 
   @override
   String get ibanNumberTextFieldError => 'الرجاء إدخال رقم حساب بنكي صحيح';
+
+  @override
+  String isNotGreaterThanZeroTextFieldErrorMessage(int minimumAmount) {
+    return 'المبلغ يجب أن يكون أكبر من $minimumAmount';
+  }
 }

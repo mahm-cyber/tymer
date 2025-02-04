@@ -1,0 +1,7 @@
+{
+    "appBarTitle": "Support",
+    "startChatButtonLabel": "Chat With Us",
+    "attachmentSizeExceedsLimitErrorSnackBarMessage": "Attachment size should be 1MB or less",
+    "didntFindWhatYouAreLookingFor": "Didn't find what you are looking for?"
+
+}

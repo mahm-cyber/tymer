@@ -27,6 +27,7 @@ extension PaymentMethodRMToDM on String {
 extension PaymentMethodsRMToDM on PaymentMethodsRM {
   PaymentMethods toDomainModel() {
     return PaymentMethods(
+      minimumAmount: withdrawMinimumAmount,
       vodafoneCash: VodafoneCash(
         enabled: vodafoneCashEnabled,
         walletNumber: vodafoneCashWalletNumber,
@@ -123,33 +124,37 @@ extension PaymentListPageRMToDM on PaymentListPageRM {
   }
 }
 
-extension InAppTransactionRMToDM on InAppTransactionRM {
-  static InAppTransactionStatus statusFromString(String status) {
+extension InAppTransactionRMToDM on TransactionRM {
+  static TransactionStatus statusFromString(String status) {
     switch (status.toLowerCase()) {
       case 'pending':
-        return InAppTransactionStatus.pending;
+        return TransactionStatus.pending;
       case 'completed':
-        return InAppTransactionStatus.completed;
-      case 'rejected':
-        return InAppTransactionStatus.rejected;
+        return TransactionStatus.completed;
+      case 'failed':
+        return TransactionStatus.failed;
       default:
         throw Exception('Unknown in-app transaction status: $status');
     }
   }
 
-  static InAppTransactionType typeFromString(String type) {
+  static TransactionType typeFromString(String type) {
     switch (type.toLowerCase()) {
       case 'earning':
-        return InAppTransactionType.earning;
+        return TransactionType.earning;
       case 'payout':
-        return InAppTransactionType.payout;
+        return TransactionType.payout;
+      case 'top-up':
+        return TransactionType.topup;
+      case 'withdraw':
+        return TransactionType.withdraw;
       default:
         throw Exception('Unknown in-app transaction type: $type');
     }
   }
 
-  InAppTransaction toDomainModel() {
-    return InAppTransaction(
+  Transaction toDomainModel() {
+    return Transaction(
       id: id,
       userId: userId,
       amount: double.parse(amount).toInt(),
@@ -161,9 +166,9 @@ extension InAppTransactionRMToDM on InAppTransactionRM {
   }
 }
 
-extension InAppTransactionListPageRMToDM on InAppTransactionListPageRM {
-  InAppTransactionListPage toDomainModel() {
-    return InAppTransactionListPage(
+extension InAppTransactionListPageRMToDM on TransactionListPageRM {
+  TransactionListPage toDomainModel() {
+    return TransactionListPage(
       list: list.map((transaction) => transaction.toDomainModel()).toList(),
       isLastPage: isLastPage!,
     );
