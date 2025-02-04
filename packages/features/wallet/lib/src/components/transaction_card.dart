@@ -70,7 +70,9 @@ class TransactionCard extends StatelessWidget {
                 Text(
                   '${transaction.amount.localizeInt(locale)} ${clL10n.eyptianPoundLetters}',
                   style: textTheme.titleMedium?.copyWith(
-                    color: transaction.type == TransactionType.earning
+                    color: transaction.type == TransactionType.earning ||
+                            transaction.type == TransactionType.withdraw ||
+                            transaction.type == TransactionType.topup
                         ? theme.primaryColor
                         : theme.errorColor,
                     fontWeight: FontWeight.w600,
