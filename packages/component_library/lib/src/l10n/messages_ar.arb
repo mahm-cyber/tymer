@@ -94,6 +94,9 @@
   "transactionTypeEarning": "إيراد",
   "transactionTypePayout": "صرف",
   "transactionTypeTopup": "شحن",
-  "transactionTypeWithdrawal": "سحب"
+  "transactionTypeWithdrawal": "سحب",
+  "transactionTypeRefund": "استرداد",
+  "transactionTypeBonus": "مكافأة",
+  "transactionTypeChargeback": "استرجاع"
 }
 

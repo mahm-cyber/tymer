@@ -17,4 +17,10 @@ class SupportChatLocalizationsEn extends SupportChatLocalizations {
 
   @override
   String get didntFindWhatYouAreLookingFor => 'Didn\'t find what you are looking for?';
+
+  @override
+  String get supportChatClosedSnackBarMessage => 'Support chat closed';
+
+  @override
+  String get faqsTitle => 'Frequently Asked Questions';
 }

@@ -17,6 +17,7 @@ class SupportChatCubit extends Cubit<SupportChatState> {
   SupportChatCubit({
     required this.supportRepository,
     required this.userRepository,
+    required this.onSupportChatClosed,
   })  : _imagePicker = ImagePicker(),
         super(
           const SupportChatState(),
@@ -28,6 +29,7 @@ class SupportChatCubit extends Cubit<SupportChatState> {
   final SupportRepository supportRepository;
   final UserRepository userRepository;
   final ImagePicker _imagePicker;
+  final VoidCallback onSupportChatClosed;
   final TextEditingController messageController = TextEditingController();
 
   Future<void> getFaqs() async {
@@ -151,6 +153,17 @@ class SupportChatCubit extends Cubit<SupportChatState> {
     }
   }
 
+  void _supportChatClosedSubjectCallBack() {
+    final supportChatClosed =
+        supportRepository.changeNotifier.supportChatClosedVN.value;
+    if (supportChatClosed == true) {
+      final chatClosedState = state.copyWith(
+        supportChatClosed: supportChatClosed,
+      );
+      emit(chatClosedState);
+    }
+  }
+
   // void _currentDisputeCallBack() {
   // final dispute = disputeRepository.changeNotifier.currentDisputeVN.value;
   // final newState = state.copyWith(
@@ -201,6 +214,8 @@ class SupportChatCubit extends Cubit<SupportChatState> {
     supportRepository.initializeSupportChatStream(user!, chatId);
     supportRepository.changeNotifier.supportChatMessageVN
         .addListener(_supportChatSubjectCallBack);
+    supportRepository.changeNotifier.supportChatClosedVN
+        .addListener(_supportChatClosedSubjectCallBack);
   }
 
   Future createSupportChat() async {

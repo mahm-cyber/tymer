@@ -1,4 +1,5 @@
 import 'package:component_library/component_library.dart';
+import 'package:domain_models/domain_models.dart';
 import 'package:support_chat/support_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +19,6 @@ class FaqAndStartChat extends StatelessWidget {
         final supportChatCreateInProgress = state.supportChatCreationStatus ==
             SupportChatCreationStatus.inProgress;
         final theme = TymerTheme.of(context);
-        final textTheme = Theme.of(context).textTheme;
         return Center(
           child: ListView(
             padding: EdgeInsets.symmetric(horizontal: theme.screenMargin),
@@ -26,31 +26,7 @@ class FaqAndStartChat extends StatelessWidget {
             children: [
               ...List.generate(
                 state.faqs?.length ?? 0,
-                (index) => ExpansionTile(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                    side: const BorderSide(color: Colors.black),
-                  ),
-                  collapsedShape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                    side: const BorderSide(color: Colors.black),
-                  ),
-                  title: Text(
-                    state.faqs![index].question,
-                    style: textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  children: [
-                    Text(
-                      state.faqs![index].answer,
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: theme.primaryColor,
-                      ),
-                    ),
-                    VerticalGap.medium(),
-                  ],
-                ),
+                (index) => FaqTile(faq: state.faqs![index]),
               ),
               VerticalGap.medium(),
               Center(
@@ -73,6 +49,46 @@ class FaqAndStartChat extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class FaqTile extends StatelessWidget {
+  const FaqTile({
+    super.key,
+    required this.faq,
+  });
+
+  final Faq faq;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final theme = TymerTheme.of(context);
+    return ExpansionTile(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.0),
+        side: const BorderSide(color: Colors.black),
+      ),
+      collapsedShape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.0),
+        side: const BorderSide(color: Colors.black),
+      ),
+      title: Text(
+        faq.question,
+        style: textTheme.bodyMedium?.copyWith(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      children: [
+        Text(
+          faq.answer,
+          style: textTheme.bodyMedium?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+        VerticalGap.medium(),
+      ],
     );
   }
 }

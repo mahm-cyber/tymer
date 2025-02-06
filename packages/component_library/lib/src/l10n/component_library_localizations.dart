@@ -587,6 +587,24 @@ abstract class ComponentLibraryLocalizations {
   /// **'Withdrawal'**
   String get transactionTypeWithdrawal;
 
+  /// No description provided for @transactionTypeRefund.
+  ///
+  /// In en, this message translates to:
+  /// **'Refund'**
+  String get transactionTypeRefund;
+
+  /// No description provided for @transactionTypeBonus.
+  ///
+  /// In en, this message translates to:
+  /// **'Bonus'**
+  String get transactionTypeBonus;
+
+  /// No description provided for @transactionTypeChargeback.
+  ///
+  /// In en, this message translates to:
+  /// **'Charged Back'**
+  String get transactionTypeChargeback;
+
   /// No description provided for @transactionStatusPending.
   ///
   /// In en, this message translates to:

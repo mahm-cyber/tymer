@@ -255,6 +255,15 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
   String get transactionTypeWithdrawal => 'سحب';
 
   @override
+  String get transactionTypeRefund => 'استرداد';
+
+  @override
+  String get transactionTypeBonus => 'مكافأة';
+
+  @override
+  String get transactionTypeChargeback => 'استرجاع';
+
+  @override
   String get transactionStatusPending => 'قيد المراجعة';
 
   @override

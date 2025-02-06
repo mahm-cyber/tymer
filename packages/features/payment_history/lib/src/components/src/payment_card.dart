@@ -7,28 +7,29 @@ import 'package:wallet_repository/wallet_repository.dart';
 class PaymentCard extends StatelessWidget {
   const PaymentCard({
     required this.payment,
+    this.userToken,
     super.key,
   });
 
   final Payment payment;
-
+  final String? userToken;
   @override
   Widget build(BuildContext context) {
+    final l10n = PaymentHistoryLocalizations.of(context);
     String paymentMethodDetails() {
       if (payment.ibanNumber?.isNotEmpty == true &&
           payment.beneficiaryName?.isNotEmpty == true) {
-        return '${PaymentHistoryLocalizations.of(context).ibanNumberLabel}: ${payment.ibanNumber}\n'
-            '${PaymentHistoryLocalizations.of(context).beneficiaryNameLabel}: ${payment.beneficiaryName}';
+        return '${l10n.ibanNumberLabel}: ${payment.ibanNumber}\n'
+            '${l10n.beneficiaryNameLabel}: ${payment.beneficiaryName}';
       } else if (payment.walletNumber?.isNotEmpty == true) {
-        return '${PaymentHistoryLocalizations.of(context).walletNumberLabel}: ${payment.walletNumber}';
+        return '${l10n.walletNumberLabel}: ${payment.walletNumber}';
       } else if (payment.instantPaymentAddress != null) {
-        return '${PaymentHistoryLocalizations.of(context).instantPaymentAddressLabel}: ${payment.instantPaymentAddress}';
+        return '${l10n.instantPaymentAddressLabel}: ${payment.instantPaymentAddress}';
       }
       return '';
     }
 
     final textTheme = Theme.of(context).textTheme;
-    final l10n = PaymentHistoryLocalizations.of(context);
     final status = paymentStatusToLocalizedString(
       payment.status,
       ComponentLibraryLocalizations.of(context),
@@ -56,50 +57,91 @@ class PaymentCard extends StatelessWidget {
             vertical: Spacing.small,
             horizontal: Spacing.medium,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
             children: [
-              SelectableText(
-                '#${payment.id.localizeInt(locale)}',
-                style: textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              VerticalGap.small(),
-              SelectableText(
-                '${l10n.amountLabel}: ${payment.amount.localizeInt(locale)} ${clL10n.eyptianPoundLetters}',
-                style: textTheme.bodyMedium,
-              ),
-              VerticalGap.xSmall(),
-              if (paymentMethodDetails().isNotEmpty) ...[
-                SelectableText(
-                  paymentMethodDetails(),
-                  style: textTheme.bodyMedium,
-                ),
-                VerticalGap.xSmall(),
-              ],
-              RichText(
-                text: TextSpan(
-                  style: textTheme.bodyMedium,
-                  children: [
-                    TextSpan(
-                      text: '${l10n.statusLabel}: ',
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SelectableText(
+                    '#${payment.id.localizeInt(locale)}',
+                    style: textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
                     ),
-                    TextSpan(
-                      text: status,
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: getStatusColor(payment.status),
-                        fontWeight: FontWeight.bold,
+                  ),
+                  VerticalGap.small(),
+                  SelectableText(
+                    '${l10n.amountLabel}: ${payment.amount.localizeDouble(locale)} ${clL10n.eyptianPoundLetters}',
+                    style: textTheme.bodyMedium,
+                  ),
+                  VerticalGap.xSmall(),
+                  if (paymentMethodDetails().isNotEmpty) ...[
+                    SelectableText(
+                      paymentMethodDetails(),
+                      style: textTheme.bodyMedium,
+                    ),
+                    VerticalGap.xSmall(),
+                  ],
+                  RichText(
+                    text: TextSpan(
+                      style: textTheme.bodyMedium,
+                      children: [
+                        TextSpan(
+                          text: '${l10n.statusLabel}: ',
+                        ),
+                        TextSpan(
+                          text: status,
+                          style: textTheme.bodyMedium?.copyWith(
+                            color: getStatusColor(payment.status),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  VerticalGap.xSmall(),
+                  SelectableText(
+                    '${l10n.dateLabel}: ${payment.updatedAt.toIso8601String().split('T').first.localizeDateString(locale)}',
+                    style: textTheme.bodySmall,
+                  ),
+                ],
+              ),
+              if (payment.proofImageUrl != null && userToken != null) ...[
+                const Spacer(),
+                InkWell(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => Dialog(
+                        child: InteractiveViewer(
+                          panEnabled: true,
+                          minScale: 0.5,
+                          maxScale: 4,
+                          child: Image.network(payment.proofImageUrl!),
+                        ),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: 70,
+                    height: 70,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.grey),
+                    ),
+                    child: ClipOval(
+                      child: Image.network(
+                        payment.proofImageUrl!,
+                        headers: {
+                          "Authorization": "Bearer $userToken",
+                          "X-API-Key":
+                              const String.fromEnvironment('x-api-key'),
+                        },
+                        fit: BoxFit.cover,
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              VerticalGap.xSmall(),
-              SelectableText(
-                '${l10n.dateLabel}: ${payment.updatedAt.toIso8601String().split('T').first.localizeDateString(locale)}',
-                style: textTheme.bodySmall,
-              ),
+              ],
             ],
           ),
         ),

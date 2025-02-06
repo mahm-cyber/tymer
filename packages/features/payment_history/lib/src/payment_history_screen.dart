@@ -136,6 +136,7 @@ class PaymentHistoryView extends StatelessWidget {
                                   if (index == 0) VerticalGap.small(),
                                   PaymentCard(
                                     payment: payment,
+                                    userToken: state.userToken,
                                   ),
                                   if (isLastItem)
                                     VerticalGap.custom(

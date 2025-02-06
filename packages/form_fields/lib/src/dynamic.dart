@@ -85,7 +85,9 @@ bool checkIfEgyptianMobile(String value) {
 
 bool checkIfIbanNumber(String value) {
   const lengthOfIbanNumber = 'EG121234567890'.length;
-  if (value.length > lengthOfIbanNumber) return false;
-  if (!RegExp(r'^[0-9]+$').hasMatch(value)) return false;
+  if (value.length < lengthOfIbanNumber) return false;
+  //starts with alphabetical characters
+  if (!RegExp(r'^[a-zA-Z]{2}').hasMatch(value.substring(0, 2))) return false;
+
   return true;
 }

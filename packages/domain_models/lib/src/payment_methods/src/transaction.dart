@@ -11,7 +11,10 @@ enum TransactionType {
   withdraw,
   payout,
   earning,
-  topup;
+  topup,
+  refund,
+  bonus,
+  chargeback;
 }
 
 class Transaction {

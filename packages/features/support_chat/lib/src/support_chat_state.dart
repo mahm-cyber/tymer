@@ -3,6 +3,7 @@ part of 'support_chat_cubit.dart';
 class SupportChatState extends Equatable {
   const SupportChatState({
     this.chatId,
+    this.supportChatClosed,
     this.supportChatExistenceCheckFetchStatus =
         SupportChatExistenceCheckFetchStatus.initial,
     this.supportChatCreationStatus = SupportChatCreationStatus.initial,
@@ -16,6 +17,7 @@ class SupportChatState extends Equatable {
   });
 
   final int? chatId;
+  final bool? supportChatClosed;
   final SupportChatExistenceCheckFetchStatus
       supportChatExistenceCheckFetchStatus;
   final SupportChatCreationStatus supportChatCreationStatus;
@@ -33,6 +35,7 @@ class SupportChatState extends Equatable {
 
   SupportChatState copyWith({
     int? chatId,
+    bool? supportChatClosed,
     SupportChatExistenceCheckFetchStatus?
         supportChatExistenceCheckFetchStatus,
     SupportChatCreationStatus? supportChatCreationStatus,
@@ -46,6 +49,7 @@ class SupportChatState extends Equatable {
   }) {
     return SupportChatState(
       chatId: chatId ?? this.chatId,
+      supportChatClosed: supportChatClosed ?? this.supportChatClosed,
       supportChatExistenceCheckFetchStatus:
           supportChatExistenceCheckFetchStatus ??
               this.supportChatExistenceCheckFetchStatus,
@@ -65,6 +69,7 @@ class SupportChatState extends Equatable {
   @override
   List<Object?> get props => [
         chatId,
+        supportChatClosed,
         supportChatExistenceCheckFetchStatus,
         supportChatCreationStatus,
         files,

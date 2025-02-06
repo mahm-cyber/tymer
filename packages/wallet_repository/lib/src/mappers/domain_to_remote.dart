@@ -34,6 +34,12 @@ extension PaymentTypeDMtoRM on TransactionType {
         return 'earning';
       case TransactionType.topup:
         return 'top-up';
+      case TransactionType.refund:
+        return 'refund';
+      case TransactionType.bonus:
+        return 'bonus';
+      case TransactionType.chargeback:
+        return 'chargeback';
     }
   }
 }

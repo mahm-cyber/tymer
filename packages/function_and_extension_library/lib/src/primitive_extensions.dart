@@ -72,7 +72,7 @@ extension DoubleExtension on double {
   String localizeDouble(Locale locale) {
     final isArabic = locale.languageCode == 'ar';
     final localizedDouble =
-        isArabic ? NumberFormat('#.##', 'ar_EG').format(this) : toStringAsFixed(0);
+        isArabic ? NumberFormat('#.##', 'ar_EG').format(this) : toStringAsFixed(2);
     return localizedDouble;
   }
 }

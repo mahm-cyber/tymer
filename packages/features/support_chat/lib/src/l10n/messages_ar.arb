@@ -2,5 +2,7 @@
     "appBarTitle": "الدعم",
     "startChatButtonLabel": "تحدث معنا",
     "attachmentSizeExceedsLimitErrorSnackBarMessage": "يجب أن يكون حجم المرفق 1 ميجابايت أو أقل",
-    "didntFindWhatYouAreLookingFor": "لم تجد ما تبحث عنه؟"
+    "didntFindWhatYouAreLookingFor": "لم تجد ما تبحث عنه؟",
+    "supportChatClosedSnackBarMessage": "تم انهاء محادثة الدعم",
+    "faqsTitle": "الأسئلة الشائعة"
 }

@@ -17,4 +17,10 @@ class SupportChatLocalizationsAr extends SupportChatLocalizations {
 
   @override
   String get didntFindWhatYouAreLookingFor => 'لم تجد ما تبحث عنه؟';
+
+  @override
+  String get supportChatClosedSnackBarMessage => 'تم انهاء محادثة الدعم';
+
+  @override
+  String get faqsTitle => 'الأسئلة الشائعة';
 }

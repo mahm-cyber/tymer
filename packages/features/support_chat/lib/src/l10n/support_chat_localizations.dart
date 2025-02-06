@@ -118,6 +118,18 @@ abstract class SupportChatLocalizations {
   /// In en, this message translates to:
   /// **'Didn\'t find what you are looking for?'**
   String get didntFindWhatYouAreLookingFor;
+
+  /// No description provided for @supportChatClosedSnackBarMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Support chat closed'**
+  String get supportChatClosedSnackBarMessage;
+
+  /// No description provided for @faqsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Frequently Asked Questions'**
+  String get faqsTitle;
 }
 
 class _SupportChatLocalizationsDelegate extends LocalizationsDelegate<SupportChatLocalizations> {

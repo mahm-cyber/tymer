@@ -100,16 +100,20 @@ extension PaymentRMToDM on PaymentRM {
   }
 
   Payment toDomainModel() {
+    final imageUrl = proofImage == null
+        ? null
+        : '${UrlBuilder.baseUrl}/files/${proofImage!}';
+
     return Payment(
       id: id,
       userId: userId,
-      amount: double.parse(amount).toInt(),
+      amount: double.parse(amount),
       ibanNumber: ibanNumber,
       beneficiaryName: beneficiaryName,
       instantPaymentAddress: instantPaymentAddress,
       walletNumber: walletNumber,
       status: fromString(status),
-      proofImage: proofImage,
+      proofImageUrl: imageUrl,
       updatedAt: DateTime.parse(updatedAt),
     );
   }
@@ -124,7 +128,7 @@ extension PaymentListPageRMToDM on PaymentListPageRM {
   }
 }
 
-extension InAppTransactionRMToDM on TransactionRM {
+extension TransactionRMToDM on TransactionRM {
   static TransactionStatus statusFromString(String status) {
     switch (status.toLowerCase()) {
       case 'pending':
@@ -133,6 +137,12 @@ extension InAppTransactionRMToDM on TransactionRM {
         return TransactionStatus.completed;
       case 'failed':
         return TransactionStatus.failed;
+      case 'canceled':
+        return TransactionStatus.cancelled;
+      case 'under_review':
+        return TransactionStatus.underReview;
+      case 'refunded':
+        return TransactionStatus.refunded;
       default:
         throw Exception('Unknown in-app transaction status: $status');
     }
@@ -148,6 +158,12 @@ extension InAppTransactionRMToDM on TransactionRM {
         return TransactionType.topup;
       case 'withdraw':
         return TransactionType.withdraw;
+      case 'refund':
+        return TransactionType.refund;
+      case 'bonus':
+        return TransactionType.bonus;
+      case 'chargeback':
+        return TransactionType.chargeback;
       default:
         throw Exception('Unknown in-app transaction type: $type');
     }

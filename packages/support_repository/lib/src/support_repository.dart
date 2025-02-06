@@ -14,78 +14,24 @@ class SupportRepository {
 
   final TymerApi remoteApi;
   final SupportChangeNotifier changeNotifier;
+
   late StreamSubscription<ChatMessageRM?> _supportChatSubscription;
+  late StreamSubscription<String?> _supportChatStatusSubscription;
 
-  Future<DateGroupedMessagesList> getDateGroupedSupportChat(
-    int supportChatId,
-    User user,
-  ) async {
-    try {
-      final supportChatRM = await remoteApi.getSupportChat(
-        supportChatId: supportChatId,
-      );
-      final dateGroupedChats = supportChatRM.toDomainModel(supportChatId);
-      final dateGroupedChatsDM = dateGroupedChats.copyWith(
-        list: dateGroupedChats.list
-            .map(
-              (chat) => chat.copyWith(
-                messages: chat.messages.map(
-                  (message) {
-                    final isSentByMe = message.sender.id == user.id;
-                    return message.copyWith(
-                      isSentByMe: isSentByMe,
-                    );
-                  },
-                ).toList(),
-              ),
-            )
-            .toList(),
-      );
-      return dateGroupedChatsDM;
-    } catch (error) {
-      rethrow;
-    }
-  }
-
-  Future<int?> checkIfUserHasSupportChat() async {
-    try {
-      final chatId = await remoteApi.checkIfUserHasSupportChat();
-      return chatId;
-    } catch (error) {
-      rethrow;
-    }
-  }
-
-  Future<int> createSupportChat() async {
-    try {
-      final supportChatId = await remoteApi.createSupportChat();
-      return supportChatId;
-    } catch (error) {
-      rethrow;
-    }
-  }
-
+  // region Pusher Operations
   Future initPusher() async {
-    try {
-      remoteApi.pusherApi.initPusher();
-    } catch (error) {
-      rethrow;
-    }
+    remoteApi.pusherApi.initPusher();
   }
 
   Future disconnectPusher() async {
-    try {
-      remoteApi.pusherApi.disconnectPusher();
-    } catch (error) {
-      rethrow;
-    }
+    remoteApi.pusherApi.disconnectPusher();
   }
 
   Future listenToSupportChat(int supportChatId) async {
     try {
-      remoteApi.pusherApi.listenToRemoteSupportChat(
-        chatId: supportChatId,
-      );
+      remoteApi.pusherApi.listenToSupportChatStatus(chatId: supportChatId);
+      await Future.delayed(const Duration(seconds: 1));
+      remoteApi.pusherApi.listenToRemoteSupportChat(chatId: supportChatId);
     } catch (error) {
       debugPrint('Error listening to requester chat: $error');
       rethrow;
@@ -94,71 +40,108 @@ class SupportRepository {
 
   Future stopListeningSupportChat(int chatId) async {
     try {
-      remoteApi.pusherApi.stopListeningToRemoteSupportChat(
-        chatId: chatId,
-      );
+      remoteApi.pusherApi.stopListeningToRemoteSupportChat(chatId: chatId);
+      remoteApi.pusherApi.stopListeningToSupportChatStatus(chatId: chatId);
 
       _supportChatSubscription.cancel();
+      _supportChatStatusSubscription.cancel();
+      remoteApi.pusherApi.supportChatMessageSC.add(null);
+      remoteApi.pusherApi.supportChatStatusSC.add(null);
     } catch (error) {
       debugPrint('Error stopping listening to requester chat: $error');
       rethrow;
     }
   }
+  // endregion
 
-  void initializeSupportChatStream(
-    User user,
+  // region Support Chat Operations
+  Future<int?> checkIfUserHasSupportChat() async {
+    return await remoteApi.checkIfUserHasSupportChat();
+  }
+
+  Future<int> createSupportChat() async {
+    return await remoteApi.createSupportChat();
+  }
+
+  Future<DateGroupedMessagesList> getDateGroupedSupportChat(
     int supportChatId,
-  ) {
-    _supportChatSubscription = remoteApi.pusherApi.supportChatMessageSC.listen(
-      (ChatMessageRM? event) {
-        if (event == null) return;
-        final supportChatRM = event.toDomainModel(supportChatId);
-        final isSentByMe = supportChatRM.sender.id == user.id;
-        final updatedSupportMessage = supportChatRM.copyWith(
-          isSentByMe: isSentByMe,
-        );
-        changeNotifier.setSupportChatMessage(updatedSupportMessage);
-      },
+    User user,
+  ) async {
+    final supportChatRM =
+        await remoteApi.getSupportChat(supportChatId: supportChatId);
+    final dateGroupedChats = supportChatRM.toDomainModel(supportChatId);
+
+    return dateGroupedChats.copyWith(
+      list: dateGroupedChats.list
+          .map((chat) => _mapChatWithUserMessages(chat, user))
+          .toList(),
     );
   }
 
+  DateGroupedMessages _mapChatWithUserMessages(
+    DateGroupedMessages chat,
+    User user,
+  ) {
+    return chat.copyWith(
+      messages: chat.messages
+          .map((message) => _markUserMessages(message, user))
+          .toList(),
+    );
+  }
+
+  ChatMessage _markUserMessages(ChatMessage message, User user) {
+    return message.copyWith(
+      isSentByMe: message.sender.id == user.id,
+    );
+  }
+  // endregion
+
+  // region Message Handling
   Future sendSupportChatMessage({
     required int supportChatId,
     String? message,
     List<FileDM>? files,
   }) async {
-    List<File?>? imageFiles;
-    List<File?>? documentFiles;
-    List<File?>? audioFiles;
     final hasFiles = files?.isNotEmpty == true;
 
-    if (hasFiles) {
-      imageFiles = getFilesOfType(files!, FileType.image);
-      documentFiles = getFilesOfType(files, FileType.document);
-      audioFiles = getFilesOfType(files, FileType.audio);
-    }
-
-    try {
-      await remoteApi.sendSupportChatMessage(
-        supportChatId: supportChatId,
-        message: message,
-        imageFiles: imageFiles,
-        documentFiles: documentFiles,
-        audioFiles: audioFiles,
-      );
-    } catch (error) {
-      rethrow;
-    }
+    await remoteApi.sendSupportChatMessage(
+      supportChatId: supportChatId,
+      message: message,
+      imageFiles: hasFiles ? getFilesOfType(files!, FileType.image) : null,
+      documentFiles:
+          hasFiles ? getFilesOfType(files!, FileType.document) : null,
+      audioFiles: hasFiles ? getFilesOfType(files!, FileType.audio) : null,
+    );
   }
 
   List<File?>? getFilesOfType(List<FileDM> files, FileType type) {
-    final filesOfType = files
+    final filtered = files
         .where((file) => file.type == type)
         .map((fileDM) => fileDM.file)
         .toList();
-    if (filesOfType.isEmpty) {
-      return null;
-    }
-    return filesOfType;
+
+    return filtered.isEmpty ? null : filtered;
   }
+  // endregion
+
+  // region Stream Initialization
+  void initializeSupportChatStream(User user, int supportChatId) {
+    _supportChatSubscription =
+        remoteApi.pusherApi.supportChatMessageSC.listen((event) {
+      if (event == null) return;
+      final domainMessage = event.toDomainModel(supportChatId);
+      changeNotifier.setSupportChatMessage(domainMessage.copyWith(
+        isSentByMe: domainMessage.sender.id == user.id,
+      ));
+    });
+  }
+
+  void initializeSupportChatStatusStream() {
+    _supportChatStatusSubscription =
+        remoteApi.pusherApi.supportChatStatusSC.listen((event) {
+      if (event == null) return;
+      changeNotifier.setSupportChatClosed(event == 'closed');
+    });
+  }
+  // endregion
 }

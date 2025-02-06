@@ -8,6 +8,7 @@ class SupportChangeNotifier with ChangeNotifier {
   /// This is set from [PusherAPI] whenever a new message is received and
   /// listened to in the [ChatScreen]
   final ValueNotifier<ChatMessage?> supportChatMessageVN = ValueNotifier(null);
+  final ValueNotifier<bool> supportChatClosedVN = ValueNotifier(false);
 
 
   // SupportMessage? get chatMessage => _chatMessageVN.value;
@@ -21,6 +22,13 @@ class SupportChangeNotifier with ChangeNotifier {
     notifyListeners();
   }
 
+  void setSupportChatClosed(bool supportChatClosed) {
+    supportChatClosedVN.value = supportChatClosed;
+    notifyListeners();
+  }
 
-
+  Future clearSupportChatClosed() async {
+    supportChatClosedVN.value = false;
+    notifyListeners();
+  }
 }

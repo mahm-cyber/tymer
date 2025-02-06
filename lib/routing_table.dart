@@ -61,12 +61,11 @@ Map<String, PageBuilder> buildRoutingTable({
   unAuthenticatedAccessVN.addListener(() async {
     final unAuthenticatedAccess = unAuthenticatedAccessVN.value;
     if (unAuthenticatedAccess == true) {
+      await userRepository.logout();
       signInSuccessVN.value = false;
       await routerDelegate
           .popUntil((route) => route.path == _PathConstants.initialPath);
       routerDelegate.push(_PathConstants.signInPath);
-    } else {
-      signInSuccessVN.value = true;
     }
   });
 
@@ -260,6 +259,11 @@ Map<String, PageBuilder> buildRoutingTable({
           child: SupportChatScreen(
             supportRepository: supportRepository,
             userRepository: userRepository,
+            onSupportChatClosed: () {
+              routerDelegate.popUntil(
+                (route) => route.path == _PathConstants.homePath,
+              );
+            },
           ),
         ),
     _PathConstants.disputesPath: (_) => MaterialPage(

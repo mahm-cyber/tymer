@@ -13,11 +13,13 @@ class PusherApi {
     this.userTokenSupplier,
   )   : disputeChatMessageSC = BehaviorSubject(),
         supportChatMessageSC = BehaviorSubject(),
-        disputeStatusSC = BehaviorSubject();
+        disputeStatusSC = BehaviorSubject(),
+        supportChatStatusSC = BehaviorSubject();
 
   final BehaviorSubject<ChatMessageRM?> disputeChatMessageSC;
   final BehaviorSubject<String?> disputeStatusSC;
   final BehaviorSubject<ChatMessageRM?> supportChatMessageSC;
+  final BehaviorSubject<String?> supportChatStatusSC;
   Echo<pusher.PusherClient, PusherChannel>? _echo;
   final UserTokenSupplier userTokenSupplier;
 
@@ -25,7 +27,6 @@ class PusherApi {
     required String channelName,
     required Function onEvent,
     required String eventName,
-    
   }) async {
     try {
       final privateChannel = _echo?.private(channelName);
@@ -135,6 +136,27 @@ class PusherApi {
     );
   }
 
+  void listenToSupportChatStatus({
+    required int chatId,
+  }) {
+    final channelName = _ChannelNames.supportChat;
+    listenToChannel(
+      channelName: '$channelName.$chatId',
+      eventName: _ChannelNames.supportChatStatusEventName,
+      onEvent: _supportChatEvent,
+    );
+  }
+
+  void stopListeningToSupportChatStatus({
+    required int chatId,
+  }) {
+    final channelName = _ChannelNames.supportChat;
+    stopListeningToChannel(
+      channelName: '$channelName.$chatId',
+      onEvent: _supportChatEvent,
+    );
+  }
+
   Future initPusher() async {
     try {
       final token = await userTokenSupplier();
@@ -191,8 +213,14 @@ class PusherApi {
 
   void _supportChatEvent(Map<String, dynamic> event) {
     log('SUPPORT CHAT EVENT:::$event');
-    final ChatMessageRM dateGroupedChatsRM = ChatMessageRM.fromJson(event);
-    supportChatMessageSC.add(dateGroupedChatsRM);
+    if (event.containsKey('sender_id') && event.containsKey('sender_name')) {
+      final ChatMessageRM dateGroupedChatsRM = ChatMessageRM.fromJson(event);
+      supportChatMessageSC.add(dateGroupedChatsRM);
+    }
+    if (event.containsKey('new_status')) {
+      final String newStatus = event['new_status'];
+      supportChatStatusSC.add(newStatus);
+    }
   }
 }
 
@@ -216,4 +244,7 @@ class _ChannelNames {
 
   static String get supportChatEventName =>
       'App\\Events\\SupportChatMessageSent';
+
+  static String get supportChatStatusEventName =>
+      'App\\Events\\⁠ SupportChatConversationClosed ⁠';
 }

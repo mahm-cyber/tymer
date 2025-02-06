@@ -14,19 +14,19 @@ class Payment {
     this.instantPaymentAddress,
     this.walletNumber,
     required this.status,
-    this.proofImage,
+    this.proofImageUrl,
     required this.updatedAt,
   });
 
   final int id;
   final int userId;
-  final int amount;
+  final double amount;
   final String? ibanNumber;
   final String? beneficiaryName;
   final String? instantPaymentAddress;
   final String? walletNumber;
   final PaymentStatus status;
-  final String? proofImage;
+  final String? proofImageUrl;
   final DateTime updatedAt;
 }
 
@@ -39,5 +39,3 @@ class PaymentListPage {
   final List<Payment> list;
   final bool? isLastPage;
 }
-
-

@@ -14,6 +14,9 @@ class PaymentHistoryCubit extends Cubit<PaymentHistoryState> {
         super(PaymentHistoryState(
           paymentType: walletRepository.changeNotifier.paymentType,
         )) {
+    userRepository.getUserToken().then((token) {
+      emit(state.copyWith(userToken: token));
+    });
     _handlePaymentListNextPageRequested();
     paymentsPagingController.addPageRequestListener(
       (pageNumber) {
@@ -68,6 +71,7 @@ class PaymentHistoryCubit extends Cubit<PaymentHistoryState> {
       paymentType: state.paymentType,
       paymentMethodType: state.paymentMethodType,
       paymentsFetchStatus: FetchStatus.initial,
+      userToken: state.userToken,
     );
     emit(loadingFirstPageState);
     _handlePaymentListNextPageRequested();

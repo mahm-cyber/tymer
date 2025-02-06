@@ -2,6 +2,7 @@ part of 'payment_history_cubit.dart';
 
 class PaymentHistoryState extends Equatable {
   const PaymentHistoryState({
+    this.userToken,
     this.payments,
     this.nextPage,
     this.nextListPageLoadError,
@@ -11,6 +12,7 @@ class PaymentHistoryState extends Equatable {
     this.paymentMethodType = PaymentMethodType.vodafoneCash,
   });
 
+  final String? userToken;
   final List<Payment>? payments;
   final int? nextPage;
   final dynamic nextListPageLoadError;
@@ -28,6 +30,7 @@ class PaymentHistoryState extends Equatable {
       payments?..sort((b, a) => a.updatedAt.compareTo(b.updatedAt));
 
   PaymentHistoryState copyWith({
+    String? userToken,
     List<Payment>? payments,
     int? nextPage,
     dynamic nextListPageLoadError,
@@ -37,6 +40,7 @@ class PaymentHistoryState extends Equatable {
     PaymentMethodType? paymentMethodType,
   }) {
     return PaymentHistoryState(
+      userToken: userToken ?? this.userToken,
       payments: payments ?? this.payments,
       nextPage: nextPage,
       nextListPageLoadError: nextListPageLoadError,
@@ -49,6 +53,7 @@ class PaymentHistoryState extends Equatable {
 
   @override
   List<Object?> get props => [
+        userToken,
         payments,
         nextPage,
         nextListPageLoadError,

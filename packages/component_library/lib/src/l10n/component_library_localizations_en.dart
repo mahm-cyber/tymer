@@ -255,6 +255,15 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
   String get transactionTypeWithdrawal => 'Withdrawal';
 
   @override
+  String get transactionTypeRefund => 'Refund';
+
+  @override
+  String get transactionTypeBonus => 'Bonus';
+
+  @override
+  String get transactionTypeChargeback => 'Charged Back';
+
+  @override
   String get transactionStatusPending => 'Pending';
 
   @override

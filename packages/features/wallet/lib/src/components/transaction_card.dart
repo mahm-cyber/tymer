@@ -144,5 +144,11 @@ String transactionTypeToLocalizeString(
       return l10n.transactionTypeTopup;
     case TransactionType.withdraw:
       return l10n.transactionTypeWithdrawal;
+    case TransactionType.refund:
+      return l10n.transactionTypeRefund;
+    case TransactionType.bonus:
+      return l10n.transactionTypeBonus;
+    case TransactionType.chargeback:
+      return l10n.transactionTypeChargeback;
   }
 }
