@@ -2,9 +2,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'settings_rm.g.dart';
 
-
-
-
 @JsonSerializable(createToJson: false)
 class PricingSettingsRM {
   PricingSettingsRM({
@@ -65,17 +62,16 @@ class PrivacyPolicyRM {
 class FaqRM {
   FaqRM({
     required this.id,
-    required this.question,
-    required this.answer,
+    required this.localizedQuestion,
+    required this.localizedAnswer,
   });
 
   @JsonKey(name: 'id')
   final int id;
   @JsonKey(name: 'question')
-  final String question;
+  final Map<String, String> localizedQuestion;
   @JsonKey(name: 'answer')
-  final String answer;
+  final Map<String, String> localizedAnswer;
 
   static const fromJson = _$FaqRMFromJson;
 }
-

@@ -1,3 +1,5 @@
+import 'package:domain_models/domain_models.dart';
+
 class Settings {
   Settings({
      this.pricing,
@@ -71,6 +73,6 @@ class Faq {
   });
 
   final int id;
-  final String question;
-  final String answer;
+  final LocalizedMessage question;
+  final LocalizedMessage answer;
 }

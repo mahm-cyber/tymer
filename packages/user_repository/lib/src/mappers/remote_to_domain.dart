@@ -73,8 +73,14 @@ extension FaqRMtoDM on FaqRM {
   Faq toDomainModel() {
     return Faq(
       id: id,
-      question: question,
-      answer: answer,
+      question: LocalizedMessage(
+        ar: localizedQuestion['ar']!,
+        en: localizedQuestion['en']!,
+      ),
+      answer: LocalizedMessage(
+        ar: localizedAnswer['ar']!,
+        en: localizedAnswer['en']!,
+      ),
     );
   }
 }

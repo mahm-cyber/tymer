@@ -199,7 +199,8 @@ class UrlBuilder {
   }
 
   String buildGetFaqsUrl() {
-    return '$baseUrl/frequently-asked-questions';
+    //includeTranslations=true
+    return '$baseUrl/frequently-asked-questions?includeTranslations=true';
   }
 
   String buildCheckIfUserHasSupportChatUrl() {

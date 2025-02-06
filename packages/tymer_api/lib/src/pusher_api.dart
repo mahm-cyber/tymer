@@ -55,6 +55,9 @@ class PusherApi {
     log('STOPPED LISTENING TO:::$channelName');
   }
 
+  //=======================
+  // Dispute Chat Methods
+  //=======================
   void listenToRemoteDisputeChat({
     required int disputeId,
     required String userType,
@@ -115,6 +118,9 @@ class PusherApi {
     );
   }
 
+  //=======================
+  // Support Chat Methods
+  //=======================
   void listenToRemoteSupportChat({
     required int chatId,
   }) {
@@ -136,7 +142,7 @@ class PusherApi {
     );
   }
 
-  void listenToSupportChatStatus({
+  void listenToRemoteSupportChatStatus({
     required int chatId,
   }) {
     final channelName = _ChannelNames.supportChat;
@@ -246,5 +252,5 @@ class _ChannelNames {
       'App\\Events\\SupportChatMessageSent';
 
   static String get supportChatStatusEventName =>
-      'App\\Events\\⁠ SupportChatConversationClosed ⁠';
+      'App\\Events\\SupportChatConversationClosed';
 }

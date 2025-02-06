@@ -26,9 +26,13 @@ class FaqAndStartChat extends StatelessWidget {
             children: [
               ...List.generate(
                 state.faqs?.length ?? 0,
-                (index) => FaqTile(faq: state.faqs![index]),
+                (index) => Column(
+                  children: [
+                    FaqTile(faq: state.faqs![index]),
+                    VerticalGap.medium(),
+                  ],
+                ),
               ),
-              VerticalGap.medium(),
               Center(
                 child: Text(
                   l10n.didntFindWhatYouAreLookingFor,
@@ -65,6 +69,7 @@ class FaqTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final theme = TymerTheme.of(context);
+    final isArabic = Localizations.localeOf(context).languageCode == 'ar';
     return ExpansionTile(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
@@ -75,14 +80,14 @@ class FaqTile extends StatelessWidget {
         side: const BorderSide(color: Colors.black),
       ),
       title: Text(
-        faq.question,
+        isArabic ? faq.question.ar : faq.question.en,
         style: textTheme.bodyMedium?.copyWith(
           fontWeight: FontWeight.bold,
         ),
       ),
       children: [
         Text(
-          faq.answer,
+          isArabic ? faq.answer.ar : faq.answer.en,
           style: textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),

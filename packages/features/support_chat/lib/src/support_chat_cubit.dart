@@ -214,6 +214,7 @@ class SupportChatCubit extends Cubit<SupportChatState> {
     supportRepository.initializeSupportChatStream(user!, chatId);
     supportRepository.changeNotifier.supportChatMessageVN
         .addListener(_supportChatSubjectCallBack);
+    supportRepository.initializeSupportChatStatusStream();
     supportRepository.changeNotifier.supportChatClosedVN
         .addListener(_supportChatClosedSubjectCallBack);
   }
@@ -411,10 +412,13 @@ class SupportChatCubit extends Cubit<SupportChatState> {
   }
 
   @override
-  Future<void> close() {
-    supportRepository.disconnectPusher();
+  Future<void> close() async {
+    await supportRepository.stopListeningSupportChat(state.chatId!);
+    await supportRepository.disconnectPusher();
     supportRepository.changeNotifier.supportChatMessageVN
         .removeListener(_supportChatSubjectCallBack);
+    supportRepository.changeNotifier.supportChatClosedVN
+        .removeListener(_supportChatClosedSubjectCallBack);
     supportRepository.changeNotifier.clearSupportChatMessage();
     return super.close();
   }

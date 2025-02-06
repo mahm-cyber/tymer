@@ -72,9 +72,15 @@ FaqRM _$FaqRMFromJson(Map<String, dynamic> json) => $checkedCreate(
       ($checkedConvert) {
         final val = FaqRM(
           id: $checkedConvert('id', (v) => (v as num).toInt()),
-          question: $checkedConvert('question', (v) => v as String),
-          answer: $checkedConvert('answer', (v) => v as String),
+          localizedQuestion: $checkedConvert(
+              'question', (v) => Map<String, String>.from(v as Map)),
+          localizedAnswer: $checkedConvert(
+              'answer', (v) => Map<String, String>.from(v as Map)),
         );
         return val;
+      },
+      fieldKeyMap: const {
+        'localizedQuestion': 'question',
+        'localizedAnswer': 'answer'
       },
     );

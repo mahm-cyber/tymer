@@ -184,8 +184,8 @@ class FaqCMAdapter extends TypeAdapter<FaqCM> {
     };
     return FaqCM(
       id: fields[0] as int,
-      question: fields[1] as String,
-      answer: fields[2] as String,
+      question: (fields[1] as Map).cast<String, String>(),
+      answer: (fields[2] as Map).cast<String, String>(),
     );
   }
 

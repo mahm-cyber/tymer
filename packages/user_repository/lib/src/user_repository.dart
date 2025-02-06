@@ -472,7 +472,7 @@ class UserRepository {
       final updatedSettings = currentSettings.copyWith(
         pricing: pricingSettingsCM,
       );
-      _localStorage.upsertSettings(updatedSettings);
+      await _localStorage.upsertSettings(updatedSettings);
       return pricingSettingsDM;
     } catch (error) {
       rethrow;

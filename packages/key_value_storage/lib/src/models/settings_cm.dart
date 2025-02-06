@@ -97,9 +97,9 @@ class FaqCM {
   @HiveField(0)
   final int id;
   @HiveField(1)
-  final String question;
+  final Map<String, String> question;
   @HiveField(2)
-  final String answer;
+  final Map<String, String> answer;
 }
 
 @HiveType(typeId: 10)

@@ -92,7 +92,7 @@ class SupportChatView extends StatelessWidget {
                 title: Text(l10n.appBarTitle),
                 actions: [
                   // use portal faqs
-                  if (state.faqs != null)
+                  if (state.faqs != null && hasSupportChat)
                     IconButton(
                       onPressed: () => showDialog(
                         context: context,

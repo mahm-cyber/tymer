@@ -65,8 +65,14 @@ extension FaqCMtoDM on FaqCM {
   Faq toDomainModel() {
     return Faq(
       id: id,
-      question: question,
-      answer: answer,
+      question: LocalizedMessage(
+        ar: question['ar']!,
+        en: question['en']!,
+      ),
+      answer: LocalizedMessage(
+        ar: answer['ar']!,
+        en: answer['en']!,
+      ),
     );
   }
 }

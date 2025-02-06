@@ -61,7 +61,6 @@ Map<String, PageBuilder> buildRoutingTable({
   unAuthenticatedAccessVN.addListener(() async {
     final unAuthenticatedAccess = unAuthenticatedAccessVN.value;
     if (unAuthenticatedAccess == true) {
-      await userRepository.logout();
       signInSuccessVN.value = false;
       await routerDelegate
           .popUntil((route) => route.path == _PathConstants.initialPath);

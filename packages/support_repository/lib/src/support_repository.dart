@@ -29,7 +29,8 @@ class SupportRepository {
 
   Future listenToSupportChat(int supportChatId) async {
     try {
-      remoteApi.pusherApi.listenToSupportChatStatus(chatId: supportChatId);
+      remoteApi.pusherApi
+          .listenToRemoteSupportChatStatus(chatId: supportChatId);
       await Future.delayed(const Duration(seconds: 1));
       remoteApi.pusherApi.listenToRemoteSupportChat(chatId: supportChatId);
     } catch (error) {
@@ -43,10 +44,10 @@ class SupportRepository {
       remoteApi.pusherApi.stopListeningToRemoteSupportChat(chatId: chatId);
       remoteApi.pusherApi.stopListeningToSupportChatStatus(chatId: chatId);
 
-      _supportChatSubscription.cancel();
-      _supportChatStatusSubscription.cancel();
       remoteApi.pusherApi.supportChatMessageSC.add(null);
       remoteApi.pusherApi.supportChatStatusSC.add(null);
+      _supportChatSubscription.cancel();
+      _supportChatStatusSubscription.cancel();
     } catch (error) {
       debugPrint('Error stopping listening to requester chat: $error');
       rethrow;
@@ -125,14 +126,20 @@ class SupportRepository {
   // endregion
 
   // region Stream Initialization
-  void initializeSupportChatStream(User user, int supportChatId) {
+  void initializeSupportChatStream(
+    User user,
+    int supportChatId,
+  ) {
     _supportChatSubscription =
-        remoteApi.pusherApi.supportChatMessageSC.listen((event) {
+        remoteApi.pusherApi.supportChatMessageSC.listen((event) async {
       if (event == null) return;
       final domainMessage = event.toDomainModel(supportChatId);
-      changeNotifier.setSupportChatMessage(domainMessage.copyWith(
-        isSentByMe: domainMessage.sender.id == user.id,
-      ));
+      final isSentByMe = domainMessage.sender.id == user.id;
+      final updatedMessage = domainMessage.copyWith(
+        isSentByMe: isSentByMe,
+      );
+      await Future.delayed(const Duration(milliseconds: 100));
+      changeNotifier.setSupportChatMessage(updatedMessage);
     });
   }
 

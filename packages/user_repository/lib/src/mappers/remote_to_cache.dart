@@ -56,8 +56,8 @@ extension FaqRMtoCM on FaqRM {
   FaqCM toCacheModel() {
     return FaqCM(
       id: id,
-      question: question,
-      answer: answer,
+      question: localizedQuestion,
+      answer: localizedAnswer,
     );
   }
 }
