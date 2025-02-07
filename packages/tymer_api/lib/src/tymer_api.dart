@@ -423,6 +423,7 @@ class TymerApi {
     required double long,
     required String userType,
     String? status,
+    bool sortByCreatedAt = false,
   }) async {
     final url = urlBuilder.buildGetAllServiceRequestsUrl(
       page: page,
@@ -430,6 +431,7 @@ class TymerApi {
       long: long,
       userType: userType,
       status: status,
+      sortByCreatedAt: sortByCreatedAt,
     );
     try {
       final response = await _dio.get(url);

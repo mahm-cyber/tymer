@@ -32,8 +32,8 @@ class OrderHistoryState extends Equatable {
               ServiceStatus.completed,
             ];
 
-  List<Service>? get ascendingSortedServiceRequests =>
-      serviceRequests?..sort((b, a) => a.createdAt!.compareTo(b.createdAt!));
+  // List<Service>? get ascendingSortedServiceRequests =>
+  //     serviceRequests?..sort((b, a) => a.createdAt!.compareTo(b.createdAt!));
 
   OrderHistoryState copyWith({
     List<Service>? serviceRequests,

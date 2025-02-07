@@ -77,6 +77,7 @@ class ServiceRepository {
     required double long,
     required UserType userType,
     ServiceStatus? status,
+    bool sortByCreatedAt = false,
   }) async {
     try {
       final serviceRequests = await remoteApi.getAllServiceRequests(
@@ -85,6 +86,7 @@ class ServiceRepository {
         long: long,
         userType: userType.toRemoteModel(),
         status: status?.toRemoteModel(),
+        sortByCreatedAt: sortByCreatedAt,
       );
       final serviceRequestsDomainModel = serviceRequests.toDomainModel();
       return serviceRequestsDomainModel;

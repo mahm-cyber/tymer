@@ -56,6 +56,7 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
         userType: state.userTypeFilter,
         page: page,
         status: state.statusFilter,
+        sortByCreatedAt: true,
       );
 
       final newItemList = newPage.list;

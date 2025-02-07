@@ -56,6 +56,7 @@ class UrlBuilder {
     required double long,
     required String userType,
     String? status,
+    bool sortByCreatedAt = false,
   }) {
     final latQuery = '?user_lat=$lat';
     final pageQuery = page != null ? '&page=$page' : '';
@@ -64,13 +65,15 @@ class UrlBuilder {
     const includeServiceQuery = '&include=service,service.category';
     final statusQuery = status != null ? '&status=$status' : '&status=pending';
     const includeTranslationsQuery = '&includeTranslations=true';
+    final sortByCreatedAtQuery = sortByCreatedAt ? '&sort=createdAt' : '';
     final completeUrl = '$baseUrl/service-requests/list$latQuery'
         '$longQuery'
         '$pageQuery'
         '$modeQuery'
         '$includeServiceQuery'
         '$includeTranslationsQuery'
-        '$statusQuery';
+        '$statusQuery'
+        '$sortByCreatedAtQuery';
     return completeUrl;
   }
 

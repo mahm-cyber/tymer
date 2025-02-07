@@ -240,7 +240,7 @@ class OrderHistoryView extends StatelessWidget {
 extension on OrderHistoryState {
   PagingState<int, Service> toPagingState() {
     return PagingState(
-      itemList: ascendingSortedServiceRequests,
+      itemList: serviceRequests,
       nextPageKey: nextPage,
       error: nextListPageLoadError,
     );
