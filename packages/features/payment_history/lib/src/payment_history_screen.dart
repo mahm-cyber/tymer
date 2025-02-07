@@ -119,6 +119,7 @@ class PaymentHistoryView extends StatelessWidget {
                       child: RefreshIndicator(
                         onRefresh: cubit.reFetchFirstPage,
                         child: PagedListView.separated(
+                          cacheExtent: 1000,
                           padding: EdgeInsets.symmetric(
                             horizontal: theme.screenMargin,
                           ),

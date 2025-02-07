@@ -97,8 +97,21 @@ class WalletView extends StatelessWidget {
                             const SvgAsset(AssetPathConstants.bankNotePath),
                             HorizontalGap.small(),
                             if (state.balance != null)
-                              Text(
-                                '${l10n.balance} ${state.balance!.localizeDouble(locale)} ${clL10n.eyptianPoundLetters}',
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(text: '${l10n.balance} '),
+                                    TextSpan(
+                                      text:
+                                          state.balance!.localizeDouble(locale),
+                                      style: textTheme.titleMedium?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: colorScheme.primary),
+                                    ),
+                                    TextSpan(
+                                        text: ' ${clL10n.eyptianPoundLetters}'),
+                                  ],
+                                ),
                                 style: textTheme.labelMedium
                                     ?.copyWith(color: colorScheme.primary),
                               ),

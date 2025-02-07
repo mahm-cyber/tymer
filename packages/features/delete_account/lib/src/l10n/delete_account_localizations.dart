@@ -5,24 +5,24 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
-import 'profile_localizations_ar.dart';
-import 'profile_localizations_en.dart';
+import 'delete_account_localizations_ar.dart';
+import 'delete_account_localizations_en.dart';
 
 // ignore_for_file: type=lint
 
-/// Callers can lookup localized strings with an instance of ProfileLocalizations
-/// returned by `ProfileLocalizations.of(context)`.
+/// Callers can lookup localized strings with an instance of DeleteAccountLocalizations
+/// returned by `DeleteAccountLocalizations.of(context)`.
 ///
-/// Applications need to include `ProfileLocalizations.delegate()` in their app's
+/// Applications need to include `DeleteAccountLocalizations.delegate()` in their app's
 /// `localizationDelegates` list, and the locales they support in the app's
 /// `supportedLocales` list. For example:
 ///
 /// ```dart
-/// import 'l10n/profile_localizations.dart';
+/// import 'l10n/delete_account_localizations.dart';
 ///
 /// return MaterialApp(
-///   localizationsDelegates: ProfileLocalizations.localizationsDelegates,
-///   supportedLocales: ProfileLocalizations.supportedLocales,
+///   localizationsDelegates: DeleteAccountLocalizations.localizationsDelegates,
+///   supportedLocales: DeleteAccountLocalizations.supportedLocales,
 ///   home: MyApplicationHome(),
 /// );
 /// ```
@@ -59,18 +59,18 @@ import 'profile_localizations_en.dart';
 /// Select and expand the newly-created Localizations item then, for each
 /// locale your application supports, add a new item and select the locale
 /// you wish to add from the pop-up menu in the Value field. This list should
-/// be consistent with the languages listed in the ProfileLocalizations.supportedLocales
+/// be consistent with the languages listed in the DeleteAccountLocalizations.supportedLocales
 /// property.
-abstract class ProfileLocalizations {
-  ProfileLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+abstract class DeleteAccountLocalizations {
+  DeleteAccountLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
-  static ProfileLocalizations of(BuildContext context) {
-    return Localizations.of<ProfileLocalizations>(context, ProfileLocalizations)!;
+  static DeleteAccountLocalizations of(BuildContext context) {
+    return Localizations.of<DeleteAccountLocalizations>(context, DeleteAccountLocalizations)!;
   }
 
-  static const LocalizationsDelegate<ProfileLocalizations> delegate = _ProfileLocalizationsDelegate();
+  static const LocalizationsDelegate<DeleteAccountLocalizations> delegate = _DeleteAccountLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -95,105 +95,81 @@ abstract class ProfileLocalizations {
     Locale('en')
   ];
 
-  /// No description provided for @appBarTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Profile'**
-  String get appBarTitle;
-
-  /// No description provided for @myProfileTileTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'My Profile'**
-  String get myProfileTileTitle;
-
-  /// No description provided for @greetingTileTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Hello'**
-  String get greetingTileTitle;
-
-  /// No description provided for @settingsTileTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Settings'**
-  String get settingsTileTitle;
-
-  /// No description provided for @notificationsTileTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Notifications'**
-  String get notificationsTileTitle;
-
-  /// No description provided for @infoTileTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Info'**
-  String get infoTileTitle;
-
-  /// No description provided for @changeLanguageTileTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Language'**
-  String get changeLanguageTileTitle;
-
-  /// No description provided for @logoutTileTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Logout'**
-  String get logoutTileTitle;
-
-  /// No description provided for @changePasswordTileTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Change Password'**
-  String get changePasswordTileTitle;
-
-  /// No description provided for @changePhoneTileTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Change Phone Number'**
-  String get changePhoneTileTitle;
-
-  /// No description provided for @ticketsTileTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Tickets'**
-  String get ticketsTileTitle;
-
-  /// No description provided for @deleteAccountTileTitle.
+  /// No description provided for @deleteAccountTitle.
   ///
   /// In en, this message translates to:
   /// **'Delete Account'**
-  String get deleteAccountTileTitle;
+  String get deleteAccountTitle;
+
+  /// No description provided for @deleteAccountContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete your account?'**
+  String get deleteAccountContent;
+
+  /// No description provided for @deleteAccountButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get deleteAccountButton;
+
+  /// No description provided for @cancelButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancelButtonLabel;
+
+  /// No description provided for @deleteAccountSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Account deleted successfully'**
+  String get deleteAccountSuccessMessage;
+
+  /// No description provided for @passwordTextFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get passwordTextFieldLabel;
+
+  /// No description provided for @requiredFieldErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Required*'**
+  String get requiredFieldErrorMessage;
+
+  /// No description provided for @invalidCredentialsErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong password'**
+  String get invalidCredentialsErrorMessage;
 }
 
-class _ProfileLocalizationsDelegate extends LocalizationsDelegate<ProfileLocalizations> {
-  const _ProfileLocalizationsDelegate();
+class _DeleteAccountLocalizationsDelegate extends LocalizationsDelegate<DeleteAccountLocalizations> {
+  const _DeleteAccountLocalizationsDelegate();
 
   @override
-  Future<ProfileLocalizations> load(Locale locale) {
-    return SynchronousFuture<ProfileLocalizations>(lookupProfileLocalizations(locale));
+  Future<DeleteAccountLocalizations> load(Locale locale) {
+    return SynchronousFuture<DeleteAccountLocalizations>(lookupDeleteAccountLocalizations(locale));
   }
 
   @override
   bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
-  bool shouldReload(_ProfileLocalizationsDelegate old) => false;
+  bool shouldReload(_DeleteAccountLocalizationsDelegate old) => false;
 }
 
-ProfileLocalizations lookupProfileLocalizations(Locale locale) {
+DeleteAccountLocalizations lookupDeleteAccountLocalizations(Locale locale) {
 
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'ar': return ProfileLocalizationsAr();
-    case 'en': return ProfileLocalizationsEn();
+    case 'ar': return DeleteAccountLocalizationsAr();
+    case 'en': return DeleteAccountLocalizationsEn();
   }
 
   throw FlutterError(
-    'ProfileLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'DeleteAccountLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
     'that was used.'

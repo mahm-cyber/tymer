@@ -255,8 +255,12 @@ class WithdrawCubit extends Cubit<WithdrawState> {
         emit(successState);
         onSuccess();
       } catch (error) {
-        final failureState =
-            state.copyWith(submissionStatus: FormzSubmissionStatus.failure);
+        final failureState = state.copyWith(
+          submissionStatus: error is InsufficientBalanceException
+              ? FormzSubmissionStatus.initial
+              : FormzSubmissionStatus.failure,
+          error: error,
+        );
         emit(failureState);
       }
     }

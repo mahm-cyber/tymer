@@ -18,6 +18,7 @@
         "type": "int"
       }
     }
-  }
+  },
+  "insufficientBalanceErrorMessage": "Insufficient balance, please top up your account"
 }
   

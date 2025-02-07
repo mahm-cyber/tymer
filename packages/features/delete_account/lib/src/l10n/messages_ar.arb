@@ -1,0 +1,10 @@
+{
+  "deleteAccountTitle": "حذف الحساب",
+  "deleteAccountContent": "هل أنت متأكد أنك تريد حذف حسابك؟",
+  "deleteAccountButton": "حذف",
+  "cancelButtonLabel": "إلغاء",
+  "deleteAccountSuccessMessage": "تم حذف الحساب بنجاح",
+  "passwordTextFieldLabel": "كلمة المرور",
+  "requiredFieldErrorMessage": "مطلوب*",
+  "invalidCredentialsErrorMessage": "كلمة المرور غير متطابقة"
+}

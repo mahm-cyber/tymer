@@ -18,6 +18,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     required this.onChangePhoneTapped,
     required this.onChangeLanguageTapped,
     required this.ticketsTapped,
+    required this.onDeleteAccountTapped,
   }) : super(
           const ProfileState(),
         ) {
@@ -36,7 +37,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   final VoidCallback onChangePhoneTapped;
   final VoidCallback onChangeLanguageTapped;
   final VoidCallback ticketsTapped;
-
+  final VoidCallback onDeleteAccountTapped;
   void logout() async {
     try {
       final logoutInProgress =

@@ -34,11 +34,23 @@ extension NotificationRMtoDM on NotificationRM {
       case 'service_request_accepted':
       case 'response_accepted':
         return NotificationType.order;
+      case 'vodafone_cash_top_up_request_rejected':
+      case 'etisalat_cash_top_up_request_rejected':
+      case 'orange_cash_top_up_request_rejected':
+      case 'telda_top_up_request_rejected':
+      case 'instapay_top_up_request_rejected':
+      case 'bank_transfer_top_up_request_rejected':
+      case 'vodafone_cash_withdraw_request_rejected':
+      case 'etisalat_cash_withdraw_request_rejected':
+      case 'orange_cash_withdraw_request_rejected':
+      case 'telda_withdraw_request_rejected':
+      case 'instapay_withdraw_request_rejected':
+      case 'bank_transfer_withdraw_request_rejected':
       case 'top_up_success':
       case 'withdraw_success':
         return NotificationType.wallet;
-      // case 'support_chat_message':
-      //   return NotificationType.support;
+      case 'support_chat_message':
+        return NotificationType.support;
       default:
         throw Exception('Unknown notification type: $type');
     }

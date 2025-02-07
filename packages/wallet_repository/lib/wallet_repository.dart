@@ -76,6 +76,9 @@ class WalletRepository {
         teldaUsername: teldaUsername,
       );
     } catch (e) {
+      if (e is InsufficientBalanceTymerException) {
+        throw InsufficientBalanceException();
+      }
       rethrow;
     }
   }

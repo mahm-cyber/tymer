@@ -554,6 +554,20 @@ class UserRepository {
       rethrow;
     }
   }
+
+  Future deleteAccount({
+    required String password,
+  }) async {
+    try {
+      await remoteApi.deleteAccount(password: password);
+      await deleteRememberedCredentials();
+    } catch (error) {
+      if (error is IncorrectPasswordTymerException) {
+        throw IncorrectPasswordException();
+      }
+      rethrow;
+    }
+  }
 }
 
 enum FetchPolicy {

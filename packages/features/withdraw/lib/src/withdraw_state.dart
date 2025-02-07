@@ -11,6 +11,7 @@ class WithdrawState extends Equatable {
     this.ibanNumber = const Dynamic<String?>.unvalidated(),
     this.beneficiaryName = const Dynamic<String?>.unvalidated(),
     this.teldaUsername = const Dynamic<String?>.unvalidated(),
+    this.error,
   });
 
   final PaymentMethodType? paymentMethodType;
@@ -22,7 +23,7 @@ class WithdrawState extends Equatable {
   final Dynamic<String?> ibanNumber;
   final Dynamic<String?> beneficiaryName;
   final Dynamic<String?> teldaUsername;
-
+  final dynamic error;
   WithdrawState copyWith({
     PaymentMethodType? paymentMethodType,
     PaymentMethods? withdrawMethods,
@@ -33,6 +34,7 @@ class WithdrawState extends Equatable {
     Dynamic<String?>? ibanNumber,
     Dynamic<String?>? beneficiaryName,
     Dynamic<String?>? teldaUsername,
+    dynamic error,
   }) {
     return WithdrawState(
       paymentMethodType: paymentMethodType ?? this.paymentMethodType,
@@ -45,6 +47,7 @@ class WithdrawState extends Equatable {
       ibanNumber: ibanNumber ?? this.ibanNumber,
       beneficiaryName: beneficiaryName ?? this.beneficiaryName,
       teldaUsername: teldaUsername ?? this.teldaUsername,
+      error: error ?? this.error,
     );
   }
 
@@ -59,5 +62,6 @@ class WithdrawState extends Equatable {
         ibanNumber,
         beneficiaryName,
         teldaUsername,
+        error,
       ];
 }

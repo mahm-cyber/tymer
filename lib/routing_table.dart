@@ -2,6 +2,7 @@ import 'package:accept_service_request/accept_service_request.dart';
 import 'package:change_language/change_language.dart';
 import 'package:change_password/change_password.dart';
 import 'package:change_phone/change_phone.dart';
+import 'package:delete_account/delete_account.dart';
 import 'package:dispute_chat/dispute_chat.dart';
 import 'package:choose_service/choose_service.dart';
 import 'package:choose_top_up_method/choose_top_up_method.dart';
@@ -375,6 +376,21 @@ Map<String, PageBuilder> buildRoutingTable({
               ),
               ticketsTapped: () =>
                   routerDelegate.push(_PathConstants.disputesPath),
+              onDeleteAccountTapped: () => showDialog(
+                useRootNavigator: false,
+                barrierDismissible: false,
+                context: context,
+                builder: (context) => DeleteAccountDialog(
+                  userRepository: userRepository,
+                  onAccountDeletedSuccessfully: () async {
+                    signInSuccessVN.value = false;
+                    await routerDelegate.popUntil(
+                      (route) => route.path == _PathConstants.initialPath,
+                    );
+                  },
+                  onBackButtonPressed: () => routerDelegate.pop(),
+                ),
+              ),
             );
           }),
         ),

@@ -16,6 +16,7 @@ class ProfileScreen extends StatelessWidget {
     required this.onChangePhoneTapped,
     required this.onChangeLanguageTapped,
     required this.ticketsTapped,
+    required this.onDeleteAccountTapped,
     super.key,
   });
 
@@ -27,7 +28,7 @@ class ProfileScreen extends StatelessWidget {
   final VoidCallback onChangePhoneTapped;
   final VoidCallback onChangeLanguageTapped;
   final VoidCallback ticketsTapped;
-
+  final VoidCallback onDeleteAccountTapped;
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ProfileCubit>(
@@ -40,6 +41,7 @@ class ProfileScreen extends StatelessWidget {
         onChangePhoneTapped: onChangePhoneTapped,
         onChangeLanguageTapped: onChangeLanguageTapped,
         ticketsTapped: ticketsTapped,
+        onDeleteAccountTapped: onDeleteAccountTapped,
       ),
       child: const ProfileView(),
     );
@@ -65,84 +67,111 @@ class ProfileView extends StatelessWidget {
             title: const SvgAsset(AssetPathConstants.whiteLogoPath),
             toolbarHeight: 100,
           ),
-          body: ListView(
+          body: Column(
             children: [
-              // VerticalGap.large(),
-              ListTile(
-                titleTextStyle: textTheme.titleMedium,
-                title: Text('👋 ${l10n.greetingTileTitle}'),
-                subtitle: Text(state.user?.name ?? ''),
-                tileColor: theme.borderColor.withAlpha((255*0.3).toInt()),
-                // contentPadding: const EdgeInsets.symmetric(vertical: 0),
+              Expanded(
+                child: ListView(
+                  children: [
+                    // VerticalGap.large(),
+                    ListTile(
+                      titleTextStyle: textTheme.titleMedium,
+                      title: Text('👋 ${l10n.greetingTileTitle}'),
+                      subtitle: Text(state.user?.name ?? ''),
+                      tileColor:
+                          theme.borderColor.withAlpha((255 * 0.3).toInt()),
+                      // contentPadding: const EdgeInsets.symmetric(vertical: 0),
+                    ),
+                    // ListTile(
+                    //   leading: const SvgAsset(AssetPathConstants.profilePath),
+                    //   titleTextStyle: textTheme.titleMedium,
+                    //   title: Text(l10n.myProfileTileTitle),
+                    //   trailing: const Icon(Icons.arrow_forward_ios),
+                    //   subtitle: Text(state.user?.name ?? ''),
+                    //   tileColor: theme.borderColor,
+                    // ),
+                    // ListTile(
+                    //   leading: const SvgAsset(AssetPathConstants.settingsPath),
+                    //   titleTextStyle: textTheme.titleMedium,
+                    //   title: Text(l10n.settingsTileTitle),
+                    //   trailing: const Icon(Icons.arrow_forward_ios),
+                    //   tileColor: theme.borderColor,
+                    // ),
+                    // ListTile(
+                    //   leading: const SvgAsset(AssetPathConstants.bellPath),
+                    //   titleTextStyle: textTheme.titleMedium,
+                    //   title: Text(l10n.notificationsTileTitle),
+                    //   trailing: const Icon(Icons.arrow_forward_ios),
+                    //   tileColor: theme.borderColor,
+                    // ),
+                    // ListTile(
+                    //   leading: const SvgAsset(AssetPathConstants.infoCirclePath),
+                    //   titleTextStyle: textTheme.titleMedium,
+                    //   title: Text(l10n.infoTileTitle),
+                    //   trailing: const Icon(Icons.arrow_forward_ios),
+                    //   tileColor: theme.borderColor,
+                    // ),
+                    ListTile(
+                      leading:
+                          const SvgAsset(AssetPathConstants.twoSlidersPath),
+                      titleTextStyle: textTheme.titleMedium,
+                      title: Text(l10n.changePhoneTileTitle),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                      onTap: cubit.onChangePhoneTapped,
+                    ),
+                    ListTile(
+                      leading:
+                          const SvgAsset(AssetPathConstants.shieldDonePath),
+                      titleTextStyle: textTheme.titleMedium,
+                      title: Text(l10n.changePasswordTileTitle),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                      onTap: cubit.onChangePasswordTapped,
+                    ),
+                    ListTile(
+                      leading:
+                          const SvgAsset(AssetPathConstants.twoSlidersPath),
+                      titleTextStyle: textTheme.titleMedium,
+                      title: Text(l10n.changeLanguageTileTitle),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                      onTap: cubit.onChangeLanguageTapped,
+                    ),
+
+                    ListTile(
+                      leading:
+                          const SvgAsset(AssetPathConstants.twoSlidersPath),
+                      titleTextStyle: textTheme.titleMedium,
+                      title: Text(l10n.ticketsTileTitle),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                      onTap: cubit.ticketsTapped,
+                    ),
+                    ListTile(
+                      leading: logoutInProgress
+                          ? Transform.scale(
+                              scale: 0.5,
+                              child: const CircularProgressIndicator(),
+                            )
+                          : const SvgAsset(AssetPathConstants.uploadPath),
+                      titleTextStyle: textTheme.titleMedium,
+                      title: Text(l10n.logoutTileTitle),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                      onTap: logoutInProgress ? null : cubit.logout,
+                    ),
+                  ],
+                ),
               ),
-              // ListTile(
-              //   leading: const SvgAsset(AssetPathConstants.profilePath),
-              //   titleTextStyle: textTheme.titleMedium,
-              //   title: Text(l10n.myProfileTileTitle),
-              //   trailing: const Icon(Icons.arrow_forward_ios),
-              //   subtitle: Text(state.user?.name ?? ''),
-              //   tileColor: theme.borderColor,
-              // ),
-              // ListTile(
-              //   leading: const SvgAsset(AssetPathConstants.settingsPath),
-              //   titleTextStyle: textTheme.titleMedium,
-              //   title: Text(l10n.settingsTileTitle),
-              //   trailing: const Icon(Icons.arrow_forward_ios),
-              //   tileColor: theme.borderColor,
-              // ),
-              // ListTile(
-              //   leading: const SvgAsset(AssetPathConstants.bellPath),
-              //   titleTextStyle: textTheme.titleMedium,
-              //   title: Text(l10n.notificationsTileTitle),
-              //   trailing: const Icon(Icons.arrow_forward_ios),
-              //   tileColor: theme.borderColor,
-              // ),
-              // ListTile(
-              //   leading: const SvgAsset(AssetPathConstants.infoCirclePath),
-              //   titleTextStyle: textTheme.titleMedium,
-              //   title: Text(l10n.infoTileTitle),
-              //   trailing: const Icon(Icons.arrow_forward_ios),
-              //   tileColor: theme.borderColor,
-              // ),
               ListTile(
-                leading: const SvgAsset(AssetPathConstants.twoSlidersPath),
+                leading: Icon(
+                  Icons.delete_outline,
+                  color: theme.errorColor.withAlpha((255 * 0.4).toInt()),
+                ),
                 titleTextStyle: textTheme.titleMedium,
-                title: Text(l10n.changePhoneTileTitle),
-                trailing: const Icon(Icons.arrow_forward_ios),
-                onTap: cubit.onChangePhoneTapped,
-              ),
-              ListTile(
-                leading: const SvgAsset(AssetPathConstants.shieldDonePath),
-                titleTextStyle: textTheme.titleMedium,
-                title: Text(l10n.changePasswordTileTitle),
-                trailing: const Icon(Icons.arrow_forward_ios),
-                onTap: cubit.onChangePasswordTapped,
-              ),
-              ListTile(
-                leading: const SvgAsset(AssetPathConstants.twoSlidersPath),
-                titleTextStyle: textTheme.titleMedium,
-                title: Text(l10n.changeLanguageTileTitle),
-                trailing: const Icon(Icons.arrow_forward_ios),
-                onTap: cubit.onChangeLanguageTapped,
-              ),
-              ListTile(
-                leading: logoutInProgress
-                    ? Transform.scale(
-                        scale: 0.5,
-                        child: const CircularProgressIndicator(),
-                      )
-                    : const SvgAsset(AssetPathConstants.uploadPath),
-                titleTextStyle: textTheme.titleMedium,
-                title: Text(l10n.logoutTileTitle),
-                trailing: const Icon(Icons.arrow_forward_ios),
-                onTap: logoutInProgress ? null : cubit.logout,
-              ),
-              ListTile(
-                leading: const SvgAsset(AssetPathConstants.twoSlidersPath),
-                titleTextStyle: textTheme.titleMedium,
-                title:  Text(l10n.ticketsTileTitle),
-                trailing: const Icon(Icons.arrow_forward_ios),
-                onTap: cubit.ticketsTapped,
+                title: Text(
+                  l10n.deleteAccountTileTitle,
+                  style: textTheme.titleMedium?.copyWith(
+                    color: theme.errorColor,
+                  ),
+                ),
+                // trailing: const Icon(Icons.arrow_forward_ios),
+                onTap: cubit.onDeleteAccountTapped,
               ),
             ],
           ),

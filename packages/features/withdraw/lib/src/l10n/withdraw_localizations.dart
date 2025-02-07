@@ -172,6 +172,12 @@ abstract class WithdrawLocalizations {
   /// In en, this message translates to:
   /// **'Amount must be greater than {minimumAmount}'**
   String isNotGreaterThanZeroTextFieldErrorMessage(int minimumAmount);
+
+  /// No description provided for @insufficientBalanceErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Insufficient balance, please top up your account'**
+  String get insufficientBalanceErrorMessage;
 }
 
 class _WithdrawLocalizationsDelegate extends LocalizationsDelegate<WithdrawLocalizations> {

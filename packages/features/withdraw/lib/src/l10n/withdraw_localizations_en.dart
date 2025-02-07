@@ -46,4 +46,7 @@ class WithdrawLocalizationsEn extends WithdrawLocalizations {
   String isNotGreaterThanZeroTextFieldErrorMessage(int minimumAmount) {
     return 'Amount must be greater than $minimumAmount';
   }
+
+  @override
+  String get insufficientBalanceErrorMessage => 'Insufficient balance, please top up your account';
 }

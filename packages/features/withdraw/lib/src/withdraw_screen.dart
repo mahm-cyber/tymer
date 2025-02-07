@@ -10,7 +10,6 @@ import 'package:withdraw/src/withdraw_cubit.dart';
 
 import 'package:user_repository/user_repository.dart';
 
-
 class WithdrawScreen extends StatelessWidget {
   const WithdrawScreen({
     required this.userRepository,
@@ -75,6 +74,15 @@ class WithdrawView extends StatelessWidget {
               snackBar: ErrorSnackBar(context: context),
             );
           }
+          if (state.error is InsufficientBalanceException) {
+            showSnackBar(
+              context: context,
+              snackBar: ErrorSnackBar(
+                context: context,
+                message: l10n.insufficientBalanceErrorMessage,
+              ),
+            );
+          }
         },
         builder: (context, state) {
           return Stack(
@@ -113,7 +121,8 @@ class WithdrawView extends StatelessWidget {
                             ],
                           ),
                         PaymentMethodType.instaPay => const InstaPayTextField(),
-                        PaymentMethodType.telda => const TeldaUsernameTextField(),
+                        PaymentMethodType.telda =>
+                          const TeldaUsernameTextField(),
                         _ => const SizedBox(),
                       },
                       VerticalGap.medium(),

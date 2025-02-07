@@ -16,7 +16,9 @@ class RateLimitedTymerException implements Exception {
 }
 
 class ChatLimitReachedTymerException implements Exception {}
+
 class InsufficientBalanceTymerException implements Exception {}
+
 class StaleMinimumPriceTymerException implements Exception {}
 
 class EmailAlreadyRegisteredTymerException implements Exception {}

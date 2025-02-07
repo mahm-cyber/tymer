@@ -38,4 +38,7 @@ class ProfileLocalizationsEn extends ProfileLocalizations {
 
   @override
   String get ticketsTileTitle => 'Tickets';
+
+  @override
+  String get deleteAccountTileTitle => 'Delete Account';
 }

@@ -18,5 +18,6 @@
         "type": "int"
       }
     }
-  }
+  },
+  "insufficientBalanceErrorMessage": "الرصيد غير كافي, الرجاء تحميل الحساب"
 }

@@ -9,5 +9,6 @@
   "logoutTileTitle": "تسجيل الخروج",
     "changePasswordTileTitle": "تغيير كلمة المرور",
   "changePhoneTileTitle": "تغيير رقم الهاتف",
-    "ticketsTileTitle": "التذاكر"
+    "ticketsTileTitle": "التذاكر",
+    "deleteAccountTileTitle": "حذف الحساب"
 }

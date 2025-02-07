@@ -4,6 +4,7 @@ import 'package:accept_service_request/accept_service_request.dart';
 import 'package:change_language/change_language.dart';
 import 'package:change_password/change_password.dart';
 import 'package:change_phone/change_phone.dart';
+import 'package:delete_account/delete_account.dart';
 import 'package:dispute_chat/dispute_chat.dart';
 import 'package:choose_service/choose_service.dart';
 import 'package:choose_top_up_method/choose_top_up_method.dart';
@@ -265,6 +266,7 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                 ChooseWithdrawMethodLocalizations.delegate,
                 PaymentHistoryLocalizations.delegate,
                 SupportChatLocalizations.delegate,
+                DeleteAccountLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [

@@ -88,6 +88,8 @@ dependencies:
     path: packages/features/profile
   change_language:
     path: packages/features/change_language
+  delete_account:
+    path: packages/features/delete_account
 
 
   # Authentication

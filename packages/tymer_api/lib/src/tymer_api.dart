@@ -1014,6 +1014,14 @@ class TymerApi {
         data: requestJsonBody,
       );
       debugPrint('------- ${response.data}');
+    } on DioException catch (error) {
+      if (error.response?.statusCode == 402 &&
+          error.response?.data[_errorJsonKey][_codeJsonKey] ==
+              'INSUFFICIENT_BALANCE') {
+        // insuffecient balance
+        throw InsufficientBalanceTymerException();
+      }
+      rethrow;
     } catch (e) {
       rethrow;
     }
@@ -1039,6 +1047,27 @@ class TymerApi {
       paymentListPage.isLastPage = isLastPage;
       return paymentListPage;
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future deleteAccount({
+    required String password,
+  }) async {
+    final url = urlBuilder.buildDeleteAccountUrl();
+    try {
+      await _dio.delete(
+        url,
+        data: {
+          'current_password': password,
+        },
+      );
+    } on DioException catch (error) {
+      if (error.response?.statusCode == 422) {
+        throw IncorrectPasswordTymerException();
+      }
+      rethrow;
+    } catch (error) {
       rethrow;
     }
   }

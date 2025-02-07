@@ -1,0 +1,10 @@
+{
+  "deleteAccountTitle": "Delete Account",
+  "deleteAccountContent": "Are you sure you want to delete your account?",
+  "deleteAccountButton": "Delete",
+  "cancelButtonLabel": "Cancel",
+  "deleteAccountSuccessMessage": "Account deleted successfully",
+  "passwordTextFieldLabel": "Password",
+  "requiredFieldErrorMessage": "Required*",
+  "invalidCredentialsErrorMessage": "Wrong password"
+}

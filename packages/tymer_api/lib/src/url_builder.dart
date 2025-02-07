@@ -65,7 +65,7 @@ class UrlBuilder {
     const includeServiceQuery = '&include=service,service.category';
     final statusQuery = status != null ? '&status=$status' : '&status=pending';
     const includeTranslationsQuery = '&includeTranslations=true';
-    final sortByCreatedAtQuery = sortByCreatedAt ? '&sort=createdAt' : '';
+    final sortByCreatedAtQuery = sortByCreatedAt ? '&sort=-created_at' : '';
     final completeUrl = '$baseUrl/service-requests/list$latQuery'
         '$longQuery'
         '$pageQuery'
@@ -248,5 +248,9 @@ class UrlBuilder {
     required int page,
   }) {
     return '$baseUrl/transactions/$type/$paymentMethodType/requests?page=$page&sort=-created_at';
+  }
+
+  String buildDeleteAccountUrl() {
+    return '$baseUrl/$_authSlug/account';
   }
 }
