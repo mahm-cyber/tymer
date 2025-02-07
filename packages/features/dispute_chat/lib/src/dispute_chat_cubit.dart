@@ -359,6 +359,7 @@ class DisputeChatCubit extends Cubit<DisputeChatState> {
     } catch (e) {
       final failureState = state.copyWith(
         submissionStatus: DisputeChatSubmissionStatus.failure,
+        error: e,
       );
       emit(failureState);
       rethrow;

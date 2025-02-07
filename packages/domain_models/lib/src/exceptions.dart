@@ -20,8 +20,13 @@ class EmailAlreadyRegisteredException implements Exception {}
 class PhoneAlreadyRegisteredException implements Exception {}
 
 class PhoneNotRegisteredException implements Exception {}
+
 class InsufficientBalanceException implements Exception {}
+
 class ServiceRequestAlreadyProcessed implements Exception {}
+
 class StaleMinimumPriceException implements Exception {}
+
+class ChatLimitReachedException implements Exception {}
 
 class PhoneNotVerifiedException implements Exception {}

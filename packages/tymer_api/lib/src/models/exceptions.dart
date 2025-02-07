@@ -15,6 +15,7 @@ class RateLimitedTymerException implements Exception {
   RateLimitedTymerException(this.seconds);
 }
 
+class ChatLimitReachedTymerException implements Exception {}
 class InsufficientBalanceTymerException implements Exception {}
 class StaleMinimumPriceTymerException implements Exception {}
 

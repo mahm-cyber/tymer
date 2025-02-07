@@ -14,6 +14,7 @@ class SupportChatState extends Equatable {
     this.submissionStatus = SupportChatSubmissionStatus.initial,
     this.userToken,
     this.faqs,
+    this.error,
   });
 
   final int? chatId;
@@ -27,8 +28,8 @@ class SupportChatState extends Equatable {
   final SupportChatFetchingStatus supportChatFetchingStatus;
   final SupportChatSubmissionStatus submissionStatus;
   final String? userToken;
-  final List<Faq>? faqs;  
-
+  final List<Faq>? faqs;
+  final dynamic error;
 
   bool get isSendButtonDisabled =>
       (message?.isEmpty == true || message == null) && (files.isEmpty);
@@ -46,6 +47,7 @@ class SupportChatState extends Equatable {
     SupportChatSubmissionStatus? submissionStatus,
     String? userToken,
     List<Faq>? faqs,
+    dynamic error,
   }) {
     return SupportChatState(
       chatId: chatId ?? this.chatId,
@@ -63,6 +65,7 @@ class SupportChatState extends Equatable {
       submissionStatus: submissionStatus ?? this.submissionStatus,
       userToken: userToken ?? this.userToken,
       faqs: faqs ?? this.faqs,
+      error: error ,
     );
   }
 
@@ -79,6 +82,7 @@ class SupportChatState extends Equatable {
         submissionStatus,
         userToken,
         faqs,
+        error,
       ];
 }
 

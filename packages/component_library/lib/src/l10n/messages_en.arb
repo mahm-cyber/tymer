@@ -97,5 +97,6 @@
     "transactionStatusFailed": "Failed",
     "transactionStatusCancelled": "Cancelled",
     "transactionStatusUnderReview": "Under Review",
-    "transactionStatusRefunded": "Refunded"
+    "transactionStatusRefunded": "Refunded",
+    "chatLimitReachedErrorMessage": "Message sending limit exceeded. Please try again later"
 }

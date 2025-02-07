@@ -212,6 +212,9 @@ class DisputeRepository {
         audioFiles: audioFiles,
       );
     } catch (error) {
+      if (error is ChatLimitReachedTymerException) {
+        throw ChatLimitReachedException();
+      }
       rethrow;
     }
   }

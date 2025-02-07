@@ -97,6 +97,7 @@
   "transactionTypeWithdrawal": "سحب",
   "transactionTypeRefund": "استرداد",
   "transactionTypeBonus": "مكافأة",
-  "transactionTypeChargeback": "استرجاع"
+  "transactionTypeChargeback": "استرجاع",
+  "chatLimitReachedErrorMessage": "لقد تجاوزت الحد الأقصى لإرسال الرسائل. يرجى المحاولة لاحقًا"
 }
 

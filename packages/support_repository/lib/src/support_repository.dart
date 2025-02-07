@@ -103,7 +103,8 @@ class SupportRepository {
     String? message,
     List<FileDM>? files,
   }) async {
-    final hasFiles = files?.isNotEmpty == true;
+    try {
+      final hasFiles = files?.isNotEmpty == true;
 
     await remoteApi.sendSupportChatMessage(
       supportChatId: supportChatId,
@@ -111,8 +112,14 @@ class SupportRepository {
       imageFiles: hasFiles ? getFilesOfType(files!, FileType.image) : null,
       documentFiles:
           hasFiles ? getFilesOfType(files!, FileType.document) : null,
-      audioFiles: hasFiles ? getFilesOfType(files!, FileType.audio) : null,
-    );
+        audioFiles: hasFiles ? getFilesOfType(files!, FileType.audio) : null,
+      );
+    } catch (error) {
+      if (error is ChatLimitReachedTymerException) {
+        throw ChatLimitReachedException();
+      }
+      rethrow;
+    }
   }
 
   List<File?>? getFilesOfType(List<FileDM> files, FileType type) {

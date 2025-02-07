@@ -691,6 +691,16 @@ class TymerApi {
         url,
         data: formData,
       );
+    } on DioException catch (error) {
+      if (error.response?.statusCode == 403) {
+        final chatLimitReached = error.response?.data[_errorJsonKey]
+                [_codeJsonKey] ==
+            'MESSAGE_SENDING_LIMIT_EXCEEDED';
+        if (chatLimitReached) {
+          throw ChatLimitReachedTymerException();
+        }
+      }
+      rethrow;
     } catch (_) {
       rethrow;
     }
@@ -844,7 +854,17 @@ class TymerApi {
         url,
         data: formData,
       );
-    } catch (_) {
+    } on DioException catch (error) {
+      if (error.response?.statusCode == 403) {
+        final chatLimitReached = error.response?.data[_errorJsonKey]
+                [_codeJsonKey] ==
+            'MESSAGE_SENDING_LIMIT_EXCEEDED';
+        if (chatLimitReached) {
+          throw ChatLimitReachedTymerException();
+        }
+      }
+      rethrow;
+    } catch (error) {
       rethrow;
     }
   }

@@ -280,4 +280,7 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
 
   @override
   String get transactionStatusRefunded => 'تم الاسترداد';
+
+  @override
+  String get chatLimitReachedErrorMessage => 'لقد تجاوزت الحد الأقصى لإرسال الرسائل. يرجى المحاولة لاحقًا';
 }

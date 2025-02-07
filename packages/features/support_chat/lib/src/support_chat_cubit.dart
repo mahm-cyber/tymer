@@ -405,9 +405,9 @@ class SupportChatCubit extends Cubit<SupportChatState> {
     } catch (e) {
       final failureState = state.copyWith(
         submissionStatus: SupportChatSubmissionStatus.failure,
+        error: e,
       );
       emit(failureState);
-      rethrow;
     }
   }
 

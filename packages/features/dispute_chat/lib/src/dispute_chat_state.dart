@@ -10,6 +10,7 @@ class DisputeChatState extends Equatable {
     this.userToken,
     this.dispute,
     this.disputeFetchStatus = DisputeFetchStatus.initial,
+    this.error,
   });
 
   final List<FileSize<File?>> files;
@@ -20,7 +21,7 @@ class DisputeChatState extends Equatable {
   final String? userToken;
   final Dispute? dispute;
   final DisputeFetchStatus disputeFetchStatus;
-
+  final dynamic error;
   bool get isSendButtonDisabled =>
       (message?.isEmpty == true || message == null) && (files.isEmpty);
 
@@ -33,6 +34,7 @@ class DisputeChatState extends Equatable {
     String? userToken,
     Dispute? dispute,
     DisputeFetchStatus? disputeFetchStatus,
+    dynamic error,
   }) {
     return DisputeChatState(
       files: files ?? this.files,
@@ -44,6 +46,7 @@ class DisputeChatState extends Equatable {
       userToken: userToken ?? this.userToken,
       dispute: dispute ?? this.dispute,
       disputeFetchStatus: disputeFetchStatus ?? this.disputeFetchStatus,
+      error: error,
     );
   }
 
@@ -57,6 +60,7 @@ class DisputeChatState extends Equatable {
         userToken,
         dispute,
         disputeFetchStatus,
+        error,
       ];
 }
 

@@ -640,6 +640,12 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'Refunded'**
   String get transactionStatusRefunded;
+
+  /// No description provided for @chatLimitReachedErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Message sending limit exceeded. Please try again later'**
+  String get chatLimitReachedErrorMessage;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

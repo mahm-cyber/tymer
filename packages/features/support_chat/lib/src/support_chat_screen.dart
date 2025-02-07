@@ -1,4 +1,5 @@
 import 'package:component_library/component_library.dart';
+import 'package:domain_models/domain_models.dart';
 import 'package:support_chat/support_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,12 +43,24 @@ class SupportChatView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = SupportChatLocalizations.of(context);
+    final clL10n = ComponentLibraryLocalizations.of(context);
     final cubit = context.read<SupportChatCubit>();
     return BlocConsumer<SupportChatCubit, SupportChatState>(
       listenWhen: (previous, current) =>
           previous.files != current.files ||
-          previous.supportChatClosed != current.supportChatClosed,
+          previous.supportChatClosed != current.supportChatClosed ||
+          previous.error != current.error,
       listener: (context, state) {
+        if (state.error is ChatLimitReachedException) {
+          showSnackBar(
+            context: context,
+            snackBar: ErrorSnackBar(
+              context: context,
+              message: (clL10n.chatLimitReachedErrorMessage),
+            ),
+          );
+        }
+
         if (state.supportChatClosed == true) {
           cubit.onSupportChatClosed();
           showSnackBar(

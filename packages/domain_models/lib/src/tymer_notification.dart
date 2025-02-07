@@ -26,10 +26,16 @@ class TymerNotification {
 
   bool get shouldNavigateToProviderDisputeChatScreen =>
       userType == UserType.provider && type == NotificationType.dispute;
+
+  bool get shouldNavigateToSupportChatScreen =>
+      type == NotificationType.support;
+
+  bool get shouldNavigateToWalletScreen => type == NotificationType.wallet;
 }
 
 enum NotificationType {
   order,
   dispute,
   wallet,
+  support,
 }

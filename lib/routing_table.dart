@@ -137,6 +137,16 @@ Map<String, PageBuilder> buildRoutingTable({
         _PathConstants.disputeChatPath(disputeId: disputeId),
       ); // Then push to specific dispute chat
     },
+    goToSupportChatScreen: () async {
+      await routerDelegate
+          .popUntil((route) => route.path == _PathConstants.homePath);
+      routerDelegate.push(_PathConstants.supportChatPath);
+    },
+    goToWalletScreen: () async {
+      await routerDelegate
+          .popUntil((route) => route.path == _PathConstants.homePath);
+      routerDelegate.push(_PathConstants.walletPath);
+    },
   );
 
   return {

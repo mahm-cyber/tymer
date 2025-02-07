@@ -37,6 +37,8 @@ extension NotificationRMtoDM on NotificationRM {
       case 'top_up_success':
       case 'withdraw_success':
         return NotificationType.wallet;
+      // case 'support_chat_message':
+      //   return NotificationType.support;
       default:
         throw Exception('Unknown notification type: $type');
     }

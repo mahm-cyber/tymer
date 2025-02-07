@@ -52,6 +52,7 @@ class DisputeChatView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = DisputeChatLocalizations.of(context);
+    final clL10n = ComponentLibraryLocalizations.of(context);
     final cubit = context.read<DisputeChatCubit>();
     final userType = cubit.getCurrentDisputeChatUserType();
     final isRequesterDisputeChat = userType == UserType.requester;
@@ -59,8 +60,18 @@ class DisputeChatView extends StatelessWidget {
     return BlocConsumer<DisputeChatCubit, DisputeChatState>(
       listenWhen: (previous, current) =>
           previous.dispute?.status != current.dispute?.status ||
-          previous.files != current.files,
+          previous.files != current.files ||
+          previous.error != current.error,
       listener: (context, state) {
+        if (state.error is ChatLimitReachedException) {
+          showSnackBar(
+            context: context,
+            snackBar: ErrorSnackBar(
+              context: context,
+              message: (clL10n.chatLimitReachedErrorMessage),
+            ),
+          );
+        }
         final isRequesterRefunded =
             state.dispute?.status == DisputeStatus.refunded;
         final isDisputeRejected = state.dispute?.status == DisputeStatus.denied;

@@ -25,6 +25,8 @@ class NotificationsService {
     required ValueSetter<int> goToRequestStatusScreen,
     required ValueSetter<int> goToRequesterDisputeChatScreen,
     required ValueSetter<int> goToProviderDisputeChatScreen,
+    required VoidCallback goToSupportChatScreen,
+    required VoidCallback goToWalletScreen,
   }) async {
     await _requestPermission();
     await _setupNotifications(
@@ -32,6 +34,8 @@ class NotificationsService {
       goToRequestStatusScreen,
       goToRequesterDisputeChatScreen,
       goToProviderDisputeChatScreen,
+      goToSupportChatScreen,
+      goToWalletScreen,
     );
   }
 
@@ -51,6 +55,8 @@ class NotificationsService {
     ValueSetter<int> goToRequestStatusScreen,
     ValueSetter<int> goToRequesterDisputeChatScreen,
     ValueSetter<int> goToProviderDisputeChatScreen,
+    VoidCallback goToSupportChatScreen,
+    VoidCallback goToWalletScreen,
   ) async {
     FirebaseMessaging.onMessage.listen(
       (message) => showFlutterNotification(message),
@@ -63,6 +69,8 @@ class NotificationsService {
           goToRequestStatusScreen,
           goToRequesterDisputeChatScreen,
           goToProviderDisputeChatScreen,
+          goToSupportChatScreen,
+          goToWalletScreen,
         );
       },
     );
@@ -75,6 +83,8 @@ class NotificationsService {
             goToRequestStatusScreen,
             goToRequesterDisputeChatScreen,
             goToProviderDisputeChatScreen,
+            goToSupportChatScreen,
+            goToWalletScreen,
           );
         }
       },
@@ -105,6 +115,8 @@ class NotificationsService {
           goToRequestStatusScreen,
           goToRequesterDisputeChatScreen,
           goToProviderDisputeChatScreen,
+          goToSupportChatScreen,
+          goToWalletScreen,
         );
       },
     );
@@ -147,6 +159,8 @@ class NotificationsService {
     ValueSetter<int> goToRequestStatusScreen,
     ValueSetter<int> goToRequesterDisputeChatScreen,
     ValueSetter<int> goToProviderDisputeChatScreen,
+    VoidCallback goToSupportChatScreen,
+    VoidCallback goToWalletScreen,
   ) {
     try {
       final notification = NotificationRM.fromJson(payload).toDomainModel();
@@ -172,6 +186,18 @@ class NotificationsService {
       // Navigate to Provider's Dispute Chat
       if (notification.shouldNavigateToProviderDisputeChatScreen) {
         goToProviderDisputeChatScreen(notification.disputeId!);
+        return; // Early return
+      }
+
+      // Navigate to Support Chat Screen
+      if (notification.shouldNavigateToSupportChatScreen) {
+        goToSupportChatScreen();
+        return; // Early return
+      }
+
+      // Navigate to Wallet Screen
+      if (notification.shouldNavigateToWalletScreen) {
+        goToWalletScreen();
         return; // Early return
       }
     } catch (error) {
