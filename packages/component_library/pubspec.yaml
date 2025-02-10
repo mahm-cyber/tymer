@@ -24,6 +24,7 @@ dependencies:
   dio: ^5.7.0
   open_filex: ^4.6.0
   video_player: ^2.9.2
+  flutter_markdown: ^0.7.6+1
 
 dev_dependencies:
   flutter_lints: ^4.0.0

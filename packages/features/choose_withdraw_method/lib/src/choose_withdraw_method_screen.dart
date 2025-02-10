@@ -67,6 +67,7 @@ class ChooseWithdrawMethodView extends StatelessWidget {
 
                 return PaymentMethodsList(
                   bankCardEnabled: false,
+                  shouldShowHint: true,
                   onPaymentMethodTapped: cubit.setPaymentMethodType,
                   paymentMethods: state.paymentMethods!,
                   onViewHistoryTapped: cubit.onWithdrawalPaymentHistoryTapped,

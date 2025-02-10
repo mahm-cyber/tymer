@@ -1,6 +1,7 @@
 import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class PaymentMethodsList extends StatelessWidget {
   const PaymentMethodsList({
@@ -10,6 +11,7 @@ class PaymentMethodsList extends StatelessWidget {
     required this.bankCardEnabled,
     required this.onViewHistoryTapped,
     required this.viewHistoryButtonLabel,
+    this.shouldShowHint = false,
   });
 
   final Function(PaymentMethodType) onPaymentMethodTapped;
@@ -17,10 +19,13 @@ class PaymentMethodsList extends StatelessWidget {
   final bool bankCardEnabled;
   final Function() onViewHistoryTapped;
   final String viewHistoryButtonLabel;
+  final bool shouldShowHint;
   @override
   Widget build(BuildContext context) {
     final theme = TymerTheme.of(context);
     final clL10n = ComponentLibraryLocalizations.of(context);
+    final locale = Localizations.localeOf(context);
+    final isArabic = locale.languageCode == 'ar';
     return ListView(
       shrinkWrap: true,
       children: [
@@ -38,6 +43,16 @@ class PaymentMethodsList extends StatelessWidget {
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             leading: const Icon(Icons.phone_android),
             onTap: () => onPaymentMethodTapped(PaymentMethodType.vodafoneCash),
+            subtitle: shouldShowHint
+                ? Markdown(
+                    padding: EdgeInsets.zero,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    data: isArabic
+                        ? paymentMethods.vodafoneCash.message.ar
+                        : paymentMethods.vodafoneCash.message.en,
+                  )
+                : null,
           ),
         if (paymentMethods.orangeCash.enabled)
           ListTile(
@@ -45,6 +60,16 @@ class PaymentMethodsList extends StatelessWidget {
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             leading: const Icon(Icons.phone_android),
             onTap: () => onPaymentMethodTapped(PaymentMethodType.orangeCash),
+            subtitle: shouldShowHint
+                ? Markdown(
+                    padding: EdgeInsets.zero,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    data: isArabic
+                        ? paymentMethods.orangeCash.message.ar
+                        : paymentMethods.orangeCash.message.en,
+                  )
+                : null,
           ),
         if (paymentMethods.etisalatCash.enabled)
           ListTile(
@@ -52,6 +77,16 @@ class PaymentMethodsList extends StatelessWidget {
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             leading: const Icon(Icons.phone_android),
             onTap: () => onPaymentMethodTapped(PaymentMethodType.etisalatCash),
+            subtitle: shouldShowHint
+                ? Markdown(
+                    padding: EdgeInsets.zero,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    data: isArabic
+                        ? paymentMethods.etisalatCash.message.ar
+                        : paymentMethods.etisalatCash.message.en,
+                  )
+                : null,
           ),
         if (paymentMethods.instaPay.enabled)
           ListTile(
@@ -59,6 +94,16 @@ class PaymentMethodsList extends StatelessWidget {
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             leading: const Icon(Icons.flash_on),
             onTap: () => onPaymentMethodTapped(PaymentMethodType.instaPay),
+            subtitle: shouldShowHint
+                ? Markdown(
+                    padding: EdgeInsets.zero,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    data: isArabic
+                        ? paymentMethods.instaPay.message.ar
+                        : paymentMethods.instaPay.message.en,
+                  )
+                : null,
           ),
         if (paymentMethods.bankTransfer.enabled)
           ListTile(
@@ -66,6 +111,16 @@ class PaymentMethodsList extends StatelessWidget {
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             leading: const Icon(Icons.account_balance),
             onTap: () => onPaymentMethodTapped(PaymentMethodType.bankTransfer),
+            subtitle: shouldShowHint
+                ? Markdown(
+                    padding: EdgeInsets.zero,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    data: isArabic
+                        ? paymentMethods.bankTransfer.message.ar
+                        : paymentMethods.bankTransfer.message.en,
+                  )
+                : null,
           ),
         if (paymentMethods.telda.enabled)
           ListTile(
@@ -79,6 +134,16 @@ class PaymentMethodsList extends StatelessWidget {
               ),
             ),
             onTap: () => onPaymentMethodTapped(PaymentMethodType.telda),
+            subtitle: shouldShowHint
+                ? Markdown(
+                    padding: EdgeInsets.zero,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    data: isArabic
+                        ? paymentMethods.telda.message.ar
+                        : paymentMethods.telda.message.en,
+                  )
+                : null,
           ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

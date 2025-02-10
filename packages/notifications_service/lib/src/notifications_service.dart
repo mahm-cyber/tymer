@@ -58,6 +58,7 @@ class NotificationsService {
     VoidCallback goToSupportChatScreen,
     VoidCallback goToWalletScreen,
   ) async {
+    //handle notification when app is in foreground
     FirebaseMessaging.onMessage.listen(
       (message) => showFlutterNotification(message),
     );
