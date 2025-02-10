@@ -50,10 +50,10 @@ class LightTymerThemeData extends TymerThemeData {
         cardTheme: const CardTheme(
           elevation: 3,
         ),
-        timePickerTheme: TimePickerThemeData(
-          dayPeriodColor: primaryColor,
-          hourMinuteColor: primaryColor,
-        ),
+        // timePickerTheme: TimePickerThemeData(
+        //   dayPeriodColor: primaryColor,
+        //   hourMinuteColor: primaryColor,
+        // ),
 
         textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
