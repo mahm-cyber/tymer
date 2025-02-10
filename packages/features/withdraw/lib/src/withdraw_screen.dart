@@ -1,6 +1,7 @@
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:form_fields/form_fields.dart';
 import 'package:function_and_extension_library/function_and_extension_library.dart';
 import 'package:wallet_repository/wallet_repository.dart';
@@ -106,9 +107,11 @@ class WithdrawView extends StatelessWidget {
                     padding:
                         EdgeInsets.symmetric(horizontal: theme.screenMargin),
                     children: [
+                      const PaymentMethodMarkdown(),
+                      VerticalGap.medium(),
                       const WithdrawAmountInputField(),
                       VerticalGap.medium(),
-                      switch (state.paymentMethodType!) {
+                      switch (state.withdrawMethodType!) {
                         PaymentMethodType.vodafoneCash ||
                         PaymentMethodType.orangeCash ||
                         PaymentMethodType.etisalatCash =>
@@ -139,7 +142,7 @@ class WithdrawView extends StatelessWidget {
                 ),
               ),
               AppBarTitleContainer(
-                title: switch (state.paymentMethodType) {
+                title: switch (state.withdrawMethodType) {
                   null => 'l10n.error',
                   PaymentMethodType.bankCard => cl10n.bankCard,
                   PaymentMethodType.vodafoneCash => cl10n.vodafoneCash,
@@ -154,6 +157,46 @@ class WithdrawView extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+}
+
+class PaymentMethodMarkdown extends StatelessWidget {
+  const PaymentMethodMarkdown({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<WithdrawCubit, WithdrawState>(
+      builder: (context, state) {
+        final paymentMethods = state.withdrawMethods;
+        final isArabic = Localizations.localeOf(context).languageCode == 'ar';
+        final message = switch (state.withdrawMethodType) {
+          PaymentMethodType.vodafoneCash =>
+            paymentMethods?.vodafoneCash.message,
+          PaymentMethodType.orangeCash => paymentMethods?.orangeCash.message,
+          PaymentMethodType.etisalatCash =>
+            paymentMethods?.etisalatCash.message,
+          PaymentMethodType.instaPay => paymentMethods?.instaPay.message,
+          PaymentMethodType.bankTransfer =>
+            paymentMethods?.bankTransfer.message,
+          PaymentMethodType.telda => paymentMethods?.telda.message,
+          _ => null,
+        };
+        return Card(
+          
+          child: Padding(
+            padding: const EdgeInsets.all(Spacing.medium),
+            child: Markdown(
+              padding: EdgeInsets.zero,
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              data: isArabic ? message!.ar : message!.en,
+            ),
+          ),
+        );
+      },
     );
   }
 }

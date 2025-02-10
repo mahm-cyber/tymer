@@ -18,7 +18,7 @@ class WithdrawCubit extends Cubit<WithdrawState> {
     required this.onSuccess,
   }) : super(
           WithdrawState(
-            paymentMethodType: walletRepository
+            withdrawMethodType: walletRepository
                 .changeNotifier.withdrawMethods?.pickedPaymentMethodType,
             withdrawMethods: walletRepository.changeNotifier.withdrawMethods,
           ),
