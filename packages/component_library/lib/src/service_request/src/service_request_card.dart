@@ -50,23 +50,21 @@ class ServiceRequestCard extends StatelessWidget {
               children: [
                 if (service.requestDetails!.reservedFor != null)
                   SizedBox(
-                    width: MediaQuery.of(context).size.width -
-                        (2 * theme.screenMargin) -
-                        170,
+                    width: MediaQuery.of(context).size.width/1.7 -
+                        (2 * theme.screenMargin),
                     child: Text(
                       service.requestDetails!.reservedFor!,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
                 if (service.requestDetails!.placeName.isNotEmpty)
                   SizedBox(
-                    width: MediaQuery.of(context).size.width -
-                        (2 * theme.screenMargin) -
-                        170,
+                    width: MediaQuery.of(context).size.width/1.65 -
+                        (2 * theme.screenMargin),
                     child: Text(
                       service.requestDetails!.placeName,
                       maxLines: 1,
