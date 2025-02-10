@@ -52,7 +52,7 @@ class UserRepository {
 
   Future reSendOtp() async {
     try {
-      await remoteApi.reSendOtp();
+      await remoteApi.auth.reSendOtp();
     } catch (error) {
       if (error is RateLimitedTymerException) {
         throw OtpRateLimitExceededException(
@@ -67,7 +67,7 @@ class UserRepository {
     required String phone,
   }) async {
     try {
-      await remoteApi.requestOtpForForgotPassword(
+      await remoteApi.auth.requestOtpForForgotPassword(
         phone: phone,
       );
       final otpVerification = OtpVerification(
@@ -90,7 +90,7 @@ class UserRepository {
     required String password,
   }) async {
     try {
-      await remoteApi.requestOtpForChangePhone(
+      await remoteApi.auth.requestOtpForChangePhone(
         phone: phone,
         password: password,
       );
@@ -120,7 +120,7 @@ class UserRepository {
   }) async {
     final languageStr = localePreferenceDMToStr(language);
     try {
-      await remoteApi.changeLanguage(language: languageStr);
+      await remoteApi.auth.changeLanguage(language: languageStr);
     } catch (error) {
       rethrow;
     }
@@ -128,7 +128,7 @@ class UserRepository {
 
   Future verifyOtpForChangePhone(String otp) async {
     try {
-      await remoteApi.verifyOtpForChangePhone(
+      await remoteApi.auth.verifyOtpForChangePhone(
         otp: otp,
       );
       _secureStorage.deleteRememberPhone();
@@ -153,12 +153,12 @@ class UserRepository {
     required String password,
   }) async {
     try {
-      final token = await remoteApi.signIn(
+      final token = await remoteApi.auth.signIn(
         phone: phone,
         password: password,
       );
       await _secureStorage.upsertUserToken(token: token);
-      final userRM = await remoteApi.getUser();
+      final userRM = await remoteApi.auth.getUser();
 
       final isPhoneVerified = userRM.phoneVerifiedAt != null;
 
@@ -202,7 +202,7 @@ class UserRepository {
 
   Future<User> getFreshUser() async {
     try {
-      final userRM = await remoteApi.getUser();
+      final userRM = await remoteApi.auth.getUser();
       final userDM = userRM.toDomainModel();
       await _secureStorage.upsertUser(
         id: userRM.id,
@@ -226,7 +226,7 @@ class UserRepository {
     required String passwordConfirmation,
   }) async {
     try {
-      final token = await remoteApi.requestOtpForSignUp(
+      final token = await remoteApi.auth.requestOtpForSignUp(
         email: email,
         password: password,
         name: name,
@@ -257,7 +257,7 @@ class UserRepository {
     String otp,
   ) async {
     try {
-      await remoteApi.verifyOtp(
+      await remoteApi.auth.verifyOtp(
         otp: otp,
       );
     } catch (error) {
@@ -281,7 +281,7 @@ class UserRepository {
     try {
       final phone = changeNotifier.otpVerification!.phone;
 
-      await remoteApi.resetPassword(
+      await remoteApi.auth.resetPassword(
         otp: otp,
         phone: phone,
         newPassword: newPassword,
@@ -304,7 +304,7 @@ class UserRepository {
       _getReservationServiceTypesFromNetwork() async {
     try {
       final reservationServiceTypes =
-          await remoteApi.getReservationServiceTypes();
+          await remoteApi.service.getReservationServiceTypes();
       final reservationServiceTypesCM = reservationServiceTypes.toCacheModel();
       _localStorage.upsertReservationServiceTypes(reservationServiceTypesCM);
       final reservationServiceTypesDM = reservationServiceTypes.toDomainModel();
@@ -339,7 +339,7 @@ class UserRepository {
 
   Future logout() async {
     try {
-      await remoteApi.signOut();
+      await remoteApi.auth.signOut();
       await _secureStorage.deleteUser();
       _userSubject.add(null);
     } catch (error) {
@@ -402,10 +402,10 @@ class UserRepository {
 
   Future<Settings> _getSettingsFromNetwork() async {
     final fetchedSettings = await Future.wait([
-      remoteApi.getPrivacyPolicy(),
-      remoteApi.getTermsAndConditions(),
-      remoteApi.getFaqs(),
-    ]);
+      remoteApi.settings.getPrivacyPolicy(),
+      remoteApi.settings.getTermsAndConditions(),
+      remoteApi.settings.getFaqs(),
+    ]); 
 
     final currentSettings = await _localStorage.getSettings();
 
@@ -462,7 +462,7 @@ class UserRepository {
 
   Future<PricingSettings> _getPricingSettingsFromNetwork() async {
     try {
-      final pricingSettingsRM = await remoteApi.getPricingSettings();
+      final pricingSettingsRM = await remoteApi.settings.getPricingSettings();
       final pricingSettingsDM = pricingSettingsRM.toDomainModel();
       final pricingSettingsCM = pricingSettingsRM.toCacheModel();
       final currentSettings = await _localStorage.getSettings() ??
@@ -540,7 +540,7 @@ class UserRepository {
     required String newPasswordConfirmation,
   }) async {
     try {
-      await remoteApi.changePassword(
+      await remoteApi.auth.changePassword(
         password: password,
         newPassword: newPassword,
         newPasswordConfirmation: newPasswordConfirmation,
@@ -559,7 +559,7 @@ class UserRepository {
     required String password,
   }) async {
     try {
-      await remoteApi.deleteAccount(password: password);
+      await remoteApi.auth.deleteAccount(password: password);
       await deleteRememberedCredentials();
     } catch (error) {
       if (error is IncorrectPasswordTymerException) {

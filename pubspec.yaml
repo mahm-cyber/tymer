@@ -114,6 +114,7 @@ dependencies:
     path: packages/domain_models
   component_library:
     path: packages/component_library
+  dio: ^5.8.0+1
 
 
 

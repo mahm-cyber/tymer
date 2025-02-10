@@ -56,7 +56,7 @@ class ServiceRepository {
       ),
     ).toRemoteModel();
     try {
-      final requestId = await remoteApi.requestService(
+      final requestId = await remoteApi.service.requestService(
         requestServiceRM: requestServiceRM,
       );
       return requestId;
@@ -80,7 +80,7 @@ class ServiceRepository {
     bool sortByCreatedAt = false,
   }) async {
     try {
-      final serviceRequests = await remoteApi.getAllServiceRequests(
+      final serviceRequests = await remoteApi.service.getAllServiceRequests(
         page: page,
         lat: lat,
         long: long,
@@ -100,7 +100,7 @@ class ServiceRepository {
   }) async {
     try {
       final serviceRequestDetails =
-          await remoteApi.getServiceRequest(requestId: requestId);
+          await remoteApi.service.getServiceRequest(requestId: requestId);
       return serviceRequestDetails.toDomainModel();
     } catch (error) {
       rethrow;
@@ -111,7 +111,7 @@ class ServiceRepository {
     required int serviceRequestId,
   }) async {
     try {
-      await remoteApi.acceptServiceRequest(
+      await remoteApi.service.acceptServiceRequest(
         serviceRequestId: serviceRequestId,
       );
     } catch (error) {
@@ -148,7 +148,7 @@ class ServiceRepository {
       ),
     ).toRemoteModel();
     try {
-      await remoteApi.fulfillServiceRequest(
+      await remoteApi.service.fulfillServiceRequest(
         serviceRequestId: serviceRequestDetails.id!,
         fulfillOtherServiceRM: isOtherService
             ? fulfillServiceRequestRM as FulfillOtherServiceRM
@@ -166,7 +166,7 @@ class ServiceRepository {
     required int serviceRequestId,
   }) async {
     try {
-      await remoteApi.confirmServiceRequest(
+      await remoteApi.service.confirmServiceRequest(
         serviceRequestId: serviceRequestId,
       );
     } catch (error) {
@@ -178,7 +178,7 @@ class ServiceRepository {
     required int serviceRequestId,
   }) async {
     try {
-      await remoteApi.cancelServiceRequest(
+      await remoteApi.service.cancelServiceRequest(
         serviceRequestId: serviceRequestId,
       );
     } catch (error) {

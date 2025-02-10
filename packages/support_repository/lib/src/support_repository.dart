@@ -20,19 +20,18 @@ class SupportRepository {
 
   // region Pusher Operations
   Future initPusher() async {
-    remoteApi.pusherApi.initPusher();
+    remoteApi.pusher.initPusher();
   }
 
   Future disconnectPusher() async {
-    remoteApi.pusherApi.disconnectPusher();
+    remoteApi.pusher.disconnectPusher();
   }
 
   Future listenToSupportChat(int supportChatId) async {
     try {
-      remoteApi.pusherApi
-          .listenToRemoteSupportChatStatus(chatId: supportChatId);
+      remoteApi.pusher.listenToRemoteSupportChatStatus(chatId: supportChatId);
       await Future.delayed(const Duration(seconds: 1));
-      remoteApi.pusherApi.listenToRemoteSupportChat(chatId: supportChatId);
+      remoteApi.pusher.listenToRemoteSupportChat(chatId: supportChatId);
     } catch (error) {
       debugPrint('Error listening to requester chat: $error');
       rethrow;
@@ -41,11 +40,11 @@ class SupportRepository {
 
   Future stopListeningSupportChat(int chatId) async {
     try {
-      remoteApi.pusherApi.stopListeningToRemoteSupportChat(chatId: chatId);
-      remoteApi.pusherApi.stopListeningToSupportChatStatus(chatId: chatId);
+      remoteApi.pusher.stopListeningToRemoteSupportChat(chatId: chatId);
+      remoteApi.pusher.stopListeningToSupportChatStatus(chatId: chatId);
 
-      remoteApi.pusherApi.supportChatMessageSC.add(null);
-      remoteApi.pusherApi.supportChatStatusSC.add(null);
+      remoteApi.pusher.supportChatMessageSC.add(null);
+      remoteApi.pusher.supportChatStatusSC.add(null);
       _supportChatSubscription.cancel();
       _supportChatStatusSubscription.cancel();
     } catch (error) {
@@ -57,11 +56,11 @@ class SupportRepository {
 
   // region Support Chat Operations
   Future<int?> checkIfUserHasSupportChat() async {
-    return await remoteApi.checkIfUserHasSupportChat();
+    return await remoteApi.supportChat.checkIfUserHasSupportChat();
   }
 
   Future<int> createSupportChat() async {
-    return await remoteApi.createSupportChat();
+    return await remoteApi.supportChat.createSupportChat();
   }
 
   Future<DateGroupedMessagesList> getDateGroupedSupportChat(
@@ -69,7 +68,7 @@ class SupportRepository {
     User user,
   ) async {
     final supportChatRM =
-        await remoteApi.getSupportChat(supportChatId: supportChatId);
+        await remoteApi.supportChat.getSupportChat(supportChatId: supportChatId);
     final dateGroupedChats = supportChatRM.toDomainModel(supportChatId);
 
     return dateGroupedChats.copyWith(
@@ -106,12 +105,12 @@ class SupportRepository {
     try {
       final hasFiles = files?.isNotEmpty == true;
 
-    await remoteApi.sendSupportChatMessage(
-      supportChatId: supportChatId,
-      message: message,
-      imageFiles: hasFiles ? getFilesOfType(files!, FileType.image) : null,
-      documentFiles:
-          hasFiles ? getFilesOfType(files!, FileType.document) : null,
+      await remoteApi.supportChat.sendSupportChatMessage(
+        supportChatId: supportChatId,
+        message: message,
+        imageFiles: hasFiles ? getFilesOfType(files!, FileType.image) : null,
+        documentFiles:
+            hasFiles ? getFilesOfType(files!, FileType.document) : null,
         audioFiles: hasFiles ? getFilesOfType(files!, FileType.audio) : null,
       );
     } catch (error) {
@@ -138,7 +137,7 @@ class SupportRepository {
     int supportChatId,
   ) {
     _supportChatSubscription =
-        remoteApi.pusherApi.supportChatMessageSC.listen((event) async {
+        remoteApi.pusher.supportChatMessageSC.listen((event) async {
       if (event == null) return;
       final domainMessage = event.toDomainModel(supportChatId);
       final isSentByMe = domainMessage.sender.id == user.id;
@@ -152,7 +151,7 @@ class SupportRepository {
 
   void initializeSupportChatStatusStream() {
     _supportChatStatusSubscription =
-        remoteApi.pusherApi.supportChatStatusSC.listen((event) {
+        remoteApi.pusher.supportChatStatusSC.listen((event) {
       if (event == null) return;
       changeNotifier.setSupportChatClosed(event == 'closed');
     });

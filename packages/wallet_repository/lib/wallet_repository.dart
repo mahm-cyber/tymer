@@ -16,7 +16,7 @@ class WalletRepository {
 
   Future<PaymentMethods> getPaymentMethods(TransactionType paymentType) async {
     final paymentMethods =
-        await remoteApi.getPaymentMethods(paymentType.toRemoteModel());
+        await remoteApi.wallet.getPaymentMethods(paymentType.toRemoteModel());
     final paymentMethodsDomain = paymentMethods.toDomainModel();
     return paymentMethodsDomain;
   }
@@ -32,7 +32,7 @@ class WalletRepository {
     final paymentMethodTypeString = paymentMethodType.toRemoteModel();
 
     try {
-      await remoteApi.confirmTopUp(
+      await remoteApi.wallet.confirmTopUp(
         paymentMethodType: paymentMethodTypeString,
         amount: amount,
         walletNumber: walletNumber,
@@ -47,7 +47,7 @@ class WalletRepository {
 
   Future<String> confirmBankCardTopUp(double amount) async {
     try {
-      final url = await remoteApi.confirmBankCardTopUp(amount);
+      final url = await remoteApi.wallet.confirmBankCardTopUp(amount);
       return url;
     } catch (e) {
       rethrow;
@@ -66,7 +66,7 @@ class WalletRepository {
     final paymentMethodTypeString = paymentMethodType.toRemoteModel();
 
     try {
-      await remoteApi.confirmWithdraw(
+      await remoteApi.wallet.confirmWithdraw(
         paymentMethodType: paymentMethodTypeString,
         amount: amount,
         walletNumber: walletNumber,
@@ -89,7 +89,7 @@ class WalletRepository {
     required int page,
   }) async {
     try {
-      final paymentListPageRM = await remoteApi.getPayments(
+      final paymentListPageRM = await remoteApi.wallet.getPayments(
         type: type.toRemoteModel(),
         paymentMethodType: paymentMethodType.toRemoteModel(),
         page: page,
@@ -105,7 +105,7 @@ class WalletRepository {
   }) async {
     try {
       final transactionListPageRM =
-          await remoteApi.getAllTransactions(page: page);
+          await remoteApi.wallet.getAllTransactions(page: page);
       return transactionListPageRM.toDomainModel();
     } catch (e) {
       rethrow;

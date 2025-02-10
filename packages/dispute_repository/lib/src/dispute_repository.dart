@@ -25,7 +25,7 @@ class DisputeRepository {
     int disputeId,
   ) async {
     try {
-      final disputeRM = await remoteApi.getDispute(
+      final disputeRM = await remoteApi.dispute.getDispute(
         disputeId: disputeId,
         userType: changeNotifier.disputeChatUserType!.toRemoteModel(),
       );
@@ -42,7 +42,7 @@ class DisputeRepository {
     required String reason,
   }) async {
     try {
-      final disputeId = await remoteApi.disputeRequest(
+      final disputeId = await remoteApi.dispute.disputeRequest(
         serviceRequestId: serviceRequestId,
         reason: reason,
       );
@@ -58,7 +58,7 @@ class DisputeRepository {
     DisputeStatus? disputeStatus,
   }) async {
     try {
-      final disputes = await remoteApi.getAllDisputes(
+      final disputes = await remoteApi.dispute.getAllDisputes(
         page: page,
         userType: userType.toRemoteModel(),
         status: disputeStatus?.toRemoteModel(),
@@ -75,7 +75,7 @@ class DisputeRepository {
     User user,
   ) async {
     try {
-      final disputeChatRM = await remoteApi.getDisputeChat(
+      final disputeChatRM = await remoteApi.dispute.getDisputeChat(
         disputeId: disputeId,
         userType: changeNotifier.disputeChatUserType!.toRemoteModel(),
       );
@@ -104,7 +104,7 @@ class DisputeRepository {
 
   Future initPusher() async {
     try {
-      remoteApi.pusherApi.initPusher();
+      remoteApi.pusher.initPusher();
     } catch (error) {
       debugPrint('Error initializing pusher: $error');
       rethrow;
@@ -113,7 +113,7 @@ class DisputeRepository {
 
   Future disconnectPusher() async {
     try {
-      remoteApi.pusherApi.disconnectPusher();
+      remoteApi.pusher.disconnectPusher();
     } catch (error) {
       rethrow;
     }
@@ -122,12 +122,12 @@ class DisputeRepository {
   Future listenToDisputeChat(int disputeId) async {
     final userType = changeNotifier.disputeChatUserType!;
     try {
-      remoteApi.pusherApi.listenToDisputeChatResolved(
+      remoteApi.pusher.listenToDisputeChatResolved(
         disputeId: disputeId,
         userType: userType.name,
       );
       await Future.delayed(const Duration(seconds: 1));
-      remoteApi.pusherApi.listenToRemoteDisputeChat(
+      remoteApi.pusher.listenToRemoteDisputeChat(
         disputeId: disputeId,
         userType: userType.name,
       );
@@ -141,18 +141,18 @@ class DisputeRepository {
     final userType = changeNotifier.disputeChatUserType!;
 
     try {
-      remoteApi.pusherApi.stopListeningToRemoteDisputeChat(
+      remoteApi.pusher.stopListeningToRemoteDisputeChat(
         disputeId: disputeId,
         userType: userType.name,
       );
-      remoteApi.pusherApi.stopListeningToDisputeChatResolved(
+      remoteApi.pusher.stopListeningToDisputeChatResolved(
         disputeId: disputeId,
         userType: userType.name,
       );
 
-      remoteApi.pusherApi.disputeChatMessageSC.add(null);
+      remoteApi.pusher.disputeChatMessageSC.add(null);
       _disputeChatSubscription.cancel();
-      remoteApi.pusherApi.disputeStatusSC.add(null);
+      remoteApi.pusher.disputeStatusSC.add(null);
       _remoteDisputeResolutionSubscription.cancel();
     } catch (error) {
       debugPrint('Error stopping listening to requester chat: $error');
@@ -162,7 +162,7 @@ class DisputeRepository {
 
   void initializeDisputeChatStream(User user, disputeId) {
     _disputeChatSubscription =
-        remoteApi.pusherApi.disputeChatMessageSC.listen((ChatMessageRM? event) {
+        remoteApi.pusher.disputeChatMessageSC.listen((ChatMessageRM? event) {
       if (event == null) return;
       final disputeMessage = event.toDomainModel(disputeId);
       final isSentByMe = disputeMessage.sender.id == user.id;
@@ -175,7 +175,7 @@ class DisputeRepository {
 
   void initializeDisputeResolutionStream() {
     _remoteDisputeResolutionSubscription =
-        remoteApi.pusherApi.disputeStatusSC.listen(
+        remoteApi.pusher.disputeStatusSC.listen(
       (String? event) {
         if (event == null) return;
         final currentDispute = changeNotifier.currentDisputeVN.value;
@@ -203,7 +203,7 @@ class DisputeRepository {
     }
 
     try {
-      await remoteApi.sendDisputeChatMessage(
+      await remoteApi.dispute.sendDisputeChatMessage(
         userType: changeNotifier.disputeChatUserType!.toRemoteModel(),
         disputeId: disputeId,
         message: message,

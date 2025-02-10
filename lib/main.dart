@@ -5,6 +5,7 @@ import 'package:change_language/change_language.dart';
 import 'package:change_password/change_password.dart';
 import 'package:change_phone/change_phone.dart';
 import 'package:delete_account/delete_account.dart';
+import 'package:dio/dio.dart';
 import 'package:dispute_chat/dispute_chat.dart';
 import 'package:choose_service/choose_service.dart';
 import 'package:choose_top_up_method/choose_top_up_method.dart';
@@ -92,6 +93,8 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
     userTokenSupplier: () => _userRepository.getUserToken(),
     unAuthenticatedAccessVN: _unAuthenticatedAccessVN,
     internetConnectionErrorVN: _internetConnectionErrorVN,
+    dio: Dio(),
+    urlBuilder: UrlBuilder(),
   );
 
   late final _userRepository = UserRepository(
