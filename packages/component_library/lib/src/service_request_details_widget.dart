@@ -150,9 +150,9 @@ class ServiceRequestDetailsWidget extends StatelessWidget {
                   child: TymerElevatedButton(
                     label: l10n.viewOnMapButtonLabel,
                     onTap: () {},
-                    width: MediaQuery.of(context).size.width -
-                        (2 * theme.screenMargin) -
-                        230,
+                    width: MediaQuery.of(context).size.width/2.5 -
+                        (2 * theme.screenMargin)
+                        ,
                     height: 40,
                   ),
                 ),
