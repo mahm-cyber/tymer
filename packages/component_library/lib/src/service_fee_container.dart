@@ -37,11 +37,8 @@ class ServiceFeeContainer extends StatelessWidget {
           const Spacer(),
           const SvgAsset(AssetPathConstants.bankNotePath),
           HorizontalGap.small(),
-          Container(
-            constraints: const BoxConstraints(
-              maxWidth: 70,
-              minWidth: 55
-            ),
+          SizedBox(
+            width: 90,
             child: Text(
               '${amount.localizeDouble(locale)} ${l10n.eyptianPoundLetters}',
               style: textTheme.bodyMedium,

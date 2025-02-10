@@ -69,10 +69,10 @@ extension StringExtension on String {
 }
 
 extension DoubleExtension on double {
-  String localizeDouble(Locale locale) {
+  String localizeDouble(Locale locale,{int? sigFigs}) {
     final isArabic = locale.languageCode == 'ar';
     final localizedDouble =
-        isArabic ? NumberFormat('#.##', 'ar_EG').format(this) : toStringAsFixed(2);
+        isArabic ? NumberFormat('#.##', 'ar_EG').format(this) : toStringAsFixed(sigFigs??2);
     return localizedDouble;
   }
 }

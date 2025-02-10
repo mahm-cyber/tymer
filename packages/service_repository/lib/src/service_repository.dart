@@ -41,8 +41,8 @@ class ServiceRepository {
       location: LocationDM(
         type: 'Point',
         coordinates: [
-          coordinates.latitude,
           coordinates.longitude,
+          coordinates.latitude,
         ],
       ),
       requestDetails: ServiceRequestDetails(

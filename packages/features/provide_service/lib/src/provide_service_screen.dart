@@ -134,6 +134,14 @@ class ProvideServiceView extends StatelessWidget {
                                                 state.serviceRequests![index];
                                             return ServiceRequestCard(
                                               shouldShowId: false,
+                                              height: service
+                                                          .requestDetails!
+                                                          .placeName
+                                                          .isNotEmpty &&
+                                                      service.requestDetails!
+                                                              .reservedFor?.isNotEmpty == true
+                                                  ? 125
+                                                  : 100,
                                               onTapped: () => cubit
                                                   .onViewServiceRequestDetailsTapped(
                                                       service),

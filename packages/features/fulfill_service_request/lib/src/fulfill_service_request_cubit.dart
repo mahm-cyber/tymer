@@ -309,8 +309,8 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
       final userLocationDM = LocationDM(
         type: 'Point',
         coordinates: [
-          userLocation.latitude!,
           userLocation.longitude!,
+          userLocation.latitude!,
         ],
       );
       try {

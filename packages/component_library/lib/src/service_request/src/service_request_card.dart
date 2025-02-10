@@ -48,55 +48,79 @@ class ServiceRequestCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width -
-                      (2 * theme.screenMargin) -
-                      170,
-                  child: Text(
-                    service.requestDetails!.reservedFor ??
-                        service.requestDetails!.placeName,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
+                if (service.requestDetails!.reservedFor != null)
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width -
+                        (2 * theme.screenMargin) -
+                        170,
+                    child: Text(
+                      service.requestDetails!.reservedFor!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
+                if (service.requestDetails!.placeName.isNotEmpty)
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width -
+                        (2 * theme.screenMargin) -
+                        170,
+                    child: Text(
+                      service.requestDetails!.placeName,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 if (service.distanceBetweenProviderAndServiceLocation !=
                     null) ...[
-                  VerticalGap.medium(),
+                  const Spacer(),
                   Row(
                     children: [
                       const SvgAsset(
                         AssetPathConstants.footPrintFilledPath,
                       ),
                       HorizontalGap.medium(),
-                      Text(
-                        l10n.distanceToServiceLocation(
-                          service.distanceBetweenProviderAndServiceLocation!
-                              .localizeDouble(locale),
-                        ),
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.secondary,
-                          fontWeight: FontWeight.bold,
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 3,
+                        child: Text(
+                          l10n.distanceToServiceLocation(
+                            service.distanceBetweenProviderAndServiceLocation!
+                                .localizeDouble(
+                              locale,
+                              sigFigs: 0,
+                            ),
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          style: textTheme.bodyMedium?.copyWith(
+                            color: colorScheme.secondary,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ],
                 //price
-                const Spacer(),
+                VerticalGap.small(),
                 Row(
                   children: [
                     const SvgAsset(
                       AssetPathConstants.bankNotePath,
                     ),
                     HorizontalGap.medium(),
-                    Text(
-                      '${service.price!.localizeDouble(locale)} ${l10n.eyptianPoundLetters}',
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.secondary,
-                        fontWeight: FontWeight.bold,
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 2.8,
+                      child: Text(
+                        '${service.price!.localizeDouble(locale)} ${l10n.eyptianPoundLetters}',
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: colorScheme.secondary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],
@@ -111,7 +135,7 @@ class ServiceRequestCard extends StatelessWidget {
                   if (disputeStatusWidget == null)
                     Container(
                       constraints: BoxConstraints(
-                        maxWidth: MediaQuery.of(context).size.width - 230,
+                        maxWidth: MediaQuery.of(context).size.width / 3,
                       ),
                       child: ServiceStatusWidget(
                         color: service.status?.color ?? Colors.black,
@@ -135,11 +159,6 @@ class ServiceRequestCard extends StatelessWidget {
                   ),
                 ],
               ),
-              // StatusWidget(
-              //   color: service.status?.color ?? Colors.black,
-              //   label: serviceRequestStatusToLocalizedString(
-              //       service.status!, l10n),
-              // ),
             ],
             if (!shouldShowRequestStatus) ...[
               Column(
@@ -148,7 +167,7 @@ class ServiceRequestCard extends StatelessWidget {
                   TymerElevatedButton(
                     label: l10n.viewButtonLabel,
                     onTap: onTapped,
-                    width: 120,
+                    width: MediaQuery.of(context).size.width / 3.3,
                     height: 30,
                   ),
                   const Spacer(),
