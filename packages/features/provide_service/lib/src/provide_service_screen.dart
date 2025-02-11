@@ -132,16 +132,20 @@ class ProvideServiceView extends StatelessWidget {
                                           itemBuilder: (context, index) {
                                             final service =
                                                 state.serviceRequests![index];
+                                            final cardHeight = service
+                                                        .requestDetails!
+                                                        .placeName
+                                                        .isNotEmpty &&
+                                                    service
+                                                            .requestDetails!
+                                                            .reservedFor
+                                                            ?.isNotEmpty ==
+                                                        true
+                                                ? 125
+                                                : 100;
                                             return ServiceRequestCard(
                                               shouldShowId: false,
-                                              height: service
-                                                          .requestDetails!
-                                                          .placeName
-                                                          .isNotEmpty &&
-                                                      service.requestDetails!
-                                                              .reservedFor?.isNotEmpty == true
-                                                  ? 125
-                                                  : 100,
+                                              height: cardHeight.toDouble(),
                                               onTapped: () => cubit
                                                   .onViewServiceRequestDetailsTapped(
                                                       service),

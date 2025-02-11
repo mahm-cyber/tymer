@@ -2,10 +2,12 @@
 FLUTTER_ROOT=/Users/mohamedfarid/fvm/versions/3.27.1
 FLUTTER_APPLICATION_PATH=/Users/mohamedfarid/Documents/GitHub/tymer
 COCOAPODS_PARALLEL_CODE_SIGN=true
+FLUTTER_TARGET=/Users/mohamedfarid/Documents/GitHub/tymer/lib/main.dart
 FLUTTER_BUILD_DIR=build
 FLUTTER_BUILD_NAME=1.0.0
 FLUTTER_BUILD_NUMBER=1.0.0
+DART_DEFINES=eC1hcGkta2V5PTAxZjY0YTI2NGJlNzQ0MmE5MDA4YWJkYTkzZDVkNmFl
 DART_OBFUSCATION=false
 TRACK_WIDGET_CREATION=true
 TREE_SHAKE_ICONS=false
-PACKAGE_CONFIG=.dart_tool/package_config.json
+PACKAGE_CONFIG=/Users/mohamedfarid/Documents/GitHub/tymer/.dart_tool/package_config.json

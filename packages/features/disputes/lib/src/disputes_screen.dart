@@ -167,6 +167,7 @@ class DisputesView extends StatelessWidget {
                               VerticalGap.medium(),
                           builderDelegate: PagedChildBuilderDelegate<Dispute>(
                             itemBuilder: (context, dispute, index) {
+                              
                               final isLastItem = index ==
                                   cubit.serviceRequestsPagingController
                                           .itemList!.length -
@@ -178,7 +179,17 @@ class DisputesView extends StatelessWidget {
                                   dispute.status == DisputeStatus.refunded;
                               final idDisputeDenied =
                                   dispute.status == DisputeStatus.denied;
-
+                              final cardHeight = dispute.serviceRequest!
+                                                        .requestDetails!
+                                                        .placeName
+                                                        .isNotEmpty &&
+                                                    dispute.serviceRequest!
+                                                            .requestDetails!
+                                                            .reservedFor
+                                                            ?.isNotEmpty ==
+                                                        true
+                                                ? 105
+                                                : 80;
                               final resolution = getDisputeResolutionDetails(
                                 isRequesterRefunded,
                                 idDisputeDenied,
@@ -199,8 +210,9 @@ class DisputesView extends StatelessWidget {
                                     disputeStatusWidget: ServiceStatusWidget(
                                       color: resolution.color,
                                       label: resolution.label,
+                                      width: MediaQuery.of(context).size.width / 3.1,
                                     ),
-                                    height: 80,
+                                    height: cardHeight.toDouble(),
                                   ),
                                   if (isLastItem) VerticalGap.large(),
                                 ],

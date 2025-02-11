@@ -72,7 +72,6 @@ class OrderHistoryView extends StatelessWidget {
           child: Stack(
             children: [
               Scaffold(
-
                 appBar: AppBar(
                   title: const SvgAsset(
                     AssetPathConstants.whiteLogoPath,
@@ -181,6 +180,13 @@ class OrderHistoryView extends StatelessWidget {
                                   cubit.serviceRequestsPagingController
                                           .itemList!.length -
                                       1;
+                              final cardHeight = service.requestDetails!
+                                          .placeName.isNotEmpty &&
+                                      service.requestDetails!.reservedFor
+                                              ?.isNotEmpty ==
+                                          true
+                                  ? 125
+                                  : 100;
                               return Column(
                                 children: [
                                   if (index == 0) VerticalGap.small(),
@@ -191,6 +197,7 @@ class OrderHistoryView extends StatelessWidget {
                                     ),
                                     shouldShowRequestStatus: true,
                                     service: service,
+                                    height: cardHeight.toDouble(),
                                   ),
                                   if (isLastItem)
                                     VerticalGap.custom(

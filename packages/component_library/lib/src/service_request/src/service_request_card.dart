@@ -133,7 +133,7 @@ class ServiceRequestCard extends StatelessWidget {
                   if (disputeStatusWidget == null)
                     Container(
                       constraints: BoxConstraints(
-                        maxWidth: MediaQuery.of(context).size.width / 3,
+                        maxWidth: MediaQuery.of(context).size.width / 3.1,
                       ),
                       child: ServiceStatusWidget(
                         color: service.status?.color ?? Colors.black,
