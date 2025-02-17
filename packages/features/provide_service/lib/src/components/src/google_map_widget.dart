@@ -79,8 +79,8 @@ class _GoogleMapWidgetState extends State<GoogleMapWidget> {
                       Marker(
                         markerId: MarkerId(service.id!.toString()),
                         position: LatLng(
-                          service.location.coordinates[0],
                           service.location.coordinates[1],
+                          service.location.coordinates[0],
                         ),
                         infoWindow: InfoWindow(
                           title: service.requestDetails!.placeName,

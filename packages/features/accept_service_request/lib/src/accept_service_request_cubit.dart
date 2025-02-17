@@ -27,14 +27,16 @@ class AcceptServiceRequestCubit extends Cubit<AcceptServiceRequestState> {
   final UserRepository userRepository;
   final ValueSetter<int> onAcceptServiceRequestSuccess;
 
+
   void onViewServiceOnMap() async {
-    final myLocation = await userRepository.getUserLocation();
-    emit(
-      state.copyWith(
-        myLocation: myLocation,
-        isViewingLocation: true,
-      ),
-    );
+    try {
+      serviceRepository.launchMap(
+        state.service!.location.coordinates[0],
+        state.service!.location.coordinates[1],
+      );
+    } catch (e) {
+      rethrow;
+    }
   }
 
   void closeMap() {

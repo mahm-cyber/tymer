@@ -31,8 +31,9 @@ class ServiceApi {
     }
   }
 
-  Future<int> requestService(
-      {required RequestServiceRM requestServiceRM}) async {
+  Future<int> requestService({
+    required RequestServiceRM requestServiceRM,
+  }) async {
     final url = _urlBuilder.buildRequestServiceUrl();
     final requestJsonBody = requestServiceRM.toJson();
     try {

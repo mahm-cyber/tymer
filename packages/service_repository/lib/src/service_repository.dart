@@ -21,7 +21,6 @@ class ServiceRepository {
   final TymerApi remoteApi;
   final ServiceChangeNotifier changeNotifier;
 
-
   Future<int> requestService({
     required ServiceType serviceType,
     required double price,
@@ -220,8 +219,4 @@ class ServiceRepository {
       launchMapOnIOS(latitude, longitude);
     }
   }
-
-
-
-
 }
