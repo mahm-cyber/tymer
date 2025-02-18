@@ -25,10 +25,18 @@
   "priceTextFieldLabel": "Price",
   "additionalCommentsTextFieldLabel": "Additional Comments",
   "acceptButtonLabel": "Accept",
-  "distanceToServiceLocation": "{meters} meters",
-  "@distanceToServiceLocation": {
+  "distanceToServiceLocationInMeters": "{meters} m",
+  "@distanceToServiceLocationInMeters": {
       "placeholders": {
           "meters": {
+              "type": "String"
+          }
+      }
+  },
+  "distanceToServiceLocationInKilometers": "{kilometers} km",
+  "@distanceToServiceLocationInKilometers": {
+      "placeholders": {
+          "kilometers": {
               "type": "String"
           }
       }

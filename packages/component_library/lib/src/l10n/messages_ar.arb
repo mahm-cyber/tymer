@@ -24,10 +24,18 @@
   "timeTextFieldLabel": "الوقت",
   "additionalCommentsTextFieldLabel": "تعليقات إضافية",
   "acceptButtonLabel": "قبول",
-  "distanceToServiceLocation": "{meters} متر",
+  "distanceToServiceLocationInMeters": "{meters} متر",
   "@distanceToServiceLocation": {
       "placeholders": {
           "meters": {
+              "type": "String"
+          }
+      }
+  },
+  "distanceToServiceLocationInKilometers": "{kilometers} ك.م",
+  "@distanceToServiceLocationInKilometers": {
+      "placeholders": {
+          "kilometers": {
               "type": "String"
           }
       }

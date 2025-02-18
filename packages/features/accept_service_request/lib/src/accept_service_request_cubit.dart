@@ -31,8 +31,8 @@ class AcceptServiceRequestCubit extends Cubit<AcceptServiceRequestState> {
   void onViewServiceOnMap() async {
     try {
       serviceRepository.launchMap(
-        state.service!.location.coordinates[0],
         state.service!.location.coordinates[1],
+        state.service!.location.coordinates[0],
       );
     } catch (e) {
       rethrow;

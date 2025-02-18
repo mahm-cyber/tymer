@@ -251,11 +251,17 @@ abstract class ComponentLibraryLocalizations {
   /// **'Accept'**
   String get acceptButtonLabel;
 
-  /// No description provided for @distanceToServiceLocation.
+  /// No description provided for @distanceToServiceLocationInMeters.
   ///
   /// In en, this message translates to:
-  /// **'{meters} meters'**
-  String distanceToServiceLocation(String meters);
+  /// **'{meters} m'**
+  String distanceToServiceLocationInMeters(String meters);
+
+  /// No description provided for @distanceToServiceLocationInKilometers.
+  ///
+  /// In en, this message translates to:
+  /// **'{kilometers} km'**
+  String distanceToServiceLocationInKilometers(String kilometers);
 
   /// No description provided for @myLocationInfoWindowTitle.
   ///

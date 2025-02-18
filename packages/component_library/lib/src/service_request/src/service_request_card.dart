@@ -86,13 +86,22 @@ class ServiceRequestCard extends StatelessWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 3,
                         child: Text(
-                          l10n.distanceToServiceLocation(
-                            service.distanceBetweenProviderAndServiceLocation!
-                                .localizeDouble(
-                              locale,
-                              sigFigs: 0,
-                            ),
-                          ),
+                          service.distanceBetweenProviderAndServiceLocation! > 1000
+                              ? l10n.distanceToServiceLocationInKilometers(
+                                  (service.distanceBetweenProviderAndServiceLocation! /
+                                          1000)
+                                      .localizeDouble(
+                                      locale,
+                                      sigFigs: 2,
+                                    ),
+                                )
+                              : l10n.distanceToServiceLocationInMeters(
+                                  service.distanceBetweenProviderAndServiceLocation!
+                                      .localizeDouble(
+                                  locale,
+                                  sigFigs: 0,
+                                ),
+                              ),
                           overflow: TextOverflow.ellipsis,
                           style: textTheme.bodyMedium?.copyWith(
                             color: colorScheme.secondary,

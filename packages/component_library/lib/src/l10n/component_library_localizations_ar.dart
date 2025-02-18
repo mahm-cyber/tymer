@@ -85,8 +85,13 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
   String get acceptButtonLabel => 'قبول';
 
   @override
-  String distanceToServiceLocation(String meters) {
+  String distanceToServiceLocationInMeters(String meters) {
     return '$meters متر';
+  }
+
+  @override
+  String distanceToServiceLocationInKilometers(String kilometers) {
+    return '$kilometers ك.م';
   }
 
   @override
