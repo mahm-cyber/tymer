@@ -72,7 +72,7 @@ class ChooseTopUpMethodView extends StatelessWidget {
                 }
 
                 return PaymentMethodsList(
-                  bankCardEnabled: true,
+                  bankCardEnabled: state.paymentMethods!.cardEnabled,
                   onPaymentMethodTapped: cubit.setPaymentMethodType,
                   paymentMethods: state.paymentMethods!,
                   onViewHistoryTapped: cubit.onTopUpHistoryTapped,

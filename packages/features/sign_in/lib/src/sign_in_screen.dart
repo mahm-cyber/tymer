@@ -82,7 +82,8 @@ class _SignInForm extends StatelessWidget {
         final l10n = SignInLocalizations.of(context);
         final cubit = context.read<SignInCubit>();
         if (state.error is OtpRateLimitExceededException) {
-          final otpRateLimitExceededError = state.error as OtpRateLimitExceededException;
+          final otpRateLimitExceededError =
+              state.error as OtpRateLimitExceededException;
           showSnackBar(
             context: context,
             snackBar: ErrorSnackBar(

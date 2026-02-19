@@ -13,6 +13,7 @@
   "viewButtonLabel": "عرض",
   "userHasRunningServiceRequestSnackBarMessage": "لديك طلب خدمة جاري. يرجى استكماله قبل تقديم طلب جديد.",
     "locationDataFailureSnackBarMessage": "فشل في الحصول على بيانات الموقع. يرجى المحاولة مرة أخرى لاحقًا.",
-      "showInListViewButtonLabel": "عرض القائمة"
+      "showInListViewButtonLabel": "عرض القائمة",
+  "distanceToServiceLocationBottomSheetText": "يستخدم تايمر المسافة المستقيمة للمشي بين موقعك الحالي وموقع الخدمة، لذلك قد تختلف المسافة عند عرض الموقع على تطبيق خرائط خارجي."
 
 }

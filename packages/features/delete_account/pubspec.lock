@@ -388,7 +388,7 @@ packages:
     source: hosted
     version: "0.15.2"
   form_fields:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: "../../form_fields"
       relative: true

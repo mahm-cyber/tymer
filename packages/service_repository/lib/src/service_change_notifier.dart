@@ -13,6 +13,7 @@ class ServiceChangeNotifier with ChangeNotifier {
     _serviceTypeVN.value = serviceType;
     notifyListeners();
   }
+
   Future clearServiceType() async {
     _serviceTypeVN.value = null;
     notifyListeners();
@@ -23,20 +24,22 @@ class ServiceChangeNotifier with ChangeNotifier {
     _serviceRequestDetailsVN.value = serviceRequestDetails;
     notifyListeners();
   }
+
   Future clearServiceRequest() async {
     _serviceRequestDetailsVN.value = null;
     notifyListeners();
   }
-  
-  bool? get shouldReFetchServiceRequestsHistory => _shouldReFetchServicesVN.value;
+
+  bool? get shouldReFetchServiceRequestsHistory =>
+      _shouldReFetchServicesVN.value;
   void setShouldReFetchServices(bool shouldReFetchServices) {
     _shouldReFetchServicesVN.value = shouldReFetchServices;
     notifyListeners();
     clearShouldReFetchServices();
   }
+
   Future clearShouldReFetchServices() async {
     _shouldReFetchServicesVN.value = null;
     notifyListeners();
   }
-
 }

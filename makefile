@@ -204,3 +204,6 @@ intl:
         flutter pub add intl ; \
         cd ../../../ ; \
     done
+
+run-debug:
+	fvm flutter run --debug --dart-define=x-api-key=01f64a264be7442a9008abda93d5d6ae -t lib/main.dart

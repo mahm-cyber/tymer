@@ -69,7 +69,7 @@ class HomeView extends StatelessWidget {
                   end: Spacing.smallMedium,
                 ),
                 icon: Transform.scale(
-                  scale: 0.65,
+                  scale: 0.5,
                   child: const SvgAsset(
                     AssetPathConstants.chatPath,
                     // width: 50,

@@ -12,6 +12,7 @@ class ServiceRequestCard extends StatelessWidget {
     this.shouldShowRequestStatus = false,
     this.height = 100,
     this.shouldShowId = false,
+    required this.shouldShowDistance,
   });
 
   final VoidCallback onTapped;
@@ -20,6 +21,7 @@ class ServiceRequestCard extends StatelessWidget {
   final bool shouldShowRequestStatus;
   final double height;
   final bool shouldShowId;
+  final bool shouldShowDistance;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,7 @@ class ServiceRequestCard extends StatelessWidget {
               children: [
                 if (service.requestDetails!.reservedFor != null)
                   SizedBox(
-                    width: MediaQuery.of(context).size.width/1.7 -
+                    width: MediaQuery.of(context).size.width / 1.7 -
                         (2 * theme.screenMargin),
                     child: Text(
                       service.requestDetails!.reservedFor!,
@@ -63,7 +65,7 @@ class ServiceRequestCard extends StatelessWidget {
                   ),
                 if (service.requestDetails!.placeName.isNotEmpty)
                   SizedBox(
-                    width: MediaQuery.of(context).size.width/1.65 -
+                    width: MediaQuery.of(context).size.width / 1.65 -
                         (2 * theme.screenMargin),
                     child: Text(
                       service.requestDetails!.placeName,
@@ -74,8 +76,8 @@ class ServiceRequestCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                if (service.distanceBetweenProviderAndServiceLocation !=
-                    null) ...[
+                if (service.distanceBetweenProviderAndServiceLocation != null &&
+                    shouldShowDistance) ...[
                   const Spacer(),
                   Row(
                     children: [
@@ -86,22 +88,24 @@ class ServiceRequestCard extends StatelessWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 3,
                         child: Text(
-                          service.distanceBetweenProviderAndServiceLocation! > 1000
+                          service.distanceBetweenProviderAndServiceLocation! >
+                                  1000
                               ? l10n.distanceToServiceLocationInKilometers(
                                   (service.distanceBetweenProviderAndServiceLocation! /
                                           1000)
                                       .localizeDouble(
-                                      locale,
-                                      sigFigs: 2,
-                                    ),
+                                    locale,
+                                    sigFigs: 2,
+                                  ),
                                 )
                               : l10n.distanceToServiceLocationInMeters(
-                                  service.distanceBetweenProviderAndServiceLocation!
+                                  service
+                                      .distanceBetweenProviderAndServiceLocation!
                                       .localizeDouble(
-                                  locale,
-                                  sigFigs: 0,
+                                    locale,
+                                    sigFigs: 0,
+                                  ),
                                 ),
-                              ),
                           overflow: TextOverflow.ellipsis,
                           style: textTheme.bodyMedium?.copyWith(
                             color: colorScheme.secondary,
@@ -113,7 +117,8 @@ class ServiceRequestCard extends StatelessWidget {
                   ),
                 ],
                 //price
-                VerticalGap.small(),
+                // VerticalGap.small(),
+                const Spacer(),
                 Row(
                   children: [
                     const SvgAsset(

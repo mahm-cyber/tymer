@@ -142,6 +142,12 @@ abstract class ProvideServiceLocalizations {
   /// In en, this message translates to:
   /// **'Show in List View'**
   String get showInListViewButtonLabel;
+
+  /// No description provided for @distanceToServiceLocationBottomSheetText.
+  ///
+  /// In en, this message translates to:
+  /// **'Tymer uses straight line walking distance between your current location and the service’s location, so distance might be different when the location is viewed on an external maps application.'**
+  String get distanceToServiceLocationBottomSheetText;
 }
 
 class _ProvideServiceLocalizationsDelegate extends LocalizationsDelegate<ProvideServiceLocalizations> {

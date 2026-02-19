@@ -14,6 +14,8 @@ PaymentMethodsRM _$PaymentMethodsRMFromJson(Map<String, dynamic> json) =>
         final val = PaymentMethodsRM(
           withdrawMinimumAmount: $checkedConvert(
               'withdraw_minimum', (v) => (v as num?)?.toDouble()),
+          cardEnabled:
+              $checkedConvert('card_enabled', (v) => v as bool? ?? false),
           vodafoneCashEnabled:
               $checkedConvert('vodafone_cash_enabled', (v) => v as bool),
           vodafoneCashWalletNumber: $checkedConvert(
@@ -63,6 +65,7 @@ PaymentMethodsRM _$PaymentMethodsRMFromJson(Map<String, dynamic> json) =>
       },
       fieldKeyMap: const {
         'withdrawMinimumAmount': 'withdraw_minimum',
+        'cardEnabled': 'card_enabled',
         'vodafoneCashEnabled': 'vodafone_cash_enabled',
         'vodafoneCashWalletNumber': 'vodafone_cash_wallet_number',
         'vodafoneCashMessage': 'vodafone_cash_message',

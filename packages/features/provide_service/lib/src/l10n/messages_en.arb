@@ -13,6 +13,7 @@
   "viewButtonLabel": "View",
   "userHasRunningServiceRequestSnackBarMessage": "You have a running service request. Please complete it before providing a new one",
   "locationDataFailureSnackBarMessage": "Failed to get location data. Please try again later",
-  "showInListViewButtonLabel": "Show in List View"
+  "showInListViewButtonLabel": "Show in List View",
+    "distanceToServiceLocationBottomSheetText" : "Tymer uses straight line walking distance between your current location and the service’s location, so distance might be different when the location is viewed on an external maps application."
 
 }

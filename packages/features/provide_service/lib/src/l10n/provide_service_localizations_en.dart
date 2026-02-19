@@ -31,4 +31,7 @@ class ProvideServiceLocalizationsEn extends ProvideServiceLocalizations {
 
   @override
   String get showInListViewButtonLabel => 'Show in List View';
+
+  @override
+  String get distanceToServiceLocationBottomSheetText => 'Tymer uses straight line walking distance between your current location and the service’s location, so distance might be different when the location is viewed on an external maps application.';
 }

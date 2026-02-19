@@ -31,4 +31,7 @@ class ProvideServiceLocalizationsAr extends ProvideServiceLocalizations {
 
   @override
   String get showInListViewButtonLabel => 'عرض القائمة';
+
+  @override
+  String get distanceToServiceLocationBottomSheetText => 'يستخدم تايمر المسافة المستقيمة للمشي بين موقعك الحالي وموقع الخدمة، لذلك قد تختلف المسافة عند عرض الموقع على تطبيق خرائط خارجي.';
 }

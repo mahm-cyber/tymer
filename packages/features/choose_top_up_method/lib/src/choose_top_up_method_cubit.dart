@@ -24,6 +24,7 @@ class ChooseTopUpMethodCubit extends Cubit<ChooseTopUpMethodState> {
   final VoidCallback onTopUpMethodTapped;
   final VoidCallback onBankCardTopUpTapped;
   final VoidCallback onTopUpHistoryTapped;
+  
   Future<void> getPaymentMethods() async {
     final loadingState =
         state.copyWith(paymentMethodsLoadingStatus: LoadingStatus.loading);

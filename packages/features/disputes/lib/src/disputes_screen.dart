@@ -204,6 +204,7 @@ class DisputesView extends StatelessWidget {
                                       dispute,
                                     ),
                                     shouldShowRequestStatus: true,
+                                    shouldShowDistance: false,
                                     service: dispute.serviceRequest!,
                                     disputeStatusWidget: ServiceStatusWidget(
                                       color: resolution.color,

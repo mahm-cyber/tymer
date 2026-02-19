@@ -6,6 +6,7 @@ part 'payment_methods_rm.g.dart';
 class PaymentMethodsRM {
   const PaymentMethodsRM({
     this.withdrawMinimumAmount,
+    this.cardEnabled = false,
     required this.vodafoneCashEnabled,
     this.vodafoneCashWalletNumber,
     required this.vodafoneCashMessage,
@@ -32,6 +33,8 @@ class PaymentMethodsRM {
   });
   @JsonKey(name: 'withdraw_minimum')
   final double? withdrawMinimumAmount;
+  @JsonKey(name: 'card_enabled', defaultValue: false)
+  final bool? cardEnabled;
   @JsonKey(name: 'vodafone_cash_enabled')
   final bool vodafoneCashEnabled;
   @JsonKey(name: 'vodafone_cash_wallet_number')

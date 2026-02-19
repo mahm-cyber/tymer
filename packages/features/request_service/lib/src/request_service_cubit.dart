@@ -39,8 +39,6 @@ class RequestServiceCubit extends Cubit<RequestServiceState> {
     getPricingSettings();
   }
 
-
-
   Future getPricingSettings({
     FetchPolicy fetchPolicy = FetchPolicy.cachePreferably,
   }) async {

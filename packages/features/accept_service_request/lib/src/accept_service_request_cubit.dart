@@ -27,7 +27,6 @@ class AcceptServiceRequestCubit extends Cubit<AcceptServiceRequestState> {
   final UserRepository userRepository;
   final ValueSetter<int> onAcceptServiceRequestSuccess;
 
-
   void onViewServiceOnMap() async {
     try {
       serviceRepository.launchMap(

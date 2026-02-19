@@ -185,8 +185,9 @@ class OrderHistoryView extends StatelessWidget {
                                       service.requestDetails!.reservedFor
                                               ?.isNotEmpty ==
                                           true
-                                  ? 125
-                                  : 100;
+                                  ? 105
+                                  : 80;
+
                               return Column(
                                 children: [
                                   if (index == 0) VerticalGap.small(),
@@ -198,6 +199,7 @@ class OrderHistoryView extends StatelessWidget {
                                     shouldShowRequestStatus: true,
                                     service: service,
                                     height: cardHeight.toDouble(),
+                                    shouldShowDistance: false,
                                   ),
                                   if (isLastItem)
                                     VerticalGap.custom(

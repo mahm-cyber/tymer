@@ -15,10 +15,14 @@ class WalletRepository {
   final WalletChangeNotifier changeNotifier;
 
   Future<PaymentMethods> getPaymentMethods(TransactionType paymentType) async {
-    final paymentMethods =
-        await remoteApi.wallet.getPaymentMethods(paymentType.toRemoteModel());
-    final paymentMethodsDomain = paymentMethods.toDomainModel();
-    return paymentMethodsDomain;
+    try {
+      final paymentMethods =
+          await remoteApi.wallet.getPaymentMethods(paymentType.toRemoteModel());
+      final paymentMethodsDomain = paymentMethods.toDomainModel();
+      return paymentMethodsDomain;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<void> confirmTopUp({

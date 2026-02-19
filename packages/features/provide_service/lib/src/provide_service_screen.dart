@@ -93,6 +93,28 @@ class ProvideServiceView extends StatelessWidget {
                         ? cubit.switchMapView
                         : popTillHome,
                   ),
+                  actions: [
+                    IconButton(
+                      icon: const Icon(Icons.info),
+                      onPressed: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) => Padding(
+                                    padding:  EdgeInsets.symmetric(
+                                      horizontal: theme.screenMargin,
+                                      vertical: Spacing.small,
+                                    ),
+                                    child: Text(
+                                      l10n.distanceToServiceLocationBottomSheetText,
+                                      style: textTheme.bodyMedium?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                    ),
+                  ],
                   title: const SvgAsset(
                     AssetPathConstants.whiteLogoPath,
                     height: 30,
@@ -150,6 +172,7 @@ class ProvideServiceView extends StatelessWidget {
                                                   .onViewServiceRequestDetailsTapped(
                                                       service),
                                               service: service,
+                                              shouldShowDistance: true,
                                             );
                                           },
                                         ),

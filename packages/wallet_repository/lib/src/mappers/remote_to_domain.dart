@@ -28,6 +28,7 @@ extension PaymentMethodsRMToDM on PaymentMethodsRM {
   PaymentMethods toDomainModel() {
     return PaymentMethods(
       minimumAmount: withdrawMinimumAmount,
+      cardEnabled: cardEnabled ?? false,
       vodafoneCash: VodafoneCash(
         enabled: vodafoneCashEnabled,
         walletNumber: vodafoneCashWalletNumber,

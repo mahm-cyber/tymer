@@ -68,6 +68,8 @@ void main() async {
   };
   FlutterError.onError = errorReportingService.recordFlutterError;
 
+
+
   return runApp(
     const Tymer(),
   );
