@@ -1,0 +1,6 @@
+{
+  "appBarTitle": "Payment",
+  "paymentSuccess": "Payment completed successfully.",
+  "paymentFailed": "Payment failed.",
+  "generalErrorSnackBarMessage": "Something went wrong."
+}

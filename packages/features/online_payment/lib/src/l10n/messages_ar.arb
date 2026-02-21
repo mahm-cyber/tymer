@@ -1,0 +1,6 @@
+{
+  "appBarTitle": "الدفع",
+  "paymentSuccess": "تمت عملية الدفع بنجاح.",
+  "paymentFailed": "فشلت عملية الدفع.",
+  "generalErrorSnackBarMessage": "حدث خطأ ما."
+}

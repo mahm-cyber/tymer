@@ -1,4 +1,5 @@
 import 'package:accept_service_request/accept_service_request.dart';
+import 'package:online_payment/online_payment.dart';
 import 'package:change_language/change_language.dart';
 import 'package:change_password/change_password.dart';
 import 'package:change_phone/change_phone.dart';
@@ -601,6 +602,21 @@ Map<String, PageBuilder> buildRoutingTable({
             walletRepository: walletRepository,
           ),
         ),
+    _PathConstants.onlinePaymentPath: (info) {
+      final url = info.queryParameters['url'] ?? '';
+      return MaterialPage(
+        name: 'online-payment',
+        child: OnlinePaymentScreen(
+          url: url,
+          onPaymentSuccess: () {
+            routerDelegate.pop();
+          },
+          onPaymentFailure: () {
+            routerDelegate.pop();
+          },
+        ),
+      );
+    },
     _PathConstants.topUpPaymentHistoryPath: (_) => MaterialPage(
           name: 'top-up-payment-history',
           child: PaymentHistoryScreen(
@@ -686,4 +702,6 @@ class _PathConstants {
 
   static String get chooseWithdrawMethodPath =>
       '${initialPath}choose-withdraw-method';
+
+  static String get onlinePaymentPath => '${initialPath}online-payment';
 }

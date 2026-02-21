@@ -92,6 +92,8 @@ dependencies:
     path: packages/features/change_language
   delete_account:
     path: packages/features/delete_account
+  online_payment:
+    path: packages/features/online_payment
 
 
   # Authentication

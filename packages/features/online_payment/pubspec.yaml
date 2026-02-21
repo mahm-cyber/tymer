@@ -1,0 +1,21 @@
+name: online_payment
+publish_to: none
+
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  equatable: ^2.0.5
+  flutter_bloc: ^9.0.0
+  component_library:
+    path: ../../component_library
+  function_and_extension_library:
+    path: ../../function_and_extension_library
+  webview_flutter: ^4.10.0
+
+dev_dependencies:
+  flutter_lints: ^4.0.0
