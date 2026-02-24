@@ -69,6 +69,7 @@ class FulfillServiceRequestView extends StatelessWidget {
           previous.isImagePickerBottomSheetVisible !=
               current.isImagePickerBottomSheetVisible ||
           previous.submissionStatus != current.submissionStatus ||
+          previous.cancelStatus != current.cancelStatus ||
           previous.service?.status != current.service?.status,
       listener: (context, state) {
         final cubit = context.read<FulfillServiceRequestCubit>();
@@ -135,6 +136,16 @@ class FulfillServiceRequestView extends StatelessWidget {
             snackBar: ErrorSnackBar(
               context: context,
               message: l10n.serviceRequestFailureMessage,
+              marginalSpace: theme.snackBarMargin,
+            ),
+          );
+        }
+        if (state.cancelStatus == FormzSubmissionStatus.failure) {
+          showSnackBar(
+            context: context,
+            snackBar: ErrorSnackBar(
+              context: context,
+              message: l10n.cancelFailureSnackBarMessage,
               marginalSpace: theme.snackBarMargin,
             ),
           );
@@ -248,7 +259,6 @@ class FulfillServiceRequestView extends StatelessWidget {
                                             cubit.onBackButtonPressed,
                                       ),
                                       VerticalGap.small(),
-
                                       ImagePickerTextField(
                                         imageFileNameSC: cubit.imageFileNameSC,
                                         onImagePickerTapped:
@@ -299,8 +309,20 @@ class FulfillServiceRequestView extends StatelessWidget {
                                         onTap: cubit.onSubmit,
                                       ),
                               VerticalGap.medium(),
-
-
+                              if (!isRequestFulfilled)
+                                state.cancelStatus ==
+                                        FormzSubmissionStatus.inProgress
+                                    ? TymerElevatedButton.inProgress(
+                                        label: l10n.cancelButtonLabel,
+                                      )
+                                    : TymerElevatedButton(
+                                        label: l10n.cancelButtonLabel,
+                                        bgColor: colorScheme.surface,
+                                        borderColor: theme.borderColor,
+                                        labelColor: colorScheme.onSurface,
+                                        onTap: cubit.onCancelRequest,
+                                      ),
+                              VerticalGap.medium(),
                               VerticalGap.small(),
                             ],
                           ),

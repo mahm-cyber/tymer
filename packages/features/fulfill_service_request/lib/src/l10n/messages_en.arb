@@ -15,7 +15,8 @@
   "continueWaitingButtonLabel": "Continue Waiting",
   "provideAnotherServiceButtonLabel": "Provide Another Service",
   "serviceDisputedSnackBarMessage": "A ticket has been raised, you can chat with Tymer",
-  "imageSizeExceedsLimitErrorTextFieldMessage": "Image size should be 1MB or less"
-
-
+  "imageSizeExceedsLimitErrorTextFieldMessage": "Image size should be 1MB or less",
+  "cancelButtonLabel": "Cancel Request",
+  "cancelSuccessSnackBarMessage": "Request cancelled successfully",
+  "cancelFailureSnackBarMessage": "Failed to cancel, try again"
 }

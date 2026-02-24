@@ -335,6 +335,23 @@ class FulfillServiceRequestCubit extends Cubit<FulfillServiceRequestState> {
     }
   }
 
+  void onCancelRequest() async {
+    emit(state.copyWith(cancelStatus: FormzSubmissionStatus.inProgress));
+    try {
+      await serviceRepository.cancelServiceRequest(
+        serviceRequestId: state.service!.id!,
+      );
+      if (!isClosed) {
+        emit(state.copyWith(cancelStatus: FormzSubmissionStatus.success));
+        onNavigateToProvideService();
+      }
+    } catch (e) {
+      if (!isClosed) {
+        emit(state.copyWith(cancelStatus: FormzSubmissionStatus.failure));
+      }
+    }
+  }
+
   void onServiceRequestDisputed() {
     disputeRepository.changeNotifier.setDisputeChatUserType(UserType.provider);
     onServiceDisputed(state.service!.dispute!.id);

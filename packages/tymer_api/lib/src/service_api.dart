@@ -154,11 +154,16 @@ class ServiceApi {
     }
   }
 
-  Future cancelServiceRequest({required int serviceRequestId}) async {
+  Future cancelServiceRequest(
+      {required int serviceRequestId,
+      Map<String, String>? queryParameters}) async {
     final url = _urlBuilder.buildCancelServiceRequestUrl(
-        serviceRequestId: serviceRequestId);
+      serviceRequestId: serviceRequestId,
+    );
     try {
-      await _dio.post(url);
+      await _dio.post(
+        url,
+      );
     } catch (_) {
       rethrow;
     }

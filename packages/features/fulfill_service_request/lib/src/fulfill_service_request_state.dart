@@ -13,6 +13,7 @@ class FulfillServiceRequestState extends Equatable {
     this.isImagePickerBottomSheetVisible = false,
     this.additionalDetails,
     this.submissionStatus = FormzSubmissionStatus.initial,
+    this.cancelStatus = FormzSubmissionStatus.initial,
   });
 
   final FetchStatus fetchStatus;
@@ -26,6 +27,7 @@ class FulfillServiceRequestState extends Equatable {
   final bool isImagePickerBottomSheetVisible;
   final String? additionalDetails;
   final FormzSubmissionStatus submissionStatus;
+  final FormzSubmissionStatus cancelStatus;
 
   FulfillServiceRequestState copyWith({
     FetchStatus? fetchStatus,
@@ -39,6 +41,7 @@ class FulfillServiceRequestState extends Equatable {
     bool? isImagePickerBottomSheetVisible,
     String? additionalDetails,
     FormzSubmissionStatus? submissionStatus,
+    FormzSubmissionStatus? cancelStatus,
   }) {
     return FulfillServiceRequestState(
       fetchStatus: fetchStatus ?? this.fetchStatus,
@@ -53,6 +56,7 @@ class FulfillServiceRequestState extends Equatable {
           this.isImagePickerBottomSheetVisible,
       additionalDetails: additionalDetails ?? this.additionalDetails,
       submissionStatus: submissionStatus ?? this.submissionStatus,
+      cancelStatus: cancelStatus ?? this.cancelStatus,
     );
   }
 
@@ -69,6 +73,7 @@ class FulfillServiceRequestState extends Equatable {
         isImagePickerBottomSheetVisible,
         additionalDetails,
         submissionStatus,
+        cancelStatus,
       ];
 }
 

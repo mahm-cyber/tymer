@@ -15,10 +15,8 @@
   "continueWaitingButtonLabel": "متابعة الانتظار",
   "provideAnotherServiceButtonLabel": "تقديم خدمة أخرى",
   "serviceDisputedSnackBarMessage": "تم تقديم شكوى، يمكنك التحدث مع تيمر",
-  "imageSizeExceedsLimitErrorTextFieldMessage": "يجب أن يكون حجم الصورة 1 ميجابايت أو أقل"
-
-
-
-
-
+  "imageSizeExceedsLimitErrorTextFieldMessage": "يجب أن يكون حجم الصورة 1 ميجابايت أو أقل",
+  "cancelButtonLabel": "إلغاء الطلب",
+  "cancelSuccessSnackBarMessage": "تم إلغاء الطلب بنجاح",
+  "cancelFailureSnackBarMessage": "فشل الإلغاء، حاول مرة أخرى"
 }

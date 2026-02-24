@@ -3,7 +3,8 @@ import 'fulfill_service_request_localizations.dart';
 // ignore_for_file: type=lint
 
 /// The translations for Arabic (`ar`).
-class FulfillServiceRequestLocalizationsAr extends FulfillServiceRequestLocalizations {
+class FulfillServiceRequestLocalizationsAr
+    extends FulfillServiceRequestLocalizations {
   FulfillServiceRequestLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
@@ -52,8 +53,19 @@ class FulfillServiceRequestLocalizationsAr extends FulfillServiceRequestLocaliza
   String get provideAnotherServiceButtonLabel => 'تقديم خدمة أخرى';
 
   @override
-  String get serviceDisputedSnackBarMessage => 'تم تقديم شكوى، يمكنك التحدث مع تيمر';
+  String get serviceDisputedSnackBarMessage =>
+      'تم تقديم شكوى، يمكنك التحدث مع تيمر';
 
   @override
-  String get imageSizeExceedsLimitErrorTextFieldMessage => 'يجب أن يكون حجم الصورة 1 ميجابايت أو أقل';
+  String get imageSizeExceedsLimitErrorTextFieldMessage =>
+      'يجب أن يكون حجم الصورة 1 ميجابايت أو أقل';
+
+  @override
+  String get cancelButtonLabel => 'إلغاء الطلب';
+
+  @override
+  String get cancelSuccessSnackBarMessage => 'تم إلغاء الطلب بنجاح';
+
+  @override
+  String get cancelFailureSnackBarMessage => 'فشل الإلغاء، حاول مرة أخرى';
 }
