@@ -49,6 +49,8 @@ import 'package:user_repository/user_repository.dart';
 import 'package:verify_otp/verify_otp.dart';
 import 'package:wallet/wallet.dart';
 import 'package:wallet_repository/wallet_repository.dart';
+import 'package:paymob_api/paymob_api.dart';
+import 'package:paymob_repository/paymob_repository.dart';
 import 'package:withdraw/withdraw.dart';
 
 void main() async {
@@ -67,8 +69,6 @@ void main() async {
     return true;
   };
   FlutterError.onError = errorReportingService.recordFlutterError;
-
-
 
   return runApp(
     const Tymer(),
@@ -118,6 +118,13 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
   late final _walletRepository = WalletRepository(
     remoteApi: _connectInApi,
   );
+  late final _paymobPayoutApi = PaymobPayoutApi(
+    dio: Dio(),
+    urlBuilder: PaymobUrlBuilder(),
+  );
+  late final _paymobRepository = PaymobRepository(
+    paymobApi: _paymobPayoutApi,
+  );
 
   final _keyValueStorage = KeyValueStorage();
 
@@ -166,6 +173,7 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
           unAuthenticatedAccessVN: _unAuthenticatedAccessVN,
           signInSuccessVN: _signInSuccessVN,
           walletRepository: _walletRepository,
+          paymobRepository: _paymobRepository,
         ),
       );
     },

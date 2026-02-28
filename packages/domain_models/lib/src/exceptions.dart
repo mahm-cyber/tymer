@@ -30,3 +30,14 @@ class StaleMinimumPriceException implements Exception {}
 class ChatLimitReachedException implements Exception {}
 
 class PhoneNotVerifiedException implements Exception {}
+
+/// Thrown when a Paymob payout disbursement fails.
+class PaymobDisbursementFailedException implements Exception {
+  const PaymobDisbursementFailedException([this.message]);
+  final String? message;
+}
+
+/// Thrown when the Paymob account has insufficient budget to disburse.
+class PaymobInsufficientBudgetException implements Exception {
+  const PaymobInsufficientBudgetException();
+}

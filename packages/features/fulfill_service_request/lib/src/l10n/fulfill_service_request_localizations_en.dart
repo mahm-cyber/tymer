@@ -3,8 +3,7 @@ import 'fulfill_service_request_localizations.dart';
 // ignore_for_file: type=lint
 
 /// The translations for English (`en`).
-class FulfillServiceRequestLocalizationsEn
-    extends FulfillServiceRequestLocalizations {
+class FulfillServiceRequestLocalizationsEn extends FulfillServiceRequestLocalizations {
   FulfillServiceRequestLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
@@ -53,12 +52,10 @@ class FulfillServiceRequestLocalizationsEn
   String get provideAnotherServiceButtonLabel => 'Provide Another Service';
 
   @override
-  String get serviceDisputedSnackBarMessage =>
-      'A ticket has been raised, you can chat with Tymer';
+  String get serviceDisputedSnackBarMessage => 'A ticket has been raised, you can chat with Tymer';
 
   @override
-  String get imageSizeExceedsLimitErrorTextFieldMessage =>
-      'Image size should be 1MB or less';
+  String get imageSizeExceedsLimitErrorTextFieldMessage => 'Image size should be 1MB or less';
 
   @override
   String get cancelButtonLabel => 'Cancel Request';

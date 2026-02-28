@@ -62,18 +62,15 @@ import 'fulfill_service_request_localizations_en.dart';
 /// be consistent with the languages listed in the FulfillServiceRequestLocalizations.supportedLocales
 /// property.
 abstract class FulfillServiceRequestLocalizations {
-  FulfillServiceRequestLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  FulfillServiceRequestLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
   static FulfillServiceRequestLocalizations of(BuildContext context) {
-    return Localizations.of<FulfillServiceRequestLocalizations>(
-        context, FulfillServiceRequestLocalizations)!;
+    return Localizations.of<FulfillServiceRequestLocalizations>(context, FulfillServiceRequestLocalizations)!;
   }
 
-  static const LocalizationsDelegate<FulfillServiceRequestLocalizations>
-      delegate = _FulfillServiceRequestLocalizationsDelegate();
+  static const LocalizationsDelegate<FulfillServiceRequestLocalizations> delegate = _FulfillServiceRequestLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -85,8 +82,7 @@ abstract class FulfillServiceRequestLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -220,37 +216,34 @@ abstract class FulfillServiceRequestLocalizations {
   String get cancelFailureSnackBarMessage;
 }
 
-class _FulfillServiceRequestLocalizationsDelegate
-    extends LocalizationsDelegate<FulfillServiceRequestLocalizations> {
+class _FulfillServiceRequestLocalizationsDelegate extends LocalizationsDelegate<FulfillServiceRequestLocalizations> {
   const _FulfillServiceRequestLocalizationsDelegate();
 
   @override
   Future<FulfillServiceRequestLocalizations> load(Locale locale) {
-    return SynchronousFuture<FulfillServiceRequestLocalizations>(
-        lookupFulfillServiceRequestLocalizations(locale));
+    return SynchronousFuture<FulfillServiceRequestLocalizations>(lookupFulfillServiceRequestLocalizations(locale));
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['ar', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_FulfillServiceRequestLocalizationsDelegate old) => false;
 }
 
-FulfillServiceRequestLocalizations lookupFulfillServiceRequestLocalizations(
-    Locale locale) {
+FulfillServiceRequestLocalizations lookupFulfillServiceRequestLocalizations(Locale locale) {
+
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'ar':
-      return FulfillServiceRequestLocalizationsAr();
-    case 'en':
-      return FulfillServiceRequestLocalizationsEn();
+    case 'ar': return FulfillServiceRequestLocalizationsAr();
+    case 'en': return FulfillServiceRequestLocalizationsEn();
   }
 
   throw FlutterError(
-      'FulfillServiceRequestLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'FulfillServiceRequestLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }

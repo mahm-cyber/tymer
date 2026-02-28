@@ -33,6 +33,10 @@ dependencies:
     path: packages/dispute_repository
   support_repository:
     path: packages/support_repository
+  paymob_api:
+    path: packages/paymob_api
+  paymob_repository:
+    path: packages/paymob_repository
   function_and_extension_library:
     path: packages/function_and_extension_library
   notifications_service:

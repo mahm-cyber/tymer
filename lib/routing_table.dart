@@ -36,6 +36,7 @@ import 'package:top_up_information/top_up_information.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:verify_otp/verify_otp.dart';
 import 'package:wallet/wallet.dart';
+import 'package:paymob_repository/paymob_repository.dart';
 import 'package:wallet_repository/wallet_repository.dart';
 import 'package:withdraw/withdraw.dart';
 
@@ -48,6 +49,7 @@ Map<String, PageBuilder> buildRoutingTable({
   required ValueNotifier<bool?> unAuthenticatedAccessVN,
   required ValueNotifier<bool> signInSuccessVN,
   required WalletRepository walletRepository,
+  required PaymobRepository paymobRepository,
 }) {
   disputeRepository.changeNotifier.addListener(() {
     debugPrint(
@@ -559,6 +561,7 @@ Map<String, PageBuilder> buildRoutingTable({
           child: TopUpConfirmationScreen(
             userRepository: userRepository,
             walletRepository: walletRepository,
+            paymobRepository: paymobRepository,
             onBackButtonPressed: () {
               routerDelegate.pop();
             },
@@ -573,6 +576,7 @@ Map<String, PageBuilder> buildRoutingTable({
           child: TopUpConfirmationScreen(
             userRepository: userRepository,
             walletRepository: walletRepository,
+            paymobRepository: paymobRepository,
             onBackButtonPressed: () {
               routerDelegate.pop();
             },

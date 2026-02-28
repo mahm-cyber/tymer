@@ -8,6 +8,8 @@ import 'package:form_fields/form_fields.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:wallet_repository/wallet_repository.dart';
+import 'package:paymob_api/paymob_api.dart';
+import 'package:paymob_repository/paymob_repository.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 part 'top_up_confirmation_state.dart';
@@ -16,6 +18,7 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
   TopUpConfirmationCubit({
     required this.userRepository,
     required this.walletRepository,
+    required this.paymobRepository,
     required this.onBackButtonPressed,
     required this.onSuccess,
   })  : _imagePicker = ImagePicker(),
@@ -27,6 +30,7 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
 
   final UserRepository userRepository;
   final WalletRepository walletRepository;
+  final PaymobRepository paymobRepository;
   final StreamController<String> imageFileNameSC = StreamController();
   final ImagePicker _imagePicker;
   final VoidCallback onBackButtonPressed;
@@ -79,8 +83,20 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
   }
 
   bool _needsProof() {
-    return state.paymentMethods?.pickedPaymentMethodType !=
-        PaymentMethodType.bankCard;
+    final type = state.paymentMethods?.pickedPaymentMethodType;
+    if (type == PaymentMethodType.bankCard) return false;
+
+    // Paymob disbursement (Instant Cashin) does not require user to upload an image proof.
+    if (_isPaymobSupportedWallet(type)) return false;
+
+    return true;
+  }
+
+  bool _isPaymobSupportedWallet(PaymentMethodType? type) {
+    if (type == null) return false;
+    return type == PaymentMethodType.vodafoneCash ||
+        type == PaymentMethodType.orangeCash ||
+        type == PaymentMethodType.etisalatCash;
   }
 
   void onWalletNumberChanged(String? newValue) {
@@ -316,14 +332,41 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
             )
             ..loadRequest(Uri.parse(url));
         } else {
-          await walletRepository.confirmTopUp(
-            paymentMethodType: state.paymentMethods!.pickedPaymentMethodType!,
-            amount: double.parse(amount.value!),
-            walletNumber: walletNumber.value,
-            teldaUsername: teldaUsername.value,
-            instantPaymentAddress: instantPaymentAddress.value,
-            image: state.file.value!,
-          );
+          final paymentType = state.paymentMethods!.pickedPaymentMethodType!;
+
+          if (paymentType == PaymentMethodType.vodafoneCash ||
+              paymentType == PaymentMethodType.etisalatCash ||
+              paymentType == PaymentMethodType.orangeCash) {
+            PaymobWalletIssuer issuer;
+            switch (paymentType) {
+              case PaymentMethodType.vodafoneCash:
+                issuer = PaymobWalletIssuer.vodafone;
+                break;
+              case PaymentMethodType.etisalatCash:
+                issuer = PaymobWalletIssuer.etisalat;
+                break;
+              case PaymentMethodType.orangeCash:
+                issuer = PaymobWalletIssuer.orange;
+                break;
+              default:
+                issuer = PaymobWalletIssuer.vodafone;
+            }
+
+            await paymobRepository.disburseToWallet(
+              amount: double.parse(amount.value!),
+              msisdn: walletNumber.value!,
+              issuer: issuer,
+            );
+          } else {
+            await walletRepository.confirmTopUp(
+              paymentMethodType: paymentType,
+              amount: double.parse(amount.value!),
+              walletNumber: walletNumber.value,
+              teldaUsername: teldaUsername.value,
+              instantPaymentAddress: instantPaymentAddress.value,
+              image: state.file.value!,
+            );
+          }
           await userRepository.getFreshUser();
         }
         final newState = state.copyWith(

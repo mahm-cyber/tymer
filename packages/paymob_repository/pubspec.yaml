@@ -1,0 +1,16 @@
+name: paymob_repository
+publish_to: none
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  paymob_api:
+    path: ../paymob_api
+  domain_models:
+    path: ../domain_models
+
+dev_dependencies:
+  flutter_lints: ^4.0.0

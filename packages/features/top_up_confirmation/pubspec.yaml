@@ -23,6 +23,10 @@ dependencies:
     path: ../../user_repository
   wallet_repository:
     path: ../../wallet_repository
+  paymob_api:
+    path: ../../paymob_api
+  paymob_repository:
+    path: ../../paymob_repository
   image_picker: ^1.1.2
   webview_flutter: ^4.10.0
 dev_dependencies:

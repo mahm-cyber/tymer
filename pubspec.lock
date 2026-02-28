@@ -1227,6 +1227,20 @@ packages:
       relative: true
     source: path
     version: "0.0.0"
+  paymob_api:
+    dependency: "direct main"
+    description:
+      path: "packages/paymob_api"
+      relative: true
+    source: path
+    version: "0.0.0"
+  paymob_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/paymob_repository"
+      relative: true
+    source: path
+    version: "0.0.0"
   petitparser:
     dependency: transitive
     description:
