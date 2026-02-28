@@ -31,7 +31,8 @@ class WalletRepository {
     String? walletNumber,
     String? instantPaymentAddress,
     String? teldaUsername,
-    required File image,
+    File? image,
+    String? transactionId,
   }) async {
     final paymentMethodTypeString = paymentMethodType.toRemoteModel();
 
@@ -42,7 +43,8 @@ class WalletRepository {
         walletNumber: walletNumber,
         instantPaymentAddress: instantPaymentAddress,
         teldaUsername: teldaUsername,
-        image: image.readAsBytesSync(),
+        image: image?.readAsBytesSync(),
+        transactionId: transactionId,
       );
     } catch (e) {
       rethrow;

@@ -352,10 +352,16 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
                 issuer = PaymobWalletIssuer.vodafone;
             }
 
-            await paymobRepository.disburseToWallet(
+            final disbursement = await paymobRepository.disburseToWallet(
               amount: double.parse(amount.value!),
               msisdn: walletNumber.value!,
               issuer: issuer,
+            );
+            await walletRepository.confirmTopUp(
+              paymentMethodType: paymentType,
+              amount: double.parse(amount.value!),
+              walletNumber: walletNumber.value,
+              transactionId: disbursement.transactionId.toString(),
             );
           } else {
             await walletRepository.confirmTopUp(

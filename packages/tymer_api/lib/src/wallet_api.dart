@@ -56,7 +56,8 @@ class WalletApi {
     String? teldaUsername,
     String? ibanNumber,
     String? beneficiaryName,
-    required List<int> image,
+    List<int>? image,
+    String? transactionId,
   }) async {
     final url = _urlBuilder.buildConfirmTopUpUrl(paymentMethodType);
     final formData = FormData.fromMap({
@@ -65,11 +66,13 @@ class WalletApi {
       if (instantPaymentAddress != null)
         'instant_payment_address': instantPaymentAddress,
       if (teldaUsername != null) 'telda_username': teldaUsername,
-      'proof': diox.MultipartFile.fromBytes(
-        image,
-        filename:
-            'top_up_image${DateTime.now().toString().split(" ").join("")}.jpg',
-      ),
+      if (transactionId != null) 'transaction_id': transactionId,
+      if (image != null)
+        'proof': diox.MultipartFile.fromBytes(
+          image,
+          filename:
+              'top_up_image${DateTime.now().toString().split(" ").join("")}.jpg',
+        ),
     });
     try {
       final response = await _dio.post(url, data: formData);
