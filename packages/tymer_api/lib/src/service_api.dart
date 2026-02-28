@@ -86,11 +86,15 @@ class ServiceApi {
     }
   }
 
-  Future acceptServiceRequest({required int serviceRequestId}) async {
+  Future acceptServiceRequest({
+    required int serviceRequestId,
+    required double lat,
+    required double lng,
+  }) async {
     final url = _urlBuilder.buildAcceptServiceRequestUrl(
         serviceRequestId: serviceRequestId);
     try {
-      await _dio.post(url);
+      await _dio.post(url, data: {'lat': lat, 'lng': lng});
     } on DioException catch (error) {
       final errorObject = error.response?.data[_errorJsonKey][_codeJsonKey];
       if (errorObject.contains('SERVICE_REQUEST_ALREADY_PROCESSED')) {

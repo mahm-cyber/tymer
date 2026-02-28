@@ -108,10 +108,14 @@ class ServiceRepository {
 
   Future acceptServiceRequest({
     required int serviceRequestId,
+    required double lat,
+    required double lng,
   }) async {
     try {
       await remoteApi.service.acceptServiceRequest(
         serviceRequestId: serviceRequestId,
+        lat: lat,
+        lng: lng,
       );
     } catch (error) {
       //ServiceRequestAlreadyProcessedTymerException

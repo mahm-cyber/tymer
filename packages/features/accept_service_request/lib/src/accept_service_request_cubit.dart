@@ -48,9 +48,18 @@ class AcceptServiceRequestCubit extends Cubit<AcceptServiceRequestState> {
 
   void onSubmit() async {
     emit(state.copyWith(submissionStatus: SubmissionStatus.submitting));
+
+    final userLocation = await userRepository.getUserLocation();
+    if (userLocation == null) {
+      emit(state.copyWith(submissionStatus: SubmissionStatus.initial));
+      return;
+    }
+
     try {
       await serviceRepository.acceptServiceRequest(
         serviceRequestId: state.service!.id!,
+        lat: userLocation.latitude!,
+        lng: userLocation.longitude!,
       );
       emit(state.copyWith(submissionStatus: SubmissionStatus.success));
     } catch (error) {
