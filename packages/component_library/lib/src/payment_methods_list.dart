@@ -36,21 +36,51 @@ class PaymentMethodsList extends StatelessWidget {
           ),
         if (paymentMethods.vodafoneCash.enabled)
           ListTile(
-            title: Text(clL10n.vodafoneCash),
+            title: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.end,
+              spacing: 4.0,
+              children: [
+                Text(clL10n.vodafoneCash),
+                Text(
+                  clL10n.poweredByPaymob,
+                  style: const TextStyle(fontSize: 10, color: Colors.grey),
+                ),
+              ],
+            ),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             leading: const Icon(Icons.phone_android),
             onTap: () => onPaymentMethodTapped(PaymentMethodType.vodafoneCash),
           ),
         if (paymentMethods.orangeCash.enabled)
           ListTile(
-            title: Text(clL10n.orangeCash),
+            title: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.end,
+              spacing: 4.0,
+              children: [
+                Text(clL10n.orangeCash),
+                Text(
+                  clL10n.poweredByPaymob,
+                  style: const TextStyle(fontSize: 10, color: Colors.grey),
+                ),
+              ],
+            ),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             leading: const Icon(Icons.phone_android),
             onTap: () => onPaymentMethodTapped(PaymentMethodType.orangeCash),
           ),
         if (paymentMethods.etisalatCash.enabled)
           ListTile(
-            title: Text(clL10n.etisalatCash),
+            title: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.end,
+              spacing: 4.0,
+              children: [
+                Text(clL10n.etisalatCash),
+                Text(
+                  clL10n.poweredByPaymob,
+                  style: const TextStyle(fontSize: 10, color: Colors.grey),
+                ),
+              ],
+            ),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             leading: const Icon(Icons.phone_android),
             onTap: () => onPaymentMethodTapped(PaymentMethodType.etisalatCash),

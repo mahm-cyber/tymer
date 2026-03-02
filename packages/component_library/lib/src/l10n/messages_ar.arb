@@ -106,6 +106,6 @@
   "transactionTypeRefund": "استرداد",
   "transactionTypeBonus": "مكافأة",
   "transactionTypeChargeback": "استرجاع",
-  "chatLimitReachedErrorMessage": "لقد تجاوزت الحد الأقصى لإرسال الرسائل. يرجى المحاولة لاحقًا"
+  "chatLimitReachedErrorMessage": "لقد تجاوزت الحد الأقصى لإرسال الرسائل. يرجى المحاولة لاحقًا",
+  "poweredByPaymob": "مشغل بواسطة Paymob"
 }
-

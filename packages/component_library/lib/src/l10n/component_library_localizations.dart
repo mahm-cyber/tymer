@@ -652,6 +652,12 @@ abstract class ComponentLibraryLocalizations {
   /// In en, this message translates to:
   /// **'Message sending limit exceeded. Please try again later'**
   String get chatLimitReachedErrorMessage;
+
+  /// No description provided for @poweredByPaymob.
+  ///
+  /// In en, this message translates to:
+  /// **'Powered by Paymob'**
+  String get poweredByPaymob;
 }
 
 class _ComponentLibraryLocalizationsDelegate extends LocalizationsDelegate<ComponentLibraryLocalizations> {

@@ -106,5 +106,6 @@
     "transactionStatusCancelled": "Cancelled",
     "transactionStatusUnderReview": "Under Review",
     "transactionStatusRefunded": "Refunded",
-    "chatLimitReachedErrorMessage": "Message sending limit exceeded. Please try again later"
+    "chatLimitReachedErrorMessage": "Message sending limit exceeded. Please try again later",
+    "poweredByPaymob": "Powered by Paymob"
 }

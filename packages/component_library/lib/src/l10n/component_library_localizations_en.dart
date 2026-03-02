@@ -288,4 +288,7 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
 
   @override
   String get chatLimitReachedErrorMessage => 'Message sending limit exceeded. Please try again later';
+
+  @override
+  String get poweredByPaymob => 'Powered by Paymob';
 }
