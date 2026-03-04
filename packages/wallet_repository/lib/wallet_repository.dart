@@ -60,6 +60,41 @@ class WalletRepository {
     }
   }
 
+  /// Calls the Tymer backend's /top-up/paymob endpoint for Vodafone, Etisalat
+  /// or Orange wallet top-ups. Returns the server [transactionId] on success.
+  ///
+  /// Throws [PaymobTopUpFailedException] when the payment gateway rejects the
+  /// transaction (e.g. locked number).
+  Future<String> paymobTopUp({
+    required PaymentMethodType paymentMethodType,
+    required double amount,
+    required String msisdn,
+  }) async {
+    final issuerMap = {
+      PaymentMethodType.vodafoneCash: 'vodafone',
+      PaymentMethodType.etisalatCash: 'etisalat',
+      PaymentMethodType.orangeCash: 'orange',
+    };
+
+    final issuer = issuerMap[paymentMethodType];
+    if (issuer == null) {
+      throw UnsupportedError('Unsupported issuer type: $paymentMethodType');
+    }
+
+    try {
+      return await remoteApi.wallet.paymobTopUp(
+        issuer: issuer,
+        amount: amount,
+        msisdn: msisdn,
+      );
+    } catch (e) {
+      if (e is PaymobTopUpFailedTymerException) {
+        throw PaymobTopUpFailedException(e.message);
+      }
+      rethrow;
+    }
+  }
+
   Future<void> confirmWithdraw({
     required PaymentMethodType paymentMethodType,
     required double amount,

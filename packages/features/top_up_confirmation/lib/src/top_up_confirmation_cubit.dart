@@ -8,8 +8,7 @@ import 'package:form_fields/form_fields.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:wallet_repository/wallet_repository.dart';
-import 'package:paymob_api/paymob_api.dart';
-import 'package:paymob_repository/paymob_repository.dart';
+
 import 'package:webview_flutter/webview_flutter.dart';
 
 part 'top_up_confirmation_state.dart';
@@ -18,7 +17,6 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
   TopUpConfirmationCubit({
     required this.userRepository,
     required this.walletRepository,
-    required this.paymobRepository,
     required this.onBackButtonPressed,
     required this.onSuccess,
   })  : _imagePicker = ImagePicker(),
@@ -30,7 +28,6 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
 
   final UserRepository userRepository;
   final WalletRepository walletRepository;
-  final PaymobRepository paymobRepository;
   final StreamController<String> imageFileNameSC = StreamController();
   final ImagePicker _imagePicker;
   final VoidCallback onBackButtonPressed;
@@ -337,31 +334,16 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
           if (paymentType == PaymentMethodType.vodafoneCash ||
               paymentType == PaymentMethodType.etisalatCash ||
               paymentType == PaymentMethodType.orangeCash) {
-            PaymobWalletIssuer issuer;
-            switch (paymentType) {
-              case PaymentMethodType.vodafoneCash:
-                issuer = PaymobWalletIssuer.vodafone;
-                break;
-              case PaymentMethodType.etisalatCash:
-                issuer = PaymobWalletIssuer.etisalat;
-                break;
-              case PaymentMethodType.orangeCash:
-                issuer = PaymobWalletIssuer.orange;
-                break;
-              default:
-                issuer = PaymobWalletIssuer.vodafone;
-            }
-
-            final disbursement = await paymobRepository.disburseToWallet(
+            final transactionId = await walletRepository.paymobTopUp(
+              paymentMethodType: paymentType,
               amount: double.parse(amount.value!),
               msisdn: walletNumber.value!,
-              issuer: issuer,
             );
             await walletRepository.confirmTopUp(
               paymentMethodType: paymentType,
               amount: double.parse(amount.value!),
               walletNumber: walletNumber.value,
-              transactionId: disbursement.transactionId.toString(),
+              transactionId: transactionId,
             );
           } else {
             await walletRepository.confirmTopUp(
@@ -390,6 +372,7 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
       } catch (error) {
         final newState = state.copyWith(
           submissionStatus: FormzSubmissionStatus.failure,
+          error: error,
         );
         emit(newState);
       }

@@ -7,7 +7,7 @@ import 'package:top_up_confirmation/src/top_up_confirmation_cubit.dart';
 import 'package:top_up_confirmation/top_up_confirmation.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:wallet_repository/wallet_repository.dart';
-import 'package:paymob_repository/paymob_repository.dart';
+
 import 'package:form_fields/form_fields.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'components/amount_text_field.dart';
@@ -18,7 +18,6 @@ class TopUpConfirmationScreen extends StatelessWidget {
   const TopUpConfirmationScreen({
     required this.userRepository,
     required this.walletRepository,
-    required this.paymobRepository,
     required this.onBackButtonPressed,
     required this.onSuccess,
     super.key,
@@ -26,7 +25,6 @@ class TopUpConfirmationScreen extends StatelessWidget {
 
   final UserRepository userRepository;
   final WalletRepository walletRepository;
-  final PaymobRepository paymobRepository;
   final VoidCallback onBackButtonPressed;
   final VoidCallback onSuccess;
 
@@ -36,7 +34,6 @@ class TopUpConfirmationScreen extends StatelessWidget {
       create: (_) => TopUpConfirmationCubit(
         userRepository: userRepository,
         walletRepository: walletRepository,
-        paymobRepository: paymobRepository,
         onBackButtonPressed: onBackButtonPressed,
         onSuccess: onSuccess,
       ),

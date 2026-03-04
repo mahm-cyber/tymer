@@ -41,3 +41,9 @@ class PaymobDisbursementFailedException implements Exception {
 class PaymobInsufficientBudgetException implements Exception {
   const PaymobInsufficientBudgetException();
 }
+
+/// Thrown when the Tymer backend's /top-up/paymob endpoint reports a failure.
+class PaymobTopUpFailedException implements Exception {
+  const PaymobTopUpFailedException(this.message);
+  final String message;
+}

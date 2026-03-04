@@ -11,6 +11,8 @@ class WalletApi {
   static const _dataJsonKey = 'data';
   static const _codeJsonKey = 'code';
   static const _paymentLinkJsonKey = 'payment_link';
+  static const _messageJsonKey = 'message';
+  static const _transactionIdJsonKey = 'transaction_id';
 
   WalletApi(
     this._dio,
@@ -88,6 +90,36 @@ class WalletApi {
       final response = await _dio.post(url, data: {'amount': amount});
       return response.data[_paymentLinkJsonKey] as String;
     } catch (error) {
+      rethrow;
+    }
+  }
+
+  /// Initiates a Paymob instant cash-in (wallet top-up) via the Tymer backend.
+  ///
+  /// [issuer] must be one of: `vodafone`, `etisalat`, `orange`.
+  /// Returns the server-assigned [transactionId] on success.
+  /// Throws [PaymobTopUpFailedTymerException] when the backend reports a
+  /// payment-level failure (e.g. locked number, insufficient balance).
+  Future<String> paymobTopUp({
+    required String issuer,
+    required double amount,
+    required String msisdn,
+  }) async {
+    final url = _urlBuilder.buildPaymobTopUpUrl();
+    try {
+      final response = await _dio.post(url, data: {
+        'issuer': issuer,
+        'amount': amount.toStringAsFixed(2),
+        'msisdn': msisdn,
+      });
+      final transactionId =
+          response.data[_dataJsonKey][_transactionIdJsonKey] as String;
+      return transactionId;
+    } on DioException catch (error) {
+      final message = error.response?.data[_messageJsonKey] as String?;
+      if (message != null) throw PaymobTopUpFailedTymerException(message);
+      rethrow;
+    } catch (_) {
       rethrow;
     }
   }

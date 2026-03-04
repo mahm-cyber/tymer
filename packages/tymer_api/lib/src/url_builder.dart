@@ -253,4 +253,8 @@ class UrlBuilder {
   String buildDeleteAccountUrl() {
     return '$baseUrl/$_authSlug/account';
   }
+
+  String buildPaymobTopUpUrl() {
+    return '$baseUrl/top-up/paymob';
+  }
 }

@@ -12,6 +12,7 @@ class TopUpConfirmationState extends Equatable {
     this.isImagePickerBottomSheetVisible = false,
     this.submissionStatus = FormzSubmissionStatus.initial,
     this.bankCardPaymentStatus = BankCardPaymentStatus.initial,
+    this.error,
   });
 
   final PaymentMethods? paymentMethods;
@@ -24,6 +25,7 @@ class TopUpConfirmationState extends Equatable {
   final bool isImagePickerBottomSheetVisible;
   final FormzSubmissionStatus submissionStatus;
   final BankCardPaymentStatus bankCardPaymentStatus;
+  final dynamic error;
 
   TopUpConfirmationState copyWith({
     PaymentMethods? paymentMethods,
@@ -36,6 +38,7 @@ class TopUpConfirmationState extends Equatable {
     bool? isImagePickerBottomSheetVisible,
     FormzSubmissionStatus? submissionStatus,
     BankCardPaymentStatus? bankCardPaymentStatus,
+    dynamic error,
   }) {
     return TopUpConfirmationState(
       paymentMethods: paymentMethods ?? this.paymentMethods,
@@ -46,10 +49,12 @@ class TopUpConfirmationState extends Equatable {
       teldaUsername: teldaUsername ?? this.teldaUsername,
       file: file ?? this.file,
       imageFileName: imageFileName ?? this.imageFileName,
-      isImagePickerBottomSheetVisible:
-          isImagePickerBottomSheetVisible ?? this.isImagePickerBottomSheetVisible,
+      isImagePickerBottomSheetVisible: isImagePickerBottomSheetVisible ??
+          this.isImagePickerBottomSheetVisible,
       submissionStatus: submissionStatus ?? this.submissionStatus,
-      bankCardPaymentStatus: bankCardPaymentStatus ?? this.bankCardPaymentStatus,
+      bankCardPaymentStatus:
+          bankCardPaymentStatus ?? this.bankCardPaymentStatus,
+      error: error ?? this.error,
     );
   }
 
@@ -65,6 +70,7 @@ class TopUpConfirmationState extends Equatable {
         isImagePickerBottomSheetVisible,
         submissionStatus,
         bankCardPaymentStatus,
+        error,
       ];
 }
 

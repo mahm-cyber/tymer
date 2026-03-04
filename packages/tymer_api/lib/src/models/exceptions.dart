@@ -28,3 +28,8 @@ class PhoneAlreadyRegisteredTymerException implements Exception {}
 class PhoneNotRegisteredTymerException implements Exception {}
 
 class InternetConnectionTymerException implements Exception {}
+
+class PaymobTopUpFailedTymerException implements Exception {
+  PaymobTopUpFailedTymerException(this.message);
+  final String message;
+}
