@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:equatable/equatable.dart';
@@ -25,13 +26,12 @@ class WalletCubit extends Cubit<WalletState> {
         }
       },
     );
-    userRepository.getFreshUser().then((user) {
-      final newState = state.copyWith(
-        balance: user.balance,
-        nextPage: state.nextPage,
-      );
-      emit(newState);
+    _userSubscription = userRepository.getUser().listen((user) {
+      if (user != null) {
+        emit(state.copyWith(balance: user.balance));
+      }
     });
+    userRepository.getFreshUser();
   }
 
   final UserRepository userRepository;
@@ -39,6 +39,7 @@ class WalletCubit extends Cubit<WalletState> {
   final VoidCallback onTopUpTapped;
   final VoidCallback onWithdrawTapped;
   final PagingController<int, Transaction> transactionsPagingController;
+  late final StreamSubscription _userSubscription;
 
   Future _handleTransactionListNextPageRequested({
     int page = 1,
@@ -108,6 +109,7 @@ class WalletCubit extends Cubit<WalletState> {
 
   @override
   Future<void> close() async {
+    _userSubscription.cancel();
     transactionsPagingController.dispose();
     return super.close();
   }
