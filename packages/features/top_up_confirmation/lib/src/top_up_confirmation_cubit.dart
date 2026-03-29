@@ -339,12 +339,12 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
               amount: double.parse(amount.value!),
               msisdn: walletNumber.value!,
             );
-            await walletRepository.confirmTopUp(
-              paymentMethodType: paymentType,
-              amount: double.parse(amount.value!),
-              walletNumber: walletNumber.value,
-              transactionId: transactionId,
-            );
+            // await walletRepository.confirmTopUp(
+            //   paymentMethodType: paymentType,
+            //   amount: double.parse(amount.value!),
+            //   walletNumber: walletNumber.value,
+            //   transactionId: transactionId,
+            // );
           } else {
             await walletRepository.confirmTopUp(
               paymentMethodType: paymentType,

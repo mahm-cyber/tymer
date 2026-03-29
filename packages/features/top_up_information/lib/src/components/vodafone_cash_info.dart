@@ -1,3 +1,4 @@
+import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -18,8 +19,16 @@ class VodafoneCashInfo extends StatelessWidget {
     final isArabic = Localizations.localeOf(context).languageCode == 'ar';
     return Column(
       children: [
-        MarkdownBody(
-          data: isArabic ? vodafoneCash.message.ar : vodafoneCash.message.en,
+        Padding(
+          padding: EdgeInsets.fromLTRB(
+            TymerTheme.of(context).screenMargin,
+            0,
+            TymerTheme.of(context).screenMargin,
+            TymerTheme.of(context).screenMargin,
+          ),
+          child: MarkdownBody(
+            data: isArabic ? vodafoneCash.message.ar : vodafoneCash.message.en,
+          ),
         ),
         CopyableText(
           label: l10n.walletNumber,
