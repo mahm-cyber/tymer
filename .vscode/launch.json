@@ -10,11 +10,7 @@
             "type": "dart",
             "program": "lib/main.dart",
             "args": [
-                "--dart-define=x-api-key=01f64a264be7442a9008abda93d5d6ae",
-                "--dart-define=PAYMOB_CLIENT_ID=cmM1acKN90XRytVp81lRrlBp3Ys2Ud9QAbGUTLWD",
-                "--dart-define=PAYMOB_CLIENT_SECRET=kB6JkumHtdmc7F4GJoQewjGHnUoSEAGvEiROVLk1Bu4S4oGoezL8jfe3zYbLSjo7fs3R145fs7XE40AZlHPzh3EKTlkJWeWl4rj1XvxOWIs8FUncNRqEtg9VHxkG0hFj",
-                "--dart-define=PAYMOB_USERNAME=tymer_admin_api_checker",
-                "--dart-define=PAYMOB_PASSWORD=ZxJU5BuDjAW2jZBE6c#29gQCH"
+                "--dart-define=x-api-key=01f64a264be7442a9008abda93d5d6ae"
             ]
         },
         {
@@ -24,11 +20,7 @@
             "program": "lib/main.dart",
             "args": [
                 "--profile",
-                "--dart-define=x-api-key=01f64a264be7442a9008abda93d5d6ae",
-                "--dart-define=PAYMOB_CLIENT_ID=cmM1acKN90XRytVp81lRrlBp3Ys2Ud9QAbGUTLWD",
-                "--dart-define=PAYMOB_CLIENT_SECRET=kB6JkumHtdmc7F4GJoQewjGHnUoSEAGvEiROVLk1Bu4S4oGoezL8jfe3zYbLSjo7fs3R145fs7XE40AZlHPzh3EKTlkJWeWl4rj1XvxOWIs8FUncNRqEtg9VHxkG0hFj",
-                "--dart-define=PAYMOB_USERNAME=tymer_admin_api_checker",
-                "--dart-define=PAYMOB_PASSWORD=ZxJU5BuDjAW2jZBE6c#29gQCH"
+                "--dart-define=x-api-key=01f64a264be7442a9008abda93d5d6ae"
             ]
         },
         {
@@ -38,11 +30,7 @@
             "program": "lib/main.dart",
             "args": [
                 "--release",
-                "--dart-define=x-api-key=01f64a264be7442a9008abda93d5d6ae",
-                "--dart-define=PAYMOB_CLIENT_ID=cmM1acKN90XRytVp81lRrlBp3Ys2Ud9QAbGUTLWD",
-                "--dart-define=PAYMOB_CLIENT_SECRET=kB6JkumHtdmc7F4GJoQewjGHnUoSEAGvEiROVLk1Bu4S4oGoezL8jfe3zYbLSjo7fs3R145fs7XE40AZlHPzh3EKTlkJWeWl4rj1XvxOWIs8FUncNRqEtg9VHxkG0hFj",
-                "--dart-define=PAYMOB_USERNAME=tymer_admin_api_checker",
-                "--dart-define=PAYMOB_PASSWORD=ZxJU5BuDjAW2jZBE6c#29gQCH"
+                "--dart-define=x-api-key=01f64a264be7442a9008abda93d5d6ae"
             ]
         },
         //debug mode
@@ -54,11 +42,7 @@
             "program": "lib/main.dart",
             "args": [
                 "--debug",
-                "--dart-define=x-api-key=01f64a264be7442a9008abda93d5d6ae",
-                "--dart-define=PAYMOB_CLIENT_ID=cmM1acKN90XRytVp81lRrlBp3Ys2Ud9QAbGUTLWD",
-                "--dart-define=PAYMOB_CLIENT_SECRET=kB6JkumHtdmc7F4GJoQewjGHnUoSEAGvEiROVLk1Bu4S4oGoezL8jfe3zYbLSjo7fs3R145fs7XE40AZlHPzh3EKTlkJWeWl4rj1XvxOWIs8FUncNRqEtg9VHxkG0hFj",
-                "--dart-define=PAYMOB_USERNAME=tymer_admin_api_checker",
-                "--dart-define=PAYMOB_PASSWORD=ZxJU5BuDjAW2jZBE6c#29gQCH"
+                "--dart-define=x-api-key=01f64a264be7442a9008abda93d5d6ae"
             ]
         }
     ]

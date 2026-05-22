@@ -1,0 +1,1 @@
+find packages -name "pubspec.yaml" -exec sed -i '' 's/intl: ^.*/intl: any/g' {} +

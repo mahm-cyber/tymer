@@ -21,7 +21,7 @@ dependencies:
     path: ../../user_repository
   function_and_extension_library:
     path: ../../function_and_extension_library
-  intl: ^0.19.0
+  intl: any
   form_fields:
     path: ../../form_fields
 dev_dependencies:

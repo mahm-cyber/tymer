@@ -33,15 +33,7 @@ class TymerApi {
       internetConnectionErrorVN: internetConnectionErrorVN,
     );
     dio.interceptors.add(
-      LogInterceptor(
-        error: false,
-        request: false,
-        requestBody: false,
-        requestHeader: false,
-        responseBody: false,
-        responseHeader: false,
-        logPrint: (_) {},
-      ),
+      LogInterceptor(),
     );
   }
 

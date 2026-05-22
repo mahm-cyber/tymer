@@ -23,7 +23,7 @@ dependencies:
     path: ../../wallet_repository
   function_and_extension_library:
     path: ../../function_and_extension_library
-  intl: ^0.19.0
+  intl: any
   infinite_scroll_pagination: ^4.1.0
 dev_dependencies:
   flutter_lints: ^4.0.0

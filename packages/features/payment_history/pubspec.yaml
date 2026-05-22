@@ -23,7 +23,7 @@ dependencies:
     path: ../../function_and_extension_library
   form_fields:
     path: ../../form_fields
-  intl: ^0.19.0
+  intl: any
   infinite_scroll_pagination: ^4.1.0
 
 dev_dependencies:

@@ -30,7 +30,7 @@ dependencies:
     path: ../../dispute_repository
 
   google_maps_flutter: ^2.9.0
-  intl: ^0.19.0
+  intl: any
   location: ^7.0.1
   image_picker: ^1.1.2
 dev_dependencies:

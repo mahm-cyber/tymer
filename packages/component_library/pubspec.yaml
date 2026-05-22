@@ -15,7 +15,7 @@ dependencies:
     path: ../domain_models
   form_fields:
     path: ../form_fields
-  intl: ^0.19.0
+  intl: any
   flutter_svg: ^2.0.9
   syncfusion_flutter_datepicker: ^25.2.4
   flutter_widget_from_html: ^0.15.1
