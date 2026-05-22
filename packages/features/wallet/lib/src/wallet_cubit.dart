@@ -28,7 +28,14 @@ class WalletCubit extends Cubit<WalletState> {
     );
     _userSubscription = userRepository.getUser().listen((user) {
       if (user != null) {
-        emit(state.copyWith(balance: user.balance));
+        final previousBalance = state.balance;
+        emit(state.copyWith(
+          balance: user.balance,
+          nextPage: state.nextPage,
+        ));
+        if (previousBalance != null && previousBalance != user.balance) {
+          reFetchFirstPage();
+        }
       }
     });
     userRepository.getFreshUser();
@@ -71,7 +78,8 @@ class WalletCubit extends Cubit<WalletState> {
   }
 
   Future reFetchFirstPage() async {
-    const loadingFirstPageState = WalletState(
+    final loadingFirstPageState = WalletState(
+      balance: state.balance,
       nextPage: 1,
       transactionsFetchStatus: FetchStatus.initial,
     );
