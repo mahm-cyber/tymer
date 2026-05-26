@@ -7,6 +7,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import 'package:user_repository/user_repository.dart';
 import 'package:wallet_repository/wallet_repository.dart';
+
 part 'wallet_state.dart';
 
 class WalletCubit extends Cubit<WalletState> {
