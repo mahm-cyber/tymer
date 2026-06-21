@@ -64,11 +64,13 @@ class _OnlinePaymentViewState extends State<OnlinePaymentView> {
           },
           onPageStarted: (_) => cubit.onPageStarted(),
           onPageFinished: (url) {
+            debugPrint('=======> url: $url');
             cubit.onPageFinished();
             // Read the page body as plain text and forward to cubit.
             _controller
                 .runJavaScriptReturningResult("document.body.innerText")
                 .then((result) {
+              debugPrint('=======> result: $result');
               final body = result is String ? result : result.toString();
               cubit.onJsBodyResolved(body);
             });

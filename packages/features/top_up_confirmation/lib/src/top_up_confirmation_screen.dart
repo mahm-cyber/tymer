@@ -5,7 +5,6 @@ import 'package:function_and_extension_library/function_and_extension_library.da
 import 'package:top_up_confirmation/src/components/telda_username_text_field.dart';
 import 'package:top_up_confirmation/src/top_up_confirmation_cubit.dart';
 import 'package:top_up_confirmation/top_up_confirmation.dart';
-import 'package:domain_models/domain_models.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:wallet_repository/wallet_repository.dart';
 
@@ -21,6 +20,7 @@ class TopUpConfirmationScreen extends StatelessWidget {
     required this.walletRepository,
     required this.onBackButtonPressed,
     required this.onSuccess,
+    required this.onPaymobCheckout,
     super.key,
   });
 
@@ -28,6 +28,10 @@ class TopUpConfirmationScreen extends StatelessWidget {
   final WalletRepository walletRepository;
   final VoidCallback onBackButtonPressed;
   final VoidCallback onSuccess;
+
+  /// Called when /top-up/paymob returns a checkout URL.
+  /// The routing layer uses this to push [OnlinePaymentScreen].
+  final void Function(String checkoutUrl) onPaymobCheckout;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +41,7 @@ class TopUpConfirmationScreen extends StatelessWidget {
         walletRepository: walletRepository,
         onBackButtonPressed: onBackButtonPressed,
         onSuccess: onSuccess,
+        onPaymobCheckout: onPaymobCheckout,
       ),
       child: const TopUpConfirmationView(),
     );

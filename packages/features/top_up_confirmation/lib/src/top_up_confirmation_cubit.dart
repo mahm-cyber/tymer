@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_fields/form_fields.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,6 +19,7 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
     required this.walletRepository,
     required this.onBackButtonPressed,
     required this.onSuccess,
+    required this.onPaymobCheckout,
   })  : _imagePicker = ImagePicker(),
         super(
           TopUpConfirmationState(
@@ -32,6 +33,11 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
   final ImagePicker _imagePicker;
   final VoidCallback onBackButtonPressed;
   final VoidCallback onSuccess;
+
+  /// Called after /top-up/paymob returns a checkout URL.
+  /// The routing layer pushes [OnlinePaymentScreen] with the URL.
+  final void Function(String checkoutUrl) onPaymobCheckout;
+
   final WebViewController webViewController = WebViewController();
 
   void onAmountChanged(String? newValue) {
@@ -334,17 +340,21 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
           if (paymentType == PaymentMethodType.vodafoneCash ||
               paymentType == PaymentMethodType.etisalatCash ||
               paymentType == PaymentMethodType.orangeCash) {
-            final transactionId = await walletRepository.paymobTopUp(
+            // New Paymob checkout flow: backend returns a checkout URL.
+            // Navigation to OnlinePaymentScreen is handled via the callback;
+            // getFreshUser() is called by the routing layer after payment succeeds.
+            final result = await walletRepository.paymobTopUp(
               paymentMethodType: paymentType,
               amount: double.parse(amount.value!),
               msisdn: walletNumber.value!,
             );
-            // await walletRepository.confirmTopUp(
-            //   paymentMethodType: paymentType,
-            //   amount: double.parse(amount.value!),
-            //   walletNumber: walletNumber.value,
-            //   transactionId: transactionId,
-            // );
+            // Reset submission status before navigating so the button is
+            // not stuck in inProgress if the user comes back.
+            emit(state.copyWith(
+              submissionStatus: FormzSubmissionStatus.initial,
+            ));
+            onPaymobCheckout(result.checkoutUrl);
+            return;
           } else {
             await walletRepository.confirmTopUp(
               paymentMethodType: paymentType,

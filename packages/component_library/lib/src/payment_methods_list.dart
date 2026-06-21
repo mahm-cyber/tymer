@@ -41,10 +41,11 @@ class PaymentMethodsList extends StatelessWidget {
               spacing: 4.0,
               children: [
                 Text(clL10n.vodafoneCash),
-                Text(
-                  clL10n.poweredByPaymob,
-                  style: const TextStyle(fontSize: 10, color: Colors.grey),
-                ),
+                if (!shouldShowHint)
+                  Text(
+                    clL10n.poweredByPaymob,
+                    style: const TextStyle(fontSize: 10, color: Colors.grey),
+                  ),
               ],
             ),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
@@ -58,10 +59,11 @@ class PaymentMethodsList extends StatelessWidget {
               spacing: 4.0,
               children: [
                 Text(clL10n.orangeCash),
-                Text(
-                  clL10n.poweredByPaymob,
-                  style: const TextStyle(fontSize: 10, color: Colors.grey),
-                ),
+                if (!shouldShowHint)
+                  Text(
+                    clL10n.poweredByPaymob,
+                    style: const TextStyle(fontSize: 10, color: Colors.grey),
+                  ),
               ],
             ),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
@@ -75,10 +77,11 @@ class PaymentMethodsList extends StatelessWidget {
               spacing: 4.0,
               children: [
                 Text(clL10n.etisalatCash),
-                Text(
-                  clL10n.poweredByPaymob,
-                  style: const TextStyle(fontSize: 10, color: Colors.grey),
-                ),
+                if (!shouldShowHint)
+                  Text(
+                    clL10n.poweredByPaymob,
+                    style: const TextStyle(fontSize: 10, color: Colors.grey),
+                  ),
               ],
             ),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),

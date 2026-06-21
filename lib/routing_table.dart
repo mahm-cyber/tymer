@@ -566,6 +566,11 @@ Map<String, PageBuilder> buildRoutingTable({
               routerDelegate
                   .popUntil((route) => route.path == _PathConstants.walletPath);
             },
+            onPaymobCheckout: (String url) {
+              routerDelegate.push(
+                '${_PathConstants.onlinePaymentPath}?url=${Uri.encodeQueryComponent(url)}',
+              );
+            },
           ),
         ),
     _PathConstants.bankCardTopUpPath: (_) => MaterialPage(
@@ -579,6 +584,11 @@ Map<String, PageBuilder> buildRoutingTable({
             onSuccess: () {
               routerDelegate.pop();
               routerDelegate.pop();
+            },
+            onPaymobCheckout: (String url) {
+              routerDelegate.push(
+                '${_PathConstants.onlinePaymentPath}?url=${Uri.encodeQueryComponent(url)}',
+              );
             },
           ),
         ),
@@ -608,10 +618,15 @@ Map<String, PageBuilder> buildRoutingTable({
         name: 'online-payment',
         child: OnlinePaymentScreen(
           url: url,
-          onPaymentSuccess: () {
-            routerDelegate.pop();
+          onPaymentSuccess: () async {
+            // Refresh the user balance after a successful Paymob checkout.
+            await userRepository.getFreshUser();
+            routerDelegate.popUntil(
+              (route) => route.path == _PathConstants.walletPath,
+            );
           },
           onPaymentFailure: () {
+            // Return to the top-up confirmation so the user can retry.
             routerDelegate.pop();
           },
         ),

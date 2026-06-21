@@ -6,13 +6,22 @@ part of 'update_profile_rm.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Map<String, dynamic> _$UpdateProfileUpRMToJson(UpdateProfileUpRM instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      if (instance.firstName case final value?) 'first_name': value,
-      if (instance.lastName case final value?) 'last_name': value,
-      if (instance.email case final value?) 'user_email': value,
-      if (instance.phone case final value?) 'phone': value,
-      if (instance.jobTitle case final value?) 'job_title': value,
-      if (instance.image case final value?) 'image': value,
-    };
+Map<String, dynamic> _$UpdateProfileUpRMToJson(UpdateProfileUpRM instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('first_name', instance.firstName);
+  writeNotNull('last_name', instance.lastName);
+  writeNotNull('user_email', instance.email);
+  writeNotNull('phone', instance.phone);
+  writeNotNull('job_title', instance.jobTitle);
+  writeNotNull('image', instance.image);
+  return val;
+}

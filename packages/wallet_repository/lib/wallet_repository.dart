@@ -61,11 +61,12 @@ class WalletRepository {
   }
 
   /// Calls the Tymer backend's /top-up/paymob endpoint for Vodafone, Etisalat
-  /// or Orange wallet top-ups. Returns the server [transactionId] on success.
+  /// or Orange wallet top-ups. Returns a [PaymobTopUpResult] containing the
+  /// `checkoutUrl` to redirect the user to and the server `transactionId`.
   ///
   /// Throws [PaymobTopUpFailedException] when the payment gateway rejects the
   /// transaction (e.g. locked number).
-  Future<String> paymobTopUp({
+  Future<PaymobTopUpResult> paymobTopUp({
     required PaymentMethodType paymentMethodType,
     required double amount,
     required String msisdn,
@@ -82,10 +83,14 @@ class WalletRepository {
     }
 
     try {
-      return await remoteApi.wallet.paymobTopUp(
+      final raw = await remoteApi.wallet.paymobTopUp(
         issuer: issuer,
         amount: amount,
         msisdn: msisdn,
+      );
+      return PaymobTopUpResult(
+        checkoutUrl: raw['checkout_url']!,
+        transactionId: raw['transaction_id']!,
       );
     } catch (e) {
       if (e is PaymobTopUpFailedTymerException) {

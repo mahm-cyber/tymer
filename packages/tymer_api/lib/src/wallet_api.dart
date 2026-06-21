@@ -13,6 +13,7 @@ class WalletApi {
   static const _paymentLinkJsonKey = 'payment_link';
   static const _messageJsonKey = 'message';
   static const _transactionIdJsonKey = 'transaction_id';
+  static const _checkoutUrlJsonKey = 'checkout_url';
 
   WalletApi(
     this._dio,
@@ -94,13 +95,13 @@ class WalletApi {
     }
   }
 
-  /// Initiates a Paymob instant cash-in (wallet top-up) via the Tymer backend.
+  /// Initiates a Paymob checkout top-up via the Tymer backend.
   ///
   /// [issuer] must be one of: `vodafone`, `etisalat`, `orange`.
-  /// Returns the server-assigned [transactionId] on success.
+  /// Returns a map with `checkout_url` and `transaction_id` on success.
   /// Throws [PaymobTopUpFailedTymerException] when the backend reports a
   /// payment-level failure (e.g. locked number, insufficient balance).
-  Future<String> paymobTopUp({
+  Future<Map<String, String>> paymobTopUp({
     required String issuer,
     required double amount,
     required String msisdn,
@@ -112,9 +113,16 @@ class WalletApi {
         'amount': amount.toStringAsFixed(2),
         'msisdn': msisdn,
       });
-      final transactionId =
-          response.data[_dataJsonKey][_transactionIdJsonKey] as String;
-      return transactionId;
+      // The full response shape is:
+      // { "success": true, "data": { "checkout_url": "...", "transaction_id": 91, ... }, ... }
+      // checkout_url lives inside `data`, NOT at the response root.
+      final rm = PaymobTopUpRM.fromJson(
+        response.data as Map<String, dynamic>,
+      );
+      return {
+        _checkoutUrlJsonKey: rm.data.checkoutUrl,
+        _transactionIdJsonKey: rm.data.transactionId.toString(),
+      };
     } on DioException catch (error) {
       final message = error.response?.data[_messageJsonKey] as String?;
       if (message != null) throw PaymobTopUpFailedTymerException(message);

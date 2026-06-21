@@ -26,6 +26,7 @@ import 'package:initial/initial.dart';
 
 import 'package:key_value_storage/key_value_storage.dart';
 import 'package:monitoring/monitoring.dart';
+import 'package:online_payment/online_payment.dart';
 import 'package:order_history/order_history.dart';
 import 'package:payment_history/payment_history.dart';
 import 'package:profile/profile.dart';
@@ -270,6 +271,7 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
                 PaymentHistoryLocalizations.delegate,
                 SupportChatLocalizations.delegate,
                 DeleteAccountLocalizations.delegate,
+                OnlinePaymentLocalizations.delegate,
               ],
               locale: localePreference?.toLocale(),
               supportedLocales: const [
