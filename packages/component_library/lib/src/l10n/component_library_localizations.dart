@@ -443,6 +443,12 @@ abstract class ComponentLibraryLocalizations {
   /// **'Bank Card'**
   String get bankCard;
 
+  /// No description provided for @smartWallet.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart Wallet'**
+  String get smartWallet;
+
   /// No description provided for @vodafoneCash.
   ///
   /// In en, this message translates to:

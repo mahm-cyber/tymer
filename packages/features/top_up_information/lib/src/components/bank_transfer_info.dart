@@ -1,3 +1,4 @@
+import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -21,10 +22,19 @@ class BankTransferInfo extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              MarkdownBody(
-                data: _isArabic(context)
-                    ? bankTransfer.message.ar
-                    : bankTransfer.message.en,
+              Padding(
+                padding: EdgeInsets.fromLTRB(
+                  TymerTheme.of(context).screenMargin,
+                  0,
+                  TymerTheme.of(context).screenMargin,
+                  TymerTheme.of(context).screenMargin,
+                ),
+                child: MarkdownBody(
+                  
+                  data: _isArabic(context)
+                      ? bankTransfer.message.ar
+                      : bankTransfer.message.en,
+                ),
               ),
             ],
           ),

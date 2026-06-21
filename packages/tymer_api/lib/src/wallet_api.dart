@@ -103,14 +103,14 @@ class WalletApi {
   /// payment-level failure (e.g. locked number, insufficient balance).
   Future<Map<String, String>> paymobTopUp({
     required String issuer,
-    required double amount,
+    required int amount,
     required String msisdn,
   }) async {
     final url = _urlBuilder.buildPaymobTopUpUrl();
     try {
       final response = await _dio.post(url, data: {
         'issuer': issuer,
-        'amount': amount.toStringAsFixed(2),
+        'amount': amount,
         'msisdn': msisdn,
       });
       // The full response shape is:

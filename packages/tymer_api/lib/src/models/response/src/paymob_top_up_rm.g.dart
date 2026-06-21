@@ -37,7 +37,7 @@ PaymobTopUpDataRM _$PaymobTopUpDataRMFromJson(Map<String, dynamic> json) =>
         final val = PaymobTopUpDataRM(
           transactionId:
               $checkedConvert('transaction_id', (v) => (v as num).toInt()),
-          amount: $checkedConvert('amount', (v) => v as String),
+          amount: $checkedConvert('amount', (v) => v as num),
           issuer: $checkedConvert('issuer', (v) => v as String),
           msisdn: $checkedConvert('msisdn', (v) => v as String),
           status: $checkedConvert('status', (v) => v as String),

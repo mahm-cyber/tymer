@@ -379,7 +379,9 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
               : FormzSubmissionStatus.success,
         );
         emit(newState);
-      } catch (error) {
+      } catch (error, stackTrace) {
+        debugPrint('TopUpConfirmationCubit Error: $error');
+        debugPrint('TopUpConfirmationCubit StackTrace: $stackTrace');
         final newState = state.copyWith(
           submissionStatus: FormzSubmissionStatus.failure,
           error: error,

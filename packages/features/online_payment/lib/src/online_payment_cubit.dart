@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,32 +21,32 @@ class OnlinePaymentCubit extends Cubit<OnlinePaymentState> {
     emit(state.copyWith(status: OnlinePaymentStatus.initial));
   }
 
-  /// Called once the JS has resolved `document.body.innerText`.
-  /// Parses the JSON body and emits success or failure accordingly.
-  void onJsBodyResolved(String? rawBody) {
-    if (rawBody == null || rawBody.isEmpty) return;
-
+  /// Called when the WebView is about to navigate to the Paymob `post_pay`
+  /// redirect URL (e.g. `.../post_pay?success=true&...`).
+  ///
+  /// Parses the `success` query parameter and emits [OnlinePaymentStatus.success]
+  /// or [OnlinePaymentStatus.failure] accordingly.
+  /// The caller must return [NavigationDecision.prevent] so the app never
+  /// actually opens that URL.
+  void onPaymentResultUrl(String url) {
     try {
-      // The body may be a JSON string or a JSON-encoded string containing JSON.
-      dynamic decoded = jsonDecode(rawBody);
-      final Map<String, dynamic> json =
-          decoded is Map<String, dynamic> ? decoded : jsonDecode(decoded);
-
-      final status = json['status'];
-      if (status == 1) {
+      final uri = Uri.parse(url);
+      final success = uri.queryParameters['success'];
+      if (success == 'true') {
         emit(state.copyWith(status: OnlinePaymentStatus.success));
         onPaymentSuccess();
       } else {
-        final message = json['message'] as String?;
+        final errorMessage = uri.queryParameters['data.message'];
         emit(state.copyWith(
           status: OnlinePaymentStatus.failure,
-          errorMessage: message,
+          errorMessage: errorMessage,
         ));
         onPaymentFailure();
       }
-    } catch (e) {
-      // Body is not parseable JSON — the page is still loading content.
-      // Silently ignore; we only act on payment-result pages.
+    } catch (_) {
+      // Malformed URL — treat as failure.
+      emit(state.copyWith(status: OnlinePaymentStatus.failure));
+      onPaymentFailure();
     }
   }
 }

@@ -70,7 +70,7 @@ class PaymobTopUpDataRM {
   final int transactionId;
 
   @JsonKey(name: 'amount')
-  final String amount;
+  final num amount;
 
   @JsonKey(name: 'issuer')
   final String issuer;

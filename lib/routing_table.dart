@@ -619,9 +619,10 @@ Map<String, PageBuilder> buildRoutingTable({
         child: OnlinePaymentScreen(
           url: url,
           onPaymentSuccess: () async {
-            // Refresh the user balance after a successful Paymob checkout.
+            // Refresh the user balance after a successful Paymob checkout,
+            // then navigate to the top-up transactions screen.
             await userRepository.getFreshUser();
-            routerDelegate.popUntil(
+            await routerDelegate.popUntil(
               (route) => route.path == _PathConstants.walletPath,
             );
           },

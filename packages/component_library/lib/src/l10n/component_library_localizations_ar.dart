@@ -185,6 +185,9 @@ class ComponentLibraryLocalizationsAr extends ComponentLibraryLocalizations {
   String get bankCard => 'بطاقة مصرفية';
 
   @override
+  String get smartWallet => 'المحفظة الإلكترونية';
+
+  @override
   String get vodafoneCash => 'فودافون كاش';
 
   @override

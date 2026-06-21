@@ -56,25 +56,17 @@ class _OnlinePaymentViewState extends State<OnlinePaymentView> {
       ..setNavigationDelegate(
         NavigationDelegate(
           onNavigationRequest: (request) {
-            // Intercept the payment status redirect — don't navigate away.
-            if (request.url.contains('/payment/status')) {
+            // Intercept the Paymob post_pay redirect — this URL contains
+            // the payment result as query parameters (success=true/false).
+            // We parse the result and prevent the navigation.
+            if (request.url.contains('post_pay')) {
+              cubit.onPaymentResultUrl(request.url);
               return NavigationDecision.prevent;
             }
             return NavigationDecision.navigate;
           },
           onPageStarted: (_) => cubit.onPageStarted(),
-          onPageFinished: (url) {
-            debugPrint('=======> url: $url');
-            cubit.onPageFinished();
-            // Read the page body as plain text and forward to cubit.
-            _controller
-                .runJavaScriptReturningResult("document.body.innerText")
-                .then((result) {
-              debugPrint('=======> result: $result');
-              final body = result is String ? result : result.toString();
-              cubit.onJsBodyResolved(body);
-            });
-          },
+          onPageFinished: (_) => cubit.onPageFinished(),
         ),
       )
       ..loadRequest(Uri.parse(widget.url));

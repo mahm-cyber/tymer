@@ -185,6 +185,9 @@ class ComponentLibraryLocalizationsEn extends ComponentLibraryLocalizations {
   String get bankCard => 'Bank Card';
 
   @override
+  String get smartWallet => 'Smart Wallet';
+
+  @override
   String get vodafoneCash => 'Vodafone Cash';
 
   @override
