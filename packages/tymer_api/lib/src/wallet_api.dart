@@ -103,7 +103,7 @@ class WalletApi {
   /// payment-level failure (e.g. locked number, insufficient balance).
   Future<Map<String, String>> paymobTopUp({
     required String issuer,
-    required int amount,
+    required double amount,
     required String msisdn,
   }) async {
     final url = _urlBuilder.buildPaymobTopUpUrl();

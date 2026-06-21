@@ -19,24 +19,18 @@ class BankTransferInfo extends StatelessWidget {
     return Expanded(
       child: ListView(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(
-                  TymerTheme.of(context).screenMargin,
-                  0,
-                  TymerTheme.of(context).screenMargin,
-                  TymerTheme.of(context).screenMargin,
-                ),
-                child: MarkdownBody(
-                  
-                  data: _isArabic(context)
-                      ? bankTransfer.message.ar
-                      : bankTransfer.message.en,
-                ),
-              ),
-            ],
+          Padding(
+            padding: EdgeInsets.fromLTRB(
+              TymerTheme.of(context).screenMargin,
+              0,
+              TymerTheme.of(context).screenMargin,
+              TymerTheme.of(context).screenMargin,
+            ),
+            child: MarkdownBody(
+              data: _isArabic(context)
+                  ? bankTransfer.message.ar
+                  : bankTransfer.message.en,
+            ),
           ),
           CopyableText(
             label: l10n.beneficiaryName,

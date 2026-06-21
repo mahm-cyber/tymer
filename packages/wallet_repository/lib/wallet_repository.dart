@@ -83,10 +83,9 @@ class WalletRepository {
     }
 
     try {
-      final amountInPiasters = (amount * 100).toInt();
       final raw = await remoteApi.wallet.paymobTopUp(
         issuer: issuer,
-        amount: amountInPiasters,
+        amount: amount,
         msisdn: msisdn,
       );
       return PaymobTopUpResult(
