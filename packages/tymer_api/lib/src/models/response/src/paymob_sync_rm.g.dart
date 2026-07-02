@@ -16,8 +16,11 @@ PaymobSyncRM _$PaymobSyncRMFromJson(Map<String, dynamic> json) =>
           message: $checkedConvert('message', (v) => v as String),
           data: $checkedConvert('data',
               (v) => PaymobSyncDataRM.fromJson(v as Map<String, dynamic>)),
-          paymobStatus: $checkedConvert('paymob_status',
-              (v) => PaymobSyncStatusRM.fromJson(v as Map<String, dynamic>)),
+          paymobStatus: $checkedConvert(
+              'paymob_status',
+              (v) => v == null
+                  ? null
+                  : PaymobSyncStatusRM.fromJson(v as Map<String, dynamic>)),
         );
         return val;
       },

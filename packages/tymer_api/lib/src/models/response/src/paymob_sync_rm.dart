@@ -8,7 +8,7 @@ class PaymobSyncRM {
     required this.success,
     required this.message,
     required this.data,
-    required this.paymobStatus,
+    this.paymobStatus,
   });
 
   @JsonKey(name: 'success')
@@ -21,7 +21,8 @@ class PaymobSyncRM {
   final PaymobSyncDataRM data;
 
   @JsonKey(name: 'paymob_status')
-  final PaymobSyncStatusRM paymobStatus;
+  final PaymobSyncStatusRM? paymobStatus;
+
 
   factory PaymobSyncRM.fromJson(Map<String, dynamic> json) =>
       _$PaymobSyncRMFromJson(json);
