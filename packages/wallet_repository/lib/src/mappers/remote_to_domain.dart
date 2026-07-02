@@ -191,3 +191,14 @@ extension InAppTransactionListPageRMToDM on TransactionListPageRM {
     );
   }
 }
+
+extension PaymobSyncRMToDomain on PaymobSyncRM {
+  PaymobSyncResult toDomainModel() {
+    return PaymobSyncResult(
+      isSuccess: data.isSuccess,
+      status: data.status,
+      message: message,
+    );
+  }
+}
+

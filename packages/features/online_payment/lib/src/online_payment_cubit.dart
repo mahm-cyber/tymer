@@ -1,15 +1,22 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wallet_repository/wallet_repository.dart';
 
 part 'online_payment_state.dart';
 
 class OnlinePaymentCubit extends Cubit<OnlinePaymentState> {
   OnlinePaymentCubit({
+    required WalletRepository walletRepository,
+    required String transactionId,
     required this.onPaymentSuccess,
     required this.onPaymentFailure,
-  }) : super(const OnlinePaymentState());
+  })  : _walletRepository = walletRepository,
+        _transactionId = transactionId,
+        super(const OnlinePaymentState());
 
+  final WalletRepository _walletRepository;
+  final String _transactionId;
   final VoidCallback onPaymentSuccess;
   final VoidCallback onPaymentFailure;
 
@@ -24,29 +31,30 @@ class OnlinePaymentCubit extends Cubit<OnlinePaymentState> {
   /// Called when the WebView is about to navigate to the Paymob `post_pay`
   /// redirect URL (e.g. `.../post_pay?success=true&...`).
   ///
-  /// Parses the `success` query parameter and emits [OnlinePaymentStatus.success]
-  /// or [OnlinePaymentStatus.failure] accordingly.
-  /// The caller must return [NavigationDecision.prevent] so the app never
-  /// actually opens that URL.
-  void onPaymentResultUrl(String url) {
+  /// Intercepts the redirect, checks and syncs the status with the backend,
+  /// and updates the UI state accordingly.
+  void onPaymentResultUrl(String url) async {
+    emit(state.copyWith(status: OnlinePaymentStatus.loading));
     try {
-      final uri = Uri.parse(url);
-      final success = uri.queryParameters['success'];
-      if (success == 'true') {
+      final syncResult = await _walletRepository.syncPaymobTopUp(_transactionId);
+      if (syncResult.isSuccess) {
         emit(state.copyWith(status: OnlinePaymentStatus.success));
         onPaymentSuccess();
       } else {
-        final errorMessage = uri.queryParameters['data.message'];
         emit(state.copyWith(
           status: OnlinePaymentStatus.failure,
-          errorMessage: errorMessage,
+          errorMessage: syncResult.message,
         ));
         onPaymentFailure();
       }
-    } catch (_) {
-      // Malformed URL — treat as failure.
-      emit(state.copyWith(status: OnlinePaymentStatus.failure));
+    } catch (e) {
+      // Treat exception as failure.
+      emit(state.copyWith(
+        status: OnlinePaymentStatus.failure,
+        error: e,
+      ));
       onPaymentFailure();
     }
   }
 }
+

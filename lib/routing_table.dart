@@ -566,9 +566,9 @@ Map<String, PageBuilder> buildRoutingTable({
               routerDelegate
                   .popUntil((route) => route.path == _PathConstants.walletPath);
             },
-            onPaymobCheckout: (String url) {
+            onPaymobCheckout: (String url, String transactionId) {
               routerDelegate.push(
-                '${_PathConstants.onlinePaymentPath}?url=${Uri.encodeQueryComponent(url)}',
+                '${_PathConstants.onlinePaymentPath}?url=${Uri.encodeQueryComponent(url)}&id=$transactionId',
               );
             },
           ),
@@ -585,9 +585,9 @@ Map<String, PageBuilder> buildRoutingTable({
               routerDelegate.pop();
               routerDelegate.pop();
             },
-            onPaymobCheckout: (String url) {
+            onPaymobCheckout: (String url, String transactionId) {
               routerDelegate.push(
-                '${_PathConstants.onlinePaymentPath}?url=${Uri.encodeQueryComponent(url)}',
+                '${_PathConstants.onlinePaymentPath}?url=${Uri.encodeQueryComponent(url)}&id=$transactionId',
               );
             },
           ),
@@ -614,10 +614,13 @@ Map<String, PageBuilder> buildRoutingTable({
         ),
     _PathConstants.onlinePaymentPath: (info) {
       final url = info.queryParameters['url'] ?? '';
+      final transactionId = info.queryParameters['id'] ?? '';
       return MaterialPage(
         name: 'online-payment',
         child: OnlinePaymentScreen(
           url: url,
+          transactionId: transactionId,
+          walletRepository: walletRepository,
           onPaymentSuccess: () async {
             // Refresh the user balance after a successful Paymob checkout,
             // then navigate to the top-up transactions screen.

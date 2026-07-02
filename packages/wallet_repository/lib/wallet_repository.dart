@@ -100,7 +100,17 @@ class WalletRepository {
     }
   }
 
+  Future<PaymobSyncResult> syncPaymobTopUp(String transactionId) async {
+    try {
+      final raw = await remoteApi.wallet.paymobSync(transactionId: transactionId);
+      return raw.toDomainModel();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<void> confirmWithdraw({
+
     required PaymentMethodType paymentMethodType,
     required double amount,
     String? walletNumber,

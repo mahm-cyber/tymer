@@ -36,7 +36,8 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
 
   /// Called after /top-up/paymob returns a checkout URL.
   /// The routing layer pushes [OnlinePaymentScreen] with the URL.
-  final void Function(String checkoutUrl) onPaymobCheckout;
+  final void Function(String checkoutUrl, String transactionId) onPaymobCheckout;
+
 
   final WebViewController webViewController = WebViewController();
 
@@ -353,7 +354,8 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
             emit(state.copyWith(
               submissionStatus: FormzSubmissionStatus.initial,
             ));
-            onPaymobCheckout(result.checkoutUrl);
+            onPaymobCheckout(result.checkoutUrl, result.transactionId);
+
             return;
           } else {
             await walletRepository.confirmTopUp(

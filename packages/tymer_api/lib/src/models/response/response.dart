@@ -9,3 +9,5 @@ export 'src/payment_rm.dart';
 export 'src/transactions_rm.dart';
 export 'src/chat_rm.dart';
 export 'src/paymob_top_up_rm.dart';
+export 'src/paymob_sync_rm.dart';
+

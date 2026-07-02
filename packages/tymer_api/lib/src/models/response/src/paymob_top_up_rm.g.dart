@@ -12,10 +12,17 @@ PaymobTopUpRM _$PaymobTopUpRMFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = PaymobTopUpRM(
-          success: $checkedConvert('success', (v) => v as bool),
           message: $checkedConvert('message', (v) => v as String),
           data: $checkedConvert('data',
               (v) => PaymobTopUpDataRM.fromJson(v as Map<String, dynamic>)),
+          checkoutUrl: $checkedConvert('checkout_url', (v) => v as String),
+          clientSecret: $checkedConvert('client_secret', (v) => v as String),
+          intentionOrderId:
+              $checkedConvert('intention_order_id', (v) => (v as num).toInt()),
+          paymobTransactionId:
+              $checkedConvert('paymob_transaction_id', (v) => v as String),
+          internalTransactionId: $checkedConvert(
+              'internal_transaction_id', (v) => (v as num).toInt()),
           topupRequestStatus:
               $checkedConvert('topup_request_status', (v) => v as String),
           paymobStatus: $checkedConvert('paymob_status',
@@ -24,6 +31,11 @@ PaymobTopUpRM _$PaymobTopUpRMFromJson(Map<String, dynamic> json) =>
         return val;
       },
       fieldKeyMap: const {
+        'checkoutUrl': 'checkout_url',
+        'clientSecret': 'client_secret',
+        'intentionOrderId': 'intention_order_id',
+        'paymobTransactionId': 'paymob_transaction_id',
+        'internalTransactionId': 'internal_transaction_id',
         'topupRequestStatus': 'topup_request_status',
         'paymobStatus': 'paymob_status'
       },
@@ -35,28 +47,16 @@ PaymobTopUpDataRM _$PaymobTopUpDataRMFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = PaymobTopUpDataRM(
-          transactionId:
-              $checkedConvert('transaction_id', (v) => (v as num).toInt()),
-          amount: $checkedConvert('amount', (v) => v as num),
+          id: $checkedConvert('id', (v) => (v as num).toInt()),
+          amount: $checkedConvert('amount', (v) => v as String),
           issuer: $checkedConvert('issuer', (v) => v as String),
           msisdn: $checkedConvert('msisdn', (v) => v as String),
           status: $checkedConvert('status', (v) => v as String),
-          checkoutUrl: $checkedConvert('checkout_url', (v) => v as String),
-          clientSecret: $checkedConvert('client_secret', (v) => v as String),
-          intentionOrderId:
-              $checkedConvert('intention_order_id', (v) => (v as num).toInt()),
-          paymobTransactionId:
-              $checkedConvert('paymob_transaction_id', (v) => v as String),
+          transactionId: $checkedConvert('transaction_id', (v) => v as String),
         );
         return val;
       },
-      fieldKeyMap: const {
-        'transactionId': 'transaction_id',
-        'checkoutUrl': 'checkout_url',
-        'clientSecret': 'client_secret',
-        'intentionOrderId': 'intention_order_id',
-        'paymobTransactionId': 'paymob_transaction_id'
-      },
+      fieldKeyMap: const {'transactionId': 'transaction_id'},
     );
 
 PaymobStatusRM _$PaymobStatusRMFromJson(Map<String, dynamic> json) =>

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_payment/online_payment.dart';
 import 'package:online_payment/src/online_payment_cubit.dart';
+import 'package:wallet_repository/wallet_repository.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 /// Entry widget — StatelessWidget as per project convention.
@@ -11,11 +12,15 @@ class OnlinePaymentScreen extends StatelessWidget {
   const OnlinePaymentScreen({
     super.key,
     required this.url,
+    required this.transactionId,
+    required this.walletRepository,
     required this.onPaymentSuccess,
     required this.onPaymentFailure,
   });
 
   final String url;
+  final String transactionId;
+  final WalletRepository walletRepository;
   final VoidCallback onPaymentSuccess;
   final VoidCallback onPaymentFailure;
 
@@ -23,6 +28,8 @@ class OnlinePaymentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<OnlinePaymentCubit>(
       create: (_) => OnlinePaymentCubit(
+        walletRepository: walletRepository,
+        transactionId: transactionId,
         onPaymentSuccess: onPaymentSuccess,
         onPaymentFailure: onPaymentFailure,
       ),
@@ -30,6 +37,7 @@ class OnlinePaymentScreen extends StatelessWidget {
     );
   }
 }
+
 
 /// [StatefulWidget] — only exception to the StatelessWidget-View rule.
 /// Required because [WebViewController] must be initialised in [initState].

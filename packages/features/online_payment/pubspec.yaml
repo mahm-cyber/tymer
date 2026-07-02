@@ -13,9 +13,12 @@ dependencies:
   flutter_bloc: ^9.0.0
   component_library:
     path: ../../component_library
+  wallet_repository:
+    path: ../../wallet_repository
   function_and_extension_library:
     path: ../../function_and_extension_library
   webview_flutter: ^4.10.0
+
 
 dev_dependencies:
   flutter_lints: ^4.0.0

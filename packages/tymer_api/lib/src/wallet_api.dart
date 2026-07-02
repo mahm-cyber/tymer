@@ -113,15 +113,12 @@ class WalletApi {
         'amount': amount,
         'msisdn': msisdn,
       });
-      // The full response shape is:
-      // { "success": true, "data": { "checkout_url": "...", "transaction_id": 91, ... }, ... }
-      // checkout_url lives inside `data`, NOT at the response root.
       final rm = PaymobTopUpRM.fromJson(
         response.data as Map<String, dynamic>,
       );
       return {
-        _checkoutUrlJsonKey: rm.data.checkoutUrl,
-        _transactionIdJsonKey: rm.data.transactionId.toString(),
+        _checkoutUrlJsonKey: rm.checkoutUrl,
+        _transactionIdJsonKey: rm.internalTransactionId.toString(),
       };
     } on DioException catch (error) {
       final message = error.response?.data[_messageJsonKey] as String?;
@@ -131,6 +128,26 @@ class WalletApi {
       rethrow;
     }
   }
+
+  Future<PaymobSyncRM> paymobSync({
+    required String transactionId,
+  }) async {
+    final url = _urlBuilder.buildPaymobSyncUrl(transactionId);
+    try {
+      final response = await _dio.get(url);
+      final rm = PaymobSyncRM.fromJson(
+        response.data as Map<String, dynamic>,
+      );
+      return rm;
+    } on DioException catch (error) {
+      final message = error.response?.data[_messageJsonKey] as String?;
+      if (message != null) throw PaymobTopUpFailedTymerException(message);
+      rethrow;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
 
   Future<void> confirmWithdraw({
     required String paymentMethodType,

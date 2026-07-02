@@ -31,7 +31,8 @@ class TopUpConfirmationScreen extends StatelessWidget {
 
   /// Called when /top-up/paymob returns a checkout URL.
   /// The routing layer uses this to push [OnlinePaymentScreen].
-  final void Function(String checkoutUrl) onPaymobCheckout;
+  final void Function(String checkoutUrl, String transactionId) onPaymobCheckout;
+
 
   @override
   Widget build(BuildContext context) {

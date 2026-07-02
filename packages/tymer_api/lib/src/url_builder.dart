@@ -257,4 +257,9 @@ class UrlBuilder {
   String buildPaymobTopUpUrl() {
     return '$baseUrl/top-up/paymob';
   }
+
+  String buildPaymobSyncUrl(String transactionId) {
+    return '$baseUrl/top-up/sync/$transactionId';
+  }
+
 }
