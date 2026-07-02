@@ -140,13 +140,21 @@ class WalletApi {
       );
       return rm;
     } on DioException catch (error) {
-      final message = error.response?.data[_messageJsonKey] as String?;
+      final responseData = error.response?.data;
+      if (responseData is Map<String, dynamic>) {
+        try {
+          final rm = PaymobSyncRM.fromJson(responseData);
+          return rm;
+        } catch (_) {}
+      }
+      final message = responseData?[_messageJsonKey] as String?;
       if (message != null) throw PaymobTopUpFailedTymerException(message);
       rethrow;
     } catch (_) {
       rethrow;
     }
   }
+
 
 
   Future<void> confirmWithdraw({

@@ -98,7 +98,10 @@ class _OnlinePaymentViewState extends State<OnlinePaymentView> {
         if (state.status == OnlinePaymentStatus.success) {
           showSnackBar(
             context: context,
-            snackBar: SuccessSnackBar(context: context),
+            snackBar: SuccessSnackBar(
+              context: context,
+              message: state.successMessage,
+            ),
           );
         }
       },

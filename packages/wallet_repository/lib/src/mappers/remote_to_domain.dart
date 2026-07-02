@@ -196,9 +196,11 @@ extension PaymobSyncRMToDomain on PaymobSyncRM {
   PaymobSyncResult toDomainModel() {
     return PaymobSyncResult(
       isSuccess: data.isSuccess,
+      isPending: data.isPending,
       status: data.status,
-      message: message,
+      message: data.message ?? message,
     );
   }
 }
+
 

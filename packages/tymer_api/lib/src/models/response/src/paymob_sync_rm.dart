@@ -41,6 +41,7 @@ class PaymobSyncDataRM {
     required this.isCompleted,
     required this.isFailed,
     required this.isPending,
+    this.message,
   });
 
   @JsonKey(name: 'id')
@@ -76,9 +77,13 @@ class PaymobSyncDataRM {
   @JsonKey(name: 'is_pending')
   final bool isPending;
 
+  @JsonKey(name: 'message')
+  final String? message;
+
   factory PaymobSyncDataRM.fromJson(Map<String, dynamic> json) =>
       _$PaymobSyncDataRMFromJson(json);
 }
+
 
 @JsonSerializable(createToJson: false)
 class PaymobSyncStatusRM {

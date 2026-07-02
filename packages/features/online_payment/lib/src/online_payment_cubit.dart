@@ -37,8 +37,11 @@ class OnlinePaymentCubit extends Cubit<OnlinePaymentState> {
     emit(state.copyWith(status: OnlinePaymentStatus.loading));
     try {
       final syncResult = await _walletRepository.syncPaymobTopUp(_transactionId);
-      if (syncResult.isSuccess) {
-        emit(state.copyWith(status: OnlinePaymentStatus.success));
+      if (syncResult.isSuccess || syncResult.isPending) {
+        emit(state.copyWith(
+          status: OnlinePaymentStatus.success,
+          successMessage: syncResult.message,
+        ));
         onPaymentSuccess();
       } else {
         emit(state.copyWith(
@@ -56,5 +59,6 @@ class OnlinePaymentCubit extends Cubit<OnlinePaymentState> {
       onPaymentFailure();
     }
   }
+
 }
 

@@ -42,6 +42,7 @@ PaymobSyncDataRM _$PaymobSyncDataRMFromJson(Map<String, dynamic> json) =>
           isCompleted: $checkedConvert('is_completed', (v) => v as bool),
           isFailed: $checkedConvert('is_failed', (v) => v as bool),
           isPending: $checkedConvert('is_pending', (v) => v as bool),
+          message: $checkedConvert('message', (v) => v as String?),
         );
         return val;
       },
