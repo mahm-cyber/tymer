@@ -143,7 +143,16 @@ class TymerState extends State<Tymer> with WidgetsBindingObserver {
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      _walletRepository.checkAndSyncPendingTransactions();
+    }
+  }
+
+  @override
   void dispose() {
+
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }

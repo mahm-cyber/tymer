@@ -3,16 +3,55 @@ import 'dart:io';
 import 'package:wallet_repository/src/mappers/domain_to_remote.dart';
 import 'package:wallet_repository/src/mappers/mappers.dart';
 import 'package:wallet_repository/src/wallet_change_notifier.dart';
+import 'package:wallet_repository/src/wallet_secure_storage.dart';
 
 export 'src/mappers/remote_to_domain.dart';
 
 class WalletRepository {
   WalletRepository({
     required this.remoteApi,
-  }) : changeNotifier = WalletChangeNotifier();
+    WalletSecureStorage? secureStorage,
+  })  : changeNotifier = WalletChangeNotifier(),
+        _secureStorage = secureStorage ?? const WalletSecureStorage() {
+    _initializePendingSyncs();
+  }
 
   final TymerApi remoteApi;
   final WalletChangeNotifier changeNotifier;
+  final WalletSecureStorage _secureStorage;
+
+  void _initializePendingSyncs() async {
+    final pending = await _secureStorage.getPendingTransactions();
+    final now = DateTime.now().millisecondsSinceEpoch;
+    for (final item in pending) {
+      final id = item['id'] as String;
+      final createdAt = item['createdAt'] as int;
+      final elapsedSeconds = (now - createdAt) ~/ 1000;
+      final delaySeconds = 60*6 - elapsedSeconds;
+      _scheduleSync(id, delaySeconds > 0 ? delaySeconds : 0);
+    }
+  }
+
+  void checkAndSyncPendingTransactions() {
+    _initializePendingSyncs();
+  }
+
+
+  void _scheduleSync(String transactionId, int delaySeconds) {
+    Future.delayed(Duration(seconds: delaySeconds), () async {
+      try {
+        await syncPaymobTopUp(transactionId);
+        // Trigger transactions list and balance refresh
+        changeNotifier.triggerRefreshTransactions();
+        // If it is completed or failed (not pending anymore), remove it from secure storage.
+        // We also remove it if it fails to sync after 10 minutes to avoid repeating forever.
+        await _secureStorage.removePendingTransaction(transactionId);
+      } catch (_) {
+
+        // If there was an error (e.g. network issue), we keep it in secure storage so it retries on next app launch.
+      }
+    });
+  }
 
   Future<PaymentMethods> getPaymentMethods(TransactionType paymentType) async {
     try {
@@ -88,10 +127,17 @@ class WalletRepository {
         amount: amount,
         msisdn: msisdn,
       );
-      return PaymobTopUpResult(
+      final result = PaymobTopUpResult(
         checkoutUrl: raw['checkout_url']!,
         transactionId: raw['transaction_id']!,
       );
+      
+      // Store the pending transaction locally and schedule background verification
+      _secureStorage.addPendingTransaction(result.transactionId).then((_) {
+        _scheduleSync(result.transactionId, 600);
+      });
+
+      return result;
     } catch (e) {
       if (e is PaymobTopUpFailedTymerException) {
         throw PaymobTopUpFailedException(e.message);
@@ -110,7 +156,6 @@ class WalletRepository {
   }
 
   Future<void> confirmWithdraw({
-
     required PaymentMethodType paymentMethodType,
     required double amount,
     String? walletNumber,

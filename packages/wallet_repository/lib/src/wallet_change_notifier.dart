@@ -1,10 +1,19 @@
+import 'dart:async';
 import 'package:domain_models/domain_models.dart';
 import 'package:flutter/material.dart';
 
 class WalletChangeNotifier with ChangeNotifier {
   WalletChangeNotifier();
 
+  final _refreshTransactionsController = StreamController<void>.broadcast();
+  Stream<void> get refreshTransactionsStream => _refreshTransactionsController.stream;
+
+  void triggerRefreshTransactions() {
+    _refreshTransactionsController.add(null);
+  }
+
   // Payment Methods
+
   final ValueNotifier<PaymentMethods?> _paymentMethodsVN = ValueNotifier(null);
   PaymentMethods? get paymentMethods => _paymentMethodsVN.value;
   void setPaymentMethods(PaymentMethods paymentMethods) {
@@ -50,4 +59,11 @@ class WalletChangeNotifier with ChangeNotifier {
     _paymentTypeVN.value = null;
     notifyListeners();
   }
+
+  @override
+  void dispose() {
+    _refreshTransactionsController.close();
+    super.dispose();
+  }
 }
+

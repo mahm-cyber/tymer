@@ -28,14 +28,13 @@ class OnlinePaymentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<OnlinePaymentCubit>(
       create: (_) => OnlinePaymentCubit(
-        walletRepository: walletRepository,
-        transactionId: transactionId,
         onPaymentSuccess: onPaymentSuccess,
         onPaymentFailure: onPaymentFailure,
       ),
       child: OnlinePaymentView(url: url),
     );
   }
+
 }
 
 

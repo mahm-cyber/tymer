@@ -39,6 +39,10 @@ class WalletCubit extends Cubit<WalletState> {
         }
       }
     });
+    _refreshTransactionsSubscription =
+        walletRepository.changeNotifier.refreshTransactionsStream.listen((_) {
+      reFetchFirstPage();
+    });
     userRepository.getFreshUser();
   }
 
@@ -48,6 +52,7 @@ class WalletCubit extends Cubit<WalletState> {
   final VoidCallback onWithdrawTapped;
   final PagingController<int, Transaction> transactionsPagingController;
   late final StreamSubscription _userSubscription;
+  late final StreamSubscription _refreshTransactionsSubscription;
 
   Future _handleTransactionListNextPageRequested({
     int page = 1,
@@ -119,7 +124,9 @@ class WalletCubit extends Cubit<WalletState> {
   @override
   Future<void> close() async {
     _userSubscription.cancel();
+    _refreshTransactionsSubscription.cancel();
     transactionsPagingController.dispose();
     return super.close();
   }
 }
+
