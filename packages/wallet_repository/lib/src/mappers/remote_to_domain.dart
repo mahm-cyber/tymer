@@ -145,7 +145,8 @@ extension TransactionRMToDM on TransactionRM {
       case 'refunded':
         return TransactionStatus.refunded;
       case 'paid': 
-       return TransactionStatus.completed;
+      case 'approved':
+        return TransactionStatus.completed;
       default:
         throw Exception('Unknown in-app transaction status: $status');
     }

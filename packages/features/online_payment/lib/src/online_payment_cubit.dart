@@ -28,6 +28,10 @@ class OnlinePaymentCubit extends Cubit<OnlinePaymentState> {
   /// Intercepts the redirect, checks and syncs the status with the backend,
   /// and updates the UI state accordingly.
   void onPaymentResultUrl(String url) {
+    if (state.status == OnlinePaymentStatus.success ||
+        state.status == OnlinePaymentStatus.failure) {
+      return;
+    }
     try {
       final uri = Uri.parse(url);
       final success = uri.queryParameters['success'];
