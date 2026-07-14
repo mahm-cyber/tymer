@@ -1,6 +1,6 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/Users/mahmoudatef/fvm/versions/3.27.1"
+export "FLUTTER_ROOT=/Volumes/Data/tools/fvm/versions/3.27.1"
 export "FLUTTER_APPLICATION_PATH=/Volumes/Data/tymer"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
