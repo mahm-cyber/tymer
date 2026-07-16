@@ -66,10 +66,10 @@ class _OnlinePaymentViewState extends State<OnlinePaymentView> {
             // Intercept the Paymob post_pay redirect — this URL contains
             // the payment result as query parameters (success=true/false).
             // We parse the result and prevent the navigation.
-            // if (request.url.contains('post_pay')) {
-            //   cubit.onPaymentResultUrl(request.url);
-            //   return NavigationDecision.prevent;
-            // }
+            if (request.url.contains('post_pay')) {
+              cubit.onPaymentResultUrl(request.url);
+              return NavigationDecision.prevent;
+            }
             return NavigationDecision.navigate;
           },
          

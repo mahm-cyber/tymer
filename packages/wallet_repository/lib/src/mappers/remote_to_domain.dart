@@ -137,6 +137,7 @@ extension TransactionRMToDM on TransactionRM {
       case 'completed':
         return TransactionStatus.completed;
       case 'failed':
+      case 'rejected':
         return TransactionStatus.failed;
       case 'canceled':
         return TransactionStatus.cancelled;

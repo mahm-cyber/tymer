@@ -328,8 +328,13 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
                   emit(newState);
                   final isPaymentProccessFinished =
                       currentUrl?.contains('result') == true;
-                  if (isPaymentProccessFinished) {
+                  if (isPaymentProccessFinished &&
+                      state.submissionStatus != FormzSubmissionStatus.success) {
                     await userRepository.getFreshUser();
+                    emit(state.copyWith(
+                      submissionStatus: FormzSubmissionStatus.success,
+                      bankCardPaymentStatus: BankCardPaymentStatus.success,
+                    ));
                   }
                 },
               ),
