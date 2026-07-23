@@ -11,7 +11,7 @@
   "instantPaymentAddressTextFieldLabel": "عنوان الدفع الفوري",
   "teldaUsernameTextFieldLabel": "اسم مستخدم تلدا",
   "ibanNumberTextFieldError": "الرجاء إدخال رقم حساب بنكي صحيح",
-  "isNotGreaterThanZeroTextFieldErrorMessage": "المبلغ يجب أن يكون أكبر من {minimumAmount}",
+  "isNotGreaterThanZeroTextFieldErrorMessage": "المبلغ يجب أن يكون أكبر من أو يساوي {minimumAmount}",
   "@isNotGreaterThanZeroTextFieldErrorMessage": {
     "placeholders": {
       "minimumAmount": {

@@ -12,21 +12,27 @@ PaymobTopUpRM _$PaymobTopUpRMFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = PaymobTopUpRM(
-          message: $checkedConvert('message', (v) => v as String),
-          data: $checkedConvert('data',
-              (v) => PaymobTopUpDataRM.fromJson(v as Map<String, dynamic>)),
+          message: $checkedConvert('message', (v) => v as String?),
+          data: $checkedConvert(
+              'data',
+              (v) => v == null
+                  ? null
+                  : PaymobTopUpDataRM.fromJson(v as Map<String, dynamic>)),
           checkoutUrl: $checkedConvert('checkout_url', (v) => v as String),
-          clientSecret: $checkedConvert('client_secret', (v) => v as String),
-          intentionOrderId:
-              $checkedConvert('intention_order_id', (v) => (v as num).toInt()),
-          paymobTransactionId:
-              $checkedConvert('paymob_transaction_id', (v) => v as String),
+          clientSecret: $checkedConvert('client_secret', (v) => v as String?),
+          intentionOrderId: $checkedConvert(
+              'intention_order_id', (v) => _nullableIntFromJson(v)),
+          paymobTransactionId: $checkedConvert(
+              'paymob_transaction_id', (v) => _stringFromJson(v)),
           internalTransactionId: $checkedConvert(
-              'internal_transaction_id', (v) => (v as num).toInt()),
+              'internal_transaction_id', (v) => _intFromJson(v)),
           topupRequestStatus:
-              $checkedConvert('topup_request_status', (v) => v as String),
-          paymobStatus: $checkedConvert('paymob_status',
-              (v) => PaymobStatusRM.fromJson(v as Map<String, dynamic>)),
+              $checkedConvert('topup_request_status', (v) => v as String?),
+          paymobStatus: $checkedConvert(
+              'paymob_status',
+              (v) => v == null
+                  ? null
+                  : PaymobStatusRM.fromJson(v as Map<String, dynamic>)),
         );
         return val;
       },
@@ -47,12 +53,13 @@ PaymobTopUpDataRM _$PaymobTopUpDataRMFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = PaymobTopUpDataRM(
-          id: $checkedConvert('id', (v) => (v as num).toInt()),
-          amount: $checkedConvert('amount', (v) => v as String),
-          issuer: $checkedConvert('issuer', (v) => v as String),
-          msisdn: $checkedConvert('msisdn', (v) => v as String),
-          status: $checkedConvert('status', (v) => v as String),
-          transactionId: $checkedConvert('transaction_id', (v) => v as String),
+          id: $checkedConvert('id', (v) => _intFromJson(v)),
+          amount: $checkedConvert('amount', (v) => _stringFromJson(v)),
+          issuer: $checkedConvert('issuer', (v) => v as String?),
+          msisdn: $checkedConvert('msisdn', (v) => v as String?),
+          status: $checkedConvert('status', (v) => v as String?),
+          transactionId:
+              $checkedConvert('transaction_id', (v) => _stringFromJson(v)),
         );
         return val;
       },
@@ -65,9 +72,9 @@ PaymobStatusRM _$PaymobStatusRMFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = PaymobStatusRM(
-          code: $checkedConvert('code', (v) => (v as num).toInt()),
-          status: $checkedConvert('status', (v) => v as String),
-          message: $checkedConvert('message', (v) => v as String),
+          code: $checkedConvert('code', (v) => _nullableIntFromJson(v)),
+          status: $checkedConvert('status', (v) => v as String?),
+          message: $checkedConvert('message', (v) => v as String?),
         );
         return val;
       },

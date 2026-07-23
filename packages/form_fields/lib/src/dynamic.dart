@@ -41,7 +41,7 @@ class Dynamic<T> extends FormzInput<T?, DynamicValidationError>
     }
     if (value is String && isGreatherThan != null) {
       final isGreaterThanZero = double.tryParse(value) != null &&
-          double.parse(value) > isGreatherThan!;
+          double.parse(value) >= isGreatherThan!;
       if (!isGreaterThanZero) {
         return DynamicValidationError.isNotGreaterThanZero;
       }

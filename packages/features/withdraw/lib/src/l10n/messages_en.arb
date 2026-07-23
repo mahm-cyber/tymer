@@ -11,7 +11,7 @@
   "instantPaymentAddressTextFieldLabel": "Instant Payment Address",
   "teldaUsernameTextFieldLabel": "Telda Username",
   "ibanNumberTextFieldError": "Please enter a valid IBAN number",
-  "isNotGreaterThanZeroTextFieldErrorMessage": "Amount must be greater than {minimumAmount}",
+  "isNotGreaterThanZeroTextFieldErrorMessage": "Amount must be greater than or equal to {minimumAmount}",
   "@isNotGreaterThanZeroTextFieldErrorMessage": {
     "placeholders": {
       "minimumAmount": {

@@ -44,7 +44,7 @@ class WithdrawLocalizationsEn extends WithdrawLocalizations {
 
   @override
   String isNotGreaterThanZeroTextFieldErrorMessage(int minimumAmount) {
-    return 'Amount must be greater than $minimumAmount';
+    return 'Amount must be greater than or equal to $minimumAmount';
   }
 
   @override

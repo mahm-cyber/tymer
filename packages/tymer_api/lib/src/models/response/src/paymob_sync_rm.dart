@@ -28,6 +28,8 @@ class PaymobSyncRM {
       _$PaymobSyncRMFromJson(json);
 }
 
+String _stringFromJson(Object? json) => json?.toString() ?? '';
+
 @JsonSerializable(createToJson: false)
 class PaymobSyncDataRM {
   const PaymobSyncDataRM({
@@ -54,7 +56,7 @@ class PaymobSyncDataRM {
   @JsonKey(name: 'is_success')
   final bool isSuccess;
 
-  @JsonKey(name: 'amount')
+  @JsonKey(name: 'amount', fromJson: _stringFromJson)
   final String amount;
 
   @JsonKey(name: 'issuer')
@@ -63,10 +65,10 @@ class PaymobSyncDataRM {
   @JsonKey(name: 'msisdn')
   final String msisdn;
 
-  @JsonKey(name: 'transaction_id')
+  @JsonKey(name: 'transaction_id', fromJson: _stringFromJson)
   final String transactionId;
 
-  @JsonKey(name: 'intention_order_id')
+  @JsonKey(name: 'intention_order_id', fromJson: _stringFromJson)
   final String intentionOrderId;
 
   @JsonKey(name: 'is_completed')

@@ -36,12 +36,13 @@ PaymobSyncDataRM _$PaymobSyncDataRMFromJson(Map<String, dynamic> json) =>
           id: $checkedConvert('id', (v) => (v as num).toInt()),
           status: $checkedConvert('status', (v) => v as String),
           isSuccess: $checkedConvert('is_success', (v) => v as bool),
-          amount: $checkedConvert('amount', (v) => v as String),
+          amount: $checkedConvert('amount', (v) => _stringFromJson(v)),
           issuer: $checkedConvert('issuer', (v) => v as String),
           msisdn: $checkedConvert('msisdn', (v) => v as String),
-          transactionId: $checkedConvert('transaction_id', (v) => v as String),
+          transactionId:
+              $checkedConvert('transaction_id', (v) => _stringFromJson(v)),
           intentionOrderId:
-              $checkedConvert('intention_order_id', (v) => v as String),
+              $checkedConvert('intention_order_id', (v) => _stringFromJson(v)),
           isCompleted: $checkedConvert('is_completed', (v) => v as bool),
           isFailed: $checkedConvert('is_failed', (v) => v as bool),
           isPending: $checkedConvert('is_pending', (v) => v as bool),

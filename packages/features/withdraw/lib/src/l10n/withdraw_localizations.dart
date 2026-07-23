@@ -170,7 +170,7 @@ abstract class WithdrawLocalizations {
   /// No description provided for @isNotGreaterThanZeroTextFieldErrorMessage.
   ///
   /// In en, this message translates to:
-  /// **'Amount must be greater than {minimumAmount}'**
+  /// **'Amount must be greater than or equal to {minimumAmount}'**
   String isNotGreaterThanZeroTextFieldErrorMessage(int minimumAmount);
 
   /// No description provided for @insufficientBalanceErrorMessage.

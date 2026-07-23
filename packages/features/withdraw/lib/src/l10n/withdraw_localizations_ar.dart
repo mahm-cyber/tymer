@@ -44,7 +44,7 @@ class WithdrawLocalizationsAr extends WithdrawLocalizations {
 
   @override
   String isNotGreaterThanZeroTextFieldErrorMessage(int minimumAmount) {
-    return 'المبلغ يجب أن يكون أكبر من $minimumAmount';
+    return 'المبلغ يجب أن يكون أكبر من أو يساوي $minimumAmount';
   }
 
   @override

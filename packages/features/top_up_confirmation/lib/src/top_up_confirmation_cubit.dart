@@ -50,7 +50,7 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
               newValue,
               checkIfNumber: true,
               isRequired: true,
-              isGreatherThan: 0,
+              isGreatherThan: 1,
             )
           : Dynamic.unvalidated(newValue),
     );
@@ -63,7 +63,7 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
         state.amount.value,
         checkIfNumber: true,
         isRequired: true,
-        isGreatherThan: 0,
+        isGreatherThan: 1,
       ),
     );
     emit(newState);
@@ -259,7 +259,7 @@ class TopUpConfirmationCubit extends Cubit<TopUpConfirmationState> {
       state.amount.value,
       checkIfNumber: true,
       isRequired: true,
-      isGreatherThan: 0,
+      isGreatherThan: 1,
     );
     final file = FileSize<File?>.validated(
       state.file.value,
