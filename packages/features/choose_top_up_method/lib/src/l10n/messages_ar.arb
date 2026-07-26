@@ -1,4 +1,5 @@
 {
   "appBarTitle": "اختيار طريقة الشحن",
-  "topUpHistoryButtonLabel": "عرض طلبات الشحن السابقة"
+  "topUpHistoryButtonLabel": "عرض طلبات الشحن السابقة",
+  "topUpProcessingTimeNote": "يرجى العلم أن شحن المحفظة يستغرق 5 دقائق ليتم معالجته، بينما قد تستغرق الخيارات الأخرى ما يصل إلى يوم عمل واحد"
 }

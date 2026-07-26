@@ -62,15 +62,18 @@ import 'choose_top_up_method_localizations_en.dart';
 /// be consistent with the languages listed in the ChooseTopUpMethodLocalizations.supportedLocales
 /// property.
 abstract class ChooseTopUpMethodLocalizations {
-  ChooseTopUpMethodLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  ChooseTopUpMethodLocalizations(String locale)
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
   static ChooseTopUpMethodLocalizations of(BuildContext context) {
-    return Localizations.of<ChooseTopUpMethodLocalizations>(context, ChooseTopUpMethodLocalizations)!;
+    return Localizations.of<ChooseTopUpMethodLocalizations>(
+        context, ChooseTopUpMethodLocalizations)!;
   }
 
-  static const LocalizationsDelegate<ChooseTopUpMethodLocalizations> delegate = _ChooseTopUpMethodLocalizationsDelegate();
+  static const LocalizationsDelegate<ChooseTopUpMethodLocalizations> delegate =
+      _ChooseTopUpMethodLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -82,7 +85,8 @@ abstract class ChooseTopUpMethodLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -106,36 +110,45 @@ abstract class ChooseTopUpMethodLocalizations {
   /// In en, this message translates to:
   /// **'View Top Up History'**
   String get topUpHistoryButtonLabel;
+
+  /// No description provided for @topUpProcessingTimeNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Kindly note that wallet top-up takes 5 mins to be processed While other options may take up to one working day'**
+  String get topUpProcessingTimeNote;
 }
 
-class _ChooseTopUpMethodLocalizationsDelegate extends LocalizationsDelegate<ChooseTopUpMethodLocalizations> {
+class _ChooseTopUpMethodLocalizationsDelegate
+    extends LocalizationsDelegate<ChooseTopUpMethodLocalizations> {
   const _ChooseTopUpMethodLocalizationsDelegate();
 
   @override
   Future<ChooseTopUpMethodLocalizations> load(Locale locale) {
-    return SynchronousFuture<ChooseTopUpMethodLocalizations>(lookupChooseTopUpMethodLocalizations(locale));
+    return SynchronousFuture<ChooseTopUpMethodLocalizations>(
+        lookupChooseTopUpMethodLocalizations(locale));
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_ChooseTopUpMethodLocalizationsDelegate old) => false;
 }
 
-ChooseTopUpMethodLocalizations lookupChooseTopUpMethodLocalizations(Locale locale) {
-
-
+ChooseTopUpMethodLocalizations lookupChooseTopUpMethodLocalizations(
+    Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'ar': return ChooseTopUpMethodLocalizationsAr();
-    case 'en': return ChooseTopUpMethodLocalizationsEn();
+    case 'ar':
+      return ChooseTopUpMethodLocalizationsAr();
+    case 'en':
+      return ChooseTopUpMethodLocalizationsEn();
   }
 
   throw FlutterError(
-    'ChooseTopUpMethodLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'ChooseTopUpMethodLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

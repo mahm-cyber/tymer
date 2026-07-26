@@ -24,5 +24,9 @@ dependencies:
   function_and_extension_library:
     path: ../../function_and_extension_library
   intl: any
+  flutter_markdown: ^0.7.3
 dev_dependencies:
   flutter_lints: ^4.0.0
+
+flutter:
+  generate: true

@@ -19,6 +19,7 @@ class PaymentMethodsList extends StatelessWidget {
   final Function() onViewHistoryTapped;
   final String viewHistoryButtonLabel;
   final bool shouldShowHint;
+
   @override
   Widget build(BuildContext context) {
     final theme = TymerTheme.of(context);
@@ -26,7 +27,7 @@ class PaymentMethodsList extends StatelessWidget {
     return ListView(
       shrinkWrap: true,
       children: [
-        VerticalGap.xxLarge(),
+        VerticalGap.mediumLarge(),
         if (bankCardEnabled)
           ListTile(
             title: Text(clL10n.bankCard),

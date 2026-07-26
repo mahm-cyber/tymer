@@ -7,6 +7,7 @@ import 'package:choose_top_up_method/src/l10n/choose_top_up_method_localizations
 
 import 'package:user_repository/user_repository.dart';
 import 'package:wallet_repository/wallet_repository.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class ChooseTopUpMethodScreen extends StatelessWidget {
   const ChooseTopUpMethodScreen({
@@ -23,6 +24,7 @@ class ChooseTopUpMethodScreen extends StatelessWidget {
   final VoidCallback onTopUpMethodTapped;
   final VoidCallback onBankCardTopUpTapped;
   final VoidCallback onTopUpHistoryTapped;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ChooseTopUpMethodCubit>(
@@ -57,28 +59,43 @@ class ChooseTopUpMethodView extends StatelessWidget {
               iconTheme: const IconThemeData(color: Colors.white),
               toolbarHeight: 160,
             ),
-            body: BlocBuilder<ChooseTopUpMethodCubit, ChooseTopUpMethodState>(
-              builder: (context, state) {
-                if (state.paymentMethodsLoadingStatus ==
-                    LoadingStatus.loading) {
-                  return const Center(child: CircularProgressIndicator());
-                }
+            body: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(
+                    TymerTheme.of(context).screenMargin + 8,
+                    50,
+                    TymerTheme.of(context).screenMargin + 8,
+                    0,
+                  ),
+                  child: MarkdownBody(
+                    data: l10n.topUpProcessingTimeNote,
+                  ),
+                ),
+                BlocBuilder<ChooseTopUpMethodCubit, ChooseTopUpMethodState>(
+                  builder: (context, state) {
+                    if (state.paymentMethodsLoadingStatus ==
+                        LoadingStatus.loading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
 
-                if (state.paymentMethodsLoadingStatus ==
-                    LoadingStatus.failure) {
-                  return ExceptionIndicator(
-                    onTryAgain: cubit.getPaymentMethods,
-                  );
-                }
+                    if (state.paymentMethodsLoadingStatus ==
+                        LoadingStatus.failure) {
+                      return ExceptionIndicator(
+                        onTryAgain: cubit.getPaymentMethods,
+                      );
+                    }
 
-                return PaymentMethodsList(
-                  bankCardEnabled: state.paymentMethods!.cardEnabled,
-                  onPaymentMethodTapped: cubit.setPaymentMethodType,
-                  paymentMethods: state.paymentMethods!,
-                  onViewHistoryTapped: cubit.onTopUpHistoryTapped,
-                  viewHistoryButtonLabel: l10n.topUpHistoryButtonLabel,
-                );
-              },
+                    return PaymentMethodsList(
+                      bankCardEnabled: state.paymentMethods!.cardEnabled,
+                      onPaymentMethodTapped: cubit.setPaymentMethodType,
+                      paymentMethods: state.paymentMethods!,
+                      onViewHistoryTapped: cubit.onTopUpHistoryTapped,
+                      viewHistoryButtonLabel: l10n.topUpHistoryButtonLabel,
+                    );
+                  },
+                ),
+              ],
             ),
           ),
           AppBarTitleContainer(

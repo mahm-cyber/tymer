@@ -1,4 +1,5 @@
 {
   "appBarTitle": "Choose Top Up Method",
-  "topUpHistoryButtonLabel": "View Top Up History"
+  "topUpHistoryButtonLabel": "View Top Up History",
+  "topUpProcessingTimeNote": "Kindly note that wallet top-up takes 5 mins to be processed While other options may take up to one working day"
 }
