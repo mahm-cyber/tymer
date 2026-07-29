@@ -1,0 +1,13 @@
+- [x] Change Android Package Name
+    - [x] Update `android/app/build.gradle` (namespace and applicationId)
+    - [x] Move `MainActivity.kt` to `android/app/src/main/kotlin/com/tymer/org/` and update package declaration
+    - [x] Update `android/app/google-services.json`
+- [x] Change iOS Bundle Identifier
+    - [x] Update `ios/Runner.xcodeproj/project.pbxproj`
+    - [x] Update `ios/Runner/GoogleService-Info.plist`
+- [x] Update Flutter & Other Platforms
+    - [x] Update `lib/firebase_options.dart`
+    - [x] Update `linux/CMakeLists.txt`
+    - [x] Update `macos/Runner/Configs/AppInfo.xcconfig`
+- [x] Verify changes
+    - [x] Run `fvm flutter pub get`

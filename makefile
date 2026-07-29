@@ -210,5 +210,9 @@ run-debug:
 
 apk:
 	fvm flutter build apk --split-per-abi --dart-define=x-api-key=01f64a264be7442a9008abda93d5d6ae -t lib/main.dart
+
+app:
+	fvm flutter build appbundle --dart-define=x-api-key=01f64a264be7442a9008abda93d5d6ae -t lib/main.dart
+
 connect:
 	adb connect 192.168.1.3

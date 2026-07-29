@@ -8,7 +8,7 @@
 PRODUCT_NAME = tymer
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.tymer
+PRODUCT_BUNDLE_IDENTIFIER = com.tymer.org
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2025 com. All rights reserved.

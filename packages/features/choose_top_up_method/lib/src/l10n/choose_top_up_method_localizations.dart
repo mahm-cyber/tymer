@@ -114,7 +114,7 @@ abstract class ChooseTopUpMethodLocalizations {
   /// No description provided for @topUpProcessingTimeNote.
   ///
   /// In en, this message translates to:
-  /// **'Kindly note that wallet top-up takes 5 mins to be processed While other options may take up to one working day'**
+  /// **'🚀 Need your balance fast?\nWallet top-ups are usually completed in 5 minutes, while other payment methods may take up to 1 business day.'**
   String get topUpProcessingTimeNote;
 }
 

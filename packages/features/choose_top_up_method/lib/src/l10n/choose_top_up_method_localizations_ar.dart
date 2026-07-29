@@ -16,5 +16,5 @@ class ChooseTopUpMethodLocalizationsAr extends ChooseTopUpMethodLocalizations {
 
   @override
   String get topUpProcessingTimeNote =>
-      'يرجى العلم أن شحن المحفظة يستغرق 5 دقائق ليتم معالجته، بينما قد تستغرق الخيارات الأخرى ما يصل إلى يوم عمل واحد';
+      '🚀 هل تحتاج إلى رصيدك بسرعة؟\nعادةً ما تتم عمليات شحن الرصيد في غضون 5 دقائق، بينما قد تستغرق طرق الدفع الأخرى ما يصل إلى يوم عمل واحد.';
 }
