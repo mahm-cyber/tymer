@@ -12,7 +12,8 @@
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="Tymer"
-        android:requestLegacyExternalStorage="true">
+        android:requestLegacyExternalStorage="true"
+        android:extractNativeLibs="false">
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

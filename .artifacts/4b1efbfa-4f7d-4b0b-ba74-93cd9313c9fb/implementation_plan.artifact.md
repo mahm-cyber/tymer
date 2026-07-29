@@ -1,55 +1,29 @@
-# Change Package Name to com.tymer.org
+# Fix Support for 16 KB Memory Page Sizes
 
-The goal is to update the Android package name (Application ID and Namespace) from `com.tymer` to `com.tymer.org`. This involves updating Gradle configurations, moving source files, and updating Firebase configurations for consistency.
-
-## User Review Required
-
-> [!IMPORTANT]
-> Changing the `applicationId` will change the identity of your app on the Google Play Store. If you have already published the app, this will be treated as a **new app**, and you will not be able to update the existing one.
-
-> [!WARNING]
-> Since this project uses Firebase, you **must** update the package name in the Firebase Console and re-download the `google-services.json` (Android) and `GoogleService-Info.plist` (iOS) files. Manually editing these files in the IDE might not be enough for all Firebase services to function correctly.
+This plan updates the Android build configuration to support 16 KB memory page sizes, a requirement for Android 15 compatibility on devices with larger page sizes. This is primarily achieved by updating the Android Gradle Plugin (AGP), the NDK version, and ensuring native libraries are correctly aligned.
 
 ## Proposed Changes
 
-### Android Component
+### Android Build Configuration
+
+#### [MODIFY] [settings.gradle](file:///Volumes/Data/tymer/android/settings.gradle)
+- Update Android Gradle Plugin (AGP) version from `8.2.1` to `8.5.1`.
 
 #### [MODIFY] [build.gradle](file:///Volumes/Data/tymer/android/app/build.gradle)
-- Change `namespace` from `"com.tymer"` to `"com.tymer.org"`.
-- Change `applicationId` from `"com.tymer"` to `"com.tymer.org"`.
+- Explicitly set `ndkVersion` to `"27.0.12077973"` (NDK r27) to ensure the linker supports 16 KB alignment.
+- Add packaging options to ensure native libraries are not compressed and are correctly aligned.
 
-#### [MODIFY] [MainActivity.kt](file:///Volumes/Data/tymer/android/app/src/main/kotlin/com/tymer/MainActivity.kt)
-- Update package declaration to `package com.tymer.org`.
-- **Note:** This file will be moved to a new directory structure: `android/app/src/main/kotlin/com/tymer/org/`.
+#### [MODIFY] [gradle.properties](file:///Volumes/Data/tymer/android/gradle.properties)
+- Add `android.bundle.enableUncompressedNativeLibs=true` to ensure native libraries in the App Bundle are uncompressed and aligned.
 
-#### [MODIFY] [google-services.json](file:///Volumes/Data/tymer/android/app/google-services.json)
-- Update `"package_name"` to `"com.tymer.org"`.
-
----
-
-### Flutter & Other Platforms (For Consistency)
-
-#### [MODIFY] [firebase_options.dart](file:///Volumes/Data/tymer/lib/firebase_options.dart)
-- Update `iosBundleId` to `"com.tymer.org"` (if you plan to change iOS as well).
-
-#### [MODIFY] [project.pbxproj](file:///Volumes/Data/tymer/ios/Runner.xcodeproj/project.pbxproj)
-- Update `PRODUCT_BUNDLE_IDENTIFIER` to `"com.tymer.org"`.
-
-#### [MODIFY] [GoogleService-Info.plist](file:///Volumes/Data/tymer/ios/Runner/GoogleService-Info.plist)
-- Update `BUNDLE_ID` to `"com.tymer.org"`.
-
-#### [MODIFY] [CMakeLists.txt](file:///Volumes/Data/tymer/linux/CMakeLists.txt)
-- Update `APPLICATION_ID` to `"com.tymer.org"`.
-
-#### [MODIFY] [AppInfo.xcconfig](file:///Volumes/Data/tymer/macos/Runner/Configs/AppInfo.xcconfig)
-- Update `PRODUCT_BUNDLE_IDENTIFIER` to `"com.tymer.org"`.
+#### [MODIFY] [AndroidManifest.xml](file:///Volumes/Data/tymer/android/app/src/main/AndroidManifest.xml)
+- Add `android:extractNativeLibs="false"` to the `<application>` tag to ensure the system can run native libraries directly from the APK/AAB without extraction, which is required for 16 KB alignment support.
 
 ## Verification Plan
 
 ### Automated Tests
-- Run `fvm flutter pub get` to ensure dependencies are still resolved.
-- Run `fvm flutter build apk --debug` to verify that the Android project compiles with the new package name.
+- Run `fvm flutter pub get` to ensure dependencies are resolved.
+- Run `fvm flutter build apk --debug` to verify that the project compiles with the updated AGP and NDK versions.
 
 ### Manual Verification
-- Verify the package name in the generated APK using `aapt dump badging` or by installing it on a device.
-- Check that Firebase still initializes correctly (requires Console updates).
+- After building, the APK/AAB can be inspected with the APK Analyzer in Android Studio to verify that native libraries (.so files) are 16 KB aligned.
