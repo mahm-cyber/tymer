@@ -46,7 +46,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '632819012871',
     projectId: 'tymer-app',
     storageBucket: 'tymer-app.firebasestorage.app',
-    iosBundleId: 'com.tymer.org',
+    iosBundleId: 'com.tymer',
   );
 
 
