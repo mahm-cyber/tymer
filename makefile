@@ -214,5 +214,8 @@ apk:
 app:
 	fvm flutter build appbundle --dart-define=x-api-key=01f64a264be7442a9008abda93d5d6ae -t lib/main.dart
 
+ipa:
+	fvm flutter build ipa --dart-define=x-api-key=01f64a264be7442a9008abda93d5d6ae -t lib/main.dart
+
 connect:
 	adb connect 192.168.1.3
